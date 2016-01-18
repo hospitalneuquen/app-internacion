@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+  <arguments config="Debug">-minify:false -line:M</arguments>
+  <arguments config="Release"></arguments>
+  <output path="1.1/lib.other.js">
+    <!--<input path="1.1/ocLazyLoad/ocLazyLoad.min.js" />-->
+    <input path="1.1/angular-load/angular-load.js" />
+    <input path="1.1/bindonce/bindonce.js" />
+    <input path="1.1/ngFileUpload/ng-file-upload.js" />
+  </output>
+</root>

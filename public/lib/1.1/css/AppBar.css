@@ -1,0 +1,22 @@
+﻿.app-bar {
+  bottom: 0px;
+}
+.app-bar.ng-hide-add,
+.app-bar.ng-hide-remove {
+  -webkit-transition: all linear 0.5s;
+  -moz-transition: all linear 0.5s;
+  -o-transition: all linear 0.5s;
+  transition: all linear 0.5s;
+  display: block !important;
+}
+.app-bar.ng-hide-add.ng-hide-add-active,
+.app-bar.ng-hide-remove {
+  opacity: 0;
+  bottom: -40px;
+}
+.app-bar.ng-hide-add,
+.app-bar.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1;
+  bottom: 0px;
+}
+/*# sourceMappingURL=appbar.css.map */

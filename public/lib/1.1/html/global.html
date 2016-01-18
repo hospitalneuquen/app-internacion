@@ -1,0 +1,71 @@
+﻿<div class="alert alert-info app-loading" ng-hide="!Plex.loading.showBig">
+    <div>
+        <h1><i class="fa fa-spin fa-circle-o-notch"></i></h1>
+    </div>
+</div>
+<div class="alert alert-danger app-error" ng-hide="!Plex.error.show" ng-click="Plex.error.show = false">
+    <div>
+        <i class="fa fa-warning fa-4x"></i>
+        <h1>¡Ups!</h1>
+        <h3 ng-bind="Plex.error.title"></h3>
+    </div>
+</div>
+<div class="alert alert-warning app-warning am-fade-and-slide-top" ng-show="Plex.warning.show" ng-click="Plex.warning.show = false">
+    <div class="container">
+        <br />
+        <h3><i class="fa fa-warning"></i><span ng-bind="Plex.warning.title"></span></h3>
+    </div>
+</div>
+<div class="alert alert-info app-info" ng-show="Plex.info.show" ng-click="Plex.info.show = false">
+    <div class="container">
+        <br />
+        <h3><i class="fa fa-info-circle"></i><span ng-bind="Plex.info.title"></span></h3>
+    </div>
+</div>
+<header class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <ul class="nav navbar-nav pull-left">
+            <li>
+                <a class="hover" bs-dropdown="Plex.menuActions"><i class="fa fa-bars fa-2x"></i></a>
+            </li>
+        </ul>
+
+        <div class="loader" ng-show="Plex.loading.showSmall">
+            <div class="circle">&nbsp;</div>
+            <div class="circle">&nbsp;</div>
+            <div class="circle">&nbsp;</div>
+            <div class="circle">&nbsp;</div>
+            <div class="circle">&nbsp;</div>
+        </div>
+
+        <ul class="nav navbar-nav pull-right">
+            <li>
+                <a class="hover" bs-dropdown="Plex.userActions"><i class="fa fa-user fa-2x"></i></a>
+            </li>
+        </ul>
+    </div>
+</header>
+<!--<footer class="navbar navbar-default navbar-fixed-bottom app-bar" ng-hide="!(Plex.actions.length > 0 || Plex.currentView().form.controller.$dirty)">-->
+<footer class="navbar navbar-default navbar-fixed-bottom app-bar" ng-hide="!(Plex.actions.length > 0 || Plex.currentView().form)">
+    <div class="container">
+        <ul class="nav navbar-nav pull-left app-actions">
+            <li ng-repeat="item in Plex.actions" ng-class="{disabled: item.disabled}">
+                <a class="hover {{item.cssClass}}" ng-click="item.action()" title="{{item.tooltip}}">
+                    <i class="fa {{item.icon}}"></i><span class="hidden-xs" ng-show="item.title" ng-bind="item.title"></span>
+                </a>
+            </li>
+        </ul>
+        <!--<div class="nav navbar-nav pull-right app-form-actions" ng-show="Plex.currentView().form.controller.$dirty" ng-animate="{show: 'app-view-enter'}">-->
+        <div class="nav navbar-nav pull-right app-form-actions" ng-show="Plex.currentView().form" ng-animate="{show: 'app-view-enter'}">
+            <a class="btn btn-primary navbar-btn" ng-click="Plex.submitForm()"><i class="fa fa-save"></i><span>Guardar</span></a>
+            <a class="btn btn-default navbar-btn" ng-click="Plex.cancelForm()"><i class="fa fa-ban-circle"></i><span>Cancelar</span></a>
+        </div>
+    </div>
+</footer>
+
+<div class="container">
+    <div class="page-header" ng-show="Plex.title">
+        <h1><i class="fa fa-arrow-circle-left hover" ng-click="Plex.closeView()" ng-if="Plex.currentViewIndex > 0"></i><span ng-bind='Plex.title'></span>&nbsp;<small ng-bind="Plex.subtitle"></small></h1>
+    </div>
+    <div plex-view class="plex-view"></div>
+</div>

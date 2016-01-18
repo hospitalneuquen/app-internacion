@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+  <arguments config="Debug">-minify:false -line:M</arguments>
+  <arguments config="Release"></arguments>
+  <output path="1.1/lib.slate.css">
+    <input path="1.1/css/bootswatch.slate/bootstrap.css" />
+    
+    <!--Archivos comunes a todos los skins-->
+    <input path="1.1/css/font-awesome/font-awesome.css" />
+    <input path="1.1/css/webfonts-medical-icons/wfmi-style.css" />
+    <input path="1.1/angular-strap/css/angular-motion.min.css" />
+    <input path="1.1/salud.plex/lib/textangular/textAngular.css" />
+    <input path="1.1/css/global.css" />
+  </output>
+</root>

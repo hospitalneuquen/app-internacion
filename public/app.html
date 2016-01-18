@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html lang="es-ar" ng-app="appModule">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width">
+    <base href="/">
+    <title ng-bind="Plex.title"></title>
+
+    <!--<link href="/lib/1.1/lib.cosmo.css" rel="stylesheet" />-->
+    <link rel="stylesheet" plex-skin="Plex.currentSkin" />
+    <link href="resources/app.css" rel="stylesheet" />
+
+    <!--Libraries -->
+    <script src="/lib/1.1/lib.core.js"></script>
+    <script src="/lib/1.1/lib.ui.js"></script>
+    <script src="/lib/1.1/lib.other.js"></script>
+    <script src="/lib/1.1/lib.salud.js"></script>
+    <script src="/lib/1.1/config.js"></script>
+
+    <!--App-->
+    <script src="app.js"></script>
+    <!-- <script src="js/Services/Shared.js" charset="iso-8859-1"></script> -->
+
+    <!--Controllers -->
+    <script src="js/controllers/prueba.js"></script>
+
+    <!--Evita que se muestre el HTML parcial antes de completar la carga-->
+    <style>
+        .plex-cloak {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="plex-cloak">
+    <div ng-include="'/lib/1.1/html/global.html'"></div>
+</body>
+</html>
