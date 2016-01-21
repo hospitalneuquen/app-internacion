@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 h1.panel-title {
     font-size: xx-large
 }
@@ -18,6 +19,8 @@ h6.panel-title {
     font-size: x-small
 } 
 =======
+=======
+>>>>>>> origin/master
 body {
     background-color: #f4f4f4;
     -webkit-user-select: none;
@@ -664,4 +667,7 @@ pre.prettyprint {
 .filtros-avanzados.is-visible .close-filter {
     opacity: 1;
 }
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
