@@ -1,0 +1,364 @@
+<!-- <pre>{{ miFormulario.$valid }}</pre>-->
+<ng-form name="miFormulario">
+    <div class="row">
+        <div class="col-sm-12">
+            <fieldset>
+                <legend>Valoración inicial de Enfermería</legend>
+            </fieldset>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-3">
+            <input type=text label="Apellido" plex />
+        </div>
+        <div class="col-sm-3">
+            <input type=text label="Nombre" plex />
+        </div>
+        <div class="col-sm-3">
+            <input type=text label="Nº de H.C." plex />
+        </div>
+        <div class="col-sm-3">
+            <input type=text label="Fecha de Ingreso" plex />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <input type=text label="Edad" plex />
+        </div>
+        <div class="col-sm-3">
+            <input type=text label="D.N.I." plex />
+        </div>
+        <div class="col-sm-3">
+            <input type=text label="Género" plex />
+        </div>
+        <div class="col-sm-3">
+            <input type=text label="Estado Civil" plex />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <input type=text label="Ocupación" plex />
+        </div>
+        <div class="col-sm-3">
+            <input type=text label="Obra Social" plex />
+        </div>
+        <div class="col-sm-3">
+            <input type=text label="Nivel de Instrucción" plex />
+        </div>
+        <div class="col-sm-3">
+            <input type=text label="Nacionalidad" plex />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <input type=text label="Motivo de Ingreso" plex />
+        </div>
+        <div class="col-sm-6">
+            <input type=text label="Diagnóstico Médico Presuntivo" plex />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <input type=text label="Domicilio" plex />
+        </div>
+        <div class="col-sm-6">
+            <input type=text label="Convivientes" plex />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <input type=text label="Procedencia" plex />
+        </div>
+        <div class="col-sm-4">
+            <input type=text label="Domicilio" plex />
+        </div>
+        <div class="col-sm-4">
+            <input type=text label="Nº de Tel." plex />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-11">
+            <fieldset>
+                <legend>Antecedentes clínicos</legend>
+            </fieldset>
+        </div>
+        <div class="col-sm-1">
+            <button class="glyphicon glyphicon-menu-down" ng-click="showAC=true" title="Mostrar Antecedentes Clínicos"></button>
+            <button class="glyphicon glyphicon-menu-up" ng-click="showAC=false" title="Ocultar Ancedentes Clínicos"></button>
+        </div>
+    </div>
+    <div class="row" ng-show="showAC">
+        <div class="col-sm-3">
+            <input type=text label="HTA" plex />
+        </div>
+        <div class="col-sm-3">
+            <input type=text label="DBT" plex />
+        </div>
+        <div class="col-sm-3">
+            <input type=text label="Alergias" plex />
+        </div>
+        <div class="col-sm-3">
+            <input type=text label="Otros" plex />
+        </div>
+    </div>
+    <div class="row" ng-show="showAC">
+        <div class="col-sm-6">
+            <input type=text label="Medicación Habitual" plex />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-11">
+            <fieldset>
+                <legend>Antecedentes obstétricos (si corresponde)</legend>
+            </fieldset>
+        </div>
+        <div class="col-sm-1">
+            <button class="glyphicon glyphicon-menu-down" ng-click="showAO=true" title="Mostrar Antecedentes Obstétricos"></button>
+            <button class="glyphicon glyphicon-menu-up" ng-click="showAO=false" title="Ocultar Ancedentes Obstétricos"></button>
+        </div>
+    </div>
+    <div ng-show="showAO" class="row">
+        <div class="col-sm-3">
+            <input type=text label="Gestas" plex />
+        </div>
+        <div class="col-sm-3">
+            <input type=text label="Partos" plex />
+        </div>
+        <div class="col-sm-3">
+            <input type=text label="Cesáreas" plex />
+        </div>
+        <div class="col-sm-3">
+            <input type=text label="Abortos" plex />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-11">
+            <fieldset>
+                <legend>Antecedentes Quirúrgicos y/o Traumatológicos</legend>
+            </fieldset>
+        </div>
+        <div class="col-sm-1">
+            <button class="glyphicon glyphicon-menu-down" ng-click="showAQ=true" title="Mostrar Antecedentes Quirúrgicos"></button>
+            <button class="glyphicon glyphicon-menu-up" ng-click="showAQ=false" title="Ocultar Ancedentes Quirúrgicos"></button>
+        </div>
+    </div>
+    <div ng-show="showAQ" class="row">
+        <div class="col-sm-11">
+            <input type=text plex />
+        </div>
+    </div>
+    <br /><br />
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="col-sm-10">
+                        <h4 class="panel-title">1. Necesidad de Oxigenación</h4>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="glyphicon glyphicon-menu-down" ng-click="showNO=true" title="Mostrar Antecedentes Quirúrgicos"></button>
+                        <button class="glyphicon glyphicon-menu-up" ng-click="showNO=false" title="Ocultar Ancedentes Quirúrgicos"></button>
+                    </div>
+                </div>
+                <div class="panel-body" ng-show="showNO">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="col-sm-10">
+                        <h4 class="panel-title">2. Necesidad de Circulación</h4>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="glyphicon glyphicon-menu-down" ng-click="showNC=true" title="Mostrar Antecedentes Quirúrgicos"></button>
+                        <button class="glyphicon glyphicon-menu-up" ng-click="showNC=false" title="Ocultar Ancedentes Quirúrgicos"></button>
+                    </div>
+                </div>
+                <div class="panel-body" ng-show="showNC">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="col-sm-10">
+                        <h4 class="panel-title">3. Necesidad de Nutrición</h4>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="glyphicon glyphicon-menu-down" ng-click="showNN=true" title="Mostrar Antecedentes Quirúrgicos"></button>
+                        <button class="glyphicon glyphicon-menu-up" ng-click="showNN=false" title="Ocultar Ancedentes Quirúrgicos"></button>
+                    </div>
+                </div>
+                <div class="panel-body" ng-show="showNN">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="col-sm-10">
+                        <h4 class="panel-title">4. Necesidad de Eliminación</h4>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="glyphicon glyphicon-menu-down" ng-click="showNE=true" title="Mostrar Antecedentes Quirúrgicos"></button>
+                        <button class="glyphicon glyphicon-menu-up" ng-click="showNE=false" title="Ocultar Ancedentes Quirúrgicos"></button>
+                    </div>
+                </div>
+                <div class="panel-body" ng-show="showNE">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="col-sm-10">
+                        <h4 class="panel-title">5. Necesidad de Proteger los Tegumentos</h4>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="glyphicon glyphicon-menu-down" ng-click="showNPT=true" title="Mostrar Antecedentes Quirúrgicos"></button>
+                        <button class="glyphicon glyphicon-menu-up" ng-click="showNPT=false" title="Ocultar Ancedentes Quirúrgicos"></button>
+                    </div>
+                </div>
+                <div class="panel-body" ng-show="showNPT">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="col-sm-10">
+                        <h4 class="panel-title">6. Necesidad de Movilizarse/Vestirse</h4>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="glyphicon glyphicon-menu-down" ng-click="showNMV=true" title="Mostrar Antecedentes Quirúrgicos"></button>
+                        <button class="glyphicon glyphicon-menu-up" ng-click="showNMV=false" title="Ocultar Ancedentes Quirúrgicos"></button>
+                    </div>
+                </div>
+                <div class="panel-body" ng-show="showNMV">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="col-sm-10">
+                        <h4 class="panel-title">7. Necesidad de Dormir y Reposar</h4>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="glyphicon glyphicon-menu-down" ng-click="showNDR=true" title="Mostrar Antecedentes Quirúrgicos"></button>
+                        <button class="glyphicon glyphicon-menu-up" ng-click="showNDR=false" title="Ocultar Ancedentes Quirúrgicos"></button>
+                    </div>
+                </div>
+                <div class="panel-body" ng-show="showNDR">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="col-sm-10">
+                        <h4 class="panel-title">8. Necesidad de Seguridad</h4>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="glyphicon glyphicon-menu-down" ng-click="showNS=true" title="Mostrar Antecedentes Quirúrgicos"></button>
+                        <button class="glyphicon glyphicon-menu-up" ng-click="showNS=false" title="Ocultar Ancedentes Quirúrgicos"></button>
+                    </div>
+                </div>
+                <div class="panel-body" ng-show="showNS">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="col-sm-10">
+                        <h4 class="panel-title">9. Necesidad de Comunicación y Sensopercepción</h4>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="glyphicon glyphicon-menu-down" ng-click="showNCS=true" title="Mostrar Antecedentes Quirúrgicos"></button>
+                        <button class="glyphicon glyphicon-menu-up" ng-click="showNCS=false" title="Ocultar Ancedentes Quirúrgicos"></button>
+                    </div>
+                </div>
+                <div class="panel-body" ng-show="showNCS">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="col-sm-10">
+                        <h4 class="panel-title">10. Necesidad de Espiritualidad</h4>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="glyphicon glyphicon-menu-down" ng-click="showNEsp=true" title="Mostrar Antecedentes Quirúrgicos"></button>
+                        <button class="glyphicon glyphicon-menu-up" ng-click="showNEsp=false" title="Ocultar Ancedentes Quirúrgicos"></button>
+                    </div>
+                </div>
+                <div class="panel-body" ng-show="showNEsp">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="col-sm-10">
+                        <h4 class="panel-title">11. Necesidad de Aprender/Autorealizarse/Recrearse</h4>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="glyphicon glyphicon-menu-down" ng-click="showNAAR=true" title="Mostrar Antecedentes Quirúrgicos"></button>
+                        <button class="glyphicon glyphicon-menu-up" ng-click="showNAAR=false" title="Ocultar Ancedentes Quirúrgicos"></button>
+                    </div>
+                </div>
+                <div class="panel-body" ng-show="showNAAR">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="col-sm-10">
+                        <h4 class="panel-title">Observaciones Generales</h4>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="glyphicon glyphicon-menu-down" ng-click="showOG=true" title="Mostrar Antecedentes Quirúrgicos"></button>
+                        <button class="glyphicon glyphicon-menu-up" ng-click="showOG=false" title="Ocultar Ancedentes Quirúrgicos"></button>
+                    </div>
+                </div>
+                <div class="panel-body" ng-show="showOG">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <span style="font-weight:bold">Instructivo</span>
+                <br />
+                <span>1 Ante un * (Asterisco) podrá usar escalas (Dolor, Riesgo UPP, riesgo de caídas, etc.). Deberá consignar cuál ha utilizado. Si existen escalas acordadas para enfermería de la Provincia, deberá usar las convenidas.</span>
+            </div>
+        </div>
+    </div>
+    <!-- <input type=text ng-model="fecha" ng-required="nombre" plex="date" />
+  <button class="btn btn-primary" ng-click="guardar()">Save</button> -->
+</ng-form>

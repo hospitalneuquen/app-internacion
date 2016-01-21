@@ -3,8 +3,8 @@
 var appModule = angular.module('appModule')
     .config(["PlexResolverProvider", function (PlexResolverProvider) {
         PlexResolverProvider
-             .when('/prueba', { templateUrl: 'partials/prueba.html', controller: 'PruebaController' })
-             .otherwise({ redirectTo: '/prueba' })
+             .when('/valoracionEnfermeria', { templateUrl: 'partials/valoracionEnfermeria.html', controller: 'ValoracionEnfermeriaController' })
+             .otherwise({ redirectTo: '/valoracionEnfermeria' })
     }])
     .run(['$rootScope', function ($rootScope) {
     }]);
