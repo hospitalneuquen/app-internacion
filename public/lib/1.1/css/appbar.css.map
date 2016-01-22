@@ -1,9 +1,0 @@
-{
-  "version": 3,
-  "file": "appbar.css",
-  "sources": [
-    "appbar.less"
-  ],
-  "names": [],
-  "mappings": "AAGA;EACI,WAAA;;AAEA,QAAC;AACD,QAAC;EACG,mCAAA;EACA,gCAAA;EACA,8BAAA;EACA,2BAAA;EACA,yBAAA;;AAGJ,QAAC,YAAY;AACb,QAAC;EACG,UAAA;EACA,aAAA;;AAGJ,QAAC;AACD,QAAC,eAAe;EACZ,UAAA;EACA,WAAA"
-}

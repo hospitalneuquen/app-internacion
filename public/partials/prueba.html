@@ -1,7 +1,38 @@
-<h1>Hello World!</h1>
+<!-- <h1>Hello World!</h1>
 <pre>{{ miFormulario.$valid }}</pre>
 <ng-form name="miFormulario">
-  <input type=text ng-model="nombre" plex />
-  <input type=text ng-model="fecha" ng-required="nombre" plex="date" />
-  <button class="btn btn-primary" ng-click="guardar()">Save</button>
-</ng-form>
+    <input type=text ng-model="nombre" plex />
+    <input type=text ng-model="fecha" ng-required="nombre" plex="date" />
+</ng-form> -->
+<input type=text label="Buscar personas por documento o apellido" ng-model="personas.query" plex>
+<table ng-if="personas.data && personas.data.length > 0" class=table>
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Fecha de nacimiento
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in personas.data">
+            <td>
+                {{item.id}}
+            </td>
+            <td>
+                {{item.nombre + ' ' + item.apellido}}
+            </td>
+            <td>
+                {{item.fechaNacimiento | date}}
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="alert alert-info" ng-if="personas.data && personas.data.length == 0">
+    ¡No se encontró ningún resultado!
+</div>
