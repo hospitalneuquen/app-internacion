@@ -4,10 +4,17 @@
     <h2>Filtros avanzados</h2>
     <form>
         <div class="cd-filter-block">
+			<h4>Paciente</h4>
+
+			<div class="cd-filter-content">
+				<input type="search" placeholder="Nombre del paciente" ng-model="nombre_paciente">
+			</div> <!-- cd-filter-content -->
+		</div>
+        <div class="cd-filter-block">
             <h4>Habitaciones</h4>
             <ul class="list-unstyled cd-filter-content cd-filters list">
                 <li>
-                    <input type="checkbox" name="habitacion-all" id="habitacion-all checked="checked""  />
+                    <input type="checkbox" name="habitacion_all" id="habitacion-all" checked="checked"  />
                     <label for="habitacion-all" class="checkbox-label">Todas</label>
                 </li>
                 <li ng-repeat="cama in camas | unique: 'habitacion' ">
@@ -26,6 +33,16 @@
                 <li>
                     <input type="checkbox" name="desinfectada" id="desinfectada" ng-model="desinfectada" />
                     <label for="desinfectada" class="checkbox-label">Desinfectada</label>
+                </li>
+            </ul>
+        </div>
+
+        <div class="cd-filter-block">
+            <h4>Tipo de cama</h4>
+            <ul class="list-unstyled cd-filter-content cd-filters list">
+                <li ng-repeat="cama in camas | filter: uppercase | unique: 'tipoCama' ">
+                    <input type="checkbox" name="tipo_cama_{{cama.tipoCama}}" id="tipo_cama_{{cama.tipoCama}}"  />
+                    <label for="tipo_cama_{{cama.tipoCama}}" class="checkbox-label">{{cama.tipoCama}}</label>
                 </li>
             </ul>
         </div>

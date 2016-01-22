@@ -14,7 +14,7 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
         camas: [{
             habitacion: 1,
             numero: 1,
-            //disponible: true,
+            tipoCama: 'cama',
             oxigeno: true,
             desinfectada: true,
             diagnostico: null,
@@ -24,7 +24,7 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
         }, {
             habitacion: 1,
             numero: 2,
-            //disponible: false,
+            tipoCama: 'sillon',
             oxigeno: false,
             desinfectada: false,
             diagnostico: "Diagnostico falso",
@@ -41,7 +41,7 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
         }, {
             habitacion: 2,
             numero: 12,
-            //disponible: true,
+            tipoCama: 'cuna',
             oxigeno: false,
             desinfectada: true,
             diagnostico: null,
@@ -51,7 +51,7 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
         }, {
             habitacion: 2,
             numero: 2,
-            //disponible: false,
+            tipoCama: 'cama',
             oxigeno: true,
             desinfectada: true,
             diagnostico: "Diagnostico falso",
@@ -68,7 +68,7 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
         }, {
             habitacion: 2,
             numero: 3,
-            //disponible: false,
+            tipoCama: 'cama',
             oxigeno: true,
             desinfectada: true,
             diagnostico: "Diagnostico falso",
