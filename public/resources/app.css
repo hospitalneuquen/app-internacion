@@ -1,5 +1,11 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
+body {
+    background-color: #f4f4f4;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 h1.panel-title {
     font-size: xx-large
 }
@@ -17,16 +23,6 @@ h5.panel-title {
 }
 h6.panel-title {
     font-size: x-small
-} 
-=======
-=======
->>>>>>> origin/master
-body {
-    background-color: #f4f4f4;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 /* checkbox / radios */
@@ -632,6 +628,7 @@ pre.prettyprint {
     -o-transform: translateX(0);
     transform: translateX(0);
     box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
 }
 .filtros-avanzados h2 {
     background: #66ba8a;
@@ -643,7 +640,7 @@ pre.prettyprint {
     line-height: 40px;
 }
 .filtros-avanzados form {
-    padding: 50px 20px;
+    padding: 20px 20px;
 }
 .filtros-avanzados .close-filter {
     position: absolute;
@@ -667,7 +664,69 @@ pre.prettyprint {
 .filtros-avanzados.is-visible .close-filter {
     opacity: 1;
 }
-<<<<<<< HEAD
->>>>>>> origin/master
-=======
->>>>>>> origin/master
+/*.btn-habitacion {
+  color: #ffffff;
+  background-color: #C7C7C7;
+  border-color: #C7C7C7;
+}
+
+.btn-habitacion:hover,
+.btn-habitacion:focus,
+.btn-habitacion:active,
+.btn-habitacion.active,
+.open .dropdown-toggle.btn-habitacion {
+  color: #ffffff;
+  background-color: #BDBBBB;
+  border-color: #C7C7C7;
+}
+
+.btn-habitacion:active,
+.btn-habitacion.active,
+.btn-habitacion:target,
+.open .dropdown-toggle.btn-habitacion {
+  background-image: none;
+  color: #000;
+  font-weight: bold;
+}
+
+.btn-habitacion.disabled,
+.btn-habitacion[disabled],
+fieldset[disabled] .btn-habitacion,
+.btn-habitacion.disabled:hover,
+.btn-habitacion[disabled]:hover,
+fieldset[disabled] .btn-habitacion:hover,
+.btn-habitacion.disabled:focus,
+.btn-habitacion[disabled]:focus,
+fieldset[disabled] .btn-habitacion:focus,
+.btn-habitacion.disabled:active,
+.btn-habitacion[disabled]:active,
+fieldset[disabled] .btn-habitacion:active,
+.btn-habitacion.disabled.active,
+.btn-habitacion[disabled].active,
+fieldset[disabled] .btn-habitacion.active {
+  background-color: #C7C7C7;
+  border-color: #C7C7C7;
+}
+
+.btn-habitacion .badge {
+  color: #C7C7C7;
+  background-color: #ffffff;
+}*/
+.lista-habitaciones{}
+.lista-habitaciones li{padding-bottom: 4px; padding-left: 4px; padding-right: 4px;}
+.lista-habitaciones li:nth-child(4){padding-right: 0;}
+.lista-habitaciones li:nth-child(5){padding-left: 0;}
+.lista-habitaciones li a{}
+
+a.btn-habitacion {
+    color: #ffffff;
+    background-color: #C7C7C7;
+    border-color: #C7C7C7;
+}
+
+a.btn-habitacion:target,
+a.btn-habitacion.active {
+    color: #ffffff;
+    background-color: #66BA8A;
+    border-color: #559872;
+}

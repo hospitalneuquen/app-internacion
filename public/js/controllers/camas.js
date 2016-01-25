@@ -1,26 +1,26 @@
 'use strict';
 
 appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex) {
-    $scope.filtrarHabitacion = function(item) {
-        if ($scope.orderProp == 'date') {
-            return new Date(item.date);
-        }
-        return item[$scope.orderProp];
-    }
+
     angular.extend($scope, {
         miFormulario: null,
         nombre: "Mapa de camas",
+
+        // camasUnique: [
+        //     nombre: "1",
+        //     seleccionada: false
+        // ]
 
         camas: [{
             habitacion: 1,
             numero: 1,
             tipoCama: 'cama',
             oxigeno: true,
-            desinfectada: true,
+            desinfectada: false,
             diagnostico: null,
             motivo_internacion: null,
             paciente: null,
-            reparacion: false
+            estado: 'desocupada'
         }, {
             habitacion: 1,
             numero: 2,
@@ -37,7 +37,7 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
                 edad: 29,
                 sexo: "masculino"
             },
-            reparacion: false
+            estado: 'ocupada'
         }, {
             habitacion: 2,
             numero: 12,
@@ -47,7 +47,7 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             diagnostico: null,
             motivo_internacion: null,
             paciente: null,
-            reparacion: true
+            estado: 'reparacion'
         }, {
             habitacion: 2,
             numero: 2,
@@ -64,7 +64,7 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
                 edad: 54,
                 sexo: "femenino"
             },
-            reparacion: false
+            estado: 'ocupada'
         }, {
             habitacion: 2,
             numero: 3,
@@ -75,82 +75,79 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             motivo_internacion: "Motivo falso",
             paciente: {
                 id: 1,
-                nombre: "Lore",
+                nombre: "Miguel",
                 apellido: "Ipsum",
                 dni: "4.524.235",
                 edad: 54,
                 sexo: "otro"
             },
-            reparacion: false
+            estado: 'ocupada'
+        }, {
+            habitacion: 3,
+            numero: 1,
+            tipoCama: 'cama',
+            oxigeno: false,
+            desinfectada: false,
+            diagnostico: null,
+            motivo_internacion: null,
+            paciente: null,
+            estado: 'reparacion'
+        }, {
+            habitacion: 4,
+            numero: 1,
+            tipoCama: 'cama',
+            oxigeno: false,
+            desinfectada: false,
+            diagnostico: null,
+            motivo_internacion: null,
+            paciente: null,
+            estado: 'reparacion'
+        }, {
+            habitacion: 5,
+            numero: 1,
+            tipoCama: 'cama',
+            oxigeno: false,
+            desinfectada: false,
+            diagnostico: null,
+            motivo_internacion: null,
+            paciente: null,
+            estado: 'reparacion'
         }],
 
-/*
-        habitacionesIncludes : [],
-
-        seleccionarHabitacion : function(habitacion) {
-            if (!habitacion){
-                $scope.habitacionesIncludes = [];
-            }else {
-                var i = $.inArray(habitacion,  $scope.habitacionesIncludes);
-
-                if (i > -1) {
-                     $scope.habitacionesIncludes.splice(i, 1);
-                } else {
-                     $scope.habitacionesIncludes.push(habitacion);
-                }
-            }
+        init: function(){
+            $scope.filter.camas = $scope.camas;
         },
+        filter:{
+            camas: null,
+            habitacion: null,
+            oxigeno: false,
+            desinfectada: false,
+            tipoCama: false,
+            nombre: null,
+            filtrar: function(){
+                var self = this;
 
+                var regex_nombre = new RegExp(".*" + self.nombre + ".*", "ig");
 
-        filtroHabitacion : function(camas){
+                 self.camas = $scope.camas.filter(function(i){
+                     return (!self.oxigeno || (self.oxigeno && i.oxigeno)) &&
+                            (!self.desinfectada || (self.desinfectada && i.desinfectada)) &&
+                            (!self.tipoCama || (self.tipoCama && i.tipoCama == self.tipoCama)) &&
+                            (!self.habitacion || (self.habitacion && i.habitacion == self.habitacion)) &&
+                            //(!self.nombre || (self.nombre && i.paciente && (i.paciente.nombre.match(self.nombre))))
+                            (!self.nombre || (self.nombre && i.paciente && (regex_nombre.test(i.paciente.nombre) || (regex_nombre.test(i.paciente.apellido)) )))
+                 });
 
-            if ( $scope.habitacionesIncludes.length > 0) {
-                if ($.inArray(camas.habitacion, $scope.habitacionesIncludes) < 0)
-                    return;
+                //self.camas = (self.camas.length > 0 ) ? (self.camas) : $scope.camas;
+            },
+            limpiarFiltros: function(){
+                var self = this;
+                self.habitacion = null;
+                self.oxigeno = false;
+                self.desinfectada = false;
+                self.tipoCama = false;
+                self.nombre = null;
             }
-
-            return camas;
-        },
-*/
-        filtroElegido : "",             // cual es el filtro que elijo
-        filtroElegidoValor : "",        // cual es el valor del flitro que elijo
-        filteredCamas : [],
-        filtroHabitacion : function(camas){
-//            console.log($scope.filteredCamas);
-//            console.log($scope.filtroElegido);
-            //console.log($scope.filtroElegidoValor);
-            // si ya he estado trabajando con algun filtro
-            // entonces utilizamos el array filteredCamas
-            if ($scope.filteredCamas.length > 0){
-                if ($scope.filtroElegido != ""){
-
-                    $scope.camas.forEach(function(cama) {
-                        if ($scope.filtroElegido){
-                            //$scope.filteredCamas.push(cama);
-                        }
-                    });
-
-
-
-                    return $scope.filteredCamas;
-                }
-            }else{
-
-                if ($scope.filtroElegido != ""){
-
-                    $scope.camas.forEach(function(cama) {
-                        if ($scope.filtroElegido){
-                            //$scope.filteredCamas.push(cama);
-                        }
-                    });
-
-
-
-                    return $scope.filteredCamas;
-                }
-            }
-
-            return camas;
         },
 
         aReparar: function() {
@@ -168,23 +165,13 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
 
     });
 
-    // agregamos los watchs para los elementos de filtrado
-    $scope.$watch('oxigeno', function(current, old){
-        $scope.filtroElegido = "oxigeno";
-        $scope.filtroElegidoValor = current;
-        $scope.filtroHabitacion($scope.camas);
-    });
-    $scope.$watch('desinfectada', function(current, old){
-        $scope.filtroElegido = "desinfectada";
-        $scope.filtroElegidoValor = current;
-        $scope.filtroHabitacion($scope.camas);
-    });
-    $scope.$watch('reparacion', function(current, old){
-        $scope.filtroElegido = "reparacion";
-        $scope.filtroElegidoValor = current;
-        $scope.filtroHabitacion($scope.camas);
-    });
+    $scope.$watch('filter.nombre + filter.oxigeno + filter.desinfectada + filter.tipoCama + filter.habitacion', function(current, old){
+        if (current != old){
+            $scope.filter.filtrar();
+        }
+     });
 
+    $scope.init();
 }]);
 
 
@@ -204,8 +191,3 @@ appModule.filter('unique', function() {
         return output;
     };
 });
-//
-// appModule.filter('filtroHabitacion', function(a, b, c) {
-//     console.log(a,b,c);
-//     //return $scope.camas;
-// });
