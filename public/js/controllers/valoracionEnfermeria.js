@@ -13,4 +13,5 @@ appModule.controller('ValoracionEnfermeriaController', ['$scope', function($scop
                 //Server.post('api/internacion/', dto)
         }
     });
+    //Server.post('api/internacion/', dto)
 }]);
