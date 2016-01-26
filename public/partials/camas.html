@@ -1,106 +1,109 @@
 <h1>{{nombre}}</h1>
 
-<div class="filtros-avanzados" ng-class="{'is-visible' : $mostrarFiltros}">
-    <h2>Filtros avanzados</h2>
-    <form>
-        <div class="cd-filter-block">
-			<h4>Paciente</h4>
+<div class="container-filtros-avanzados" ng-class="{'visible' : $mostrarFiltros}" >
+    <div class="filtros-avanzados vertical" ng-class="{'is-visible' : $mostrarFiltros}">
+        <h2>Filtros avanzados</h2>
+        <form ng-submit="$mostrarFiltros = !$mostrarFiltros" >
+            <div class="cd-filter-block">
+    			<h4>Paciente</h4>
 
-			<div class="cd-filter-content">
-				<input type="search" placeholder="Nombre del paciente" ng-model="filter.nombre">
-			</div> <!-- cd-filter-content -->
-		</div>
-        <div class="cd-filter-block">
-            <h4>Habitaciones</h4>
+    			<div class="cd-filter-content">
+    				<input type="search" placeholder="Nombre del paciente" ng-model="filter.nombre">
+    			</div> <!-- cd-filter-content -->
+    		</div>
+            <div class="cd-filter-block">
+                <h4>Habitaciones</h4>
 
-            <ul class="list-unstyled list-inline lista-habitaciones">
-                <!-- <li>
-                    <input type="checkbox" name="habitacion_all" id="habitacion-all" checked="checked"  />
-                    <label for="habitacion-all" class="checkbox-label">Todas</label>
-                </li>
-                <li ng-repeat="cama in camas | unique: 'habitacion' ">
-                    <input type="checkbox" name="habitacion-{{cama.habitacion}}" id="habitacion-{{cama.habitacion}}"  ng-model="filter.habitacion" ng-true-value="'{{cama.habitacion}}'" ng-false-value=""  />
-                    <label for="habitacion-{{cama.habitacion}}" class="checkbox-label">Habitación {{cama.habitacion}}</label>
-                </li> -->
-                <!-- <li ng-repeat="cama in camas | unique: 'habitacion' ">
-                    <button type="button" class="btn btn-habitacion" name="habitacion-{{cama.habitacion}}" id="habitacion-{{cama.habitacion}}"  ng-model="filter.habitacion"  >
-                        {{cama.habitacion}}
-                    </button>
-                </li> -->
+                <ul class="list-unstyled list-inline lista-habitaciones">
+                    <!-- <li>
+                        <input type="checkbox" name="habitacion_all" id="habitacion-all" checked="checked"  />
+                        <label for="habitacion-all" class="checkbox-label">Todas</label>
+                    </li>
+                    <li ng-repeat="cama in camas | unique: 'habitacion' ">
+                        <input type="checkbox" name="habitacion-{{cama.habitacion}}" id="habitacion-{{cama.habitacion}}"  ng-model="filter.habitacion" ng-true-value="'{{cama.habitacion}}'" ng-false-value=""  />
+                        <label for="habitacion-{{cama.habitacion}}" class="checkbox-label">Habitación {{cama.habitacion}}</label>
+                    </li> -->
+                    <!-- <li ng-repeat="cama in camas | unique: 'habitacion' ">
+                        <button type="button" class="btn btn-habitacion" name="habitacion-{{cama.habitacion}}" id="habitacion-{{cama.habitacion}}"  ng-model="filter.habitacion"  >
+                            {{cama.habitacion}}
+                        </button>
+                    </li> -->
 
-                <li>
-                    <a href="#" class="btn btn-habitacion" name="habitacion-all" id="habitacion-all"  ng-model="filter.habitacion" ng-click="filter.habitacion = ''" ng-class="{'active': !filter.habitacion || filter.habitacion == '' }" >
-                        *
-                    </a>
-                </li>
+                    <li>
+                        <a href="#" class="btn btn-habitacion tips" title="Todas" name="habitacion-all" id="habitacion-all"  ng-model="filter.habitacion" ng-click="filter.habitacion = ''" ng-class="{'active': !filter.habitacion || filter.habitacion == '' }" >
+                            *
+                        </a>
+                    </li>
 
-                <li ng-repeat="cama in camas | unique: 'habitacion' ">
-                    <a href="#" class="btn btn-habitacion" name="habitacion-{{cama.habitacion}}" id="habitacion-{{cama.habitacion}}"  ng-model="filter.habitacion" ng-click="filter.habitacion = cama.habitacion"  ng-class="{'active': filter.habitacion == cama.habitacion }">
-                        {{cama.habitacion}}
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div class="cd-filter-block">
-            <h4>Camas con</h4>
-            <ul class="list-unstyled cd-filter-content cd-filters list ">
-                <li>
-                    <input type="checkbox" name="oxigeno" id="oxigeno" ng-model="filter.oxigeno" />
-                    <label for="oxigeno" class="checkbox-label">Oxígeno</label>
-                </li>
-                <li>
-                    <input type="checkbox" name="desinfectada" id="desinfectada" ng-model="filter.desinfectada" />
-                    <label for="desinfectada" class="checkbox-label">Desinfectada</label>
-                </li>
-            </ul>
-        </div>
+                    <li ng-repeat="cama in camas | unique: 'habitacion' ">
+                        <a href="#" class="btn btn-habitacion" name="habitacion-{{cama.habitacion}}" id="habitacion-{{cama.habitacion}}"  ng-model="filter.habitacion" ng-click="filter.habitacion = cama.habitacion"  ng-class="{'active': filter.habitacion == cama.habitacion }">
+                            {{cama.habitacion}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="cd-filter-block col-lg-3">
+                <h4>Camas con</h4>
+                <ul class="list-unstyled cd-filter-content cd-filters list ">
+                    <li>
+                        <input type="checkbox" name="oxigeno" id="oxigeno" ng-model="filter.oxigeno" />
+                        <label for="oxigeno" class="checkbox-label">Oxígeno</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="desinfectada" id="desinfectada" ng-model="filter.desinfectada" />
+                        <label for="desinfectada" class="checkbox-label">Desinfectada</label>
+                    </li>
+                </ul>
+            </div>
 
-        <div class="cd-filter-block">
-            <h4>Tipo de cama</h4>
-            <ul class="list-unstyled cd-filter-content cd-filters list">
-                <li>
-                    <input type="radio" name="tipo_cama_todas" id="tipo_cama_todas"  ng-model="filter.tipoCama" ng-value="false" />
-                    <label for="tipo_cama_todas" class="radio-label">Todas</label>
-                </li>
+            <div class="cd-filter-block col-lg-3">
+                <h4>Tipo de cama</h4>
+                <ul class="list-unstyled cd-filter-content cd-filters list">
+                    <li>
+                        <input type="radio" name="tipo_cama_todas" id="tipo_cama_todas"  ng-model="filter.tipoCama" ng-value="false" />
+                        <label for="tipo_cama_todas" class="radio-label">Todas</label>
+                    </li>
 
-                <li ng-repeat="cama in camas | unique: 'tipoCama' ">
-                    <!-- <input type="checkbox" name="tipo_cama_{{cama.tipoCama}}" id="tipo_cama_{{cama.tipoCama}}"  ng-model="filter.tipoCama" ng-true-value="'{{cama.tipoCama}}'" /> -->
-                    <!-- <input type="checkbox" name="tipo_cama_{{cama.tipoCama}}" id="tipo_cama_{{cama.tipoCama}}"  ng-model="filter.tipoCama" ng-true-value="'{{cama.tipoCama}}'" /> -->
-                    <input type="radio" name="tipo_cama_{{cama.tipoCama}}" id="tipo_cama_{{cama.tipoCama}}"  ng-model="filter.tipoCama" ng-value="'{{cama.tipoCama}}'" />
-                    <label for="tipo_cama_{{cama.tipoCama}}" class="radio-label">{{cama.tipoCama}}</label>
-                </li>
-            </ul>
-        </div>
+                    <li ng-repeat="cama in camas | unique: 'tipoCama' ">
+                        <!-- <input type="checkbox" name="tipo_cama_{{cama.tipoCama}}" id="tipo_cama_{{cama.tipoCama}}"  ng-model="filter.tipoCama" ng-true-value="'{{cama.tipoCama}}'" /> -->
+                        <!-- <input type="checkbox" name="tipo_cama_{{cama.tipoCama}}" id="tipo_cama_{{cama.tipoCama}}"  ng-model="filter.tipoCama" ng-true-value="'{{cama.tipoCama}}'" /> -->
+                        <input type="radio" name="tipo_cama_{{cama.tipoCama}}" id="tipo_cama_{{cama.tipoCama}}"  ng-model="filter.tipoCama" ng-value="'{{cama.tipoCama}}'" />
+                        <label for="tipo_cama_{{cama.tipoCama}}" class="radio-label">{{cama.tipoCama}}</label>
+                    </li>
+                </ul>
+            </div>
 
-        <div class="cd-filter-block">
-            <h4>Estado</h4>
-            <ul class="list-unstyled cd-filter-content cd-filters list">
-                <li>
-                    <input type="checkbox" name="libres" id="libres" ng-model="libres" />
-                    <label for="libres"class="checkbox-label">Libres</label>
-                </li>
-                <li>
-                    <input type="checkbox" name="ocupadas" id="ocupadas" ng-model="ocupadas" />
-                    <label for="ocupadas"class="checkbox-label">Ocupadas</label>
-                </li>
-                <li>
-                    <input type="checkbox" name="reparacion" id="reparacion" ng-model="reparacion" />
-                    <label for="reparacion"class="checkbox-label">En reparación</label>
-                </li>
-            </ul>
-        </div>
+            <div class="cd-filter-block col-lg-3">
+                <h4>Estado</h4>
+                <ul class="list-unstyled cd-filter-content cd-filters list">
+                    <li>
+                        <input type="checkbox" name="ocupadas" id="ocupadas" ng-model="filter.estado" ng-true-value="'ocupada'" ng-value="''" />
+                        <label for="ocupadas" class="checkbox-label">Ocupadas</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="libres" id="libres" ng-model="filter.estado" ng-true-value="'desocupada'" ng-value="''" />
+                        <label for="libres" class="checkbox-label">Desocupadas</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="reparacion" id="reparacion" ng-model="filter.estado" ng-true-value="'reparacion'" ng-value="''" />
+                        <label for="reparacion" class="checkbox-label">En reparación</label>
+                    </li>
+                </ul>
+            </div>
 
-        <div class="cd-filter-block">
-            <button type="button" class="btn btn-primary btn-warning form-control" ng-click="filter.limpiarFiltros()">
-                Limpiar filtros
-            </button>
-        </div>
-    </form>
+            <div class="cd-filter-block ">
+                <button type="button" class="btn btn-primary btn-warning form-control" ng-click="filter.limpiarFiltros()">
+                    Limpiar filtros
+                </button>
+            </div>
+        </form>
 
-    <a href="#" class="close-filter" ng-click="$mostrarFiltros = false">
-        <i class="fa fa-times"></i>
-    </a>
+        <a href="#" class="close-filter" ng-click="$mostrarFiltros = false">
+            <i class="fa fa-times"></i>
+        </a>
+    </div>
 </div>
+
 
 <div class="row">
     <div class="col-lg-12 text-right">
@@ -122,7 +125,7 @@
     </div>
 </div>
 
-<div class="row">
+    <div class="row">
         <!-- <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="cama in camas | filter:filtroHabitacion"> -->
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="cama in filter.camas">
             <div class="card-container manual-flip animate-repeat" ng-class="{'hover': cama.$rotar }" >
@@ -142,14 +145,18 @@
                             <div class="main cama">
                                 <div class="icon">
                                     <!-- <i class="fa fa-bed text-success"></i> -->
-                                    <i class="fa fa-male " ng-if="cama.paciente.sexo == 'masculino'"></i>
-                                    <i class="fa fa-female " ng-if="cama.paciente.sexo == 'femenino'"></i>
-                                    <i class="fa fa-user-secret "  ng-if="cama.paciente.sexo == 'otro'"></i>
+                                    <i class="fa fa-male " ng-if="cama.paciente.sexo == 'Masculino'"></i>
+                                    <i class="fa fa-female " ng-if="cama.paciente.sexo == 'Femenino'"></i>
+                                    <i class="fa fa-user-secret "  ng-if="cama.paciente.sexo == 'Indeterminado'"></i>
+
+                                    <button type="button" class="btn btn-primary tips" title="Agregar paciente en cama" ng-click="buscarPaciente()"  ng-if="!cama.paciente.id && cama.estado != 'reparacion'">
+                                      <i class="fa fa-bed agregar"> </i>
+                                    </button>
                                 </div>
 
                                 <div ng-if="cama.paciente.apellido">
                                     <h3 class="name" >{{cama.paciente.apellido}}, {{cama.paciente.nombre}}</h3>
-                                    <p class="profession">{{cama.paciente.dni}} / {{cama.paciente.edad}} años / {{cama.paciente.sexo}}</p>
+                                    <p class="profession">{{cama.paciente.documento}} / {{cama.paciente.edad}} años / {{cama.paciente.sexo}}</p>
                                 </div>
 
                                 <div ng-if="!cama.paciente.id && cama.estado == 'reparacion'">
@@ -161,43 +168,33 @@
 
                             <div class="footer">
                                 <div class="col-xs-6 text-left col-left">
+                                    <span class="fa-stack fa-lg text-success tips" title="Cama desinfectada" ng-if="cama.desinfectada">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-bug fa-stack-1x fa-inverse"></i>
+                                    </span>
 
-                                    <div ng-if="cama.desinfectada">
-                                        <span class="fa-stack fa-lg text-success tips" title="Cama desinfectada">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-bug fa-stack-1x fa-inverse"></i>
+                                    <span class="fa-stack fa-lg text-default tips" title="Cama sin desinfectar" ng-if="!cama.desinfectada">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-bug fa-stack-1x fa-inverse"></i>
+                                    </span>
+
+                                    <span class="fa-stack fa-lg text-primary tips" title="Cama con oxígeno" ng-if="cama.oxigeno">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <span class="fa-stack-1x fa-stack-text fa-inverse">O
+                                            <sup>2</sup>
                                         </span>
-                                    </div>
+                                    </span>
 
-                                    <div ng-if="!cama.desinfectada">
-                                        <span class="fa-stack fa-lg text-default tips" title="Cama sin desinfectar">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <i class="fa fa-bug fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                    </div>
-
-                                    <div ng-if="cama.oxigeno">
-                                        <span class="fa-stack fa-lg text-primary tips" title="Cama con oxígeno">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <span class="fa-stack-1x fa-stack-text fa-inverse">O
-                                                <sup>2</sup>
-                                            </span>
-                                        </span>
-                                    </div>
-
-                                    <div ng-if="!cama.oxigeno">
-                                        <span class="fa-stack fa-lg  tips" title="Cama sin oxígeno">
-                                            <i class="fa fa-ban fa-stack-2x text-danger"></i>
-                                            <span class="fa-stack-1x fa-stack-text ">O<sup>2</sup></span>
-                                        </span>
-                                    </div>
-
+                                    <span class="fa-stack fa-lg  tips" title="Cama sin oxígeno" ng-if="!cama.oxigeno">
+                                        <i class="fa fa-ban fa-stack-2x text-danger"></i>
+                                        <span class="fa-stack-1x fa-stack-text ">O<sup>2</sup></span>
+                                    </span>
                                 </div>
 
                                 <div class="col-xs-6 col-right text-right">
 
                                     <div class="btn-group" role="group" ng-if="cama.paciente.id">
-                                        <button type="button" class="btn btn-default dropdown-toggle tips" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Agregar prestaciones">
+                                        <button type="button" class="btn btn-default btn-sm dropdown-toggle tips" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Agregar prestaciones">
 
                                             <i class="fa fa-plus"></i>
                                         </button>
@@ -214,15 +211,15 @@
                                         </ul>
                                     </div>
 
-                                    <button type="button" class="btn btn-default tips load-content" title="Evolucionar" ng-click="evolucionar()" ng-if="cama.paciente.id">
+                                    <button type="button" class="btn btn-default btn-sm tips load-content" title="Evolucionar" ng-click="evolucionar()" ng-if="cama.paciente.id">
                                         <i class="fa fa-arrow-circle-up"></i>
                                     </button>
 
-                                    <button type="button" class="btn btn-default tips" title="Ver actualizaciones" ng-init="cama.$rotar = false" ng-click="cama.$rotar = !cama.$rotar"  ng-if="cama.paciente.id">
+                                    <button type="button" class="btn btn-default btn-sm tips" title="Ver actualizaciones" ng-init="cama.$rotar = false" ng-click="cama.$rotar = !cama.$rotar"  ng-if="cama.paciente.id">
                                         <i class="fa fa-mail-forward"></i>
                                     </button>
 
-                                    <button type="button" class="btn btn-default tips" title="Enviar a reparación" ng-if="!cama.paciente.id && !cama.estado == 'reparacion'">
+                                    <button type="button" class="btn btn-default btn-sm tips" title="Enviar a reparación" ng-if="!cama.paciente.id && !cama.estado == 'reparacion'">
                                       <i class="fa fa-wrench"></i>
                                     </button>
 
@@ -274,7 +271,7 @@
                                 <div class="col-xs-6 text-right col-right">
 
                                     <div class="btn-group" role="group">
-                                        <button type="button" class="btn btn-default dropdown-toggle tips" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Agregar prestaciones">
+                                        <button type="button" class="btn btn-default btn-sm dropdown-toggle tips" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Agregar prestaciones">
 
                                             <i class="fa fa-plus"></i>
                                         </button>
@@ -291,11 +288,11 @@
                                         </ul>
                                     </div>
 
-                                    <button type="button" class="btn btn-default tips" title="Evolucionar" ng-click="evolucionar()">
+                                    <button type="button" class="btn btn-default btn-sm tips" title="Evolucionar" ng-click="evolucionar()">
                                         <i class="fa fa-arrow-circle-up"></i>
                                     </button>
 
-                                    <button class="btn btn-default tips" title="Ver cama" ng-click="cama.$rotar = !cama.$rotar">
+                                    <button class="btn btn-default btn-sm tips" title="Ver cama" ng-click="cama.$rotar = !cama.$rotar">
                                         <i class="fa fa-reply"></i>
                                     </button>
 
@@ -309,4 +306,15 @@
             </div>
 
         </div>
+
     </div>
+
+<div class="row">
+
+    <div class="col-lg-12">
+
+        <div class="alert alert-danger" ng-if="filter.camas && filter.camas.length == 0">
+            ¡No se encontró ninguna cama!
+        </div>
+    </div>
+</div>

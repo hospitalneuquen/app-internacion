@@ -3,115 +3,394 @@
 appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex) {
 
     angular.extend($scope, {
-        miFormulario: null,
-        nombre: "Mapa de camas",
 
-        // camasUnique: [
-        //     nombre: "1",
-        //     seleccionada: false
-        // ]
 
         camas: [{
-            habitacion: 1,
-            numero: 1,
-            tipoCama: 'cama',
-            oxigeno: true,
-            desinfectada: false,
-            diagnostico: null,
-            motivo_internacion: null,
-            paciente: null,
-            estado: 'desocupada'
-        }, {
-            habitacion: 1,
-            numero: 2,
-            tipoCama: 'sillon',
-            oxigeno: false,
-            desinfectada: false,
-            diagnostico: "Diagnostico falso",
-            motivo_internacion: "Motivo falso",
-            paciente: {
-                id: 1,
-                nombre: "Manuel",
+            "habitacion": 3,
+            "numero": 1,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "ocupada",
+            "idInternacion": null,
+            "paciente": {
+                id: 456,
                 apellido: "Urbano",
-                dni: "31.955.283",
-                edad: 29,
-                sexo: "masculino"
-            },
-            estado: 'ocupada'
-        }, {
-            habitacion: 2,
-            numero: 12,
-            tipoCama: 'cuna',
-            oxigeno: false,
-            desinfectada: true,
-            diagnostico: null,
-            motivo_internacion: null,
-            paciente: null,
-            estado: 'reparacion'
-        }, {
-            habitacion: 2,
-            numero: 2,
-            tipoCama: 'cama',
-            oxigeno: true,
-            desinfectada: true,
-            diagnostico: "Diagnostico falso",
-            motivo_internacion: "Motivo falso",
-            paciente: {
-                id: 1,
-                nombre: "Lore",
-                apellido: "Ipsum",
-                dni: "4.524.235",
-                edad: 54,
-                sexo: "femenino"
-            },
-            estado: 'ocupada'
-        }, {
-            habitacion: 2,
-            numero: 3,
-            tipoCama: 'cama',
-            oxigeno: true,
-            desinfectada: true,
-            diagnostico: "Diagnostico falso",
-            motivo_internacion: "Motivo falso",
-            paciente: {
-                id: 1,
-                nombre: "Miguel",
-                apellido: "Ipsum",
-                dni: "4.524.235",
-                edad: 54,
-                sexo: "otro"
-            },
-            estado: 'ocupada'
-        }, {
-            habitacion: 3,
-            numero: 1,
-            tipoCama: 'cama',
-            oxigeno: false,
-            desinfectada: false,
-            diagnostico: null,
-            motivo_internacion: null,
-            paciente: null,
-            estado: 'reparacion'
-        }, {
-            habitacion: 4,
-            numero: 1,
-            tipoCama: 'cama',
-            oxigeno: false,
-            desinfectada: false,
-            diagnostico: null,
-            motivo_internacion: null,
-            paciente: null,
-            estado: 'reparacion'
-        }, {
-            habitacion: 5,
-            numero: 1,
-            tipoCama: 'cama',
-            oxigeno: false,
-            desinfectada: false,
-            diagnostico: null,
-            motivo_internacion: null,
-            paciente: null,
-            estado: 'reparacion'
+                nombre: "Manuel",
+                documento: "31965283",
+                fechaNacimiento: Date,
+                sexo: 'Masculino'
+            }
+        },
+        {
+            "habitacion": 5,
+            "numero": 1,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 6,
+            "numero": 1,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 6,
+            "numero": 2,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 6,
+            "numero": 3,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 7,
+            "numero": 1,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "reparacion",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 8,
+            "numero": 1,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 8,
+            "numero": 2,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 9,
+            "numero": 1,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 8,
+            "numero": 2,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 8,
+            "numero": 3,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 10,
+            "numero": 1,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 10,
+            "numero": 2,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 11,
+            "numero": 1,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "reparacion",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 11,
+            "numero": 2,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "reparacion",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 13,
+            "numero": 1,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 13,
+            "numero": 1,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 15,
+            "numero": 1,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 15,
+            "numero": 2,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 15,
+            "numero": 3,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 16,
+            "numero": 1,
+            "tipoCama": "cama",
+            "oxigeno": true,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 16,
+            "numero": 2,
+            "tipoCama": "cama",
+            "oxigeno": true,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 17,
+            "numero": 1,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 18,
+            "numero": 1,
+            "tipoCama": "cama",
+            "oxigeno": true,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 18,
+            "numero": 2,
+            "tipoCama": "cama",
+            "oxigeno": true,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 19,
+            "numero": 1,
+            "tipoCama": "cama",
+            "oxigeno": true,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 19,
+            "numero": 2,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 20,
+            "numero": 1,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 20,
+            "numero": 2,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 20,
+            "numero": 3,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 21,
+            "numero": 1,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 22,
+            "numero": 1,
+            "tipoCama": "cama",
+            "oxigeno": true,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 23,
+            "numero": 1,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 23,
+            "numero": 2,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 23,
+            "numero": 3,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 25,
+            "numero": 1,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "reparacion",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 25,
+            "numero": 2,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "reparacion",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 25,
+            "numero": 3,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "reparacion",
+            "idInternacion": null,
+            "paciente": null
         }],
 
         init: function(){
@@ -124,6 +403,7 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             desinfectada: false,
             tipoCama: false,
             nombre: null,
+            estado: null,
             filtrar: function(){
                 var self = this;
 
@@ -134,6 +414,7 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
                             (!self.desinfectada || (self.desinfectada && i.desinfectada)) &&
                             (!self.tipoCama || (self.tipoCama && i.tipoCama == self.tipoCama)) &&
                             (!self.habitacion || (self.habitacion && i.habitacion == self.habitacion)) &&
+                            (!self.estado || (self.estado && i.estado == self.estado)) &&
                             //(!self.nombre || (self.nombre && i.paciente && (i.paciente.nombre.match(self.nombre))))
                             (!self.nombre || (self.nombre && i.paciente && (regex_nombre.test(i.paciente.nombre) || (regex_nombre.test(i.paciente.apellido)) )))
                  });
@@ -147,7 +428,15 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
                 self.desinfectada = false;
                 self.tipoCama = false;
                 self.nombre = null;
+                self.estado = null;
             }
+        },
+
+        buscarPaciente: function(){
+            Plex.openView('pacientes/buscar.html').then(function() {
+
+
+            });
         },
 
         aReparar: function() {
@@ -165,7 +454,7 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
 
     });
 
-    $scope.$watch('filter.nombre + filter.oxigeno + filter.desinfectada + filter.tipoCama + filter.habitacion', function(current, old){
+    $scope.$watch('filter.nombre + filter.oxigeno + filter.desinfectada + filter.tipoCama + filter.habitacion + filter.estado', function(current, old){
         if (current != old){
             $scope.filter.filtrar();
         }
