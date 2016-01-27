@@ -1,6 +1,6 @@
 'use strict';
 
-appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex) {
+angular.module('appModule').controller('CamasController', ['$scope', 'Plex', function($scope, Plex) {
 
     angular.extend($scope, {
         miFormulario: null,
@@ -175,7 +175,7 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
 }]);
 
 
-appModule.filter('unique', function() {
+angular.module('appModule').filter('unique', function() {
     return function(collection, keyname) {
         var output = [],
             keys = [];
