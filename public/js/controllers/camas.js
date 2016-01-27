@@ -3,27 +3,12 @@
 appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex) {
 
     angular.extend($scope, {
-
-
         camas: [{
-            "habitacion": 3,
-            "numero": 1,
-            "tipoCama": "cama",
-            "oxigeno": false,
-            "desinfectada": true,
-            "estado": "ocupada",
-            "idInternacion": null,
-            "paciente": {
-                id: 456,
-                apellido: "Urbano",
-                nombre: "Manuel",
-                documento: "31965283",
-                fechaNacimiento: Date,
-                sexo: 'Masculino'
-            }
-        },
-        {
-            "habitacion": 5,
+            "habitacion": 403,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
             "numero": 1,
             "tipoCama": "cama",
             "oxigeno": false,
@@ -33,7 +18,25 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             "paciente": null
         },
         {
-            "habitacion": 6,
+            "habitacion": 405,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
+            "numero": 1,
+            "tipoCama": "cama",
+            "oxigeno": true,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 406,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
             "numero": 1,
             "tipoCama": "cama",
             "oxigeno": false,
@@ -43,7 +46,11 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             "paciente": null
         },
         {
-            "habitacion": 6,
+            "habitacion": 406,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
             "numero": 2,
             "tipoCama": "cama",
             "oxigeno": false,
@@ -53,7 +60,11 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             "paciente": null
         },
         {
-            "habitacion": 6,
+            "habitacion": 406,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
             "numero": 3,
             "tipoCama": "cama",
             "oxigeno": false,
@@ -63,7 +74,11 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             "paciente": null
         },
         {
-            "habitacion": 7,
+            "habitacion": 407,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
             "numero": 1,
             "tipoCama": "cama",
             "oxigeno": false,
@@ -73,7 +88,11 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             "paciente": null
         },
         {
-            "habitacion": 8,
+            "habitacion": 408,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
             "numero": 1,
             "tipoCama": "cama",
             "oxigeno": false,
@@ -83,7 +102,11 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             "paciente": null
         },
         {
-            "habitacion": 8,
+            "habitacion": 408,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
             "numero": 2,
             "tipoCama": "cama",
             "oxigeno": false,
@@ -93,7 +116,11 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             "paciente": null
         },
         {
-            "habitacion": 9,
+            "habitacion": 409,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
             "numero": 1,
             "tipoCama": "cama",
             "oxigeno": false,
@@ -103,7 +130,11 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             "paciente": null
         },
         {
-            "habitacion": 8,
+            "habitacion": 409,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
             "numero": 2,
             "tipoCama": "cama",
             "oxigeno": false,
@@ -113,7 +144,11 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             "paciente": null
         },
         {
-            "habitacion": 8,
+            "habitacion": 409,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
             "numero": 3,
             "tipoCama": "cama",
             "oxigeno": false,
@@ -123,7 +158,11 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             "paciente": null
         },
         {
-            "habitacion": 10,
+            "habitacion": 410,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
             "numero": 1,
             "tipoCama": "cama",
             "oxigeno": false,
@@ -133,7 +172,11 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             "paciente": null
         },
         {
-            "habitacion": 10,
+            "habitacion": 410,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
             "numero": 2,
             "tipoCama": "cama",
             "oxigeno": false,
@@ -143,7 +186,11 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             "paciente": null
         },
         {
-            "habitacion": 11,
+            "habitacion": 411,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
             "numero": 1,
             "tipoCama": "cama",
             "oxigeno": false,
@@ -153,7 +200,11 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             "paciente": null
         },
         {
-            "habitacion": 11,
+            "habitacion": 411,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
             "numero": 2,
             "tipoCama": "cama",
             "oxigeno": false,
@@ -163,7 +214,11 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             "paciente": null
         },
         {
-            "habitacion": 13,
+            "habitacion": 413,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
             "numero": 1,
             "tipoCama": "cama",
             "oxigeno": false,
@@ -173,27 +228,11 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             "paciente": null
         },
         {
-            "habitacion": 13,
-            "numero": 1,
-            "tipoCama": "cama",
-            "oxigeno": false,
-            "desinfectada": true,
-            "estado": "desocupada",
-            "idInternacion": null,
-            "paciente": null
-        },
-        {
-            "habitacion": 15,
-            "numero": 1,
-            "tipoCama": "cama",
-            "oxigeno": false,
-            "desinfectada": true,
-            "estado": "desocupada",
-            "idInternacion": null,
-            "paciente": null
-        },
-        {
-            "habitacion": 15,
+            "habitacion": 413,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
             "numero": 2,
             "tipoCama": "cama",
             "oxigeno": false,
@@ -203,7 +242,39 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             "paciente": null
         },
         {
-            "habitacion": 15,
+            "habitacion": 415,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
+            "numero": 1,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 415,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
+            "numero": 2,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 415,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
             "numero": 3,
             "tipoCama": "cama",
             "oxigeno": false,
@@ -213,7 +284,11 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             "paciente": null
         },
         {
-            "habitacion": 16,
+            "habitacion": 416,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
             "numero": 1,
             "tipoCama": "cama",
             "oxigeno": true,
@@ -223,7 +298,11 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             "paciente": null
         },
         {
-            "habitacion": 16,
+            "habitacion": 416,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
             "numero": 2,
             "tipoCama": "cama",
             "oxigeno": true,
@@ -233,7 +312,11 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             "paciente": null
         },
         {
-            "habitacion": 17,
+            "habitacion": 417,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
             "numero": 1,
             "tipoCama": "cama",
             "oxigeno": false,
@@ -243,37 +326,11 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             "paciente": null
         },
         {
-            "habitacion": 18,
-            "numero": 1,
-            "tipoCama": "cama",
-            "oxigeno": true,
-            "desinfectada": true,
-            "estado": "desocupada",
-            "idInternacion": null,
-            "paciente": null
-        },
-        {
-            "habitacion": 18,
-            "numero": 2,
-            "tipoCama": "cama",
-            "oxigeno": true,
-            "desinfectada": true,
-            "estado": "desocupada",
-            "idInternacion": null,
-            "paciente": null
-        },
-        {
-            "habitacion": 19,
-            "numero": 1,
-            "tipoCama": "cama",
-            "oxigeno": true,
-            "desinfectada": true,
-            "estado": "desocupada",
-            "idInternacion": null,
-            "paciente": null
-        },
-        {
-            "habitacion": 19,
+            "habitacion": 417,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
             "numero": 2,
             "tipoCama": "cama",
             "oxigeno": false,
@@ -283,27 +340,11 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             "paciente": null
         },
         {
-            "habitacion": 20,
-            "numero": 1,
-            "tipoCama": "cama",
-            "oxigeno": false,
-            "desinfectada": true,
-            "estado": "desocupada",
-            "idInternacion": null,
-            "paciente": null
-        },
-        {
-            "habitacion": 20,
-            "numero": 2,
-            "tipoCama": "cama",
-            "oxigeno": false,
-            "desinfectada": true,
-            "estado": "desocupada",
-            "idInternacion": null,
-            "paciente": null
-        },
-        {
-            "habitacion": 20,
+            "habitacion": 417,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
             "numero": 3,
             "tipoCama": "cama",
             "oxigeno": false,
@@ -313,17 +354,11 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             "paciente": null
         },
         {
-            "habitacion": 21,
-            "numero": 1,
-            "tipoCama": "cama",
-            "oxigeno": false,
-            "desinfectada": true,
-            "estado": "desocupada",
-            "idInternacion": null,
-            "paciente": null
-        },
-        {
-            "habitacion": 22,
+            "habitacion": 418,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
             "numero": 1,
             "tipoCama": "cama",
             "oxigeno": true,
@@ -333,17 +368,39 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             "paciente": null
         },
         {
-            "habitacion": 23,
-            "numero": 1,
+            "habitacion": 418,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
+            "numero": 2,
             "tipoCama": "cama",
-            "oxigeno": false,
+            "oxigeno": true,
             "desinfectada": true,
             "estado": "desocupada",
             "idInternacion": null,
             "paciente": null
         },
         {
-            "habitacion": 23,
+            "habitacion": 419,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
+            "numero": 1,
+            "tipoCama": "cama",
+            "oxigeno": true,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 419,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
             "numero": 2,
             "tipoCama": "cama",
             "oxigeno": false,
@@ -353,7 +410,39 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             "paciente": null
         },
         {
-            "habitacion": 23,
+            "habitacion": 420,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
+            "numero": 1,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 420,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
+            "numero": 2,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 420,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
             "numero": 3,
             "tipoCama": "cama",
             "oxigeno": false,
@@ -363,7 +452,81 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             "paciente": null
         },
         {
-            "habitacion": 25,
+            "habitacion": 421,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
+            "numero": 1,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 421,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
+            "numero": 2,
+            "tipoCama": "cama",
+            "oxigeno": true,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 423,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
+            "numero": 1,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 423,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
+            "numero": 2,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 423,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
+            "numero": 3,
+            "tipoCama": "cama",
+            "oxigeno": false,
+            "desinfectada": true,
+            "estado": "desocupada",
+            "idInternacion": null,
+            "paciente": null
+        },
+        {
+            "habitacion": 425,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
             "numero": 1,
             "tipoCama": "cama",
             "oxigeno": false,
@@ -373,7 +536,11 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             "paciente": null
         },
         {
-            "habitacion": 25,
+            "habitacion": 425,
+            "servicio": {
+                "id": 2,
+                "nombre": "quirurgica"
+            },
             "numero": 2,
             "tipoCama": "cama",
             "oxigeno": false,
@@ -383,7 +550,11 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
             "paciente": null
         },
         {
-            "habitacion": 25,
+            "habitacion": 425,
+            "servicio": {
+                "id": 2,
+                "nombre": "reparacion"
+            },
             "numero": 3,
             "tipoCama": "cama",
             "oxigeno": false,
@@ -395,6 +566,9 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
 
         init: function(){
             $scope.filter.camas = $scope.camas;
+            // Server.get('http://localhost:3001/camas/').then(function(data) {
+            //     $scope.filter.camas = data;
+            // });
         },
         filter:{
             camas: null,
@@ -433,8 +607,8 @@ appModule.controller('CamasController', ['$scope', 'Plex', function($scope, Plex
         },
 
         buscarPaciente: function(){
-            Plex.openView('pacientes/buscar.html').then(function() {
-
+            Plex.openView('pacientes/buscar').then(function() {
+                alert("yes");
 
             });
         },
