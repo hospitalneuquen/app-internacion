@@ -1,6 +1,6 @@
 'use strict';
 
-appModule.controller('PruebaController', ['$scope', 'Plex', 'Server', '$timeout', function($scope, Plex, Server, $timeout) {
+angular.module('appModule').controller('PruebaController', ['$scope', 'Plex', 'Server', '$timeout', function($scope, Plex, Server, $timeout) {
     // Comentario de prueba 6
     angular.extend($scope, {
         miFormulario: null,
@@ -19,7 +19,7 @@ appModule.controller('PruebaController', ['$scope', 'Plex', 'Server', '$timeout'
                     if (!self.query)
                         return;
 
-                    var url = (isNaN(self.query) ? 'apellido' : 'documento') + "=" + self.query;
+                    var url = (isNaN(self.query) ? 'fulltext' : 'documento') + "=" + self.query;
                     Server.get('http://localhost:3001/persona?' + encodeURI(url)).then(function(data) {
                         self.data = data;
                     });

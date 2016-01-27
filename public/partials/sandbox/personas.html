@@ -1,9 +1,3 @@
-<!-- <h1>Hello World!</h1>
-<pre>{{ miFormulario.$valid }}</pre>
-<ng-form name="miFormulario">
-    <input type=text ng-model="nombre" plex />
-    <input type=text ng-model="fecha" ng-required="nombre" plex="date" />
-</ng-form> -->
 <input type=text label="Buscar personas por documento o fulltext" ng-model="personas.query" plex>
 <table ng-if="personas.data && personas.data.length > 0" class=table>
     <thead>
@@ -15,7 +9,10 @@
                 Nombre
             </th>
             <th>
-                Fecha de nacimiento
+                Documento
+            </th>
+            <th>
+                Edad
             </th>
         </tr>
     </thead>
@@ -25,10 +22,13 @@
                 {{item.id}}
             </td>
             <td>
-                {{item.nombre + ' ' + item.apellido}}
+                {{item | persona:"an"}}
             </td>
             <td>
-                {{item.fechaNacimiento | date}}
+                {{item | persona:"d"}}
+            </td>
+            <td>
+                {{item | persona:"e"}}
             </td>
         </tr>
     </tbody>

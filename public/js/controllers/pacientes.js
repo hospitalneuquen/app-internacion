@@ -1,6 +1,6 @@
 'use strict';
 
-appModule.controller('PacientesController', ['$scope', 'Plex', function($scope, Plex) {
+angular.module('appModule').controller('PacientesController', ['$scope', 'Plex', function($scope, Plex) {
     angular.extend($scope, {
         evolucionar: function() {
             Plex.openView('pacientes/evolucionar').then(function() {
