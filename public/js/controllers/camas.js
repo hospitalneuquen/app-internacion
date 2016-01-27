@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('appModule').controller('CamasController', ['$scope', 'Plex', function($scope, Plex) {
+    var esteEsUnCambio = true;
 
     angular.extend($scope, {
         camas: [{
