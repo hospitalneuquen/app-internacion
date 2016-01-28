@@ -13,8 +13,6 @@ app.set('view engine', 'jade');
 // Routes
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/lib', express.static(path.join(__dirname, '../Lib')));
-app.use('/lib/css/fonts', express.static(path.join(__dirname, '../Lib/bower_components/font-awesome/fonts')));
-app.use('/lib/css/fonts', express.static(path.join(__dirname, '../Lib/css/src/bootswatch/cosmo/fonts')));
 app.get('*', function(req, res, next) {
     res.sendFile(path.join(__dirname, '', 'public/app.html'));
 });

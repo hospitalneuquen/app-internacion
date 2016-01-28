@@ -7,7 +7,7 @@
  * @description
  * Servicio que engloba constantes y métodos compartidos en toda la aplicación
  **/
-angular.module('appModule').factory('Shared', ["Global", "Server", function (Global, Server) {
+angular.module('app').factory('Shared', ["Global", "Server", function (Global, Server) {
     var self = {
         // profile: null,
         // init: function () {

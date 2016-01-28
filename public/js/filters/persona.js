@@ -37,7 +37,7 @@
       </file>
     </example>
  **/
-angular.module('appModule').filter('persona', ['$filter', function ($filter) {
+angular.module('app').filter('persona', ['$filter', function ($filter) {
     return function (persona, formato, opcional) {
         // Formato default: an
         // Ejemplo de formato: "dan" --> Documento + Apellido + Nombre

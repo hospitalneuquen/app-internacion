@@ -8,7 +8,7 @@
  * @description
  * Módulo principal de la aplicación
  **/
-angular.module('appModule')
+angular.module('app')
     .config(["PlexResolverProvider", function (PlexResolverProvider) {
         PlexResolverProvider
              .when('/prueba', { templateUrl: 'partials/prueba.html', controller: 'PruebaController' })
