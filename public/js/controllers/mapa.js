@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('appModule').controller('MapaController', ['$scope', 'Plex', 'Shared', function($scope, Plex, Shared) {
+angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', function($scope, Plex, Shared) {
 
     angular.extend($scope, {
         habitaciones: [],
@@ -87,7 +87,7 @@ angular.module('appModule').controller('MapaController', ['$scope', 'Plex', 'Sha
 }]);
 
 
-angular.module('appModule').filter('unique', function() {
+angular.module('app').filter('unique', function() {
     return function(collection, keyname) {
         var output = [],
             keys = [];
