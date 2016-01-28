@@ -49,7 +49,7 @@ angular.module('appModule').controller('PruebaController', ['$scope', 'Plex', 'S
             title: "Camas",
             icon: "fa fa-bed",
             handler: function() {
-                Plex.openView('camas').then(function() {})
+                Plex.openView('mapa').then(function() {})
             }
         }]
     });

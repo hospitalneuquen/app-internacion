@@ -22,9 +22,9 @@
                         </a>
                     </li>
 
-                    <li ng-repeat="cama in camas | unique: 'habitacion' ">
-                        <a href="#" class="btn btn-habitacion" name="habitacion-{{cama.habitacion}}" id="habitacion-{{cama.habitacion}}" ng-model="filter.habitacion" ng-click="filter.habitacion = cama.habitacion" ng-class="{'active': filter.habitacion == cama.habitacion }">
-                            {{cama.habitacion}}
+                    <li ng-repeat="habitacion in habitaciones">
+                        <a href="#" class="btn btn-habitacion" name="habitacion-{{habitacion}}" id="habitacion-{{habitacion}}" ng-model="filter.habitacion" ng-click="filter.habitacion = habitacion" ng-class="{'active': filter.habitacion == cama.habitacion }">
+                            {{habitacion}}
                         </a>
                     </li>
                 </ul>
@@ -164,13 +164,6 @@
                                 <span class="fa-stack fa-lg text-primary tips" title="Cama con oxígeno" ng-if="cama.oxigeno">
                                     <i class="fa fa-circle fa-stack-2x"></i>
                                     <span class="fa-stack-1x fa-stack-text fa-inverse">O
-                                        <sup>2</sup>
-                                    </span>
-                                </span>
-
-                                <span class="fa-stack fa-lg  tips" title="Cama sin oxígeno" ng-if="!cama.oxigeno">
-                                    <i class="fa fa-ban fa-stack-2x text-danger"></i>
-                                    <span class="fa-stack-1x fa-stack-text ">O
                                         <sup>2</sup>
                                     </span>
                                 </span>
