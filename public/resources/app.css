@@ -659,7 +659,7 @@ pre.prettyprint {
     top: 0;
     left: 0;
     width: 100%;
-    height: 60%;
+    height: 65%;
     background: #ffffff;
     box-shadow: 4px 4px 20px transparent;
     z-index: 2;
@@ -830,7 +830,7 @@ fieldset[disabled] .btn-filtros.active {
 .lista-habitaciones{}
 .lista-habitaciones li{ padding-bottom: 10px;}
 .lista-habitaciones li:first-child { padding: 0 0 10px 5px;}
-.lista-habitaciones li a{ min-width: 55px;}
+.lista-habitaciones li a{ min-width: 65px;}
 
 /*
 .lista-habitaciones li{padding: 6px 9px;}
