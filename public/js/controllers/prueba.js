@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('appModule').controller('PruebaController', ['$scope', 'Plex', 'Server', '$timeout', function($scope, Plex, Server, $timeout) {
+angular.module('app').controller('PruebaController', ['$scope', 'Plex', 'Server', '$timeout', function($scope, Plex, Server, $timeout) {
     // Comentario de prueba 6
     angular.extend($scope, {
         miFormulario: null,

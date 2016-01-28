@@ -8,7 +8,7 @@
  * @description
  * Servicio para consultar y modificar Personas
  **/
-angular.module('appModule').factory('Personas', ["Server", "Plex", "Global", function(Server, Plex, Global) {
+angular.module('app').factory('Personas', ["Server", "Plex", "Global", function(Server, Plex, Global) {
     var self = {
         /**
          * @ngdoc method

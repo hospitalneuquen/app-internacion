@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('appModule').controller('ValoracionEnfermeriaController', ['$scope', function($scope) {
+angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', function($scope) {
     angular.extend($scope, {
         miFormulario: null,
         nombre: "Ana",

@@ -1,8 +1,6 @@
 'use strict';
 
-angular.module('appModule').controller('CamasController', ['$scope', 'Plex', function($scope, Plex) {
-    var esteEsUnCambio = true;
-
+angular.module('app').controller('CamasController', ['$scope', 'Plex', function($scope, Plex) {
     angular.extend($scope, {
         camas: [{
             "habitacion": 403,
@@ -639,7 +637,7 @@ angular.module('appModule').controller('CamasController', ['$scope', 'Plex', fun
 }]);
 
 
-angular.module('appModule').filter('unique', function() {
+angular.module('app').filter('unique', function() {
     return function(collection, keyname) {
         var output = [],
             keys = [];
