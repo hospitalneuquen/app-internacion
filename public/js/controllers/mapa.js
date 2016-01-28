@@ -33,7 +33,6 @@ angular.module('appModule').controller('MapaController', ['$scope', 'Plex', 'Sha
             nombre: null,
             estado: null,
             filtrar: function(){
-                console.log($scope.habitaciones);
                 var self = this;
                 var regex_nombre = new RegExp(".*" + self.nombre + ".*", "ig");
 

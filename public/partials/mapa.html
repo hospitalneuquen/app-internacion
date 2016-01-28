@@ -23,7 +23,7 @@
                     </li>
 
                     <li ng-repeat="habitacion in habitaciones">
-                        <a href="#" class="btn btn-habitacion" name="habitacion-{{habitacion}}" id="habitacion-{{habitacion}}" ng-model="filter.habitacion" ng-click="filter.habitacion = habitacion" ng-class="{'active': filter.habitacion == cama.habitacion }">
+                        <a href="#" class="btn btn-habitacion" name="habitacion-{{habitacion}}" id="habitacion-{{habitacion}}" ng-model="filter.habitacion" ng-click="filter.habitacion = habitacion" ng-class="{'active': filter.habitacion == habitacion }">
                             {{habitacion}}
                         </a>
                     </li>
