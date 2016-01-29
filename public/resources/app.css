@@ -525,13 +525,18 @@ pre.prettyprint {
     padding-left: 0;
     padding-right: 0;
 }
-.card .footer .col-left::after {
+.card .back .footer .col-left::after {
     float: right;
     content: " ";
     border-right: 1px dashed #ccc;
-    padding: 10px 0;
-    min-height: 40px;
+    /*padding: 10px 0;
+    min-height: 40px;*/
 }
+
+.card .back  .content.reparacion  .footer .col-left::after {
+    border-right: 0 none;
+}
+
 .numero-habitacion {
     background: #f4f4f4;
     color: #000;

@@ -51,9 +51,9 @@
                         <label for="tipo_cama_todas" class="radio-label">Todas</label>
                     </li>
 
-                    <li ng-repeat="cama in camas | unique: 'tipoCama' ">
-                        <input type="radio" name="tipo_cama_{{cama.tipoCama}}" id="tipo_cama_{{cama.tipoCama}}" ng-model="filter.tipoCama" ng-value="'{{cama.tipoCama}}'"/>
-                        <label for="tipo_cama_{{cama.tipoCama}}" class="radio-label">{{cama.tipoCama}}</label>
+                    <li ng-repeat="tipoCama in tipoCamas">
+                        <input type="radio" name="tipo_cama_{{tipoCama}}" id="tipo_cama_{{tipoCama}}" ng-model="filter.tipoCama" ng-value="'{{tipoCama}}'"/>
+                        <label for="tipo_cama_{{tipoCama}}" class="radio-label">{{tipoCama}}</label>
                     </li>
                 </ul>
             </div>
@@ -105,12 +105,12 @@
 
 <div class="row">
     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" ng-repeat="cama in filter.camas">
-        <div class="card-container manual-flip animate-repeat" ng-class="{'hover': cama.$rotar }">
+        <div class="card-container manual-flip animate-repeat" ng-class="{'hover': cama.$rotar }" ng-model="cama_actual">
             <div class="card">
                 <div class="front">
 
                     <div class="header">
-                        <i>{{cama.tipoCama}}</i>
+                        <i>{{cama.tipoCama}}</i> / <i>{{cama.estado}}</i>
                         <div class="numero-habitacion">
                             {{cama.habitacion}}
                             /
@@ -192,11 +192,11 @@
                                     <i class="fa fa-arrow-circle-up"></i>
                                 </button>
 
-                                <button type="button" class="btn btn-default btn-sm tips" title="Ver actualizaciones" ng-init="cama.$rotar = false" ng-click="cama.$rotar = !cama.$rotar" ng-if="cama.paciente.id">
+                                <button type="button" class="btn btn-default btn-sm tips" title="Ver actualizaciones" ng-init="cama.$rotar = false; cama.$action = 'evolucion'" ng-click="cama.$rotar = !cama.$rotar" ng-if="cama.paciente.id">
                                     <i class="fa fa-mail-forward"></i>
                                 </button>
 
-                                <button type="button" class="btn btn-default btn-sm tips" title="Enviar a reparación" ng-if="!cama.paciente.id && !cama.estado == 'reparacion'">
+                                <button type="button" class="btn btn-default btn-sm tips" title="Enviar a reparación / Confirmar reparación" ng-init="cama.$rotar = false; cama.$action = 'reparacion'" ng-click="cama.$rotar = !cama.$rotar" ng-if="!cama.paciente.id && (cama.estado == 'desocupada' || cama.estado == 'reparacion')">
                                     <i class="fa fa-wrench"></i>
                                 </button>
 
@@ -213,8 +213,8 @@
                             {{cama.numero}}
                         </div>
                     </div>
-                    <div class="content">
-                        <div class="main ">
+                    <div class="content" ng-if="cama.$action && cama.$action == 'evolucion'">
+                        <div class="main " >
 
                             <h5>
                                 {{cama.diagnostico}}
@@ -236,52 +236,98 @@
                                         <i class="fa fa-circle fa-stack-2x"></i>
                                         <i class="fa fa-bug fa-stack-1x fa-inverse"></i>
                                     </span>
+                                </span>
 
-                                    <span class="fa-stack fa-lg  tips" title="Cama sin oxígeno" ng-if="!cama.oxigeno">
-                                        <span class="fa-stack fa-lg text-primary tips" title="Cama con oxígeno" ng-if="cama.oxigeno">
-                                            <i class="fa fa-circle fa-stack-2x"></i>
-                                            <span class="fa-stack-1x fa-stack-text fa-inverse">O
-                                                <sup>2</sup>
-                                            </span>
+                                <span class="fa-stack fa-lg  tips" title="Cama sin oxígeno" ng-if="!cama.oxigeno">
+                                    <span class="fa-stack fa-lg text-primary tips" title="Cama con oxígeno" ng-if="cama.oxigeno">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <span class="fa-stack-1x fa-stack-text fa-inverse">O
+                                            <sup>2</sup>
                                         </span>
-
-                                    </div>
-
-                                    <div class="col-xs-6 text-right col-right">
-
-                                        <div class="btn-group" role="group">
-                                            <button type="button" class="btn btn-default btn-sm dropdown-toggle tips" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Agregar prestaciones">
-
-                                                <i class="fa fa-plus"></i>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a href="#" ng-click="cargarPrestaciones('Radiologia')">Radiología</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" ng-click="cargarPrestaciones('Kinesiologia')">Kinesiología</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#" ng-click="cargarPrestaciones('Laboratorio')">Laboratorio</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-
-                                        <button type="button" class="btn btn-default btn-sm tips" title="Evolucionar" ng-click="evolucionar()">
-                                            <i class="fa fa-arrow-circle-up"></i>
-                                        </button>
-
-                                        <button class="btn btn-default btn-sm tips" title="Ver cama" ng-click="cama.$rotar = !cama.$rotar">
-                                            <i class="fa fa-reply"></i>
-                                        </button>
-
-                                    </div>
-                                </div>
+                                    </span>
+                                </span>
                             </div>
+
+                            <div class="col-xs-6 text-right col-right">
+
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle tips" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Agregar prestaciones">
+
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="#" ng-click="cargarPrestaciones('Radiologia')">Radiología</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" ng-click="cargarPrestaciones('Kinesiologia')">Kinesiología</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" ng-click="cargarPrestaciones('Laboratorio')">Laboratorio</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <button type="button" class="btn btn-default btn-sm tips" title="Evolucionar" ng-click="evolucionar()">
+                                    <i class="fa fa-arrow-circle-up"></i>
+                                </button>
+
+                                <button class="btn btn-default btn-sm tips" title="Ver cama" ng-click="cama.$rotar = !cama.$rotar">
+                                    <i class="fa fa-reply"></i>
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Enviar a reparar una cama -->
+                    <div class="content" ng-if="cama.$action && cama.$action == 'reparacion' && cama.estado == 'desocupada'" ng-class="{'reparacion': cama.$action == 'reparacion' }">
+                        <div class="main" >
+                            <textarea rows="8" class="form-control" placeholder="¿Motivo de reparación?"  plex required></textarea>
+                        </div>
+
+                        <div class="footer">
+                            <form>
+                                <div class="col-xs-6 text-left  col-left">
+                                    <button type="button" class="btn btn-danger btn-sm form-control" ng-click="cama.$rotar = !cama.$rotar">
+                                        <i class="fa fa-close"></i>
+                                    </button>
+                                </div>
+
+                                <div class="col-xs-6 text-right col-right">
+                                    <button type="submit" class="btn btn-success btn-sm form-control" ng-click="aReparar(cama._id)">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+                                </div>
+                            </form>
+
                         </div>
 
                     </div>
+                    <!-- Confirmar reparacion completa de una cama -->
+                    <div class="content" ng-if="cama.$action && cama.$action == 'reparacion' && cama.estado == 'reparacion'" ng-class="{'reparacion': cama.$action == 'reparacion' }">
+                        <div class="main" >
+                            ¿La cama ha sido reparada?
+                        </div>
 
+                        <div class="footer">
+                            <form>
+                                <div class="col-xs-6 text-left  col-left">
+                                    <button type="button" class="btn btn-danger btn-sm form-control" ng-click="cama.$rotar = !cama.$rotar">
+                                        <i class="fa fa-close"></i>
+                                    </button>
+                                </div>
+
+                                <div class="col-xs-6 text-right col-right">
+                                    <button type="submit" class="btn btn-success btn-sm form-control" ng-click="camaReparada(cama._id)">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
                 </div>
 
             </div>
@@ -297,3 +343,5 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>

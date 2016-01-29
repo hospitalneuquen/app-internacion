@@ -1,9 +1,10 @@
 'use strict';
 
-angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', function($scope, Plex, Shared) {
+angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 'Server', function($scope, Plex, Shared, Server) {
 
     angular.extend($scope, {
         habitaciones: [],
+        tipoCamas: [],
         camas: null,
         init: function(){
             // obtenemos las camas para armar el mapa
@@ -16,6 +17,10 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                     if ($.inArray(cama.habitacion, $scope.habitaciones) == -1){
                         $scope.habitaciones.push(cama.habitacion);
                     }
+
+                    if ($.inArray(cama.tipoCama, $scope.tipoCamas) == -1){
+                        $scope.tipoCamas.push(cama.tipoCama);
+                    }
                 });
 
                 // ordenamos las habitaciones
@@ -23,6 +28,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                     $scope.habitaciones.sort();
                 }
             });
+
         },
         filter:{
             camas: null,
@@ -62,11 +68,45 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             });
         },
 
-        aReparar: function() {
-            Plex.openView('camas/reparar').then(function() {
+        aReparar: function(idCama) {
+            var dto = {
+                estado: 'reparacion'
+            }
+            //Server.post("http://localhost:3001/cama/cambiarEstado/56aa200fc070385d4770b444", dto).then(function(){
+            // el parametro updateUI en false, es para evitar la pantalla de error
+            Server.post("http://localhost:3001/cama/cambiarEstado/" + idCama, dto, {updateUI: false}).then(function(data){
+                var length = $scope.camas.length;
+                // TODO: REVISAR como volver a rotar la tarjeta antes de asignar la cama modificada
+                for (var i = 0; i < length; i++){
+                    if ($scope.filter.camas[i].id == idCama){
+                        setTimeout(function(){
+                            $scope.filter.camas[i].$rotar = false;
+                        }, 10000);
+                        $scope.filter.camas[i] = data;
+                        break;
+                    }
+                }
+            }, function(error){
+                Plex.showWarning(error.data);
+            });
+        },
+        camaReparada: function(idCama){
+            var dto = {
+                estado: 'desocupada'
+            }
 
-            })
-
+            // el parametro updateUI en false, es para evitar la pantalla de error
+            Server.post("http://localhost:3001/cama/cambiarEstado/" + idCama, dto, {updateUI: false}).then(function(data){
+                var length = $scope.camas.length;
+                for (var i = 0; i < length; i++){
+                    if ($scope.filter.camas[i].id == idCama){
+                        $scope.filter.camas[i] = data;
+                        break;
+                    }
+                }
+            }, function(error){
+                Plex.showWarning(error.data);
+            });
         },
 
         closeView: function() {
@@ -85,21 +125,21 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
 
     $scope.init();
 }]);
-
-
-angular.module('app').filter('unique', function() {
-    return function(collection, keyname) {
-        var output = [],
-            keys = [];
-
-        angular.forEach(collection, function(item) {
-            var key = item[keyname];
-            if (keys.indexOf(key) === -1) {
-                keys.push(key);
-                output.push(item);
-            }
-        });
-
-        return output;
-    };
-});
+//
+//
+// angular.module('app').filter('unique', function() {
+//     return function(collection, keyname) {
+//         var output = [],
+//             keys = [];
+//
+//         angular.forEach(collection, function(item) {
+//             var key = item[keyname];
+//             if (keys.indexOf(key) === -1) {
+//                 keys.push(key);
+//                 output.push(item);
+//             }
+//         });
+//
+//         return output;
+//     };
+// });
