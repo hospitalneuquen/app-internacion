@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('InicioController', ['$scope', 'Plex', 'Server', function($scope, Plex, Server) {
+angular.module('app').controller('InicioController', ['$scope', 'Plex', 'Server', function($scope, Plex, Server) {    
     // Inicializa vista
     Plex.initView({
         title: "Punto de inicio",
