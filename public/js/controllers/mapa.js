@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 'Server', function($scope, Plex, Shared, Server) {
+angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 'Server', '$timeout', function($scope, Plex, Shared, Server, $timeout) {
 
     angular.extend($scope, {
         habitaciones: [],
@@ -21,6 +21,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                     if ($.inArray(cama.tipoCama, $scope.tipoCamas) == -1){
                         $scope.tipoCamas.push(cama.tipoCama);
                     }
+
                 });
 
                 // ordenamos las habitaciones
@@ -68,39 +69,28 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             });
         },
 
-        aReparar: function(idCama) {
+        cambiarEstado: function(cama, estado){
             var dto = {
-                estado: 'reparacion'
-            }
-            //Server.post("http://localhost:3001/cama/cambiarEstado/56aa200fc070385d4770b444", dto).then(function(){
-            // el parametro updateUI en false, es para evitar la pantalla de error
-            Server.post("http://localhost:3001/cama/cambiarEstado/" + idCama, dto, {updateUI: false}).then(function(data){
-                var length = $scope.camas.length;
-                // TODO: REVISAR como volver a rotar la tarjeta antes de asignar la cama modificada
-                for (var i = 0; i < length; i++){
-                    if ($scope.filter.camas[i].id == idCama){
-                        setTimeout(function(){
-                            $scope.filter.camas[i].$rotar = false;
-                        }, 10000);
-                        $scope.filter.camas[i] = data;
-                        break;
-                    }
-                }
-            }, function(error){
-                Plex.showWarning(error.data);
-            });
-        },
-        camaReparada: function(idCama){
-            var dto = {
-                estado: 'desocupada'
+                estado: estado,
+                motivo: cama.$motivo
             }
 
+            //Server.post("http://localhost:3001/cama/cambiarEstado/56aa200fc070385d4770b444", dto).then(function(){
             // el parametro updateUI en false, es para evitar la pantalla de error
-            Server.post("http://localhost:3001/cama/cambiarEstado/" + idCama, dto, {updateUI: false}).then(function(data){
+            Server.post("http://localhost:3001/cama/cambiarEstado/" + cama.id, dto, {updateUI: false}).then(function(data){
                 var length = $scope.camas.length;
+
+                // buscamos la cama y actualizamos el valor con los datos
                 for (var i = 0; i < length; i++){
-                    if ($scope.filter.camas[i].id == idCama){
+                    if ($scope.filter.camas[i].id == cama.id){
+                        // cama encontrada, actualizamos datos
                         $scope.filter.camas[i] = data;
+                        $scope.filter.camas[i].$rotar = true;
+                        // agregamos un pequeño timeout para volver a rotar la cama
+                        $timeout(function(){
+                            $scope.filter.camas[i].$rotar = false;
+                        }, 100);
+
                         break;
                     }
                 }
@@ -125,21 +115,3 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
 
     $scope.init();
 }]);
-//
-//
-// angular.module('app').filter('unique', function() {
-//     return function(collection, keyname) {
-//         var output = [],
-//             keys = [];
-//
-//         angular.forEach(collection, function(item) {
-//             var key = item[keyname];
-//             if (keys.indexOf(key) === -1) {
-//                 keys.push(key);
-//                 output.push(item);
-//             }
-//         });
-//
-//         return output;
-//     };
-// });

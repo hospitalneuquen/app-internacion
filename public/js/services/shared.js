@@ -28,7 +28,7 @@ angular.module('app').factory('Shared', ["Global", "Server", function (Global, S
              *   - `Number`: Busca por id del servicio de mapa de camas
              **/
             get: function(query) {
-                
+
                 var query = (typeof query !== "undefined") ? query : '';
                 // TODO : Resolver si query viene limpio, poder resolver segun los permisos
                 // y accesos del usuario logueado, que tipo de servicio hay que consultar
