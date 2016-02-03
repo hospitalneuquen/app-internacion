@@ -1,0 +1,21 @@
+<form>
+    <div class=row>
+        <div class="col-lg-6">
+            <input type=text label="Id de la Internación" ng-model="idInternacion" plex />
+            <input type=text label="Fecha" ng-model="form.fechaHora" plex="date" />
+            <input type=text label="Tipo" ng-model="form.tipo" plex />
+            <input type=text label="Motivo" ng-model="form.motivo" plex />
+        </div>
+        <div class="col-lg-6">
+            <input type=text label="Paciente" ng-model="form.paciente" plex />
+            <input type=text label="Hora" ng-model="form.fechaHora" plex="time" />
+            <input type=text label="Cama" ng-model="form.cama" plex />
+        </div>
+    </div>
+</form>
+
+<a class="btn btn-success" ng-click="crearInternacion()"><i class="fa fa-plus"></i><span>Crear internación</span></a>
+<a class="btn btn-warning" ng-click="modificarInternacion()"><i class="fa fa-edit"></i><span>Modificar internación</span></a>
+<br />
+<h3>Log de la última operación</h3>
+<pre>{{log | json}}</pre>
