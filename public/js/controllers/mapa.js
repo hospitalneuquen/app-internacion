@@ -1,9 +1,10 @@
 'use strict';
 
-angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', function($scope, Plex, Shared) {
+angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 'Server', '$timeout', function($scope, Plex, Shared, Server, $timeout) {
 
     angular.extend($scope, {
         habitaciones: [],
+        tipoCamas: [],
         camas: null,
         init: function(){
             // obtenemos las camas para armar el mapa
@@ -16,6 +17,11 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                     if ($.inArray(cama.habitacion, $scope.habitaciones) == -1){
                         $scope.habitaciones.push(cama.habitacion);
                     }
+
+                    if ($.inArray(cama.tipoCama, $scope.tipoCamas) == -1){
+                        $scope.tipoCamas.push(cama.tipoCama);
+                    }
+
                 });
 
                 // ordenamos las habitaciones
@@ -23,6 +29,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                     $scope.habitaciones.sort();
                 }
             });
+
         },
         filter:{
             camas: null,
@@ -62,11 +69,34 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             });
         },
 
-        aReparar: function() {
-            Plex.openView('camas/reparar').then(function() {
+        cambiarEstado: function(cama, estado){
+            var dto = {
+                estado: estado,
+                motivo: cama.$motivo
+            }
 
-            })
+            //Server.post("http://localhost:3001/cama/cambiarEstado/56aa200fc070385d4770b444", dto).then(function(){
+            // el parametro updateUI en false, es para evitar la pantalla de error
+            Server.post("http://localhost:3001/cama/cambiarEstado/" + cama.id, dto, {updateUI: false}).then(function(data){
+                var length = $scope.camas.length;
 
+                // buscamos la cama y actualizamos el valor con los datos
+                for (var i = 0; i < length; i++){
+                    if ($scope.filter.camas[i].id == cama.id){
+                        // cama encontrada, actualizamos datos
+                        $scope.filter.camas[i] = data;
+                        $scope.filter.camas[i].$rotar = true;
+                        // agregamos un pequeño timeout para volver a rotar la cama
+                        $timeout(function(){
+                            $scope.filter.camas[i].$rotar = false;
+                        }, 100);
+
+                        break;
+                    }
+                }
+            }, function(error){
+                Plex.showWarning(error.data);
+            });
         },
 
         closeView: function() {
@@ -85,21 +115,3 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
 
     $scope.init();
 }]);
-
-
-angular.module('app').filter('unique', function() {
-    return function(collection, keyname) {
-        var output = [],
-            keys = [];
-
-        angular.forEach(collection, function(item) {
-            var key = item[keyname];
-            if (keys.indexOf(key) === -1) {
-                keys.push(key);
-                output.push(item);
-            }
-        });
-
-        return output;
-    };
-});
