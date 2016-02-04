@@ -1,0 +1,48 @@
+<div class="margin-bottom">
+    <div class="btn-group" ng-model="buscarPor" bs-radio-group>
+        <label class="btn btn-default"><input type="radio" class="btn btn-default" value="texto">
+            Buscar por nombre</label>
+        <label class="btn btn-default"><input type="radio" class="btn btn-default" value="descendientes">
+            Buscar en Argentina (descendientes)</label>
+    </div>
+</div>
+
+<input ng-show="buscarPor == 'texto'" type=text label="Nombre" ng-model="nombre" plex>
+<input type=text label="Filtrados por tipo" hint="ciudad, pais, barrio, provincia" ng-model="tipo" plex>
+<table ng-if="data && data.length > 0" class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Nombre Corto
+            </th>
+            <th>
+                Tipo
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in data">
+            <td>
+                {{item.id}}
+            </td>
+            <td>
+                {{item.nombre}}
+            </td>
+            <td>
+                {{item.nombreCorto}}
+            </td>
+            <td>
+                {{item.tipo}}
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="alert alert-info" ng-if="data && data.length == 0">
+    ¡No se encontró ningún resultado!
+</div>
