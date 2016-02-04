@@ -33,7 +33,7 @@ angular.module('app').factory('Shared', ["Global", "Server", function (Global, S
                 // TODO : Resolver si query viene limpio, poder resolver segun los permisos
                 // y accesos del usuario logueado, que tipo de servicio hay que consultar
                 // para traer las camas, si es 'medica'  o 'quirurgica'
-                return Server.get("http://localhost:3001/mapa/" + query);
+                return Server.get("/api/internacion/mapa/" + query);
             },
         }
     };
