@@ -21,11 +21,11 @@ angular.module('app').factory('Personas', ["Server", "Plex", "Global", function(
          **/
         get: function(query) {
             if (angular.isObject(query)) {
-                return Server.get("http://localhost:3001/persona", {
+                return Server.get("/api/internacion/persona", {
                     params: query
                 });
             } else {
-                return Server.get("http://localhost:3001/persona/" + query);
+                return Server.get("/api/internacion/persona/" + query);
             }
         },
     };
