@@ -126,8 +126,8 @@
                                 <i class="fa fa-female " ng-if="cama.paciente.sexo == 'Femenino'"></i>
                                 <i class="fa fa-user-secret " ng-if="cama.paciente.sexo == 'Indeterminado'"></i>
 
-                                <button type="button" class="btn  tips" title="Agregar paciente en cama" ng-click="buscarPaciente()" ng-if="!cama.paciente.id && cama.estado != 'reparacion'">
-                                    <i class="fa fa-bed agregar"></i>
+                                <button type="button" class="btn  tips" title="Agregar paciente en cama" ng-click="buscarPaciente(cama)" ng-if="!cama.paciente.id && cama.estado != 'reparacion'">
+                                    <i class="fa fa-user-plus agregar"></i>
                                 </button>
                             </div>
 

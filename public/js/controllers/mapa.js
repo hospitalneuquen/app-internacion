@@ -63,21 +63,26 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             }
         },
 
-        buscarPaciente: function(){
-            Plex.openView('pacientes/buscar').then(function() {
-
+        buscarPaciente: function(cama){
+            Plex.openView('pacientes/buscar').then(function(internacion) {
+                // operar con el paciente / internacion devuelto en data
+                if (typeof internacion !== "undefined") {
+                    $scope.cambiarEstado(cama, 'ocupada', internacion.id);
+                }else{
+                    //Plex.showError("Internacion no encontrada");
+                }
             });
         },
-
-        cambiarEstado: function(cama, estado){
+        // cambiamos el estado de una cama
+        cambiarEstado: function(cama, estado, idInternacion){
             var dto = {
                 estado: estado,
-                motivo: cama.$motivo
+                motivo: (cama.$motivo && typeof cama.$motivo != "undefined") ? cama.$motivo : '',
+                idInternacion: (idInternacion && typeof idInternacion != "undefined") ? idInternacion : ''
             }
 
-            //Server.post("http://localhost:3001/cama/cambiarEstado/56aa200fc070385d4770b444", dto).then(function(){
             // el parametro updateUI en false, es para evitar la pantalla de error
-            Server.post("http://localhost:3001/cama/cambiarEstado/" + cama.id, dto, {updateUI: false}).then(function(data){
+            Server.post("/api/internacion/cama/cambiarEstado/" + cama.id, dto, {updateUI: false}).then(function(data){
                 var length = $scope.camas.length;
 
                 // buscamos la cama y actualizamos el valor con los datos
