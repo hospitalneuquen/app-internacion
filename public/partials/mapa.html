@@ -17,13 +17,13 @@
 
                 <ul class="list-unstyled list-inline lista-habitaciones">
                     <li>
-                        <a href="#" class="btn btn-habitacion tips" title="Todas" name="habitacion-all" id="habitacion-all" ng-model="filter.habitacion" ng-click="filter.habitacion = ''" ng-class="{'active': !filter.habitacion || filter.habitacion == '' }">
+                        <a class="btn btn-habitacion tips" title="Todas" name="habitacion-all" id="habitacion-all" ng-model="filter.habitacion" ng-click="filter.habitacion = ''" ng-class="{'active': !filter.habitacion || filter.habitacion == '' }">
                             *
                         </a>
                     </li>
 
                     <li ng-repeat="habitacion in habitaciones">
-                        <a href="#" class="btn btn-habitacion" name="habitacion-{{habitacion}}" id="habitacion-{{habitacion}}" ng-model="filter.habitacion" ng-click="filter.habitacion = habitacion" ng-class="{'active': filter.habitacion == habitacion }">
+                        <a class="btn btn-habitacion" name="habitacion-{{habitacion}}" id="habitacion-{{habitacion}}" ng-model="filter.habitacion" ng-click="filter.habitacion = habitacion" ng-class="{'active': filter.habitacion == habitacion }">
                             {{habitacion}}
                         </a>
                     </li>
@@ -83,7 +83,7 @@
             </div>
         </form>
 
-        <a href="#" class="close-filter" ng-click="$mostrarFiltros = false">
+        <a class="close-filter" ng-click="$mostrarFiltros = false">
             <i class="fa fa-times"></i>
         </a>
     </div>

@@ -1,22 +1,97 @@
 'use strict';
 
-angular.module('app').controller('pacientes/buscar', ['$scope', 'Plex', 'Server', function($scope, Plex, Server) {
+angular.module('app').controller('pacientes/buscar', ['$scope', 'Plex', 'Server','$timeout', 'Personas', function($scope, Plex, Server, $timeout, Personas) {
     angular.extend($scope, {
-        pacientes : undefined,
+        personas: {
+            data: null,
+            query: '',
+            timeoutHandler: null,
+            actualizar: function() {
+                var self = this;
+                if (self.timeoutHandler)
+                    $timeout.cancel(self.timeoutHandler);
+
+                self.timeoutHandler = $timeout(function() {
+                    if (!self.query)
+                        return;
+
+                    var params = {};
+                    if (isNaN(self.query)) {
+                        params.fulltext = self.query;
+                    } else {
+                        params.documento = self.query;
+                    }
+                    Personas.get(params).then(function(data) {
+                        self.data = data;
+                    });
+                }, 250);
+            }
+        },
+
+        pacientes : {
+            internacion : undefined
+        },
+        seleccionarInternacion: function(data){
+            Plex.closeView(data);
+        },
+
+        internacion : {
+            errores : [],
+            tiposInternacion: [
+                { id: 'ambulatorio', nombre: 'Ambulatorio' },
+                { id: 'guardia', nombre: 'Guardia' },
+                { id: 'derivacion', nombre: 'Derivación' },
+            ],
+
+            nombre_paciente: '',
+            paciente: '',
+            fechaHora : '',
+            tipo : '',
+            motivo : '',
+            diagnosticoPresuntivo: '',
+
+            seleccionarPersona: function (data){
+                //$scope.internacion.paciente_seleccionado = data;
+                $scope.internacion.paciente = data.id;
+                $scope.internacion.nombre_paciente = data.apellido + ", " + data.nombre;
+                $scope.internacion.fechaHora = new Date();
+            },
+
+            crear : function(){
+
+                    var dto = {
+                        paciente: $scope.internacion.paciente.toString(),
+                        estado: 'ingresado',
+
+                        fechaHora : $scope.internacion.fechaHora,
+                        tipo : $scope.internacion.tipo.id,
+                        motivo : $scope.internacion.motivo,
+                        diagnosticoPresuntivo: $scope.internacion.diagnosticoPresuntivo
+
+                    }
+                    Server.post('/api/internacion/internacion', dto).then(function( data){
+                        Plex.closeView(data);
+                    }, function(){
+
+                    });
+                
+            }
+        },
 
         init: function () {
             // buscamos los pacientes que estan en el estado 'enIngreso'
             Server.get('/api/internacion/internacion/estado/enIngreso').then(function(data){
-                $scope.pacientes = data;
+                $scope.pacientes.internacion = data;
             });
-        },
-        seleccionarInternacion: function(data){
-            Plex.closeView(data);
         }
-
     });
 
     $scope.init();
+
+    // Inicializa watches
+    $scope.$watch('personas.query', function() {
+        $scope.personas.actualizar();
+    });
 
     Plex.initView({
         title: "Seleccione paciente"
