@@ -864,3 +864,4 @@ a.btn-habitacion.active {
 
 
 .clickable{cursor: pointer;}
+.table-hover > tbody > tr.clickable:hover{background: #dff0d8;}
