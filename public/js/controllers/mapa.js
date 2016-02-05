@@ -64,6 +64,10 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
         },
 
         buscarPaciente: function(cama){
+            if (!cama.desinfectada){
+                Plex.showWarning("La cama está actualmente sin desinfectar, no se puede internar a un paciente en ella.");
+                return false;
+            }
             Plex.openView('pacientes/buscar').then(function(internacion) {
                 // operar con el paciente / internacion devuelto en data
                 if (typeof internacion !== "undefined") {

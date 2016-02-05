@@ -151,15 +151,17 @@
 
                         <div class="footer">
                             <div class="col-xs-6 text-left col-left">
-                                <span class="fa-stack fa-lg text-success tips" title="Cama desinfectada" ng-if="cama.desinfectada">
+                                <!-- <span class="fa-stack fa-lg text-success tips" title="Cama desinfectada" ng-if="cama.desinfectada">
                                     <i class="fa fa-circle fa-stack-2x"></i>
                                     <i class="fa fa-bug fa-stack-1x fa-inverse"></i>
-                                </span>
+                                </span> -->
 
-                                <span class="fa-stack fa-lg text-default tips" title="Cama sin desinfectar" ng-if="!cama.desinfectada">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-bug fa-stack-1x fa-inverse"></i>
-                                </span>
+                                <button type="button" ng-click="cambiarEstado(cama, 'desinfectada')"  ng-if="!cama.desinfectada" class="btn-nostyle">
+                                    <span class="fa-stack fa-lg text-danger tips" title="Desinfectar cama">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-bug fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </button>
 
                                 <span class="fa-stack fa-lg text-primary tips" title="Cama con oxígeno" ng-if="cama.oxigeno">
                                     <i class="fa fa-circle fa-stack-2x"></i>
@@ -167,6 +169,8 @@
                                         <sup>2</sup>
                                     </span>
                                 </span>
+
+
                             </div>
 
                             <div class="col-xs-6 col-right text-right">
