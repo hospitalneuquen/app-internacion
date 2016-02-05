@@ -13,11 +13,12 @@ angular.module('app').factory('Personas', ["Server", "Plex", "Global", function(
         /**
          * @ngdoc method
          * @name Personas#get
-         * @param {String|Number|Object} query Parámetros para la consulta
-         * @description
+         * @description Obtiene uno o varios pacientes según los parámetros de búsqueda
+         * @param {String|Object} query Parámetros para la consulta.
+         *
          * Puede ser uno de los siguientes tipos:
-         *   - `String / Number`: Busca por id
-         *   - `Object`: Permite buscar por una o más propiedades, por ejemplo `documento`, `fulltext`,  `apellido`, `nombre`, etc. Para más información consulta la api correspondiente.
+         *   - `String`: Busca por id
+         *   - `Object`: Permite buscar por una o más propiedades, por ejemplo `documento`, `fulltext`,  `apellido`, `nombre`, etc. Para más información consultar la api correspondiente.
          **/
         get: function(query) {
             if (angular.isObject(query)) {

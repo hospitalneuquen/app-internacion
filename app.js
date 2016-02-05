@@ -11,6 +11,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // Routes
+app.use('/docs', express.static(path.join(__dirname, 'docs/docs/dist')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('*', function(req, res, next) {
     res.sendFile(path.join(__dirname, '', 'public/app.html'));
