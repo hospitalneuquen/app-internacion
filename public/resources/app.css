@@ -861,3 +861,6 @@ a.btn-habitacion.active {
     background-color: #66BA8A;
     border-color: #559872;
 }
+
+
+.clickable{cursor: pointer;}

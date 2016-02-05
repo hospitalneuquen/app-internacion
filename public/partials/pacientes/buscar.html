@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="box-body">
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-bordered table-hover ">
                         <thead>
                             <tr>
                                 <th>
@@ -38,11 +38,10 @@
                                 <th>
                                     Motivo
                                 </th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in pacientes.internacion">
+                            <tr ng-repeat="item in pacientes.internacion" ng-click="seleccionarInternacion(item)" class="clickable">
                                 <td>
                                     {{item.ingreso.fechaHora | date: "dd/MM/yyyy  'a las' HH:mm "}}hs
                                 </td>
@@ -61,11 +60,11 @@
                                 <td>
                                     {{item.ingreso.motivo}}
                                 </td>
-                                <td>
+                                <!-- <td>
                                     <button type="button" class="btn btn-sm btn-primary tips" ng-click="seleccionarInternacion(item)" title="Seleccionar paciente">
                                         <i class="fa fa-user-plus"></i>
                                     </button>
-                                </td>
+                                </td> -->
                             </tr>
                         </tbody>
                     </table>
@@ -135,7 +134,7 @@
 
                 <input type=text label="Buscar personas por nombre / documento " ng-model="personas.query" plex>
 
-                <table class="table table-bordered table-hover" ng-if="personas.data && personas.data.length > 0">
+                <table class="table table-bordered table-hover table-striped" ng-if="personas.data && personas.data.length > 0">
 
                     <thead>
                         <tr>
@@ -149,11 +148,10 @@
                             <th>
                                 Edad
                             </th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="item in personas.data">
+                        <tr ng-repeat="item in personas.data" ng-click="internacion.seleccionarPersona(item)" class="clickable">
                             <td>
                                 {{item | persona:"an"}}
                             </td>
@@ -162,11 +160,6 @@
                             </td>
                             <td>
                                 {{item | persona:"e"}}
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-sm btn-primary tips" ng-click="internacion.seleccionarPersona(item)" title="Seleccionar paciente">
-                                    <i class="fa fa-user-plus"></i>
-                                </button>
                             </td>
                         </tr>
                     </tbody>
