@@ -51,15 +51,15 @@ angular.module('app').controller('pacientes/buscar', ['$scope', 'Plex', 'Server'
             diagnosticoPresuntivo: '',
 
             seleccionarPersona: function (data){
+                var paciente = data;
                 // validamos que el paciente no se encuentre internada
                 Server.get('/api/internacion/cama/pacienteInternado/' + data.id, {}, {updateUI: false}).then(function(data){
                     if (data.length > 0){
-                        console.log(data);
                         Plex.showWarning("Atención: El paciente se encuentra actualmente internado.");
                     }else{
                         //$scope.internacion.paciente_seleccionado = data;
-                        $scope.internacion.paciente = data.id;
-                        $scope.internacion.nombre_paciente = data.apellido + ", " + data.nombre;
+                        $scope.internacion.paciente = paciente.id;
+                        $scope.internacion.nombre_paciente = paciente.apellido + ", " + paciente.nombre;
                         $scope.internacion.fechaHora = new Date();
                     }
                 });
