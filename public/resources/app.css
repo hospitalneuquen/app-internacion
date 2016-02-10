@@ -861,3 +861,12 @@ a.btn-habitacion.active {
     background-color: #66BA8A;
     border-color: #559872;
 }
+
+
+.clickable{cursor: pointer;}
+.table-hover > tbody > tr.clickable:hover{background: #dff0d8;}
+
+button.btn-nostyle{background: none;
+    border: 0 none;
+    padding: 0;
+    margin: 0;}

@@ -1,6 +1,6 @@
 <h1>{{nombre}}</h1>
 
-<div class="container-filtros-avanzados" ng-class="{'visible' : $mostrarFiltros}">
+<div class="container-filtros-avanzados" ng-class="{'visible' : $mostrarFiltros}" >
     <div class="filtros-avanzados vertical" ng-class="{'is-visible' : $mostrarFiltros}">
         <h2>Filtros avanzados</h2>
         <form ng-submit="$mostrarFiltros = !$mostrarFiltros">
@@ -89,7 +89,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row" filtrosCamas>
     <div class="col-lg-12 text-right">
 
         <ul class="list-inline filtros-habitaciones">
@@ -122,9 +122,9 @@
                         <div class="main cama">
                             <div class="icon">
                                 <!-- <i class="fa fa-bed text-success"></i> -->
-                                <i class="fa fa-male " ng-if="cama.paciente.sexo == 'Masculino'"></i>
-                                <i class="fa fa-female " ng-if="cama.paciente.sexo == 'Femenino'"></i>
-                                <i class="fa fa-user-secret " ng-if="cama.paciente.sexo == 'Indeterminado'"></i>
+                                <i class="fa fa-male " ng-if="cama.paciente.sexo == 'masculino' || cama.paciente.sexo == 'Masculino' "></i>
+                                <i class="fa fa-female " ng-if="cama.paciente.sexo == 'femenino' || cama.paciente.sexo == 'Femenino'"></i>
+                                <i class="fa fa-user-secret " ng-if="cama.paciente.sexo == 'indeterminado' || cama.paciente.sexo == 'Indeterminado'"></i>
 
                                 <button type="button" class="btn  tips" title="Agregar paciente en cama" ng-click="buscarPaciente(cama)" ng-if="!cama.paciente.id && cama.estado != 'reparacion'">
                                     <i class="fa fa-user-plus agregar"></i>
@@ -151,15 +151,17 @@
 
                         <div class="footer">
                             <div class="col-xs-6 text-left col-left">
-                                <span class="fa-stack fa-lg text-success tips" title="Cama desinfectada" ng-if="cama.desinfectada">
+                                <!-- <span class="fa-stack fa-lg text-success tips" title="Cama desinfectada" ng-if="cama.desinfectada">
                                     <i class="fa fa-circle fa-stack-2x"></i>
                                     <i class="fa fa-bug fa-stack-1x fa-inverse"></i>
-                                </span>
+                                </span> -->
 
-                                <span class="fa-stack fa-lg text-default tips" title="Cama sin desinfectar" ng-if="!cama.desinfectada">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-bug fa-stack-1x fa-inverse"></i>
-                                </span>
+                                <button type="button" ng-click="cambiarEstado(cama, 'desinfectada')"  ng-if="!cama.desinfectada" class="btn-nostyle">
+                                    <span class="fa-stack fa-lg text-danger tips" title="Desinfectar cama">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-bug fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </button>
 
                                 <span class="fa-stack fa-lg text-primary tips" title="Cama con oxígeno" ng-if="cama.oxigeno">
                                     <i class="fa fa-circle fa-stack-2x"></i>
@@ -167,6 +169,8 @@
                                         <sup>2</sup>
                                     </span>
                                 </span>
+
+
                             </div>
 
                             <div class="col-xs-6 col-right text-right">
