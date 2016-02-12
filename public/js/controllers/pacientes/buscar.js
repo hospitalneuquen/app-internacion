@@ -35,63 +35,46 @@ angular.module('app').controller('pacientes/buscar', ['$scope', 'Plex', 'Server'
             Plex.closeView(data);
         },
 
+        tiposInternacion: [{
+            id: 'ambulatorio',
+            nombre: 'Ambulatorio'
+        }, {
+            id: 'guardia',
+            nombre: 'Guardia'
+        }, {
+            id: 'derivacion',
+            nombre: 'Derivación'
+        }, ],
         internacion: {
-            errores: [],
-            tiposInternacion: [{
-                id: 'ambulatorio',
-                nombre: 'Ambulatorio'
-            }, {
-                id: 'guardia',
-                nombre: 'Guardia'
-            }, {
-                id: 'derivacion',
-                nombre: 'Derivación'
-            }, ],
+            paciente: null,
+            fechaHora: null,
+            tipo: null,
+            motivo: null,
+            diagnosticoPresuntivo: null,
+        },
+        seleccionarPersona: function(data) {
+            var paciente = data;
+            // validamos que el paciente no se encuentre internada
+            Server.get('/api/internacion/cama/pacienteInternado/' + data.id, {}, {
+                updateUI: false
+            }).then(function(data) {
+                if (data.length > 0) {
+                    Plex.showWarning("Atención: El paciente se encuentra actualmente internado.");
+                } else {
+                    $scope.internacion.paciente = paciente;
+                    $scope.internacion.fechaHora = new Date();
+                }
+            });
+        },
 
-            nombre_paciente: '',
-            paciente: '',
-            fechaHora: '',
-            tipo: '',
-            motivo: '',
-            diagnosticoPresuntivo: '',
+        crear: function() {
+            Server.post('/api/internacion/internacion', $scope.internacion, {
+                minify: true
+            }).then(function(data) {
+                Plex.closeView(data);
+            }, function() {
 
-            seleccionarPersona: function(data) {
-                var paciente = data;
-                // validamos que el paciente no se encuentre internada
-                Server.get('/api/internacion/cama/pacienteInternado/' + data.id, {}, {
-                    updateUI: false
-                }).then(function(data) {
-                    if (data.length > 0) {
-                        Plex.showWarning("Atención: El paciente se encuentra actualmente internado.");
-                    } else {
-                        //$scope.internacion.paciente_seleccionado = data;
-                        $scope.internacion.paciente = paciente.id;
-                        $scope.internacion.nombre_paciente = paciente.apellido + ", " + paciente.nombre;
-                        $scope.internacion.fechaHora = new Date();
-                    }
-                });
-            },
-
-            crear: function() {
-                //
-                // var dto = {
-                //     paciente: $scope.internacion.paciente.toString(),
-                //     estado: 'ingresado',
-                //
-                //     fechaHora : $scope.internacion.fechaHora,
-                //     tipo : $scope.internacion.tipo.id,
-                //     motivo : $scope.internacion.motivo,
-                //     diagnosticoPresuntivo: $scope.internacion.diagnosticoPresuntivo
-                //
-                // }
-                Server.post('/api/internacion/internacion', $scope.internacion, {
-                    minify: true
-                }).then(function(data) {
-                    Plex.closeView(data);
-                }, function() {
-
-                });
-            }
+            });
         },
 
         init: function() {
