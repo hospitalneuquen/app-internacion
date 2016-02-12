@@ -30,6 +30,10 @@ h6.panel-title {
     font-size: x-small
 }
 
+.panel-heading{
+    height:30px;
+}
+
 [class*="fa-stack"] + span,
 span + [class*="fa-stack"]{
     margin-left: 0;
