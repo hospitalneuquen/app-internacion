@@ -49,7 +49,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                             (!self.tipoCama || (self.tipoCama && i.tipoCama == self.tipoCama)) &&
                             (!self.habitacion || (self.habitacion && i.habitacion == self.habitacion)) &&
                             (!self.estado || (self.estado && i.estado == self.estado)) &&
-                            (!self.nombre || (self.nombre && i.paciente && (regex_nombre.test(i.paciente.nombre) || (regex_nombre.test(i.paciente.apellido)) || (regex_nombre.test(i.paciente.documento)) ))) 
+                            (!self.nombre || (self.nombre && i.paciente && (regex_nombre.test(i.paciente.nombre) || (regex_nombre.test(i.paciente.apellido)) || (regex_nombre.test(i.paciente.documento)) )))
 
                  });
             },
@@ -106,6 +106,12 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 }
             }, function(error){
                 Plex.showWarning(error.data);
+            });
+        },
+
+        evolucionar: function(cama){
+            Plex.openView('pacientes/evolucionar/' + cama.id + '/' + cama.idInternacion).then(function(data) {
+
             });
         },
 

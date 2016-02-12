@@ -1,9 +1,9 @@
 body {
     background-color: #f4f4f4;
-    -webkit-user-select: none;
+    /*-webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none;
+    user-select: none;*/
 }
 
 /* components by adminlte  https://almsaeedstudio.com/themes/AdminLTE/index2.html */
@@ -521,6 +521,7 @@ pre.prettyprint {
     bottom: 0;
     width: calc(100% - 40px);
     padding: 10px 0;
+    min-height: 61px;
 }
 .card .content .footer .col-left {
     padding-left: 0;
@@ -863,10 +864,28 @@ a.btn-habitacion.active {
 }
 
 
+/* estilos varios tablas */
 .clickable{cursor: pointer;}
 .table-hover > tbody > tr.clickable:hover{background: #dff0d8;}
+.va-top {vertical-align: top;}
+.va-middle {vertical-align: middle;}
+.va-bottom {vertical-align: bottom;}
+
+.table > thead:first-child > tr:first-child > th.va-top {vertical-align: top;}
+.table > thead:first-child > tr:first-child > th.va-middle {vertical-align: middle;}
+.table > thead:first-child > tr:first-child > th.va-bottom {vertical-align: bottom;}
+
 
 button.btn-nostyle{background: none;
     border: 0 none;
     padding: 0;
     margin: 0;}
+
+/* header paciente */
+.numero-habitacion-header {
+    background: #f4f4f4;
+    color: #000;
+    font-weight: bold;
+    padding: 5px 10px;
+    font-size: 15px;
+}

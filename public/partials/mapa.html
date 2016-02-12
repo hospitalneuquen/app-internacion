@@ -126,19 +126,20 @@
                                 <i class="fa fa-female " ng-if="cama.paciente.sexo == 'femenino' || cama.paciente.sexo == 'Femenino'"></i>
                                 <i class="fa fa-user-secret " ng-if="cama.paciente.sexo == 'indeterminado' || cama.paciente.sexo == 'Indeterminado'"></i>
 
-                                <button type="button" class="btn  tips" title="Agregar paciente en cama" ng-click="buscarPaciente(cama)" ng-if="!cama.paciente.id && cama.estado != 'reparacion'">
+                                <button type="button" class="btn  tips" title="Agregar paciente en cama" ng-click="buscarPaciente(cama)" ng-if="!cama.paciente && cama.estado != 'reparacion'">
                                     <i class="fa fa-user-plus agregar"></i>
                                 </button>
                             </div>
 
                             <div ng-if="cama.paciente.apellido">
-                                <h3 class="name">{{cama.paciente.apellido}},
-                                    {{cama.paciente.nombre}}</h3>
-                                <p class="profession">{{cama.paciente.documento}}
+                                <h3 class="name">
+                                    {{cama.paciente | persona:"an"}}
+                                </h3>
+                                <p class="profession">
+                                    {{cama.paciente | persona:"e"}}
                                     /
-                                    {{cama.paciente.edad}}
-                                    años /
-                                    {{cama.paciente.sexo}}</p>
+                                    {{cama.paciente.documento}}
+                                </p>
                             </div>
 
                             <div ng-if="!cama.paciente.id && cama.estado == 'reparacion'">
@@ -192,7 +193,7 @@
                                     </ul>
                                 </div>
 
-                                <button type="button" class="btn btn-default btn-sm tips load-content" title="Evolucionar" ng-click="evolucionar()" ng-if="cama.paciente.id">
+                                <button type="button" class="btn btn-default btn-sm tips load-content" title="Evolucionar" ng-click="evolucionar(cama)" ng-if="cama.paciente.id">
                                     <i class="fa fa-arrow-circle-up"></i>
                                 </button>
 
@@ -271,8 +272,9 @@
                                     </ul>
                                 </div>
 
-                                <button type="button" class="btn btn-default btn-sm tips" title="Evolucionar" ng-click="evolucionar()">
+                                <button type="button" class="btn btn-default btn-sm tips" title="Evolucionar" ng-click="evolucionar(cama)">
                                     <i class="fa fa-arrow-circle-up"></i>
+
                                 </button>
 
                                 <button class="btn btn-default btn-sm tips" title="Ver cama" ng-click="cama.$rotar = !cama.$rotar">

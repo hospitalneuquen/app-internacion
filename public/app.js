@@ -14,9 +14,11 @@ angular.module('app')
              .when('/inicio', { templateUrl: 'partials/inicio.html', controller: 'InicioController' })
              .when('/valoracionEnfermeria', { templateUrl: 'partials/valoracionEnfermeria.html', controller: 'ValoracionEnfermeriaController' })
              .when('/mapa', { templateUrl: 'partials/mapa.html', controller: 'MapaController' })
+
              .when('/pacientes/buscar', { templateUrl: 'partials/pacientes/buscar.html', controller: 'pacientes/buscar' })
-             .when('/pacientes/evolucionar', { templateUrl: 'partials/pacientes/evolucionar.html', controller: 'PacientesController' })
-             .when('/pacientes/prestaciones', { templateUrl: 'partials/pacientes/evolucionar.html', controller: 'PacientesController' })
+             .when('/pacientes/evolucionar/:idCama/:idInternacion', { templateUrl: 'partials/pacientes/evolucionar.html', controller: 'pacientes/evolucionar' })
+             .when('/pacientes/prestaciones', { templateUrl: 'partials/pacientes/prestaciones.html', controller: 'pacientes/prestaciones' })
+
              .when('/sandbox/personas', { templateUrl: 'partials/sandbox/personas.html', controller: 'sandbox/personas' })
              .when('/sandbox/ubicaciones', { templateUrl: 'partials/sandbox/ubicaciones.html', controller: 'sandbox/ubicaciones' })
              .when('/sandbox/internaciones', { templateUrl: 'partials/sandbox/internaciones.html', controller: 'sandbox/internaciones' })
