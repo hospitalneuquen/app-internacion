@@ -1,6 +1,6 @@
 <h1>{{nombre}}</h1>
 
-<div class="container-filtros-avanzados" ng-class="{'visible' : $mostrarFiltros}" >
+<div class="container-filtros-avanzados" ng-class="{'visible' : $mostrarFiltros}">
     <div class="filtros-avanzados vertical" ng-class="{'is-visible' : $mostrarFiltros}">
         <h2>Filtros avanzados</h2>
         <form ng-submit="$mostrarFiltros = !$mostrarFiltros">
@@ -157,7 +157,7 @@
                                     <i class="fa fa-bug fa-stack-1x fa-inverse"></i>
                                 </span> -->
 
-                                <button type="button" ng-click="cambiarEstado(cama, 'desinfectada')"  ng-if="!cama.desinfectada" class="btn-nostyle">
+                                <button type="button" ng-click="cambiarEstado(cama, 'desinfectada')" ng-if="!cama.desinfectada" class="btn-nostyle">
                                     <span class="fa-stack fa-lg text-danger tips" title="Desinfectar cama">
                                         <i class="fa fa-circle fa-stack-2x"></i>
                                         <i class="fa fa-bug fa-stack-1x fa-inverse"></i>
@@ -170,7 +170,6 @@
                                         <sup>2</sup>
                                     </span>
                                 </span>
-
 
                             </div>
 
@@ -272,7 +271,7 @@
                                     </ul>
                                 </div>
 
-                                <button type="button" class="btn btn-default btn-sm tips" title="Evolucionar" ng-click="evolucionar(cama)">
+                                <button type="button" class="btn btn-default btn-sm tips" title="Evolucionar" ng-click="evolucionar()">
                                     <i class="fa fa-arrow-circle-up"></i>
 
                                 </button>
@@ -287,7 +286,7 @@
 
                     <!-- Enviar a reparar una cama -->
                     <div class="content" ng-if="cama.$action == 'reparacion' && cama.estado == 'desocupada'" ng-class="{'reparacion': cama.$action == 'reparacion' }">
-                        <form name="reparacionForm" >
+                        <form name="reparacionForm">
 
                             <div class="main">
                                 <!-- <textarea rows="8" name="motivo_{{$index}}" class="form-control" placeholder="¿Motivo de reparación?" plex ng-required="true" ng-model="cama.$motivo"></textarea> -->
