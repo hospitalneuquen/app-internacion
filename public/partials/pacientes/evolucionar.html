@@ -1,5 +1,411 @@
-<h1>{{title}}</h1>
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-success">
+            <div class="box-header">
+                <h3 class="box-title">Paciente</h3>
+                <div class="box-tools pull-right">
+                    <p class="numero-habitacion-header">{{cama.habitacion}}/{{cama.numero}}</p>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <p>
+                            <b>Nombre y Apellido:</b>
+                            {{internacion.paciente.apellido}},
+                            {{internacion.paciente.nombre}}</p>
+                    </div>
+                    <div class="col-md-2">
+                        <p>
+                            <b>N° H.C:</b>
+                        </p>
+                    </div>
 
-<button type="button" class="btn btn-primary" ng-click="cerrarEvolucionar()">Volver</button>
+                    <div class="col-md-2">
+                        <p>
+                            <b>Edad:</b>
+                            {{internacion.paciente.edad}}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>
+                            <b>Documento:</b>
+                            {{internacion.paciente.documento}}</p>
+                    </div>
+                </div>
 
-Evolucionar el paciente
+                <div class="row">
+                    <div class="col-md-3">
+                        <p>
+                            <b>Fecha de ingreso:</b>
+                            {{internacion.ingreso.fechaHora}}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>
+                            <b>Motivo de ingreso:</b>
+                            {{internacion.ingreso.motivo}}</p>
+                    </div>
+
+                    <div class="col-md-3">
+                        <p>
+                            <b>Obra social:</b>
+                            {{internacion.obrasSociales}}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>
+                            <b>Numero de afiliado:</b>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>
+                            <b>Diagnóstico médico presuntivo:</b>
+                            {{internacion.ingreso.diagnosticoPresuntivo}}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <p>
+                            <b>Género:</b>
+                            {{internacion.paciente.sexo}}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>
+                            <b>Estado civil:</b>
+                            {{internacion.paciente.estadoCivil}}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>
+                            <b>Ocupación:</b>
+                            {{internacion.ingreso.situacionPaciente.ocupacion}}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>
+                            <b>Nivel de instrucción:</b>
+                            {{internacion.ingreso.situacionPaciente.educacion}}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <p>
+                            <b>Nacionalidad:</b>
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>
+                            <b>Procedencia:</b>
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>
+                            <b>Convivientes:</b>
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>
+                            <b>Docimilio:</b>
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>
+                            <b>N° tél.:</b>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <p class="col-md-12">
+                        <u>Antecedentes clínicos</u>
+                    </p>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <p>
+                            <b>HTA:</b>
+                            {{internacion.antecedentes.hta}}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>
+                            <b>DBT:</b>
+                            {{internacion.antecedentes.dbt}}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>
+                            <b>Alergias:</b>
+                            {{internacion.antecedentes.alergias}}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>
+                            <b>Otros:</b>
+                            {{internacion.antecedentes.otros}}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <p class="col-md-12">
+                        <u>Antecedentes obstétricos (si corresponde)</u>
+                    </p>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <p>
+                            <b>Gestas:</b>
+                            {{internacion.antecedentes.obsetricos.gestas}}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>
+                            <b>Partos:</b>
+                            {{internacion.antecedentes.obsetricos.partos}}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>
+                            <b>Cesáreas:</b>
+                            {{internacion.antecedentes.obsetricos.cesareas}}</p>
+                    </div>
+                    <div class="col-md-3">
+                        <p>
+                            <b>Abortos:</b>
+                            {{internacion.antecedentes.obsetricos.abortos}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <form name="formEvolucion">
+
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">
+                        Hoja de control de signos vitales y balance hidroelectrolítico
+                    </h3>
+                </div>
+
+                <div class="box-body">
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <input type="text" plex="date" ng-required="true" ng-model="evoluciones.fechaHora" label="Fecha"/>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" plex="time" ng-required="true" ng-model="evoluciones.fechaHora" label="Hora"/>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" ng-required="true" ng-model="evoluciones.pulso" label="Pulso" placeholder="F.C" plex="int"/>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-2">
+                            <input type="text" ng-required="true" ng-model="evoluciones.tensionDiastolica" label="Tensión diastólica" placeholder="mmHG" plex="int"/>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" ng-required="true" ng-model="evoluciones.tensionSistolica" label="Tensión sistólica" placeholder="mmHG" plex="int"/>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" ng-required="true" ng-model="evoluciones.temperatura" label="Tº" placeholder="ºC" plex="float"/>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" ng-required="true" ng-model="evoluciones.respiracion" label="Resp." placeholder="F.R" plex="int"/>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" ng-required="true" ng-model="evoluciones.spo2" label="%Sp02" placeholder="%" plex="int" plex-min="0" plex-max="100"/>
+                        </div>
+
+                        <div class="col-md-2">
+                            <input type="text" ng-required="true" ng-model="evoluciones.peso" label="Peso" placeholder="Kgs" plex="float"/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea class="" label="Descripción" placeholder="Consignar los tratamientos y cuidados efectuados y los síntomas observados" ng-model="evoluciones.texto" plex ng-required="true" rows="5"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box-footer">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="checkbox" ng-model="volverAlMapa" id="volverAlMapa" name="volverAlMapa" />
+                            <label for="volverAlMapa">Regresar al mapa de camas luego de guardar</label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success pull-right" plex-submit="crearEvolucion()">
+                        Crear evolución
+                    </button>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div ng-if="internacion.evoluciones && internacion.evoluciones.length > 0">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">Evoluciones del paciente</h3>
+
+                </div>
+                <div class="box-body " >
+                    <div class="text-center" ng-show="loading">
+                        <i class="fa fa-spinner fa-spin"></i>
+                    </div>
+
+                    <ng-form name="formEditarEvolucion" ng-show="!loading" >
+                        <table class="table table-bordered table-hover ">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Fecha
+                                    </th>
+                                    <th>
+                                        Hora
+                                    </th>
+                                    <th>
+                                        Pulso
+                                    </th>
+                                    <th>
+                                        TD
+                                    </th>
+                                    <th>
+                                        TA
+                                    </th>
+                                    <th>
+                                        Tª
+                                    </th>
+                                    <th>
+                                        Resp.
+                                    </th>
+                                    <th>
+                                        %SpO2
+                                    </th>
+                                    <th>
+                                        Peso
+                                    </th>
+                                    <th>
+                                        Acciones
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr ng-repeat="item in internacion.evoluciones | orderBy: '-fechaHora'">
+                                    <td ng-if="item.$editing" colspan="10">
+                                        <div class="row">
+
+                                            <div class="col-md-4">
+                                                <input type="text" plex="date" ng-required="true" ng-model="evolucionesEdit.fechaHora" label="Fecha"/>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" plex="time" ng-required="true" ng-model="evolucionesEdit.fechaHora" label="Hora"/>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="text" ng-required="true" ng-model="evolucionesEdit.pulso" label="Pulso" placeholder="F.C" plex="int"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-md-2">
+                                                <input type="text" ng-required="true" ng-model="evolucionesEdit.tensionDiastolica" label="Tensión diastólica" placeholder="mmHG" plex="int"/>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="text" ng-required="true" ng-model="evolucionesEdit.tensionSistolica" label="Tensión sistólica" placeholder="mmHG" plex="int"/>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="text" ng-required="true" ng-model="evolucionesEdit.temperatura" label="Tº" placeholder="ºC" plex="float"/>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="text" ng-required="true" ng-model="evolucionesEdit.respiracion" label="Resp." placeholder="F.R" plex="int"/>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <input type="text" ng-required="true" ng-model="evolucionesEdit.spo2" label="%Sp02" placeholder="%" plex="int" plex-min="0" plex-max="100"/>
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <input type="text" ng-required="true" ng-model="evolucionesEdit.peso" label="Peso" placeholder="Kgs" plex="float"/>
+                                            </div>
+
+                                            <input type="hidden" ng-model="evolucionesEdit.id" />
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <textarea class="" label="Descripción" placeholder="Consignar los tratamientos y cuidados efectuados y los síntomas observados" ng-model="evolucionesEdit.texto" plex ng-required="true" rows="5"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <button type="button" class="btn btn-warning " ng-click="item.$editing = false">
+                                                    Cancelar
+                                                </button>
+
+                                                <button type="submit" class="btn btn-success pull-right" plex-submit="guardarEvolucion(evolucionesEdit)">
+                                                    Guardar evolución
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td ng-if="!item.$editing">
+                                        {{item.fechaHora | date: "dd/MM/yyyy"}}
+                                    </td>
+                                    <td ng-if="!item.$editing">
+                                        {{item.fechaHora | date: "HH:mm"}}
+
+                                    </td>
+                                    <td ng-if="!item.$editing">
+                                        {{item.pulso}}
+                                    </td>
+                                    <td ng-if="!item.$editing">
+                                        {{item.tensionDiastolica}}
+                                    </td>
+                                    <td ng-if="!item.$editing">
+                                        {{item.tensionSistolica}}
+                                    </td>
+                                    <td ng-if="!item.$editing">
+                                        {{item.temperatura}}
+                                    </td>
+                                    <td ng-if="!item.$editing">
+                                        {{item.respiracion}}
+                                    </td>
+                                    <td ng-if="!item.$editing">
+                                        {{item.spo2}}
+                                    </td>
+                                    <td ng-if="!item.$editing">
+                                        {{item.peso}}
+                                    </td>
+                                    <td class="text-center" ng-if="!item.$editing">
+                                        <button type="button" class="btn btn-sm btn-primary tips" ng-click="editarEvolucion(item); item.$editing = true;" title="Editar evolucion">
+                                            <i class="fa fa-pencil"></i>
+                                        </button>
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </ng-form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

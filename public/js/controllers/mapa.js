@@ -49,7 +49,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                             (!self.tipoCama || (self.tipoCama && i.tipoCama == self.tipoCama)) &&
                             (!self.habitacion || (self.habitacion && i.habitacion == self.habitacion)) &&
                             (!self.estado || (self.estado && i.estado == self.estado)) &&
-                            (!self.nombre || (self.nombre && i.paciente && (regex_nombre.test(i.paciente.nombre) || (regex_nombre.test(i.paciente.apellido)) || (regex_nombre.test(i.paciente.documento)) ))) 
+                            (!self.nombre || (self.nombre && i.paciente && (regex_nombre.test(i.paciente.nombre) || (regex_nombre.test(i.paciente.apellido)) || (regex_nombre.test(i.paciente.documento)) )))
 
                  });
             },
@@ -88,27 +88,54 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
 
             // el parametro updateUI en false, es para evitar la pantalla de error
             Server.post("/api/internacion/cama/cambiarEstado/" + cama.id, dto, {updateUI: false}).then(function(data){
-                var length = $scope.camas.length;
-
-                // buscamos la cama y actualizamos el valor con los datos
-                for (var i = 0; i < length; i++){
-                    if ($scope.filter.camas[i].id == cama.id){
-                        // cama encontrada, actualizamos datos
-                        $scope.filter.camas[i] = data;
-                        $scope.filter.camas[i].$rotar = true;
-                        // agregamos un pequeño timeout para volver a rotar la cama
-                        $timeout(function(){
-                            $scope.filter.camas[i].$rotar = false;
-                        }, 100);
-
-                        break;
-                    }
-                }
+                // var length = $scope.camas.length;
+                //
+                // // buscamos la cama y actualizamos el valor con los datos
+                // for (var i = 0; i < length; i++){
+                //     if ($scope.filter.camas[i].id == cama.id){
+                //         // cama encontrada, actualizamos datos
+                //         $scope.filter.camas[i] = data;
+                //         $scope.filter.camas[i].$rotar = true;
+                //         // agregamos un pequeño timeout para volver a rotar la cama
+                //         $timeout(function(){
+                //             $scope.filter.camas[i].$rotar = false;
+                //         }, 100);
+                //
+                //         break;
+                //     }
+                // }
+                $scope.actualizarMapa(data);
             }, function(error){
                 Plex.showWarning(error.data);
             });
         },
 
+        evolucionar: function(cama){
+            Plex.openView('pacientes/evolucionar/' + cama.id + '/' + cama.idInternacion).then(function(data) {
+                if (data){
+                    $scope.actualizarMapa(data);
+                }
+
+            });
+        },
+        actualizarMapa: function(data){
+            var length = $scope.camas.length;
+
+            // buscamos la cama y actualizamos el valor con los datos
+            for (var i = 0; i < length; i++){
+                if ($scope.filter.camas[i].id == data.id){
+                    // cama encontrada, actualizamos datos
+                    $scope.filter.camas[i] = data;
+                    $scope.filter.camas[i].$rotar = true;
+                    // agregamos un pequeño timeout para volver a rotar la cama
+                    $timeout(function(){
+                        $scope.filter.camas[i].$rotar = false;
+                    }, 100);
+
+                    break;
+                }
+            }
+        },
         closeView: function() {
             Plex.closeView({
 

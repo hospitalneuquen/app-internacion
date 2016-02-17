@@ -1,6 +1,6 @@
 <h1>{{nombre}}</h1>
 
-<div class="container-filtros-avanzados" ng-class="{'visible' : $mostrarFiltros}" >
+<div class="container-filtros-avanzados" ng-class="{'visible' : $mostrarFiltros}">
     <div class="filtros-avanzados vertical" ng-class="{'is-visible' : $mostrarFiltros}">
         <h2>Filtros avanzados</h2>
         <form ng-submit="$mostrarFiltros = !$mostrarFiltros">
@@ -126,19 +126,20 @@
                                 <i class="fa fa-female " ng-if="cama.paciente.sexo == 'femenino' || cama.paciente.sexo == 'Femenino'"></i>
                                 <i class="fa fa-user-secret " ng-if="cama.paciente.sexo == 'indeterminado' || cama.paciente.sexo == 'Indeterminado'"></i>
 
-                                <button type="button" class="btn  tips" title="Agregar paciente en cama" ng-click="buscarPaciente(cama)" ng-if="!cama.paciente.id && cama.estado != 'reparacion'">
+                                <button type="button" class="btn  tips" title="Agregar paciente en cama" ng-click="buscarPaciente(cama)" ng-if="!cama.paciente.id && cama.estado == 'desocupada'">
                                     <i class="fa fa-user-plus agregar"></i>
                                 </button>
                             </div>
 
                             <div ng-if="cama.paciente.apellido">
-                                <h3 class="name">{{cama.paciente.apellido}},
-                                    {{cama.paciente.nombre}}</h3>
-                                <p class="profession">{{cama.paciente.documento}}
+                                <h3 class="name">
+                                    {{cama.paciente | persona:"an"}}
+                                </h3>
+                                <p class="profession">
+                                    {{cama.paciente | persona:"e"}}
                                     /
-                                    {{cama.paciente.edad}}
-                                    años /
-                                    {{cama.paciente.sexo}}</p>
+                                    {{cama.paciente.documento}}
+                                </p>
                             </div>
 
                             <div ng-if="!cama.paciente.id && cama.estado == 'reparacion'">
@@ -156,7 +157,7 @@
                                     <i class="fa fa-bug fa-stack-1x fa-inverse"></i>
                                 </span> -->
 
-                                <button type="button" ng-click="cambiarEstado(cama, 'desinfectada')"  ng-if="!cama.desinfectada" class="btn-nostyle">
+                                <button type="button" ng-click="cambiarEstado(cama, 'desinfectada')" ng-if="!cama.desinfectada" class="btn-nostyle">
                                     <span class="fa-stack fa-lg text-danger tips" title="Desinfectar cama">
                                         <i class="fa fa-circle fa-stack-2x"></i>
                                         <i class="fa fa-bug fa-stack-1x fa-inverse"></i>
@@ -169,7 +170,6 @@
                                         <sup>2</sup>
                                     </span>
                                 </span>
-
 
                             </div>
 
@@ -192,7 +192,7 @@
                                     </ul>
                                 </div>
 
-                                <button type="button" class="btn btn-default btn-sm tips load-content" title="Evolucionar" ng-click="evolucionar()" ng-if="cama.paciente.id">
+                                <button type="button" class="btn btn-default btn-sm tips load-content" title="Evolucionar" ng-click="evolucionar(cama)" ng-if="cama.paciente.id">
                                     <i class="fa fa-arrow-circle-up"></i>
                                 </button>
 
@@ -228,8 +228,13 @@
                             <h4 class="text-center">Última evolución</h4>
                             <p>
                                 <i class="fa fa-user-md"></i>
-                                Lore ipsum. 18:00hs
+                                {{cama.ultimaEvolucion.fechaHora | date: "dd/MM/yyyy  'a las' HH:mm "}}
                             </p>
+
+                            <p>
+                                La próxima evolución deberá realizarse el dd/MM/yyyy a las HH:mm
+                            </p>
+
                         </div>
 
                         <div class="footer">
@@ -271,8 +276,9 @@
                                     </ul>
                                 </div>
 
-                                <button type="button" class="btn btn-default btn-sm tips" title="Evolucionar" ng-click="evolucionar()">
+                                <button type="button" class="btn btn-default btn-sm tips" title="Evolucionar" ng-click="evolucionar(cama)">
                                     <i class="fa fa-arrow-circle-up"></i>
+
                                 </button>
 
                                 <button class="btn btn-default btn-sm tips" title="Ver cama" ng-click="cama.$rotar = !cama.$rotar">
@@ -285,7 +291,7 @@
 
                     <!-- Enviar a reparar una cama -->
                     <div class="content" ng-if="cama.$action == 'reparacion' && cama.estado == 'desocupada'" ng-class="{'reparacion': cama.$action == 'reparacion' }">
-                        <form name="reparacionForm" >
+                        <form name="reparacionForm">
 
                             <div class="main">
                                 <!-- <textarea rows="8" name="motivo_{{$index}}" class="form-control" placeholder="¿Motivo de reparación?" plex ng-required="true" ng-model="cama.$motivo"></textarea> -->
