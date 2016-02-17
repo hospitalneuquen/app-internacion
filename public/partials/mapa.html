@@ -126,7 +126,7 @@
                                 <i class="fa fa-female " ng-if="cama.paciente.sexo == 'femenino' || cama.paciente.sexo == 'Femenino'"></i>
                                 <i class="fa fa-user-secret " ng-if="cama.paciente.sexo == 'indeterminado' || cama.paciente.sexo == 'Indeterminado'"></i>
 
-                                <button type="button" class="btn  tips" title="Agregar paciente en cama" ng-click="buscarPaciente(cama)" ng-if="!cama.paciente && cama.estado != 'reparacion'">
+                                <button type="button" class="btn  tips" title="Agregar paciente en cama" ng-click="buscarPaciente(cama)" ng-if="!cama.paciente.id && cama.estado == 'desocupada'">
                                     <i class="fa fa-user-plus agregar"></i>
                                 </button>
                             </div>
@@ -228,8 +228,13 @@
                             <h4 class="text-center">Última evolución</h4>
                             <p>
                                 <i class="fa fa-user-md"></i>
-                                Lore ipsum. 18:00hs
+                                {{cama.ultimaEvolucion.fechaHora | date: "dd/MM/yyyy  'a las' HH:mm "}}
                             </p>
+
+                            <p>
+                                La próxima evolución deberá realizarse el dd/MM/yyyy a las HH:mm
+                            </p>
+
                         </div>
 
                         <div class="footer">
@@ -271,7 +276,7 @@
                                     </ul>
                                 </div>
 
-                                <button type="button" class="btn btn-default btn-sm tips" title="Evolucionar" ng-click="evolucionar()">
+                                <button type="button" class="btn btn-default btn-sm tips" title="Evolucionar" ng-click="evolucionar(cama)">
                                     <i class="fa fa-arrow-circle-up"></i>
 
                                 </button>
