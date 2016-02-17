@@ -1,0 +1,48 @@
+<ng-form name="miFormulario">
+    <!-- ****************************** Título ****************************** -->
+    <div class="row">
+        <div class="col-sm-12">
+            <fieldset>
+                <legend>Valoración del Riesgo de Caídas</legend>
+                <span>La escala de caída de Morse es una herramienta rápida y simple para evaluar la probabilidad de que un paciente sufra una caída.</span>
+            </fieldset>
+        </div>
+    </div>
+    <br /><br />
+    <div class="row">
+        <div class="col-sm-4">
+            <label>Caídas Previas</label>
+            <div class="checkbox">
+                <input type="checkbox" plex="bool" true="Si (25)" false="No (0)" />
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <label>Comorbilidades</label>
+            <div class="checkbox">
+                <input type="checkbox" plex="bool" true="Si (15)" false="No (0)" />
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="row">
+                <h5><label>Ayuda para Deambular (marque solo una)</label></h5>
+            </div>
+            <div class="row">
+                <div class="row">
+                    <div class="checkbox">
+                        <label><input type="checkbox" /> Ninguna/Reposo en cama/Asistencia</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="checkbox">
+                        <label><input type="checkbox" /> Bastón/Muleta/Caminador</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="checkbox">
+                        <label><input type="checkbox" /> Se apoya en los muebles</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-form>
