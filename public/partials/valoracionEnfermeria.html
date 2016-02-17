@@ -1,5 +1,6 @@
 <!-- <pre>{{ miFormulario.$valid }}</pre>-->
 <ng-form name="miFormulario">
+    <!-- ****************************** Título ****************************** -->
     <div class="row">
         <div class="col-sm-12">
             <fieldset>
@@ -8,6 +9,8 @@
         </div>
     </div>
     <br />
+    <!-- ****************************** Datos Generales ****************************** -->
+    <!-- ****************************** Apellido, Nombre, HC, F Ingreso ****************************** -->
     <div class="row">
         <div class="col-sm-3">
             <input type=text label="Apellido" plex />
@@ -22,6 +25,7 @@
             <input type=text label="Fecha de Ingreso" plex />
         </div>
     </div>
+    <!-- ****************************** Edad, DNI, Genero, Estado Civil ****************************** -->
     <div class="row">
         <div class="col-sm-3">
             <input type=text label="Edad" plex />
@@ -36,6 +40,7 @@
             <input type=text label="Estado Civil" plex />
         </div>
     </div>
+    <!-- ****************************** Ocupación, OS, Instrucción, Nacionalidad ****************************** -->
     <div class="row">
         <div class="col-sm-3">
             <input type=text label="Ocupación" plex />
@@ -50,6 +55,7 @@
             <input type=text label="Nacionalidad" plex />
         </div>
     </div>
+    <!-- ****************************** Motivo Ingreso, Diagnóstico presuntivo ****************************** -->
     <div class="row">
         <div class="col-sm-6">
             <input type=text label="Motivo de Ingreso" plex />
@@ -58,6 +64,7 @@
             <input type=text label="Diagnóstico Médico Presuntivo" plex />
         </div>
     </div>
+    <!-- ****************************** Domicilio, Convivientes ****************************** -->
     <div class="row">
         <div class="col-sm-6">
             <input type=text label="Domicilio" plex />
@@ -66,6 +73,7 @@
             <input type=text label="Convivientes" plex />
         </div>
     </div>
+    <!-- ****************************** Procedencia, Domicilio, Tel ****************************** -->
     <div class="row">
         <div class="col-sm-4">
             <input type=text label="Procedencia" plex />
@@ -78,6 +86,7 @@
         </div>
     </div>
     <br />
+    <!-- ****************************** Antecedentes clínicos ****************************** -->
     <div class="row">
         <div class="col-sm-11">
             <fieldset>
@@ -109,6 +118,7 @@
         </div>
     </div>
     <br />
+    <!-- ****************************** Antecedentes Obstétricos ****************************** -->
     <div class="row">
         <div class="col-sm-11">
             <fieldset>
@@ -135,6 +145,7 @@
         </div>
     </div>
     <br />
+    <!-- ****************************** Antecedentes quirúrgicos y/o traumatológicos ****************************** -->
     <div class="row">
         <div class="col-sm-11">
             <fieldset>
@@ -151,8 +162,10 @@
             <input type=text plex />
         </div>
     </div>
-    <br /><br />
+    <br />
+    <br />
     <div class="row">
+        <!-- ****************************** Necesidad de Oxigenación ****************************** -->
         <div class="col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -165,9 +178,65 @@
                     </div>
                 </div>
                 <div class="panel-body" ng-show="showNO">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <input type=text label="FR" plex />
+                        </div>
+                        <div class="col-sm-6">
+                            <input type=text label="SAT 2" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Disnea esfuerzo</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Disnea reposo</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Tos</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label>Secreciones</label>
+                            <div class="checkbox">
+                                <input type="checkbox" ng-model="showCaracteristicas" plex="bool" true="Si" false="No" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Uso de músculos accesorios</label>
+                            <div class="checkbox">
+                                <input type="checkbox" ng-model="showCuales" plex="bool" true="Si" false="No" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <input type="text" ng-show="showCaracteristicas" hint="Ingrese las características de las secreciones" plex />
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ng-show="showCuales" hint="Ingrese cuales son los músculos accesorios" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type=text label="Observaciones" plex />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- ****************************** Necesidad de Circulación ****************************** -->
         <div class="col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -180,12 +249,55 @@
                     </div>
                 </div>
                 <div class="panel-body" ng-show="showNC">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <input type=text label="T/A" plex />
+                        </div>
+                        <div class="col-sm-6">
+                            <input type=text label="FC" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h5><label>Pulso</label></h5>
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            Carotídeo:
+                                            <input type=text plex />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            Radial:
+                                            <input type=text plex />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            Poplíteo:
+                                            <input type=text plex />
+                                        </div>
+                                        <div class="col-sm-6">
+                                            Pedio:
+                                            <input type=text plex />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type=text label="Observaciones" plex />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <br />
     <div class="row">
+        <!-- ****************************** Necesidad de Nutrición ****************************** -->
         <div class="col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -198,9 +310,99 @@
                     </div>
                 </div>
                 <div class="panel-body" ng-show="showNN">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <input type=text label="Peso" plex />
+                        </div>
+                        <div class="col-sm-6">
+                            <input type=text label="Talla" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type=text label="Hábitos alimentarios" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Vómitos</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <input type="text" hint="Ingrese las características de los vómitos" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Náuseas</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <input type="text" label="Otros" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="checkbox">
+                                <span style="font-weight:bold">Piezas dentarias:</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Completas</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Incompletas</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Prótesis</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <input type="text" hint="Ingrese tipo de prótesis" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Dificultades para deglutir</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Dificultades para masticar</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type=text label="Lactancia materna" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type=text label="Observaciones" plex />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- ****************************** Necesidad de Eliminación ****************************** -->
         <div class="col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -213,12 +415,140 @@
                     </div>
                 </div>
                 <div class="panel-body" ng-show="showNE">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h5><label>Vesical</label></h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Espontánea</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Incontinencia</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Urostomía</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Sonda vesical</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Talla vesical</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Otros</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type=text label="Característica" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h5><label>Intestinal</label></h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Espontánea</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Ostomía</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Diarrea</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Incontinencia</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Constipación</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Otros</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type=text label="Característica" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label>Drenajes</label>
+                            <div class="checkbox">
+                                <input type="checkbox" ng-model="showDrenajes" plex="bool" true="Si" false="No" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Otros</label>
+                            <div class="checkbox">
+                                <input type="checkbox" ng-model="showOtros" plex="bool" true="Si" false="No" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <input type="text" ng-show="showDrenajes" hint="Ingrese las características de los drenajes" plex />
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" ng-show="showOtros" hint="Ingrese características" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type=text label="Observaciones" plex />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <br />
     <div class="row">
+        <!-- ****************************** Necesidad de Proteger los tegumentos ****************************** -->
         <div class="col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -231,9 +561,101 @@
                     </div>
                 </div>
                 <div class="panel-body" ng-show="showNPT">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <input type=text label="Temperatura" plex />
+                        </div>
+                        <div class="col-sm-6">
+                            <input type=text label="Color" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <input type=text label="Higiene" plex />
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Con ayuda</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Sin ayuda</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Edemas</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <input type="text" hint="Ingrese localización de los edemas" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Estado</th>
+                                        <th>Mucosas</th>
+                                        <th>Piel</th>
+                                        <th>Pie</th>
+                                        <th>Boca</th>
+                                        <th>Genitales</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Íntegra</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Lesiones</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hidratada</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Deshidratada</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type=text label="Observaciones" plex />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- ****************************** Necesidad de Movilizarse/Vestirse ****************************** -->
         <div class="col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -246,12 +668,43 @@
                     </div>
                 </div>
                 <div class="panel-body" ng-show="showNMV">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Necesita ayuda para vestirse</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Presenta dificultades para caminar</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Uso de dispositivos de movilización</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-7">
+                            <input type="text" hint="Ingrese cuáles son los dispositivos de movilización" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type=text label="Observaciones" plex />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <br />
     <div class="row">
+        <!-- ****************************** Necesidad de Dormir y Reposar ****************************** -->
         <div class="col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -264,9 +717,46 @@
                     </div>
                 </div>
                 <div class="panel-body" ng-show="showNDR">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h5><label>Características del sueño</label></h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Continuo</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Discontinuo</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Insomnio</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Somnolencia</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type=text label="Observaciones" plex />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- ****************************** Necesidad de Seguridad ****************************** -->
         <div class="col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -279,12 +769,144 @@
                     </div>
                 </div>
                 <div class="panel-body" ng-show="showNS">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h5><label>Hábitos/adicciones</label></h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Tabaco</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <input type="text" hint="Cuántos" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Alcohol</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <input type="text" hint="Cuánto" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Drogas</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <input type="text" hint="Cuáles" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type=text label="Otros" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h5><label>Riesgos del medio ambiente</label></h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Físicos</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Químicos</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type=text label="Cuáles" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h5><label>Otros</label></h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Revisión Ginecológica</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-7">
+                            <input type=text label="Fecha" plex="date" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Revisión Urológica</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-7">
+                            <input type=text label="Fecha" plex="date" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> ETS</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Riesgo Cardiovascular</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type=text label="Describa" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <input type=text label="Riesgo de Caídas*" plex />
+                        </div>
+                        <div class="col-sm-6">
+                            <input type=text label="Riesgo UPP*" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type=text label="Describa" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type=text label="Observaciones" plex />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <br />
     <div class="row">
+        <!-- ****************************** Necesidad de Comunicación y Sensopercepción ****************************** -->
         <div class="col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -297,9 +919,122 @@
                     </div>
                 </div>
                 <div class="panel-body" ng-show="showNCS">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Orientado</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Desorientado</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <input type=text label="Glasgow*" plex />
+                        </div>
+                        <div class="col-sm-6">
+                            <input type=text label="Idioma" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h5><label>Visión</label></h5>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Normal</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Deficiente</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Ausente</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h5><label>Audición</label></h5>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Normal</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Deficiente</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Ausente</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h5><label>Lenguaje</label></h5>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Normal</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Deficiente</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Ausente</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type=text label="Describa" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Dolor*</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <input type="text" hint="Localización" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type=text label="Observaciones" plex />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- ****************************** Necesidad de Espiritualidad ****************************** -->
         <div class="col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -312,12 +1047,37 @@
                     </div>
                 </div>
                 <div class="panel-body" ng-show="showNEsp">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <input type=text label="Creencias religiosas" plex />
+                        </div>
+                        <div class="col-sm-7">
+                            <input type=text label="Frecuencia con la que asiste a la iglesia" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Desea visita de religioso (internación)</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-7">
+                            <input type="text" hint="Cuál" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type=text label="Observaciones" plex />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <br />
     <div class="row">
+        <!-- ****************************** Necesidad de Aprender/Autorealizarse/Recrearse ****************************** -->
         <div class="col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -330,9 +1090,34 @@
                     </div>
                 </div>
                 <div class="panel-body" ng-show="showNAAR">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Comprende su situación de salud</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-7">
+                            <input type="text" hint="Sentimientos en relación a ello" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <input type=text label="Dudas expresadas" plex />
+                        </div>
+                        <div class="col-sm-7">
+                            <input type=text label="Actividades recreativas habituales" plex />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type=text label="Observaciones" plex />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- ****************************** Observaciones Generales ****************************** -->
         <div class="col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -345,17 +1130,41 @@
                     </div>
                 </div>
                 <div class="panel-body" ng-show="showOG">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type=text plex />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <br />
-    <div class="col-sm-12">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <span style="font-weight:bold">Instructivo</span>
-                <br />
-                <span>1 Ante un * (Asterisco) podrá usar escalas (Dolor, Riesgo UPP, riesgo de caídas, etc.). Deberá consignar cuál ha utilizado. Si existen escalas acordadas para enfermería de la Provincia, deberá usar las convenidas.</span>
+    <!-- ****************************** Firma y Sello, Fecha y Hora ****************************** -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h5><label>Firma y Sello</label></h5>
+                        </div>
+                        <div class="col-sm-6">
+                            <h5><label>Fecha y Hora</label></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ****************************** Instructivo ****************************** -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <span style="font-weight:bold">Instructivo</span>
+                    <br />
+                    <span>1 Ante un * (Asterisco) podrá usar escalas (Dolor, Riesgo UPP, riesgo de caídas, etc.). Deberá consignar cuál ha utilizado. Si existen escalas acordadas para enfermería de la Provincia, deberá usar las convenidas.</span>
+                </div>
             </div>
         </div>
     </div>
