@@ -23,7 +23,7 @@
 
     <!-- Filters -->
     <script src="js/filters/persona.js"></script>
-
+    
     <!--Controllers -->
     <script src="js/controllers/inicio.js"></script>
     <script src="js/controllers/valoracionEnfermeria.js"></script>
@@ -49,6 +49,7 @@
     </style>
 </head>
 <body class="plex-cloak">
-    <div ng-include="'/lib/html/dist/global.html'"></div>
+    <div ng-if="!Session.isActive()" ng-include="'/lib/html/dist/session.html'"></div>
+    <div ng-if="Session.isActive()" ng-include="'/lib/html/dist/main.html'"></div>
 </body>
 </html>
