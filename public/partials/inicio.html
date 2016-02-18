@@ -1,13 +1,7 @@
 <div class="jumbotron">
     <h1><i class="fa fa-bed"></i><span>Sistema de Internación</span></h1>
-    <h3>Hola {{Session.user.firstName}}</h3>
-    <h4>Tu perfil es <strong>{{Session.profile.perfil}}</strong></h4>
-    <h4>Ubicaciones permitidas</h4>
-    <ul>
-        <li ng-repeat="ubicacion in Session.profile.ubicaciones">
-            {{ubicacion.nombre}}
-        </li>
-    </ul>
+    <h3>Hola {{Session.user.givenName}}</h3>
+    <h4>Tu perfil es <strong>{{Session.variables.prestaciones_workflow}}</strong></h4>    
 </div>
 <p>
     <a href="mapa"><i class="fa fa-bed"></i><span>Mapa de Camas</span></a>
