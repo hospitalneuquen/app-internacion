@@ -52,6 +52,7 @@ angular.module('app').controller('pacientes/buscar', ['$scope', 'Plex', 'Server'
             motivo: null,
             diagnosticoPresuntivo: null,
         },
+
         seleccionarPersona: function(data) {
             var paciente = data;
             // validamos que el paciente no se encuentre internada

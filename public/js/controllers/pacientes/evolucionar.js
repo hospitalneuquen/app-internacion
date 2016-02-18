@@ -41,13 +41,13 @@ angular.module('app').controller('pacientes/evolucionar', ['$scope', 'Plex', 'pl
 
 
 
-        editarEvolucion: function(evolucion){
+        editarEvolucion: function(evolucion) {
             $scope.evolucionesEdit = {};
 
             angular.copy(evolucion, $scope.evolucionesEdit);
         },
 
-        guardarEvolucion: function(evolucion){
+        guardarEvolucion: function(evolucion) {
             Server.patch('/api/internacion/internacion/' + plexParams.idInternacion + '/evolucion/' + evolucion.id, $scope.evolucionesEdit).then(function(data) {
 
                 evolucion.$editing = false;
@@ -63,9 +63,9 @@ angular.module('app').controller('pacientes/evolucionar', ['$scope', 'Plex', 'pl
             Server.patch('/api/internacion/internacion/' + plexParams.idInternacion + '/evolucion', $scope.evoluciones).then(function(data) {
                 // si se eligio la opcion de volver al mapa de camas
                 // entonces devolvemos la cama para que genere la animacion
-                if ($scope.volverAlMapa){
+                if ($scope.volverAlMapa) {
                     Plex.closeView($scope.cama);
-                }else{
+                } else {
                     // vaciamos los elementos del formulario
                     $scope.setDefaultEvoluciones();
 
@@ -80,16 +80,16 @@ angular.module('app').controller('pacientes/evolucionar', ['$scope', 'Plex', 'pl
             });
         },
 
-        actualizarEvoluciones: function (data){
+        actualizarEvoluciones: function(data) {
             var found = false;
             $scope.loading = true;
 
             var length = $scope.internacion.evoluciones.length;
 
             // buscamos la cama y actualizamos el valor con los datos
-            for (var i = 0; i < length; i++){
+            for (var i = 0; i < length; i++) {
 
-                if ($scope.internacion.evoluciones[i].id == data.id){
+                if ($scope.internacion.evoluciones[i].id == data.id) {
                     // evolucion encontrada, actualizamos datos
                     $scope.internacion.evoluciones[i] = data;
 
@@ -100,14 +100,14 @@ angular.module('app').controller('pacientes/evolucionar', ['$scope', 'Plex', 'pl
 
             // si no lo encontro, entonces es porque acaba de cargarla
             // se la asignamos al resto de las evoluciones
-            if (!found){
+            if (!found) {
                 $scope.internacion.evoluciones.push(data);
             }
 
             $scope.loading = false;
         },
 
-        setDefaultEvoluciones: function(){
+        setDefaultEvoluciones: function() {
             $scope.evoluciones = {
                 fecha: null,
                 hora: null,
