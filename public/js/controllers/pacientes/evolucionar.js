@@ -45,13 +45,6 @@ angular.module('app').controller('pacientes/evolucionar', ['$scope', 'Plex', 'pl
             $scope.evolucionesEdit = {};
 
             angular.copy(evolucion, $scope.evolucionesEdit);
- // console.log(evolucion);
-//             Server.patch('/api/internacion/internacion/' + evolucion.idInternacion + '/evolucion/' + '/' + evolucion.id, $scope.evolucionesEdit).then(function(data) {
-//                 evolucion.$editing = false;
-//                 $scope.actualizarEvoluciones();
-//             }, function() {
-//
-//             });
         },
 
         guardarEvolucion: function(evolucion){
@@ -75,6 +68,10 @@ angular.module('app').controller('pacientes/evolucionar', ['$scope', 'Plex', 'pl
                 }else{
                     // vaciamos los elementos del formulario
                     $scope.setDefaultEvoluciones();
+
+                    // reiniciamos el formulario
+                    $scope.formEvolucion.$setPristine();
+
                     // actualizamos el listado de evoluciones
                     $scope.actualizarEvoluciones(data);
                 }
@@ -100,7 +97,7 @@ angular.module('app').controller('pacientes/evolucionar', ['$scope', 'Plex', 'pl
                     break;
                 }
             }
-//console.log("FOUND:" , found);
+
             // si no lo encontro, entonces es porque acaba de cargarla
             // se la asignamos al resto de las evoluciones
             if (!found){
