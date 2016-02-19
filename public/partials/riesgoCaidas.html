@@ -1,160 +1,145 @@
-<ng-form name="miFormulario">
-    <!-- ****************************** Título ****************************** -->
-    <div class="row">
-        <div class="col-sm-12">
-            <fieldset>
-                <legend>Valoración del Riesgo de Caídas</legend>
-                <span>La escala de caída de Morse es una herramienta rápida y simple para evaluar la probabilidad de que un paciente sufra una caída.</span>
-            </fieldset>
-        </div>
-    </div>
-    <br /><br />
-    <div class="row">
-        <div class="col-sm-4">
-            <label>Caídas Previas</label>
-            <input type="checkbox" plex="bool" true="Si (25)" false="No (0)" />
-        </div>
-        <div class="col-sm-4">
-            <label>Comorbilidades</label>
-            <input type="checkbox" plex="bool" true="Si (15)" false="No (0)" />
-        </div>
-        <div class="col-sm-4">
-            <div class="row">
-                <label>Ayuda para Deambular</label>
-            </div>
-            <div class="radio">
-                <label><input type="radio" name="radioAyuda"> Ninguna/Reposo en cama/Asistencia (0)</label>
-            </div>
-            <div class="radio">
-                <label><input type="radio" name="radioAyuda">Bastón/Muleta/Caminador (15)</label>
-            </div>
-            <div class="radio">
-                <label><input type="radio" name="radioAyuda">Se apoya en los muebles (30)</label>
-            </div>
-        </div>
-    </div>
-    <br />
-    <div class="row">
-        <div class="col-sm-4">
-            <label>Venoclisis</label>
-            <input type="checkbox" plex="bool" true="Si (20)" false="No (0)" />
-        </div>
-        <div class="col-sm-4">
-            <div class="row">
-                <label>Marcha</label>
-            </div>
-            <div class="radio">
-                <label><input type="radio" name="radioMarcha"> Normal/Reposo en cama/Silla de ruedas (0)</label>
-            </div>
-            <div class="radio">
-                <label><input type="radio" name="radioMarcha">Débil (10)</label>
-            </div>
-            <div class="radio">
-                <label><input type="radio" name="radioMarcha">Limitada (20)</label>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="row">
-                <label>Estado Mental</label>
-            </div>
-            <div class="radio">
-                <label><input type="radio" name="radioEstado"> Reconoce sus limitaciones (0)</label>
-            </div>
-            <div class="radio">
-                <label><input type="radio" name="radioEstado">Sobreestima u olvida sus limitaciones (15)</label>
-            </div>
-        </div>
-    </div>
-    <br /><br />
-    <div class="row">
-        <div class="col-sm-5">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Riesgo</th>
-                        <th>Puntaje</th>
-                        <th>Cuidados de Enfermería</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr style="background-color:#b3ffb3">
-                        <td>Bajo</td>
-                        <td>0 - 24</td>
-                        <td>Cuidados bajos de enfermería</td>
-                    </tr>
-                    <tr style="background-color:#ffffb3">
-                        <td>Medio</td>
-                        <td>25 - 50</td>
-                        <td>Implementación de plan de prevención</td>
-                    </tr>
-                    <tr style="background-color:#ffb3b3">
-                        <td>Alto</td>
-                        <td>> 50</td>
-                        <td>Implementación de medidas especiales</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+<style scoped>
+    input[type="radio"] + div.help-block {
+        display: none;
+    }
 
-    <!-- INSTRUCTIVO PARA ASIGNACIÓN Y CÁLCULO DE PUNTOS (Implementar en cada campo con botoncitos de help.) -->
-    <div class="hidden">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <span>Los puntajes se asignan de acuerdo a las siguientes definiciones:</span>
-                <br />
-                <span style="font-weight:bold">1.	ANTECEDENTES DE CAÍDAS RECIENTES:</span>
-                <br />
-                <span>•	Se asignan 25 puntos si el paciente se ha caído durante la presente internación o si tiene antecedentes dentro de los últimos tres meses de caídas fisiológicas a consecuencia de situaciones tales como convulsiones o trastornos de la marcha.</span>
-                <br />
-                <span>•	Si el paciente no se ha caído, se asigna 0 puntos.</span>
-                <br />
-                <span>•	Nota: si un paciente se cae por primera vez, entonces su puntaje automáticamente sube a 25. </span>
-                <br />
-                <span>•	Si el paciente sólo puede caminar apoyándose en los muebles se asignan 30 puntos.</span>
-                <br />
-                <spanstyle="font-weight:bold">2.	DIAGNÓSTICO SECUNDARIO:</span>
-                <br />
-                <span>•	Se asignan 15 puntos si hay más de un diagnóstico en la historia clínica.</span>
-                <br />
-                <span>•	Si no, se califica 0.</span>
-                <br />
-                <span style="font-weight:bold">3.	AYUDA PARA DEAMBULAR:</span>
-                <br />
-                <span>•	Se califica con 0 si el paciente camina sin ningún dispositivo de ayuda (aun siendo ayudado por una enfermera/o), se encuentra en silla de ruedas o está en reposo y no se levanta de la cama para nada. </span>
-                <br />
-                <span>•	Si el paciente utiliza muletas, bastón o andador se asignan 15 puntos.</span>
-                <br />
-                <span>•	Si el paciente sólo camina apoyándose en los muebles se asignan 30 puntos.</span>
-                <br />
-                <span style="font-weight:bold">4.	VÍA ENDOVENOSA:</span>
-                <br />
-                <span>•	Se asignan 20 puntos si el paciente tiene una vía IV en caso contrario el puntaje es 0.</span>
-                <br />
-                <span style="font-weight:bold">5.	MARCHA (Equilibrio y/o traslado):</span>
-                <br />
-                <span>•	Se define como marcha normal cuando el paciente camina con la cabeza erecta, los brazos balanceándose libremente a los costados y con pasos seguros. A esta marcha no se le asignan puntos (0).</span>
-                <br />
-                <span>•	Con una marcha débil (puntaje 10) el paciente camina encorvado pero es capaz de levantar la cabeza mientras camina sin perder equilibrio. Los pasos son cortos y puede arrastrar los pies.</span>
-                <br />
-                <span>•	Con una marcha alterada (puntaje 20) el paciente puede tener dificultades para levantarse de la silla, pudiendo realizar varios intentos apoyando sus brazos en los brazos de la silla o "tomando IMPULSO"(ej.: realizando varios intentos por incorporarse, .La cabeza del paciente está baja, mirando al piso.</span>
-                <br />
-                <span>•	Como tiene muy poco equilibrio, el paciente se agarra de los muebles, de una persona de apoyo o de bastones/andadores y no puede caminar sin esta asistencia).</span>
-                <br />
-                <span style="font-weight:bold">6.	CONCIENCIA - ESTADO MENTAL:</span>
-                <br />
-                <span>Cuando se utiliza esta escala, el estado mental del paciente es valorado chequeando la propia evaluación que hace el paciente acerca de su capacidad para caminar. Se le pregunta al paciente: "¿Puede ir al baño sólo o necesita ayuda?"</span>
-                <br />
-                <span>•	Si la respuesta del paciente es consistente con sus reales posibilidades se le asigna 0 punto.</span>
-                <br />
-                <span>•	Si la respuesta del paciente no es realista, se considera que el mismo sobreestima sus propias capacidades y no es consciente de sus limitaciones, asignándose entonces 15 puntos.</span>
-                <br />
-                <span style="font-weight:bold">7.	PUNTUACIÓN FINAL Y NIVEL DE RIESGO:</span>
-                <br />
-                <span>•	Se suman los puntajes de los 6 ítems y se documenta en la historia clínica.</span>
-                <br />
-                <span>•	Se identifica así el nivel de riesgo de caídas y las acciones recomendadas según el riesgo.</span>
+    input[type="radio"]:checked + div.help-block {
+        display: block;
+    }
+</style>
+<div class="row">
+    <div class="col-sm-12">
+        <fieldset>
+            <legend>Valoración de riesgo de caídas
+                <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
+                <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total >= 25 && internacion.ingreso.enfermeria.riesgoCaida.total <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
+                <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
+            </legend>
+            <div class="row">
+                <div class="col-sm-4">
+                    <label>Caídas previas</label>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="caidasPrevias" ng-model="internacion.ingreso.enfermeria.riesgoCaida.caidasPrevias" ng-value="0">No
+                            <div class="help-block small">
+                                El paciente no se ha caído
+                            </div>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="caidasPrevias" ng-model="internacion.ingreso.enfermeria.riesgoCaida.caidasPrevias" ng-value="25">Si
+                            <div class="help-block small">
+                                El paciente se ha caído durante la presente internación o tiene antecedentes dentro de los últimos 3 meses de caídas por convulsiones o trastornos de la marcha
+                            </div>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="caidasPrevias" ng-model="internacion.ingreso.enfermeria.riesgoCaida.caidasPrevias" ng-value="30">Necesita apoyarse
+                            <div class="help-block small">
+                                El paciente sólo puede caminar apoyándose en los muebles
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label>Marcha</label>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="marcha" ng-model="internacion.ingreso.enfermeria.riesgoCaida.marcha" ng-value="0">Normal
+                            <div class="help-block small">
+                                El paciente camina con la cabeza erecta, los brazos balanceándose libremente a los costados y con pasos seguros.
+                            </div>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="marcha" ng-model="internacion.ingreso.enfermeria.riesgoCaida.marcha" ng-value="10">Débil
+                            <div class="help-block small">
+                                El paciente camina encorvado pero es capaz de levantar la cabeza mientras camina sin perder equilibrio. Los pasos son cortos y puede arrastrar los pies.
+                            </div>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="marcha" ng-model="internacion.ingreso.enfermeria.riesgoCaida.marcha" ng-value="20">Limitada
+                            <div class="help-block small">
+                                El paciente puede tener dificultades para levantarse de la silla, pudiendo realizar varios intentos apoyando sus brazos en los brazos de la silla o tomando impulso. La cabeza del paciente está baja, mirando al piso.
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label>Ayuda para Deambular</label>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="ayudaDeambular" ng-model="internacion.ingreso.enfermeria.riesgoCaida.ayudaDeambular" ng-value="0">Ninguna
+                            <div class="help-block small">
+                                El paciente camina sin ningún dispositivo de ayuda, se encuentra en silla de ruedas o está en reposo y no se levanta de la cama para nada
+                            </div>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="ayudaDeambular" ng-model="internacion.ingreso.enfermeria.riesgoCaida.ayudaDeambular" ng-value="15">Necesita ayuda
+                            <div class="help-block small">
+                                El paciente utiliza muletas, bastón o andador.
+                            </div>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="ayudaDeambular" ng-model="internacion.ingreso.enfermeria.riesgoCaida.ayudaDeambular" ng-value="30">Se apoya en los muebles
+                            <div class="help-block small">
+                                El paciente sólo camina apoyándose en los muebles
+                            </div>
+                        </label>
+                    </div>
+                </div>
             </div>
-        </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <label>Venoclisis</label>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="venoclitis" ng-model="internacion.ingreso.enfermeria.riesgoCaida.venoclitis" ng-value="0">No
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="venoclitis" ng-model="internacion.ingreso.enfermeria.riesgoCaida.venoclitis" ng-value="20">Si
+                            <div class="help-block small">
+                                El paciente tiene una vía IV
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <label>Comorbilidad</label>
+                    <div class="radio">
+                        <label><input type="radio" name="comorbilidad" ng-model="internacion.ingreso.enfermeria.riesgoCaida.comorbilidad" ng-value="0">No
+                            <div class="help-block small">
+                                El paciente tiene un solo diagnóstico
+                            </div>
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="comorbilidad" ng-model="internacion.ingreso.enfermeria.riesgoCaida.comorbilidad" ng-value="15">Si
+                            <div class="help-block small">
+                                El paciente presenta múltiples diagnósticos
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label>Estado Mental</label>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="estadoMental" ng-model="internacion.ingreso.enfermeria.riesgoCaida.estadoMental" ng-value="0">Reconoce sus limitaciones
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="estadoMental" ng-model="internacion.ingreso.enfermeria.riesgoCaida.estadoMental" ng-value="15">Sobreestima u olvida sus limitaciones
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
     </div>
-</ng-form>
+</div>

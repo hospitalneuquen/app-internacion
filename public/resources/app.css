@@ -1218,3 +1218,19 @@ button.btn-nostyle {
 .btn-buscar-paciente:hover .fa.agregar{
     color: white;
 }
+
+/* Niveles */
+.nivel-verde {
+    background: #b1c900;
+    color: black;
+}
+
+.nivel-amarillo {
+    background: #ffeb34;
+    color: black;
+}
+
+.nivel-rojo {
+    background: #e50018;
+    color: white;
+}
