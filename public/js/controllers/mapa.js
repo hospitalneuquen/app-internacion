@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 'Server', '$timeout', function($scope, Plex, Shared, Server, $timeout) {
-
+angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 'Server', '$timeout', '$alert', function($scope, Plex, Shared, Server, $timeout, $alert) {
     angular.extend($scope, {
         habitaciones: [],
         tipoCamas: [],
@@ -87,10 +86,18 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             }
 
             // el parametro updateUI en false, es para evitar la pantalla de error
-            Server.post("/api/internacion/cama/cambiarEstado/" + cama.id, dto, {updateUI: false}).then(function(data){
+            Server.post("/api/internacion/cama/cambiarEstado/" + cama.id, dto).then(function(data){
                 $scope.actualizarMapa(data);
-            }, function(error){
-                Plex.showWarning(error.data);
+
+                // una vez actualizado el mapa de cama, mostramos el formulario
+                // de carga de datos de la valoracion inicial
+                $alert({title: 'Internacion creada', content: 'A continuación puede crear la valoración inicial.', placement: 'top-right', type: 'success', show: true});
+
+                $timeout(function(){
+                    Plex.openView('valoracionEnfermeria').then(function() {
+
+                    });
+                }, 500);
             });
         },
 
