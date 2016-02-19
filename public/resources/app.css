@@ -1222,3 +1222,19 @@ button.btn-nostyle {
 
 .grow { transition: all .2s ease-in-out; }
 .grow:hover { transform: scale(1.1); }
+
+/* Niveles */
+.nivel-verde {
+    background: #b1c900;
+    color: black;
+}
+
+.nivel-amarillo {
+    background: #ffeb34;
+    color: black;
+}
+
+.nivel-rojo {
+    background: #e50018;
+    color: white;
+}
