@@ -762,11 +762,21 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <input type=text label="Riesgo de Caídas*" ng-model="enfermeria.riesgoCaidas" plex />
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-8">
+                            <br />
+                            <button type="button" class="btn btn-link" ng-click="cargarRiesgoCaidas()">Completar Valoración de Riesgo de Caídas</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
                             <input type=text label="Riesgo UPP*" ng-model="enfermeria.riesgoUPP" plex />
+                        </div>
+                        <div class="col-sm-8">
+                            <br />
+                            <button type="button" class="btn btn-link">Completar Valoración de Riesgo de UPP</button>
                         </div>
                     </div>
                     <div class="row">
@@ -800,10 +810,10 @@
                 <div class="panel-body" ng-show="showNCS">
                     <div class="row">
                         <div class="col-sm-6">
-                            <input type="radio" name="optradio" ng-model="enfermeria.orientado=true"/> Orientado
+                            <input type="radio" name="optradio" ng-model="enfermeria.orientado"/> Orientado
                         </div>
                         <div class="col-sm-6">
-                            <input type="radio" name="optradio"ng-model="enfermeria.orientado=false"/> Desorientado
+                            <input type="radio" name="optradio"ng-model="enfermeria.orientado"/> Desorientado
                         </div>
                     </div>
                     <br />
