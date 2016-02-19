@@ -72,15 +72,8 @@ angular.module('app').controller('pacientes/buscar', ['$scope', 'Plex', 'Server'
             Server.post('/api/internacion/internacion', $scope.internacion, {
                 minify: true
             }).then(function(data) {
-                //Plex.closeView(data);
-                $scope.cargarValoraciones();
+                Plex.closeView(data);
             }, function() {
-
-            });
-        },
-
-        cargarValoraciones: function(){
-            Plex.openView('valoracionEnfermeria').then(function() {
 
             });
         },
