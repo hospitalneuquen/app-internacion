@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', function($scope) {
+angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'Plex', 'Shared', 'Server', '$timeout', '$alert', function($scope, Plex, Shared, Server, $timeout, $alert) {
     angular.extend($scope, {
         miFormulario: null,
         nombre: "Ana",
@@ -11,6 +11,11 @@ angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', fu
                 }
                 //if (miFormulario.$valid)
                 //Server.post('api/internacion/', dto)
-        }
+        },
+        cargarRiesgoCaidas: function() {
+            Plex.openView('riesgoCaidas').then(function() {
+
+            });
+        },
     });
 }]);
