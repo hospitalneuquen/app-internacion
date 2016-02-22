@@ -87,6 +87,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
 
             // el parametro updateUI en false, es para evitar la pantalla de error
             Server.post("/api/internacion/cama/cambiarEstado/" + cama.id, dto).then(function(data){
+
                 $scope.actualizarMapa(data);
 
                 // una vez actualizado el mapa de cama, mostramos el formulario
@@ -94,7 +95,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 $alert({title: 'Internacion creada', content: 'A continuación puede crear la valoración inicial.', placement: 'top-right', type: 'success', show: true});
 
                 $timeout(function(){
-                    Plex.openView('valoracionEnfermeria').then(function() {
+                    Plex.openView('valoracionEnfermeria/' + data.idInternacion).then(function() {
 
                     });
                 }, 500);

@@ -194,7 +194,7 @@
                             <input type="checkbox" ng-model="enfermeria.disneaReposo"/> Disnea reposo
                         </div>
                         <div class="col-sm-4">
-                            <input type="checkbox" ng-model="enfermeria.Tos"/> Tos
+                            <input type="checkbox" ng-model="enfermeria.os"/> Tos
                         </div>
                     </div>
                     <br />
@@ -813,7 +813,7 @@
                             <input type="radio" name="optradio" ng-model="enfermeria.orientado"/> Orientado
                         </div>
                         <div class="col-sm-6">
-                            <input type="radio" name="optradio"ng-model="enfermeria.orientado"/> Desorientado
+                            <input type="radio" name="optradio" ng-model="enfermeria.orientado"/> Desorientado
                         </div>
                     </div>
                     <br />
@@ -830,13 +830,13 @@
                             <label>Visión</label>
                         </div>
                         <div class="col-sm-3">
-                            <input type="radio" name="radioVision" ng-model="enfermeria.visionNormal"/> Normal
+                            <input type="radio" name="radioVision" ng-model="enfermeria.vision"/> Normal
                         </div>
                         <div class="col-sm-3">
-                            <input type="radio" name="radioVision" ng-model="enfermeria.visionDeficiente"/> Deficiente
+                            <input type="radio" name="radioVision" ng-model="enfermeria.vision"/> Deficiente
                         </div>
                         <div class="col-sm-3">
-                            <input type="radio" name="radioVision" ng-model="enfermeria.visionAusente"/> Ausente
+                            <input type="radio" name="radioVision" ng-model="enfermeria.vision"/> Ausente
                         </div>
                     </div>
                     <div class="row">
@@ -844,13 +844,13 @@
                             <label>Audición</label>
                         </div>
                         <div class="col-sm-3">
-                            <input type="radio" name="radioAudicion" ng-model="enfermeria.audicionNormal"/> Normal
+                            <input type="radio" name="radioAudicion" ng-model="enfermeria.audicion"/> Normal
                         </div>
                         <div class="col-sm-3">
-                            <input type="radio" name="radioAudicion" ng-model="enfermeria.audicionDeficiente"/> Deficiente
+                            <input type="radio" name="radioAudicion" ng-model="enfermeria.audicion"/> Deficiente
                         </div>
                         <div class="col-sm-3">
-                            <input type="radio" name="radioAudicion" ng-model="enfermeria.audicionAusente"/> Ausente
+                            <input type="radio" name="radioAudicion" ng-model="enfermeria.audicion"/> Ausente
                         </div>
                     </div>
                     <div class="row">
@@ -858,13 +858,13 @@
                             <label>Lenguaje</label>
                         </div>
                         <div class="col-sm-3">
-                            <input type="radio" name="radioLenguaje" ng-model="enfermeria.lenguajeNormal"/> Normal
+                            <input type="radio" name="radioLenguaje" ng-model="enfermeria.lenguaje"/> Normal
                         </div>
                         <div class="col-sm-3">
-                            <input type="radio" name="radioLenguaje" ng-model="enfermeria.lenguajeDeficiente"/> Deficiente
+                            <input type="radio" name="radioLenguaje" ng-model="enfermeria.lenguaje"/> Deficiente
                         </div>
                         <div class="col-sm-3">
-                            <input type="radio" name="radioLenguaje" ng-model="enfermeria.lenguajeAusente"/> Ausente
+                            <input type="radio" name="radioLenguaje" ng-model="enfermeria.lenguaje"/> Ausente
                         </div>
                     </div>
                     <br />
@@ -1025,4 +1025,5 @@
     </div>
     <!-- <input type=text ng-model="fecha" ng-required="nombre" plex="date" />
   <button class="btn btn-primary" ng-click="guardar()">Save</button> -->
+  <button class="btn btn-primary" ng-click="guardar()">Guardar</button>
 </ng-form>
