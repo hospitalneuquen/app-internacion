@@ -16,6 +16,8 @@ angular.module('app')
              .when('/riesgoCaidas', { templateUrl: 'partials/riesgoCaidas.html', controller: 'RiesgoCaidasController' })
              .when('/mapa', { templateUrl: 'partials/mapa.html', controller: 'MapaController' })
 
+             .when('/internaciones/editar/:idInternacion', { templateUrl: 'partials/internaciones/editar.html', controller: 'internaciones/editar' })
+
              .when('/pacientes/buscar', { templateUrl: 'partials/pacientes/buscar.html', controller: 'pacientes/buscar' })
              .when('/pacientes/evolucionar/:idCama/:idInternacion', { templateUrl: 'partials/pacientes/evolucionar.html', controller: 'pacientes/evolucionar' })
              .when('/pacientes/prestaciones', { templateUrl: 'partials/pacientes/prestaciones.html', controller: 'pacientes/prestaciones' })

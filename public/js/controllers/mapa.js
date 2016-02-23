@@ -90,15 +90,21 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
 
                 $scope.actualizarMapa(data);
 
-                // una vez actualizado el mapa de cama, mostramos el formulario
-                // de carga de datos de la valoracion inicial
-                $alert({title: 'Internacion creada', content: 'A continuación puede crear la valoración inicial.', placement: 'top-right', type: 'success', show: true});
+                // verificamos si el parametro $action definido en la vista
+                // viene con el valor 'internacion' y de ser asi, entonces
+                // mostramos el formulario de valoracion de enfermeria
+                if (data.$action == 'internacion'){
+                    // una vez actualizado el mapa de cama, mostramos el formulario
+                    // de carga de datos de la valoracion inicial
+                    $alert({title: 'Internacion creada', content: 'A continuación puede crear la valoración inicial.', placement: 'top-right', type: 'success', show: true});
 
-                $timeout(function(){
-                    Plex.openView('valoracionEnfermeria/' + data.idInternacion).then(function() {
+                    $timeout(function(){
+                        Plex.openView('valoracionEnfermeria/' + data.idInternacion).then(function() {
 
-                    });
-                }, 500);
+                        });
+                    }, 500);
+                }
+
             });
         },
 
@@ -110,6 +116,22 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
 
             });
         },
+
+        editarInternacion: function(idInternacion){
+            Plex.openView('internaciones/editar/' + idInternacion).then(function(internacion) {
+
+            });
+        },
+
+        verValoracionInicial: function (idInternacion){
+            Plex.openView('valoracionEnfermeria/' + idInternacion).then(function(internacion) {
+
+            });
+            // Server.get('/api/internacion/internacion/' + idInternacion + '/valoracionEnfermeria').then(function(valoracionInicial){
+            //     console.log(valoracionInicial);
+            // });
+        },
+
         actualizarMapa: function(data){
             var length = $scope.camas.length;
 
