@@ -110,6 +110,10 @@
                 <div class="front">
 
                     <div class="header">
+                        <button class="btn " ng-show="cama.paciente.id" ng-click="cama.$rotar = true; cama.$action = 'menu_extra'">
+                            <i class="fa fa-bars"></i>
+                        </button>
+
                         <div class="numero-habitacion">
                             {{cama.habitacion}}
                             /
@@ -122,11 +126,11 @@
                         <div class="main cama">
                             <div class="icon">
                                 <!-- <i class="fa fa-bed text-success"></i> -->
-                                <i class="fa fa-male " ng-if="cama.paciente.sexo == 'masculino' || cama.paciente.sexo == 'Masculino' "></i>
-                                <i class="fa fa-female " ng-if="cama.paciente.sexo == 'femenino' || cama.paciente.sexo == 'Femenino'"></i>
-                                <i class="fa fa-user-secret " ng-if="cama.paciente.sexo == 'indeterminado' || cama.paciente.sexo == 'Indeterminado'"></i>
+                                <i class="fa fa-male " ng-if="cama.paciente.sexo == 'masculino' || cama.paciente.sexo == 'Masculino' " ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'evolucion'"></i>
+                                <i class="fa fa-female " ng-if="cama.paciente.sexo == 'femenino' || cama.paciente.sexo == 'Femenino'" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'evolucion'"></i>
+                                <i class="fa fa-user-secret " ng-if="cama.paciente.sexo == 'indeterminado' || cama.paciente.sexo == 'Indeterminado'" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'evolucion'"></i>
 
-                                <button type="button" class="btn btn-buscar-paciente grow tips" title="Agregar paciente en cama" ng-click="buscarPaciente(cama)" ng-if="!cama.paciente.id && cama.estado == 'desocupada'">
+                                <button type="button" class="btn btn-buscar-paciente grow tips" title="Agregar paciente en cama" ng-click="buscarPaciente(cama); cama.$action = 'internacion'" ng-if="!cama.paciente.id && cama.estado == 'desocupada'">
                                     <i class="fa fa-user-plus agregar"></i>
                                 </button>
                             </div>
@@ -143,10 +147,14 @@
                             </div>
 
                             <div ng-if="!cama.paciente.id && cama.estado == 'reparacion'">
-                                <h3 class="name">
-                                    Enviada a reparación el día
+                                <h3 class="name reparacion">
+                                    En reparación desde:
                                     {{cama.reparacion.createdAt | date: "dd/MM/yyyy  'a las' HH:mm "}}hs
+                                    <br /><br />
                                 </h3>
+                                <div class="motivo-reparacion">
+                                    {{cama.reparacion.motivo | limitTo: 200}}
+                                </div>
                             </div>
                         </div>
 
@@ -196,11 +204,11 @@
                                     <i class="fa fa-arrow-circle-up"></i>
                                 </button>
 
-                                <button type="button" class="btn btn-default btn-sm tips" title="Ver actualizaciones" ng-init="cama.$action = 'evolucion'" ng-click="cama.$rotar = !cama.$rotar" ng-if="cama.paciente.id">
+                                <button type="button" class="btn btn-default btn-sm tips" title="Ver actualizaciones"  ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'evolucion'" ng-if="cama.paciente.id">
                                     <i class="fa fa-mail-forward"></i>
                                 </button>
 
-                                <button type="button" class="btn btn-default btn-sm tips" title="Enviar a reparación / Confirmar reparación" ng-init="cama.$action = 'reparacion'" ng-click="cama.$rotar = !cama.$rotar" ng-if="!cama.paciente.id && (cama.estado == 'desocupada' || cama.estado == 'reparacion')">
+                                <button type="button" class="btn btn-default btn-sm tips" title="Enviar a reparación / Confirmar reparación" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'reparacion'" ng-if="!cama.paciente.id && (cama.estado == 'desocupada' || cama.estado == 'reparacion')">
                                     <i class="fa fa-wrench"></i>
                                 </button>
 
@@ -211,6 +219,9 @@
                 </div>
                 <div class="back">
                     <div class="header">
+                        <button class="btn "  ng-show="cama.paciente.id && cama.$action == 'menu_extra'" ng-click="cama.$rotar = !cama.$rotar">
+                            <i class="fa fa-close"></i>
+                        </button>
                         <div class="numero-habitacion">
                             {{cama.habitacion}}
                             /
@@ -315,6 +326,7 @@
                         </form>
 
                     </div>
+
                     <!-- Confirmar reparacion completa de una cama -->
                     <div class="content" ng-if="cama.$action && cama.$action == 'reparacion' && cama.estado == 'reparacion'" ng-class="{'reparacion': cama.$action == 'reparacion' }">
                         <div class="main">
@@ -339,6 +351,20 @@
                         </div>
 
                     </div>
+
+                    <!-- extra menu -->
+                    <div class="content" ng-if="cama.$action && cama.$action == 'menu_extra'">
+                        <div class="main ">
+                            <button type="button" class="btn btn-info col-lg-12 " ng-click="editarInternacion(cama.idInternacion)">Internación</button>
+                            <button type="button" class="btn btn-info col-lg-12 " ng-click="verValoracionInicial(cama.idInternacion)">Valoracion inicial</button>
+
+                        </div>
+
+                        <div class="footer">
+
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
