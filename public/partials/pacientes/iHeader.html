@@ -1,0 +1,29 @@
+<div class="paciente-header" app-paciente-affix>
+    <div class="row" ng-controller="Pacientes/iHeaderController">
+        <div class="col-md-12">
+            <div class="box box-success">
+                <div class="box-header">
+                    <h3 class="box-title">
+                        <ul class="list-inline">
+                            <li>
+                                {{internacion.paciente | persona}}
+                            </li>
+                            <li>
+                                {{internacion.paciente | persona:"d"}}
+                            </li>
+                            <li>
+                                {{internacion.paciente.sexo}}
+                            </li>
+                            <li>
+                                {{internacion.ingreso.diagnosticoPresuntivo}}
+                            </li>
+                        </ul>
+                    </h3>
+                    <!-- <div class="box-tools pull-right">
+                        <p class="numero-habitacion-header">{{cama.habitacion}}/{{cama.numero}}</p>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
