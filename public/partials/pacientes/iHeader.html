@@ -3,25 +3,24 @@
         <div class="col-md-12">
             <div class="box box-success">
                 <div class="box-header">
-                    <h3 class="box-title">
-                        <ul class="list-inline">
-                            <li>
-                                {{internacion.paciente | persona}}
-                            </li>
-                            <li>
-                                {{internacion.paciente | persona:"d"}}
-                            </li>
-                            <li>
-                                {{internacion.paciente.sexo}}
-                            </li>
-                            <li>
-                                {{internacion.ingreso.diagnosticoPresuntivo}}
-                            </li>
-                        </ul>
-                    </h3>
-                    <!-- <div class="box-tools pull-right">
-                        <p class="numero-habitacion-header">{{cama.habitacion}}/{{cama.numero}}</p>
-                    </div> -->
+                    <div class="col-xs-1" style="text-align: right">
+                        <i class="fa fa-male fa-4x" ng-if="internacion.paciente.sexo != 'femenino'"></i>
+                        <i class="fa fa-female fa-4x" ng-if="internacion.paciente.sexo == 'femenino'"></i>
+                    </div>
+                    <div class="col-xs-4">
+                        <h3 class="box-title">
+                            {{internacion.paciente | persona}}
+                        </h3>
+                        <div>
+                            <strong>{{internacion.paciente | persona:'d'}}</strong>
+                        </div>
+                        <div>{{internacion.paciente | persona:'e'}}
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <label class="small">Diagnóstico presuntivo</label><br />
+                        {{internacion.ingreso.diagnosticoPresuntivo}}
+                    </div>
                 </div>
             </div>
         </div>
