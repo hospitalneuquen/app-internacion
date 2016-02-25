@@ -1,12 +1,37 @@
 'use strict';
 
-angular.module('app').controller('pacientes/evolucionar', ['$scope', 'Plex', 'plexParams', 'Shared', 'Server', '$timeout', function($scope, Plex, plexParams, Shared, Server, $timeout) {
+angular.module('app').controller('pacientes/evolucionar', ['$scope', 'Plex', 'plexParams', 'Shared', 'Server', '$timeout', 'Session', function($scope, Plex, plexParams, Shared, Server, $timeout, Session) {
 
     angular.extend($scope, {
         loading: true,
         cama: undefined,
         internacion: undefined,
-        evoluciones: {},
+        // evoluciones: {},
+        // array de servicios para filtrar en la vista
+        servicios: [{
+            id: null,
+            nombreCorto: 'Todos'
+        }],
+        filtros: {
+            evoluciones: [],
+            servicio: null,
+            filtrar: function(){
+                var self = this;
+
+                if (!this.servicio){
+                    $scope.filtros.evoluciones = $scope.internacion.evoluciones;
+                }else{
+                    $scope.filtros.evoluciones = [];
+                    angular.forEach($scope.internacion.evoluciones, function(evolucion, key) {
+                        if (self.servicio && evolucion.servicio.id === self.servicio){
+                            $scope.filtros.evoluciones.push(evolucion);
+                        }
+
+                    });
+                }
+
+            }
+        },
 
         init: function() {
             // seteamos los valores por defecto de las evoluciones
@@ -32,14 +57,31 @@ angular.module('app').controller('pacientes/evolucionar', ['$scope', 'Plex', 'pl
                     alert("No se ha podido encontrar la internacion");
                 } else {
                     $scope.internacion = internacion;
+                    $scope.filtros.evoluciones = internacion.evoluciones;
                     $scope.loading = false;
+
+                    if ($scope.internacion.evoluciones.length){
+                        var services_found = [];
+                        // buscamos los servicios para el filtro de evoluciones
+                        angular.forEach($scope.internacion.evoluciones, function(evolucion, key) {
+                            if (evolucion.servicio && evolucion.servicio.id){
+                                if ($.inArray(evolucion.servicio.id, services_found) === -1) {
+                                    $scope.servicios.push(evolucion.servicio);
+                                    services_found.push(evolucion.servicio.id);
+                                    // $scope.servicios.push({
+                                    //     'text': evolucion.servicio.nombreCorto,
+                                    //     'nombreCorto': evolucion.servicio.nombreCorto,
+                                    //     'href': '#'
+                                    // });
+                                }
+                            }
+
+
+                        });
+                    }
                 }
             });
-
-            // buscamos todos los datos del paciente que faltan
         },
-
-
 
         editarEvolucion: function(evolucion) {
             $scope.evolucionesEdit = {};
@@ -118,7 +160,8 @@ angular.module('app').controller('pacientes/evolucionar', ['$scope', 'Plex', 'pl
                 respiracion: null,
                 spo2: null,
                 peso: null,
-                texto: null
+                texto: null,
+                servicio: Session.servicioActual
             }
         }
     });
