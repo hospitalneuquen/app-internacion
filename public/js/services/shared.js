@@ -7,7 +7,7 @@
  * @description
  * Servicio que engloba constantes y métodos compartidos en toda la aplicación
  **/
-angular.module('app').factory('Shared', ["Global", "Server", function(Global, Server) {
+angular.module('app').factory('Shared', ["Global", "Server", "Session", function(Global, Server, Session) {
     var self = {
         Mapa: {
             /**
@@ -21,6 +21,10 @@ angular.module('app').factory('Shared', ["Global", "Server", function(Global, Se
             get: function(query) {
 
                 var query = (typeof query !== "undefined") ? query : '';
+                if (Session.servicioActual && Session.servicioActual.id){
+                    query = Session.servicioActual.id;
+                    //console.log("/api/internacion/mapa/" + query);
+                }
                 // TODO : Resolver si query viene limpio, poder resolver segun los permisos
                 // y accesos del usuario logueado, que tipo de servicio hay que consultar
                 // para traer las camas, si es 'medica'  o 'quirurgica'

@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('app').controller('internaciones/editar', ['$scope', 'Plex', 'Server', '$timeout', 'Personas', function($scope, Plex, Server, $timeout, Personas) {
+angular.module('app').controller('internaciones/editar', ['$scope', 'Plex', 'plexParams', 'Server', '$timeout', 'Personas', 'Global', function($scope, Plex, plexParams, Server, $timeout, Personas, Global) {
     angular.extend($scope, {
+        internacionActual: null,
         personas: {
             data: null,
             query: '',
@@ -27,7 +28,6 @@ angular.module('app').controller('internaciones/editar', ['$scope', 'Plex', 'Ser
                 }, 250);
             }
         },
-
         pacientes: {
             internacion: undefined
         },
@@ -35,6 +35,7 @@ angular.module('app').controller('internaciones/editar', ['$scope', 'Plex', 'Ser
             Plex.closeView(data);
         },
 
+        // opciones para el select del tipo de internacion
         tiposInternacion: [{
             id: 'ambulatorio',
             nombre: 'Ambulatorio'
@@ -59,17 +60,22 @@ angular.module('app').controller('internaciones/editar', ['$scope', 'Plex', 'Ser
             Server.get('/api/internacion/cama/pacienteInternado/' + data.id, {}, {
                 updateUI: false
             }).then(function(data) {
-                if (data.length > 0) {
-                    Plex.showWarning("Atención: El paciente se encuentra actualmente internado.");
-                } else {
-                    $scope.internacion.paciente = paciente;
-                    $scope.internacion.fechaHora = new Date();
+                // si el paciente aparece internado, y es distinto del seleccionado actualmente
+                if (paciente.id == $scope.internacionActual.paciente.id){
+                    Plex.showWarning("Atención: El paciente se encuentra actualmente internado en esta cama.");
+                }else{
+                    if (data.length > 0) {
+                        Plex.showWarning("Atención: El paciente se encuentra actualmente internado en otra cama.");
+                    } else {
+                        $scope.internacion.paciente = paciente;
+                    }
                 }
+
             });
         },
 
-        crear: function() {
-            Server.post('/api/internacion/internacion', $scope.internacion, {
+        guardar: function() {
+            Server.patch('/api/internacion/internacion/' + plexParams.idInternacion + '/editarIngreso', $scope.internacion, {
                 minify: true
             }).then(function(data) {
                 Plex.closeView(data);
@@ -79,6 +85,16 @@ angular.module('app').controller('internaciones/editar', ['$scope', 'Plex', 'Ser
         },
 
         init: function() {
+            // buscamos los datos de la internacion
+            Server.get('/api/internacion/internacion/' + plexParams.idInternacion).then(function(data) {
+                $scope.internacionActual = data;
+                $scope.internacion.paciente = data.paciente;
+                $scope.internacion.fechaHora = data.ingreso.fechaHora;
+                $scope.internacion.tipo = Global.getById($scope.tiposInternacion, data.ingreso.tipo);
+                $scope.internacion.motivo = data.ingreso.motivo;
+                $scope.internacion.diagnosticoPresuntivo = data.ingreso.diagnosticoPresuntivo;
+            });
+
             // buscamos los pacientes que estan en el estado 'enIngreso'
             Server.get('/api/internacion/internacion/estado/enIngreso').then(function(data) {
                 $scope.pacientes.internacion = data;
