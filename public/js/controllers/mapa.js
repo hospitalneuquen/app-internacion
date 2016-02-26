@@ -2,6 +2,7 @@
 
 angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 'Server', '$timeout', '$alert', 'Session', function($scope, Plex, Shared, Server, $timeout, $alert, Session) {
     Session.servicioActual = {
+        "id" : '56b3352698a74c8422cf8224',
         "_id" : '56b3352698a74c8422cf8224',
         "nombre": "Servicio de Clínica Médica",
         "nombreCorto" : "Clínica Médica"

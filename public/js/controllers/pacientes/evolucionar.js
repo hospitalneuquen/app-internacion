@@ -6,6 +6,7 @@ angular.module('app').controller('pacientes/evolucionar', ['$scope', 'Plex', 'pl
         loading: true,
         cama: undefined,
         internacion: undefined,
+        evolucionesEdit: undefined, // Item actual que se está editando
         // evoluciones: {},
         // array de servicios para filtrar en la vista
         servicios: [{
@@ -15,15 +16,15 @@ angular.module('app').controller('pacientes/evolucionar', ['$scope', 'Plex', 'pl
         filtros: {
             evoluciones: [],
             servicio: null,
-            filtrar: function(){
+            filtrar: function() {
                 var self = this;
 
-                if (!this.servicio){
+                if (!this.servicio) {
                     $scope.filtros.evoluciones = $scope.internacion.evoluciones;
-                }else{
+                } else {
                     $scope.filtros.evoluciones = [];
                     angular.forEach($scope.internacion.evoluciones, function(evolucion, key) {
-                        if (self.servicio && evolucion.servicio.id === self.servicio){
+                        if (self.servicio && evolucion.servicio.id === self.servicio) {
                             $scope.filtros.evoluciones.push(evolucion);
                         }
 
@@ -34,94 +35,69 @@ angular.module('app').controller('pacientes/evolucionar', ['$scope', 'Plex', 'pl
         },
 
         init: function() {
-            // seteamos los valores por defecto de las evoluciones
-            $scope.setDefaultEvoluciones();
-
             // buscamos la cama
-            Server.get("/api/internacion/cama/" + plexParams.idCama, {}, {
-                updateUI: false
-            }).then(function(cama) {
-                if (!cama) {
-                    alert("No se ha podido encontrar la cama");
-                } else {
-                    $scope.cama = cama;
-                }
+            Server.get("/api/internacion/cama/" + plexParams.idCama).then(function(cama) {
+                $scope.cama = cama;
             });
 
             $scope.loading = true;
             // buscamos la internacion
-            Server.get("/api/internacion/internacion/" + plexParams.idInternacion, {}, {
-                updateUI: false
-            }).then(function(internacion) {
-                if (!internacion) {
-                    alert("No se ha podido encontrar la internacion");
-                } else {
-                    $scope.internacion = internacion;
-                    $scope.filtros.evoluciones = internacion.evoluciones;
-                    $scope.loading = false;
+            Server.get("/api/internacion/internacion/" + plexParams.idInternacion).then(function(internacion) {
+                $scope.internacion = internacion;
+                $scope.filtros.evoluciones = internacion.evoluciones;
+                $scope.loading = false;
 
-                    if ($scope.internacion.evoluciones.length){
-                        var services_found = [];
-                        // buscamos los servicios para el filtro de evoluciones
-                        angular.forEach($scope.internacion.evoluciones, function(evolucion, key) {
-                            if (evolucion.servicio && evolucion.servicio.id){
-                                if ($.inArray(evolucion.servicio.id, services_found) === -1) {
-                                    $scope.servicios.push(evolucion.servicio);
-                                    services_found.push(evolucion.servicio.id);
-                                    // $scope.servicios.push({
-                                    //     'text': evolucion.servicio.nombreCorto,
-                                    //     'nombreCorto': evolucion.servicio.nombreCorto,
-                                    //     'href': '#'
-                                    // });
-                                }
+                if ($scope.internacion.evoluciones.length) {
+                    var services_found = [];
+                    // buscamos los servicios para el filtro de evoluciones
+                    angular.forEach($scope.internacion.evoluciones, function(evolucion, key) {
+                        if (evolucion.servicio && evolucion.servicio.id) {
+                            if ($.inArray(evolucion.servicio.id, services_found) === -1) {
+                                $scope.servicios.push(evolucion.servicio);
+                                services_found.push(evolucion.servicio.id);
+                                // $scope.servicios.push({
+                                //     'text': evolucion.servicio.nombreCorto,
+                                //     'nombreCorto': evolucion.servicio.nombreCorto,
+                                //     'href': '#'
+                                // });
                             }
-
-
-                        });
-                    }
+                        }
+                    });
                 }
             });
         },
-
+        // Inicia la edición de una evolución
         editarEvolucion: function(evolucion) {
-            $scope.evolucionesEdit = {};
-
-            angular.copy(evolucion, $scope.evolucionesEdit);
+            if (evolucion) { // Modificación
+                $scope.evolucionesEdit = {};
+                angular.copy(evolucion, $scope.evolucionesEdit);
+                //item.$editing = true;
+            } else { // Alta
+                // Valores por defecto
+                $scope.evolucionesEdit = {
+                    fechaHora: new Date(),
+                    tipo: Session.variables.prestaciones_workflow,
+                    servicio: Session.servicioActual,
+                }
+            }
         },
-
+        // Cancelar la edición
+        cancelarEdicion: function() {
+            $scope.evolucionesEdit = null;
+        },
+        // Guarda la evolución
         guardarEvolucion: function(evolucion) {
-            Server.patch('/api/internacion/internacion/' + plexParams.idInternacion + '/evolucion/' + evolucion.id, $scope.evolucionesEdit).then(function(data) {
-
-                evolucion.$editing = false;
-
+            Server.patch('/api/internacion/internacion/' + plexParams.idInternacion + '/evolucion/' + (evolucion.id || ''), $scope.evolucionesEdit, {
+                minify: true
+            }).then(function(data) {
                 // actualizamos el listado de evoluciones
                 $scope.actualizarEvoluciones(data);
-            }, function() {
+                $scope.cancelarEdicion();
 
+                //if ($scope.volverAlMapa) {
+                //    Plex.closeView($scope.cama);
             });
         },
-
-        crearEvolucion: function() {
-            Server.patch('/api/internacion/internacion/' + plexParams.idInternacion + '/evolucion', $scope.evoluciones).then(function(data) {
-                // si se eligio la opcion de volver al mapa de camas
-                // entonces devolvemos la cama para que genere la animacion
-                if ($scope.volverAlMapa) {
-                    Plex.closeView($scope.cama);
-                } else {
-                    // vaciamos los elementos del formulario
-                    $scope.setDefaultEvoluciones();
-
-                    // reiniciamos el formulario
-                    $scope.formEvolucion.$setPristine();
-
-                    // actualizamos el listado de evoluciones
-                    $scope.actualizarEvoluciones(data);
-                }
-            }, function() {
-
-            });
-        },
-
         actualizarEvoluciones: function(data) {
             var found = false;
             $scope.loading = true;
@@ -147,27 +123,11 @@ angular.module('app').controller('pacientes/evolucionar', ['$scope', 'Plex', 'pl
             }
 
             $scope.loading = false;
-        },
-
-        setDefaultEvoluciones: function() {
-            $scope.evoluciones = {
-                fecha: null,
-                hora: null,
-                pulso: null,
-                ta: null,
-                mmhg: null,
-                temperatura: null,
-                respiracion: null,
-                spo2: null,
-                peso: null,
-                texto: null,
-                servicio: Session.servicioActual
-            }
         }
     });
 
+    // Inicialización
     $scope.init();
-
     Plex.initView({
         title: "Evolucionar paciente"
     });
