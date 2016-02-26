@@ -7,6 +7,7 @@
         display: block;
     }
 </style>
+<ng-form name="Caidas">
 <div class="row">
     <div class="col-sm-12">
         <fieldset>
@@ -97,11 +98,11 @@
                     <label>Venoclisis</label>
                     <div class="radio">
                         <label>
-                            <input type="radio" name="venoclitis" ng-model="internacion.ingreso.enfermeria.riesgoCaida.venoclitis" ng-value="0">No
+                            <input type="radio" name="venoclitis" ng-model="internacion.ingreso.enfermeria.riesgoCaida.venoclisis" ng-value="0">No
                         </label>
                     </div>
                     <div class="radio">
-                        <label><input type="radio" name="venoclitis" ng-model="internacion.ingreso.enfermeria.riesgoCaida.venoclitis" ng-value="20">Si
+                        <label><input type="radio" name="venoclitis" ng-model="internacion.ingreso.enfermeria.riesgoCaida.venoclisis" ng-value="20">Si
                             <div class="help-block small">
                                 El paciente tiene una vía IV
                             </div>
@@ -143,3 +144,7 @@
         </fieldset>
     </div>
 </div>
+<button type="submit" class="btn btn-success pull-right" plex-submit="guardar()">
+    Guardar Valoración
+</button>
+</ng-form>
