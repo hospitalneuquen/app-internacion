@@ -13,7 +13,7 @@ angular.module('app')
         PlexResolverProvider
              .when('/inicio', { templateUrl: 'partials/inicio.html', controller: 'InicioController' })
              .when('/valoracionEnfermeria/:idInternacion', { templateUrl: 'partials/valoracionEnfermeria.html', controller: 'ValoracionEnfermeriaController' })
-             .when('/riesgoCaidas', { templateUrl: 'partials/riesgoCaidas.html', controller: 'RiesgoCaidasController' })
+             .when('/riesgoCaidas/:idInternacion', { templateUrl: 'partials/riesgoCaidas.html', controller: 'RiesgoCaidasController' })
              .when('/mapa', { templateUrl: 'partials/mapa.html', controller: 'MapaController' })
 
              .when('/internaciones/editar/:idInternacion', { templateUrl: 'partials/internaciones/editar.html', controller: 'internaciones/editar' })

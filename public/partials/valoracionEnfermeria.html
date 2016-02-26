@@ -1,4 +1,35 @@
-<!-- <pre>{{ miFormulario.$valid }}</pre>-->
+
+
+<div class="paciente-header" app-paciente-affix>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-success">
+                <div class="box-header">
+                    <h3 class="box-title">
+                        <ul class="list-inline">
+                            <li>
+
+                                {{internacion.paciente.apellido}},
+                                {{internacion.paciente.nombre}}
+                            </li>
+                            <li>
+                                {{internacion.paciente.documento}}
+                            </li>
+                            <li>
+                                {{internacion.paciente.sexo}}
+                            </li>
+                            <li>
+
+                                {{internacion.ingreso.diagnosticoPresuntivo}}
+                            </li>
+                        </ul>
+
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <ng-form name="miFormulario">
     <!-- ****************************** Título ****************************** -->
     <div class="row">
@@ -13,76 +44,76 @@
     <!-- ****************************** Apellido, Nombre, HC, F Ingreso ****************************** -->
     <div class="row">
         <div class="col-sm-3">
-            <input type=text label="Apellido" ng-model="internacion.paciente.apellido" plex />
+            <input type=text label="Apellido" ng-model="internacion.paciente.apellido" plex readonly/>
         </div>
         <div class="col-sm-3">
-            <input type=text label="Nombre" ng-model="internacion.paciente.nombre" plex />
+            <input type=text label="Nombre" ng-model="internacion.paciente.nombre" plex readonly/>
         </div>
         <div class="col-sm-3">
-            <input type=text label="Nº de H.C." ng-model="internacion.paciente.idExterno.historiaClinica" plex />
+            <input type=text label="Nº de H.C." ng-model="internacion.paciente.idExterno.carpeta" plex readonly/>
         </div>
         <div class="col-sm-3">
-            <input type=text label="Fecha de Ingreso" ng-model="internacion.ingreso.fechaHora" plex />
+            <input type=text label="Fecha de Ingreso" ng-model="internacion.ingreso.fechaHora" plex="date" readonly/>
         </div>
     </div>
     <!-- ****************************** Edad, DNI, Genero, Estado Civil ****************************** -->
     <div class="row">
         <div class="col-sm-3">
-            <input type=text label="Edad" ng-model="internacion.paciente.edad" plex />
+            <input type=text label="Edad" ng-model="internacion.paciente.edad" plex readonly/>
         </div>
         <div class="col-sm-3">
-            <input type=text label="D.N.I." ng-model="internacion.paciente.documento" plex />
+            <input type=text label="D.N.I." ng-model="internacion.paciente.documento" plex readonly/>
         </div>
         <div class="col-sm-3">
-            <input type=text label="Género" ng-model="internacion.paciente.sexo" plex />
+            <input type=text label="Género" ng-model="internacion.paciente.sexo" plex readonly/>
         </div>
         <div class="col-sm-3">
-            <input type=text label="Estado Civil" ng-model="internacion.paciente.estadoCivil" plex />
+            <input type=text label="Estado Civil" ng-model="internacion.paciente.estadoCivil" plex readonly/>
         </div>
     </div>
     <!-- ****************************** Ocupación, OS, Instrucción, Nacionalidad ****************************** -->
     <div class="row">
         <div class="col-sm-3">
-            <input type=text label="Ocupación" ng-model="internacion.ingreso.situacionPaciente.ocupacion" plex />
+            <input type=text label="Ocupación" ng-model="internacion.ingreso.situacionPaciente.ocupacion" plex readonly/>
         </div>
         <div class="col-sm-3">
-            <input type=text label="Obra Social" ng-model="internacion.paciente.obrasSociales" plex />
+            <input type=text label="Obra Social" ng-model="internacion.paciente.obrasSociales" plex readonly/>
         </div>
         <div class="col-sm-3">
-            <input type=text label="Nivel de Instrucción" ng-model="internacion.ingreso.situacionPaciente.educacion" plex />
+            <input type=text label="Nivel de Instrucción" ng-model="internacion.ingreso.situacionPaciente.educacion" plex readonly/>
         </div>
         <div class="col-sm-3">
-            <input type=text label="Nacionalidad" ng-model="internacion.paciente.nacionalidad" plex />
+            <input type=text label="Nacionalidad" ng-model="internacion.paciente.nacionalidad" plex readonly/>
         </div>
     </div>
     <!-- ****************************** Motivo Ingreso, Diagnóstico presuntivo ****************************** -->
     <div class="row">
         <div class="col-sm-6">
-            <input type=text label="Motivo de Ingreso" ng-model="internacion.ingreso.motivo" plex />
+            <input type=text label="Motivo de Ingreso" ng-model="internacion.ingreso.motivo" plex readonly/>
         </div>
         <div class="col-sm-6">
-            <input type=text label="Diagnóstico Médico Presuntivo" ng-model="internacion.ingreso.diagnosticoPresuntivo" plex />
+            <input type=text label="Diagnóstico Médico Presuntivo" ng-model="internacion.ingreso.diagnosticoPresuntivo" plex readonly/>
         </div>
     </div>
     <!-- ****************************** Domicilio, Convivientes ****************************** -->
     <div class="row">
         <div class="col-sm-6">
-            <input type=text label="Domicilio" ng-model="internacion.paciente.domicilio.texto" plex />
+            <input type=text label="Domicilio" ng-model="internacion.paciente.domicilio.texto" plex readonly/>
         </div>
         <div class="col-sm-6">
-            <input type=text label="Convivientes" plex />
+            <input type=text label="Convivientes" plex readonly/>
         </div>
     </div>
     <!-- ****************************** Procedencia, Domicilio, Tel ****************************** -->
     <div class="row">
         <div class="col-sm-4">
-            <input type=text label="Procedencia" plex />
+            <input type=text label="Procedencia" plex readonly/>
         </div>
         <div class="col-sm-4">
-            <input type=text label="Domicilio" plex />
+            <input type=text label="Domicilio" plex readonly/>
         </div>
         <div class="col-sm-4">
-            <input type=text label="Nº de Tel." plex />
+            <input type=text label="Nº de Tel." plex readonly/>
         </div>
     </div>
     <br />
@@ -194,7 +225,7 @@
                             <input type="checkbox" ng-model="enfermeria.disneaReposo"/> Disnea reposo
                         </div>
                         <div class="col-sm-4">
-                            <input type="checkbox" ng-model="enfermeria.os"/> Tos
+                            <input type="checkbox" ng-model="enfermeria.tos"/> Tos
                         </div>
                     </div>
                     <br />
@@ -441,7 +472,7 @@
                     <br />
                     <div class="row">
                         <div class="col-sm-12">
-                            <input type=text label="Característica" ng-model="enfermeria.caracteriaticaIntestinal" plex />
+                            <input type=text label="Característica" ng-model="enfermeria.caracteristicaIntestinal" plex />
                         </div>
                     </div>
                     <div class="row">
@@ -517,45 +548,45 @@
                                 <thead>
                                     <tr>
                                         <th>Estado</th>
-                                        <th>Mucosas</th>                <!-- ng-model="enfermeria.estadoMucosas" -->
-                                        <th>Piel</th>                   <!-- ng-model="enfermeria.estadoPiel" -->
-                                        <th>Pie</th>                    <!-- ng-model="enfermeria.estadoPie" -->
-                                        <th>Boca</th>                   <!-- ng-model="enfermeria.estadoBoca" -->
-                                        <th>Genitales</th>              <!-- ng-model="enfermeria.estadoGenitales" -->
+                                        <th>Mucosas</th>
+                                        <th>Piel</th>
+                                        <th>Pie</th>
+                                        <th>Boca</th>
+                                        <th>Genitales</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>Íntegra</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoMucosas.integra" ng-value="true"></td>
+                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoPiel.integra" ng-value="true"></td>
+                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoPie.integra" ng-value="true"></td>
+                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoBoca.integra" ng-value="true"></td>
+                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoGenitales.integra" ng-value="true"></td>
                                     </tr>
                                     <tr>
                                         <td>Lesiones</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoMucosas.lesiones" ng-value="false"></td>
+                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoPiel.lesiones" ng-value="false"></td>
+                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoPie.lesiones" ng-value="false"></td>
+                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoBoca.lesiones" ng-value="false"></td>
+                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoGenitales.lesiones" ng-value="false"></td>
                                     </tr>
                                     <tr>
                                         <td>Hidratada</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoMucosas.hidratada" ng-value="true"></td>
+                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoPiel.hidratada" ng-value="true"></td>
+                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoPie.hidratada" ng-value="true"></td>
+                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoBoca.hidratada" ng-value="true"></td>
+                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoGenitales.hidratada" ng-value="true"></td>
                                     </tr>
                                     <tr>
                                         <td>Deshidratada</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoMucosas.deshidratada" ng-value="false"></td>
+                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoPiel.deshidratada" ng-value="false"></td>
+                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoPie.deshidratada" ng-value="false"></td>
+                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoBoca.deshidratada" ng-value="false"></td>
+                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoGenitales.deshidratada" ng-value="false"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -736,7 +767,7 @@
                             <input type="checkbox" ng-model="enfermeria.revisionGinecologica"/> Revisión Ginecológica
                         </div>
                         <div class="col-sm-7">
-                            <input type=text label="Fecha" ng-model="fechaRevisionGinecologica" plex="date" />
+                            <input type=text label="Fecha" ng-model="enfermeria.fechaRevisionGinecologica" plex="date" />
                         </div>
                     </div>
                     <div class="row">
@@ -762,21 +793,15 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4">
-                            <input type=text label="Riesgo de Caídas*" ng-model="enfermeria.riesgoCaidas" plex />
-                        </div>
-                        <div class="col-sm-8">
-                            <br />
-                            <button type="button" class="btn btn-link" ng-click="cargarRiesgoCaidas()">Completar Valoración de Riesgo de Caídas</button>
+                        <div class="col-sm-12">
+                            <label>Riesgo de caídas:</label>
+                            <button type="button" class="btn btn-link" ng-click="cargarRiesgoCaidas(internacion.id)">Cálculo de Riesgo de Caídas</button>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4">
-                            <input type=text label="Riesgo UPP*" ng-model="enfermeria.riesgoUPP" plex />
-                        </div>
-                        <div class="col-sm-8">
-                            <br />
-                            <button type="button" class="btn btn-link">Completar Valoración de Riesgo de UPP</button>
+                        <div class="col-sm-12">
+                            <label>Riesgo de UPP:</label>
+                            <button type="button" class="btn btn-link">Cálculo de Riesgo de UPP</button>
                         </div>
                     </div>
                     <div class="row">
@@ -810,10 +835,10 @@
                 <div class="panel-body" ng-show="showNCS">
                     <div class="row">
                         <div class="col-sm-6">
-                            <input type="radio" name="optradio" ng-model="enfermeria.orientado"/> Orientado
+                            <input type="radio" name="optradio" ng-model="enfermeria.orientado" ng-value="true"/> Orientado
                         </div>
                         <div class="col-sm-6">
-                            <input type="radio" name="optradio" ng-model="enfermeria.orientado"/> Desorientado
+                            <input type="radio" name="optradio" ng-model="enfermeria.orientado" ng-value="false"/> Desorientado
                         </div>
                     </div>
                     <br />
@@ -830,13 +855,13 @@
                             <label>Visión</label>
                         </div>
                         <div class="col-sm-3">
-                            <input type="radio" name="radioVision" ng-model="enfermeria.vision"/> Normal
+                            <input type="radio" name="radioVision" ng-model="enfermeria.vision.normal" ng-value="true"/> Normal
                         </div>
                         <div class="col-sm-3">
-                            <input type="radio" name="radioVision" ng-model="enfermeria.vision"/> Deficiente
+                            <input type="radio" name="radioVision" ng-model="enfermeria.vision.deficiente" ng-value="false"/> Deficiente
                         </div>
                         <div class="col-sm-3">
-                            <input type="radio" name="radioVision" ng-model="enfermeria.vision"/> Ausente
+                            <input type="radio" name="radioVision" ng-model="enfermeria.vision.ausente" ng-value="false"/> Ausente
                         </div>
                     </div>
                     <div class="row">
@@ -844,13 +869,13 @@
                             <label>Audición</label>
                         </div>
                         <div class="col-sm-3">
-                            <input type="radio" name="radioAudicion" ng-model="enfermeria.audicion"/> Normal
+                            <input type="radio" name="radioAudicion" ng-model="enfermeria.audicion.normal" ng-value="true"/> Normal
                         </div>
                         <div class="col-sm-3">
-                            <input type="radio" name="radioAudicion" ng-model="enfermeria.audicion"/> Deficiente
+                            <input type="radio" name="radioAudicion" ng-model="enfermeria.audicion.deficiente" ng-value="false"/> Deficiente
                         </div>
                         <div class="col-sm-3">
-                            <input type="radio" name="radioAudicion" ng-model="enfermeria.audicion"/> Ausente
+                            <input type="radio" name="radioAudicion" ng-model="enfermeria.audicion.ausente" ng-value="false"/> Ausente
                         </div>
                     </div>
                     <div class="row">
@@ -858,13 +883,13 @@
                             <label>Lenguaje</label>
                         </div>
                         <div class="col-sm-3">
-                            <input type="radio" name="radioLenguaje" ng-model="enfermeria.lenguaje"/> Normal
+                            <input type="radio" name="radioLenguaje" ng-model="enfermeria.lenguaje.normal" ng-value="true"/> Normal
                         </div>
                         <div class="col-sm-3">
-                            <input type="radio" name="radioLenguaje" ng-model="enfermeria.lenguaje"/> Deficiente
+                            <input type="radio" name="radioLenguaje" ng-model="enfermeria.lenguaje.deficiente" ng-value="false"/> Deficiente
                         </div>
                         <div class="col-sm-3">
-                            <input type="radio" name="radioLenguaje" ng-model="enfermeria.lenguaje"/> Ausente
+                            <input type="radio" name="radioLenguaje" ng-model="enfermeria.lenguaje.ausente" ng-value="false"/> Ausente
                         </div>
                     </div>
                     <br />
@@ -880,10 +905,18 @@
                         <div class="col-sm-4">
                             <input type="checkbox" ng-model="enfermeria.dolor" plex="bool" true="Si" false="No" />
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <input type="text" ng-show="enfermeria.dolor" ng-model="enfermeria.dolorLocalizacion" hint="Localización" plex />
                         </div>
+                        <div class="col-sm-4">
+                            <button type="button" class="btn btn-link" ng-click="cargarValoracionDolor()">Completar Valoración del Dolor</button>
+                        </div>
                     </div>
+                    <!-- <div class="row">
+                        <div class="col-sm-12">
+                            <button type="button" class="btn btn-link" ng-click="cargarValoracionDolor()">Completar Valoración del Dolor</button>
+                        </div>
+                    </div> -->
                     <div class="row">
                         <div class="col-sm-12">
                             <input type=text label="Observaciones" ng-model="enfermeria.observacionesComunicacion" plex />
@@ -994,36 +1027,10 @@
             </div>
         </div>
     </div>
-    <!-- ****************************** Firma y Sello, Fecha y Hora ****************************** -->
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <h5><label>Firma y Sello</label></h5>
-                        </div>
-                        <div class="col-sm-6">
-                            <h5><label>Fecha y Hora</label></h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- ****************************** Instructivo ****************************** -->
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <span style="font-weight:bold">Instructivo</span>
-                    <br />
-                    <span>1 Ante un * (Asterisco) podrá usar escalas (Dolor, Riesgo UPP, riesgo de caídas, etc.). Deberá consignar cuál ha utilizado. Si existen escalas acordadas para enfermería de la Provincia, deberá usar las convenidas.</span>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- <input type=text ng-model="fecha" ng-required="nombre" plex="date" />
   <button class="btn btn-primary" ng-click="guardar()">Save</button> -->
-  <button class="btn btn-primary" ng-click="guardar()">Guardar</button>
+  <!-- <button class="btn btn-primary" ng-click="guardar()">Guardar</button> -->
+  <button type="submit" class="btn btn-success pull-right" plex-submit="guardar()">
+      Guardar Valoración
+  </button>
 </ng-form>
