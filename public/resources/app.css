@@ -804,6 +804,26 @@ pre.prettyprint {
     min-height: 380px;
     height: 100%;
 }
+.card-container:hover{
+    -webkit-box-shadow: 0 0 16px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0 0 16px rgba(0,0,0,0.2);
+    box-shadow: 0 0 16px rgba(0,0,0,0.2);
+
+
+    /*-webkit-transition: all 0.5s linear;
+    -o-transition: all 0.5s linear;
+    -moz-transition: all 0.5s linear;
+    -ms-transition: all 0.5s linear;
+    -kthtml-transition: all 0.5s linear;
+    transition: all 0.5s linear;*/
+    -webkit-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -kthtml-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+
 .card .front .content .main-card {
     min-height: 190px;
     height: 100%;
@@ -847,9 +867,9 @@ pre.prettyprint {
   */
     font-weight: bold;
     position: absolute;
-    top: 10px;
+    top: 14px;
     right: 10px;
-    padding: 10px 20px;
+    padding: 8px 20px;
     font-size: 20px;
 }
 .flip-button {
@@ -865,7 +885,7 @@ pre.prettyprint {
 .icon {
     text-align: center;
 }
-.icon .fa {
+.icono-paciente {
     font-size: 100px;
     cursor: pointer;
 }

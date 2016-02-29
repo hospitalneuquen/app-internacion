@@ -31,6 +31,7 @@ angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'P
                 } else {
                     $scope.internacion = internacion;
                     $scope.enfermeria = internacion.enfermeria;
+                                        console.log($scope.enfermeria)
                 }
             });
         },

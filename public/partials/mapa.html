@@ -93,14 +93,14 @@
 
             <div class="cd-filter-block ">
                 <div class="col-md-4">
-                    <button type="button" class="btn btn-primary btn-warning form-control" ng-click="filter.limpiarFiltros()">
+                    <button type="button" class="btn btn-primary btn-warning form-control" ng-click="filter.limpiarFiltros(); $mostrarFiltros = false">
                         Limpiar filtros
                     </button>
                 </div>
 
                 <div class="col-md-4 pull-right">
                     <button type="button" class="btn btn-success form-control" ng-click="$mostrarFiltros = false">
-                        Filtrar
+                        Listo!
                     </button>
                 </div>
 
@@ -149,10 +149,8 @@
 
                         <div class="main cama">
                             <div class="icon">
-                                <!-- <i class="fa fa-bed text-success"></i> -->
-                                <i class="fa fa-male " ng-if="cama.paciente.sexo == 'masculino' || cama.paciente.sexo == 'Masculino' " ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'evolucion'"></i>
-                                <i class="fa fa-female " ng-if="cama.paciente.sexo == 'femenino' || cama.paciente.sexo == 'Femenino'" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'evolucion'"></i>
-                                <i class="fa fa-user-secret " ng-if="cama.paciente.sexo == 'indeterminado' || cama.paciente.sexo == 'Indeterminado'" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'evolucion'"></i>
+
+                                <i class="icono-paciente {{cama.paciente | persona: 'icon'}} " ng-if="cama.paciente.id" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'evolucion'"></i>
 
                                 <button type="button" class="btn btn-buscar-paciente grow tips" title="Agregar paciente en cama" ng-click="buscarPaciente(cama); cama.$action = 'internacion'" ng-if="!cama.paciente.id && cama.estado == 'desocupada'">
                                     <i class="fa fa-user-plus agregar"></i>
@@ -207,11 +205,10 @@
 
                             <div class="col-xs-6 col-right text-right">
                                 <div class="btn-group" role="group" ng-if="cama.paciente.id">
-                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle tips" data-toggle="dropdown-menu" aria-haspopup="true" aria-expanded="false" title="Agregar prestaciones">
-
+                                    <button type="button" class="btn btn-default btn-sm tips" data-placement="top" data-animation="am-flip-x" bs-dropdown aria-haspopup="true" aria-expanded="false" title="Agregar prestaciones">
                                         <i class="fa fa-plus"></i>
                                     </button>
-                                    <ul class="dropdown-menu">
+                                    <ul class="dropdown-menu" role="menu">
                                         <li>
                                             <a href="#" ng-click="cargarPrestaciones('Radiologia')">Radiología</a>
                                         </li>
@@ -222,6 +219,7 @@
                                             <a href="#" ng-click="cargarPrestaciones('Laboratorio')">Laboratorio</a>
                                         </li>
                                     </ul>
+
                                 </div>
 
                                 <button type="button" class="btn btn-default btn-sm tips load-content" title="Evolucionar" ng-click="evolucionarPaciente(cama)" ng-if="cama.paciente.id">
@@ -261,15 +259,23 @@
                                 {{cama.motivo_internacion}}
                             </h5>
                             <h4 class="text-center">Última evolución</h4>
-                            <p>
-                                <i class="fa fa-user-md"></i>
-                                {{cama.ultimaEvolucion.fechaHora | date: "dd/MM/yyyy  'a las' HH:mm "}}
-                            </p>
+                            <p ng-if="cama.ultimaEvolucion.createdBy">
+                                <i class="fa fa-user-md"></i> {{cama.ultimaEvolucion.createdBy.name}}
+                                {{cama.ultimaEvolucion.createdAt | fromNow}}
+                                <br />
+                                ({{cama.ultimaEvolucion.createdAt | date: "dd/MM/yyyy  'a las' HH:mm "}} hs)
 
-                            <p>
+                                <br />
                                 La próxima evolución deberá realizarse el dd/MM/yyyy a las HH:mm
                             </p>
 
+                            <p ng-if="!cama.ultimaEvolucion.createdBy">
+                                Aún no se ha cargado ninguna evolución.
+                                <br /><br />
+                                <button type="button" class="btn btn-primary col-lg-12 " ng-click="evolucionarPaciente(cama)" ng-if="cama.paciente.id">
+                                    Cargar una evolución
+                                </button>
+                            </p>
                         </div>
 
                         <div class="footer">
@@ -294,8 +300,7 @@
                             <div class="col-xs-6 text-right col-right">
 
                                 <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-default btn-sm dropdown-toggle tips" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Agregar prestaciones">
-
+                                    <button type="button" class="btn btn-default btn-sm tips" data-placement="top" data-animation="am-flip-x" bs-dropdown aria-haspopup="true" aria-expanded="false" title="Agregar prestaciones">
                                         <i class="fa fa-plus"></i>
                                     </button>
                                     <ul class="dropdown-menu">
