@@ -4,8 +4,9 @@
             <div class="box box-success">
                 <div class="box-header">
                     <div class="col-xs-1" style="text-align: right">
-                        <i class="fa fa-male fa-4x" ng-if="internacion.paciente.sexo != 'femenino'"></i>
-                        <i class="fa fa-female fa-4x" ng-if="internacion.paciente.sexo == 'femenino'"></i>
+                        <!-- <i class="fa fa-male fa-4x" ng-if="internacion.paciente.sexo != 'femenino'"></i>
+                        <i class="fa fa-female fa-4x" ng-if="internacion.paciente.sexo == 'femenino'"></i> -->
+                        <i class="{{internacion.paciente | persona:'icon'}} fa-4x"></i>
                     </div>
                     <div class="col-xs-4">
                         <h3 class="box-title">
