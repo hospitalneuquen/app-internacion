@@ -1,4 +1,4 @@
-angular.module('app').controller('internacion/editar', ['$scope', 'Plex', 'plexParams', 'Server', '$timeout', 'Personas', 'Global', 'Shared', function($scope, Plex, plexParams, Server, $timeout, Personas, Global, Shared) {
+angular.module('app').controller('internacion/editar', ['$scope', 'Plex', 'plexParams', 'Server', '$timeout', 'Personas', 'Global', 'Shared', 'Session', function($scope, Plex, plexParams, Server, $timeout, Personas, Global, Shared, Session) {
     'use strict';
 
     angular.extend($scope, {
@@ -76,7 +76,8 @@ angular.module('app').controller('internacion/editar', ['$scope', 'Plex', 'plexP
                     $scope.internacion.estado = 'ingresado';
                     $scope.internacion.pases = [{
                         fechaHora: $scope.internacion.ingreso.fechaHora,
-                        cama: plexParams.idCama
+                        cama: plexParams.idCama,
+                        servicio : Session.servicioActual.id
                     }];
                 } else {
                     $scope.internacion.estado = 'enIngreso';
