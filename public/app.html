@@ -1,59 +1,60 @@
 <!DOCTYPE html>
 <html lang="es-ar" ng-app="app">
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width">
-    <base href="/app/internacion/">
-    <title ng-bind="Plex.title"></title>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width">
+        <base href="/app/internacion/">
+        <title ng-bind="Plex.title"></title>
 
-    <link href="/lib/css/dist/lib.cosmo.css" rel="stylesheet" />
-    <!-- <link rel="stylesheet" plex-skin="Plex.currentSkin" /> -->
-    <link href="resources/app.css" rel="stylesheet" />
+        <link href="/lib/css/dist/lib.cosmo.css" rel="stylesheet"/>
+        <!-- <link rel="stylesheet" plex-skin="Plex.currentSkin" /> -->
+        <link href="resources/app.css" rel="stylesheet"/>
 
-    <!--Libraries -->
-    <script src="/lib/js/dist/lib.js"></script>
+        <!--Libraries -->
+        <script src="/lib/js/dist/lib.js"></script>
 
-    <!--App-->
-    <script src="app.js"></script>
+        <!--App-->
+        <script src="app.js"></script>
 
-    <!-- Services -->
-    <script src="js/services/shared.js"></script>
-    <script src="js/services/personas.js"></script>
+        <!-- Services -->
+        <script src="js/services/shared.js"></script>
+        <script src="js/services/personas.js"></script>
 
-    <!-- Filters -->
-    <script src="js/filters/persona.js"></script>
+        <!-- Filters -->
+        <script src="js/filters/persona.js"></script>
 
-    <!--Controllers -->
-    <script src="js/controllers/inicio.js"></script>
-    <script src="js/controllers/valoracionEnfermeria.js"></script>
-    <script src="js/controllers/riesgoCaidas.js"></script>
-    <script src="js/controllers/mapa.js"></script>
+        <!--Controllers -->
+        <script src="js/controllers/inicio.js"></script>
+        <script src="js/controllers/valoracionEnfermeria.js"></script>
+        <script src="js/controllers/riesgoCaidas.js"></script>
+        <script src="js/controllers/mapa.js"></script>
 
-    <script src="js/controllers/internaciones/editar.js"></script>
-    <script src="js/controllers/internaciones/egresar.js"></script>
+        <!-- Internación -->
+        <script src="js/controllers/internacion/editar.js"></script>
+        <script src="js/controllers/internacion/evolucionar.js"></script>
+        <script src="js/controllers/internaciones/egresar.js"></script>
 
-    <script src="js/controllers/pacientes.js"></script>
-    <script src="js/controllers/pacientes/iHeader.js"></script>
-    <script src="js/controllers/pacientes/buscar.js"></script>
-    <script src="js/controllers/pacientes/evolucionar.js"></script>
+        <script src="js/controllers/pacientes.js"></script>
+        <script src="js/controllers/pacientes/iHeader.js"></script>
 
-    <script src="js/controllers/sandbox/personas.js"></script>
-    <script src="js/controllers/sandbox/ubicaciones.js"></script>
-    <script src="js/controllers/sandbox/internaciones.js"></script>
+        <script src="js/controllers/sandbox/personas.js"></script>
+        <script src="js/controllers/sandbox/ubicaciones.js"></script>
+        <script src="js/controllers/sandbox/internaciones.js"></script>
 
-    <!-- Directives -->
-    <script src="js/directives/pacienteAffix.js"></script>
+        <!-- Directives -->
+        <script src="js/directives/pacienteAffix.js"></script>
 
-    <!--Evita que se muestre el HTML parcial antes de completar la carga-->
-    <style>
-        .xplex-cloak {
-            display: none !important;
-        }
-    </style>
-</head>
-<body class="plex-cloak">
-    <div ng-if="!Session.isActive()" ng-include="'/lib/html/dist/session.html'"></div>
-    <div ng-if="Session.isActive()" ng-include="'/lib/html/dist/main.html'"></div>
-</body>
+        <!--Evita que se muestre el HTML parcial antes de completar la carga-->
+        <style>
+            .xplex-cloak {
+                display: none !important;
+            }
+
+        </style>
+    </head>
+    <body class="plex-cloak">
+        <div ng-if="!Session.isActive()" ng-include="'/lib/html/dist/session.html'"></div>
+        <div ng-if="Session.isActive()" ng-include="'/lib/html/dist/main.html'"></div>
+    </body>
 </html>
