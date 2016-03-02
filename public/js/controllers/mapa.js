@@ -2,10 +2,10 @@
 
 angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 'Server', '$timeout', '$alert', 'Session', function($scope, Plex, Shared, Server, $timeout, $alert, Session) {
     Session.servicioActual = {
-        "id" : '56b3352698a74c8422cf8224',
-        "_id" : '56b3352698a74c8422cf8224',
+        "id": '56b3352698a74c8422cf8224',
+        "_id": '56b3352698a74c8422cf8224',
         "nombre": "Servicio de Clínica Médica",
-        "nombreCorto" : "Clínica Médica"
+        "nombreCorto": "Clínica Médica"
     };
     //
     // Session.servicioActual = {
@@ -78,7 +78,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                         (!self.habitacion || (self.habitacion && i.habitacion == self.habitacion)) &&
                         (!self.estado || (self.estado && i.estado == self.estado)) &&
                         // (!self.servicio || (self.servicio && i.servicio._id == self.servicio)) &&
-                        (!self.nombre || (self.nombre && i.paciente && (regex_nombre.test(i.paciente.nombre) || (regex_nombre.test(i.paciente.apellido)) || (regex_nombre.test(i.paciente.documento)))))
+                        (!self.nombre || (self.nombre && i.paciente && (regex_nombre.test(i.paciente.nombre) || (regex_nombre.test(i.paciente.apellido)) || (regex_nombre.test(i.paciente.documento)))));
                 });
             },
             limpiarFiltros: function() {
@@ -113,7 +113,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 estado: estado,
                 motivo: (cama.$motivo && typeof cama.$motivo != "undefined") ? cama.$motivo : '',
                 idInternacion: (idInternacion && typeof idInternacion != "undefined") ? idInternacion : ''
-            }
+            };
 
             // el parametro updateUI en false, es para evitar la pantalla de error
             Server.post("/api/internacion/cama/cambiarEstado/" + cama.id, dto).then(function(data) {
@@ -170,6 +170,30 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             // Server.get('/api/internacion/internacion/' + idInternacion + '/valoracionEnfermeria').then(function(valoracionInicial){
             //     console.log(valoracionInicial);
             // });
+        },
+
+        egresarPaciente: function(cama) {
+            Plex.openView("internaciones/egresar/" + cama.idInternacion + "/" + cama.id).then(function(internacion){
+                if (internacion){
+                    // buscamos la internacion y generamos el egreso
+
+                    // buscamos la cama y actualizamos el estado como "desocupada"
+                    $scope.cambiarEstado(cama, 'desocupada', internacion.id);
+
+                    // la cama hay que marcarla para que se vaya a desinfectar o lo
+                    // hace automaticamente cuando se cambia el estado a desocupada ?
+                }
+            });
+        },
+
+        generarPase: function(cama) {
+            // buscamos la internacion y cambiamos el estado a "enPase"
+
+            // buscamos la cama y actualizamos el estado como "desocupada"
+            $scope.cambiarEstado(cama, 'desocupada', internacion.id);
+
+            // la cama hay que marcarla para que se vaya a desinfectar o lo
+            // hace automaticamente cuando se cambia el estado a desocupada ?
         },
 
         actualizarMapa: function(data) {

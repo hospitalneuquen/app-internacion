@@ -1,0 +1,42 @@
+<!-- Header de paciente -->
+<div class="row">
+    <div class="col-sm-12">
+        <div plex-include="'partials/Pacientes/iHeader.html'" plex-include-internacion="internacion"></div>
+    </div>
+</div>
+
+
+<div class="row" ng-if="evolucionesEdit">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">Editar evolución</h3>
+            </div>
+            <div class="box-body">
+                <ng-form name="formEditarEvolucion" ng-show="!loading">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="text" plex="date" ng-required="true" ng-model="egreso.fechaHora" label="Fecha"/>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" plex="time" ng-required="true" ng-model="egreso.fechaHora" label="Hora"/>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="hidden" label="Tipo de egreso" ng-model="egreso.tipo" plex plex-select="item.nombre for item in tiposEgresos" ng-required="true"/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-warning " ng-click="cancelarEgreso()">
+                                Cancelar
+                            </button>
+                            <button type="submit" class="btn btn-success pull-right" plex-submit="guardarEvolucion(evolucionesEdit)" ng-disabled="formEditarEvolucion.$invalid">
+                                Guardar evolución
+                            </button>
+                        </div>
+                    </div>
+                </ng-form>
+            </div>
+        </div>
+    </div>

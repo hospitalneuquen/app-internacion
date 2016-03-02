@@ -18,6 +18,7 @@ angular.module('app')
              .when('/internacion/editar/cama/:idCama', { templateUrl: 'partials/internacion/editar.html', controller: 'internacion/editar' })
              .when('/internacion/editar', { templateUrl: 'partials/internacion/editar.html', controller: 'internacion/editar' })
              .when('/internacion/evolucionar/:idInternacion', { templateUrl: 'partials/internacion/evolucionar.html', controller: 'internacion/evolucionar' })
+             .when('/internaciones/egresar/:idInternacion/:idCama', { templateUrl: 'partials/internaciones/egresar.html', controller: 'internaciones/egresar' })
              // Enfermería
              .when('/valoracionEnfermeria/:idInternacion', { templateUrl: 'partials/valoracionEnfermeria.html', controller: 'ValoracionEnfermeriaController' })
              .when('/riesgoCaidas/:idInternacion', { templateUrl: 'partials/riesgoCaidas.html', controller: 'RiesgoCaidasController' })
