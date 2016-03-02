@@ -9,6 +9,12 @@ angular.module('app').controller('internacion/evolucionar', ['$scope', 'Plex', '
     //     "nombreCorto": "Clínica Médica"
     // };
     // Session.variables.prestaciones_workflow = "enfermero";
+    // Shared.pase.post("56d5d9beb2953f2814509fbc", "56d723bb44550e180d6be265", {
+    //     fechaHora: new Date(),
+    //     servicio: Session.servicioActual.id,
+    //     cama: '56cef2ebc070385d4770b7f0'
+    // });
+    //
 
     angular.extend($scope, {
         loading: true,
