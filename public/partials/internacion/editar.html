@@ -1,4 +1,4 @@
-<div ng-if="pacientes.internacion && pacientes.internacion.length > 0">
+<div ng-if="!esModificacion && pacientes.internacion && pacientes.internacion.length > 0">
     <div class="row">
         <div class="col-lg-12">
             <div class="box box-primary">
@@ -78,24 +78,27 @@
             <div class="box-body">
                 <form name="formInternacion">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <input type=text label="Paciente" ng-model="internacion.paciente" plex-filter="persona:'an'" plex ng-disabled="true"/>
                         </div>
-                        <div class="col-md-4">
-                            <input type="text" label="Fecha" ng-model="internacion.fechaHora" plex="date" ng-required="true"/>
+                        <div class="col-md-3">
+                            <input type="text" label="Fecha" ng-model="internacion.ingreso.fechaHora" plex="date" ng-required="true"/>
                         </div>
-                        <div class="col-md-4">
-                            <input type="hidden" label="Tipo de ingreso" ng-model="internacion.tipo" plex plex-select="item.nombre for item in tiposInternacion" ng-required="true"/>
+                        <div class="col-md-3">
+                            <input type="text" label="Hora" ng-model="internacion.ingreso.fechaHora" plex="time" ng-required="true"/>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <input type="text" label="Motivo de la internación" ng-model="internacion.motivo" plex ng-required="true"/>
+                        <div class="col-md-3">
+                            <input type="hidden" label="Tipo de ingreso" ng-model="internacion.ingreso.tipo" plex plex-select="item.nombre for item in tiposInternacion" ng-required="true"/>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <textarea class="" label="Diagnóstico presuntivo" ng-model="internacion.diagnosticoPresuntivo" plex ng-required="true"></textarea>
+                            <input type="text" label="Motivo de la internación" ng-model="internacion.ingreso.motivo" plex ng-required="true"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <textarea class="" label="Diagnóstico presuntivo" ng-model="internacion.ingreso.diagnosticoPresuntivo" plex ng-required="true"></textarea>
                         </div>
                     </div>
                     <div class="row">
