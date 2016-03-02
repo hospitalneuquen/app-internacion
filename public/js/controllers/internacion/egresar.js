@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('internaciones/egresar', ['$scope', 'Plex', 'plexParams', 'Server', '$timeout', 'Personas', 'Global', function($scope, Plex, plexParams, Server, $timeout, Personas, Global) {
+angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plexParams', 'Server', 'Shared', function($scope, Plex, plexParams, Server, Shared) {
     angular.extend($scope, {
 
         // opciones para el select del tipo de internacion
@@ -22,14 +22,13 @@ angular.module('app').controller('internaciones/egresar', ['$scope', 'Plex', 'pl
 
 
         egresar: function() {
-            console.log($scope.egreso);
-            // Server.patch('/api/internacion/internacion/' + plexParams.idInternacion + '/editarIngreso', $scope.internacion, {
-            //     minify: true
-            // }).then(function(data) {
-            //     Plex.closeView(data);
-            // }, function() {
-            //
-            // });
+            var data = {
+                estado : 'egresado'
+            };
+
+            Shared.internacion.post(plexParams.idInternacion, data, {minify: true}).then(function(internacion){
+                Plex.closeView(internacion);
+            });
         },
 
         cancelarEgreso: function(){
