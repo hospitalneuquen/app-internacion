@@ -1,6 +1,6 @@
-'use strict';
-
 angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 'Server', '$timeout', '$alert', 'Session', function($scope, Plex, Shared, Server, $timeout, $alert, Session) {
+    'use strict';
+
     Session.servicioActual = {
         "id": '56b3352698a74c8422cf8224',
         "_id": '56b3352698a74c8422cf8224',
@@ -98,7 +98,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 Plex.showWarning("La cama está actualmente sin desinfectar, no se puede internar a un paciente en ella.");
                 return false;
             }
-            Plex.openView('pacientes/buscar').then(function(internacion) {
+            Plex.openView('internacion/editar/cama/' + cama.id).then(function(internacion) {
                 // operar con el paciente / internacion devuelto en data
                 if (typeof internacion !== "undefined") {
                     $scope.cambiarEstado(cama, 'ocupada', internacion.id);
@@ -145,16 +145,17 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
         },
 
         evolucionarPaciente: function(cama) {
-            Plex.openView('pacientes/evolucionar/' + cama.id + '/' + cama.idInternacion).then(function(data) {
+            Plex.openView('internacion/evolucionar/' + cama.idInternacion).then(function(data) {
                 if (data) {
-                    $scope.actualizarMapa(data);
+                    // buscamos la cama y actualizamos el estado como "desocupada"
+                    $scope.cambiarEstado(cama, 'desocupada', internacion.id);
                 }
 
             });
         },
 
         editarIngresoInternacion: function(idCama, idInternacion) {
-            Plex.openView('internaciones/editar/' + idInternacion).then(function(internacion) {
+            Plex.openView('internacion/editar/' + idInternacion).then(function(internacion) {
                 if (internacion) {
                     Server.patch('/api/internacion/cama/' + idCama + '/cambiarPaciente/' + internacion.paciente).then(function(cama) {
                         $scope.actualizarMapa(cama);
@@ -173,27 +174,36 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
         },
 
         egresarPaciente: function(cama) {
-            Plex.openView("internaciones/egresar/" + cama.idInternacion + "/" + cama.id).then(function(internacion){
+            // buscamos la internacion y generamos el egreso
+            Plex.openView("internacion/egresar/" + cama.idInternacion + "/" + cama.id).then(function(internacion){
                 if (internacion){
-                    // buscamos la internacion y generamos el egreso
-
                     // buscamos la cama y actualizamos el estado como "desocupada"
                     $scope.cambiarEstado(cama, 'desocupada', internacion.id);
 
-                    // la cama hay que marcarla para que se vaya a desinfectar o lo
-                    // hace automaticamente cuando se cambia el estado a desocupada ?
+                    $alert({
+                        title: 'Internación finalizada',
+                        content: '',
+                        placement: 'top-right',
+                        type: 'success',
+                        show: true
+                    });
                 }
             });
         },
 
         generarPase: function(cama) {
-            // buscamos la internacion y cambiamos el estado a "enPase"
+            var pase = {
+                fechaHora : new Date(),
+                servicio : Session.servicioActual.id,
+                cama : cama.id
+            }
+            // cambiamos el estado de la internacion a "enPase
+            Shared.pase.post(cama.idInternacion, null, pase, {minify: true}).then(function(){
+                // buscamos la cama y actualizamos el estado como "desocupada"
+                $scope.cambiarEstado(cama, 'desocupada', internacion.id);
+            });
 
-            // buscamos la cama y actualizamos el estado como "desocupada"
-            $scope.cambiarEstado(cama, 'desocupada', internacion.id);
 
-            // la cama hay que marcarla para que se vaya a desinfectar o lo
-            // hace automaticamente cuando se cambia el estado a desocupada ?
         },
 
         actualizarMapa: function(data) {

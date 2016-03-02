@@ -558,7 +558,7 @@ pointer-events: none;
     -webkit-transform: rotateY(180deg);
     -moz-transform: rotateY(180deg);
     -o-transform: rotateY(180deg);
-    transform: rotateY(180deg)
+    transform: rotateY(180deg);
 }
 .card-container.static.hover .card, .card-container.static:hover .card {
     -webkit-transform: none;
@@ -901,6 +901,7 @@ pre.prettyprint {
     border-color: blue;
     background: yellow
 }
+/* filtros */
 .filtros-habitaciones {
     background-color: #66ba8a;
     border-bottom: 2px solid #559872;
@@ -1054,56 +1055,6 @@ pre.prettyprint {
     opacity: 1;
 }
 
-/*.btn-habitacion {
-  color: #ffffff;
-  background-color: #C7C7C7;
-  border-color: #C7C7C7;
-}
-
-.btn-habitacion:hover,
-.btn-habitacion:focus,
-.btn-habitacion:active,
-.btn-habitacion.active,
-.open .dropdown-toggle.btn-habitacion {
-  color: #ffffff;
-  background-color: #BDBBBB;
-  border-color: #C7C7C7;
-}
-
-.btn-habitacion:active,
-.btn-habitacion.active,
-.btn-habitacion:target,
-.open .dropdown-toggle.btn-habitacion {
-  background-image: none;
-  color: #000;
-  font-weight: bold;
-}
-
-.btn-habitacion.disabled,
-.btn-habitacion[disabled],
-fieldset[disabled] .btn-habitacion,
-.btn-habitacion.disabled:hover,
-.btn-habitacion[disabled]:hover,
-fieldset[disabled] .btn-habitacion:hover,
-.btn-habitacion.disabled:focus,
-.btn-habitacion[disabled]:focus,
-fieldset[disabled] .btn-habitacion:focus,
-.btn-habitacion.disabled:active,
-.btn-habitacion[disabled]:active,
-fieldset[disabled] .btn-habitacion:active,
-.btn-habitacion.disabled.active,
-.btn-habitacion[disabled].active,
-fieldset[disabled] .btn-habitacion.active {
-  background-color: #C7C7C7;
-  border-color: #C7C7C7;
-}
-
-.btn-habitacion .badge {
-  color: #C7C7C7;
-  background-color: #ffffff;
-}*/
-
-
 /* estilo de boton creado para los filtros */
 
 .btn-filtros {
@@ -1138,14 +1089,6 @@ fieldset[disabled] .btn-habitacion.active {
     min-width: 65px;
 }
 
-/*
-.lista-habitaciones li{padding: 6px 9px;}
-.lista-habitaciones li:first-child { padding: 6px 4px 6px 5px;}
-.lista-habitaciones li:nth-child(4){padding-right: 0;}
-.lista-habitaciones li:nth-child(5){padding-left: 4px;}
-.lista-habitaciones li a{}
-*/
-
 a.btn-habitacion {
     color: #ffffff;
     background-color: #C7C7C7;
@@ -1155,6 +1098,13 @@ a.btn-habitacion:target, a.btn-habitacion.active {
     color: #ffffff;
     background-color: #66BA8A;
     border-color: #559872;
+}
+
+.container-filters{
+    background: white;
+box-shadow: 0px 1px 1px rgba(0,0,0, 0.2);
+margin-bottom: 20px;
+padding-top: 15px;
 }
 
 /* estilos varios tablas */

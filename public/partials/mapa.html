@@ -127,64 +127,65 @@
     </div>
 </div> -->
 
-<div class="row" app-paciente-affix>
-    <div class="col-lg-4">
-        <div class="form-group">
-            <label for="filter-nombre">Nombre paciente</label>
-            <input type="search" placeholder="Nombre del paciente" ng-model="filter.nombre" class="form-control" id="filter-nombre"/>
+<div class="row" plex-affix>
+    <div class="col-lg-12 container-filters">
+        <div class="col-lg-4">
+            <div class="form-group">
+                <label for="filter-nombre">Nombre paciente</label>
+                <input type="search" placeholder="Nombre del paciente" ng-model="filter.nombre" class="form-control" id="filter-nombre"/>
+            </div>
         </div>
-    </div>
 
-    <div class="col-lg-2">
-        <div class="form-group">
-            <label for="filter-habitacion">Habitación</label>
+        <div class="col-lg-2">
+            <div class="form-group">
+                <label for="filter-habitacion">Habitación</label>
 
-            <select ng-model="filter.habitacion" id="filter-habitacion" class="form-control">
-                <option value="">Todas</option>
-                <option ng-repeat="habitacion in habitaciones" value="{{habitacion}}">{{habitacion}}</option>
-            </select>
+                <select ng-model="filter.habitacion" id="filter-habitacion" class="form-control">
+                    <option value="">Todas</option>
+                    <option ng-repeat="habitacion in habitaciones" value="{{habitacion}}">{{habitacion}}</option>
+                </select>
+            </div>
         </div>
-    </div>
 
-    <div class="col-lg-2">
-        <div class="form-group">
-            <label for="filter-tipo-cama">Tipo de cama</label>
+        <div class="col-lg-2">
+            <div class="form-group">
+                <label for="filter-tipo-cama">Tipo de cama</label>
 
-            <select ng-model="filter.tipoCama" id="filter-tipo-cama" class="form-control">
-                <option value="">Todas</option>
-                <option ng-repeat="tipoCama in tipoCamas" value="{{tipoCama}}">{{tipoCama}}</option>
-            </select>
+                <select ng-model="filter.tipoCama" id="filter-tipo-cama" class="form-control">
+                    <option value="">Todas</option>
+                    <option ng-repeat="tipoCama in tipoCamas" value="{{tipoCama}}">{{tipoCama}}</option>
+                </select>
+            </div>
         </div>
-    </div>
 
-    <div class="col-lg-2">
-        <div class="form-group">
-            <label for="filter-estado">Estado</label>
-            <select ng-model="filter.estado" id="filter-estado" class="form-control">
-                <option value="">Todas</option>
-                <option value="ocupada">Ocupadas</option>
-                <option value="desocupada">Desocupadas</option>
-                <option value="reparacion">En reparación</option>
-            </select>
+        <div class="col-lg-2">
+            <div class="form-group">
+                <label for="filter-estado">Estado</label>
+                <select ng-model="filter.estado" id="filter-estado" class="form-control">
+                    <option value="">Todas</option>
+                    <option value="ocupada">Ocupadas</option>
+                    <option value="desocupada">Desocupadas</option>
+                    <option value="reparacion">En reparación</option>
+                </select>
+            </div>
         </div>
-    </div>
 
-    <div class="col-lg-2 text-center">
-        <div class="form-group">
-            <label>Desinfectada/Oxígeno</label>
-            <button class="btn btn-default" ng-class="{'btn-primary': filter.desinfectada }"  ng-init="filter.desinfectada = false" ng-click="filter.desinfectada = !filter.desinfectada" ng-model="filter.desinfectada">
-                <i class="fa fa-bug"></i>
-            </button>
+        <div class="col-lg-2 text-center">
+            <div class="form-group">
+                <label>Desinfectada/Oxígeno</label>
+                <button class="btn btn-default" ng-class="{'btn-primary': filter.desinfectada }" ng-init="filter.desinfectada = false" ng-click="filter.desinfectada = !filter.desinfectada" ng-model="filter.desinfectada">
+                    <i class="fa fa-bug"></i>
+                </button>
 
+                <button class="btn btn-default" ng-class="{'btn-primary': filter.oxigeno }" ng-init="filter.oxigeno = false" ng-click="filter.oxigeno = !filter.oxigeno" ng-model="filter.oxigeno">
+                    O
+                    <sup>2</sup>
 
-            <button class="btn btn-default" ng-class="{'btn-primary': filter.oxigeno }"  ng-init="filter.oxigeno = false" ng-click="filter.oxigeno = !filter.oxigeno" ng-model="filter.oxigeno">
-                O
-                <sup>2</sup>
-
-            </button>
+                </button>
+            </div>
         </div>
-    </div>
 
+    </div>
 </div>
 
 <div>
