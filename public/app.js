@@ -17,6 +17,7 @@ angular.module('app')
              .when('/mapa', { templateUrl: 'partials/mapa.html', controller: 'MapaController' })
 
              .when('/internaciones/editar/:idInternacion', { templateUrl: 'partials/internaciones/editar.html', controller: 'internaciones/editar' })
+             .when('/internaciones/egresar/:idInternacion/:idCama', { templateUrl: 'partials/internaciones/egresar.html', controller: 'internaciones/egresar' })
 
              .when('/pacientes/buscar', { templateUrl: 'partials/pacientes/buscar.html', controller: 'pacientes/buscar' })
              .when('/pacientes/evolucionar/:idCama/:idInternacion', { templateUrl: 'partials/pacientes/evolucionar.html', controller: 'pacientes/evolucionar' })
