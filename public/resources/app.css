@@ -1188,34 +1188,6 @@ button.btn-nostyle {
     margin: 0;
 }
 
-/*  Paciente-Header
-------------------------------------------------------------------------
-*/
-
-.paciente-header {
-    /* 02/12/2014 | jgabriel | Para qué se necesita la altura? Affix no puede calcularla sola? */
-    /*height: 8em; */
-    /*-moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    -webkit-transition: all 0.5s ease;
-    transition: all 0.5s ease;*/
-}
-.paciente-header.affix {
-    width: 100%;
-    left: 0px;
-    z-index: 100;
-    /*-moz-transform: translate(0, 1px);
-    -ms-transform: translate(0, 1px);
-    -webkit-transform: translate(0, 1px);
-    transform: translate(0, 1px);*/
-}
-.paciente-header + DIV {
-    display: none;
-    height: 8em;
-}
-.paciente-header.affix + DIV {
-    display: block;
-}
 .numero-habitacion-header {
     background: #f4f4f4;
     color: #000;
@@ -1249,4 +1221,32 @@ button.btn-nostyle {
 .nivel-rojo {
     background: #e50018;
     color: white;
+}
+
+
+/*  Plex-Affix
+------------------------------------------------------------------------
+*/
+
+.plex-affix {
+    /*-moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;*/
+}
+.plex-affix.affix {
+    width: 100%;
+    left: 0px;
+    z-index: 100;
+    /*
+    -moz-transform: translate(0, 1px);
+    -ms-transform: translate(0, 1px);
+    -webkit-transform: translate(0, 1px);
+    transform: translate(0, 1px);*/
+}
+.plex-affix + .plex-affix-spacer {
+    display: none;
+}
+.plex-affix.affix + .plex-affix-spacer {
+    display: block;
 }
