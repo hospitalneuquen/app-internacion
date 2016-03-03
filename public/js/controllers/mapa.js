@@ -117,13 +117,13 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
 
             // el parametro updateUI en false, es para evitar la pantalla de error
             Server.post("/api/internacion/cama/cambiarEstado/" + cama.id, dto).then(function(data) {
-
                 $scope.actualizarMapa(data);
 
                 // verificamos si el parametro $action definido en la vista
                 // viene con el valor 'internacion' y de ser asi, entonces
                 // mostramos el formulario de valoracion de enfermeria
                 if (cama.$action == 'internacion') {
+
                     // una vez actualizado el mapa de cama, mostramos el formulario
                     // de carga de datos de la valoracion inicial
                     $alert({
@@ -139,6 +139,31 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
 
                         });
                     }, 500);
+
+                }else {
+                    switch(estado){
+                        case 'reparacion':
+                            var title = ' enviada a reparación';
+                        break;
+                        case 'desinfectada':
+                            var title = ' desinfectada';
+                        break;
+                        case 'desocupada':
+                            if (cama.$action == 'reparacion') {
+                                var title = ' reparada';
+                            }else {
+                                var title = ' desocupada';
+                            }
+                        break;
+                    }
+
+                    $alert({
+                        title: 'Cama ' + title,
+                        content: '',
+                        placement: 'top-right',
+                        type: 'success',
+                        show: true
+                    });
                 }
 
             });
@@ -168,6 +193,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             Plex.openView('valoracionEnfermeria/' + idInternacion).then(function(internacion) {
 
             });
+
             // Server.get('/api/internacion/internacion/' + idInternacion + '/valoracionEnfermeria').then(function(valoracionInicial){
             //     console.log(valoracionInicial);
             // });
@@ -178,33 +204,34 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             Plex.openView("internacion/egresar/" + cama.idInternacion + "/" + cama.id).then(function(internacion){
                 if (internacion){
                     // buscamos la cama y actualizamos el estado como "desocupada"
-                    $scope.cambiarEstado(cama, 'desocupada', internacion.id);
-
-                    $alert({
-                        title: 'Internación finalizada',
-                        content: '',
-                        placement: 'top-right',
-                        type: 'success',
-                        show: true
-                    });
+                    // $scope.cambiarEstado(cama, 'desocupada', internacion.id);
+                    $scope.cambiarEstado(cama, 'desocupada');
                 }
             });
         },
 
-        generarPase: function(cama) {
-            var pase = {
-                fechaHora : new Date(),
-                servicio : Session.servicioActual.id,
-                cama : cama.id
-            }
-            // cambiamos el estado de la internacion a "enPase
-            Shared.pase.post(cama.idInternacion, null, pase, {minify: true}).then(function(){
-                // buscamos la cama y actualizamos el estado como "desocupada"
-                $scope.cambiarEstado(cama, 'desocupada', internacion.id);
-            });
-
-
-        },
+        // generarPase: function(cama) {
+        //     var data = {
+        //         estado: 'enPase'
+        //     };
+        //
+        //     Shared.internacion.post(cama.idInternacion, data).then(function(){
+        //         // var pase = {
+        //         //     fechaHora : new Date(),
+        //         //     servicio : Session.servicioActual.id,
+        //         //     cama : cama.id
+        //         // }
+        //
+        //         // Shared.pase.post(cama.idInternacion, null, pase, {minify: true}).then(function(){
+        //         //     // buscamos la cama y actualizamos el estado como "desocupada"
+        //         //     $scope.cambiarEstado(cama, 'desocupada');
+        //         // });
+        //
+        //         // buscamos la cama y actualizamos el estado como "desocupada"
+        //         $scope.cambiarEstado(cama, 'desocupada');
+        //     });
+        //
+        // },
 
         actualizarMapa: function(data) {
             var length = $scope.camas.length;

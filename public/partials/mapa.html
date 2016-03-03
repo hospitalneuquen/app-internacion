@@ -129,7 +129,7 @@
 
 <div class="row" plex-affix>
     <div class="col-lg-12 container-filters">
-        <div class="col-lg-4">
+        <div class="col-lg-3">
             <div class="form-group">
                 <label for="filter-nombre">Nombre paciente</label>
                 <input type="search" placeholder="Nombre del paciente" ng-model="filter.nombre" class="form-control" id="filter-nombre"/>
@@ -170,17 +170,18 @@
             </div>
         </div>
 
-        <div class="col-lg-2 text-center">
+        <div class="col-lg-3 text-center">
             <div class="form-group">
-                <label>Desinfectada/Oxígeno</label>
+                <label>A desinfectar / Con oxígeno</label>
+
+                <br />
+
                 <button class="btn btn-default" ng-class="{'btn-primary': filter.desinfectada }" ng-init="filter.desinfectada = false" ng-click="filter.desinfectada = !filter.desinfectada" ng-model="filter.desinfectada">
                     <i class="fa fa-bug"></i>
                 </button>
 
                 <button class="btn btn-default" ng-class="{'btn-primary': filter.oxigeno }" ng-init="filter.oxigeno = false" ng-click="filter.oxigeno = !filter.oxigeno" ng-model="filter.oxigeno">
-                    O
-                    <sup>2</sup>
-
+                    O<sup>2</sup>
                 </button>
             </div>
         </div>
@@ -252,7 +253,7 @@
                                     <i class="fa fa-bug fa-stack-1x fa-inverse"></i>
                                 </span> -->
 
-                                <button type="button" ng-click="cambiarEstado(cama, 'desinfectada')" ng-if="!cama.desinfectada" class="btn-nostyle">
+                                <button type="button" ng-click="cambiarEstado(cama, 'desinfectada'); cama.$action = 'desinfectar'" ng-if="!cama.desinfectada" class="btn-nostyle">
                                     <span class="fa-stack fa-lg text-danger tips" title="Desinfectar cama">
                                         <i class="fa fa-circle fa-stack-2x"></i>
                                         <i class="fa fa-bug fa-stack-1x fa-inverse"></i>
@@ -456,7 +457,7 @@
                             <button type="button" class="btn btn-primary col-lg-12 " ng-click="editarIngresoInternacion(cama.id, cama.idInternacion)">Internación</button>
                             <button type="button" class="btn btn-primary col-lg-12 " ng-click="verValoracionInicial(cama.idInternacion)">Valoracion inicial</button>
                             <button type="button" class="btn btn-primary col-lg-12 " ng-click="egresarPaciente(cama)">Egresar</button>
-                            <button type="button" class="btn btn-primary col-lg-12 " ng-click="cama.$action = 'pase'">Pase</button>
+                            <!-- <button type="button" class="btn btn-primary col-lg-12 " ng-click="cama.$action = 'pase'">Pase</button> -->
                         </div>
 
                         <div class="footer"></div>

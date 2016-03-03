@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plexParams', 'Server', 'Shared', function($scope, Plex, plexParams, Server, Shared) {
+angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plexParams', 'Server', 'Shared', 'Session', function($scope, Plex, plexParams, Server, Shared, Session) {
     angular.extend($scope, {
 
         // opciones para el select del tipo de internacion
@@ -22,12 +22,35 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
 
 
         egresar: function() {
-            var data = {
-                estado : 'egresado'
-            };
+
+            if ($scope.egreso.tipo.id == 'alta' || $scope.egreso.tipo.id == 'defuncion'){
+                var data = {
+                    estado : 'egresado',
+                    egreso: $scope.egreso
+                };
+            }else if ($scope.egreso.tipo.id == 'pase') {
+                var data = {
+                    estado : 'enPase'
+                };
+            }
 
             Shared.internacion.post(plexParams.idInternacion, data, {minify: true}).then(function(internacion){
-                Plex.closeView(internacion);
+                // si es un egreso por pase, entonces lo creamos
+                if ($scope.egreso.tipo.id == 'pase') {
+                    var pase = {
+                        fechaHora : new Date(),
+                        servicio: Session.servicioActual.id,
+                        cama: plexParams.idCama
+                    }
+
+                    Shared.pase.post(plexParams.idInternacion, null, pase, {minify: true}).then(function(){
+                        Plex.closeView(internacion);
+                    });
+
+                }else {
+                    Plex.closeView(internacion);
+                }
+
             });
         },
 
