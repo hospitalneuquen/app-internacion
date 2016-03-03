@@ -33,6 +33,9 @@
                                 <th>
                                     Motivo
                                 </th>
+                                <th>
+                                    Tipo
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -60,6 +63,10 @@
                                         <i class="fa fa-user-plus"></i>
                                     </button>
                                 </td> -->
+                                <td>
+                                    <span class="label label-default" ng-if="item.estado == 'enIngreso'">En ingreso</span>
+                                    <span class="label label-warning" ng-if="item.estado == 'enPase'">En pase</span>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

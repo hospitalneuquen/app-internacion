@@ -33,7 +33,35 @@ angular.module('app').controller('internacion/editar', ['$scope', 'Plex', 'plexP
             internacion: undefined
         },
         seleccionarInternacion: function(data) {
-            Plex.closeView(data);
+            console.log(data);
+            if (data.estado == 'enPase'){
+                var update = {
+                    estado : 'ingresado'
+                };
+
+                // guardamos la internacion
+                Shared.internacion.post(data.id || null, update, {
+                    minify: true
+                }).then(function(data) {
+                    var internacion = data;
+                    // generamos el pase
+                    var pase = {
+                        fechaHora: data.ingreso.fechaHora,
+                        cama: plexParams.idCama,
+                        servicio: Session.servicioActual.id
+                    };
+
+                    Shared.pase.post(data.id, null, pase, {minify: true}).then(function(data){
+                        Plex.closeView(internacion);
+                    });
+
+                });
+
+            }else{
+                Plex.closeView(data);
+            }
+
+
         },
 
         // opciones para el select del tipo de internacion
@@ -77,7 +105,7 @@ angular.module('app').controller('internacion/editar', ['$scope', 'Plex', 'plexP
                     $scope.internacion.pases = [{
                         fechaHora: $scope.internacion.ingreso.fechaHora,
                         cama: plexParams.idCama,
-                        servicio : Session.servicioActual.id
+                        servicio: Session.servicioActual.id
                     }];
                 } else {
                     $scope.internacion.estado = 'enIngreso';
@@ -103,9 +131,9 @@ angular.module('app').controller('internacion/editar', ['$scope', 'Plex', 'plexP
                     $scope.internacion.ingreso.tipo = Global.getById($scope.tiposInternacion, data.ingreso.tipo);
                 });
 
-            // buscamos los pacientes que estan en el estado 'enIngreso'
+            // buscamos los pacientes que estan en el estado 'enIngreso' o 'enPase'
             Shared.internacion.get({
-                estado: 'enIngreso'
+                estado: ['enIngreso', 'enPase']
             }).then(function(data) {
                 $scope.pacientes.internacion = data;
             });
