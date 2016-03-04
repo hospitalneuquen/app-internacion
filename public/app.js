@@ -7,8 +7,10 @@
  * Módulo principal de la aplicación
  **/
 angular.module('app')
-    .config(["PlexResolverProvider", function (PlexResolverProvider) {
-        'use strict';
+    .config(["PlexResolverProvider", "$mdThemingProvider", function (PlexResolverProvider, $mdThemingProvider) {
+        // $mdThemingProvider.theme('default')
+        //    .primaryPalette('cyan')
+        //    .accentPalette('orange');
 
         PlexResolverProvider
              .when('/inicio', { templateUrl: 'partials/inicio.html', controller: 'InicioController' })

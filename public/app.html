@@ -7,12 +7,15 @@
         <base href="/app/internacion/">
         <title ng-bind="Plex.title"></title>
 
-        <link href="/lib/css/dist/lib.cosmo.css" rel="stylesheet"/>
+        <link href="/lib-md/css/dist/angular-material.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+
+        <!-- <link href="/lib-/css/dist/lib.cosmo.css" rel="stylesheet"/> -->
         <!-- <link rel="stylesheet" plex-skin="Plex.currentSkin" /> -->
-        <link href="resources/app.css" rel="stylesheet"/>
+        <!-- <link href="resources/app.css" rel="stylesheet"/> -->
 
         <!--Libraries -->
-        <script src="/lib/js/dist/lib.js"></script>
+        <script src="/lib-md/js/dist/lib.js"></script>
 
         <!--App-->
         <script src="app.js"></script>
@@ -26,12 +29,12 @@
 
         <!--Controllers -->
         <script src="js/controllers/inicio.js"></script>
-        <script src="js/controllers/valoracionEnfermeria.js"></script>
+        <!-- <script src="js/controllers/valoracionEnfermeria.js"></script>
         <script src="js/controllers/riesgoCaidas.js"></script>
-        <script src="js/controllers/mapa.js"></script>
+        <script src="js/controllers/mapa.js"></script> -->
 
         <!-- Internación -->
-        <script src="js/controllers/internacion/editar.js"></script>
+        <!-- <script src="js/controllers/internacion/editar.js"></script>
         <script src="js/controllers/internacion/evolucionar.js"></script>
         <script src="js/controllers/internacion/egresar.js"></script>
 
@@ -40,10 +43,10 @@
 
         <script src="js/controllers/sandbox/personas.js"></script>
         <script src="js/controllers/sandbox/ubicaciones.js"></script>
-        <script src="js/controllers/sandbox/internaciones.js"></script>
+        <script src="js/controllers/sandbox/internaciones.js"></script> -->
 
         <!-- Directives -->
-        <script src="js/directives/plexAffix.js"></script>
+        <!-- <script src="js/directives/plexAffix.js"></script> -->
 
         <!--Evita que se muestre el HTML parcial antes de completar la carga-->
         <style>
@@ -54,7 +57,8 @@
         </style>
     </head>
     <body class="plex-cloak">
-        <div ng-if="!Session.isActive()" ng-include="'/lib/html/dist/session.html'"></div>
-        <div ng-if="Session.isActive()" ng-include="'/lib/html/dist/main.html'"></div>
+        <!-- <div ng-if="!Session.isActive()" ng-include="'/lib-md/html/dist/session.html'"></div> -->
+        <!-- <div ng-if="Session.isActive()" ng-include="'/lib-md/html/dist/main.html'"></div> -->
+        <div ng-include="'/lib-md/html/dist/main.html'"></div>
     </body>
 </html>
