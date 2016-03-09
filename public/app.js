@@ -9,8 +9,8 @@
 angular.module('app')
     .config(["PlexResolverProvider", "$mdThemingProvider", function (PlexResolverProvider, $mdThemingProvider) {
         // $mdThemingProvider.theme('default')
-        //    .primaryPalette('cyan')
-        //    .accentPalette('orange');
+        //    .primaryPalette('light-blue')
+        //    .accentPalette('deep-orange');
 
         PlexResolverProvider
              .when('/inicio', { templateUrl: 'partials/inicio.html', controller: 'InicioController' })

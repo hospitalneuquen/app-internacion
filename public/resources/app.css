@@ -1,11 +1,3 @@
-body {
-    background-color: #f4f4f4;
-    /*-webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;*/
-}
-
 /* components by adminlte  https://almsaeedstudio.com/themes/AdminLTE/index2.html */
 
 .box-body:after, .box-comments .box-comment:after, .box-footer:after, .box-header:after {
