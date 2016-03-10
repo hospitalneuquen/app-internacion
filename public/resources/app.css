@@ -537,7 +537,6 @@ pointer-events: none;
 }
 
 /* cards */
-
 .card-container {
     -webkit-perspective: 800px;
     -moz-perspective: 800px;
@@ -604,8 +603,218 @@ pointer-events: none;
 .back, .card-container, .front {
     width: 100%;
     height: 420px;
-    /*border-radius: 4px;*/
+    }
+.card .cover {
+    height: 105px;
+    overflow: hidden;
+    border-radius: 4px 4px 0 0;
 }
+
+
+.card .content {
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: none;
+    padding: 10px 20px 20px;
+    min-height: 245px;
+}
+.card .content .main {
+    min-height: 160px;
+}
+.card .back .content .main {
+    height: 215px;
+}
+.card .name {
+    font-size: 22px;
+    line-height: 28px;
+    margin: 10px 0 0;
+    text-align: center;
+}
+.card .name.reparacion {
+    font-size: 18px;
+}
+.card h5 {
+    margin: 5px 0;
+    font-weight: 400;
+    line-height: 20px;
+}
+.card .profession {
+    margin-bottom: 20px;
+}
+.card .footer {
+    border-top: 1px solid #EEE;
+    margin: 0;
+    padding: 0;
+    /*margin: 30px 0 0;
+    padding: 10px 0 0;*/
+}
+
+.card .header {
+    padding: 15px 20px;
+    height: 60px;
+}
+
+.icon .fa.agregar {
+    font-size: 160px;
+}
+
+@media screen and (-ms-high-contrast:active), (-ms-high-contrast:none) {
+    .back, .front {
+        -ms-backface-visibility: visible;
+        backface-visibility: visible;
+    }
+    .back {
+        visibility: hidden;
+        -ms-transition: all .2s cubic-bezier(.92, .01, .83, .67);
+    }
+    .front {
+        z-index: 4;
+    }
+    .card-container.manual-flip.hover .back, .card-container:not(.manual-flip):hover .back {
+        z-index: 5;
+        visibility: visible;
+    }
+}
+.card-container .front {
+
+}
+.card-container, .front, .back {
+    min-height: 380px;
+    height: 100%;
+}
+.card-container:hover {
+    -webkit-box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
+    -webkit-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -kthtml-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+.card .front .content .main-card {
+    min-height: 190px;
+    height: 100%;
+    width: calc(100% - 40px);
+}
+.card .back .content .main-card {
+    min-height: 190px;
+    height: 100%;
+    width: calc(100% - 40px);
+}
+.card .content .footer {
+    /*position: absolute;
+    bottom: -20px;
+    width: calc(100% - 40px);
+    padding: 10px 0;
+    min-height: 61px;*/
+    padding: 0;
+    margin: 0;
+}
+.card .content .footer .col-left {
+    padding-left: 0;
+}
+.card .content .footer .col-right {
+    padding-left: 0;
+    padding-right: 0;
+}
+.card .back .footer .col-left::after {
+    float: right;
+    content: " ";
+    border-right: 1px dashed #ccc;
+}
+.card .back .content.reparacion .footer .col-left::after {
+    border-right: 0 none;
+}
+.numero-habitacion {
+    background: #f4f4f4;
+    color: #000;
+    font-weight: bold;
+    /*position: absolute;
+    top: 14px;*/
+    padding: 2px 20px;
+    font-size: 20px;
+}
+
+.icon {
+    text-align: center;
+}
+.icono-paciente {
+    font-size: 100px;
+    cursor: pointer;
+}
+.icon .fa.agregar {
+    font-size: 160px;
+}
+
+
+/*.card-container {
+    -webkit-perspective: 800px;
+    -moz-perspective: 800px;
+    -o-perspective: 800px;
+    perspective: 800px;
+    margin-bottom: 30px;
+}
+.card-container.hover.manual-flip .card, .card-container:not(.manual-flip):hover .card {
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+.card-container.static.hover .card, .card-container.static:hover .card {
+    -webkit-transform: none;
+    -moz-transform: none;
+    -o-transform: none;
+    transform: none;
+}
+.card {
+    -webkit-transition: -webkit-transform .5s;
+    -moz-transition: -moz-transform .5s;
+    -o-transition: -o-transform .5s;
+    transition: transform .5s;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    position: relative;
+    background: #FFF;
+    border-radius: 4px;
+    color: #444;
+}
+.card .footer, .card .motto, .card .profession {
+    color: #999;
+    text-align: center;
+}
+.back, .front {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #FFF;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .14);
+}
+.front {
+    z-index: 2;
+}
+.back {
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    z-index: 3;
+}
+.back .btn-simple {
+    position: absolute;
+    left: 0;
+    bottom: 4px;
+}
+.back, .card-container, .front {
+    width: 100%;
+    height: 420px;
+    }
 .card .cover {
     height: 105px;
     overflow: hidden;
@@ -701,7 +910,7 @@ pointer-events: none;
     }
 }
 .card-container .front {
-    /* background: #f3eee6; */
+
 }
 .card-container, .front, .back {
     min-height: 380px;
@@ -711,12 +920,6 @@ pointer-events: none;
     -webkit-box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
     box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
-    /*-webkit-transition: all 0.5s linear;
-    -o-transition: all 0.5s linear;
-    -moz-transition: all 0.5s linear;
-    -ms-transition: all 0.5s linear;
-    -kthtml-transition: all 0.5s linear;
-    transition: all 0.5s linear;*/
     -webkit-transition: all 0.3s ease-out;
     -o-transition: all 0.3s ease-out;
     -moz-transition: all 0.3s ease-out;
@@ -752,8 +955,6 @@ pointer-events: none;
     float: right;
     content: " ";
     border-right: 1px dashed #ccc;
-    /*padding: 10px 0;
-    min-height: 40px;*/
 }
 .card .back .content.reparacion .footer .col-left::after {
     border-right: 0 none;
@@ -787,13 +988,11 @@ pointer-events: none;
 .icon .fa.agregar {
     font-size: 160px;
 }
-.desinfectada {
-    color: #9cc180;
-}
+
 .pep-dpa {
     border-color: blue;
     background: yellow;
-}
+}*/
 
 /* filtros */
 
@@ -1092,4 +1291,11 @@ a.btn-habitacion:target, a.btn-habitacion.active {
 }
 .plex-affix.affix + .plex-affix-spacer {
     display: block;
+}
+
+
+.bg-oxigeno {background: #5bc0de ;}
+.oxigeno {color: #5bc0de ;}
+.desinfectada {
+    color: #9cc180;
 }
