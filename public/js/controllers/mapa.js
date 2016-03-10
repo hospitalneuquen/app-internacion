@@ -1,4 +1,4 @@
-angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 'Server', '$timeout', '$alert', 'Session', function($scope, Plex, Shared, Server, $timeout, $alert, Session) {
+angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 'Server', '$timeout', 'Session', function($scope, Plex, Shared, Server, $timeout, Session) {
     'use strict';
 
     Session.servicioActual = {
@@ -29,12 +29,12 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 angular.forEach(data, function(cama, key) {
 
                     //asignamos las habitaciones
-                    if ($.inArray(cama.habitacion, $scope.habitaciones) == -1) {
+                    if (!$scope.habitaciones.inArray(cama.habitacion)) {
                         $scope.habitaciones.push(cama.habitacion);
                     }
 
                     // asignamos los tipos de camas
-                    if ($.inArray(cama.tipoCama, $scope.tipoCamas) == -1) {
+                    if (!$scope.tipoCamas.inArray(cama.tipoCama)) {
                         $scope.tipoCamas.push(cama.tipoCama);
                     }
 

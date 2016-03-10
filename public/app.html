@@ -10,17 +10,20 @@
         <link href="/lib-md/css/dist/angular-material.css" rel="stylesheet"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         <link href="resources/app.css" rel="stylesheet"/>
 
         <!--Libraries -->
         <script src="/lib-md/js/dist/lib.js"></script>
 
         <!--App-->
+        <script src="js/Utils.js"></script>
         <script src="app.js"></script>
 
         <!-- Services -->
         <script src="js/services/shared.js"></script>
         <script src="js/services/personas.js"></script>
+
 
         <!-- Filters -->
         <script src="js/filters/persona.js"></script>
@@ -56,6 +59,6 @@
     </head>
     <body class="plex-cloak">
         <div ng-if="!Session.isActive()" ng-include="'/lib-md/html/dist/session.html'"></div>
-        <div ng-if="Session.isActive()" ng-include="'/lib-md/html/dist/main.html'"></div>        
+        <div ng-if="Session.isActive()" ng-include="'/lib-md/html/dist/main.html'"></div>
     </body>
 </html>
