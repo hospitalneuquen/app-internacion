@@ -55,7 +55,7 @@
 
         </style>
     </head>
-    <body class="plex-cloak">
+    <body class="plex-cloak" layout="column">
         <div ng-if="!Session.isActive()" ng-include="'/lib-md/html/dist/session.html'"></div>
         <div ng-if="Session.isActive()" ng-include="'/lib-md/html/dist/main.html'"></div>
     </body>

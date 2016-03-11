@@ -266,14 +266,14 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
         });
 
         $scope.init();
-    }])
-    .config(function($mdThemingProvider) {
+    }]);
+    // .config(function($mdThemingProvider) {
 
         // Configure a dark theme with primary foreground yellow
 
-        $mdThemingProvider.theme('docs-dark', 'default')
-          .primaryPalette('yellow')
-          .dark();
+        // $mdThemingProvider.theme('docs-dark', 'default')
+        //   .primaryPalette('yellow')
+        //   .dark();
 
         // $mdThemingProvider.definePalette('amazingPaletteName', {
         //     '50': 'ffebee',
@@ -301,4 +301,4 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
         //     .primaryPalette('amazingPaletteName')
         //     .dark()
 
-    });
+    // });
