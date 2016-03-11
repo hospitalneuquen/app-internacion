@@ -2,6 +2,7 @@
 
 angular.module('app').controller('sandbox/personas', ['$scope', 'Plex', 'Server', '$timeout', 'Personas', function($scope, Plex, Server, $timeout, Personas) {
     angular.extend($scope, {
+        promise: null,
         personas: {
             data: null,
             query: 'Urbano',
@@ -21,7 +22,7 @@ angular.module('app').controller('sandbox/personas', ['$scope', 'Plex', 'Server'
                     } else {
                         params.documento = self.query;
                     }
-                    Personas.get(params).then(function(data) {
+                    self.promise = Personas.get(params).then(function(data) {
                         self.data = data;
                     });
                 }, 250);
