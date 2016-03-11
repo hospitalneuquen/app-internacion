@@ -1,3 +1,36 @@
+<h1>layout-pretty</h1>
+<div layout layout-pretty>
+    <div flex=33>
+        DIV 1
+    </div>
+    <div flex>
+        DIV 2
+    </div>
+</div>
+<h1>layout-pretty whiteframe</h1>
+<div layout layout-pretty whiteframe>
+    <div flex=33>
+        DIV A
+    </div>
+    <div flex>
+        DIV B
+    </div>
+</div>
+<h1>layout-pretty whiteframe</h1>
+<div layout layout-pretty whiteframe>
+    <div flex=33>
+        DIV X
+    </div>
+    <div flex>
+        DIV Z <br>
+        <div flex layout>
+            <span flex></span>
+            <md-button>Cancelar</md-button>
+            <md-button class="md-primary md-raised">Guardar</md-button>
+        </div>
+    </div>
+</div>
+
 <input type=text label="Buscar personas por documento o fulltext" ng-model="personas.query" plex>
 <md-table-container ng-if="personas.data && personas.data.length > 0" >
   <table md-table md-progress="promise">

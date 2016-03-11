@@ -1,3 +1,24 @@
+body {
+    background-color: #F4F4F4;
+    min-height: 100%;
+    height: auto !important;
+}
+
+[layout-pretty] > [flex],
+[layout-pretty] > [flex-gt-sm],
+[layout-pretty] > [flex-md],
+[layout-pretty] > [flex-lt-lg] {
+    padding: 8px;
+    margin-right: 16px;
+    margin-bottom: 16px;
+}
+
+[flex] [whiteframe] > [flex]{
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+    background: white;
+}
+
+
 /* components by adminlte  https://almsaeedstudio.com/themes/AdminLTE/index2.html */
 
 .box-body:after, .box-comments .box-comment:after, .box-footer:after, .box-header:after {
