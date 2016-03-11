@@ -17,6 +17,7 @@ angular.module('app').controller('internacion/evolucionar', ['$scope', 'Plex', '
     //
 
     angular.extend($scope, {
+        tituloEvolucion: '',
         loading: true,
         internacion: undefined,
         evolucionesEdit: undefined, // Item actual que se está editando
@@ -75,10 +76,12 @@ angular.module('app').controller('internacion/evolucionar', ['$scope', 'Plex', '
         // Inicia la edición de una evolución
         editarEvolucion: function(evolucion) {
             if (evolucion) { // Modificación
+                $scope.tituloFormulario = "Editar evolución";
                 $scope.evolucionesEdit = {};
                 angular.copy(evolucion, $scope.evolucionesEdit);
                 //item.$editing = true;
             } else { // Alta
+                $scope.tituloFormulario = "Agregar evolución";
                 // Valores por defecto
                 $scope.evolucionesEdit = {
                     fechaHora: new Date(),
