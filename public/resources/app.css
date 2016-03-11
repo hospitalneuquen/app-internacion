@@ -18,7 +18,6 @@ body {
     background: white;
 }
 
-
 /* components by adminlte  https://almsaeedstudio.com/themes/AdminLTE/index2.html */
 
 .box-body:after, .box-comments .box-comment:after, .box-footer:after, .box-header:after {
@@ -237,104 +236,17 @@ body {
 .no-header .box-body {
     border-top-right-radius: 3px;
     border-top-left-radius: 3px;
+>>>>>>> develop-md
 }
-.box-body>.table {
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
     margin-bottom: 0;
 }
-.box-body .fc {
-    margin-top: 5px;
-}
-.box-body .full-width-chart {
-    margin: -19px;
-}
-.box-body.no-padding .full-width-chart {
-    margin: -9px;
-}
-.box-body .box-pane {
-    border-radius: 0 0 0 3px;
-}
-.box-body .box-pane-right {
-    border-radius: 0 0 3px;
-}
-.box-footer {
-    border-top: 1px solid #f4f4f4;
-    padding: 10px;
-    background-color: #fff;
-    border-radius: 0 0 3px 3px;
-}
-.chart-legend {
-    margin: 10px 0;
-}
-@media (max-width:991px) {
-    .chart-legend>li {
-        float: left;
-        margin-right: 10px;
-    }
-}
-.box-comments {
-    background: #f7f7f7;
-}
-.box-comments .box-comment {
-    padding: 8px 0;
-    border-bottom: 1px solid #eee;
-}
-.box-comments .box-comment:after, .box-comments .box-comment:before {
-    content: " ";
-    display: table;
-}
-.box-comments .box-comment:last-of-type {
-    border-bottom: 0;
-}
-.box-comments .box-comment:first-of-type {
-    padding-top: 0;
-}
-.box-comments .box-comment img {
-    float: left;
-}
-.box-comments .comment-text {
-    margin-left: 40px;
-    color: #555;
-}
-.box-comments .username {
-    color: #444;
-    display: block;
-    font-weight: 600;
-}
-.box-comments .text-muted {
-    font-weight: 400;
-    font-size: 12px;
-}
-.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-    border-top: 1px solid #f4f4f4;
-}
-.table>thead>tr>th {
-    border-bottom: 2px solid #f4f4f4;
-}
-.table tr td .progress {
-    margin-top: 5px;
-}
-.table-bordered, .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
-    border: 1px solid #f4f4f4;
-}
-.table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
-    border-bottom-width: 2px;
-}
-.table.no-border, .table.no-border td, .table.no-border th {
-    border: 0;
-}
-table.text-center, table.text-center td, table.text-center th {
-    text-align: center;
-}
-.table.align th {
-    text-align: left;
-}
-.table.align td {
-    text-align: right;
+md-content {
+    margin-bottom: 20px;
 }
 
-/* end components adminlte */
-
-h1.panel-title {
+/*h1.panel-title {
     font-size: xx-large;
 }
 h2.panel-title {
@@ -357,7 +269,8 @@ h6.panel-title {
 }
 [class*="fa-stack"] + span, span + [class*="fa-stack"] {
     margin-left: 0;
-}
+}*/
+
 
 /* checkbox / radios */
 
@@ -558,12 +471,13 @@ pointer-events: none;
 }
 
 /* cards */
+
 .card-container {
+    margin: 0;
     -webkit-perspective: 800px;
     -moz-perspective: 800px;
     -o-perspective: 800px;
     perspective: 800px;
-    margin-bottom: 30px;
 }
 .card-container.hover.manual-flip .card, .card-container:not(.manual-flip):hover .card {
     -webkit-transform: rotateY(180deg);
@@ -624,25 +538,23 @@ pointer-events: none;
 .back, .card-container, .front {
     width: 100%;
     height: 420px;
-    }
+}
 .card .cover {
     height: 105px;
     overflow: hidden;
     border-radius: 4px 4px 0 0;
 }
-
-
 .card .content {
     background-color: rgba(0, 0, 0, 0);
     box-shadow: none;
-    padding: 10px 20px 20px;
-    min-height: 245px;
+    padding: 20px 20px 20px;
+    min-height: 225px;
 }
 .card .content .main {
-    min-height: 160px;
+    /*min-height: 160px;*/
 }
 .card .back .content .main {
-    height: 215px;
+    /*height: 215px;*/
 }
 .card .name {
     font-size: 22px;
@@ -664,20 +576,18 @@ pointer-events: none;
 .card .footer {
     border-top: 1px solid #EEE;
     margin: 0;
-    padding: 0;
+    padding: 5px 0;
     /*margin: 30px 0 0;
     padding: 10px 0 0;*/
 }
-
 .card .header {
-    padding: 15px 20px;
+    /*padding: 15px 20px;*/
+    padding: 10px 0 0 10px;
     height: 60px;
 }
-
 .icon .fa.agregar {
     font-size: 160px;
 }
-
 @media screen and (-ms-high-contrast:active), (-ms-high-contrast:none) {
     .back, .front {
         -ms-backface-visibility: visible;
@@ -695,9 +605,7 @@ pointer-events: none;
         visibility: visible;
     }
 }
-.card-container .front {
-
-}
+.card-container .front {}
 .card-container, .front, .back {
     min-height: 380px;
     height: 100%;
@@ -751,12 +659,10 @@ pointer-events: none;
     background: #f4f4f4;
     color: #000;
     font-weight: bold;
-    /*position: absolute;
-    top: 14px;*/
-    padding: 2px 20px;
+    padding: 10px 15px;
     font-size: 20px;
+    display: inline-block;
 }
-
 .icon {
     text-align: center;
 }
@@ -767,7 +673,9 @@ pointer-events: none;
 .icon .fa.agregar {
     font-size: 160px;
 }
-
+.stacked-icon {
+    margin-top: 8px;
+}
 
 /*.card-container {
     -webkit-perspective: 800px;
@@ -1015,6 +923,7 @@ pointer-events: none;
     background: yellow;
 }*/
 
+
 /* filtros */
 
 .filtros-habitaciones {
@@ -1246,12 +1155,14 @@ a.btn-habitacion:target, a.btn-habitacion.active {
 .table > thead:first-child > tr:first-child > th.va-bottom {
     vertical-align: bottom;
 }
+
 /*button.btn-nostyle {
     background: none;
     border: 0 none;
     padding: 0;
     margin: 0;
 }*/
+
 .numero-habitacion-header {
     background: #f4f4f4;
     color: #000;
@@ -1262,10 +1173,12 @@ a.btn-habitacion:target, a.btn-habitacion.active {
 .btn-buscar-paciente {
     background: white;
 }
-.btn-buscar-paciente .fa.agregar {
+.btn-buscar-paciente .agregar {
+    background: white;
     color: #5F90A7;
 }
 .grow {
+    padding: 0;
     transition: all .2s ease-in-out;
 }
 .grow:hover {
@@ -1313,10 +1226,15 @@ a.btn-habitacion:target, a.btn-habitacion.active {
 .plex-affix.affix + .plex-affix-spacer {
     display: block;
 }
-
-
-.bg-oxigeno {background: #5bc0de ;}
-.oxigeno {color: #5bc0de ;}
-.desinfectada {
+.bg-oxigeno {
+    background: #5bc0de;
+}
+.oxigeno {
+    color: #5bc0de;
+}
+.bg-desinfectar {
+    background: #9cc180;
+}
+.desinfectar {
     color: #9cc180;
 }
