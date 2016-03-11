@@ -17,6 +17,7 @@ angular.module('app').controller('internacion/evolucionar', ['$scope', 'Plex', '
     //
 
     angular.extend($scope, {
+        show_toolbar: true,
         tituloEvolucion: '',
         loading: true,
         internacion: undefined,
@@ -75,6 +76,7 @@ angular.module('app').controller('internacion/evolucionar', ['$scope', 'Plex', '
         },
         // Inicia la edición de una evolución
         editarEvolucion: function(evolucion) {
+            $scope.show_toolbar = false;
             if (evolucion) { // Modificación
                 $scope.tituloFormulario = "Editar evolución";
                 $scope.evolucionesEdit = {};
@@ -93,6 +95,7 @@ angular.module('app').controller('internacion/evolucionar', ['$scope', 'Plex', '
         // Cancelar la edición
         cancelarEdicion: function() {
             $scope.evolucionesEdit = null;
+            $scope.show_toolbar = true;
         },
         // Guarda la evolución
         guardarEvolucion: function(evolucion) {

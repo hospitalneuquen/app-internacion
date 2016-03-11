@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es-ar" ng-app="app">
-
     <head>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width">
@@ -14,14 +13,14 @@
         <!--Libraries -->
         <script src="/lib-md/js/dist/lib.js"></script>
 
-        <!--App-->
         <script src="js/Utils.js"></script>
+
+        <!--App-->
         <script src="app.js"></script>
 
         <!-- Services -->
         <script src="js/services/shared.js"></script>
         <script src="js/services/personas.js"></script>
-
 
         <!-- Filters -->
         <script src="js/filters/persona.js"></script>
@@ -52,11 +51,12 @@
             .xplex-cloak {
                 display: none !important;
             }
-
         </style>
     </head>
     <body class="plex-cloak">
-        <div ng-if="!Session.isActive()" ng-include="'/lib-md/html/dist/session.html'"></div>
-        <div ng-if="Session.isActive()" ng-include="'/lib-md/html/dist/main.html'"></div>
+        <div flex>
+            <div ng-if="!Session.isActive()" ng-include="'/lib-md/html/dist/session.html'"></div>
+            <div ng-if="Session.isActive()" ng-include="'/lib-md/html/dist/main.html'"></div>
+        </div>
     </body>
 </html>

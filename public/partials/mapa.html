@@ -48,7 +48,7 @@
             </md-switch>
 
             <div flex="5"></div>
-            <md-input-container class="md-block" flex-gt-sm>
+            <md-input-container class="md-block" flex-gt-sm >
                 <md-button class="md-raised md-primary" ng-click="filter.limpiarFiltros()">
                     Limpiar filtros
                 </md-button>
@@ -60,7 +60,7 @@
 <!-- </div> -->
 
 <div layout layout-wrap>
-    <div flex="15" ng-repeat="cama in filter.camas" layout-margin>
+    <div flex="15" flex-md="33" flex-sm="50" flex-xs="100"  ng-repeat="cama in filter.camas" layout-margin>
         <div class="card-container manual-flip animate-repeat" ng-class="{'hover': cama.$rotar }" ng-model="cama_actual">
             <div class="card">
                 <div class="front">
@@ -118,7 +118,8 @@
                         <div layout>
                             <div flex="20">
                                 <md-tooltip md-direction="top">
-                                    Cama con O<sup>2</sup>
+                                    Cama con O
+                                    <sup>2</sup>
                                 </md-tooltip>
                                 <i class="stacked-icon material-icons oxigeno" ng-if="cama.oxigeno">battery_full</i>
                             </div>
@@ -221,9 +222,11 @@
                                     Aún no se ha cargado ninguna evolución.
                                     <br/><br/>
 
-                                    <md-button class=" md-raised md-primary" aria-label="Evolucionar" ng-click="evolucionarPaciente(cama)" ng-if="cama.paciente.id">
-                                        Cargar una evolución
-                                    </md-button>
+                                    <div layout layout-fill>
+                                        <md-button class=" md-raised md-primary" flex aria-label="Evolucionar" ng-click="evolucionarPaciente(cama)" ng-if="cama.paciente.id">
+                                            Cargar una evolución
+                                        </md-button>
+                                    </div>
 
                                 </p>
                             </div>
@@ -233,7 +236,8 @@
                             <div layout>
                                 <div flex="20">
                                     <md-tooltip md-direction="top">
-                                        Cama con O<sup>2</sup>
+                                        Cama con O
+                                        <sup>2</sup>
                                     </md-tooltip>
                                     <i class="stacked-icon material-icons oxigeno" ng-if="cama.oxigeno">battery_full</i>
                                 </div>

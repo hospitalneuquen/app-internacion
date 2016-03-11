@@ -1,0 +1,6 @@
+{
+  "eqeqeq": false,
+  "predef": ["angular", "console", "alert"],
+  "-W100":true,
+  "strict": "implied"
+}

@@ -1,38 +1,56 @@
+<h1>layout-pretty</h1>
+<div layout layout-pretty>
+    <div flex=33>
+        DIV 1
+    </div>
+    <div flex>
+        DIV 2
+    </div>
+</div>
+<h1>layout-pretty whiteframe</h1>
+<div layout layout-pretty whiteframe>
+    <div flex=33>
+        DIV A
+    </div>
+    <div flex>
+        DIV B
+    </div>
+</div>
+<h1>layout-pretty whiteframe</h1>
+<div layout layout-pretty whiteframe>
+    <div flex=33>
+        DIV X
+    </div>
+    <div flex>
+        DIV Z <br>
+        <div flex layout>
+            <span flex></span>
+            <md-button>Cancelar</md-button>
+            <md-button class="md-primary md-raised">Guardar</md-button>
+        </div>
+    </div>
+</div>
+
 <input type=text label="Buscar personas por documento o fulltext" ng-model="personas.query" plex>
-<table ng-if="personas.data && personas.data.length > 0" class=table>
-    <thead>
-        <tr>
-            <th>
-                Id
-            </th>
-            <th>
-                Nombre
-            </th>
-            <th>
-                Documento
-            </th>
-            <th>
-                Edad
-            </th>
-        </tr>
+<md-table-container ng-if="personas.data && personas.data.length > 0" >
+  <table md-table md-progress="promise">
+    <thead md-head md-order="query.order">
+      <tr md-row>
+        <th md-column>Nombre</th>
+        <th md-column>Documento</th>
+        <th md-column md-numeric>Edad</th>
+      </tr>
     </thead>
-    <tbody>
-        <tr ng-repeat="item in personas.data">
-            <td>
-                {{item.id}}
-            </td>
-            <td>
-                {{item | persona:"an"}}
-            </td>
-            <td>
-                {{item | persona:"d"}}
-            </td>
-            <td>
-                {{item | persona:"e"}}
-            </td>
-        </tr>
+    <tbody md-body>
+      <tr md-row ng-repeat="item in personas.data">
+        <td md-cell>{{item | persona:"an"}}</td>
+        <td md-cell>{{item | persona:"d"}}</td>
+        <td md-cell>{{item | persona:"e"}}</td>
+      </tr>
     </tbody>
-</table>
+  </table>
+</md-table-container>
 <div class="alert alert-info" ng-if="personas.data && personas.data.length == 0">
     ¡No se encontró ningún resultado!
 </div>
+<!-- <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{desserts.count}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination> -->

@@ -1,25 +1,29 @@
 <!-- Header de paciente -->
 <div plex-include="'partials/Pacientes/iHeader.html'" plex-include-internacion="internacion"></div>
 
-<md-content>
+<md-content >
     <!-- Tabla de evoluciones -->
-    <md-toolbar class="md-table-toolbar md-default" ng-show="show_toolbar">
-        <div class="md-toolbar-tools">
-            <span>Evoluciones del paciente</span>
-            <span flex></span>
-            <md-input-container class="md-block" flex-gt-sm flex="10">
+    <div layout ng-show="show_toolbar">
+        <div flex="20">
+            <h2>Evoluciones del paciente</h2>
+        </div>
+        <div flex></div>
+        <div flex="20" flex-gt-sm>
+            <md-input-container class="md-block">
                 <label>Servicio</label>
                 <md-select name="servicios" ng-click="filtros.filtrar()" ng-model="filtros.servicio">
                     <md-option ng-repeat="servicio in servicios" value="{{servicio.id}}">{{servicio.nombreCorto}}</md-option>
                 </md-select>
             </md-input-container>
-            <md-input-container class="md-block" flex-gt-sm flex="10">
-                <md-button class="md-primary md-raised" ng-click="editarEvolucion(); show_toolbar = !show_toolbar" ng-init="show_toolbar = true">
+        </div>
+        <div flex="10" flex-gt-sm>
+            <md-input-container class="md-block">
+                <md-button class="md-primary md-raised" ng-click="editarEvolucion(); show_toolbar = !show_toolbar">
                     Nueva evolución
                 </md-button>
             </md-input-container>
         </div>
-    </md-toolbar>
+    </div>
 
     <md-table-container ng-if="!evolucionesEdit">
         <table data-md-table md-progress="promise" ng-if="internacion.evoluciones && internacion.evoluciones.length > 0">
@@ -83,7 +87,7 @@
                             Kg</span>
                     </td>
                     <td md-cell>
-                        <md-button ng-if='item.tipo == Session.variables.prestaciones_workflow' class="md-icon-button" aria-label="Editar evolución" ng-click="editarEvolucion(item)">
+                        <md-button ng-if='item.tipo == Session.variables.prestaciones_workflow' class="md-icon-button" aria-label="Editar evolución" ng-click="editarEvolucion(item);" >
                             <md-icon md-font-icon="fa-pencil" class="fa"></md-icon>
                         </md-button>
                     </td>
@@ -173,14 +177,11 @@
                 </div>
             </div>
 
-
-
-                <div layout layout-pretty>
-                    <span flex></span>
-                    <md-button ng-click="cancelarEdicion()">Cancelar</md-button>
-                    <md-button class="md-primary md-raised" plex-submit="guardarEvolucion(evolucionesEdit)" ng-disabled="formEditarEvolucion.$invalid">Guardar</md-button>
-                </div>
-
+            <div layout layout-pretty>
+                <span flex></span>
+                <md-button ng-click="cancelarEdicion();">Cancelar</md-button>
+                <md-button class="md-primary md-raised" plex-submit="guardarEvolucion(evolucionesEdit)" ng-disabled="formEditarEvolucion.$invalid">Guardar</md-button>
+            </div>
 
         </ng-form>
 
