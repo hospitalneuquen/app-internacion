@@ -94,12 +94,12 @@
                         </div>
                     </div>
 
-                    <div class="content" >
+                    <div class="content" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'evolucion'">
 
-                        <div class="main cama" layout layout-wrap layout-align="center start">
+                        <div class="main cama" layout layout-wrap layout-align="center start" >
                             <div class="icon" flex="100">
 
-                                <i class="icono-paciente {{cama.paciente | persona: 'icon'}} " ng-if="cama.paciente.id" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'evolucion'"></i>
+                                <i class="icono-paciente {{cama.paciente | persona: 'icon'}} " ng-if="cama.paciente.id" ></i>
                                 <!-- btn-buscar-paciente grow   -->
                                 <md-button class="md-icon-button" aria-label="Agregar paciente en cama" ng-click="buscarPaciente(cama); cama.$action = 'internacion'" ng-if="!cama.paciente.id && cama.estado == 'desocupada'">
                                     <md-icon md-font-icon="fa-user-plus" class="fa agregar"></md-icon>
