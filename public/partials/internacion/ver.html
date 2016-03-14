@@ -1,0 +1,1062 @@
+<div plex-include="'partials/internacion/evolucionar.html'" plex-include-internacion="internacion"></div>
+
+<div class="box box-primary">
+    <div class="box-header">
+        <h3 class="box-title">Internacion</h3>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label>Estado:</label>
+                    {{internacion.estado}}
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label>Obras sociales:</label>
+                    {{internacion.obrasSociales}}
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="box box-primary">
+    <div class="box-header">
+        <h3 class="box-title">Valoracion inicial</h3>
+    </div>
+    <div class="box-body">
+
+        <div class="row">
+            <div class="col-sm-3">
+                <label>Apellido</label>
+                {{internacion.paciente.apellido}}
+            </div>
+            <div class="col-sm-3">
+                <label>Nombre</label>
+                {{internacion.paciente.nombre}}
+            </div>
+            <div class="col-sm-3">
+                <label>N de HC</label>
+                {{internacion.paciente.idExterno.carpeta}}
+            </div>
+            <div class="col-sm-3">
+                <label>Fecha de Ingreso</label>
+                {{internacion.ingreso.fechaHora}}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <label>Edad</label>
+                {{internacion.paciente.edad}}
+            </div>
+            <div class="col-sm-3">
+                <label>DNI</label>
+                {{internacion.paciente.documento}}
+            </div>
+            <div class="col-sm-3">
+                <label>Género</label>
+                {{internacion.paciente.sexo}}
+            </div>
+            <div class="col-sm-3">
+                <label>Estado Civil</label>
+                {{internacion.paciente.estadoCivil}}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <label>Ocupación</label>
+                {{internacion.ingreso.situacionPaciente.ocupacion}}
+            </div>
+            <div class="col-sm-3">
+                <label>Obra Social</label>
+                {{internacion.paciente.obrasSociales}}
+            </div>
+            <div class="col-sm-3">
+                <label>Nivel de Instrucción</label>
+                {{internacion.ingreso.situacionPaciente.educacion}}
+            </div>
+            <div class="col-sm-3">
+                <label>Nacionalidad</label>
+                {{internacion.paciente.nacionalidad}}
+            </div>
+        </div>
+        <!-- ****************************** Motivo Ingreso, Diagnóstico presuntivo ****************************** -->
+        <div class="row">
+            <div class="col-sm-6">
+                <label>Motivo de Ingreso</label>
+                {{internacion.ingreso.motivo}}
+            </div>
+            <div class="col-sm-6">
+                <label>Diagnóstico Médico Presuntivo</label>
+                {{internacion.ingreso.diagnosticoPresuntivo}}
+            </div>
+        </div>
+        <!-- ****************************** Domicilio, Convivientes ****************************** -->
+        <div class="row">
+            <div class="col-sm-6">
+                <label>Domicilio</label>
+                {{internacion.paciente.domicilio.texto}}
+            </div>
+            <div class="col-sm-6">
+                Convivientes
+            </div>
+        </div>
+        <!-- ****************************** Procedencia, Domicilio, Tel ****************************** -->
+        <div class="row">
+            <div class="col-sm-4">
+                Procedencia
+            </div>
+            <div class="col-sm-4">
+                Domicilio
+            </div>
+            <div class="col-sm-4">
+                Nº de Tel.
+            </div>
+        </div>
+        <br />
+        <!-- ****************************** Antecedentes clínicos ****************************** -->
+        <div class="row">
+            <div class="col-sm-12">
+                <fieldset>
+                    <legend>Antecedentes clínicos</legend>
+                </fieldset>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <input type=text label="HTA" ng-model="internacion.antecedentes.hta" plex />
+            </div>
+            <div class="col-sm-3">
+                <input type=text label="DBT" ng-model="internacion.antecedentes.diabetes" plex />
+            </div>
+            <div class="col-sm-3">
+                <input type=text label="Alergias" ng-model="internacion.antecedentes.alergias" plex />
+            </div>
+            <div class="col-sm-3">
+                <input type=text label="Otros" plex />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <input type=text label="Medicación Habitual" plex />
+            </div>
+        </div>
+        <br />
+        <!-- ****************************** Antecedentes Obstétricos ****************************** -->
+        <div class="row">
+            <div class="col-sm-12">
+                <fieldset>
+                    <legend>Antecedentes obstétricos (si corresponde)</legend>
+                </fieldset>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <input type=text label="Gestas" ng-model="internacion.antecedentes.obstetricos.gestas" plex />
+            </div>
+            <div class="col-sm-3">
+                <input type=text label="Partos" ng-model="internacion.antecedentes.obstetricos.partos" plex />
+            </div>
+            <div class="col-sm-3">
+                <input type=text label="Cesáreas" ng-model="internacion.antecedentes.obstetricos.cesareas" plex />
+            </div>
+            <div class="col-sm-3">
+                <input type=text label="Abortos" ng-model="internacion.antecedentes.obstetricos.abortos" plex />
+            </div>
+        </div>
+        <br />
+        <!-- ****************************** Antecedentes quirúrgicos y/o traumatológicos ****************************** -->
+        <div class="row">
+            <div class="col-sm-12">
+                <fieldset>
+                    <legend>Antecedentes Quirúrgicos y/o Traumatológicos</legend>
+                </fieldset>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <input type=text ng-model="internacion.antecedentes.quirurgicos" plex />
+            </div>
+        </div>
+        <br /><br />
+        <div class="row">
+            <!-- ****************************** Necesidad de Oxigenación ****************************** -->
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="col-sm-12">
+                            <h4 class="panel-title">1. Necesidad de Oxigenación</h4>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input type=text label="FR" ng-model="internacion.enfermeria.FR" plex />
+                            </div>
+                            <div class="col-sm-6">
+                                <input type=text label="SAT 2" ng-model="internacion.enfermeria.SAT2" plex />
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <input type="checkbox" ng-model="internacion.enfermeria.disneaEsfuerzo"/> Disnea esfuerzo
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="checkbox" ng-model="internacion.enfermeria.disneaReposo"/> Disnea reposo
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="checkbox" ng-model="internacion.enfermeria.tos"/> Tos
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Secreciones</label>
+                                <input type="checkbox" ng-model="internacion.enfermeria.secreciones" plex="bool" true="Si" false="No" />
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Uso de músculos accesorios</label>
+                                <input type="checkbox" ng-model="internacion.enfermeria.usoMusculos" plex="bool" true="Si" false="No" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input type="text" ng-show="internacion.enfermeria.secreciones" hint="Ingrese las características de las secreciones" ng-model="internacion.enfermeria.secrecionesCaracteristicas" plex />
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ng-show="internacion.enfermeria.usoMusculos" hint="Ingrese cuales son los músculos accesorios" ng-model="internacion.enfermeria.musculosCuales" plex />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type=text label="Observaciones" ng-model="internacion.enfermeria.observacionesOxigenacion" plex />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ****************************** Necesidad de Circulación ****************************** -->
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="col-sm-12">
+                            <h4 class="panel-title">2. Necesidad de Circulación</h4>
+                        </div>
+                    </div>
+                    <div class="panel-body" >
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input type=text label="T/A" ng-model="internacion.enfermeria.TA" plex />
+                            </div>
+                            <div class="col-sm-6">
+                                <input type=text label="FC" ng-model="internacion.enfermeria.FC" plex />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h5><label>Pulso</label></h5>
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                Carotídeo:
+                                                <input type=text ng-model="internacion.enfermeria.carotideo" plex />
+                                            </div>
+                                            <div class="col-sm-6">
+                                                Radial:
+                                                <input type=text ng-model="internacion.enfermeria.radial" plex />
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                Poplíteo:
+                                                <input type=text ng-model="internacion.enfermeria.popliteo" plex />
+                                            </div>
+                                            <div class="col-sm-6">
+                                                Pedio:
+                                                <input type=text ng-model="internacion.enfermeria.pedio" plex />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type=text label="Observaciones" ng-model="internacion.enfermeria.observacionesCirculacion" plex />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <!-- ****************************** Necesidad de Nutrición ****************************** -->
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="col-sm-12">
+                            <h4 class="panel-title">3. Necesidad de Nutrición</h4>
+                        </div>
+                    </div>
+                    <div class="panel-body" >
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input type=text label="Peso" ng-model="internacion.enfermeria.peso" plex />
+                            </div>
+                            <div class="col-sm-6">
+                                <input type=text label="Talla" ng-model="internacion.enfermeria.talla" plex />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type=text label="Hábitos alimentarios" ng-model="internacion.enfermeria.habitosAlimentarios" plex />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <input type="checkbox" ng-model="internacion.enfermeria.vomitos"/> Vómitos
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="text" hint="Ingrese las características de los vómitos" ng-model="internacion.enfermeria.vomitosCaracteristicas" plex />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <input type="checkbox" ng-model="internacion.enfermeria.nauseas"/> Náuseas
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="text" label="Otros" ng-model="internacion.enfermeria.otrosNutricion" plex />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <span style="font-weight:bold">Piezas dentarias</span>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="checkbox" plex="bool" ng-model="internacion.enfermeria.piezasDentarias" true="Incompletas" false="Completas" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <input type="checkbox" ng-model="internacion.enfermeria.protesis"/> Prótesis
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="text" hint="Ingrese tipo de prótesis" ng-model="internacion.enfermeria.protesisTipo" plex />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input type="checkbox" ng-model="internacion.enfermeria.dificultadesDeglutir"/> Dificultades para deglutir
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="checkbox" ng-model="internacion.enfermeria.dificultadesMasticar"/> Dificultades para masticar
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type=text label="Lactancia materna" ng-model="internacion.enfermeria.lactanciaMaterna" plex />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type=text label="Observaciones" ng-model="internacion.enfermeria.observacionesNutricion" plex />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ****************************** Necesidad de Eliminación ****************************** -->
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="col-sm-12">
+                            <h4 class="panel-title">4. Necesidad de Eliminación</h4>
+                        </div>
+                    </div>
+                    <div class="panel-body" >
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h5><label>Vesical</label></h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <input type="checkbox" ng-model="internacion.enfermeria.espontaneaVesical"/> Espontánea
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="checkbox" ng-model="internacion.enfermeria.incontinenciaVesical"/> Incontinencia
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="checkbox" ng-model="internacion.enfermeria.urostomiaVesical"/> Urostomía
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <input type="checkbox" ng-model="internacion.enfermeria.sondaVesical"/> Sonda vesical
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="checkbox" ng-model="internacion.enfermeria.tallaVesical" /> Talla vesical
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="checkbox" ng-model="internacion.enfermeria.otrosVesical"/> Otros
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type=text label="Característica" ng-model="internacion.enfermeria.caracteristicaVesical" plex />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h5><label>Intestinal</label></h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <input type="checkbox" ng-model="internacion.enfermeria.espontaneaIntestinal"/> Espontánea
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="checkbox" ng-model="internacion.enfermeria.ostomiaIntestinal"/> Ostomía
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="checkbox" ng-model="internacion.enfermeria.diarreaIntestinal"/> Diarrea
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <input type="checkbox" ng-model="internacion.enfermeria.incontinenciaIntestinal"/> Incontinencia
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="checkbox" ng-model="internacion.enfermeria.constipacionIntestinal"/> Constipación
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="checkbox" ng-model="internacion.enfermeria.otrosIntestinal" /> Otros
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type=text label="Característica" ng-model="internacion.enfermeria.caracteristicaIntestinal" plex />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Drenajes</label>
+                                <input type="checkbox" ng-model="internacion.enfermeria.drenajes" plex="bool" true="Si" false="No" />
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Otros</label>
+                                <input type="checkbox" ng-model="internacion.enfermeria.otrosEliminacion" plex="bool" true="Si" false="No" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input type="text" ng-show="internacion.enfermeria.drenajes" hint="Ingrese las características de los drenajes" ng-model="internacion.enfermeria.drenajesCaracteristicas" plex />
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ng-show="internacion.enfermeria.otrosEliminacion" hint="Ingrese características" ng-model="internacion.enfermeria.otrosCaracteristicas" plex />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type=text label="Observaciones" ng-model="internacion.enfermeria.observacionesEliminacion" plex />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <!-- ****************************** Necesidad de Proteger los tegumentos ****************************** -->
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="col-sm-12">
+                            <h4 class="panel-title">5. Necesidad de Proteger los Tegumentos</h4>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input type=text label="Temperatura" ng-model="internacion.enfermeria.temperatura" plex />
+                            </div>
+                            <div class="col-sm-6">
+                                <input type=text label="Color" ng-model="internacion.enfermeria.color" plex />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input type=text label="Higiene" ng-model="internacion.enfermeria.higiene" plex />
+                            </div>
+                            <div class="col-sm-3">
+                                <br />
+                                <input type="checkbox" plex="bool" true="Con ayuda" false="Sin ayuda" ng-model="internacion.enfermeria.higieneAyuda" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <input type="checkbox" ng-model="internacion.enfermeria.edemas"/> Edemas
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="text" hint="Ingrese localización de los edemas" ng-model="internacion.enfermeria.edemasLocalizacion" plex />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Estado</th>
+                                            <th>Mucosas</th>
+                                            <th>Piel</th>
+                                            <th>Pie</th>
+                                            <th>Boca</th>
+                                            <th>Genitales</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Íntegra</td>
+                                            <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="internacion.enfermeria.estadoMucosas.integra" ng-value="true"></td>
+                                            <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="internacion.enfermeria.estadoPiel.integra" ng-value="true"></td>
+                                            <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="internacion.enfermeria.estadoPie.integra" ng-value="true"></td>
+                                            <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="internacion.enfermeria.estadoBoca.integra" ng-value="true"></td>
+                                            <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="internacion.enfermeria.estadoGenitales.integra" ng-value="true"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lesiones</td>
+                                            <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="internacion.enfermeria.estadoMucosas.lesiones" ng-value="false"></td>
+                                            <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="internacion.enfermeria.estadoPiel.lesiones" ng-value="false"></td>
+                                            <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="internacion.enfermeria.estadoPie.lesiones" ng-value="false"></td>
+                                            <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="internacion.enfermeria.estadoBoca.lesiones" ng-value="false"></td>
+                                            <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="internacion.enfermeria.estadoGenitales.lesiones" ng-value="false"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Hidratada</td>
+                                            <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="internacion.enfermeria.estadoMucosas.hidratada" ng-value="true"></td>
+                                            <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="internacion.enfermeria.estadoPiel.hidratada" ng-value="true"></td>
+                                            <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="internacion.enfermeria.estadoPie.hidratada" ng-value="true"></td>
+                                            <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="internacion.enfermeria.estadoBoca.hidratada" ng-value="true"></td>
+                                            <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="internacion.enfermeria.estadoGenitales.hidratada" ng-value="true"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Deshidratada</td>
+                                            <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="internacion.enfermeria.estadoMucosas.deshidratada" ng-value="false"></td>
+                                            <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="internacion.enfermeria.estadoPiel.deshidratada" ng-value="false"></td>
+                                            <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="internacion.enfermeria.estadoPie.deshidratada" ng-value="false"></td>
+                                            <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="internacion.enfermeria.estadoBoca.deshidratada" ng-value="false"></td>
+                                            <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="internacion.enfermeria.estadoGenitales.deshidratada" ng-value="false"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type=text label="Observaciones" ng-model="internacion.enfermeria.observacionesTegumentos" plex />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ****************************** Necesidad de Movilizarse/Vestirse ****************************** -->
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="col-sm-12">
+                            <h4 class="panel-title">6. Necesidad de Movilizarse/Vestirse</h4>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <input type="checkbox" ng-model="internacion.enfermeria.ayudaVestirse"/> Necesita ayuda para vestirse
+                            </div>
+                            <div class="col-sm-7">
+                                <input type="checkbox" ng-model="internacion.enfermeria.dificultadesCaminar"/> Presenta dificultades para caminar
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <input type="checkbox" ng-model="internacion.enfermeria.dispositivosMovilizacion"/> Uso de dispositivos de movilización
+                            </div>
+                            <div class="col-sm-7">
+                                <input type="text" hint="Ingrese cuáles son los dispositivos de movilización" ng-model="internacion.enfermeria.dispositivosCuales" plex />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type=text label="Observaciones" ng-model="internacion.enfermeria.observacionesMovilizarse" plex />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <!-- ****************************** Necesidad de Dormir y Reposar ****************************** -->
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="col-sm-12">
+                            <h4 class="panel-title">7. Necesidad de Dormir y Reposar</h4>
+                        </div>
+                    </div>
+                    <div class="panel-body" >
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h5><label>Características del sueño</label></h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <input type="checkbox" ng-model="internacion.enfermeria.dormirContinuo" /> Continuo
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="checkbox" ng-model="internacion.enfermeria.dormirDiscontinuo"/> Discontinuo
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="checkbox" ng-model="internacion.enfermeria.dormirInsomnio"/> Insomnio
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="checkbox" ng-model="internacion.enfermeria.dormirSomnolencia" /> Somnolencia
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type=text label="Observaciones" ng-model="internacion.enfermeria.observacionesDormir" plex />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ****************************** Necesidad de Seguridad ****************************** -->
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="col-sm-12">
+                            <h4 class="panel-title">8. Necesidad de Seguridad</h4>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h5><label>Hábitos/adicciones</label></h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <span>Tabaco</span>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="checkbox" ng-model="internacion.enfermeria.tabaco" plex="bool" true="Si" false="No" />
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ng-show="internacion.enfermeria.tabaco" ng-model="internacion.enfermeria.tabacoCuantos" hint="Cuántos" plex />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <span>Alcohol</span>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="checkbox" ng-model="internacion.enfermeria.alcohol" plex="bool" true="Si" false="No" />
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ng-show="internacion.enfermeria.alcohol" ng-model="internacion.enfermeria.alcoholCuanto" hint="Cuánto" plex />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <span>Drogas</span>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="checkbox" ng-model="internacion.enfermeria.drogas" plex="bool" true="Si" false="No" />
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" ng-show="internacion.enfermeria.drogas" ng-model="internacion.enfermeria.drogasCuales" hint="Cuáles" plex />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type=text label="Otros" ng-model="internacion.enfermeria.otrosAdicciones" plex />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h5><label>Riesgos del medio ambiente</label></h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input type="checkbox" ng-model="internacion.enfermeria.riesgosFisicos"/> Físicos
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="checkbox" ng-model="internacion.enfermeria.riesgosQuimicos"/> Químicos
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type=text label="Cuáles" ng-model="internacion.enfermeria.riesgosCuales" plex />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h5><label>Otros</label></h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <input type="checkbox" ng-model="internacion.enfermeria.revisionGinecologica"/> Revisión Ginecológica
+                            </div>
+                            <div class="col-sm-7">
+                                <input type=text label="Fecha" ng-model="internacion.enfermeria.fechaRevisionGinecologica" plex="date" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <input type="checkbox" ng-model="internacion.enfermeria.revisionUrologica"/> Revisión Urológica
+                            </div>
+                            <div class="col-sm-7">
+                                <input type=text label="Fecha" ng-model="internacion.enfermeria.fechaRevisionUrologica" plex="date" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input type="checkbox" ng-model="internacion.enfermeria.ETS"/> ETS
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="checkbox" ng-model="internacion.enfermeria.riesgoCardiovascular"/> Riesgo Cardiovascular
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type=text label="Describa" ng-model="internacion.enfermeria.otrosDescriba" plex />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label>Riesgo de caídas:</label>
+                                <button type="button" class="btn btn-link" ng-click="cargarRiesgoCaidas(internacion.id)">Cálculo de Riesgo de Caídas</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label>Riesgo de UPP:</label>
+                                <button type="button" class="btn btn-link">Cálculo de Riesgo de UPP</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type=text label="Describa" ng-model="internacion.enfermeria.riesgosDescriba" plex />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type=text label="Observaciones" ng-model="internacion.enfermeria.observacionesSeguridad" plex />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <!-- ****************************** Necesidad de Comunicación y Sensopercepción ****************************** -->
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="col-sm-12">
+                            <h4 class="panel-title">9. Necesidad de Comunicación y Sensopercepción</h4>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input type="radio" name="optradio" ng-model="internacion.enfermeria.orientado" ng-value="true"/> Orientado
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="radio" name="optradio" ng-model="internacion.enfermeria.orientado" ng-value="false"/> Desorientado
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input type=text label="Glasgow*" plex ng-model="internacion.enfermeria.glasgow" />
+                            </div>
+                            <div class="col-sm-6">
+                                <input type=text label="Idioma" plex ng-model="internacion.enfermeria.idioma"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Visión</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="radio" name="radioVision" ng-model="internacion.enfermeria.vision.normal" ng-value="true"/> Normal
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="radio" name="radioVision" ng-model="internacion.enfermeria.vision.deficiente" ng-value="false"/> Deficiente
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="radio" name="radioVision" ng-model="internacion.enfermeria.vision.ausente" ng-value="false"/> Ausente
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Audición</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="radio" name="radioAudicion" ng-model="internacion.enfermeria.audicion.normal" ng-value="true"/> Normal
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="radio" name="radioAudicion" ng-model="internacion.enfermeria.audicion.deficiente" ng-value="false"/> Deficiente
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="radio" name="radioAudicion" ng-model="internacion.enfermeria.audicion.ausente" ng-value="false"/> Ausente
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label>Lenguaje</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="radio" name="radioLenguaje" ng-model="internacion.enfermeria.lenguaje.normal" ng-value="true"/> Normal
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="radio" name="radioLenguaje" ng-model="internacion.enfermeria.lenguaje.deficiente" ng-value="false"/> Deficiente
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="radio" name="radioLenguaje" ng-model="internacion.enfermeria.lenguaje.ausente" ng-value="false"/> Ausente
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type=text label="Describa" plex ng-model="internacion.enfermeria.describaSensopercepcion"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <span>Dolor*</span>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="checkbox" ng-model="internacion.enfermeria.dolor" plex="bool" true="Si" false="No" />
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" ng-show="internacion.enfermeria.dolor" ng-model="internacion.enfermeria.dolorLocalizacion" hint="Localización" plex />
+                            </div>
+                            <div class="col-sm-4">
+                                <button type="button" class="btn btn-link" ng-click="cargarValoracionDolor()">Completar Valoración del Dolor</button>
+                            </div>
+                        </div>
+                        <!-- <div class="row">
+                            <div class="col-sm-12">
+                                <button type="button" class="btn btn-link" ng-click="cargarValoracionDolor()">Completar Valoración del Dolor</button>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type=text label="Observaciones" ng-model="internacion.enfermeria.observacionesComunicacion" plex />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ****************************** Necesidad de Espiritualidad ****************************** -->
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="col-sm-12">
+                            <h4 class="panel-title">10. Necesidad de Espiritualidad</h4>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <input type=text label="Creencias religiosas" plex ng-model="internacion.enfermeria.creenciasReligiosas"/>
+                            </div>
+                            <div class="col-sm-7">
+                                <input type=text label="Frecuencia con la que asiste a la iglesia" plex ng-model="internacion.enfermeria.frecuenciaIglesia"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <span>Desea visita de religioso (internación)</span>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="checkbox" ng-model="internacion.enfermeria.visitaReligioso" plex="bool" true="Si" false="No" />
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" ng-show="internacion.enfermeria.visitaReligioso" ng-model="internacion.enfermeria.religiosoCual" hint="Cuál" plex />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type=text label="Observaciones" ng-model="internacion.enfermeria.observacionesEspiritualidad" plex />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <!-- ****************************** Necesidad de Aprender/Autorealizarse/Recrearse ****************************** -->
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="col-sm-12">
+                            <h4 class="panel-title">11. Necesidad de Aprender/Autorealizarse/Recrearse</h4>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <input type="checkbox" ng-model="internacion.enfermeria.comprendeSituacion"/> Comprende su situación de salud
+                            </div>
+                            <div class="col-sm-7">
+                                <input type="text" hint="Sentimientos en relación a ello" ng-model="internacion.enfermeria.sentimientosSituacion" plex />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <input type=text label="Dudas expresadas" plex ng-model="internacion.enfermeria.dudasExpresadas"/>
+                            </div>
+                            <div class="col-sm-7">
+                                <input type=text label="Actividades recreativas habituales" plex ng-model="internacion.enfermeria.actividadesHabituales"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type=text label="Observaciones" plex ng-model="internacion.enfermeria.observacionesAprender"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ****************************** Observaciones Generales ****************************** -->
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="col-sm-12">
+                            <h4 class="panel-title">Observaciones Generales</h4>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type=text plex ng-model="internacion.enfermeria.observacionesGenerales"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="box box-primary">
+    <div class="box-header">
+        <h3 class="box-title">Pases</h3>
+    </div>
+
+    <div class="box-body ">
+        <table ng-if="internacion.pases && internacion.pases.length > 0" class="table table-bordered table-hover ">
+            <thead>
+                <tr>
+                    <th>
+                        Cama
+                    </th>
+                    <th>
+                        Fecha
+                    </th>
+                    <th>
+                        Servicio
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in internacion.pases | orderBy: '-fechaHora'">
+                    <td>
+                        {{item.cama.habitacion}}/{{item.cama.numero}}
+                    </td>
+                    <td>
+                        {{item.fechaHora | fromNow }}<br/>
+                        <div class="text-muted small">
+                            {{item.fechaHora | date: "dd/MM/yyyy HH:mm"}}
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        {{item.servicio.nombreCorto}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="box box-primary" ng-if="internacion.egreso">
+    <div class="box-header">
+        <h3 class="box-title">Egreso</h3>
+    </div>
+
+    <div class="box-body ">
+        <table class="table table-bordered table-hover ">
+            <thead>
+                <tr>
+                    <th>
+                        Fecha
+                    </th>
+                    <th>
+                        Cama
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Descripcion
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        {{internacion.egreso.fechaHora | fromNow }}<br/>
+                        <div class="text-muted small">
+                            {{internacion.egreso.fechaHora | date: "dd/MM/yyyy HH:mm"}}
+                        </div>
+                    </td>
+                    <td>
+                        {{internacion.egreso.cama.habitacion}}/{{internacion.egreso.cama.numero}}
+                    </td>
+                    <td>
+                        {{internacion.egreso.tipo}}
+                    </td>
+                    <td class="text-right">
+                        {{internacion.egreso.descripcion}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
