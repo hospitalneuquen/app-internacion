@@ -104,7 +104,7 @@ angular.module('app').filter('persona', ['$filter', function($filter) {
                             } else if (persona.sexo && persona.sexo.toLowerCase() == 'femenino') {
                                 return 'fa fa-female';
                             } else if (persona.sexo && persona.sexo.toLowerCase() == 'indeterminado') {
-                                return 'fa fa-user-secret';
+                                return 'fa fa-genderless';
                             }
                         }
 
