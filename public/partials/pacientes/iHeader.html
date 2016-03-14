@@ -1,29 +1,26 @@
-<div plex-affix class="am-slide-left">
-    <div class="row" ng-controller="Pacientes/iHeaderController">
-        <div class="col-md-12">
-            <div class="box box-info">
-                <div class="box-header">
-                    <div class="col-xs-1" style="text-align: right">
-                        <!-- <i class="fa fa-male fa-4x" ng-if="internacion.paciente.sexo != 'femenino'"></i>
+<md-content layout-padding md-whiteframe="1">
+    <div plex-affix class="am-slide-left">
+        <div ng-controller="Pacientes/iHeaderController" layout>
+
+            <div flex="5">
+                <!-- <i class="fa fa-male fa-4x" ng-if="internacion.paciente.sexo != 'femenino'"></i>
                         <i class="fa fa-female fa-4x" ng-if="internacion.paciente.sexo == 'femenino'"></i> -->
-                        <i class="{{internacion.paciente | persona:'icon'}} fa-4x"></i>
-                    </div>
-                    <div class="col-xs-4">
-                        <h3 class="box-title">
-                            {{internacion.paciente | persona}}
-                        </h3>
-                        <div>
-                            <strong>{{internacion.paciente | persona:'d'}}</strong>
-                        </div>
-                        <div>{{internacion.paciente | persona:'e'}}
-                        </div>
-                    </div>
-                    <div class="col-xs-4">
-                        <label class="small">Diagnóstico presuntivo</label><br />
-                        {{internacion.ingreso.diagnosticoPresuntivo}}
-                    </div>
+                <i class="{{internacion.paciente | persona:'icon'}} fa-4x"></i>
+            </div>
+            <div flex="40">
+                <h3>
+                    {{internacion.paciente | persona}}
+                </h3>
+                <div>
+                    <strong>{{internacion.paciente | persona:'d'}}</strong>
                 </div>
+                <div>{{internacion.paciente | persona:'e'}}
+                </div>
+            </div>
+            <div flex>
+                <label class="small">Diagnóstico presuntivo</label><br/>
+                {{internacion.ingreso.diagnosticoPresuntivo}}
             </div>
         </div>
     </div>
-</div>
+</md-content>

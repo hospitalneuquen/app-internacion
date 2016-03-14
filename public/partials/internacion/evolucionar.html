@@ -1,225 +1,190 @@
 <!-- Header de paciente -->
-<div class="row">
-    <div class="col-sm-12">
-        <div plex-include="'partials/Pacientes/iHeader.html'" plex-include-internacion="internacion"></div>
+<div plex-include="'partials/Pacientes/iHeader.html'" plex-include-internacion="internacion"></div>
+
+<md-content>
+    <!-- Tabla de evoluciones -->
+    <div layout layout-padding ng-show="show_toolbar">
+        <div flex="20">
+            <h2>Evoluciones del paciente</h2>
+        </div>
+        <div flex></div>
+        <div flex="20" flex-gt-sm>
+            <md-input-container class="md-block">
+                <label>Servicio</label>
+                <md-select name="servicios" ng-click="filtros.filtrar()" ng-model="filtros.servicio">
+                    <md-option ng-repeat="servicio in servicios" value="{{servicio.id}}">{{servicio.nombreCorto}}</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+        <div flex="10" flex-gt-sm>
+            <md-input-container class="md-block">
+                <md-button class="md-primary md-raised" ng-click="editarEvolucion(); show_toolbar = !show_toolbar">
+                    Nueva evolución
+                </md-button>
+            </md-input-container>
+        </div>
+    </div>
+
+    <md-table-container ng-if="!evolucionesEdit">
+        <table data-md-table md-progress="promise" ng-if="internacion.evoluciones && internacion.evoluciones.length > 0">
+            <thead md-head>
+                <th md-column>
+                    Fecha
+                </th>
+                <th md-column>
+                    Detalle
+                </th>
+                <th md-column>
+                    FC
+                </th>
+                <th md-column>
+                    Tensión
+                </th>
+                <th md-column>
+                    Temperatura
+                </th>
+                <th md-column>
+                    FR
+                </th>
+                <th md-column>
+                    Saturación
+                </th>
+                <th md-column>
+                    Peso
+                </th>
+                <th></th>
+            </thead>
+            <tbody md-body>
+                <tr md-row data-ng-repeat="item in filtros.evoluciones | orderBy: '-fechaHora'">
+                    <td md-cell>
+                        {{item.fechaHora | fromNow }}<br/>
+                        <div class="text-muted small">
+                            {{item.fechaHora | date: "dd/MM/yyyy HH:mm"}}
+                        </div>
+                    </td>
+                    <td md-cell>
+                        {{item.texto}}
+                    </td>
+                    <td md-cell>
+                        <span ng-if="item.pulso">{{item.pulso}}
+                            PPM</span>
+                    </td>
+                    <td md-cell>
+                        <span ng-if="item.tensionDiastolica && item.tensionSistolica">{{item.tensionDiastolica + "/" + item.tensionSistolica}}</span>
+                    </td>
+                    <td md-cell>
+                        <span ng-if="item.temperatura">{{item.temperatura}}º</span>
+                    </td>
+                    <td md-cell>
+                        <span ng-if="item.respiracion">{{item.respiracion}}
+                            RPM</span>
+                    </td>
+                    <td md-cell>
+                        <span ng-if="item.spo2">{{item.spo2}}%</span>
+                    </td>
+                    <td md-cell>
+                        <span ng-if="item.peso">{{item.peso}}
+                            Kg</span>
+                    </td>
+                    <td md-cell>
+                        <md-button ng-if='item.tipo == Session.variables.prestaciones_workflow' class="md-icon-button" aria-label="Editar evolución" ng-click="editarEvolucion(item);" >
+                            <md-icon md-font-icon="fa-pencil" class="fa"></md-icon>
+                        </md-button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </md-table-container>
+
+    <!-- Formulario de edición -->
+    <div ng-if="evolucionesEdit">
+        <h3 class="box-title">{{tituloEvolucion}}</h3>
+        <ng-form name="formEditarEvolucion" ng-show="!loading">
+            <div layout layout-pretty>
+                <div flex="25">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label for="filter-nombre">Fecha</label>
+                        <input type="text" plex="date" ng-required="true" ng-model="evolucionesEdit.fechaHora" label="Fecha"/>
+                    </md-input-container>
+                </div>
+                <div flex="25">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label for="filter-nombre">Hora</label>
+                        <input type="text" plex="time" ng-required="true" ng-model="evolucionesEdit.fechaHora" label="Hora"/>
+                    </md-input-container>
+                </div>
+            </div>
+            <!-- >>> Enfermería -->
+            <div layout layout-pretty ng-if='Session.variables.prestaciones_workflow == "enfermero"'>
+                <div flex="25">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label for="filter-nombre">Frecuencia cardíaca</label>
+                        <input type="text" ng-model="evolucionesEdit.pulso" label="Frecuencia cardíaca" suffix="PPM" plex="int"/>
+                    </md-input-container>
+                </div>
+
+                <div flex="25">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label for="filter-nombre">Frecuencia respiratoria</label>
+                        <input type="text" ng-model="evolucionesEdit.respiracion" label="Frecuencia respiratoria" suffix="RPM" plex="int"/>
+                    </md-input-container>
+                </div>
+
+                <div flex="25">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label for="filter-nombre">Tensión diastólica</label>
+                        <input type="text" ng-model="evolucionesEdit.tensionDiastolica" label="Tensión diastólica" suffix="mmHG" plex="int"/>
+                    </md-input-container>
+                </div>
+
+                <div flex="25">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label for="filter-nombre">Tensión sistólica</label>
+                        <input type="text" ng-model="evolucionesEdit.tensionSistolica" label="Tensión sistólica" suffix="mmHG" plex="int"/>
+                    </md-input-container>
+                </div>
+            </div>
+            <div layout layout-pretty ng-if='Session.variables.prestaciones_workflow == "enfermero"'>
+                <div flex="25">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label for="filter-nombre">Temperatura</label>
+                        <input type="text" ng-model="evolucionesEdit.temperatura" label="Temperatura" suffix="º C" plex="float"/>
+                    </md-input-container>
+                </div>
+
+                <div flex="25">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label for="filter-nombre">Saturación O&#178;</label>
+                        <input type="text" ng-model="evolucionesEdit.spo2" label="Saturación O&#178;" suffix="%" plex="int" plex-min="0" plex-max="100"/>
+                    </md-input-container>
+                </div>
+
+                <div flex="25">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label for="filter-nombre">Kgs</label>
+                        <input type="text" ng-model="evolucionesEdit.peso" label="Peso" suffix="Kgs" plex="float"/>
+                    </md-input-container>
+                </div>
+            </div>
+
+            <!-- <<< Enfermería -->
+            <div layout layout-pretty>
+                <div flex>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label for="filter-nombre">Descripción</label>
+                        <textarea label="Descripción" placeholder="Consignar los tratamientos y cuidados efectuados y los síntomas observados" plex-focus="true" ng-model="evolucionesEdit.texto" plex ng-required="true" rows="5"></textarea>
+                    </md-input-container>
+                </div>
+            </div>
+
+            <div layout layout-pretty>
+                <span flex></span>
+                <md-button ng-click="cancelarEdicion();">Cancelar</md-button>
+                <md-button class="md-primary md-raised" plex-submit="guardarEvolucion(evolucionesEdit)" ng-disabled="formEditarEvolucion.$invalid">Guardar</md-button>
+            </div>
+
+        </ng-form>
+
     </div>
 </div>
-
-<!-- Tabla de evoluciones -->
-<md-toolbar class="md-table-toolbar md-default">
-    <div class="md-toolbar-tools">
-        <span>Evoluciones del paciente</span>
-        <span flex></span>
-        <md-input-container class="md-block" flex-gt-sm>
-            <md-select name="servicios" ng-click="filtros.filtrar()" ng-model="filtros.servicio">
-                <md-option ng-repeat="servicio in servicios" value="{{servicio.id}}">{{servicio.nombreCorto}}</md-option>
-            </md-select>
-        </md-input-container>
-    </div>
-</md-toolbar>
-
-<md-table-container ng-if="!evolucionesEdit">
-    <table data-md-table md-progress="promise"  ng-if="internacion.evoluciones && internacion.evoluciones.length > 0">
-        <thead md-head>
-            <th md-column>
-                Fecha
-            </th>
-            <th md-column>
-                Detalle
-            </th>
-            <th md-column>
-                FC
-            </th>
-            <th md-column>
-                Tensión
-            </th>
-            <th md-column>
-                Temperatura
-            </th>
-            <th md-column>
-                FR
-            </th>
-            <th md-column>
-                Saturación
-            </th>
-            <th md-column>
-                Peso
-            </th>
-            <th></th>
-        </thead>
-        <tbody md-body>
-            <tr md-row data-ng-repeat="item in filtros.evoluciones | orderBy: '-fechaHora'">
-                <td md-cell>
-                    {{item.fechaHora | fromNow }}<br/>
-                    <div class="text-muted small">
-                        {{item.fechaHora | date: "dd/MM/yyyy HH:mm"}}
-                    </div>
-                </td>
-                <td md-cell>
-                    {{item.texto}}
-                </td>
-                <td md-cell>
-                    <span ng-if="item.pulso">{{item.pulso}}
-                        PPM</span>
-                </td>
-                <td md-cell>
-                    <span ng-if="item.tensionDiastolica && item.tensionSistolica">{{item.tensionDiastolica + "/" + item.tensionSistolica}}</span>
-                </td>
-                <td md-cell>
-                    <span ng-if="item.temperatura">{{item.temperatura}}º</span>
-                </td>
-                <td md-cell>
-                    <span ng-if="item.respiracion">{{item.respiracion}}
-                        RPM</span>
-                </td>
-                <td md-cell>
-                    <span ng-if="item.spo2">{{item.spo2}}%</span>
-                </td>
-                <td md-cell>
-                    <span ng-if="item.peso">{{item.peso}}
-                        Kg</span>
-                </td>
-                <td md-cell>
-                    <md-button ng-if='item.tipo == Session.variables.prestaciones_workflow' class="md-icon-button" aria-label="Editar evolución" ng-click="editarEvolucion(item)">
-                        <md-icon md-font-icon="fa-pencil" class="fa"></md-icon>
-                    </md-button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <div layout>
-        <md-button class="md-primary md-raised" ng-click="editarEvolucion()">
-            Nueva evolución
-        </md-button>
-    </div>
-</md-table-container>
-
-<!-- 
-<div class="row" ng-if="!evolucionesEdit">
-    <div class="col-lg-12">
-        <div class="box box-primary">
-
-            <div class="box-body ">
-                <div class="text-center" ng-show="loading">
-                    <i class="fa fa-spinner fa-spin"></i>
-                </div>
-                <table ng-if="internacion.evoluciones && internacion.evoluciones.length > 0" class="table table-bordered table-hover ">
-                    <thead>
-                        <tr>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="item in filtros.evoluciones | orderBy: '-fechaHora'">
-                            <td>
-                                {{item.fechaHora | fromNow }}<br/>
-                                <div class="text-muted small">
-                                    {{item.fechaHora | date: "dd/MM/yyyy HH:mm"}}
-                                </div>
-                            </td>
-                            <td>
-                                {{item.texto}}
-                            </td>
-                            <td class="text-right">
-                                <span ng-if="item.pulso">{{item.pulso}}
-                                    PPM</span>
-                            </td>
-                            <td class="text-center">
-                                <span ng-if="item.tensionDiastolica && item.tensionSistolica">{{item.tensionDiastolica + "/" + item.tensionSistolica}}</span>
-                            </td>
-                            <td class="text-right">
-                                <span ng-if="item.temperatura">{{item.temperatura}}º</span>
-                            </td>
-                            <td class="text-right">
-                                <span ng-if="item.respiracion">{{item.respiracion}}
-                                    RPM</span>
-                            </td>
-                            <td class="text-right">
-                                <span ng-if="item.spo2">{{item.spo2}}%</span>
-                            </td>
-                            <td class="text-right">
-                                <span ng-if="item.peso">{{item.peso}}
-                                    Kg</span>
-                            </td>
-                            <td class="text-right">
-                                <button ng-if='item.tipo == Session.variables.prestaciones_workflow' type="button" class="btn btn-sm btn-primary tips" ng-click="editarEvolucion(item)" title="Editar evolucion">
-                                    <i class="fa fa-pencil"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="margin-top">
-                    <button type="button" class="btn btn-sm btn-primary" ng-click="editarEvolucion()">
-                        <i class="fa fa-plus"></i>
-                        <span>Nueva evolución</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-<!-- Formulario de edición -->
-<div class="row" ng-if="evolucionesEdit">
-    <div class="col-md-12">
-        <div class="box box-primary">
-            <div class="box-header">
-                <h3 class="box-title">Editar evolución</h3>
-            </div>
-            <div class="box-body">
-                <ng-form name="formEditarEvolucion" ng-show="!loading">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <input type="text" plex="date" ng-required="true" ng-model="evolucionesEdit.fechaHora" label="Fecha"/>
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" plex="time" ng-required="true" ng-model="evolucionesEdit.fechaHora" label="Hora"/>
-                        </div>
-                    </div>
-                    <!-- >>> Enfermería -->
-                    <div class="row" ng-if='Session.variables.prestaciones_workflow == "enfermero"'>
-                        <div class="col-md-3">
-                            <input type="text" ng-model="evolucionesEdit.pulso" label="Frecuencia cardíaca" suffix="PPM" plex="int"/>
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" ng-model="evolucionesEdit.respiracion" label="Frecuencia respiratoria" suffix="RPM" plex="int"/>
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" ng-model="evolucionesEdit.tensionDiastolica" label="Tensión diastólica" suffix="mmHG" plex="int"/>
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" ng-model="evolucionesEdit.tensionSistolica" label="Tensión sistólica" suffix="mmHG" plex="int"/>
-                        </div>
-                    </div>
-                    <div class="row" ng-if='Session.variables.prestaciones_workflow == "enfermero"'>
-                        <div class="col-md-3">
-                            <input type="text" ng-model="evolucionesEdit.temperatura" label="Temperatura" suffix="º C" plex="float"/>
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" ng-model="evolucionesEdit.spo2" label="Saturación O&#178;" suffix="%" plex="int" plex-min="0" plex-max="100"/>
-                        </div>
-                        <div class="col-md-3">
-                            <input type="text" ng-model="evolucionesEdit.peso" label="Peso" suffix="Kgs" plex="float"/>
-                        </div>
-                    </div>
-                    <!-- <<< Enfermería -->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <textarea label="Descripción" placeholder="Consignar los tratamientos y cuidados efectuados y los síntomas observados" plex-focus="true" ng-model="evolucionesEdit.texto" plex ng-required="true" rows="5"></textarea>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button type="button" class="btn btn-warning " ng-click="cancelarEdicion()">
-                                Cancelar
-                            </button>
-                            <button type="submit" class="btn btn-success pull-right" plex-submit="guardarEvolucion(evolucionesEdit)" ng-disabled="formEditarEvolucion.$invalid">
-                                Guardar evolución
-                            </button>
-                        </div>
-                    </div>
-                </ng-form>
-            </div>
-        </div>
-    </div>
+</md-content>
