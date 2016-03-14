@@ -1,9 +1,16 @@
+
+md-toolbar h3 {
+  margin: auto;
+  font-weight: normal;
+}  /* Para valoración enfermería*/
+
 /******************************
 ** Estilos globales
 ******************************/
 
 
 /* Body */
+
 
 body {
     background-color: #F4F4F4;

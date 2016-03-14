@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'Plex', 'plexParams', 'Shared', 'Server', '$timeout', '$alert', function($scope, Plex, plexParams, Shared, Server, $timeout, $alert) {
+angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'Plex', 'plexParams', 'Shared', 'Server', '$timeout', function($scope, Plex, plexParams, Shared, Server, $timeout) {
     angular.extend($scope, {
         internacion: undefined,
         enfermeria: {
@@ -27,7 +27,7 @@ angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'P
                 updateUI: false
             }).then(function(internacion) {
                 if (!internacion) {
-                    alert("No se ha podido encontrar la internacion");
+                    //alert("No se ha podido encontrar la internacion");
                 } else {
                     $scope.internacion = internacion;
                     $scope.enfermeria = internacion.enfermeria;
