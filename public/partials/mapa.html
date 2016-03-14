@@ -1,5 +1,5 @@
 <!-- <h1>Mapa de camas</h1> -->
-<!-- <div layout="column" class="md-inline-form" md-scroll-shrink> -->
+
 <div class="row">
     <div class="col-sm-12">
         <div plex-include="'partials/Pacientes/iHeader.html'" plex-include-internacion="internacion"></div>
@@ -62,9 +62,8 @@
     </form>
 
 </md-content>
-<!-- </div> -->
 
-<div layout layout-wrap>
+div layout layout-wrap>
     <div flex="20" flex-xl="20" flex-lg="20" flex-md="33" flex-sm="50" flex-xs="100" ng-repeat="cama in filter.camas">
         <div class="card-container manual-flip animate-repeat" ng-class="{'hover': cama.$rotar }" ng-model="cama_actual" layout-margin>
             <div class="card">
@@ -210,12 +209,12 @@
                     <div ng-if="cama.$action && cama.$action == 'evolucion'">
                         <div class="content">
                             <div class="main " layout layout-wrap>
-                                <h5 flex="100">
+                                <!-- <h5 flex="100">
                                     {{cama.diagnostico}}
                                 </h5>
                                 <h5 flex="100">
                                     {{cama.motivo_internacion}}
-                                </h5>
+                                </h5> -->
                                 <h4 class="text-center" flex="100">Última evolución</h4>
                                 <p ng-if="cama.ultimaEvolucion.createdBy" flex="100">
                                     <i class="fa fa-user-md"></i>
@@ -225,8 +224,8 @@
                                     ({{cama.ultimaEvolucion.createdAt | date: "dd/MM/yyyy  'a las' HH:mm "}}
                                     hs)
 
-                                    <br/>
-                                    La próxima evolución deberá realizarse el dd/MM/yyyy a las HH:mm
+                                    <!-- <br/>
+                                    La próxima evolución deberá realizarse el dd/MM/yyyy a las HH:mm -->
                                 </p>
 
                                 <p ng-if="!cama.ultimaEvolucion.createdBy" flex="100">
@@ -235,7 +234,7 @@
 
                                     <div layout layout-fill>
                                         <md-button class=" md-raised md-primary" flex aria-label="Evolucionar" ng-click="evolucionarPaciente(cama)" ng-if="cama.paciente.id">
-                                            Cargar una evolución
+                                            Cargar evolución
                                         </md-button>
                                     </div>
 
