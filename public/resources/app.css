@@ -1,60 +1,47 @@
+/******************************
+** Estilos globales
+******************************/
+
+/* Body */
 body {
     background-color: #F4F4F4;
     min-height: 100%;
     height: auto !important;
 }
 
-[layout-pretty] > [flex],
-[layout-pretty] > [flex-gt-sm],
-[layout-pretty] > [flex-md],
-[layout-pretty] > [flex-lt-lg] {
-    padding: 8px;
+/* layout-pretty */
+[layout-pretty] > [flex] {
+    padding: 16px;
     margin-right: 16px;
     margin-bottom: 16px;
 }
+[layout-pretty] > [flex]:last-child {
+    margin-right: 0;
+}
 
-[flex] [whiteframe] > [flex]{
+/* whiteframe */
+[flex] [whiteframe] > [flex] {
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
     background: white;
 }
 
-/*h1, h2, h3, h4, h5, h6 {
-    margin-top: 0;
-    margin-bottom: 0;
-}*/
-
-/* reescribimos o aplicamos algunos estilos de material design */
-md-content {
-    margin-bottom: 20px;
+/* md-data-table */
+.mdTableSingleSelect TBODY TR {
+    cursor: pointer;
+}
+.mdTableSingleSelect .md-checkbox-column, .mdTableSingleSelect .md-checkbox-cell {
+    display: none;
 }
 
-md-toast{position: fixed;}
+/*
+******************************
+** Estilos de vistas
+******************************
+*/
 
-/*h1.panel-title {
-    font-size: xx-large;
+md-toast {
+    position: fixed;
 }
-h2.panel-title {
-    font-size: x-large;
-}
-h3.panel-title {
-    font-size: large;
-}
-h4.panel-title {
-    font-size: medium;
-}
-h5.panel-title {
-    font-size: small;
-}
-h6.panel-title {
-    font-size: x-small;
-}
-.panel-heading {
-    height: 30px;
-}
-[class*="fa-stack"] + span, span + [class*="fa-stack"] {
-    margin-left: 0;
-}*/
-
 
 /* checkbox / radios */
 
@@ -458,10 +445,10 @@ pointer-events: none;
 .icon .fa.agregar {
     font-size: 160px;
 }
-.stacked-icon {
+<<<<<<< HEAD=======.stacked-icon {
     margin-top: 8px;
 }
-
+>>>>>>> develop-md
 /*.card-container {
     -webkit-perspective: 800px;
     -moz-perspective: 800px;
