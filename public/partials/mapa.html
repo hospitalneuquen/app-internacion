@@ -1,6 +1,11 @@
 <!-- <h1>Mapa de camas</h1> -->
-
 <!-- <div layout="column" class="md-inline-form" md-scroll-shrink> -->
+<div class="row">
+    <div class="col-sm-12">
+        <div plex-include="'partials/Pacientes/iHeader.html'" plex-include-internacion="internacion"></div>
+    </div>
+</div>
+
 <md-content layout-padding>
 
     <form name="filterForm">
@@ -48,7 +53,7 @@
             </md-switch>
 
             <div flex="5"></div>
-            <md-input-container class="md-block" flex-gt-sm >
+            <md-input-container class="md-block" flex-gt-sm>
                 <md-button class="md-raised md-primary" ng-click="filter.limpiarFiltros()">
                     Limpiar filtros
                 </md-button>
@@ -60,7 +65,7 @@
 <!-- </div> -->
 
 <div layout layout-wrap>
-    <div flex="20" flex-xl="20" flex-lg="20" flex-md="33" flex-sm="50" flex-xs="100"  ng-repeat="cama in filter.camas" >
+    <div flex="20" flex-xl="20" flex-lg="20" flex-md="33" flex-sm="50" flex-xs="100" ng-repeat="cama in filter.camas">
         <div class="card-container manual-flip animate-repeat" ng-class="{'hover': cama.$rotar }" ng-model="cama_actual" layout-margin>
             <div class="card">
                 <div class="front">

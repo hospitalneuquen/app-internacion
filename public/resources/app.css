@@ -2,7 +2,9 @@
 ** Estilos globales
 ******************************/
 
+
 /* Body */
+
 body {
     background-color: #F4F4F4;
     min-height: 100%;
@@ -10,6 +12,7 @@ body {
 }
 
 /* layout-pretty */
+
 [layout-pretty] > [flex] {
     padding: 16px;
     margin-right: 16px;
@@ -20,17 +23,47 @@ body {
 }
 
 /* whiteframe */
+
 [flex] [whiteframe] > [flex] {
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
     background: white;
 }
 
 /* md-data-table */
+
 .mdTableSingleSelect TBODY TR {
     cursor: pointer;
 }
 .mdTableSingleSelect .md-checkbox-column, .mdTableSingleSelect .md-checkbox-cell {
     display: none;
+}
+
+/* plex-affix */
+
+.plex-affix {
+    /*-moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;*/
+}
+.plex-affix.affix {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    left: 0px;
+    z-index: 100;
+
+    /*
+    -moz-transform: translate(0, 1px);
+    -ms-transform: translate(0, 1px);
+    -webkit-transform: translate(0, 1px);
+    transform: translate(0, 1px);*/
+}
+.plex-affix + .plex-affix-spacer {
+    display: none;
+}
+.plex-affix.affix + .plex-affix-spacer {
+    display: block;
 }
 
 /*
@@ -970,33 +1003,6 @@ a.btn-habitacion:target, a.btn-habitacion.active {
 .nivel-rojo {
     background: #e50018;
     color: white;
-}
-
-/*  Plex-Affix
-------------------------------------------------------------------------
-*/
-
-.plex-affix {
-    /*-moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    -webkit-transition: all 0.5s ease;
-    transition: all 0.5s ease;*/
-}
-.plex-affix.affix {
-    width: 100%;
-    left: 0px;
-    z-index: 100;
-    /*
-    -moz-transform: translate(0, 1px);
-    -ms-transform: translate(0, 1px);
-    -webkit-transform: translate(0, 1px);
-    transform: translate(0, 1px);*/
-}
-.plex-affix + .plex-affix-spacer {
-    display: none;
-}
-.plex-affix.affix + .plex-affix-spacer {
-    display: block;
 }
 .bg-oxigeno {
     background: #5bc0de;
