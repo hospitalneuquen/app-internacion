@@ -1,1036 +1,840 @@
 
 
-<div class="paciente-header" app-paciente-affix>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="box box-success">
-                <div class="box-header">
-                    <h3 class="box-title">
-                        <ul class="list-inline">
-                            <li>
-
-                                {{internacion.paciente.apellido}},
-                                {{internacion.paciente.nombre}}
-                            </li>
-                            <li>
-                                {{internacion.paciente.documento}}
-                            </li>
-                            <li>
-                                {{internacion.paciente.sexo}}
-                            </li>
-                            <li>
-
-                                {{internacion.ingreso.diagnosticoPresuntivo}}
-                            </li>
-                        </ul>
-
-                    </h3>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<div plex-include="'partials/Pacientes/iHeader.html'" plex-include-internacion="internacion"></div>
 <ng-form name="miFormulario">
-    <!-- ****************************** Título ****************************** -->
-    <div class="row">
-        <div class="col-sm-12">
-            <fieldset>
-                <legend>Valoración inicial de Enfermería</legend>
-            </fieldset>
-        </div>
-    </div>
-    <br />
-    <!-- ****************************** Datos Generales ****************************** -->
-    <!-- ****************************** Apellido, Nombre, HC, F Ingreso ****************************** -->
-    <div class="row">
-        <div class="col-sm-3">
-            <input type=text label="Apellido" ng-model="internacion.paciente.apellido" plex readonly/>
-        </div>
-        <div class="col-sm-3">
-            <input type=text label="Nombre" ng-model="internacion.paciente.nombre" plex readonly/>
-        </div>
-        <div class="col-sm-3">
-            <input type=text label="Nº de H.C." ng-model="internacion.paciente.idExterno.carpeta" plex readonly/>
-        </div>
-        <div class="col-sm-3">
-            <input type=text label="Fecha de Ingreso" ng-model="internacion.ingreso.fechaHora" plex="date" readonly/>
-        </div>
-    </div>
-    <!-- ****************************** Edad, DNI, Genero, Estado Civil ****************************** -->
-    <div class="row">
-        <div class="col-sm-3">
-            <input type=text label="Edad" ng-model="internacion.paciente.edad" plex readonly/>
-        </div>
-        <div class="col-sm-3">
-            <input type=text label="D.N.I." ng-model="internacion.paciente.documento" plex readonly/>
-        </div>
-        <div class="col-sm-3">
-            <input type=text label="Género" ng-model="internacion.paciente.sexo" plex readonly/>
-        </div>
-        <div class="col-sm-3">
-            <input type=text label="Estado Civil" ng-model="internacion.paciente.estadoCivil" plex readonly/>
-        </div>
-    </div>
-    <!-- ****************************** Ocupación, OS, Instrucción, Nacionalidad ****************************** -->
-    <div class="row">
-        <div class="col-sm-3">
-            <input type=text label="Ocupación" ng-model="internacion.ingreso.situacionPaciente.ocupacion" plex readonly/>
-        </div>
-        <div class="col-sm-3">
-            <input type=text label="Obra Social" ng-model="internacion.paciente.obrasSociales" plex readonly/>
-        </div>
-        <div class="col-sm-3">
-            <input type=text label="Nivel de Instrucción" ng-model="internacion.ingreso.situacionPaciente.educacion" plex readonly/>
-        </div>
-        <div class="col-sm-3">
-            <input type=text label="Nacionalidad" ng-model="internacion.paciente.nacionalidad" plex readonly/>
-        </div>
-    </div>
-    <!-- ****************************** Motivo Ingreso, Diagnóstico presuntivo ****************************** -->
-    <div class="row">
-        <div class="col-sm-6">
-            <input type=text label="Motivo de Ingreso" ng-model="internacion.ingreso.motivo" plex readonly/>
-        </div>
-        <div class="col-sm-6">
-            <input type=text label="Diagnóstico Médico Presuntivo" ng-model="internacion.ingreso.diagnosticoPresuntivo" plex readonly/>
-        </div>
-    </div>
-    <!-- ****************************** Domicilio, Convivientes ****************************** -->
-    <div class="row">
-        <div class="col-sm-6">
-            <input type=text label="Domicilio" ng-model="internacion.paciente.domicilio.texto" plex readonly/>
-        </div>
-        <div class="col-sm-6">
-            <input type=text label="Convivientes" plex readonly/>
-        </div>
-    </div>
-    <!-- ****************************** Procedencia, Domicilio, Tel ****************************** -->
-    <div class="row">
-        <div class="col-sm-4">
-            <input type=text label="Procedencia" plex readonly/>
-        </div>
-        <div class="col-sm-4">
-            <input type=text label="Domicilio" plex readonly/>
-        </div>
-        <div class="col-sm-4">
-            <input type=text label="Nº de Tel." plex readonly/>
-        </div>
-    </div>
-    <br />
-    <!-- ****************************** Antecedentes clínicos ****************************** -->
-    <div class="row">
-        <div class="col-sm-11">
-            <fieldset>
-                <legend>Antecedentes clínicos</legend>
-            </fieldset>
-        </div>
-        <div class="col-sm-1">
-            <button ng-click="showAC=true" title="Mostrar Antecedentes Clínicos"><i class="fa fa-chevron-down"></i></button>
-            <button ng-click="showAC=false" title="Ocultar Ancedentes Clínicos"><i class="fa fa-chevron-up"></i></button>
-        </div>
-    </div>
-    <div class="row" ng-show="showAC">
-        <div class="col-sm-3">
-            <input type=text label="HTA" ng-model="internacion.antecedentes.hta" plex />
-        </div>
-        <div class="col-sm-3">
-            <input type=text label="DBT" ng-model="internacion.antecedentes.diabetes" plex />
-        </div>
-        <div class="col-sm-3">
-            <input type=text label="Alergias" ng-model="internacion.antecedentes.alergias" plex />
-        </div>
-        <div class="col-sm-3">
-            <input type=text label="Otros" plex />
-        </div>
-    </div>
-    <div class="row" ng-show="showAC">
-        <div class="col-sm-6">
-            <input type=text label="Medicación Habitual" plex />
-        </div>
-    </div>
-    <br />
-    <!-- ****************************** Antecedentes Obstétricos ****************************** -->
-    <div class="row">
-        <div class="col-sm-11">
-            <fieldset>
-                <legend>Antecedentes obstétricos (si corresponde)</legend>
-            </fieldset>
-        </div>
-        <div class="col-sm-1">
-            <button ng-click="showAO=true" title="Mostrar Antecedentes Obstétricos"><i class="fa fa-chevron-down"></i></button>
-            <button ng-click="showAO=false" title="Ocultar Ancedentes Obstétricos"><i class="fa fa-chevron-up"></i></button>
-        </div>
-    </div>
-    <div ng-show="showAO" class="row">
-        <div class="col-sm-3">
-            <input type=text label="Gestas" ng-model="internacion.antecedentes.obstetricos.gestas" plex />
-        </div>
-        <div class="col-sm-3">
-            <input type=text label="Partos" ng-model="internacion.antecedentes.obstetricos.partos" plex />
-        </div>
-        <div class="col-sm-3">
-            <input type=text label="Cesáreas" ng-model="internacion.antecedentes.obstetricos.cesareas" plex />
-        </div>
-        <div class="col-sm-3">
-            <input type=text label="Abortos" ng-model="internacion.antecedentes.obstetricos.abortos" plex />
-        </div>
-    </div>
-    <br />
-    <!-- ****************************** Antecedentes quirúrgicos y/o traumatológicos ****************************** -->
-    <div class="row">
-        <div class="col-sm-11">
-            <fieldset>
-                <legend>Antecedentes Quirúrgicos y/o Traumatológicos</legend>
-            </fieldset>
-        </div>
-        <div class="col-sm-1">
-            <button ng-click="showAQ=true" title="Mostrar Antecedentes Quirúrgicos"><i class="fa fa-chevron-down"></i></button>
-            <button ng-click="showAQ=false" title="Ocultar Ancedentes Quirúrgicos"><i class="fa fa-chevron-up"></i></button>
-        </div>
-    </div>
-    <div ng-show="showAQ" class="row">
-        <div class="col-sm-11">
-            <input type=text ng-model="internacion.antecedentes.quirurgicos" plex />
-        </div>
-    </div>
-    <br /><br />
-    <div class="row">
-        <!-- ****************************** Necesidad de Oxigenación ****************************** -->
-        <div class="col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="col-sm-10">
-                        <h4 class="panel-title">1. Necesidad de Oxigenación</h4>
-                    </div>
-                    <div class="col-sm-2">
-                        <button style="font-size:10px" ng-click="showNO=true" title="Mostrar Necesidad de Oxigenación"><i class="fa fa-chevron-down"></i></button>
-                        <button style="font-size:10px" ng-click="showNO=false" title="Ocultar Necesidad de Oxigenación"><i class="fa fa-chevron-up"></i></button>
-                    </div>
-                </div>
-                <div class="panel-body" ng-show="showNO">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <input type=text label="FR" ng-model="enfermeria.FR" plex />
-                        </div>
-                        <div class="col-sm-6">
-                            <input type=text label="SAT 2" ng-model="enfermeria.SAT2" plex />
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <input type="checkbox" ng-model="enfermeria.disneaEsfuerzo"/> Disnea esfuerzo
-                        </div>
-                        <div class="col-sm-4">
-                            <input type="checkbox" ng-model="enfermeria.disneaReposo"/> Disnea reposo
-                        </div>
-                        <div class="col-sm-4">
-                            <input type="checkbox" ng-model="enfermeria.tos"/> Tos
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label>Secreciones</label>
-                            <input type="checkbox" ng-model="enfermeria.secreciones" plex="bool" true="Si" false="No" />
-                        </div>
-                        <div class="col-sm-6">
-                            <label>Uso de músculos accesorios</label>
-                            <input type="checkbox" ng-model="enfermeria.usoMusculos" plex="bool" true="Si" false="No" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <input type="text" ng-show="enfermeria.secreciones" hint="Ingrese las características de las secreciones" ng-model="enfermeria.secrecionesCaracteristicas" plex />
-                        </div>
-                        <div class="col-sm-6">
-                            <input type="text" ng-show="enfermeria.usoMusculos" hint="Ingrese cuales son los músculos accesorios" ng-model="enfermeria.musculosCuales" plex />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <input type=text label="Observaciones" ng-model="enfermeria.observacionesOxigenacion" plex />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- ****************************** Necesidad de Circulación ****************************** -->
-        <div class="col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="col-sm-10">
-                        <h4 class="panel-title">2. Necesidad de Circulación</h4>
-                    </div>
-                    <div class="col-sm-2">
-                        <button style="font-size:10px" ng-click="showNC=true" title="Mostrar Necesidad de Circulación"><i class="fa fa-chevron-down"></i></button>
-                        <button style="font-size:10px" ng-click="showNC=false" title="Ocultar Necesidad de Circulación"><i class="fa fa-chevron-up"></i></button>
-                    </div>
-                </div>
-                <div class="panel-body" ng-show="showNC">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <input type=text label="T/A" ng-model="enfermeria.TA" plex />
-                        </div>
-                        <div class="col-sm-6">
-                            <input type=text label="FC" ng-model="enfermeria.FC" plex />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h5><label>Pulso</label></h5>
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            Carotídeo:
-                                            <input type=text ng-model="enfermeria.carotideo" plex />
-                                        </div>
-                                        <div class="col-sm-6">
-                                            Radial:
-                                            <input type=text ng-model="enfermeria.radial" plex />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            Poplíteo:
-                                            <input type=text ng-model="enfermeria.popliteo" plex />
-                                        </div>
-                                        <div class="col-sm-6">
-                                            Pedio:
-                                            <input type=text ng-model="enfermeria.pedio" plex />
-                                        </div>
-                                    </div>
-                                </div>
+    <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
+        <md-toolbar layout="row" class="md-whiteframe-z1">
+            <h3>Valoración de enfermería</h3>
+        </md-toolbar>
+        <div ng-cloak>
+            <md-content>
+                <md-tabs md-dynamic-height md-border-bottom>
+                    <md-tab label="Datos generales">
+                        <md-content class="md-padding">
+                            <div layout-gt-sm="row">
+                                <md-input-container flex-gt-sm>
+                                    <label>Apellido</label>
+                                    <input ng-model="internacion.paciente.apellido" disabled/>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                <md-input-container flex-gt-sm>
+                                    <label>Nombre</label>
+                                    <input ng-model="internacion.paciente.nombre" disabled/>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                <md-input-container flex-gt-sm>
+                                    <label>Nº de H.C.</label>
+                                    <input ng-model="internacion.paciente.idExterno.carpeta" disabled/>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                <md-input-container flex-gt-sm>
+                                    <label>Fecha de Ingreso</label>
+                                    <input ng-model="internacion.ingreso.fechaHora" disabled/>
+                                </md-input-container>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <input type=text label="Observaciones" ng-model="enfermeria.observacionesCirculacion" plex />
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container flex-gt-sm>
+                                    <label>Edad</label>
+                                    <input ng-model="internacion.paciente.edad" disabled/>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                <md-input-container flex-gt-sm>
+                                    <label>D.N.I.</label>
+                                    <input ng-model="internacion.paciente.documento" disabled/>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                <md-input-container flex-gt-sm>
+                                    <label>Género</label>
+                                    <input ng-model="internacion.paciente.sexo" disabled/>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                <md-input-container flex-gt-sm>
+                                    <label>Estado Civil</label>
+                                    <input ng-model="internacion.paciente.estadoCivil" disabled/>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container flex-gt-sm>
+                                    <label>Ocupación</label>
+                                    <input ng-model="internacion.ingreso.situacionPaciente.ocupacion" disabled/>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                <md-input-container flex-gt-sm>
+                                    <label>Obra Social</label>
+                                    <input ng-model="internacion.paciente.obrasSociales" disabled/>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                <md-input-container flex-gt-sm>
+                                    <label>Nivel de Instrucción</label>
+                                    <input ng-model="internacion.ingreso.situacionPaciente.educacion" disabled/>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                <md-input-container flex-gt-sm>
+                                    <label>Nacionalidad</label>
+                                    <input ng-model="internacion.paciente.nacionalidad" disabled/>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container flex-gt-sm>
+                                    <label>Motivo de Ingreso</label>
+                                    <input ng-model="internacion.ingreso.motivo" disabled/>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                <md-input-container flex-gt-sm>
+                                    <label>Diagnóstico Médico Presuntivo</label>
+                                    <input ng-model="internacion.ingreso.diagnosticoPresuntivo" disabled/>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                <md-input-container flex-gt-sm>
+                                    <label>Domicilio</label>
+                                    <input ng-model="internacion.paciente.domicilio.texto" disabled/>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                <md-input-container flex-gt-sm>
+                                    <label>Convivientes</label>
+                                    <input readonly/>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container flex-gt-sm>
+                                    <label>Procedencia</label>
+                                    <input disabled/>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                <md-input-container flex-gt-sm>
+                                    <label>Domicilio</label>
+                                    <input disabled/>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                <md-input-container flex-gt-sm>
+                                    <label>Nº de Tel.</label>
+                                    <input disabled/>
+                                </md-input-container>
+                            </div>
+                        </md-content>
+                    </md-tab>
+                    <md-tab label="Antecedentes clínicos">
+                        <md-content class="md-padding">
+                            <div layout-gt-sm="row">
+                                <md-input-container flex-gt-sm>
+                                    <label>HTA</label>
+                                    <input ng-model="internacion.antecedentes.hta" disabled/>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                <md-input-container flex-gt-sm>
+                                    <label>DBT</label>
+                                    <input ng-model="internacion.antecedentes.diabetes" disabled/>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                <md-input-container flex-gt-sm>
+                                    <label>Alergias</label>
+                                    <input ng-model="internacion.antecedentes.alergias" disabled/>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                <md-input-container flex-gt-sm>
+                                    <label>Otros</label>
+                                    <input disabled/>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container flex-gt-sm>
+                                    <label>Medicación Habitual</label>
+                                    <input disabled/>
+                                </md-input-container>
+                            </div>
+                        </md-content>
+                    </md-tab>
+                    <md-tab label="Antecedentes obstétricos">
+                        <md-content class="md-padding">
+                            <div layout-gt-sm="row">
+                                <md-input-container flex-gt-sm>
+                                    <label>Gestas</label>
+                                    <input ng-model="internacion.antecedentes.obstetricos.gestas" disabled/>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                <md-input-container flex-gt-sm>
+                                    <label>Partos</label>
+                                    <input ng-model="internacion.antecedentes.obstetricos.partos" disabled/>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                <md-input-container flex-gt-sm>
+                                    <label>Cesáreas</label>
+                                    <input ng-model="internacion.antecedentes.obstetricos.cesareas" disabled/>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                <md-input-container flex-gt-sm>
+                                    <label>Abortos</label>
+                                    <input ng-model="internacion.antecedentes.obstetricos.abortos" disabled/>
+                                </md-input-container>
+                            </div>
+                        </md-content>
+                    </md-tab>
+                    <md-tab label="Antecedentes quirúrgicos y/o traumatológicos">
+                        <md-content class="md-padding">
+                            <div layout-gt-sm="row">
+                                <md-input-container flex-gt-sm>
+                                    <input ng-model="internacion.antecedentes.quirurgicos" />
+                                    <div class="hint">Antecedentes quirúrgicos del paciente.</div>
+                                </md-input-container>
+                            </div>
+                            <!-- <div ng-show="showAQ" class="row">
+                                <div class="col-sm-11">
+                                    <input type=text ng-model="internacion.antecedentes.quirurgicos" plex />
+                                </div>
+                            </div> -->
+                        </md-content>
+                    </md-tab>
+                    <md-tab label="Datos valoración (necesidades)">
+                        <md-content class="md-padding">
+                            <md-tabs md-dynamic-height md-border-bottom>
+                                <md-tab label="Oxigenación">
+                                    <md-content class="md-padding">
+                                        <div layout-gt-sm="row">
+                                            <md-input-container flex-gt-sm>
+                                                <label>FR</label>
+                                                <input name="FR" ng-model="enfermeria.FR" />
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container flex-gt-sm>
+                                                <label>SAT 2</label>
+                                                <input name="SAT2" ng-model="enfermeria.SAT2" />
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-input-container>
+                                                <md-checkbox ng-disabled="false" ng-model="enfermeria.disneaEsfuerzo" ng-init="enfermeria.disneaEsfuerzo=false">Disnea esfuerzo</md-checkbox>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <md-checkbox ng-disabled="false" ng-model="enfermeria.disneaReposo" ng-init="enfermeria.disneaReposo=false">Disnea reposo</md-checkbox>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <md-checkbox ng-disabled="false" ng-model="enfermeria.tos" ng-init="enfermeria.tos=false">Tos</md-checkbox>
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-input-container>
+                                                <md-switch ng-model="enfermeria.secreciones" ng-init="enfermeria.secreciones=false">Secreciones</md-switch>
+                                            </md-input-container>
+                                            <div flex="5" ng-show="enfermeria.secreciones" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container ng-show="enfermeria.secreciones" flex-gt-sm>
+                                                <input name="secrecionesCaracteristicas" ng-model="enfermeria.secrecionesCaracteristicas" ng-show="enfermeria.secreciones" />
+                                                <div class="hint" ng-show="enfermeria.secreciones">Ingrese las características de las secreciones</div>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <md-switch ng-model="enfermeria.usoMusculos" ng-init="enfermeria.usoMusculos=false">Uso de músculos accesorios</md-switch>
+                                            </md-input-container>
+                                            <div flex="5" ng-show="enfermeria.usoMusculos" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container ng-show="enfermeria.usoMusculos" flex-gt-sm>
+                                                <input name="musculosCuales" ng-model="enfermeria.musculosCuales" ng-show="enfermeria.usoMusculos" />
+                                                <div class="hint" ng-show="enfermeria.usoMusculos">Ingrese cuales son los músculos accesorios</div>
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-input-container flex-gt-sm>
+                                                <label>Observaciones</label>
+                                                <input name="observacionesOxigenacion" ng-model="enfermeria.observacionesOxigenacion" />
+                                            </md-input-container>
+                                        </div>
+                                    </md-content>
+                                </md-tab>
+                                <md-tab label="Circulación">
+                                    <md-content class="md-padding">
+                                        <div layout-gt-sm="row">
+                                            <md-input-container flex-gt-sm>
+                                                <label>T/A</label>
+                                                <input name="TA" ng-model="enfermeria.TA" />
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container flex-gt-sm>
+                                                <label>FC</label>
+                                                <input name="FC" ng-model="enfermeria.FC" />
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-input-container flex-gt-sm>
+                                                <label>Pulso carotídeo</label>
+                                                <input name="carotideo" ng-model="enfermeria.carotideo" />
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container flex-gt-sm>
+                                                <label>Pulso radial</label>
+                                                <input name="radial" ng-model="enfermeria.radial" />
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container flex-gt-sm>
+                                                <label>Pulso poplíteo</label>
+                                                <input name="popliteo" ng-model="enfermeria.popliteo" />
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container flex-gt-sm>
+                                                <label>Pulso pedio</label>
+                                                <input name="pedio" ng-model="enfermeria.pedio" />
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-input-container flex-gt-sm>
+                                                <label>Observaciones</label>
+                                                <input name="observacionesCirculacion" ng-model="enfermeria.observacionesCirculacion" />
+                                            </md-input-container>
+                                        </div>
+                                    </md-content>
+                                </md-tab>
+                                <md-tab label="Nutrición">
+                                    <md-content class="md-padding">
+                                        <div layout-gt-sm="row">
+                                            <md-input-container flex-gt-sm>
+                                                <label>Peso</label>
+                                                <input name="peso" ng-model="enfermeria.peso" />
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container flex-gt-sm>
+                                                <label>Talla</label>
+                                                <input name="talla" ng-model="enfermeria.talla" />
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container flex-gt-sm>
+                                                <label>Hábitos Alimentarios</label>
+                                                <input name="habitosAlimentarios" ng-model="enfermeria.habitosAlimentarios" />
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-input-container>
+                                                <md-switch ng-model="enfermeria.vomitos" ng-init="enfermeria.vomitos=false">Vómitos</md-switch>
+                                            </md-input-container>
+                                            <div flex="5" ng-show="enfermeria.vomitos" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container ng-show="enfermeria.vomitos" flex-gt-sm>
+                                                <input name="vomitosCaracteristicas" ng-model="enfermeria.vomitosCaracteristicas" ng-show="enfermeria.vomitos" />
+                                                <div class="hint" ng-show="enfermeria.vomitos">Ingrese las características de los vómitos</div>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <md-switch ng-model="enfermeria.nauseas" ng-init="enfermeria.nauseas=false">Náuseas</md-switch>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container flex-gt-sm>
+                                                <label>Otros</label>
+                                                <input name="otrosNutricion" ng-model="enfermeria.otrosNutricion" />
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-input-container>
+                                                <md-switch ng-model="enfermeria.piezasDentarias" ng-init="enfermeria.piezasDentarias=false">Piezas dentarias {{enfermeria.piezasDentarias ? "incompletas" : "completas"}}</md-switch>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <md-switch ng-model="enfermeria.protesis" ng-init="enfermeria.protesis=false">Prótesis</md-switch>
+                                            </md-input-container>
+                                            <div flex="5" ng-show="enfermeria.protesis" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container ng-show="enfermeria.protesis" flex-gt-sm>
+                                                <input name="protesisTipo" ng-model="enfermeria.protesisTipo" ng-show="enfermeria.protesis" />
+                                                <div class="hint" ng-show="enfermeria.protesis">Ingrese tipo de prótesis</div>
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-input-container>
+                                                <md-checkbox ng-disabled="false" ng-model="enfermeria.dificultadesDeglutir" ng-init="enfermeria.dificultadesDeglutir=false">Dificultades para deglutir</md-checkbox>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <md-checkbox ng-disabled="false" ng-model="enfermeria.dificultadesMasticar" ng-init="enfermeria.dificultadesMasticar=false">Dificultades para masticar</md-checkbox>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container flex-gt-sm>
+                                                <label>Lactancia materna</label>
+                                                <input name="lactanciaMaterna" ng-model="enfermeria.lactanciaMaterna" />
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container flex-gt-sm>
+                                                <label>Observaciones</label>
+                                                <input name="observacionesNutricion" ng-model="enfermeria.observacionesNutricion" />
+                                            </md-input-container>
+                                        </div>
+                                    </md-content>
+                                </md-tab>
+                                <md-tab label="Eliminación">
+                                    <md-content class="md-padding">
+                                        <div layout-gt-sm="row">
+                                            <md-content>
+                                                <md-switch ng-model="enfermeria.seleccionVesical" ng-init="enfermeria.seleccionVesical=false">Vesical</md-switch>
+                                            </md-content>
+                                            <div flex="5" hide-xs hide-sm ng-show="enfermeria.seleccionVesical"><!-- Spacer //--></div>
+                                            <md-input-container ng-show="enfermeria.seleccionVesical" flex-gt-sm>
+                                                <md-checkbox ng-show="enfermeria.seleccionVesical" ng-disabled="false" ng-model="enfermeria.espontaneaVesical" ng-init="enfermeria.espontaneaVesical=false">Espontánea</md-checkbox>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm ng-show="enfermeria.seleccionVesical"<!-- Spacer //--></div>
+                                            <md-input-container ng-show="enfermeria.seleccionVesical" flex-gt-sm>
+                                                <md-checkbox ng-show="enfermeria.seleccionVesical" ng-disabled="false" ng-model="enfermeria.incontinenciaVesical" ng-init="enfermeria.incontinenciaVesical=false">Incontinencia</md-checkbox>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm ng-show="enfermeria.seleccionVesical"><!-- Spacer //--></div>
+                                            <md-input-container ng-show="enfermeria.seleccionVesical" flex-gt-sm>
+                                                <md-checkbox ng-show="enfermeria.seleccionVesical" ng-disabled="false" ng-model="enfermeria.urostomiaVesical" ng-init="enfermeria.urostomiaVesical=false">Urostomía</md-checkbox>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm ng-show="enfermeria.seleccionVesical"><!-- Spacer //--></div>
+                                            <md-input-container ng-show="enfermeria.seleccionVesical" flex-gt-sm>
+                                                <md-checkbox ng-show="enfermeria.seleccionVesical" ng-disabled="false" ng-model="enfermeria.sondaVesical" ng-init="enfermeria.sondaVesical=false">Sonda vesical</md-checkbox>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm ng-show="enfermeria.seleccionVesical"><!-- Spacer //--></div>
+                                            <md-input-container ng-show="enfermeria.seleccionVesical" flex-gt-sm>
+                                                <md-checkbox ng-show="enfermeria.seleccionVesical" ng-disabled="false" ng-model="enfermeria.tallaVesical" ng-init="enfermeria.tallaVesical=false">Talla vesical</md-checkbox>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm ng-show="enfermeria.seleccionVesical"><!-- Spacer //--></div>
+                                            <md-input-container ng-show="enfermeria.seleccionVesical" flex-gt-sm>
+                                                <md-checkbox ng-show="enfermeria.seleccionVesical" ng-disabled="false" ng-model="enfermeria.otrosVesical" ng-init="enfermeria.otrosVesical=false">Otros</md-checkbox>
+                                            </md-input-container>
+                                            <md-input-container ng-show="enfermeria.otrosVesical && enfermeria.seleccionVesical" flex-gt-sm>
+                                                <input name="caracteristicaVesical" ng-model="enfermeria.caracteristicaVesical" ng-show="enfermeria.otrosVesical" />
+                                                <div class="hint" ng-show="enfermeria.otrosVesical">Característica</div>
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-content>
+                                                <md-switch ng-model="enfermeria.seleccionIntestinal" ng-init="enfermeria.seleccionIntestinal=false">Intestinal</md-switch>
+                                            </md-content>
+                                            <div flex="5" hide-xs hide-sm ng-show="enfermeria.seleccionIntestinal"><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <md-checkbox ng-disabled="false" ng-show="enfermeria.seleccionIntestinal" ng-model="enfermeria.espontaneaIntestinal" ng-init="enfermeria.espontaneaIntestinal=false">Espontánea</md-checkbox>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm ng-show="enfermeria.seleccionIntestinal"><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <md-checkbox ng-disabled="false" ng-show="enfermeria.seleccionIntestinal" ng-model="enfermeria.ostomiaIntestinal" ng-init="enfermeria.ostomiaIntestinal=false">Ostomía</md-checkbox>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm ng-show="enfermeria.seleccionIntestinal"><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <md-checkbox ng-disabled="false" ng-show="enfermeria.seleccionIntestinal" ng-model="enfermeria.diarreaIntestinal" ng-init="enfermeria.diarreaIntestinal=false">Diarrea</md-checkbox>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm ng-show="enfermeria.seleccionIntestinal"><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <md-checkbox ng-disabled="false" ng-show="enfermeria.seleccionIntestinal" ng-model="enfermeria.incontinenciaIntestinal" ng-init="enfermeria.incontinenciaIntestinal=false">Incontinencia</md-checkbox>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm ng-show="enfermeria.seleccionIntestinal"><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <md-checkbox ng-disabled="false" ng-show="enfermeria.seleccionIntestinal" ng-model="enfermeria.constipacionIntestinal" ng-init="enfermeria.constipacionIntestinal=false">Constipación</md-checkbox>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm ng-show="enfermeria.seleccionIntestinal"><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <md-checkbox ng-disabled="false" ng-show="enfermeria.seleccionIntestinal" ng-model="enfermeria.otrosIntestinal" ng-init="enfermeria.otrosIntestinal=false">Otros</md-checkbox>
+                                            </md-input-container>
+                                            <div flex="5" ng-show="enfermeria.otrosIntestinal" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container ng-show="enfermeria.otrosIntestinal && enfermeria.seleccionIntestinal" flex-gt-sm>
+                                                <input name="caracteristicaIntestinal" ng-model="enfermeria.caracteristicaIntestinal" ng-show="enfermeria.otrosIntestinal" />
+                                                <div class="hint" ng-show="enfermeria.otrosIntestinal">Característica</div>
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-input-container>
+                                                <md-switch ng-model="enfermeria.drenajes" ng-init="enfermeria.drenajes=false">Drenajes</md-switch>
+                                            </md-input-container>
+                                            <div flex="5" ng-show="enfermeria.drenajes" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container ng-show="enfermeria.drenajes" flex-gt-sm>
+                                                <input name="drenajesCaracteristicas" ng-model="enfermeria.drenajesCaracteristicas" ng-show="enfermeria.drenajes" />
+                                                <div class="hint" ng-show="enfermeria.drenajes">Ingrese las características de los drenajes</div>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <md-switch ng-model="enfermeria.otrosEliminacion" ng-init="enfermeria.otrosEliminacion=false">Otros</md-switch>
+                                            </md-input-container>
+                                            <div flex="5" ng-show="enfermeria.otrosEliminacion" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container ng-show="enfermeria.otrosEliminacion" flex-gt-sm>
+                                                <input name="otrosCaracteristicas" ng-model="enfermeria.otrosCaracteristicas" ng-show="enfermeria.otrosEliminacion" />
+                                                <div class="hint" ng-show="enfermeria.otrosEliminacion">Ingrese características</div>
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-input-container flex-gt-sm>
+                                                <label>Observaciones</label>
+                                                <input name="observacionesEliminacion" ng-model="enfermeria.observacionesEliminacion" />
+                                            </md-input-container>
+                                        </div>
+                                    </md-content>
+                                </md-tab>
+                                <md-tab label="Proteger los Tegumentos">
+                                    <md-content class="md-padding">
+                                        <div layout-gt-sm="row">
+                                            <md-input-container flex-gt-sm>
+                                                <label>Temperatura</label>
+                                                <input name="temperatura" ng-model="enfermeria.temperatura" />
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container flex-gt-sm>
+                                                <label>Color</label>
+                                                <input name="color" ng-model="enfermeria.color" />
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-content>
+                                                <md-switch ng-model="enfermeria.edemas" ng-init="enfermeria.edemas=false">Edemas</md-switch>
+                                            </md-content>
+                                            <div flex="5" ng-show="enfermeria.edemas" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container ng-show="enfermeria.edemas" flex-gt-sm>
+                                                <input name="enfermeria.edemasLocalizacion" ng-model="enfermeria.edemasLocalizacion" ng-show="enfermeria.edemas" />
+                                                <div class="hint" ng-show="enfermeria.edemas">Ingrese localización de los edemas</div>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container flex-gt-sm>
+                                                <label>Higiene</label>
+                                                <input name="higiene" ng-model="enfermeria.higiene" />
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container flex-gt-sm>
+                                                <md-checkbox ng-disabled="false" ng-model="enfermeria.higieneAyuda" ng-init="enfermeria.higieneAyuda=false">Con ayuda</md-checkbox>
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <div layout-gt-sm="column">
+                                                <md-switch ng-model="enfermeria.mucosasLesiones" ng-init="enfermeria.mucosasLesiones=false">Mucosas {{enfermeria.mucosasLesiones ? "con lesiones" : "íntegras"}}</md-switch>
+                                                <md-switch ng-model="enfermeria.mucosasDeshidratadas" ng-init="enfermeria.mucosasDeshidratadas=false">Mucosas {{enfermeria.mucosasDeshidratadas ? "deshidratadas" : "hidratadas"}}</md-switch>
+                                            </div>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <div layout-gt-sm="column">
+                                                <md-switch ng-model="enfermeria.pielLesiones" ng-init="enfermeria.pielLesiones=false">Piel {{enfermeria.pielLesiones ? "con lesiones" : "íntegra"}}</md-switch>
+                                                <md-switch ng-model="enfermeria.pielDeshidratada" ng-init="enfermeria.pielDeshidratada=false">Piel {{enfermeria.pielDeshidratada ? "deshidratada" : "hidratada"}}</md-switch>
+                                            </div>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <div layout-gt-sm="column">
+                                                <md-switch ng-model="enfermeria.piesLesiones" ng-init="enfermeria.piesLesiones=false">Pies {{enfermeria.mucosasLesiones ? "con lesiones" : "íntegros"}}</md-switch>
+                                                <md-switch ng-model="enfermeria.piesDeshidratados" ng-init="enfermeria.piesDeshidratados=false">Pies {{enfermeria.piesDeshidratados ? "deshidratados" : "hidratados"}}</md-switch>
+                                            </div>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <div layout-gt-sm="column">
+                                                <md-switch ng-model="enfermeria.bocaLesiones" ng-init="enfermeria.bocaLesiones=false">Boca {{enfermeria.bocaLesiones ? "con lesiones" : "íntegra"}}</md-switch>
+                                                <md-switch ng-model="enfermeria.bocaDeshidratada" ng-init="enfermeria.bocaDeshidratada=false">Boca {{enfermeria.bocaDeshidratada ? "deshidratada" : "hidratada"}}</md-switch>
+                                            </div>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <div layout-gt-sm="column">
+                                                <md-switch ng-model="enfermeria.genitalesLesiones" ng-init="enfermeria.genitalesLesiones=false">Genitales {{enfermeria.genitalesLesiones ? "con lesiones" : "íntegros"}}</md-switch>
+                                                <md-switch ng-model="enfermeria.genitalesDeshidratados" ng-init="enfermeria.genitalesDeshidratados=false">Genitales {{enfermeria.genitalesDeshidratados ? "deshidratados" : "hidratados"}}</md-switch>
+                                            </div>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-input-container flex-gt-sm>
+                                                <label>Observaciones</label>
+                                                <input name="observacionesTegumentos" ng-model="enfermeria.observacionesTegumentos" />
+                                            </md-input-container>
+                                        </div>
+                                    </md-content>
+                                </md-tab>
+                                <md-tab label="Movilizarse/Vestirse">
+                                    <md-content class="md-padding">
+                                        <div layout-gt-sm="row">
+                                            <md-input-container>
+                                                <md-checkbox ng-disabled="false" ng-model="enfermeria.ayudaVestirse" ng-init="enfermeria.ayudaVestirse=false">Necesita ayuda para vestirse</md-checkbox>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <md-checkbox ng-disabled="false" ng-model="enfermeria.dificultadesCaminar" ng-init="enfermeria.dificultadesCaminar=false">Presenta dificultades para caminar</md-checkbox>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-content>
+                                                <md-switch ng-model="enfermeria.dispositivosMovilizacion" ng-init="enfermeria.dispositivosMovilizacion=false">Uso de dispositivos de movilización</md-switch>
+                                            </md-content>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container ng-show="enfermeria.dispositivosMovilizacion" flex-gt-sm>
+                                                <input name="enfermeria.dispositivosCuales" ng-model="enfermeria.dispositivosCuales" ng-show="enfermeria.dispositivosMovilizacion" />
+                                                <div class="hint" ng-show="enfermeria.dispositivosMovilizacion">Ingrese cuáles son los dispositivos de movilización</div>
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-input-container flex-gt-sm>
+                                                <label>Observaciones</label>
+                                                <input name="observacionesMovilizarse" ng-model="enfermeria.observacionesMovilizarse" />
+                                            </md-input-container>
+                                        </div>
+                                    </md-content>
+                                </md-tab>
+                                <md-tab label="Dormir y Reposar">
+                                    <md-content class="md-padding">
+                                        <div layout="row">
+                                            <md-input-container>
+                                                <md-checkbox ng-disabled="false" ng-model="enfermeria.dormirContinuo" ng-init="enfermeria.dormirContinuo=false">Sueño continuo</md-checkbox>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <md-checkbox ng-disabled="false" ng-model="enfermeria.dormirDiscontinuo" ng-init="enfermeria.dormirDiscontinuo=false">Sueño discontinuo</md-checkbox>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <md-checkbox ng-disabled="false" ng-model="enfermeria.dormirInsomnio" ng-init="enfermeria.dormirInsomnio=false">Insomnio</md-checkbox>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <md-checkbox ng-disabled="false" ng-model="enfermeria.dormirSomnolencia" ng-init="enfermeria.dormirSomnolencia=false">Somnolencia</md-checkbox>
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-input-container flex-gt-sm>
+                                                <label>Observaciones</label>
+                                                <input name="observacionesDormir" ng-model="enfermeria.observacionesDormir" />
+                                            </md-input-container>
+                                        </div>
+                                    </md-content>
+                                </md-tab>
+                                <md-tab label="Seguridad">
+                                    <md-content class="md-padding">
+                                        <div layout-gt-sm="row">
+                                            <md-input-container>
+                                                <md-switch ng-model="enfermeria.tabaco" ng-init="enfermeria.tabaco=false">Tabaco</md-switch>
+                                            </md-input-container>
+                                            <div flex="5" ng-show="enfermeria.tabaco" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container ng-show="enfermeria.tabaco" flex-gt-sm>
+                                                <input name="tabacoCuantos" ng-model="enfermeria.tabacoCuantos" ng-show="enfermeria.tabaco" />
+                                                <div class="hint" ng-show="enfermeria.tabaco">Cuántos</div>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <md-switch ng-model="enfermeria.alcohol" ng-init="enfermeria.alcohol=false">Alcohol</md-switch>
+                                            </md-input-container>
+                                            <div flex="5" ng-show="enfermeria.alcohol" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container ng-show="enfermeria.alcohol" flex-gt-sm>
+                                                <input name="alcoholCuanto" ng-model="enfermeria.alcoholCuanto" ng-show="enfermeria.alcohol" />
+                                                <div class="hint" ng-show="enfermeria.alcohol">Cuánto</div>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <md-switch ng-model="enfermeria.drogas" ng-init="enfermeria.drogas=false">Drogas</md-switch>
+                                            </md-input-container>
+                                            <div flex="5" ng-show="enfermeria.drogas" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container ng-show="enfermeria.drogas" flex-gt-sm>
+                                                <input name="drogasCuales" ng-model="enfermeria.drogasCuales" ng-show="enfermeria.drogas" />
+                                                <div class="hint" ng-show="enfermeria.drogas">Cuáles</div>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container flex-gt-sm>
+                                                <label>Otros</label>
+                                                <input name="otrosAdicciones" ng-model="enfermeria.otrosAdicciones" />
+                                            </md-input-container>
+                                        </div>
+                                        <md-content class="md-padding">
+                                            <div layout-gt-sm="row">
+                                                <md-input-container>
+                                                    <md-switch ng-model="enfermeria.riesgosFisicos" ng-init="enfermeria.riesgosFisicos=false">Riesgos Físicos</md-switch>
+                                                </md-input-container>
+                                                <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                                <md-input-container>
+                                                    <md-switch ng-model="enfermeria.riesgosQuimicos" ng-init="enfermeria.riesgosQuimicos=false">Riesgos Químicos</md-switch>
+                                                </md-input-container>
+                                                <div flex="5" ng-show="enfermeria.riesgosQuimicos || enfermeria.riesgosFisicos" hide-xs hide-sm><!-- Spacer //--></div>
+                                                <md-input-container ng-show="enfermeria.riesgosQuimicos || enfermeria.riesgosFisicos" flex-gt-sm>
+                                                    <input name="riesgosCuales" ng-model="enfermeria.riesgosCuales" ng-show="enfermeria.riesgosQuimicos || enfermeria.riesgosFisicos" />
+                                                    <div class="hint" ng-show="enfermeria.riesgosQuimicos || enfermeria.riesgosFisicos">Cuáles</div>
+                                                </md-input-container>
+                                                <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                                <md-input-container>
+                                                    <md-switch ng-model="enfermeria.revisionGinecologica" ng-init="enfermeria.revisionGinecologica=false">Revisión Ginecológica</md-switch>
+                                                </md-input-container>
+                                                <div flex="5" ng-show="enfermeria.revisionGinecologica" hide-xs hide-sm><!-- Spacer //--></div>
+                                                <md-input-container ng-show="enfermeria.revisionGinecologica" flex-gt-sm>
+                                                    <!-- Cambiar por Date Picker -->
+                                                    <input name="fechaRevisionGinecologica" ng-model="enfermeria.fechaRevisionGinecologica" ng-show="enfermeria.revisionGinecologica" />
+                                                    <div class="hint" ng-show="enfermeria.revisionGinecologica">Fecha</div>
+                                                </md-input-container>
+                                                <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                                <md-input-container>
+                                                    <md-switch ng-model="enfermeria.revisionUrologica" ng-init="enfermeria.revisionUrologica=false">Revisión Urológica</md-switch>
+                                                </md-input-container>
+                                                <div flex="5" ng-show="enfermeria.revisionUrologica" hide-xs hide-sm><!-- Spacer //--></div>
+                                                <md-input-container ng-show="enfermeria.revisionUrologica" flex-gt-sm>
+                                                    <!-- Cambiar por Date Picker -->
+                                                    <input name="fechaRevisionUrologica" ng-model="enfermeria.fechaRevisionUrologica" ng-show="enfermeria.revisionUrologica" />
+                                                    <div class="hint" ng-show="enfermeria.revisionUrologica">Fecha</div>
+                                                </md-input-container>
+                                            </div>
+                                            <div layout="row">
+                                                <md-input-container>
+                                                    <md-checkbox ng-disabled="false" ng-model="enfermeria.ETS" ng-init="enfermeria.ETS=false">ETS</md-checkbox>
+                                                </md-input-container>
+                                                <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                                <md-input-container>
+                                                    <md-checkbox ng-disabled="false" ng-model="enfermeria.riesgoCardiovascular" ng-init="enfermeria.riesgoCardiovascular=false">Riesgo Cardiovascular</md-checkbox>
+                                                </md-input-container>
+                                                <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                                <md-input-container flex-gt-sm>
+                                                    <label>Describa</label>
+                                                    <input name="otrosDescriba" ng-model="enfermeria.otrosDescriba" />
+                                                </md-input-container>
+                                            </div>
+                                            <div layout="row">
+                                                <md-input-container>
+                                                    <md-checkbox ng-disabled="false" ng-model="riesgoCaidas" ng-init="riesgoCaidas=false">Riesgo de Caídas</md-checkbox>
+                                                </md-input-container>
+                                                <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                                <md-input-container>
+                                                    <md-checkbox ng-disabled="false" ng-model="riesgoUPP" ng-init="riesgoUPP=false">Riesgo de UPP</md-checkbox>
+                                                </md-input-container>
+                                                <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                                <md-input-container flex-gt-sm>
+                                                    <label>Describa</label>
+                                                    <input name="riesgosDescriba" ng-model="enfermeria.riesgosDescriba" />
+                                                </md-input-container>
+                                            </div>
+                                            <div plex-include="'partials/riesgoCaidas.html'" plex-include-internacion="internacion" ng-show="riesgoCaidas"></div>
+                                            <div layout-gt-sm="row">
+                                                <md-input-container flex-gt-sm>
+                                                    <label>Observaciones</label>
+                                                    <input name="observacionesSeguridad" ng-model="enfermeria.observacionesSeguridad" />
+                                                </md-input-container>
+                                            </div>
+                                    </md-content>
+                                </md-tab>
+                                <md-tab label="Comunicación y Sensopercepción">
+                                    <md-content class="md-padding">
+                                        <div layout-gt-sm="row">
+                                            <md-input-container>
+                                                <md-radio-group ng-model="enfermeria.orientado" layout="row">
+                                                    <md-radio-button value="true">Orientado</md-radio-button>
+                                                    <md-radio-button value="false"> Desorientado </md-radio-button>
+                                                </md-radio-group>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container flex-gt-sm>
+                                                <label>Glasgow</label>
+                                                <input name="glasgow" ng-model="enfermeria.glasgow" />
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container flex-gt-sm>
+                                                <label>Idioma</label>
+                                                <input name="idioma" ng-model="enfermeria.idioma" />
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-input-container>
+                                                <legend>Visión</legend>
+                                                <br />
+                                                <md-radio-group ng-model="enfermeria.vision">
+                                                    <md-radio-button value="normal">Normal</md-radio-button>
+                                                    <md-radio-button value="deficiente"> Deficiente </md-radio-button>
+                                                    <md-radio-button value="ausente"> Ausente </md-radio-button>
+                                                </md-radio-group>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <legend>Audición</legend>
+                                                <br />
+                                                <md-radio-group ng-model="enfermeria.audicion">
+                                                    <md-radio-button value="normal">Normal</md-radio-button>
+                                                    <md-radio-button value="deficiente"> Deficiente </md-radio-button>
+                                                    <md-radio-button value="ausente"> Ausente </md-radio-button>
+                                                </md-radio-group>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <legend>Lenguaje</legend>
+                                                <br />
+                                                <md-radio-group ng-model="enfermeria.lenguaje">
+                                                    <md-radio-button value="normal">Normal</md-radio-button>
+                                                    <md-radio-button value="deficiente"> Deficiente </md-radio-button>
+                                                    <md-radio-button value="ausente"> Ausente </md-radio-button>
+                                                </md-radio-group>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container flex-gt-sm>
+                                                <label>Describa</label>
+                                                <input name="describaSensopercepcion" ng-model="enfermeria.describaSensopercepcion" />
+                                            </md-input-container>
+                                        </div>
+                                        <div layout="row">
+                                            <md-input-container>
+                                                <md-checkbox ng-disabled="false" ng-model="enfermeria.dolor" ng-init="enfermeria.dolor=false">Dolor</md-checkbox>
+                                            </md-input-container>
+                                            <div flex="5" ng-show="enfermeria.dolor" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container ng-show="enfermeria.dolor" flex-gt-sm>
+                                                <!-- Cambiar por Date Picker -->
+                                                <input name="dolorLocalizacion" ng-model="enfermeria.dolorLocalizacion" ng-show="enfermeria.dolor" />
+                                                <div class="hint" ng-show="enfermeria.dolor">Localización</div>
+                                            </md-input-container>
+                                        </div>
+                                        <div class="row" ng-show="enfermeria.dolor">
+                                            <fieldset>
+                                                <legend>Valoración del dolor</legend>
+                                            </fieldset>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-input-container flex-gt-sm>
+                                                <label>Observaciones</label>
+                                                <input name="observacionesComunicacion" ng-model="enfermeria.observacionesComunicacion" />
+                                            </md-input-container>
+                                        </div>
+                                    </md-content>
+                                </md-tab>
+                                <md-tab label="Espiritualidad">
+                                    <md-content class="md-padding">
+                                        <div layout-gt-sm="row">
+                                            <md-input-container flex-gt-sm>
+                                                <label>Creencias religiosas</label>
+                                                <input name="creenciasReligiosas" ng-model="enfermeria.creenciasReligiosas" />
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container flex-gt-sm>
+                                                <label>Frecuencia con la que asiste a la iglesia</label>
+                                                <input name="frecuenciaIglesia" ng-model="enfermeria.frecuenciaIglesia" />
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <md-checkbox ng-disabled="false" ng-model="enfermeria.visitaReligioso" ng-init="enfermeria.visitaReligioso=false">Desea visita de religioso (internación)</md-checkbox>
+                                            </md-input-container>
+                                            <div flex="5" ng-show="enfermeria.visitaReligioso" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container ng-show="enfermeria.visitaReligioso" flex-gt-sm>
+                                                <!-- Cambiar por Date Picker -->
+                                                <input name="religiosoCual" ng-model="enfermeria.religiosoCual" ng-show="enfermeria.visitaReligioso" />
+                                                <div class="hint" ng-show="enfermeria.visitaReligioso">Cuál</div>
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-input-container flex-gt-sm>
+                                                <label>Observaciones</label>
+                                                <input name="observacionesEspiritualidad" ng-model="enfermeria.observacionesEspiritualidad" />
+                                            </md-input-container>
+                                        </div>
+                                    </md-content>
+                                </md-tab>
+                                <md-tab label="Aprender/Autorealizarse/Recrearse">
+                                    <md-content class="md-padding">
+                                        <div layout-gt-sm="row">
+                                            <md-input-container>
+                                                <md-checkbox ng-disabled="false" ng-model="enfermeria.comprendeSituacion" ng-init="enfermeria.comprendeSituacion=false">Comprende su situación de salud</md-checkbox>
+                                            </md-input-container>
+                                            <div flex="5" ng-show="enfermeria.comprendeSituacion" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container ng-show="enfermeria.comprendeSituacion" flex-gt-sm>
+                                                <!-- Cambiar por Date Picker -->
+                                                <input name="sentimientosSituacion" ng-model="enfermeria.sentimientosSituacion" ng-show="enfermeria.comprendeSituacion" />
+                                                <div class="hint" ng-show="enfermeria.comprendeSituacion">Sentimientos en relación a ello</div>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container flex-gt-sm>
+                                                <label>Dudas expresadas</label>
+                                                <input name="dudasExpresadas" ng-model="enfermeria.dudasExpresadas" />
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container flex-gt-sm>
+                                                <label>Actividades recreativas habituales</label>
+                                                <input name="actividadesHabituales" ng-model="enfermeria.actividadesHabituales" />
+                                            </md-input-container>
+                                        </div>
+                                        <div layout-gt-sm="row">
+                                            <md-input-container flex-gt-sm>
+                                                <label>Observaciones</label>
+                                                <input name="observacionesAprender" ng-model="enfermeria.observacionesAprender" />
+                                            </md-input-container>
+                                        </div>
+                                    </md-content>
+                                </md-tab>
+                                <md-tab label="Observaciones Generales">
+                                    <md-content class="md-padding">
+                                        <div layout-gt-sm="row">
+                                            <md-input-container flex-gt-sm>
+                                                <label>Observaciones</label>
+                                                <input name="observacionesGenerales" ng-model="enfermeria.observacionesGenerales" />
+                                                <div class="hint">Ingrese las observaciones generales que surjan de la valoración inicial.</div>
+                                            </md-input-container>
+                                        </div>
+                                    </md-content>
+                                </md-tab>
+                            </md-tabs>
+                        </md-content>
+                    </md-tab>
+                </md-tabs>
+            </md-content>
         </div>
     </div>
-    <br />
-    <div class="row">
-        <!-- ****************************** Necesidad de Nutrición ****************************** -->
-        <div class="col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="col-sm-10">
-                        <h4 class="panel-title">3. Necesidad de Nutrición</h4>
-                    </div>
-                    <div class="col-sm-2">
-                        <button style="font-size:10px" ng-click="showNN=true" title="Mostrar Necesidad de Nutrición"><i class="fa fa-chevron-down"></i></button>
-                        <button style="font-size:10px" ng-click="showNN=false" title="Ocultar Necesidad de Nutrición"><i class="fa fa-chevron-up"></i></button>
-                    </div>
-                </div>
-                <div class="panel-body" ng-show="showNN">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <input type=text label="Peso" ng-model="enfermeria.peso" plex />
-                        </div>
-                        <div class="col-sm-6">
-                            <input type=text label="Talla" ng-model="enfermeria.talla" plex />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <input type=text label="Hábitos alimentarios" ng-model="enfermeria.habitosAlimentarios" plex />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <input type="checkbox" ng-model="enfermeria.vomitos"/> Vómitos
-                        </div>
-                        <div class="col-sm-9">
-                            <input type="text" hint="Ingrese las características de los vómitos" ng-model="enfermeria.vomitosCaracteristicas" plex />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <input type="checkbox" ng-model="enfermeria.nauseas"/> Náuseas
-                        </div>
-                        <div class="col-sm-9">
-                            <input type="text" label="Otros" ng-model="enfermeria.otrosNutricion" plex />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <span style="font-weight:bold">Piezas dentarias</span>
-                        </div>
-                        <div class="col-sm-4">
-                            <input type="checkbox" plex="bool" ng-model="enfermeria.piezasDentarias" true="Incompletas" false="Completas" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <input type="checkbox" ng-model="enfermeria.protesis"/> Prótesis
-                        </div>
-                        <div class="col-sm-9">
-                            <input type="text" hint="Ingrese tipo de prótesis" ng-model="enfermeria.protesisTipo" plex />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <input type="checkbox" ng-model="enfermeria.dificultadesDeglutir"/> Dificultades para deglutir
-                        </div>
-                        <div class="col-sm-6">
-                            <input type="checkbox" ng-model="enfermeria.dificultadesMasticar"/> Dificultades para masticar
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <input type=text label="Lactancia materna" ng-model="enfermeria.lactanciaMaterna" plex />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <input type=text label="Observaciones" ng-model="enfermeria.observacionesNutricion" plex />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- ****************************** Necesidad de Eliminación ****************************** -->
-        <div class="col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="col-sm-10">
-                        <h4 class="panel-title">4. Necesidad de Eliminación</h4>
-                    </div>
-                    <div class="col-sm-2">
-                        <button style="font-size:10px" ng-click="showNE=true" title="Mostrar Necesidad de Eliminación"><i class="fa fa-chevron-down"></i></button>
-                        <button style="font-size:10px" ng-click="showNE=false" title="Ocultar Necesidad de Eliminación"><i class="fa fa-chevron-up"></i></button>
-                    </div>
-                </div>
-                <div class="panel-body" ng-show="showNE">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h5><label>Vesical</label></h5>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <input type="checkbox" ng-model="enfermeria.espontaneaVesical"/> Espontánea
-                        </div>
-                        <div class="col-sm-4">
-                            <input type="checkbox" ng-model="enfermeria.incontinenciaVesical"/> Incontinencia
-                        </div>
-                        <div class="col-sm-4">
-                            <input type="checkbox" ng-model="enfermeria.urostomiaVesical"/> Urostomía
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <input type="checkbox" ng-model="enfermeria.sondaVesical"/> Sonda vesical
-                        </div>
-                        <div class="col-sm-4">
-                            <input type="checkbox" ng-model="enfermeria.tallaVesical" /> Talla vesical
-                        </div>
-                        <div class="col-sm-4">
-                            <input type="checkbox" ng-model="enfermeria.otrosVesical"/> Otros
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <input type=text label="Característica" ng-model="enfermeria.caracteristicaVesical" plex />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h5><label>Intestinal</label></h5>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <input type="checkbox" ng-model="enfermeria.espontaneaIntestinal"/> Espontánea
-                        </div>
-                        <div class="col-sm-4">
-                            <input type="checkbox" ng-model="enfermeria.ostomiaIntestinal"/> Ostomía
-                        </div>
-                        <div class="col-sm-4">
-                            <input type="checkbox" ng-model="enfermeria.diarreaIntestinal"/> Diarrea
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <input type="checkbox" ng-model="enfermeria.incontinenciaIntestinal"/> Incontinencia
-                        </div>
-                        <div class="col-sm-4">
-                            <input type="checkbox" ng-model="enfermeria.constipacionIntestinal"/> Constipación
-                        </div>
-                        <div class="col-sm-4">
-                            <input type="checkbox" ng-model="enfermeria.otrosIntestinal" /> Otros
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <input type=text label="Característica" ng-model="enfermeria.caracteristicaIntestinal" plex />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label>Drenajes</label>
-                            <input type="checkbox" ng-model="enfermeria.drenajes" plex="bool" true="Si" false="No" />
-                        </div>
-                        <div class="col-sm-6">
-                            <label>Otros</label>
-                            <input type="checkbox" ng-model="enfermeria.otrosEliminacion" plex="bool" true="Si" false="No" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <input type="text" ng-show="enfermeria.drenajes" hint="Ingrese las características de los drenajes" ng-model="enfermeria.drenajesCaracteristicas" plex />
-                        </div>
-                        <div class="col-sm-6">
-                            <input type="text" ng-show="enfermeria.otrosEliminacion" hint="Ingrese características" ng-model="enfermeria.otrosCaracteristicas" plex />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <input type=text label="Observaciones" ng-model="enfermeria.observacionesEliminacion" plex />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br />
-    <div class="row">
-        <!-- ****************************** Necesidad de Proteger los tegumentos ****************************** -->
-        <div class="col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="col-sm-10">
-                        <h4 class="panel-title">5. Necesidad de Proteger los Tegumentos</h4>
-                    </div>
-                    <div class="col-sm-2">
-                        <button style="font-size:10px" ng-click="showNPT=true" title="Mostrar Necesidad de Proteger los Tegumentos"><i class="fa fa-chevron-down"></i></button>
-                        <button style="font-size:10px" ng-click="showNPT=false" title="Ocultar Necesidad de Proteger los Tegumentos"><i class="fa fa-chevron-up"></i></button>
-                    </div>
-                </div>
-                <div class="panel-body" ng-show="showNPT">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <input type=text label="Temperatura" ng-model="enfermeria.temperatura" plex />
-                        </div>
-                        <div class="col-sm-6">
-                            <input type=text label="Color" ng-model="enfermeria.color" plex />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <input type=text label="Higiene" ng-model="enfermeria.higiene" plex />
-                        </div>
-                        <div class="col-sm-3">
-                            <br />
-                            <input type="checkbox" plex="bool" true="Con ayuda" false="Sin ayuda" ng-model="enfermeria.higieneAyuda" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <input type="checkbox" ng-model="enfermeria.edemas"/> Edemas
-                        </div>
-                        <div class="col-sm-9">
-                            <input type="text" hint="Ingrese localización de los edemas" ng-model="enfermeria.edemasLocalizacion" plex />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Estado</th>
-                                        <th>Mucosas</th>
-                                        <th>Piel</th>
-                                        <th>Pie</th>
-                                        <th>Boca</th>
-                                        <th>Genitales</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Íntegra</td>
-                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoMucosas.integra" ng-value="true"></td>
-                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoPiel.integra" ng-value="true"></td>
-                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoPie.integra" ng-value="true"></td>
-                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoBoca.integra" ng-value="true"></td>
-                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoGenitales.integra" ng-value="true"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Lesiones</td>
-                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoMucosas.lesiones" ng-value="false"></td>
-                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoPiel.lesiones" ng-value="false"></td>
-                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoPie.lesiones" ng-value="false"></td>
-                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoBoca.lesiones" ng-value="false"></td>
-                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoGenitales.lesiones" ng-value="false"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Hidratada</td>
-                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoMucosas.hidratada" ng-value="true"></td>
-                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoPiel.hidratada" ng-value="true"></td>
-                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoPie.hidratada" ng-value="true"></td>
-                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoBoca.hidratada" ng-value="true"></td>
-                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoGenitales.hidratada" ng-value="true"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Deshidratada</td>
-                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoMucosas.deshidratada" ng-value="false"></td>
-                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoPiel.deshidratada" ng-value="false"></td>
-                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoPie.deshidratada" ng-value="false"></td>
-                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoBoca.deshidratada" ng-value="false"></td>
-                                        <td style="text-align: center; vertical-align: middle;"><input type="checkbox" ng-model="estadoGenitales.deshidratada" ng-value="false"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <input type=text label="Observaciones" ng-model="enfermeria.observacionesTegumentos" plex />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- ****************************** Necesidad de Movilizarse/Vestirse ****************************** -->
-        <div class="col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="col-sm-10">
-                        <h4 class="panel-title">6. Necesidad de Movilizarse/Vestirse</h4>
-                    </div>
-                    <div class="col-sm-2">
-                        <button style="font-size:10px" ng-click="showNMV=true" title="Mostrar Necesidad de Movilizarse/Vestirse"><i class="fa fa-chevron-down"></i></button>
-                        <button style="font-size:10px" ng-click="showNMV=false" title="Ocultar Necesidad de Movilizarse/Vestirse"><i class="fa fa-chevron-up"></i></button>
-                    </div>
-                </div>
-                <div class="panel-body" ng-show="showNMV">
-                    <div class="row">
-                        <div class="col-sm-5">
-                            <input type="checkbox" ng-model="enfermeria.ayudaVestirse"/> Necesita ayuda para vestirse
-                        </div>
-                        <div class="col-sm-7">
-                            <input type="checkbox" ng-model="enfermeria.dificultadesCaminar"/> Presenta dificultades para caminar
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-sm-5">
-                            <input type="checkbox" ng-model="enfermeria.dispositivosMovilizacion"/> Uso de dispositivos de movilización
-                        </div>
-                        <div class="col-sm-7">
-                            <input type="text" hint="Ingrese cuáles son los dispositivos de movilización" ng-model="enfermeria.dispositivosCuales" plex />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <input type=text label="Observaciones" ng-model="enfermeria.observacionesMovilizarse" plex />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br />
-    <div class="row">
-        <!-- ****************************** Necesidad de Dormir y Reposar ****************************** -->
-        <div class="col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="col-sm-10">
-                        <h4 class="panel-title">7. Necesidad de Dormir y Reposar</h4>
-                    </div>
-                    <div class="col-sm-2">
-                        <button style="font-size:10px" ng-click="showNDR=true" title="Mostrar Necesidad de Dormir y Reposar"><i class="fa fa-chevron-down"></i></button>
-                        <button style="font-size:10px" ng-click="showNDR=false" title="Ocultar Necesidad de Dormir y Reposar"><i class="fa fa-chevron-up"></i></button>
-                    </div>
-                </div>
-                <div class="panel-body" ng-show="showNDR">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h5><label>Características del sueño</label></h5>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <input type="checkbox" ng-model="enfermeria.dormirContinuo" /> Continuo
-                        </div>
-                        <div class="col-sm-3">
-                            <input type="checkbox" ng-model="enfermeria.dormirDiscontinuo"/> Discontinuo
-                        </div>
-                        <div class="col-sm-3">
-                            <input type="checkbox" ng-model="enfermeria.dormirInsomnio"/> Insomnio
-                        </div>
-                        <div class="col-sm-3">
-                            <input type="checkbox" ng-model="enfermeria.dormirSomnolencia" /> Somnolencia
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <input type=text label="Observaciones" ng-model="enfermeria.observacionesDormir" plex />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- ****************************** Necesidad de Seguridad ****************************** -->
-        <div class="col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="col-sm-10">
-                        <h4 class="panel-title">8. Necesidad de Seguridad</h4>
-                    </div>
-                    <div class="col-sm-2">
-                        <button style="font-size:10px" ng-click="showNS=true" title="Mostrar Necesidad de Seguridad"><i class="fa fa-chevron-down"></i></button>
-                        <button style="font-size:10px" ng-click="showNS=false" title="Ocultar Necesidad de Seguridad"><i class="fa fa-chevron-up"></i></button>
-                    </div>
-                </div>
-                <div class="panel-body" ng-show="showNS">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h5><label>Hábitos/adicciones</label></h5>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <span>Tabaco</span>
-                        </div>
-                        <div class="col-sm-4">
-                            <input type="checkbox" ng-model="enfermeria.tabaco" plex="bool" true="Si" false="No" />
-                        </div>
-                        <div class="col-sm-6">
-                            <input type="text" ng-show="enfermeria.tabaco" ng-model="enfermeria.tabacoCuantos" hint="Cuántos" plex />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <span>Alcohol</span>
-                        </div>
-                        <div class="col-sm-4">
-                            <input type="checkbox" ng-model="enfermeria.alcohol" plex="bool" true="Si" false="No" />
-                        </div>
-                        <div class="col-sm-6">
-                            <input type="text" ng-show="enfermeria.alcohol" ng-model="enfermeria.alcoholCuanto" hint="Cuánto" plex />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <span>Drogas</span>
-                        </div>
-                        <div class="col-sm-4">
-                            <input type="checkbox" ng-model="enfermeria.drogas" plex="bool" true="Si" false="No" />
-                        </div>
-                        <div class="col-sm-6">
-                            <input type="text" ng-show="enfermeria.drogas" ng-model="enfermeria.drogasCuales" hint="Cuáles" plex />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <input type=text label="Otros" ng-model="enfermeria.otrosAdicciones" plex />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h5><label>Riesgos del medio ambiente</label></h5>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <input type="checkbox" ng-model="enfermeria.riesgosFisicos"/> Físicos
-                        </div>
-                        <div class="col-sm-6">
-                            <input type="checkbox" ng-model="enfermeria.riesgosQuimicos"/> Químicos
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <input type=text label="Cuáles" ng-model="enfermeria.riesgosCuales" plex />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h5><label>Otros</label></h5>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-5">
-                            <input type="checkbox" ng-model="enfermeria.revisionGinecologica"/> Revisión Ginecológica
-                        </div>
-                        <div class="col-sm-7">
-                            <input type=text label="Fecha" ng-model="enfermeria.fechaRevisionGinecologica" plex="date" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-5">
-                            <input type="checkbox" ng-model="enfermeria.revisionUrologica"/> Revisión Urológica
-                        </div>
-                        <div class="col-sm-7">
-                            <input type=text label="Fecha" ng-model="enfermeria.fechaRevisionUrologica" plex="date" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <input type="checkbox" ng-model="enfermeria.ETS"/> ETS
-                        </div>
-                        <div class="col-sm-6">
-                            <input type="checkbox" ng-model="enfermeria.riesgoCardiovascular"/> Riesgo Cardiovascular
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <input type=text label="Describa" ng-model="enfermeria.otrosDescriba" plex />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <label>Riesgo de caídas:</label>
-                            <button type="button" class="btn btn-link" ng-click="cargarRiesgoCaidas(internacion.id)">Cálculo de Riesgo de Caídas</button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <label>Riesgo de UPP:</label>
-                            <button type="button" class="btn btn-link">Cálculo de Riesgo de UPP</button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <input type=text label="Describa" ng-model="enfermeria.riesgosDescriba" plex />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <input type=text label="Observaciones" ng-model="enfermeria.observacionesSeguridad" plex />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br />
-    <div class="row">
-        <!-- ****************************** Necesidad de Comunicación y Sensopercepción ****************************** -->
-        <div class="col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="col-sm-10">
-                        <h4 class="panel-title">9. Necesidad de Comunicación y Sensopercepción</h4>
-                    </div>
-                    <div class="col-sm-2">
-                        <button style="font-size:10px" ng-click="showNCS=true" title="Mostrar Necesidad de Comunicación y Sensopercepción"><i class="fa fa-chevron-down"></i></button>
-                        <button style="font-size:10px" ng-click="showNCS=false" title="Ocultar Necesidad de Comunicación y Sensopercepción"><i class="fa fa-chevron-up"></i></button>
-                    </div>
-                </div>
-                <div class="panel-body" ng-show="showNCS">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <input type="radio" name="optradio" ng-model="enfermeria.orientado" ng-value="true"/> Orientado
-                        </div>
-                        <div class="col-sm-6">
-                            <input type="radio" name="optradio" ng-model="enfermeria.orientado" ng-value="false"/> Desorientado
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <input type=text label="Glasgow*" plex ng-model="enfermeria.glasgow" />
-                        </div>
-                        <div class="col-sm-6">
-                            <input type=text label="Idioma" plex ng-model="enfermeria.idioma"/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <label>Visión</label>
-                        </div>
-                        <div class="col-sm-3">
-                            <input type="radio" name="radioVision" ng-model="enfermeria.vision.normal" ng-value="true"/> Normal
-                        </div>
-                        <div class="col-sm-3">
-                            <input type="radio" name="radioVision" ng-model="enfermeria.vision.deficiente" ng-value="false"/> Deficiente
-                        </div>
-                        <div class="col-sm-3">
-                            <input type="radio" name="radioVision" ng-model="enfermeria.vision.ausente" ng-value="false"/> Ausente
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <label>Audición</label>
-                        </div>
-                        <div class="col-sm-3">
-                            <input type="radio" name="radioAudicion" ng-model="enfermeria.audicion.normal" ng-value="true"/> Normal
-                        </div>
-                        <div class="col-sm-3">
-                            <input type="radio" name="radioAudicion" ng-model="enfermeria.audicion.deficiente" ng-value="false"/> Deficiente
-                        </div>
-                        <div class="col-sm-3">
-                            <input type="radio" name="radioAudicion" ng-model="enfermeria.audicion.ausente" ng-value="false"/> Ausente
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <label>Lenguaje</label>
-                        </div>
-                        <div class="col-sm-3">
-                            <input type="radio" name="radioLenguaje" ng-model="enfermeria.lenguaje.normal" ng-value="true"/> Normal
-                        </div>
-                        <div class="col-sm-3">
-                            <input type="radio" name="radioLenguaje" ng-model="enfermeria.lenguaje.deficiente" ng-value="false"/> Deficiente
-                        </div>
-                        <div class="col-sm-3">
-                            <input type="radio" name="radioLenguaje" ng-model="enfermeria.lenguaje.ausente" ng-value="false"/> Ausente
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <input type=text label="Describa" plex ng-model="enfermeria.describaSensopercepcion"/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <span>Dolor*</span>
-                        </div>
-                        <div class="col-sm-4">
-                            <input type="checkbox" ng-model="enfermeria.dolor" plex="bool" true="Si" false="No" />
-                        </div>
-                        <div class="col-sm-4">
-                            <input type="text" ng-show="enfermeria.dolor" ng-model="enfermeria.dolorLocalizacion" hint="Localización" plex />
-                        </div>
-                        <div class="col-sm-4">
-                            <button type="button" class="btn btn-link" ng-click="cargarValoracionDolor()">Completar Valoración del Dolor</button>
-                        </div>
-                    </div>
-                    <!-- <div class="row">
-                        <div class="col-sm-12">
-                            <button type="button" class="btn btn-link" ng-click="cargarValoracionDolor()">Completar Valoración del Dolor</button>
-                        </div>
-                    </div> -->
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <input type=text label="Observaciones" ng-model="enfermeria.observacionesComunicacion" plex />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- ****************************** Necesidad de Espiritualidad ****************************** -->
-        <div class="col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="col-sm-10">
-                        <h4 class="panel-title">10. Necesidad de Espiritualidad</h4>
-                    </div>
-                    <div class="col-sm-2">
-                        <button style="font-size:10px" ng-click="showNEsp=true" title="Mostrar Necesidad de Espiritualidad"><i class="fa fa-chevron-down"></i></button>
-                        <button style="font-size:10px" ng-click="showNEsp=false" title="Ocultar Necesidad de Espiritualidad"><i class="fa fa-chevron-up"></i></button>
-                    </div>
-                </div>
-                <div class="panel-body" ng-show="showNEsp">
-                    <div class="row">
-                        <div class="col-sm-5">
-                            <input type=text label="Creencias religiosas" plex ng-model="enfermeria.creenciasReligiosas"/>
-                        </div>
-                        <div class="col-sm-7">
-                            <input type=text label="Frecuencia con la que asiste a la iglesia" plex ng-model="enfermeria.frecuenciaIglesia"/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <span>Desea visita de religioso (internación)</span>
-                        </div>
-                        <div class="col-sm-4">
-                            <input type="checkbox" ng-model="enfermeria.visitaReligioso" plex="bool" true="Si" false="No" />
-                        </div>
-                        <div class="col-sm-4">
-                            <input type="text" ng-show="enfermeria.visitaReligioso" ng-model="enfermeria.religiosoCual" hint="Cuál" plex />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <input type=text label="Observaciones" ng-model="enfermeria.observacionesEspiritualidad" plex />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <br />
-    <div class="row">
-        <!-- ****************************** Necesidad de Aprender/Autorealizarse/Recrearse ****************************** -->
-        <div class="col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="col-sm-10">
-                        <h4 class="panel-title">11. Necesidad de Aprender/Autorealizarse/Recrearse</h4>
-                    </div>
-                    <div class="col-sm-2">
-                        <button style="font-size:10px" ng-click="showNAAR=true" title="Mostrar Necesidad de Aprender/Autorealizarse/Recrearse"><i class="fa fa-chevron-down"></i></button>
-                        <button style="font-size:10px" ng-click="showNAAR=false" title="Ocultar Necesidad de Aprender/Autorealizarse/Recrearse"><i class="fa fa-chevron-up"></i></button>
-                    </div>
-                </div>
-                <div class="panel-body" ng-show="showNAAR">
-                    <div class="row">
-                        <div class="col-sm-5">
-                            <input type="checkbox" ng-model="enfermeria.comprendeSituacion"/> Comprende su situación de salud
-                        </div>
-                        <div class="col-sm-7">
-                            <input type="text" hint="Sentimientos en relación a ello" ng-model="enfermeria.sentimientosSituacion" plex />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-5">
-                            <input type=text label="Dudas expresadas" plex ng-model="enfermeria.dudasExpresadas"/>
-                        </div>
-                        <div class="col-sm-7">
-                            <input type=text label="Actividades recreativas habituales" plex ng-model="enfermeria.actividadesHabituales"/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <input type=text label="Observaciones" plex ng-model="enfermeria.observacionesAprender"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- ****************************** Observaciones Generales ****************************** -->
-        <div class="col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="col-sm-10">
-                        <h4 class="panel-title">Observaciones Generales</h4>
-                    </div>
-                    <div class="col-sm-2">
-                        <button style="font-size:10px" ng-click="showOG=true" title="Mostrar Observaciones Generales"><i class="fa fa-chevron-down"></i></button>
-                        <button style="font-size:10px" ng-click="showOG=false" title="Ocultar Observaciones Generales"><i class="fa fa-chevron-up"></i></button>
-                    </div>
-                </div>
-                <div class="panel-body" ng-show="showOG">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <input type=text plex ng-model="enfermeria.observacionesGenerales"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- <input type=text ng-model="fecha" ng-required="nombre" plex="date" />
-  <button class="btn btn-primary" ng-click="guardar()">Save</button> -->
-  <!-- <button class="btn btn-primary" ng-click="guardar()">Guardar</button> -->
-  <button type="submit" class="btn btn-success pull-right" plex-submit="guardar()">
-      Guardar Valoración
-  </button>
 </ng-form>
