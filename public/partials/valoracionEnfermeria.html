@@ -3,9 +3,12 @@
 <div plex-include="'partials/Pacientes/iHeader.html'" plex-include-internacion="internacion"></div>
 <ng-form name="miFormulario">
     <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
-        <md-toolbar layout="row" class="md-whiteframe-z1">
+        <!-- <md-toolbar layout="row" class="md-whiteframe-z1">
             <h3>Valoración de enfermería</h3>
-        </md-toolbar>
+        </md-toolbar> -->
+        <div layout layout-padding>
+            <h2 class="md-headline">Valoración inicial de enfermería</h2>
+        </div>
         <div ng-cloak>
             <md-content>
                 <md-tabs md-dynamic-height md-border-bottom>
@@ -14,80 +17,80 @@
                             <div layout-gt-sm="row">
                                 <md-input-container flex-gt-sm>
                                     <label>Apellido</label>
-                                    <input ng-model="internacion.paciente.apellido" disabled/>
+                                 <input ng-model="internacion.paciente.apellido"/>
                                 </md-input-container>
                                 <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
                                 <md-input-container flex-gt-sm>
                                     <label>Nombre</label>
-                                    <input ng-model="internacion.paciente.nombre" disabled/>
+                                    <input ng-model="internacion.paciente.nombre"/>
                                 </md-input-container>
                                 <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
                                 <md-input-container flex-gt-sm>
                                     <label>Nº de H.C.</label>
-                                    <input ng-model="internacion.paciente.idExterno.carpeta" disabled/>
+                                    <input ng-model="internacion.paciente.idExterno.carpeta"/>
                                 </md-input-container>
                                 <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
                                 <md-input-container flex-gt-sm>
                                     <label>Fecha de Ingreso</label>
-                                    <input ng-model="internacion.ingreso.fechaHora" disabled/>
+                                    <input ng-model="internacion.ingreso.fechaHora"/>
                                 </md-input-container>
                             </div>
                             <div layout-gt-sm="row">
                                 <md-input-container flex-gt-sm>
                                     <label>Edad</label>
-                                    <input ng-model="internacion.paciente.edad" disabled/>
+                                    <input ng-model="internacion.paciente.edad"/>
                                 </md-input-container>
                                 <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
                                 <md-input-container flex-gt-sm>
                                     <label>D.N.I.</label>
-                                    <input ng-model="internacion.paciente.documento" disabled/>
+                                    <input ng-model="internacion.paciente.documento"/>
                                 </md-input-container>
                                 <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
                                 <md-input-container flex-gt-sm>
                                     <label>Género</label>
-                                    <input ng-model="internacion.paciente.sexo" disabled/>
+                                    <input ng-model="internacion.paciente.sexo"/>
                                 </md-input-container>
                                 <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
                                 <md-input-container flex-gt-sm>
                                     <label>Estado Civil</label>
-                                    <input ng-model="internacion.paciente.estadoCivil" disabled/>
+                                    <input ng-model="internacion.paciente.estadoCivil"/>
                                 </md-input-container>
                             </div>
                             <div layout-gt-sm="row">
                                 <md-input-container flex-gt-sm>
                                     <label>Ocupación</label>
-                                    <input ng-model="internacion.ingreso.situacionPaciente.ocupacion" disabled/>
+                                    <input ng-model="internacion.ingreso.situacionPaciente.ocupacion"/>
                                 </md-input-container>
                                 <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
                                 <md-input-container flex-gt-sm>
                                     <label>Obra Social</label>
-                                    <input ng-model="internacion.paciente.obrasSociales" disabled/>
+                                    <input ng-model="internacion.paciente.obrasSociales"/>
                                 </md-input-container>
                                 <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
                                 <md-input-container flex-gt-sm>
                                     <label>Nivel de Instrucción</label>
-                                    <input ng-model="internacion.ingreso.situacionPaciente.educacion" disabled/>
+                                    <input ng-model="internacion.ingreso.situacionPaciente.educacion"/>
                                 </md-input-container>
                                 <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
                                 <md-input-container flex-gt-sm>
                                     <label>Nacionalidad</label>
-                                    <input ng-model="internacion.paciente.nacionalidad" disabled/>
+                                    <input ng-model="internacion.paciente.nacionalidad"/>
                                 </md-input-container>
                             </div>
                             <div layout-gt-sm="row">
                                 <md-input-container flex-gt-sm>
                                     <label>Motivo de Ingreso</label>
-                                    <input ng-model="internacion.ingreso.motivo" disabled/>
+                                    <input ng-model="internacion.ingreso.motivo"/>
                                 </md-input-container>
                                 <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
                                 <md-input-container flex-gt-sm>
                                     <label>Diagnóstico Médico Presuntivo</label>
-                                    <input ng-model="internacion.ingreso.diagnosticoPresuntivo" disabled/>
+                                    <input ng-model="internacion.ingreso.diagnosticoPresuntivo"/>
                                 </md-input-container>
                                 <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
                                 <md-input-container flex-gt-sm>
                                     <label>Domicilio</label>
-                                    <input ng-model="internacion.paciente.domicilio.texto" disabled/>
+                                    <input ng-model="internacion.paciente.domicilio.texto"/>
                                 </md-input-container>
                                 <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
                                 <md-input-container flex-gt-sm>
@@ -98,17 +101,17 @@
                             <div layout-gt-sm="row">
                                 <md-input-container flex-gt-sm>
                                     <label>Procedencia</label>
-                                    <input disabled/>
+                                    <input/>
                                 </md-input-container>
                                 <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
                                 <md-input-container flex-gt-sm>
                                     <label>Domicilio</label>
-                                    <input disabled/>
+                                    <input/>
                                 </md-input-container>
                                 <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
                                 <md-input-container flex-gt-sm>
                                     <label>Nº de Tel.</label>
-                                    <input disabled/>
+                                    <input/>
                                 </md-input-container>
                             </div>
                         </md-content>
@@ -118,28 +121,28 @@
                             <div layout-gt-sm="row">
                                 <md-input-container flex-gt-sm>
                                     <label>HTA</label>
-                                    <input ng-model="internacion.antecedentes.hta" disabled/>
+                                    <input ng-model="internacion.antecedentes.hta"/>
                                 </md-input-container>
                                 <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
                                 <md-input-container flex-gt-sm>
                                     <label>DBT</label>
-                                    <input ng-model="internacion.antecedentes.diabetes" disabled/>
+                                    <input ng-model="internacion.antecedentes.diabetes"/>
                                 </md-input-container>
                                 <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
                                 <md-input-container flex-gt-sm>
                                     <label>Alergias</label>
-                                    <input ng-model="internacion.antecedentes.alergias" disabled/>
+                                    <input ng-model="internacion.antecedentes.alergias"/>
                                 </md-input-container>
                                 <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
                                 <md-input-container flex-gt-sm>
                                     <label>Otros</label>
-                                    <input disabled/>
+                                    <input/>
                                 </md-input-container>
                             </div>
                             <div layout-gt-sm="row">
                                 <md-input-container flex-gt-sm>
                                     <label>Medicación Habitual</label>
-                                    <input disabled/>
+                                    <input/>
                                 </md-input-container>
                             </div>
                         </md-content>
@@ -149,22 +152,22 @@
                             <div layout-gt-sm="row">
                                 <md-input-container flex-gt-sm>
                                     <label>Gestas</label>
-                                    <input ng-model="internacion.antecedentes.obstetricos.gestas" disabled/>
+                                    <input ng-model="internacion.antecedentes.obstetricos.gestas"/>
                                 </md-input-container>
                                 <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
                                 <md-input-container flex-gt-sm>
                                     <label>Partos</label>
-                                    <input ng-model="internacion.antecedentes.obstetricos.partos" disabled/>
+                                    <input ng-model="internacion.antecedentes.obstetricos.partos"/>
                                 </md-input-container>
                                 <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
                                 <md-input-container flex-gt-sm>
                                     <label>Cesáreas</label>
-                                    <input ng-model="internacion.antecedentes.obstetricos.cesareas" disabled/>
+                                    <input ng-model="internacion.antecedentes.obstetricos.cesareas"/>
                                 </md-input-container>
                                 <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
                                 <md-input-container flex-gt-sm>
                                     <label>Abortos</label>
-                                    <input ng-model="internacion.antecedentes.obstetricos.abortos" disabled/>
+                                    <input ng-model="internacion.antecedentes.obstetricos.abortos"/>
                                 </md-input-container>
                             </div>
                         </md-content>
@@ -835,6 +838,11 @@
                     </md-tab>
                 </md-tabs>
             </md-content>
+        </div>
+        <div flex layout>
+            <span flex></span>
+            <md-button plex-submit="cancelar()">Cancelar</md-button>
+            <md-button class="md-primary md-raised" plex-submit="guardar()">Guardar</md-button>
         </div>
     </div>
 </ng-form>
