@@ -2,15 +2,6 @@
 ** Estilos globales
 ******************************/
 
-
-/* Body */
-
-body {
-    background-color: #F4F4F4;
-    min-height: 100%;
-    height: auto !important;
-}
-
 /* layout-pretty */
 
 [layout-pretty] > [flex] {
