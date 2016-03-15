@@ -133,7 +133,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                     //     type: 'success',
                     //     show: true
                     // });
-                    $scope.openToast("Internacion creada. <br />A continuación puede crear la valoración inicial.");
+                    $scope.openToast("Internacion creada. A continuación puede crear la valoración inicial.");
 
                     $timeout(function() {
                         Plex.openView('valoracionEnfermeria/' + data.idInternacion).then(function() {

@@ -1,46 +1,51 @@
 <!-- Header de paciente -->
 <div plex-include="'partials/Pacientes/iHeader.html'" plex-include-internacion="internacion"></div>
 
-<md-content>
-    <div layout layout-padding>
-        <h2>Egreso</h2>
+<div layout layout-pretty whiteframe>
+    <div flex>
+
+        <ng-form name="formEgreso">
+            <div layout>
+                <div flex>
+                    <h2 class="md-headline">Egreso</h2>
+                </div>
+            </div>
+
+            <div layout>
+                <div flex="33">
+                    <!-- <md-input-container class="md-block"> -->
+                        <label>Fecha</label>
+                        <mdp-date-picker flex mdp-format="DD/MM/YYYY" ng-model="egreso.fechaHora" ng-required="true" plex></mdp-date-picker>
+                        <!-- <input type="text" plex="date" ng-required="true" ng-model="egreso.fechaHora" label="Fecha"/>
+                    </md-input-container> -->
+                </div>
+                <div flex="33">
+                    <!-- <md-input-container class="md-block"> -->
+                        <label>Hora</label>
+                        <mdp-time-picker flex ng-model="egreso.fechaHora" mdp-auto-switch="true" ng-required="true" plex></mdp-time-picker>
+                        <!-- <input type="text" plex="time" ng-required="true" ng-model="egreso.fechaHora" label="Hora"/>
+                    </md-input-container> -->
+                </div>
+                <div flex="33">
+                    <md-input-container class="md-block">
+                        <!-- <input type="hidden" label="Tipo de egreso" ng-model="egreso.tipo" plex plex-select="item.nombre for item in tiposEgresos" ng-required="true"/> -->
+                        <label>Tipo de egreso</label>
+                        <md-select ng-model="egreso.tipo" ng-required="true">
+                            <md-option ng-repeat="item in tiposEgresos" value="{{item.nombre}}">{{item.nombre}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+            </div>
+
+            <div layout>
+                <span flex></span>
+                <md-button ng-click="cancelarEgreso()">
+                    Cancelar
+                </md-button>
+                <md-button class="md-primary md-raised" plex-submit="egresar()" ng-disabled="formEgreso.$invalid">
+                    Egresar
+                </md-button>
+            </div>
+        </ng-form>
     </div>
-
-    <ng-form name="formEgreso">
-        <div  layout layout-padding>
-            <div flex="33">
-                <md-input-container class="md-block">
-                    <label>Fecha</label>
-                    <input type="text" plex="date" ng-required="true" ng-model="egreso.fechaHora" label="Fecha"/>
-                </md-input-container>
-            </div>
-            <div flex="33">
-                <md-input-container class="md-block">
-                    <label>Hora</label>
-                    <input type="text" plex="time" ng-required="true" ng-model="egreso.fechaHora" label="Hora"/>
-                </md-input-container>
-            </div>
-            <div flex="33">
-                <md-input-container class="md-block">
-                    <!-- <input type="hidden" label="Tipo de egreso" ng-model="egreso.tipo" plex plex-select="item.nombre for item in tiposEgresos" ng-required="true"/> -->
-                    <label>Tipo de egreso</label>
-                    <md-select ng-model="egreso.tipo" ng-required="true">
-                        <md-option ng-repeat="item in tiposEgresos" value="{{item.nombre}}">{{item.nombre}}</md-option>
-                    </md-select>
-                </md-input-container>
-            </div>
-        </div>
-
-        <div layout layout-pretty>
-            <span flex></span>
-            <md-button ng-click="cancelarEgreso()">
-                Cancelar
-            </md-button>
-            <md-button class="md-primary md-raised" plex-submit="egresar()" ng-disabled="formEgreso.$invalid">
-                Egresar
-            </md-button>
-        </div>
-    </ng-form>
-
 </div>
-</md-content>
