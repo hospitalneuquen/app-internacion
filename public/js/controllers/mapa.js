@@ -95,7 +95,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
         // buscamos un paciente y creamos la itnernacion
         buscarPaciente: function(cama) {
             if (!cama.desinfectada) {
-                Plex.showWarning("La cama está actualmente sin desinfectar, no se puede internar a un paciente en ella.");
+                $scope.openToast("La cama está actualmente sin desinfectar, no se puede internar a un paciente en ella.");
                 return false;
             }
             Plex.openView('internacion/editar/cama/' + cama.id).then(function(internacion) {
@@ -124,15 +124,6 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 // mostramos el formulario de valoracion de enfermeria
                 if (cama.$action == 'internacion') {
 
-                    // una vez actualizado el mapa de cama, mostramos el formulario
-                    // de carga de datos de la valoracion inicial
-                    // $alert({
-                    //     title: 'Internacion creada',
-                    //     content: 'A continuación puede crear la valoración inicial.',
-                    //     placement: 'top-right',
-                    //     type: 'success',
-                    //     show: true
-                    // });
                     $scope.openToast("Internacion creada. A continuación puede crear la valoración inicial.");
 
                     $timeout(function() {
@@ -158,13 +149,6 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                             break;
                     }
 
-                    // $alert({
-                    //     title: 'Cama ' + title,
-                    //     content: '',
-                    //     placement: 'top-right',
-                    //     type: 'success',
-                    //     show: true
-                    // });
                     $scope.openToast("Cama " + title);
                 }
 
@@ -212,28 +196,6 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             });
         },
 
-        // generarPase: function(cama) {
-        //     var data = {
-        //         estado: 'enPase'
-        //     };
-        //
-        //     Shared.internacion.post(cama.idInternacion, data).then(function(){
-        //         // var pase = {
-        //         //     fechaHora : new Date(),
-        //         //     servicio : Session.servicioActual.id,
-        //         //     cama : cama.id
-        //         // }
-        //
-        //         // Shared.pase.post(cama.idInternacion, null, pase, {minify: true}).then(function(){
-        //         //     // buscamos la cama y actualizamos el estado como "desocupada"
-        //         //     $scope.cambiarEstado(cama, 'desocupada');
-        //         // });
-        //
-        //         // buscamos la cama y actualizamos el estado como "desocupada"
-        //         $scope.cambiarEstado(cama, 'desocupada');
-        //     });
-        //
-        // },
         verInternacion: function(idInternacion) {
             Plex.openView('internacion/ver/' + idInternacion).then(function() {
 
@@ -251,7 +213,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                     // agregamos un pequeño timeout para volver a rotar la cama
                     $timeout(function() {
                         $scope.filter.camas[i].$rotar = false;
-                    }, 100);
+                    }, 120);
 
                     break;
                 }
@@ -284,40 +246,4 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
 
     $scope.init();
 
-
 }]);
-// .config(function($mdThemingProvider) {
-
-// Configure a dark theme with primary foreground yellow
-
-// $mdThemingProvider.theme('docs-dark', 'default')
-//   .primaryPalette('yellow')
-//   .dark();
-
-// $mdThemingProvider.definePalette('amazingPaletteName', {
-//     '50': 'ffebee',
-//     '100': 'ffcdd2',
-//     '200': 'ef9a9a',
-//     '300': 'e57373',
-//     '400': 'ef5350',
-//     '500': 'f44336',
-//     '600': 'e53935',
-//     '700': 'd32f2f',
-//     '800': 'c62828',
-//     '900': 'b71c1c',
-//     'A100': 'ff8a80',
-//     'A200': 'ff5252',
-//     'A400': 'ff1744',
-//     'A700': 'd50000',
-//     'contrastDefaultColor': 'light', // whether, by default, text (contrast)
-//     // on this palette should be dark or light
-//     'contrastDarkColors': ['50', '100', //hues which contrast should be 'dark' by default
-//         '200', '300', '400', 'A100'
-//     ],
-//     'contrastLightColors': undefined // could also specify this if default was 'dark'
-// });
-// $mdThemingProvider.theme('amazingPaletteName')
-//     .primaryPalette('amazingPaletteName')
-//     .dark()
-
-// });

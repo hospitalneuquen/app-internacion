@@ -29,9 +29,8 @@
                 <div flex="33">
                     <md-input-container class="md-block">
                         <!-- <input type="hidden" label="Tipo de egreso" ng-model="egreso.tipo" plex plex-select="item.nombre for item in tiposEgresos" ng-required="true"/> -->
-                        <label>Tipo de egreso</label>
-                        <md-select ng-model="egreso.tipo" ng-required="true">
-                            <md-option ng-repeat="item in tiposEgresos" value="{{item.nombre}}">{{item.nombre}}</md-option>
+                        <md-select ng-model="egreso.tipo" ng-required="true" placeholder="Tipo de egreso">
+                            <md-option ng-repeat="item in tiposEgresos" value="{{item.id}}">{{item.nombre}}</md-option>
                         </md-select>
                     </md-input-container>
                 </div>

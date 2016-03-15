@@ -122,12 +122,19 @@
 
                             <div flex="20"></div>
                             <div flex="20">
-                                <md-button class="md-icon-button" aria-label="Desinfectar cama" ng-click="cambiarEstado(cama, 'desinfectada'); cama.$action = 'desinfectar'" ng-if="!cama.desinfectada">
+                                <!-- <md-button class="md-icon-button" aria-label="Desinfectar cama" ng-click="cambiarEstado(cama, 'desinfectada'); cama.$action = 'desinfectar'" ng-if="!cama.desinfectada">
+                                    <md-tooltip md-direction="top">
+                                        Desinfectar cama
+                                    </md-tooltip>
+                                    <md-icon>bug_report</md-icon>
+                                </md-button> -->
+                                <md-button class="md-icon-button" aria-label="Desinfectar cama" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'desinfectar'" ng-if="!cama.desinfectada">
                                     <md-tooltip md-direction="top">
                                         Desinfectar cama
                                     </md-tooltip>
                                     <md-icon>bug_report</md-icon>
                                 </md-button>
+
                             </div>
                             <div flex="20">
                                 <md-menu md-offset="-170 -170" ng-if="cama.paciente.id">
@@ -196,6 +203,7 @@
                         </div>
 
                     </div>
+
                     <!-- Ultima evolucion / Evolucionar -->
                     <div ng-if="cama.$action && cama.$action == 'evolucion'">
                         <div class="content">
@@ -340,6 +348,34 @@
                                 </div>
                             </div>
 
+                        </div>
+                    </div>
+
+                    <!-- Enviar a desinfectar una cama -->
+                    <div ng-if="cama.$action == 'desinfectar' && cama.estado == 'desocupada'">
+                        <div class="content" >
+                            <form name="desinfeccionForm">
+
+                                <div class="main">
+                                    ¿Confirmar desinfección de cama?
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="footer">
+                            <div layout>
+                                <div flex="50">
+                                    <md-button class="md-warn md-raised" aria-label="No enviar a reparar" ng-click="cama.$rotar = !cama.$rotar" aria-label="Cerrar">
+                                        <md-icon md-font-icon="fa-close" class="fa"></i>
+                                    </md-button>
+                                </div>
+
+                                <div flex="50">
+                                    <md-button class="md-raised" aria-label="Desinfectar cama" ng-click="desinfeccionForm.$valid && cambiarEstado(cama, 'desinfectada')">
+                                        <md-icon md-font-icon="fa-check" class="fa"></i>
+                                    </md-button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

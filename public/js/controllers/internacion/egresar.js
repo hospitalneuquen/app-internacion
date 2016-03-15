@@ -20,41 +20,48 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
             cama: null,
         },
 
-
         egresar: function() {
-
-            if ($scope.egreso.tipo.id == 'alta' || $scope.egreso.tipo.id == 'defuncion'){
+            if ($scope.egreso.tipo == 'alta' || $scope.egreso.tipo == 'defuncion') {
                 var data = {
-                    estado : 'egresado',
+                    estado: 'egresado',
                     egreso: $scope.egreso
                 };
-            }else if ($scope.egreso.tipo.id == 'pase') {
+            } else if ($scope.egreso.tipo == 'pase') {
                 var data = {
-                    estado : 'enPase'
+                    estado: 'enPase'
                 };
             }
 
-            Shared.internacion.post(plexParams.idInternacion, data, {minify: true}).then(function(internacion){
-                // si es un egreso por pase, entonces lo creamos
-                if ($scope.egreso.tipo.id == 'pase') {
-                    var pase = {
-                        fechaHora : new Date(),
-                        servicio: Session.servicioActual.id,
-                        cama: plexParams.idCama
-                    }
+            Shared.internacion.post(plexParams.idInternacion, data, {
+                minify: true
+            }).then(function(internacion) {
+                // TODO: Definir que hacer en caso de que sea defuncion o alta,
+                // si hay que llenar algun otro formulario
 
-                    Shared.pase.post(plexParams.idInternacion, null, pase, {minify: true}).then(function(){
-                        Plex.closeView(internacion);
-                    });
+                // // si es un egreso por pase, entonces lo creamos
+                // if ($scope.egreso.tipo == 'pase') {
+                //     var pase = {
+                //         fechaHora: new Date(),
+                //         servicio: Session.servicioActual.id,
+                //         cama: plexParams.idCama
+                //     }
+                //
+                //     Shared.pase.post(plexParams.idInternacion, null, pase, {
+                //         minify: true
+                //     }).then(function() {
+                //         Plex.closeView(internacion);
+                //     });
+                //
+                // } else {
+                //     Plex.closeView(internacion);
+                // }
 
-                }else {
-                    Plex.closeView(internacion);
-                }
+                Plex.closeView(internacion);
 
             });
         },
 
-        cancelarEgreso: function(){
+        cancelarEgreso: function() {
             Plex.closeView();
         },
 
