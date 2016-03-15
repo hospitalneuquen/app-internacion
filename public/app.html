@@ -47,17 +47,20 @@
         <!-- Directives -->
         <script src="js/directives/plexAffix.js"></script>
 
-        <!--Evita que se muestre el HTML parcial antes de completar la carga-->
         <style>
-            .xplex-cloak {
-                display: none !important;
+            html,
+            body {
+                height: 100%;
+                background-color: #F4F4F4;
+            }
+
+            .mainContent {
+                background-color: #F4F4F4;
             }
         </style>
     </head>
-    <body class="plex-cloak">
-        <div flex>
-            <div ng-if="!Session.isActive()" ng-include="'/lib-md/html/dist/session.html'"></div>
-            <div ng-if="Session.isActive()" ng-include="'/lib-md/html/dist/main.html'"></div>
-        </div>
+    <body layout="row">
+        <div ng-if="!Session.isActive()" ng-include="'/lib-md/html/dist/session.html'" layout="column" flex></div>
+        <div ng-if="Session.isActive()" ng-include="'/lib-md/html/dist/main.html'" layout="column" flex></div>
     </body>
 </html>
