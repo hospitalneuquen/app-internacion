@@ -1,13 +1,4 @@
-<!-- <h1>Mapa de camas</h1> -->
-
-<div class="row">
-    <div class="col-sm-12">
-        <div plex-include="'partials/Pacientes/iHeader.html'" plex-include-internacion="internacion"></div>
-    </div>
-</div>
-
 <md-content layout-padding>
-
     <form name="filterForm">
         <div layout-gt-sm="row">
             <md-input-container class="md-block" flex-gt-sm>
@@ -438,11 +429,9 @@
             </div>
         </div>
     </div>
-
     <md-toolbar class="md-warn" ng-if="filter.camas && filter.camas.length == 0">
         <div class="md-toolbar-tools">
             <h2 class="md-flex">¡No se encontró ninguna cama!</h2>
         </div>
     </md-toolbar>
-
 </div>

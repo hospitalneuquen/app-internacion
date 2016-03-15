@@ -1,23 +1,6 @@
-md-toolbar h3 {
-    margin: auto;
-    font-weight: normal;
-}
-
-/* Para valoración enfermería*/
-
-
 /******************************
 ** Estilos globales
 ******************************/
-
-
-/* Body */
-
-body {
-    background-color: #F4F4F4;
-    min-height: 100%;
-    height: auto !important;
-}
 
 /* layout-pretty */
 
@@ -35,6 +18,15 @@ body {
 [flex] [whiteframe] > [flex] {
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
     background: white;
+}
+
+/* md-data-table */
+
+.mdTableSingleSelect TBODY TR {
+    cursor: pointer;
+}
+.mdTableSingleSelect .md-checkbox-column, .mdTableSingleSelect .md-checkbox-cell {
+    display: none;
 }
 
 /* md-data-table */

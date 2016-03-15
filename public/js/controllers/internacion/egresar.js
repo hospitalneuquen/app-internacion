@@ -21,7 +21,6 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
         },
 
         egresar: function() {
-
             if ($scope.egreso.tipo == 'alta' || $scope.egreso.tipo == 'defuncion') {
                 var data = {
                     estado: 'egresado',
@@ -38,7 +37,7 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
             }).then(function(internacion) {
                 // TODO: Definir que hacer en caso de que sea defuncion o alta,
                 // si hay que llenar algun otro formulario
-                
+
                 // // si es un egreso por pase, entonces lo creamos
                 // if ($scope.egreso.tipo == 'pase') {
                 //     var pase = {

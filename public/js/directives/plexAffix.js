@@ -29,7 +29,7 @@ angular.module('app').directive('plexAffix', [
             // Eventos
             angular.element($window).on('scroll', check);
             scope.$on('$destroy', function() {
-                $window.off('scroll', check);
+                angular.element($window).off('scroll', check);
             });
         };
     }
