@@ -72,35 +72,34 @@ angular.module('app').controller('internacion/editar', ['$scope', 'Plex', 'plexP
                 var self = $scope.pendientes;
                 self.seleccionado = [item];
 
-                alert("No implementado!");
                 // console.log(data);
-                // if (data.estado == 'enPase') {
-                //     var update = {
-                //         estado: 'ingresado'
-                //     };
-                //
-                //     // guardamos la internacion
-                //     Shared.internacion.post(data.id || null, update, {
-                //         minify: true
-                //     }).then(function(data) {
-                //         var internacion = data;
-                //         // generamos el pase
-                //         var pase = {
-                //             fechaHora: data.ingreso.fechaHora,
-                //             cama: plexParams.idCama,
-                //             servicio: Session.servicioActual.id
-                //         };
-                //
-                //         Shared.pase.post(data.id, null, pase, {
-                //             minify: true
-                //         }).then(function(data) {
-                //             Plex.closeView(internacion);
-                //         });
-                //     });
-                //
-                // } else {
-                //     Plex.closeView(data);
-                // }
+                if (item.estado == 'enPase') {
+                    var update = {
+                        estado: 'ingresado'
+                    };
+
+                    // guardamos la internacion
+                    Shared.internacion.post(item.id || null, update, {
+                        minify: true
+                    }).then(function(data) {
+                        var internacion = data;
+                        // generamos el pase
+                        var pase = {
+                            fechaHora: new Date(),
+                            cama: plexParams.idCama,
+                            servicio: Session.servicioActual.id
+                        };
+
+                        Shared.pase.post(data.id, null, pase, {
+                            minify: true
+                        }).then(function(data) {
+                            Plex.closeView(internacion);
+                        });
+                    });
+
+                } else {
+                    Plex.closeView(data);
+                }
             }
         },
         cancelar: function() {
