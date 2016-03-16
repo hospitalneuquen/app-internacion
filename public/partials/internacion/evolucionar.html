@@ -4,7 +4,7 @@
 <!-- Tabla de evoluciones -->
 <div layout layout-pretty whiteframe>
     <div flex>
-        <div layout ng-show="show_toolbar" >
+        <div layout ng-show="show_toolbar">
             <div flex="20">
                 <h2 class="md-headline">Evoluciones del paciente</h2>
             </div>
@@ -34,14 +34,14 @@
                     <div flex="40">
                         <label>Fecha evolución</label>
                         <!-- <md-input-container class="md-block" flex-gt-sm> -->
-                            <mdp-date-picker flex mdp-format="DD/MM/YYYY" ng-model="evolucionesEdit.fechaHora" ng-required="true" plex></mdp-date-picker>
+                        <mdp-date-picker flex mdp-format="DD/MM/YYYY" ng-model="evolucionesEdit.fechaHora" ng-required="true" plex></mdp-date-picker>
                         <!-- </md-input-container> -->
                     </div>
 
                     <div flex="40">
                         <label>Hora evolución</label>
                         <!-- <md-input-container class="md-block" flex-gt-sm> -->
-                            <mdp-time-picker flex ng-model="evolucionesEdit.fechaHora" mdp-auto-switch="true" ng-required="true" plex></mdp-time-picker>
+                        <mdp-time-picker flex ng-model="evolucionesEdit.fechaHora" mdp-auto-switch="true" ng-required="true" plex></mdp-time-picker>
                         <!-- </md-input-container> -->
                     </div>
                 </div>
@@ -104,32 +104,32 @@
                         </div>
                     </md-tab>
                     <md-tab label="Ingresos">
-                        <div layout >
+                        <div layout>
                             <div flex="20">
                                 <md-input-container class="md-block" flex-gt-sm>
                                     <label>P.H I</label>
-                                    <input type="text" ng-model="evolucionesEdit.ingreso.ph" />
+                                    <input type="text" ng-model="evolucionesEdit.ingresos.ph"/>
                                 </md-input-container>
                             </div>
 
                             <div flex="20">
                                 <md-input-container class="md-block" flex-gt-sm>
                                     <label>P.H II</label>
-                                    <input type="text" ng-model="evolucionesEdit.ingreso.ph2" />
+                                    <input type="text" ng-model="evolucionesEdit.ingresos.ph2"/>
                                 </md-input-container>
                             </div>
 
                             <div flex="20">
                                 <md-input-container class="md-block" flex-gt-sm>
                                     <label>ATB</label>
-                                    <input type="text" ng-model="evolucionesEdit.ingreso.atb" />
+                                    <input type="text" ng-model="evolucionesEdit.ingresos.atb"/>
                                 </md-input-container>
                             </div>
 
                             <div flex="20">
                                 <md-input-container class="md-block" flex-gt-sm>
                                     <label>HEMO.</label>
-                                    <input type="text" ng-model="evolucionesEdit.ingreso.hemo" />
+                                    <input type="text" ng-model="evolucionesEdit.ingresos.hemo"/>
                                 </md-input-container>
                             </div>
                         </div>
@@ -138,50 +138,50 @@
                             <div flex="20">
                                 <md-input-container class="md-block" flex-gt-sm>
                                     <label>NP</label>
-                                    <input type="text" ng-model="evolucionesEdit.ingreso.np" />
+                                    <input type="text" ng-model="evolucionesEdit.ingresos.np"/>
                                 </md-input-container>
                             </div>
                             <div flex="20" flex-sm="100">
                                 <md-input-container class="md-block" flex-gt-sm>
                                     <label>Prep.</label>
-                                    <input type="text" ng-model="evolucionesEdit.ingreso.prep" />
+                                    <input type="text" ng-model="evolucionesEdit.ingresos.prep"/>
                                 </md-input-container>
                             </div>
                             <div flex="20">
                                 <md-input-container class="md-block" flex-gt-sm>
                                     <label>H2O</label>
-                                    <input type="text" ng-model="evolucionesEdit.ingreso.h2o" />
+                                    <input type="text" ng-model="evolucionesEdit.ingresos.h2o"/>
                                 </md-input-container>
                             </div>
                         </div>
                     </md-tab>
                     <md-tab label="Egresos">
-                        <div layout >
+                        <div layout>
                             <div flex="20">
                                 <md-input-container class="md-block" flex-gt-sm>
                                     <label>Lavado vesical I</label>
-                                    <input type="text" ng-model="evolucionesEdit.egreso.lavadoVesicalI" />
+                                    <input type="text" ng-model="evolucionesEdit.egresos.lavadoVesicalI"/>
                                 </md-input-container>
                             </div>
 
                             <div flex="20">
                                 <md-input-container class="md-block" flex-gt-sm>
                                     <label>Diuresis</label>
-                                    <input type="text" ng-model="evolucionesEdit.egreso.diuresis" />
+                                    <input type="text" ng-model="evolucionesEdit.egresos.diuresis"/>
                                 </md-input-container>
                             </div>
 
                             <div flex="20">
                                 <md-input-container class="md-block" flex-gt-sm>
                                     <label>Catarsis</label>
-                                    <input type="text" ng-model="evolucionesEdit.egreso.catarsis" />
+                                    <input type="text" ng-model="evolucionesEdit.egresos.catarsis"/>
                                 </md-input-container>
                             </div>
 
                             <div flex="20">
                                 <md-input-container class="md-block" flex-gt-sm>
                                     <label>S.N.G</label>
-                                    <input type="text" ng-model="evolucionesEdit.egreso.sng" />
+                                    <input type="text" ng-model="evolucionesEdit.egresos.sng"/>
                                 </md-input-container>
                             </div>
                         </div>
@@ -190,25 +190,25 @@
                             <div flex="20">
                                 <md-input-container class="md-block" flex-gt-sm>
                                     <label>Drenajes I</label>
-                                    <input type="text" ng-model="evolucionesEdit.egreso.drenajes" />
+                                    <input type="text" ng-model="evolucionesEdit.egresos.drenajes"/>
                                 </md-input-container>
                             </div>
                             <div flex="20" flex-sm="100">
                                 <md-input-container class="md-block" flex-gt-sm>
                                     <label>Drenajes II</label>
-                                    <input type="text" ng-model="evolucionesEdit.egreso.drenajes2" />
+                                    <input type="text" ng-model="evolucionesEdit.egresos.drenajes2"/>
                                 </md-input-container>
                             </div>
                             <div flex="20">
                                 <md-input-container class="md-block" flex-gt-sm>
                                     <label>Ostomias I</label>
-                                    <input type="text" ng-model="evolucionesEdit.egreso.ostomias" />
+                                    <input type="text" ng-model="evolucionesEdit.egresos.ostomias"/>
                                 </md-input-container>
                             </div>
                             <div flex="20">
                                 <md-input-container class="md-block" flex-gt-sm>
                                     <label>Ostomias II</label>
-                                    <input type="text" ng-model="evolucionesEdit.egreso.ostomias2" />
+                                    <input type="text" ng-model="evolucionesEdit.egresos.ostomias2"/>
                                 </md-input-container>
                             </div>
                         </div>
@@ -226,8 +226,6 @@
                         </div>
                     </md-tab>
                 </md-tabs>
-
-
 
                 <div layout>
                     <span flex></span>
@@ -303,8 +301,7 @@
                             <span ng-if="item.peso">{{item.peso}}
                                 Kg</span>
                         </td>
-                        <td md-cell>
-                        </td>
+                        <td md-cell></td>
                         <td md-cell>
                             <md-button ng-if='item.tipo == Session.variables.prestaciones_workflow' class="md-icon-button" aria-label="Editar evolución" ng-click="editarEvolucion(item);">
                                 <md-icon md-font-icon="fa-pencil" class="fa"></md-icon>
