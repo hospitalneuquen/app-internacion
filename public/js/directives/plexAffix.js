@@ -30,7 +30,6 @@ angular.module('app').directive('plexAffix', [
                     element.css('top', toolbar.getBoundingClientRect().height + "px");
                     spacer.css('height', clientRect.height + "px");
                 }
-                console.log(scrollTop);
                 if (scrollTop <= 0) {
                     element.removeClass('affix');
                 }

@@ -2,6 +2,7 @@
 ** Estilos globales
 ******************************/
 
+
 /* layout-pretty */
 
 [layout-pretty] > [flex] {
@@ -80,6 +81,21 @@ md-toast {
 ** MAPA DE CAMAS
 ******************************
 */
+.filtros md-input-container {
+    margin-bottom: 0;
+}
+
+.filtros md-input-container .md-errors-spacer {
+    display: none;
+}
+
+.filtros md-switch {
+    margin-bottom: 0;
+}
+
+.filtros .button-container {
+    margin-top: 0;
+}
 
 .card-container {
     margin: 0;
@@ -113,7 +129,9 @@ md-toast {
     background: #FFF;
     border-radius: 4px;
     color: #444;
+    margin-right: 16px;
 }
+
 .card .footer, .card .motto, .card .profession {
     color: #999;
     text-align: center;
@@ -217,7 +235,7 @@ md-toast {
 .card-container, .front, .back {
     min-height: 380px;
     height: 100%;
-    margin-bottom: 8px;
+    margin-bottom: 16px;
 }
 .card-container:hover .card .front, .card-container:hover .card .back {
     -webkit-box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);

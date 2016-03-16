@@ -246,4 +246,5 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
 
     $scope.init();
 
+    Plex.initView({title: "Mapa de camas"});
 }]);
