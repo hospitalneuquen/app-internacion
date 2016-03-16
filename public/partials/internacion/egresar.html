@@ -12,21 +12,21 @@
             </div>
 
             <div layout>
-                <div flex="33">
+                <div flex="20">
                     <!-- <md-input-container class="md-block"> -->
-                        <label>Fecha</label>
-                        <mdp-date-picker flex mdp-format="DD/MM/YYYY" ng-model="egreso.fechaHora" ng-required="true" plex></mdp-date-picker>
-                        <!-- <input type="text" plex="date" ng-required="true" ng-model="egreso.fechaHora" label="Fecha"/>
+                    <label>Fecha</label>
+                    <mdp-date-picker flex mdp-format="DD/MM/YYYY" ng-model="egreso.fechaHora" ng-required="true" plex></mdp-date-picker>
+                    <!-- <input type="text" plex="date" ng-required="true" ng-model="egreso.fechaHora" label="Fecha"/>
                     </md-input-container> -->
                 </div>
-                <div flex="33">
+                <div flex="20">
                     <!-- <md-input-container class="md-block"> -->
-                        <label>Hora</label>
-                        <mdp-time-picker flex ng-model="egreso.fechaHora" mdp-auto-switch="true" ng-required="true" plex></mdp-time-picker>
-                        <!-- <input type="text" plex="time" ng-required="true" ng-model="egreso.fechaHora" label="Hora"/>
+                    <label>Hora</label>
+                    <mdp-time-picker flex ng-model="egreso.fechaHora" mdp-auto-switch="true" ng-required="true" plex></mdp-time-picker>
+                    <!-- <input type="text" plex="time" ng-required="true" ng-model="egreso.fechaHora" label="Hora"/>
                     </md-input-container> -->
                 </div>
-                <div flex="33">
+                <div flex="20">
                     <md-input-container class="md-block">
                         <!-- <input type="hidden" label="Tipo de egreso" ng-model="egreso.tipo" plex plex-select="item.nombre for item in tiposEgresos" ng-required="true"/> -->
                         <md-select ng-model="egreso.tipo" ng-required="true" placeholder="Tipo de egreso">
@@ -34,7 +34,50 @@
                         </md-select>
                     </md-input-container>
                 </div>
+
+                <div flex  ng-show="egreso.tipo == 'alta'">
+
+                    <md-input-container>
+                        <label>Tipo de alta</label>
+                        <md-radio-group ng-model="egreso.tipoAlta" layout="row">
+                            <md-radio-button value="medica">Alta médica</md-radio-button>
+                            <md-radio-button value="derivacion">Derivación</md-radio-button>
+                            <md-radio-button value="voluntaria">Voluntaria</md-radio-button>
+                        </md-radio-group>
+                    </md-input-container>
+
+                </div>
             </div>
+
+
+
+            <div layout ng-show="egreso.tipo == 'alta'">
+                <div flex="">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Resumen de internación</label>
+                        <textarea placeholder="" ng-model="egreso.resumenInternacion" rows="5"></textarea>
+                    </md-input-container>
+                </div>
+            </div>
+
+            <div layout  ng-show="egreso.tipo == 'alta'">
+                <div flex="">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Diagnóstico de alta</label>
+                        <textarea placeholder="" ng-model="egreso.diagnosticoAlta" rows="5"></textarea>
+                    </md-input-container>
+                </div>
+            </div>
+
+            <div layout  ng-show="egreso.tipo == 'alta'">
+                <div flex="">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Tratamiento a seguir</label>
+                        <textarea label="Tratamiento" placeholder="" ng-model="egreso.tratamientoaSeguir" rows="5"></textarea>
+                    </md-input-container>
+                </div>
+            </div>
+
 
             <div layout>
                 <span flex></span>

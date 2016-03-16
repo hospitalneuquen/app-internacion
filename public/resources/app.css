@@ -282,8 +282,11 @@ md-toast {
 .card .back .content.reparacion .footer .col-left::after {
     border-right: 0 none;
 }
-.icon .fa.agregar {
+.icon .fa.agregar{
     font-size: 160px;
+}
+.icon .reparacion {
+    font-size: 100px;
 }
 .numero-habitacion {
     background: #f4f4f4;

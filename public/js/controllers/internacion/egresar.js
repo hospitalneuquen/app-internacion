@@ -14,11 +14,11 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
             id: 'defuncion',
             nombre: 'Defunción'
         }, ],
-        egreso: {
-            fechaHora: null,
-            tipo: null,
-            cama: null,
-        },
+        // egreso: {
+        //     fechaHora: null,
+        //     tipo: null,
+        //     cama: null,
+        // },
 
         egresar: function() {
             if ($scope.egreso.tipo == 'alta' || $scope.egreso.tipo == 'defuncion') {
@@ -72,6 +72,17 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
 
                 $scope.egreso.cama = plexParams.idCama
             });
+        }
+    });
+
+    $scope.$watch('egreso.tipo', function(current, old) {
+        // si el valor de tipo de egreseo es distinto de alta,
+        // entonces limpiamos los valores de los campos anidados
+        if (current != 'alta') {
+            $scope.egreso.tipoAlta = null;
+            $scope.egreso.resumenInternacion = null;
+            $scope.egreso.diagnosticoAlta = null;
+            $scope.egreso.tratamientoaSeguir = null;
         }
     });
 

@@ -265,7 +265,7 @@
                         Peso
                     </th>
                     <th md-column>
-                        Balance
+                        Balance líquidos
                     </th>
                     <th></th>
                 </thead>
@@ -301,7 +301,23 @@
                             <span ng-if="item.peso">{{item.peso}}
                                 Kg</span>
                         </td>
-                        <td md-cell></td>
+                        <td md-cell>
+                            <table>
+                                <tr>
+                                    <td>
+                                        I = {{item.$total_ingresos}}
+                                        <br />
+                                        E = {{item.$total_egresos}}
+                                    </td>
+                                    <td style="text-align: center; vertical-align: middle;">
+                                        <md-icon class="md-font-icon" ng-if="item.$balance < 0">trending_down</md-font-icon>
+                                        <md-icon class="md-font-icon" ng-if="item.$balance == 0">trending_flat</md-font-icon>
+                                        <md-icon class="md-font-icon" ng-if="item.$balance > 0">trending_up</md-font-icon>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
                         <td md-cell>
                             <md-button ng-if='item.tipo == Session.variables.prestaciones_workflow' class="md-icon-button" aria-label="Editar evolución" ng-click="editarEvolucion(item);">
                                 <md-icon md-font-icon="fa-pencil" class="fa"></md-icon>

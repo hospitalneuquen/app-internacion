@@ -57,8 +57,22 @@ angular.module('app').controller('internacion/evolucionar', ['$scope', 'Plex', '
 
                 if ($scope.internacion.evoluciones.length) {
                     var services_found = [];
-                    // buscamos los servicios para el filtro de evoluciones
+
                     angular.forEach($scope.internacion.evoluciones, function(evolucion) {
+                        // sumamos los totales por evolucion
+                        evolucion.$total_ingresos = 0; evolucion.$total_egresos = 0;
+
+                        angular.forEach(evolucion.ingresos, function(value, key) {
+                            evolucion.$total_ingresos += value;
+                        });
+
+                        angular.forEach(evolucion.egresos, function(value, key) {
+                            evolucion.$total_egresos += value;
+                        });
+
+                        evolucion.$balance = evolucion.$total_ingresos - evolucion.$total_egresos;
+
+                        // buscamos los servicios para el filtro de evoluciones
                         if (evolucion.servicio && evolucion.servicio.id) {
                             if (!services_found.inArray(evolucion.servicio.id)) {
                                 $scope.servicios.push(evolucion.servicio);
@@ -74,6 +88,7 @@ angular.module('app').controller('internacion/evolucionar', ['$scope', 'Plex', '
                 }
             });
         },
+
         // Inicia la edición de una evolución
         editarEvolucion: function(evolucion) {
             $scope.show_toolbar = false;
