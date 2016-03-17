@@ -52,7 +52,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                         }
                     });
                 }
-                console.log(internacion);
+
             });
 
 
@@ -63,6 +63,6 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
     $scope.init();
 
     Plex.initView({
-        title: "Internación"
+        title: "Ver internación"
     });
 }]);

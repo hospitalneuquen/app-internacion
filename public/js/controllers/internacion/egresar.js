@@ -2,7 +2,9 @@
 
 angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plexParams', 'Server', 'Shared', 'Session', function($scope, Plex, plexParams, Server, Shared, Session) {
     angular.extend($scope, {
-
+        searchText: null,
+        selectedItem: null,
+        egreso: {},
         // opciones para el select del tipo de internacion
         tiposEgresos: [{
             id: 'pase',
@@ -14,11 +16,6 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
             id: 'defuncion',
             nombre: 'Defunción'
         }, ],
-        // egreso: {
-        //     fechaHora: null,
-        //     tipo: null,
-        //     cama: null,
-        // },
 
         egresar: function() {
             if ($scope.egreso.tipo == 'alta' || $scope.egreso.tipo == 'defuncion') {
@@ -60,6 +57,34 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
 
             });
         },
+        hospitales: {
+            data: null,
+            selectedItem: null,
+            searchText: null,
+            querySearch: function(query) {
+                var self = $scope.hospitales;
+                var regex_nombre = new RegExp(".*" + self.searchText + ".*", "ig");
+
+                if (query) {
+                    return self.data.filter(function(i) {
+
+                        return ( (regex_nombre.test(i.nombreCorto) || (regex_nombre.test(i.nombre)) ));
+                    });
+                }else{
+                    return self.data;
+                }
+            },
+
+            /**
+             * Create filter function for a query string
+             */
+            createFilterFor: function(query) {
+                var lowercaseQuery = angular.lowercase(query);
+                return function filterFn(hospital) {
+                    return (hospital.value.indexOf(lowercaseQuery) === 0);
+                };
+            }
+        },
 
         cancelarEgreso: function() {
             Plex.closeView();
@@ -71,9 +96,21 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
                 $scope.internacion = data;
 
                 $scope.egreso.cama = plexParams.idCama
+
+                Shared.ubicaciones.get({
+                    tipo: 'hospital'
+                }).then(function(hospitales) {
+                    $scope.hospitales.data = hospitales;
+                });
             });
         }
     });
+
+    // $scope.$watch('egreso.tipoAlta', function(current, old) {
+    //     console.log($scope.egreso);
+    //     console.log($scope.selectedItem);
+    //     console.log($scope.searchText);
+    // });
 
     $scope.$watch('egreso.tipo', function(current, old) {
         // si el valor de tipo de egreseo es distinto de alta,
