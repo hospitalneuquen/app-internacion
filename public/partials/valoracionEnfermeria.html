@@ -1,5 +1,27 @@
-<div plex-include="'partials/Pacientes/iHeader.html'" plex-include-internacion="internacion" plex-affix></div>
+<!-- <div plex-include="'partials/Pacientes/iHeader.html'" plex-include-internacion="internacion" plex-affix></div> -->
 <ng-form name="miFormulario">
+    <div layout layout-pretty whiteframe ng-if="internacion.paciente">
+        <div flex>
+            <div layout>
+                <div flex=10>
+                    <md-icon style="font-size: 56px !important">assignment_ind</md-icon>
+                </div>
+                <div flex>
+                    <div class="md-headline">
+                        {{internacion.paciente | persona}}
+                    </div>
+                    <div class="md-subhead">
+                        <strong>{{internacion.paciente | persona:'d'}}</strong>
+                    </div>
+                    <div class="md-subhead">
+                        {{internacion.paciente | persona:'e'}}
+                        |
+                        {{internacion.paciente | persona:'f'}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <md-content layout-padding class="md-whiteframe-z1">
         <md-tabs md-dynamic-height md-border-bottom>
             <md-tab label="Datos generales">
@@ -26,10 +48,9 @@
                         <div flex="5" hide-xs hide-sm>
                             <!-- Spacer //-->
                         </div>
-                        <md-input-container flex-gt-sm>
-                            <label>Fecha de Ingreso</label>
-                            <input ng-model="internacion.ingreso.fechaHora"/>
-                        </md-input-container>
+                        <div flex>
+                            <mdp-date-picker flex mdp-format="DD/MM/YYYY" ng-model="internacion.ingreso.fechaHora" ng-required="true" plex></mdp-date-picker>
+                        </div>
                     </div>
                     <div layout-gt-sm="row">
                         <md-input-container flex-gt-sm>
@@ -210,11 +231,6 @@
                             <div class="hint">Antecedentes quirúrgicos del paciente.</div>
                         </md-input-container>
                     </div>
-                    <!-- <div ng-show="showAQ" class="row">
-                                <div class="col-sm-11">
-                                    <input type=text ng-model="internacion.antecedentes.quirurgicos" plex />
-                                </div>
-                            </div> -->
                 </md-content>
             </md-tab>
             <md-tab label="Datos valoración (necesidades)">
@@ -789,9 +805,8 @@
                                         <!-- Spacer //-->
                                     </div>
                                     <md-input-container ng-show="enfermeria.revisionGinecologica" flex-gt-sm>
-                                        <!-- Cambiar por Date Picker -->
-                                        <input name="fechaRevisionGinecologica" ng-model="enfermeria.fechaRevisionGinecologica" ng-show="enfermeria.revisionGinecologica"/>
-                                        <div class="hint" ng-show="enfermeria.revisionGinecologica">Fecha</div>
+                                        <mdp-date-picker flex mdp-format="DD/MM/YYYY" ng-model="enfermeria.fechaRevisionGinecologica" ng-show="enfermeria.revisionGinecologica" plex></mdp-date-picker>
+                                        <!-- <div class="hint" ng-show="enfermeria.revisionGinecologica">Fecha</div> -->
                                     </md-input-container>
                                     <div flex="5" hide-xs hide-sm>
                                         <!-- Spacer //-->
@@ -803,9 +818,8 @@
                                         <!-- Spacer //-->
                                     </div>
                                     <md-input-container ng-show="enfermeria.revisionUrologica" flex-gt-sm>
-                                        <!-- Cambiar por Date Picker -->
-                                        <input name="fechaRevisionUrologica" ng-model="enfermeria.fechaRevisionUrologica" ng-show="enfermeria.revisionUrologica"/>
-                                        <div class="hint" ng-show="enfermeria.revisionUrologica">Fecha</div>
+                                        <mdp-date-picker flex mdp-format="DD/MM/YYYY" ng-model="enfermeria.fechaRevisionUrologica" ng-show="enfermeria.revisionUrologica" plex></mdp-date-picker>
+                                        <!-- <div class="hint" ng-show="enfermeria.revisionUrologica">Fecha</div> -->
                                     </md-input-container>
                                 </div>
                                 <div layout="row">
@@ -828,23 +842,96 @@
                                 </div>
                                 <div layout="row">
                                     <md-input-container>
-                                        <md-checkbox ng-disabled="false" ng-model="riesgoCaidas" ng-init="riesgoCaidas=false">Riesgo de Caídas</md-checkbox>
+                                        <md-checkbox ng-disabled="false" ng-model="enfermeria.riesgoCaidas" ng-init="enfermeria.riesgoCaidas=false">Riesgo de Caídas</md-checkbox>
                                     </md-input-container>
                                     <div flex="5" hide-xs hide-sm>
                                         <!-- Spacer //-->
                                     </div>
                                     <md-input-container>
-                                        <md-checkbox ng-disabled="false" ng-model="riesgoUPP" ng-init="riesgoUPP=false">Riesgo de UPP</md-checkbox>
+                                        <md-checkbox ng-disabled="false" ng-model="enfermeria.riesgoUPP" ng-init="enfermeria.riesgoUPP=false">Riesgo de UPP</md-checkbox>
                                     </md-input-container>
-                                    <div flex="5" hide-xs hide-sm>
-                                        <!-- Spacer //-->
-                                    </div>
+                                    <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
                                     <md-input-container flex-gt-sm>
                                         <label>Describa</label>
                                         <input name="riesgosDescriba" ng-model="enfermeria.riesgosDescriba"/>
                                     </md-input-container>
                                 </div>
-                                <div plex-include="'partials/riesgoCaidas.html'" plex-include-internacion="internacion" ng-show="riesgoCaidas"></div>
+                                <div class="row" ng-show="enfermeria.riesgoCaidas">
+                                        <div flex-xs flex-gt-xs="100" layout="column">
+                                            <md-card>
+                                                <md-card-title>
+                                                    <md-card-title-text>
+                                                        <span class="md-headline">Valoración de riesgo de caídas</span>
+                                                    </md-card-title-text>
+                                                </md-card-title>
+                                        <div layout-gt-sm="row" ng-show="enfermeria.riesgoCaidas">
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <legend>Caídas previas</legend>
+                                                <br/>
+                                                <md-radio-group ng-model="enfermeria.riesgoCaida.caidasPrevias">
+                                                    <md-radio-button value="0">No</md-radio-button>
+                                                    <md-radio-button value="25">Si</md-radio-button>
+                                                </md-radio-group>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <legend>Marcha</legend>
+                                                <br/>
+                                                <md-radio-group ng-model="enfermeria.riesgoCaida.marcha">
+                                                    <md-radio-button value="0">Normal</md-radio-button>
+                                                    <md-radio-button value="10">Débil</md-radio-button>
+                                                    <md-radio-button value="20">Limitada</md-radio-button>
+                                                </md-radio-group>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <legend>Ayuda para deambular</legend>
+                                                <br/>
+                                                <md-radio-group ng-model="enfermeria.riesgoCaida.ayudaDeambular">
+                                                    <md-radio-button value="0">Ninguna</md-radio-button>
+                                                    <md-radio-button value="15">Necesita ayuda</md-radio-button>
+                                                    <md-radio-button value="30">Se apoya en los muebles</md-radio-button>
+                                                </md-radio-group>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <legend>Venoclisis</legend>
+                                                <br/>
+                                                <md-radio-group ng-model="enfermeria.riesgoCaida.venoclisis">
+                                                    <md-radio-button value=0>No</md-radio-button>
+                                                    <md-radio-button value=20>Si</md-radio-button>
+                                                </md-radio-group>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <legend>Comorbilidad</legend>
+                                                <br/>
+                                                <md-radio-group ng-model="enfermeria.riesgoCaida.comorbilidad">
+                                                    <md-radio-button value=0>No</md-radio-button>
+                                                    <md-radio-button value=15>Si</md-radio-button>
+                                                </md-radio-group>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <legend>Estado mental</legend>
+                                                <br/>
+                                                <md-radio-group ng-model="enfermeria.riesgoCaida.estadoMental">
+                                                    <md-radio-button value=0>Reconoce sus limitaciones</md-radio-button>
+                                                    <md-radio-button value=15>Sobreestima u olvida sus limitaciones</md-radio-button>
+                                                </md-radio-group>
+                                            </md-input-container>
+                                            <div flex="5" hide-xs hide-sm><!-- Spacer //--></div>
+                                            <md-input-container>
+                                                <legend>Total <h2>{{enfermeria.riesgoCaida.total}}
+                                                    <span ng-if="enfermeria.riesgoCaida.total < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
+                                                    <span ng-if="enfermeria.riesgoCaida.total >= 25 && enfermeria.riesgoCaida.total <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
+                                                    <span ng-if="enfermeria.riesgoCaida.total > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
+                                                </h2></legend>
+                                            </md-input-container>
+                                        </div>
+                                    </md-card>
+                                </div>
                                 <div layout-gt-sm="row">
                                     <md-input-container flex-gt-sm>
                                         <label>Observaciones</label>
@@ -941,7 +1028,6 @@
                                         <!-- Spacer //-->
                                     </div>
                                     <md-input-container ng-show="enfermeria.dolor" flex-gt-sm>
-                                        <!-- Cambiar por Date Picker -->
                                         <input name="dolorLocalizacion" ng-model="enfermeria.dolorLocalizacion" ng-show="enfermeria.dolor"/>
                                         <div class="hint" ng-show="enfermeria.dolor">Localización</div>
                                     </md-input-container>
@@ -983,7 +1069,6 @@
                                         <!-- Spacer //-->
                                     </div>
                                     <md-input-container ng-show="enfermeria.visitaReligioso" flex-gt-sm>
-                                        <!-- Cambiar por Date Picker -->
                                         <input name="religiosoCual" ng-model="enfermeria.religiosoCual" ng-show="enfermeria.visitaReligioso"/>
                                         <div class="hint" ng-show="enfermeria.visitaReligioso">Cuál</div>
                                     </md-input-container>
@@ -1006,7 +1091,6 @@
                                         <!-- Spacer //-->
                                     </div>
                                     <md-input-container ng-show="enfermeria.comprendeSituacion" flex-gt-sm>
-                                        <!-- Cambiar por Date Picker -->
                                         <input name="sentimientosSituacion" ng-model="enfermeria.sentimientosSituacion" ng-show="enfermeria.comprendeSituacion"/>
                                         <div class="hint" ng-show="enfermeria.comprendeSituacion">Sentimientos en relación a ello</div>
                                     </md-input-container>
