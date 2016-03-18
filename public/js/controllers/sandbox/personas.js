@@ -1,5 +1,11 @@
 angular.module('app').controller('sandbox/personas', ['$scope', 'Plex', 'Server', '$timeout', 'Personas', function($scope, Plex, Server, $timeout, Personas) {
     angular.extend($scope, {
+        a: [{ x: new Date(2015, 5, 5),
+            y: 100
+        },
+        { x: new Date(2016, 6, 6),
+            y: 200
+        }],
         promise: null,
         chart: {
             update: 1,
@@ -82,6 +88,7 @@ angular.module('app').controller('sandbox/personas', ['$scope', 'Plex', 'Server'
 
     // Inicializa watches
     $scope.$watch('personas.query', function() {
+        console.log($scope.a);
         $scope.personas.actualizar();
     });
 
