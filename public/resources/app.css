@@ -282,8 +282,12 @@ md-toast {
 .card .back .content.reparacion .footer .col-left::after {
     border-right: 0 none;
 }
-.icon .fa.agregar {
+.icon .fa.agregar{
     font-size: 160px;
+}
+.icon .reparacion {
+    font-size: 100px;
+    cursor: pointer;
 }
 .numero-habitacion {
     background: #f4f4f4;
@@ -353,4 +357,17 @@ md-toast {
 .nivel-rojo {
     background: #e50018;
     color: white;
+}
+
+.verde {
+    color: #b1c900;
+}
+.amarillo {
+    color: #ffeb34;
+}
+.rojo {
+    color: #e50018;
+}
+.celeste{
+    color: #00ABFF;
 }

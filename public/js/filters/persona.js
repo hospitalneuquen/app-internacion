@@ -92,8 +92,8 @@ angular.module('app').filter('persona', ['$filter', function($filter) {
                             var edad = null;
                         }
 
-                        if (edad && edad < 15) {
-                            if (edad >= 0 && edad <= 2) {
+                        if (edad >= 0 && edad < 15) {
+                            if (edad >= 0 && edad <= 3) {
                                 return 'icon-i-nursery';
                             } else if (edad > 3 && edad < 15) {
                                 return 'fa fa-child';

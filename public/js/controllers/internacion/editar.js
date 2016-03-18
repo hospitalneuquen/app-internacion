@@ -138,8 +138,8 @@ angular.module('app').controller('internacion/editar', ['$scope', 'Plex', 'plexP
                     $scope.internacion = {
                         paciente: data.paciente,
                         ingreso: data.ingreso,
+                        tipo: data.tipo
                     };
-                    $scope.internacion.ingreso.tipo = Global.getById($scope.tiposInternacion, data.ingreso.tipo);
                 });
             else {
                 // Datos por default
