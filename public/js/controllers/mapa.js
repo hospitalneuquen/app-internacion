@@ -128,9 +128,8 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
 
                     $timeout(function() {
                         Plex.openView('valoracionEnfermeria/' + data.idInternacion).then(function(data) {
-                            console.log(data);
                             if (data) {
-                                $scope.openToast("Valoracion inicial guardada");
+                                $scope.openToast("Valoracion enfermeria guardada");
                             }
                         });
                     }, 500);

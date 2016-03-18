@@ -114,8 +114,16 @@
                                     <sub>2</sub>
                                 </div>
                             </div>
-
                             <div flex="20"></div>
+                            <!-- <div flex="20">
+                                <div class="stacked-icon " ng-if="cama.paciente.id && cama.oxigeno">
+                                    <md-tooltip md-direction="top">
+                                        Paciente con riesgo de caidas
+                                    </md-tooltip>
+                                    <md-icon>warning</md-icon>
+                                </div>
+                            </div> -->
+
                             <div flex="20">
                                 <md-button class="md-icon-button" aria-label="Desinfectar cama" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'desinfectar'" ng-if="!cama.desinfectada">
                                     <md-tooltip md-direction="top">
@@ -136,7 +144,7 @@
                                             <md-button class="" ng-click="editarIngresoInternacion(cama.id, cama.idInternacion)" aria-label="Internación">Internación</md-button>
                                         </md-menu-item>
                                         <md-menu-item>
-                                            <md-button class="" ng-click="verValoracionInicial(cama.idInternacion)" aria-label="Valoración inicial">Valoración inicial</md-button>
+                                            <md-button class="" ng-click="verValoracionInicial(cama.idInternacion)" aria-label="Valoración enfermería">Valoración enfermería</md-button>
                                         </md-menu-item>
                                         <md-menu-item>
                                             <md-button class="" ng-click="cargarPrestaciones()">
@@ -252,7 +260,7 @@
                                                 <md-button class="" ng-click="editarIngresoInternacion(cama.id, cama.idInternacion)" aria-label="Internación">Internación</md-button>
                                             </md-menu-item>
                                             <md-menu-item>
-                                                <md-button class="" ng-click="verValoracionInicial(cama.idInternacion)" aria-label="Valoración inicial">Valoración inicial</md-button>
+                                                <md-button class="" ng-click="verValoracionInicial(cama.idInternacion)" aria-label="Valoración enfermería">Valoración enfermería</md-button>
                                             </md-menu-item>
                                             <md-menu-item>
                                                 <md-button class="" ng-click="cargarPrestaciones()">
