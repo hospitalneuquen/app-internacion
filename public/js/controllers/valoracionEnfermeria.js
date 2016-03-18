@@ -3,7 +3,7 @@
 angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'Plex', 'plexParams', 'Shared', 'Server', '$timeout', function($scope, Plex, plexParams, Shared, Server, $timeout) {
     angular.extend($scope, {
         internacion: undefined,
-        ingreso: null,
+        // ingreso: null,
         riesgoCaida: null,
         enfermeria: null,
         // {
@@ -129,13 +129,15 @@ angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'P
         // },
         init: function() {
             Shared.internacion.get(plexParams.idInternacion).then(function(data) {
+                console.log(data);
+                $scope.internacion = data;
                 // Copia sólo algunos datos para modificar
-                $scope.internacion = {
-                    paciente: data.paciente,
-                    ingreso: data.ingreso,
-                    enfermeria: data.ingreso.enfermeria,
-                    tipo: data.tipo
-                };
+                // $scope.internacion = {
+                //     paciente: data.paciente,
+                //     ingreso: data.ingreso,
+                //     enfermeria: data.ingreso.enfermeria,
+                //     tipo: data.tipo
+                // };
             });
         },
         // init: function() {
@@ -157,12 +159,10 @@ angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'P
         //     });
         // },
         guardar: function() {
-            console.log("Entra guardar");
             var data = {
-                ingreso: {
-                    enfermeria:$scope.enfermeria
-                }
+                ingreso: $scope.internacion.ingreso
             };
+
             Shared.internacion.post(plexParams.idInternacion, data, {
                 minify: true
             }).then(function(data) {
@@ -177,26 +177,24 @@ angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'P
             });
         },
         actualizarRiesgoCaida: function() {
-            console.log("actualizarRiesgoCaida");
-            if (this.enfermeria.riesgoCaida) {
-                console.log("actualizarRiesgoCaida2222222222");
+            if ($scope.internacion.ingreso.enfermeria.riesgoCaida) {
                 var total = 0;
-                for (var p in this.enfermeria.riesgoCaida) {
+                for (var p in $scope.internacion.ingreso.enfermeria.riesgoCaida) {
                     if (p != 'total')
-                        total += parseInt(this.enfermeria.riesgoCaida[p]) || 0;
+                        total += parseInt($scope.internacion.ingreso.enfermeria.riesgoCaida[p]) || 0;
                 }
-                this.enfermeria.riesgoCaida.total = total;
-                console.log(this.enfermeria.riesgoCaida);
+                $scope.internacion.ingreso.enfermeria.riesgoCaida.total = total;
+                console.log(total);
             }
         },
-        cancelar: function(){
+        cancelar: function() {
             Plex.closeView();
         },
     });
     $scope.init();
 
     // Watches
-    $scope.$watch('enfermeria.riesgoCaida', function(current, old) {
+    $scope.$watch('internacion.ingreso.enfermeria.riesgoCaida', function(current, old) {
         if (current != old)
             $scope.actualizarRiesgoCaida();
     }, true);
