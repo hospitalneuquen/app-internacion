@@ -22,6 +22,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
         loading: true,
         internacion: undefined,
         evolucionesEdit: undefined, // Item actual que se está editando
+        balances: [],
         // evoluciones: {},
         // array de servicios para filtrar en la vista
         servicios: [{
@@ -50,9 +51,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
         init: function(internacion) {
             $scope.loading = true;
             // buscamos la internacion
-            // Shared.internacion.get($scope.include.idInternacion).then(function(internacion) {
-            // $scope.internacion = internacion;
-            if (internacion != null){
+            if (internacion != null) {
                 $scope.internacion = internacion;
 
                 $scope.filtros.evoluciones = internacion.evoluciones;
@@ -62,22 +61,15 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                     var services_found = [];
 
                     angular.forEach($scope.internacion.evoluciones, function(evolucion) {
-                        // sumamos los totales por evolucion
-                        evolucion.$total_ingresos = $scope.sumar(evolucion.ingresos);
-                        evolucion.$total_egresos = $scope.sumar(evolucion.egresos);
 
-                        evolucion.$balance = evolucion.$total_ingresos - evolucion.$total_egresos;
+                        // calculamos balance de liquidos
+                        $scope.calcularBalance(evolucion);
 
                         // buscamos los servicios para el filtro de evoluciones
                         if (evolucion.servicio && evolucion.servicio.id) {
                             if (!services_found.inArray(evolucion.servicio.id)) {
                                 $scope.servicios.push(evolucion.servicio);
                                 services_found.push(evolucion.servicio.id);
-                                // $scope.servicios.push({
-                                //     'text': evolucion.servicio.nombreCorto,
-                                //     'nombreCorto': evolucion.servicio.nombreCorto,
-                                //     'href': '#'
-                                // });
                             }
                         }
                     });
@@ -125,10 +117,8 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
             var found = false;
             $scope.loading = true;
 
-            // sumamos los totales por evolucion
-            data.$total_ingresos = $scope.sumar(data.ingresos);
-            data.$total_egresos = $scope.sumar(data.egresos);
-            data.$balance = data.$total_ingresos - data.$total_egresos;
+            // calculamos balance de liquidos
+            $scope.calcularBalance(data);
 
             var length = $scope.internacion.evoluciones.length;
             // buscamos la cama y actualizamos el valor con los datos
@@ -149,8 +139,31 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
 
             $scope.loading = false;
         },
+        // calcula los balances de liquidos que ha tenido una evoluciones
+        calcularBalance : function(evolucion){
+            // sumamos los totales por evolucion
+            evolucion.$total_ingresos = $scope.sumar(evolucion.ingresos);
+            evolucion.$total_egresos = $scope.sumar(evolucion.egresos);
+
+            // calculamos el balance entre el ingreso y egreso
+            evolucion.$balance = evolucion.$total_ingresos - evolucion.$total_egresos;
+
+            // guardamos el balance en el array de balances para mostrar la grafica
+            var _balance = {
+                ingresos: evolucion.$total_ingresos,
+                egresos: evolucion.$total_egresos,
+                total: evolucion.$balance,
+                fecha: evolucion.createdAt,
+                usuario: evolucion.createdBy
+            };
+
+            $scope.balances.push(_balance);
+
+            // devolvemos la evolucion con los balances y los totales
+            return evolucion;
+        },
         // realizamos al suma de los valores para ingresos o egresos
-        sumar: function(valores){
+        sumar: function(valores) {
             var total = 0;
 
             angular.forEach(valores, function(value, key) {
@@ -163,7 +176,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
     });
 
     // inicializamos mediante el watch de la variable incluida
-    $scope.$watch('include.internacion', function (current, old) {
+    $scope.$watch('include.internacion', function(current, old) {
         $scope.init(current);
     });
 }]);
