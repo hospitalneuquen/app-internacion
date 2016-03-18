@@ -3,10 +3,10 @@
 angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'Plex', 'plexParams', 'Shared', 'Server', '$timeout', function($scope, Plex, plexParams, Shared, Server, $timeout) {
     angular.extend($scope, {
         internacion: undefined,
-        enfermeria: null,
         ingreso: null,
         riesgoCaida: null,
-        //{
+        enfermeria: null,
+        // {
         //     FR: null,
         //     SAT2: null,
         //     disneaEsfuerzo: null,
@@ -157,6 +157,7 @@ angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'P
         //     });
         // },
         guardar: function() {
+            console.log("Entra guardar");
             var data = {
                 ingreso: {
                     enfermeria:$scope.enfermeria
@@ -165,7 +166,7 @@ angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'P
             Shared.internacion.post(plexParams.idInternacion, data, {
                 minify: true
             }).then(function(data) {
-                Plex.closeView();
+                Plex.closeView(data);
             }, function() {
 
             });
