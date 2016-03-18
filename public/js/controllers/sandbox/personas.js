@@ -1,8 +1,58 @@
-'use strict';
-
 angular.module('app').controller('sandbox/personas', ['$scope', 'Plex', 'Server', '$timeout', 'Personas', function($scope, Plex, Server, $timeout, Personas) {
     angular.extend($scope, {
         promise: null,
+        chart: {
+            update: 1,
+            options: {
+                // Seguir docs en http://api.highcharts.com/highcharts
+                chart: {
+                    type: 'spline',
+                },
+                title: {
+                    text: ''
+                },
+                legend: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Peso',
+                    data: [
+                        { x: new Date(2015, 5, 5),
+                            y: 100
+                        },
+                        { x: new Date(2016, 6, 6),
+                            y: 200
+                        }
+                    ],
+                    dataLabels: {
+                        enabled: true,
+                        format: '{y} Kg'
+                    },
+                    marker: {
+                        enabled: true
+                    },
+                    color: 'silver'
+                }, ],
+                xAxis: {
+                    type: 'datetime',
+                    title: {
+                        text: ''
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: ''
+                    },
+                    min: 0
+                }
+            },
+            init: function() {
+
+            },
+            forceUpdate: function() {
+                this.update++;
+            }
+        },
         personas: {
             data: null,
             query: 'Urbano',
