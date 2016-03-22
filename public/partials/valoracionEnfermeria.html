@@ -152,29 +152,46 @@
                 </md-input-container>
             </div>
         </md-tab>
-        <md-tab label="Antecedentes clínicos">
+        <md-tab label="Antecedentes">
             <div layout-gt-sm="row">
+                <md-input-container flex-gt-sm>
+                    <label>Tipo de antecedente</label>
+                    <md-select ng-model="userAntecedenteTipo">
+                        <!-- <md-option ng-repeat="antecedente in antecedentes" value="{{antecedente.abbrev}}" ng-disabled="$index === 1"> -->
+                        <md-option ng-repeat="antecedenteTipo in antecedenteTipos" value="{{antecedenteTipo.abbrev}}">
+                            {{antecedenteTipo.abbrev}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <div flex="5" hide-xs hide-sm></div>
+                <md-input-container flex-gt-sm>
+                    <label>Antecedente</label>
+                    <md-select ng-model="userAntecedente">
+                        <!-- <md-option ng-repeat="antecedente in antecedentes" value="{{antecedente.abbrev}}" ng-disabled="$index === 1"> -->
+                        <md-option ng-repeat="antecedente in antecedentes" value="{{antecedente.abbrev}}">
+                            {{antecedente.abbrev}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+        </md-tab>
+        <!-- <md-tab label="Antecedentes clínicos" ng-show="false">
+             <div layout-gt-sm="row">
                 <md-input-container flex-gt-sm>
                     <label>HTA</label>
                     <input ng-model="internacion.antecedentes.hta"/>
                 </md-input-container>
-                <div flex="5" hide-xs hide-sm>
-                    <!-- Spacer //-->
-                </div>
+                <div flex="5" hide-xs hide-sm></div>
                 <md-input-container flex-gt-sm>
                     <label>DBT</label>
                     <input ng-model="internacion.antecedentes.diabetes"/>
                 </md-input-container>
-                <div flex="5" hide-xs hide-sm>
-                    <!-- Spacer //-->
-                </div>
+                <div flex="5" hide-xs hide-sm></div>
                 <md-input-container flex-gt-sm>
                     <label>Alergias</label>
                     <input ng-model="internacion.antecedentes.alergias"/>
                 </md-input-container>
-                <div flex="5" hide-xs hide-sm>
-                    <!-- Spacer //-->
-                </div>
+                <div flex="5" hide-xs hide-sm></div>
                 <md-input-container flex-gt-sm>
                     <label>Otros</label>
                     <input/>
@@ -193,38 +210,32 @@
                     <label>Gestas</label>
                     <input ng-model="internacion.antecedentes.obstetricos.gestas"/>
                 </md-input-container>
-                <div flex="5" hide-xs hide-sm>
-                    <!-- Spacer //-->
-                </div>
+                <div flex="5" hide-xs hide-sm></div>
                 <md-input-container flex-gt-sm>
                     <label>Partos</label>
                     <input ng-model="internacion.antecedentes.obstetricos.partos"/>
                 </md-input-container>
-                <div flex="5" hide-xs hide-sm>
-                    <!-- Spacer //-->
-                </div>
+                <div flex="5" hide-xs hide-sm></div>
                 <md-input-container flex-gt-sm>
                     <label>Cesáreas</label>
                     <input ng-model="internacion.antecedentes.obstetricos.cesareas"/>
                 </md-input-container>
-                <div flex="5" hide-xs hide-sm>
-                    <!-- Spacer //-->
-                </div>
+                <div flex="5" hide-xs hide-sm></div>
                 <md-input-container flex-gt-sm>
                     <label>Abortos</label>
                     <input ng-model="internacion.antecedentes.obstetricos.abortos"/>
                 </md-input-container>
             </div>
         </md-tab>
-        <md-tab label="Antecedentes quirúrgicos y/o traumatológicos">
+        <md-tab label="Antecedentes quirúrgicos y/o traumatológicos" ng-show="false">
             <div layout-gt-sm="row">
                 <md-input-container flex-gt-sm>
                     <input ng-model="internacion.antecedentes.quirurgicos"/>
                     <div class="hint">Antecedentes quirúrgicos del paciente.</div>
                 </md-input-container>
             </div>
-        </md-tab>
-        <md-tab label="Datos valoración (necesidades)">
+        </md-tab> -->
+        <md-tab label="Examen al ingreso">
             <md-tabs md-dynamic-height md-border-bottom>
                 <md-tab label="Oxigenación">
                     <div layout-gt-sm="row">
@@ -232,9 +243,7 @@
                             <label>FR</label>
                             <input name="FR" ng-model="internacion.ingreso.enfermeria.FR"/>
                         </md-input-container>
-                        <div flex="5" hide-xs hide-sm>
-                            <!-- Spacer //-->
-                        </div>
+                        <div flex="5" hide-xs hide-sm></div>
                         <md-input-container flex-gt-sm>
                             <label>SAT 2</label>
                             <input name="SAT2" ng-model="internacion.ingreso.enfermeria.SAT2"/>
@@ -244,15 +253,11 @@
                         <md-input-container>
                             <md-checkbox ng-disabled="false" ng-model="internacion.ingreso.enfermeria.disneaEsfuerzo" ng-init="internacion.ingreso.enfermeria.disneaEsfuerzo=false">Disnea esfuerzo</md-checkbox>
                         </md-input-container>
-                        <div flex="5" hide-xs hide-sm>
-                            <!-- Spacer //-->
-                        </div>
+                        <div flex="5" hide-xs hide-sm></div>
                         <md-input-container>
                             <md-checkbox ng-disabled="false" ng-model="internacion.ingreso.enfermeria.disneaReposo" ng-init="internacion.ingreso.enfermeria.disneaReposo=false">Disnea reposo</md-checkbox>
                         </md-input-container>
-                        <div flex="5" hide-xs hide-sm>
-                            <!-- Spacer //-->
-                        </div>
+                        <div flex="5" hide-xs hide-sm></div>
                         <md-input-container>
                             <md-checkbox ng-disabled="false" ng-model="internacion.ingreso.enfermeria.tos" ng-init="internacion.ingreso.enfermeria.tos=false">Tos</md-checkbox>
                         </md-input-container>
@@ -261,22 +266,16 @@
                         <md-input-container>
                             <md-switch ng-model="internacion.ingreso.enfermeria.secreciones" ng-init="internacion.ingreso.enfermeria.secreciones=false">Secreciones</md-switch>
                         </md-input-container>
-                        <div flex="5" ng-show="internacion.ingreso.enfermeria.secreciones" hide-xs hide-sm>
-                            <!-- Spacer //-->
-                        </div>
+                        <div flex="5" ng-show="internacion.ingreso.enfermeria.secreciones" hide-xs hide-sm></div>
                         <md-input-container ng-show="internacion.ingreso.enfermeria.secreciones" flex-gt-sm>
                             <input name="secrecionesCaracteristicas" ng-model="internacion.ingreso.enfermeria.secrecionesCaracteristicas" ng-show="internacion.ingreso.enfermeria.secreciones"/>
                             <div class="hint" ng-show="internacion.ingreso.enfermeria.secreciones">Ingrese las características de las secreciones</div>
                         </md-input-container>
-                        <div flex="5" hide-xs hide-sm>
-                            <!-- Spacer //-->
-                        </div>
+                        <div flex="5" hide-xs hide-sm></div>
                         <md-input-container>
                             <md-switch ng-model="internacion.ingreso.enfermeria.usoMusculos" ng-init="internacion.ingreso.enfermeria.usoMusculos=false">Uso de músculos accesorios</md-switch>
                         </md-input-container>
-                        <div flex="5" ng-show="internacion.ingreso.enfermeria.usoMusculos" hide-xs hide-sm>
-                            <!-- Spacer //-->
-                        </div>
+                        <div flex="5" ng-show="internacion.ingreso.enfermeria.usoMusculos" hide-xs hide-sm></div>
                         <md-input-container ng-show="internacion.ingreso.enfermeria.usoMusculos" flex-gt-sm>
                             <input name="musculosCuales" ng-model="internacion.ingreso.enfermeria.musculosCuales" ng-show="internacion.ingreso.enfermeria.usoMusculos"/>
                             <div class="hint" ng-show="internacion.ingreso.enfermeria.usoMusculos">Ingrese cuales son los músculos accesorios</div>
