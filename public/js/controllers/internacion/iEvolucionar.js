@@ -72,7 +72,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                             }
                         }
                     });
-                    console.log($scope.dataIngresos);
+
                     $scope.chart.update++;
                 }
             }
@@ -139,6 +139,9 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
             }
 
             $scope.loading = false;
+
+            // actualizamos el grafico
+            $scope.chart.update++;
         },
         // calcula los balances de liquidos que ha tenido una evoluciones
         calcularBalance: function(evolucion) {
@@ -204,16 +207,24 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                 }, {
                     name: 'Egresos',
                     data: [],
+                    dataLabels: {
+                        enabled: true,
+                        format: '{y} ml'
+                    },
                 }, {
                     name: 'Balance',
                     data: [],
+                    dataLabels: {
+                        enabled: true,
+                        format: '{y} ml'
+                    },
                 }, ],
                 xAxis: {
                     type: 'datetime',
-                    dateTimeLabelFormats: { // don't display the dummy year
-                        // day: '%e of %b',
-                        month: '%e. %b',
-                        year: '%b'
+                    dateTimeLabelFormats: {
+                        day: '%d/%m/%y',
+                        week: '%d/%m/%y',
+                        year: '%Y'
                     },
                     title: {
                         text: 'Fecha evolución'
@@ -227,7 +238,12 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                 },
                 tooltip: {
                     headerFormat: '<b>{series.name}</b><br>',
-                    pointFormat: '{point.x:%e. %b}: {point.y:.2f} m'
+                    pointFormat: '{point.x:%e. %b}: {point.y:.2f} ml',
+                    dateTimeLabelFormats: '%e / %b / %Y %H:%M'
+                    // dateTimeLabelFormats: {
+                    //     month: '%e. %b',
+                    //     year: '%b'
+                    // }
                 },
                 plotOptions: {
                     spline: {

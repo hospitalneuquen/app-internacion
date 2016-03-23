@@ -1,10 +1,8 @@
 <!-- Tabla de evoluciones -->
 <div ng-controller="internacion/iEvolucionar">
-    <div layout layout-pretty whiteframe>
-        <div layout>
-            <div flex="100">
-                <plex-chart config="chart.options" update-when="chart.update" style="width: 97.5%;"></plex-chart>
-            </div>
+    <div layout layout-pretty whiteframe ng-if="internacion.evoluciones.length > 0">
+        <div flex>
+            <plex-chart config="chart.options" update-when="chart.update" style="width: 97.5%;"></plex-chart>
         </div>
     </div>
 
@@ -246,34 +244,36 @@
             <md-table-container ng-if="!evolucionesEdit">
                 <table data-md-table md-progress="promise" ng-if="internacion.evoluciones && internacion.evoluciones.length > 0">
                     <thead md-head>
-                        <th md-column>
-                            Fecha
-                        </th>
-                        <th md-column>
-                            Detalle
-                        </th>
-                        <th md-column>
-                            FC
-                        </th>
-                        <th md-column>
-                            Tensión
-                        </th>
-                        <th md-column>
-                            Temperatura
-                        </th>
-                        <th md-column>
-                            FR
-                        </th>
-                        <th md-column>
-                            Saturación
-                        </th>
-                        <th md-column>
-                            Peso
-                        </th>
-                        <th md-column>
-                            Balance líquidos
-                        </th>
-                        <th></th>
+                        <tr md-row>
+                            <th md-column>
+                                Fecha
+                            </th>
+                            <th md-column>
+                                Detalle
+                            </th>
+                            <th md-column>
+                                FC
+                            </th>
+                            <th md-column>
+                                Tensión
+                            </th>
+                            <th md-column>
+                                Temperatura
+                            </th>
+                            <th md-column>
+                                FR
+                            </th>
+                            <th md-column>
+                                Saturación
+                            </th>
+                            <th md-column>
+                                Peso
+                            </th>
+                            <th md-column>
+                                Balance líquidos
+                            </th>
+                            <th></th>
+                        </tr>
                     </thead>
                     <tbody md-body>
                         <tr md-row data-ng-repeat="item in filtros.evoluciones | orderBy: '-fechaHora'">

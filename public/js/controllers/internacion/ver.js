@@ -27,6 +27,12 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
             }
         },
 
+        closeView: function() {
+            Plex.closeView({
+
+            });
+        },
+
         init: function() {
             $scope.loading = true;
             // buscamos la internacion
@@ -40,7 +46,8 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                     // buscamos los servicios para el filtro de evoluciones
                     angular.forEach($scope.internacion.evoluciones, function(evolucion) {
                         if (evolucion.servicio && evolucion.servicio.id) {
-                            if ($.inArray(evolucion.servicio.id, services_found) === -1) {
+                            // if ($.inArray(evolucion.servicio.id, services_found) === -1) {
+                            if (!services_found.inArray(evolucion.servicio.id)) {
                                 $scope.servicios.push(evolucion.servicio);
                                 services_found.push(evolucion.servicio.id);
                                 // $scope.servicios.push({

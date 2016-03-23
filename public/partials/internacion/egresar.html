@@ -50,6 +50,7 @@
             <div flex ng-show="egreso.tipo == 'alta' && egreso.tipoAlta == 'derivacion'">
 
                 <md-autocomplete
+                    md-selected-item-change="hospitales.selectItem(hospital)"
                     md-selected-item="hospitales.selectedItem"
                     md-search-text="hospitales.searchText"
                     md-items="hospital in hospitales.querySearch(hospitales.searchText)"
