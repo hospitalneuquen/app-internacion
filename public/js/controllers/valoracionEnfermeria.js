@@ -10,6 +10,7 @@ angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'P
         antecedenteTipos: ('Alergias Cardiovasculares Metabólicos Infectológicos Oncológicos Respiratorios HábitosToxicos Neurológicos Urogenital Oftalmológicos Circulatorio' +
             'Digestivos Alimentación Hematopoyeticos Accidente Quirúrgicos Traumatológicos').split(' ').map(function (antecedenteTipo) { return { abbrev: antecedenteTipo }; }),
         antecedentes: ('Traumatismo Fracturas Medicamentos Insectos').split(' ').map(function (antecedente) { return { abbrev: antecedente }; }),
+        intensidades: ('0 1 2 3 4 5 6 7 8 9 10').split(' ').map(function (intensidad) { return { abbrev: intensidad }; }),
         init: function() {
             Shared.internacion.get(plexParams.idInternacion).then(function(data) {
                 console.log(data);

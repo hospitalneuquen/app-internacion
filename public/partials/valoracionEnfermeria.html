@@ -1023,9 +1023,128 @@
                     </md-input-container>
                 </div>
                 <div class="row" ng-show="internacion.ingreso.enfermeria.dolor">
-                    <fieldset>
-                        <legend>Valoración del dolor</legend>
-                    </fieldset>
+                    <div flex-xs flex-gt-xs="100" layout="column">
+                        <md-card>
+                            <md-card-title>
+                                <md-card-title-text>
+                                    <span class="md-headline">Valoración del dolor</span>
+                                </md-card-title-text>
+                            </md-card-title>
+                            <div layout-gt-sm="row">
+                                <md-input-container>
+                                    <legend>Analgesia previa</legend>
+                                    <br/>
+                                    <md-radio-group ng-model="internacion.ingreso.enfermeria.dolorValoracion.analgesiaAutomedicacion">
+                                        <md-radio-button value="false">Indicada por médico</md-radio-button>
+                                        <md-radio-button value="true">Automedicación</md-radio-button>
+                                    </md-radio-group>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm></div>
+                                <md-input-container>
+                                    <legend>Ansiolíticos previos</legend>
+                                    <br/>
+                                    <md-radio-group ng-model="internacion.ingreso.enfermeria.dolorValoracion.ansioliticosAutomedicacion">
+                                        <md-radio-button value="false">Indicados por médico</md-radio-button>
+                                        <md-radio-button value="true">Automedicación</md-radio-button>
+                                    </md-radio-group>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm></div>
+                                <md-input-container flex="10" flex-gt-sm>
+                                    <label>Intensidad del dolor<md-tooltip md-direction="top">0 = "Sin dolor", 10 = "Máximo dolor"</md-tooltip></label>
+                                    <md-select ng-model="internacion.ingreso.enfermeria.dolorValoracion.intensidad">
+                                        <md-option ng-repeat="intensidad in intensidades" value="{{intensidad.abbrev}}">
+                                            {{intensidad.abbrev}}
+                                        </md-option>
+                                    </md-select>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm></div>
+                                <md-input-container>
+                                    <legend>Características del dolor</legend>
+                                    <br/>
+                                    <md-checkbox ng-disabled="false" ng-model="internacion.ingreso.enfermeria.dolorValoracion.punzante" ng-init="internacion.ingreso.enfermeria.dolorValoracion.punzante=false">Punzante</md-checkbox>
+                                    <md-checkbox ng-disabled="false" ng-model="internacion.ingreso.enfermeria.dolorValoracion.tipoColico" ng-init="internacion.ingreso.enfermeria.dolorValoracion.tipoColico=false">Tipo cólico</md-checkbox>
+                                    <md-checkbox ng-disabled="false" ng-model="internacion.ingreso.enfermeria.dolorValoracion.pesadez" ng-init="internacion.ingreso.enfermeria.dolorValoracion.pesadez=false">Pesadez</md-checkbox>
+                                    <md-checkbox ng-disabled="false" ng-model="internacion.ingreso.enfermeria.dolorValoracion.pulsante" ng-init="internacion.ingreso.enfermeria.dolorValoracion.pulsante=false">Pulsante</md-checkbox>
+                                    <md-checkbox ng-disabled="false" ng-model="internacion.ingreso.enfermeria.dolorValoracion.caliente" ng-init="internacion.ingreso.enfermeria.dolorValoracion.caliente=false">Caliente/Quemante</md-checkbox>
+                                    <md-checkbox ng-disabled="false" ng-model="internacion.ingreso.enfermeria.dolorValoracion.hormigueo" ng-init="internacion.ingreso.enfermeria.dolorValoracion.hormigueo=false">Adormecimiento/Hormigueo</md-checkbox>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <legend>Valoración de enfermería</legend>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container flex-gt-sm>
+                                    <label>Manifestación del dolor</label>
+                                    <input ng-model="internacion.ingreso.enfermeria.dolorValoracion.dolorManifestacionEnfermeria"/>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm></div>
+                                <md-input-container flex-gt-sm>
+                                    <label>Características del dolor</label>
+                                    <input ng-model="internacion.ingreso.enfermeria.dolorValoracion.dolorCaracteristicasEnfermeria"/>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm></div>
+                                <md-input-container flex-gt-sm>
+                                    <label>Intensidad del dolor</label>
+                                    <input ng-model="internacion.ingreso.enfermeria.dolorValoracion.dolorIntensidadEnfermeria"/>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm></div>
+                                <md-input-container flex-gt-sm>
+                                    <md-checkbox ng-disabled="false" ng-model="internacion.ingreso.enfermeria.dolorValoracion.intervencion" ng-init="internacion.ingreso.enfermeria.dolorValoracion.intervencion=false">Intervención</md-checkbox>
+                                    <md-checkbox ng-disabled="false" ng-model="internacion.ingreso.enfermeria.dolorValoracion.evaluacion" ng-init="internacion.ingreso.enfermeria.dolorValoracion.evaluacion=false">Evaluación</md-checkbox>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <legend>Evolución médica</legend>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container flex-gt-sm>
+                                    <label>Manifestación del dolor</label>
+                                    <input ng-model="internacion.ingreso.enfermeria.dolorValoracion.dolorManifestacionMedica"/>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm></div>
+                                <md-input-container flex-gt-sm>
+                                    <label>Características del dolor</label>
+                                    <input ng-model="internacion.ingreso.enfermeria.dolorValoracion.dolorCaracteristicasMedica"/>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm></div>
+                                <md-input-container flex-gt-sm>
+                                    <label>Intensidad del dolor</label>
+                                    <input ng-model="internacion.ingreso.enfermeria.dolorValoracion.dolorIntensidadMedica"/>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <legend>Entrevista</legend>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container flex-gt-sm>
+                                    <label>Cuando tiene dolor, ¿a quién avisa?</label>
+                                    <input ng-model="internacion.ingreso.enfermeria.dolorValoracion.dolorAvisa"/>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm></div>
+                                <md-input-container flex-gt-sm>
+                                    <md-checkbox ng-disabled="false" ng-model="internacion.ingreso.enfermeria.dolorValoracion.dolorAcude" ng-init="internacion.ingreso.enfermeria.dolorValoracion.dolorAcude=false">El personal de salud, ¿acude a su llamado?</md-checkbox>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm></div>
+                                <md-input-container flex-gt-sm>
+                                    <md-checkbox ng-disabled="false" ng-model="internacion.ingreso.enfermeria.dolorValoracion.informaAnalgesico" ng-init="internacion.ingreso.enfermeria.dolorValoracion.informaAnalgesico=false">¿Se le informa si se administra algún analgésico?</md-checkbox>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-sm="row">
+                                <md-input-container flex-gt-sm>
+                                    <md-checkbox ng-disabled="false" ng-model="internacion.ingreso.enfermeria.dolorValoracion.dolorDisminuye" ng-init="internacion.ingreso.enfermeria.dolorDisminuye=false">Luego de administrado el analgésico, ¿disminuye el dolor?</md-checkbox>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm></div>
+                                <md-input-container flex-gt-sm>
+                                    <label>¿Qué le provoca la aparición del dolor o su aumento?</label>
+                                    <input ng-model="internacion.ingreso.enfermeria.dolorValoracion.dolorProvoca"/>
+                                </md-input-container>
+                                <div flex="5" hide-xs hide-sm></div>
+                                <md-input-container flex-gt-sm>
+                                    <md-checkbox ng-disabled="false" ng-model="internacion.ingreso.enfermeria.dolorValoracion.descansaNoche" ng-init="internacion.ingreso.enfermeria.descansaNoche=false">¿Logra descansar por la noche?</md-checkbox>
+                                </md-input-container>
+                            </div>
+                        </md-card>
+                    </div>
                 </div>
                 <div layout-gt-sm="row">
                     <md-input-container flex-gt-sm>
@@ -1116,7 +1235,7 @@
 </md-tabs>
 <div flex layout>
     <span flex></span>
-    <md-button plex-submit="cancelar()">Cancelar</md-button>
+    <md-button ng-click="cancelar()">Cancelar</md-button>
     <md-button class="md-primary md-raised" ng-click="guardar()">Guardar</md-button>
 </div>
 
