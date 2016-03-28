@@ -4,7 +4,9 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
     angular.extend($scope, {
         searchText: null,
         selectedItem: null,
-        egreso: {},
+        egreso: {
+            servicio: Session.servicioActual.id
+        },
         // opciones para el select del tipo de internacion
         tiposEgresos: [{
             id: 'pase',
@@ -27,8 +29,14 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
                 var data = {
                     estado: 'enPase'
                 };
+            } else if ($scope.egreso.tipo == 'derivacion') {
+                var data = {
+                    estado: 'derivacion',
+                    egreso: $scope.egreso
+                };
             }
 
+            console.log(data);
             Shared.internacion.post(plexParams.idInternacion, data, {
                 minify: true
             }).then(function(internacion) {
@@ -59,7 +67,7 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
         },
         hospitales: {
             data: null,
-            selectedItem: null,
+            // selectedItem: null,
             searchText: null,
             querySearch: function(query) {
                 var self = $scope.hospitales;
@@ -83,6 +91,10 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
                 return function filterFn(hospital) {
                     return (hospital.value.indexOf(lowercaseQuery) === 0);
                 };
+            },
+
+            selectItem: function(hospital){
+                $scope.egreso.derivadoHacia = hospital.id
             }
         },
 
@@ -106,17 +118,18 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
         }
     });
 
-    // $scope.$watch('egreso.tipoAlta', function(current, old) {
-    //     console.log($scope.egreso);
-    //     console.log($scope.selectedItem);
-    //     console.log($scope.searchText);
-    // });
+    $scope.$watch('egreso.tipoAlta', function(current, old) {
+        if ($scope.egreso.tipoAlta != 'derivacion'){
+            $scope.egreso.derivadoHacia = null;
+        }
+    });
 
     $scope.$watch('egreso.tipo', function(current, old) {
         // si el valor de tipo de egreseo es distinto de alta,
         // entonces limpiamos los valores de los campos anidados
         if (current != 'alta') {
             $scope.egreso.tipoAlta = null;
+            $scope.egreso.derivadoHacia = null;
             $scope.egreso.resumenInternacion = null;
             $scope.egreso.diagnosticoAlta = null;
             $scope.egreso.tratamientoaSeguir = null;

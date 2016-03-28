@@ -1,24 +1,75 @@
 'use strict';
 
-angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'Plex', 'plexParams', 'Shared', 'Server', '$timeout', function($scope, Plex, plexParams, Shared, Server, $timeout) {
+angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'Plex', 'plexParams', 'Shared', 'Server', '$timeout', 'Personas', function($scope, Plex, plexParams, Shared, Server, $timeout, Personas) {
     angular.extend($scope, {
         internacion: undefined,
         riesgoCaida: null,
         enfermeria: null,
-        userAntecedenteTipo: '',
-        userAntecedente: '',
-        antecedenteTipos: ('Alergias Cardiovasculares Metabólicos Infectológicos Oncológicos Respiratorios HábitosToxicos Neurológicos Urogenital Oftalmológicos Circulatorio' +
-            'Digestivos Alimentación Hematopoyeticos Accidente Quirúrgicos Traumatológicos').split(' ').map(function (antecedenteTipo) { return { abbrev: antecedenteTipo }; }),
-        antecedentes: ('Traumatismo Fracturas Medicamentos Insectos').split(' ').map(function (antecedente) { return { abbrev: antecedente }; }),
-        intensidades: ('0 1 2 3 4 5 6 7 8 9 10').split(' ').map(function (intensidad) { return { abbrev: intensidad }; }),
+
+        // variables para la seleccion de el antecedente
+        selectedAntecedenteTipo: '',
+        selectedAntecedente: '',
+
+        // variables para los select anidados
+        antecedentesTipos: '',
+        antecedentes: [],
+        _antecedentes: '',
+
+        antecedentesPersonales: [],
+
+        intensidades: ('0 1 2 3 4 5 6 7 8 9 10').split(' ').map(function(intensidad) {
+            return {
+                abbrev: intensidad
+            };
+        }),
         init: function() {
             Shared.internacion.get(plexParams.idInternacion).then(function(data) {
-                console.log(data);
                 $scope.internacion = data;
+
+                Personas.get(data.paciente.id).then(function(persona) {
+                    $scope.antecedentesPersonales = persona.antecedentesPersonales;
+                });
+            });
+
+            // buscamos todos los tipos de antecedentes
+            Server.get('/api/internacion/antecedente_tipo').then(function(antecedentes_tipos) {
+                $scope.antecedentesTipos = antecedentes_tipos;
+
+                angular.forEach($scope.antecedentesTipos, function(antecedente_tipo) {
+                    // buscamos todos los antecedentes segun el tipo
+                    Server.get('/api/internacion/antecedente_tipo/' + antecedente_tipo.id + '/antecedentes').then(function(antecedentes) {
+                        var _antecedentes = [];
+                        angular.forEach(antecedentes, function(antecedente) {
+                            _antecedentes.push(antecedente);
+                        });
+
+                        $scope.antecedentes[antecedente_tipo.id] = _antecedentes;
+                    });
+                });
+
             });
         },
-        // antecedentes: {
-        //     data: null,
+        agregarAntecedente: function() {
+            $scope.selectedAntecedente = JSON.parse($scope.selectedAntecedente);
+
+            if ($scope.selectedAntecedente.id){
+
+                var nuevoAntecedente = {
+                    _antecedente: $scope.selectedAntecedente.id,
+                    observaciones: null,
+                    antecedente: $scope.selectedAntecedente
+                };
+
+                // agregamos a los antecedentes personales, pero al principio
+                // $scope.antecedentesPersonales.push(nuevoAntecedente);
+                $scope.antecedentesPersonales.unshift(nuevoAntecedente);
+
+                $scope.selectedAntecedenteTipo = null;
+                $scope.selectedAntecedente = null;
+
+            }
+        },
+        // antecedentes: {                        //     data: null,
         //     selectedItem: null,
         //     searchText: null,
         //     querySearch: function(query) {
@@ -55,10 +106,19 @@ angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'P
 
             Shared.internacion.post(plexParams.idInternacion, data, {
                 minify: true
-            }).then(function(data) {
-                Plex.closeView(data);
-            }, function() {
+            }).then(function(internacion) {
+                // guardamos los antecedentes personales de la persona
+                if ($scope.antecedentesPersonales.length > 0){
+                    var data = {
+                        antecedentesPersonales: $scope.antecedentesPersonales
+                    };
 
+                    Personas.post($scope.internacion.paciente.id, data).then(function(data) {
+                        Plex.closeView(internacion);
+                    });
+                }else {
+                    Plex.closeView(internacion);
+                }
             });
         },
         cargarRiesgoCaidas: function(idInternacion) {
@@ -80,10 +140,14 @@ angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'P
         cancelar: function() {
             Plex.closeView();
         },
-    });
-    $scope.init();
+    }); $scope.init();
 
     // Watches
+    $scope.$watch('selectedAntecedenteTipo', function(current, old) {
+        if (current != old)
+            $scope._antecedentes = $scope.antecedentes[current];
+    }, true);
+
     $scope.$watch('internacion.ingreso.enfermeria.riesgoCaida', function(current, old) {
         if (current != old)
             $scope.actualizarRiesgoCaida();

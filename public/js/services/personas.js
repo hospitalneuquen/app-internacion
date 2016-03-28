@@ -29,6 +29,17 @@ angular.module('app').factory('Personas', ["Server", "Plex", "Global", function(
                 return Server.get("/api/internacion/persona/" + query);
             }
         },
+        /**
+         * @ngdoc method
+         * @name Personas#post
+         * @description Crea o modifica una persona
+         * @param {String} id Id de la persona (enviar ```null``` para crear una nueva)
+         * @param {Object} data Datos
+         * @param {Object} options Opciones
+         **/
+        post: function(id, data, options) {
+            return Server.post('/api/internacion/persona/' + (id || ''), data, options);
+        },
     };
     return self;
 }]);

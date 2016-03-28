@@ -197,12 +197,6 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 }
             });
         },
-
-        verInternacion: function(idInternacion) {
-            Plex.openView('internacion/ver/' + idInternacion).then(function() {
-
-            });
-        },
         actualizarMapa: function(data) {
             var length = $scope.camas.length;
 

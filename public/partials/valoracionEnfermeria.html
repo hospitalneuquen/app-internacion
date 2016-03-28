@@ -1,3 +1,4 @@
+
 <!-- <div plex-include="'partials/Pacientes/iHeader.html'" plex-include-internacion="internacion" plex-affix></div> -->
 <ng-form name="miFormulario">
     <div layout layout-pretty whiteframe ng-if="internacion.paciente">
@@ -156,24 +157,57 @@
             <div layout-gt-sm="row">
                 <md-input-container flex-gt-sm>
                     <label>Tipo de antecedente</label>
-                    <md-select ng-model="userAntecedenteTipo">
+                    <md-select ng-model="selectedAntecedenteTipo">
                         <!-- <md-option ng-repeat="antecedente in antecedentes" value="{{antecedente.abbrev}}" ng-disabled="$index === 1"> -->
-                        <md-option ng-repeat="antecedenteTipo in antecedenteTipos" value="{{antecedenteTipo.abbrev}}">
-                            {{antecedenteTipo.abbrev}}
+                        <md-option ng-repeat="antecedenteTipo in antecedentesTipos" value="{{antecedenteTipo.id}}">
+                            {{antecedenteTipo.nombre}}
                         </md-option>
                     </md-select>
                 </md-input-container>
+
                 <div flex="5" hide-xs hide-sm></div>
+
                 <md-input-container flex-gt-sm>
                     <label>Antecedente</label>
-                    <md-select ng-model="userAntecedente">
                         <!-- <md-option ng-repeat="antecedente in antecedentes" value="{{antecedente.abbrev}}" ng-disabled="$index === 1"> -->
-                        <md-option ng-repeat="antecedente in antecedentes" value="{{antecedente.abbrev}}">
-                            {{antecedente.abbrev}}
+                    <md-select ng-model="selectedAntecedente" ng-disabled="!selectedAntecedenteTipo">
+                        <md-option ng-repeat="antecedente in _antecedentes" value="{{antecedente}}">
+                            {{antecedente.nombre}}
                         </md-option>
                     </md-select>
                 </md-input-container>
+
+                <div flex="5" hide-xs hide-sm></div>
+                <md-input-container flex-gt-sm>
+                    <md-button class="md-fab md-mini" aria-label="Agregar antecedente" ng-click="agregarAntecedente()">
+                        <md-icon>add_box</md-icon>
+                    </md-button>
+                </div>
             </div>
+
+            <div layout-gt-sm="row" ng-if="antecedentesPersonales.length > 0">
+                <h2 class="md-title">Antecedentes</h2>
+            </div>
+            <div layout-gt-sm="row" ng-if="antecedentesPersonales.length > 0"   ng-repeat="antecedentePersonal in antecedentesPersonales">
+
+                <div flex>
+                    <div flex="20">
+                        <label></label>
+                        <md-input-container flex-gt-sm>
+                            {{antecedentePersonal.antecedente.nombre}}
+                        <md-input-container>
+
+                    </div>
+                    <div >
+                        <md-input-container flex-gt-sm class="md-block">
+                            <label>Observaciones</label>
+                            <textarea ng-model="antecedentePersonal.observaciones"></textarea>
+                        </md-input-container>
+                    </div>
+
+                </div>
+            </div>
+
         </md-tab>
         <!-- <md-tab label="Antecedentes clínicos" ng-show="false">
              <div layout-gt-sm="row">

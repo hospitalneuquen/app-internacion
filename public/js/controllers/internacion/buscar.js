@@ -47,7 +47,25 @@ angular.module('app').controller('internacion/buscar', ['$scope', 'Plex', 'Serve
                 });
             }
         },
+        ver: function(idInternacion) {
+            Plex.openView('internacion/ver/' + idInternacion).then(function() {
 
+            });
+        },
+
+        // si al apretar 'enter' luego de buscar un paciente verificamos si
+        // solo se ha encontrado un paciente y vamos al listado de internaciones
+        // de dicho paciente
+        checkInternacion: function(){
+            if ($scope.personas.data && $scope.personas.data.length == 1){
+                $scope.personas.seleccionar($scope.personas.data[0]);
+            }
+        },
+        closeView: function() {
+            Plex.closeView({
+
+            });
+        },
         init: function() {
             $scope.personas.actualizar();
 
