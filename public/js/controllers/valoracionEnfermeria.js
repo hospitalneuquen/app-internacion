@@ -5,16 +5,48 @@ angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'P
         internacion: undefined,
         riesgoCaida: null,
         enfermeria: null,
-        userAntecedenteTipo: '',
-        userAntecedente: '',
-        antecedenteTipos: ('Alergias Cardiovasculares Metabólicos Infectológicos Oncológicos Respiratorios HábitosToxicos Neurológicos Urogenital Oftalmológicos Circulatorio' +
-            'Digestivos Alimentación Hematopoyeticos Accidente Quirúrgicos Traumatológicos').split(' ').map(function (antecedenteTipo) { return { abbrev: antecedenteTipo }; }),
-        antecedentes: ('Traumatismo Fracturas Medicamentos Insectos').split(' ').map(function (antecedente) { return { abbrev: antecedente }; }),
+
+        // variables para la seleccion de el antecedente
+        selectedAntecedenteTipo : '',
+        selectedAntecedente : '',
+
+        antecedentesSeleccionados : [],
+
+        // variables para los select anidados
+        antecedentesTipos: '',
+        antecedentes: [],
+        _antecedentes : '',
         init: function() {
             Shared.internacion.get(plexParams.idInternacion).then(function(data) {
-                console.log(data);
                 $scope.internacion = data;
             });
+
+            // buscamos todos los tipos de antecedentes
+            Server.get('/api/internacion/antecedente_tipo').then(function(antecedentes_tipos){
+                $scope.antecedentesTipos = antecedentes_tipos;
+
+                angular.forEach($scope.antecedentesTipos, function(antecedente_tipo){
+                    // buscamos todos los antecedentes segun el tipo
+                    Server.get('/api/internacion/antecedente_tipo/' + antecedente_tipo.id + '/antecedentes').then(function(antecedentes){
+                        var _antecedentes = [];
+                        angular.forEach(antecedentes, function(antecedente){
+                            _antecedentes.push(antecedente);
+                        });
+
+                        $scope.antecedentes[antecedente_tipo.id] = _antecedentes;
+                    });
+                });
+
+            });
+        },
+        agregarAntecedente: function(){
+            console.log($scope.selectedAntecedente);
+            //
+            // var seleccionado = {
+            //     antecedente : $scope._antecedentes[$scope.selectedAntecedente]
+            // }
+            // $scope.antecedentesSeleccionados.push(seleccionado);
+            // console.log($scope.antecedentesSeleccionados);
         },
         // antecedentes: {
         //     data: null,
@@ -83,6 +115,11 @@ angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'P
     $scope.init();
 
     // Watches
+    $scope.$watch('selectedAntecedenteTipo', function(current, old) {
+        if (current != old)
+            $scope._antecedentes = $scope.antecedentes[current];
+    }, true);
+
     $scope.$watch('internacion.ingreso.enfermeria.riesgoCaida', function(current, old) {
         if (current != old)
             $scope.actualizarRiesgoCaida();
