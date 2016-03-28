@@ -232,7 +232,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                 },
                 yAxis: {
                     title: {
-                        text: 'Valores'
+                        text: 'Valores ml'
                     },
                     // min: 0
                 },

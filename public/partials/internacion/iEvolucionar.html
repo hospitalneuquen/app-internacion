@@ -21,7 +21,7 @@
                         </md-select>
                     </md-input-container>
                 </div>
-                <div flex="10" flex-gt-sm>
+                <div flex="10" flex-gt-sm  ng-if="internacion.estado != 'egresado'">
                     <md-input-container class="md-block">
                         <md-button class="md-primary md-raised" ng-click="editarEvolucion();">
                             Nueva evolución
@@ -329,7 +329,7 @@
                             </td>
                             <td md-cell>
                                 <md-button ng-if='item.tipo == Session.variables.prestaciones_workflow' class="md-icon-button" aria-label="Editar evolución" ng-click="editarEvolucion(item);">
-                                    <md-icon md-font-icon="fa-pencil" class="fa"></md-icon>
+                                    <md-icon>create</md-icon>
                                 </md-button>
                             </td>
                         </tr>

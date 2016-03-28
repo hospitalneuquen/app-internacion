@@ -32,7 +32,9 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
 
             });
         },
-
+        editarPase: function(item) {
+            alert("Definir que editar y como. Solo fecha ? Descripcion? Permitir editar si no esta egresado el pacietne?")
+        },
         init: function() {
             $scope.loading = true;
             // buscamos la internacion
@@ -41,6 +43,12 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                 $scope.filtros.evoluciones = internacion.evoluciones;
                 $scope.loading = false;
 
+                // buscamos los antecedentes personales
+                Personas.get(internacion.paciente.id).then(function(persona) {
+                    $scope.antecedentesPersonales = persona.antecedentesPersonales;
+                });
+
+                // evoluciones
                 if ($scope.internacion.evoluciones.length) {
                     var services_found = [];
                     // buscamos los servicios para el filtro de evoluciones

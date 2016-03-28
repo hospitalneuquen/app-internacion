@@ -2,79 +2,36 @@
 
 <div plex-include="'partials/internacion/iEvolucionar.html'" plex-include-internacion="internacion"></div>
 
-<div layout layout-padding layout-pretty>
+<div layout layout-pretty whiteframe>
     <div flex>
-        <!-- ****************************** Antecedentes clínicos ****************************** -->
-        <div class="row">
-            <div class="col-sm-12">
-                <fieldset>
-                    <legend>Antecedentes clínicos</legend>
-                </fieldset>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-3">
-                <input type=text label="HTA" ng-model="internacion.antecedentes.hta" plex/>
-            </div>
-            <div class="col-sm-3">
-                <input type=text label="DBT" ng-model="internacion.antecedentes.diabetes" plex/>
-            </div>
-            <div class="col-sm-3">
-                <input type=text label="Alergias" ng-model="internacion.antecedentes.alergias" plex/>
-            </div>
-            <div class="col-sm-3">
-                <input type=text label="Otros" plex/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <input type=text label="Medicación Habitual" plex/>
-            </div>
-        </div>
-        <br/>
-        <!-- ****************************** Antecedentes Obstétricos ****************************** -->
-        <div class="row">
-            <div class="col-sm-12">
-                <fieldset>
-                    <legend>Antecedentes obstétricos (si corresponde)</legend>
-                </fieldset>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-3">
-                <input type=text label="Gestas" ng-model="internacion.antecedentes.obstetricos.gestas" plex/>
-            </div>
-            <div class="col-sm-3">
-                <input type=text label="Partos" ng-model="internacion.antecedentes.obstetricos.partos" plex/>
-            </div>
-            <div class="col-sm-3">
-                <input type=text label="Cesáreas" ng-model="internacion.antecedentes.obstetricos.cesareas" plex/>
-            </div>
-            <div class="col-sm-3">
-                <input type=text label="Abortos" ng-model="internacion.antecedentes.obstetricos.abortos" plex/>
-            </div>
-        </div>
-        <br/>
-        <!-- ****************************** Antecedentes quirúrgicos y/o traumatológicos ****************************** -->
-        <div class="row">
-            <div class="col-sm-12">
-                <fieldset>
-                    <legend>Antecedentes Quirúrgicos y/o Traumatológicos</legend>
-                </fieldset>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <input type=text ng-model="internacion.antecedentes.quirurgicos" plex/>
-            </div>
-        </div>
-        <br/><br/>
+        <h3 class="md-headline">Antecedentes</h3>
+        <md-table-container ng-if="antecedentesPersonales && antecedentesPersonales.length > 0">
+            <table md-table class="mdTableSingleSelect">
+                <thead md-head>
+                    <tr md-row>
+                        <th md-column>Tipo</th>
+                        <th md-column>Observaciones</th>
+                    </tr>
+                </thead>
+                <tbody md-body>
+                    <tr md-row ng-repeat="item in antecedentesPersonales">
+                        {{item || json}}
+                        <td md-cell>
+                            {{item.antecedente.nombre}}
+                        </td>
+                        <td md-cell>
+                            {{item.observaciones}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </md-table-container>
     </div>
 </div>
 
 <div layout layout-pretty whiteframe>
     <div flex>
-        <h3>Pases</h3>
+        <h3 class="md-headline">Pases</h3>
         <md-table-container ng-if="internacion.pases && internacion.pases.length > 0">
             <table md-table class="mdTableSingleSelect">
                 <thead md-head>
@@ -83,6 +40,7 @@
                         <th md-column>Cama</th>
                         <th md-column>Servicio</th>
                         <th md-column>Resumen internación</th>
+                        <th md-column></th>
                     </tr>
                 </thead>
                 <tbody md-body>
@@ -99,7 +57,15 @@
                         <td md-cell>
                             {{item.servicio.nombreCorto}}
                         </td>
-                        <td md-cell></td>
+                        <td md-cell>
+
+                        </td>
+
+                        <td md-cell>
+                            <md-button class="md-icon-button" aria-label="Editar pase" ng-click="editarPase(item)">
+                                <md-icon>create</md-icon>
+                            </md-button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -109,7 +75,7 @@
 
 <div layout layout-pretty whiteframe ng-if="internacion.egreso">
     <div flex>
-        <h3>Egreso</h3>
+        <h3 class="md-headline">Egreso</h3>
         <md-table-container ng-if="internacion.egreso">
             <table md-table class="mdTableSingleSelect">
                 <thead md-head>
@@ -140,6 +106,7 @@
                         </td>
                         <td md-cell>
                         </td>
+
                     </tr>
                 </tbody>
             </table>
