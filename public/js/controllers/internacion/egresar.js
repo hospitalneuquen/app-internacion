@@ -36,7 +36,6 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
                 };
             }
 
-            console.log(data);
             Shared.internacion.post(plexParams.idInternacion, data, {
                 minify: true
             }).then(function(internacion) {

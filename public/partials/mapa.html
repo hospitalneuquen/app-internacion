@@ -144,6 +144,9 @@
                                             <md-button class="" ng-click="editarIngresoInternacion(cama.id, cama.idInternacion)" aria-label="Internación">Internación</md-button>
                                         </md-menu-item>
                                         <md-menu-item>
+                                            <md-button class="" ng-click="evolucionarPaciente(cama)" aria-label="Evoluciones">Evoluciones</md-button>
+                                        </md-menu-item>
+                                        <md-menu-item>
                                             <md-button class="" ng-click="verValoracionInicial(cama.idInternacion)" aria-label="Valoración enfermería">Valoración enfermería</md-button>
                                         </md-menu-item>
                                         <md-menu-item>
@@ -163,11 +166,17 @@
                                 </md-menu>
                             </div>
                             <div flex="20">
-                                <md-button class="md-icon-button" aria-label="Evolucionar" ng-click="evolucionarPaciente(cama)" ng-if="cama.paciente.id">
+                                <!-- <md-button class="md-icon-button" aria-label="Evolucionar" ng-click="evolucionarPaciente(cama)" ng-if="cama.paciente.id">
                                     <md-tooltip md-direction="top">
                                         Evolucionar
                                     </md-tooltip>
                                     <md-icon>arrow_upward</md-icon>
+                                </md-button> -->
+                                <md-button class="md-icon-button" aria-label="Ver internación" ng-click="verInternacion(cama.idInternacion)" ng-if="cama.idInternacion">
+                                    <md-tooltip md-direction="top">
+                                        Ver internación
+                                    </md-tooltip>
+                                    <md-icon>remove_red_eye</md-icon>
                                 </md-button>
 
                                 <md-button class="md-icon-button" aria-label="Enviar a reparación / Confirmar reparación" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'reparacion'" ng-if="!cama.paciente.id && (cama.estado == 'desocupada' || cama.estado == 'reparacion')">
