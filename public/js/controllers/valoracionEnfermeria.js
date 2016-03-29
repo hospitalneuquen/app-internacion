@@ -32,21 +32,24 @@ angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'P
             });
 
             // buscamos todos los tipos de antecedentes
-            Server.get('/api/internacion/antecedente_tipo').then(function(antecedentes_tipos) {
-                $scope.antecedentesTipos = antecedentes_tipos;
-
-                angular.forEach($scope.antecedentesTipos, function(antecedente_tipo) {
-                    // buscamos todos los antecedentes segun el tipo
-                    Server.get('/api/internacion/antecedente_tipo/' + antecedente_tipo.id + '/antecedentes').then(function(antecedentes) {
-                        var _antecedentes = [];
-                        angular.forEach(antecedentes, function(antecedente) {
-                            _antecedentes.push(antecedente);
-                        });
-
-                        $scope.antecedentes[antecedente_tipo.id] = _antecedentes;
-                    });
-                });
-
+            // Server.get('/api/internacion/antecedente_tipo').then(function(antecedentes_tipos) {
+            //     $scope.antecedentesTipos = antecedentes_tipos;
+            //
+            //     angular.forEach($scope.antecedentesTipos, function(antecedente_tipo) {
+            //         // buscamos todos los antecedentes segun el tipo
+            //         Server.get('/api/internacion/antecedente_tipo/' + antecedente_tipo.id + '/antecedentes').then(function(antecedentes) {
+            //             var _antecedentes = [];
+            //             angular.forEach(antecedentes, function(antecedente) {
+            //                 _antecedentes.push(antecedente);
+            //             });
+            //
+            //             $scope.antecedentes[antecedente_tipo.id] = _antecedentes;
+            //         });
+            //     });
+            //
+            // });
+            Server.get('/api/internacion/antecedente').then(function(antecedentes) {
+                $scope.antecedentes = antecedentes;
             });
         },
         agregarAntecedente: function() {
@@ -154,6 +157,6 @@ angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'P
     }, true);
 
     Plex.initView({
-        title: "Valoración inicial de enfermería"
+        title: "Valoración inicial"
     });
 }]);
