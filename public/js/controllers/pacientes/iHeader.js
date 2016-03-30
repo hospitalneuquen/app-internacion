@@ -14,15 +14,8 @@ angular.module('app').controller('Pacientes/iHeaderController', ["$scope", "Shar
 
     angular.extend($scope, {
         internacion: null,
-        riesgoCaidas: 0
     });
     $scope.$watch('include.internacion', function (current, old) {
         $scope.internacion = current;
-
-        // riesgo caidas
-        Shared.internacion.calcularRiesgoCaida(current).then(function(total) {
-            $scope.riesgoCaidas = total;
-        })
-
     });
 }]);

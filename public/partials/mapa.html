@@ -78,18 +78,22 @@
                     <div class="content" layout>
                         <div flex="10" ng-if="cama.idInternacion">
                             <span >
-                                <md-tooltip md-direction="top" ng-if="cama.$riesgoCaidas > 0 && cama.$riesgoCaidas < 25">Riesgo de caídas bajo</md-tooltip>
-                                <md-tooltip md-direction="top" ng-if="cama.$riesgoCaidas >= 25 && cama.$riesgoCaidas <= 50">Riesgo de caídas medio</md-tooltip>
-                                <md-tooltip md-direction="top" ng-if="cama.$riesgoCaidas > 50">Riesgo de caídas alto</md-tooltip>
-                                <md-tooltip md-direction="top" ng-if="cama.$riesgoCaidas == 0">Sin riesgo de caídas</md-tooltip>
+                                <md-tooltip md-direction="top" ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total > 0 && cama.$internacion.ingreso.enfermeria.riesgoCaida.total < 25">Riesgo de caídas bajo</md-tooltip>
+                                <md-tooltip md-direction="top" ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total >= 25 && cama.$internacion.ingreso.enfermeria.riesgoCaida.total <= 50">Riesgo de caídas medio</md-tooltip>
+                                <md-tooltip md-direction="top" ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total > 50">Riesgo de caídas alto</md-tooltip>
+                                <md-tooltip md-direction="top" ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total == 0">Sin riesgo de caídas</md-tooltip>
 
-                                <md-icon ng-if="cama.$riesgoCaidas > 0 && cama.$riesgoCaidas < 25" ng-class="{'verde' : cama.$riesgoCaidas < 25}">warning</md-icon>
-                                <md-icon ng-if="cama.$riesgoCaidas >= 25 && cama.$riesgoCaidas <= 50" ng-class="{'amarillo' : cama.$riesgoCaidas >= 25 && cama.$riesgoCaidas <= 50}">warning</md-icon>
-                                <md-icon ng-if="cama.$riesgoCaidas > 50" ng-class="{'rojo' : cama.$riesgoCaidas > 50}">warning</md-icon>
-                                <md-icon ng-if="cama.$riesgoCaidas == 0">warning</md-icon>
+                                <md-icon ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total > 0 && cama.$internacion.ingreso.enfermeria.riesgoCaida.total < 25" ng-class="{'verde' : cama.$internacion.ingreso.enfermeria.riesgoCaida.total < 25}">warning</md-icon>
+                                <md-icon ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total >= 25 && cama.$internacion.ingreso.enfermeria.riesgoCaida.total <= 50" ng-class="{'amarillo' : cama.$internacion.ingreso.enfermeria.riesgoCaida.total >= 25 && cama.$internacion.ingreso.enfermeria.riesgoCaida.total <= 50}">warning</md-icon>
+                                <md-icon ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total > 50" ng-class="{'rojo' : cama.$internacion.ingreso.enfermeria.riesgoCaida.total > 50}">warning</md-icon>
+                                <md-icon ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total == 0">warning</md-icon>
                             </span>
                             <span>
-                                <md-icon>priority_high</md-icon>
+
+                            </span>
+                            <span>
+                                <md-tooltip md-direction="top" ng-if="cama.$internacion.evoluciones[cama.$internacion.evoluciones.length-1].temperatura">{{cama.$internacion.evoluciones[cama.$internacion.evoluciones.length-1].temperatura}}º C</md-tooltip>
+                                <md-icon md-svg-icon="mdi:thermometer" aria-label="thermometer "></md-icon>
                             </span>
                         </div>
                         <div flex>

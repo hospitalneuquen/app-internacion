@@ -15,6 +15,10 @@
             </div>
             <div>{{internacion.paciente | persona:'e'}}
             </div>
+            <br/>
+            <span class="md-caption">
+                Internado {{internacion.createdAt | fromNow }}
+            </span>
         </div>
         <div flex>
 
@@ -63,11 +67,11 @@
                 {{internacion.pases[internacion.pases.length-1].cama.numero}}
             </div>
             <br /><br />
-            <div ng-if="riesgoCaidas > 0">
-                Riesgo caidas: {{riesgoCaidas}}
-                <span ng-if="riesgoCaidas < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
-                <span ng-if="riesgoCaidas >= 25 && riesgoCaidas <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
-                <span ng-if="riesgoCaidas > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
+            <div ng-if="internacion.ingreso.enfermeria.riesgoCaida.total > 0">
+                Riesgo caidas: {{internacion.ingreso.enfermeria.riesgoCaida.total}}
+                <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
+                <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total >= 25 && internacion.ingreso.enfermeria.riesgoCaida.total <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
+                <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
             </div>
         </div>
     </div>

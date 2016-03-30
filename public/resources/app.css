@@ -402,3 +402,30 @@ md-toast {
 .celeste{
     color: #00ABFF;
 }
+
+
+/* dashboard cards */
+.dashboard-card{
+    min-height: 245px;
+
+}
+
+.dashboard-card .md-title { color: white;}
+.dashboard-card .md-subhead{ color: #ddd;}
+
+.blue md-card-header {
+    background-color: #2196f3;
+    /*color: white;*/
+}
+
+.green md-card-header {
+    background-color: #4caf50;
+}
+
+.purple md-card-header{
+    background-color: #673ab7;
+}
+
+.yellow md-card-header {
+    background-color: #FBC02D;
+}
