@@ -107,7 +107,10 @@
                                 </div>
                             </div>
                         </md-tab>
-                        <md-tab label="Ingresos">
+                        <!-- TODO ocultar tab ingresos liquidos si es medico
+                        ng-if='Session.variables.prestaciones_workflow == "enfermero"'
+                        -->
+                        <md-tab label="Ingresos líquidos">
                             <div layout>
                                 <div flex="20">
                                     <md-input-container class="md-block" flex-gt-sm>
@@ -159,7 +162,10 @@
                                 </div>
                             </div>
                         </md-tab>
-                        <md-tab label="Egresos">
+                        <!-- TODO ocultar tab egresos liquidos si es medico
+                        ng-if='Session.variables.prestaciones_workflow == "enfermero"'
+                        -->
+                        <md-tab label="Egresos líquidos">
                             <div layout>
                                 <div flex flex-xs="100">
                                     <md-input-container class="md-block">
@@ -218,7 +224,7 @@
                             </div>
                         </md-tab>
 
-                        <md-tab label="Descripcion">
+                        <md-tab label="Texto evolución">
                             <!-- <<< Enfermería -->
                             <div layout>
                                 <div flex>
@@ -242,7 +248,7 @@
             </div>
 
             <md-table-container ng-if="!evolucionesEdit">
-                <table data-md-table md-progress="promise" ng-if="internacion.evoluciones && internacion.evoluciones.length > 0">
+                <table md-table ng-if="internacion.evoluciones && internacion.evoluciones.length > 0">
                     <thead md-head>
                         <tr md-row>
                             <th md-column>
@@ -271,6 +277,9 @@
                             </th>
                             <th md-column>
                                 Balance líquidos
+                            </th>
+                            <th md-column>
+                                Usuario / Servicio
                             </th>
                             <th></th>
                         </tr>
@@ -326,6 +335,11 @@
                                     </tr>
                                 </table>
 
+                            </td>
+                            <td md-cell>
+                                {{item.createdBy.name}}
+                                <br />
+                                {{item.servicio.nombreCorto}}
                             </td>
                             <td md-cell>
                                 <md-button ng-if='item.tipo == Session.variables.prestaciones_workflow' class="md-icon-button" aria-label="Editar evolución" ng-click="editarEvolucion(item);">

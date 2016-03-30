@@ -1,10 +1,11 @@
 <div ng-controller="Pacientes/iHeaderController" layout layout-pretty whiteframe plex-affix>
     <div flex layout>
-        <div flex="10">
+        <div flex="5">
             <!-- <i class="fa fa-male fa-4x" ng-if="internacion.paciente.sexo != 'femenino'"></i>
                         <i class="fa fa-female fa-4x" ng-if="internacion.paciente.sexo == 'femenino'"></i> -->
             <i class="{{internacion.paciente | persona:'icon'}} fa-4x"></i>
         </div>
+
         <div flex="40">
             <div class="md-title">
                 {{internacion.paciente | persona}}
@@ -16,8 +17,58 @@
             </div>
         </div>
         <div flex>
-            <label class="md-caption">Diagnóstico presuntivo</label><br/>
+
+            <span class="md-caption">Diagnóstico presuntivo</span>
+            <br/>
             {{internacion.ingreso.diagnosticoPresuntivo}}
+
+            <br/>
+
+            <span class="md-caption">Motivo de internación</span>
+            <br/>
+            {{internacion.ingreso.motivo}}
+
+            <br/>
+
+            <div class="md-caption" ng-if="internacion.paciente.obrasSociales != ''">
+                Obra social
+                <br/>
+                {{internacion.paciente.obrasSociales}}
+            </div>
+        </div>
+        <div flex >
+            <span class="md-caption">
+                Ultima evolución:
+                <br />
+                <div ng-if="internacion.evoluciones.length > 0">
+                    <i class="fa fa-user-md"></i>
+                    {{internacion.evoluciones[internacion.evoluciones.length-1].createdBy.name}}
+                    {{internacion.evoluciones[internacion.evoluciones.length-1].createdAt | fromNow}}
+                    <br/>
+                    {{internacion.evoluciones[internacion.evoluciones.length-1].createdAt | date: "dd/MM/yyyy  'a las' HH:mm "}} hs
+                </div>
+                <div ng-if="internacion.evoluciones.length == 0">
+                    No se han registrado evoluciones
+                </div>
+            </span>
+
+
+            <br />
+        </div>
+
+        <div flex="10">
+            <div class="numero-habitacion">
+                {{internacion.pases[internacion.pases.length-1].cama.habitacion}}
+                /
+                {{internacion.pases[internacion.pases.length-1].cama.numero}}
+            </div>
+            <br /><br />
+            <div ng-if="riesgoCaidas > 0">
+                Riesgo caidas: {{riesgoCaidas}}
+                <span ng-if="riesgoCaidas < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
+                <span ng-if="riesgoCaidas >= 25 && riesgoCaidas <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
+                <span ng-if="riesgoCaidas > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
+            </div>
         </div>
     </div>
 </div>

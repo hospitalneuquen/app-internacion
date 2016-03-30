@@ -1,115 +1,220 @@
 <div plex-include="'partials/Pacientes/iHeader.html'" plex-include-internacion="internacion"></div>
 
-<div plex-include="'partials/internacion/iEvolucionar.html'" plex-include-internacion="internacion"></div>
-
 <div layout layout-pretty whiteframe>
     <div flex>
-        <h3 class="md-headline">Antecedentes</h3>
-        <md-table-container ng-if="antecedentesPersonales && antecedentesPersonales.length > 0">
-            <table md-table class="mdTableSingleSelect">
-                <thead md-head>
-                    <tr md-row>
-                        <th md-column>Tipo</th>
-                        <th md-column>Observaciones</th>
-                    </tr>
-                </thead>
-                <tbody md-body>
-                    <tr md-row ng-repeat="item in antecedentesPersonales">
-                        {{item || json}}
-                        <td md-cell>
-                            {{item.antecedente.nombre}}
-                        </td>
-                        <td md-cell>
-                            {{item.observaciones}}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </md-table-container>
-    </div>
-</div>
+        <md-tabs md-dynamic-height md-border-bottom md-selected="selectedTabIndex">
+            <md-tab label="Resúmen internación">
+                <div layout>
+                    <div flex="25">
+                        <md-card>
+                            <!-- <img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out"> -->
+                            <md-card-title>
+                                <md-card-title-text>
+                                    <span class="md-headline">Gráficos</span>
+                                </md-card-title-text>
+                            </md-card-title>
+                            <md-card-content>
+                                <p>
+                                    Ver las gráficas de internacion de un pacientes.
+                                    <ul>
+                                        <li>
+                                            Gráfico de balance de líquidos
+                                        </li>
+                                        <li>
+                                            Gráfico de
+                                        </li>
+                                    </ul>
+                                </p>
+                            </md-card-content>
+                            <md-card-actions layout="column" layout-align="start">
+                                <md-button ng-click="goToTab(1)">Ir a los gráficos</md-button>
+                            </md-card-actions>
+                        </md-card>
+                    </div>
+                    <div flex="25">
+                        <md-card>
+                            <!-- <img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out"> -->
+                            <md-card-title>
+                                <md-card-title-text>
+                                    <span class="md-headline">Ultima evolución</span>
+                                </md-card-title-text>
+                            </md-card-title>
+                            <md-card-content>
+                                <p>
+                                    {{internacion.evoluciones[internacion.evoluciones.length-1].texto}}
+                                </p>
+                                <p flex="100">
+                                    <i class="fa fa-user-md"></i>
+                                    {{internacion.evoluciones[internacion.evoluciones.length-1].createdBy.name}}
+                                    {{internacion.evoluciones[internacion.evoluciones.length-1].createdAt | fromNow}}
+                                    <br/>
+                                    {{internacion.evoluciones[internacion.evoluciones.length-1].createdAt | date: "dd/MM/yyyy  'a las' HH:mm "}} hs
+                                </p>
+                            </md-card-content>
+                            <md-card-actions layout="column" layout-align="start">
+                                <md-button ng-click="goToTab(3)">Ir a las evoluciones</md-button>
+                            </md-card-actions>
+                        </md-card>
+                    </div>
+                    <div flex="25">
+                        <md-card>
+                            <!-- <img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out"> -->
+                            <md-card-title>
+                                <md-card-title-text>
+                                    <span class="md-headline">Antecedentes</span>
+                                </md-card-title-text>
+                            </md-card-title>
+                            <md-card-content>
+                                <!-- <p>
+                                    Ver los antecedentes
+                                </p> -->
+                            </md-card-content>
+                            <md-card-actions layout="column" layout-align="start">
+                                <md-button ng-click="goToTab(4)">Ir a los antecedentes</md-button>
+                            </md-card-actions>
+                        </md-card>
+                    </div>
+                    <div flex="25">
+                        <md-card>
+                            <!-- <img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out"> -->
+                            <md-card-title>
+                                <md-card-title-text>
+                                    <span class="md-headline">Indicadores</span>
+                                </md-card-title-text>
+                            </md-card-title>
+                            <md-card-content>
+                                <p>
+                                    Riesgos de caidas
+                                </p>
+                                <p>
+                                    Valoración del dolor
+                                </p>
+                                <p>
+                                    Ulceras por presión
+                                </p>
+                            </md-card-content>
+                            <!-- <md-card-actions layout="column" layout-align="start">
+                                <md-button ng-click="goToTab(4)">Ir a los antecedentes</md-button>
+                            </md-card-actions> -->
+                        </md-card>
+                    </div>
+                </div>
+            </md-tab>
+            <md-tab label="Gráficos">
 
-<div layout layout-pretty whiteframe>
-    <div flex>
-        <h3 class="md-headline">Pases</h3>
-        <md-table-container ng-if="internacion.pases && internacion.pases.length > 0">
-            <table md-table class="mdTableSingleSelect">
-                <thead md-head>
-                    <tr md-row>
-                        <th md-column>Fecha</th>
-                        <th md-column>Cama</th>
-                        <th md-column>Servicio</th>
-                        <th md-column>Resumen internación</th>
-                        <th md-column></th>
-                    </tr>
-                </thead>
-                <tbody md-body>
-                    <tr md-row ng-repeat="item in internacion.pases | orderBy: '-fechaHora'">
-                        <td md-cell>
-                            {{item.fechaHora | fromNow }}<br/>
-                            <div class="text-muted small">
-                                {{item.fechaHora | date: "dd/MM/yyyy HH:mm"}}
-                            </div>
-                        </td>
-                        <td md-cell>
-                            {{item.cama.habitacion}}/{{item.cama.numero}}
-                        </td>
-                        <td md-cell>
-                            {{item.servicio.nombreCorto}}
-                        </td>
-                        <td md-cell>
+            </md-tab>
+            <md-tab label="Internación"></md-tab>
+            <md-tab label="Evoluciones">
+                <div plex-include="'partials/internacion/iEvolucionar.html'" plex-include-internacion="internacion"></div>
+            </md-tab>
+            <md-tab label="Antecedentes">
 
-                        </td>
+                        <h3 class="md-headline">Antecedentes</h3>
+                        <md-table-container ng-if="antecedentesPersonales && antecedentesPersonales.length > 0">
+                            <table md-table class="mdTableSingleSelect">
+                                <thead md-head>
+                                    <tr md-row>
+                                        <th md-column>Tipo</th>
+                                        <th md-column>Observaciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody md-body>
+                                    <tr md-row ng-repeat="item in antecedentesPersonales">
+                                        {{item || json}}
+                                        <td md-cell>
+                                            {{item.antecedente.nombre}}
+                                        </td>
+                                        <td md-cell>
+                                            {{item.observaciones}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </md-table-container>
 
-                        <td md-cell>
-                            <md-button class="md-icon-button" aria-label="Editar pase" ng-click="editarPase(item)">
-                                <md-icon>create</md-icon>
-                            </md-button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </md-table-container>
-    </div>
-</div>
 
-<div layout layout-pretty whiteframe ng-if="internacion.egreso">
-    <div flex>
-        <h3 class="md-headline">Egreso</h3>
-        <md-table-container ng-if="internacion.egreso">
-            <table md-table class="mdTableSingleSelect">
-                <thead md-head>
-                    <tr md-row>
-                        <th md-column>Fecha</th>
-                        <th md-column>Cama</th>
-                        <th md-column>Servicio</th>
-                        <th md-column>Tipo</th>
-                        <th md-column>Resumen</th>
-                    </tr>
-                </thead>
-                <tbody md-body>
-                    <tr md-row >
-                        <td md-cell>
-                            {{internacion.egreso.fechaHora | fromNow }}<br/>
-                            <div class="text-muted small">
-                                {{internacion.egreso.fechaHora | date: "dd/MM/yyyy HH:mm"}}
-                            </div>
-                        </td>
-                        <td md-cell>
-                            {{internacion.egreso.cama.habitacion}}/{{internacion.egreso.cama.numero}}
-                        </td>
-                        <td md-cell>
-                            {{item.servicio.nombreCorto}}
-                        </td>
-                        <td md-cell>
-                            {{internacion.egreso.tipo}}
-                        </td>
-                        <td md-cell>
-                        </td>
+            </md-tab>
+            <md-tab label="Pases">
 
-                    </tr>
-                </tbody>
-            </table>
-        </md-table-container>
+                        <h3 class="md-headline">Pases</h3>
+                        <md-table-container ng-if="internacion.pases && internacion.pases.length > 0">
+                            <table md-table md-row-select class="mdTableSingleSelect">
+                                <thead md-head>
+                                    <tr md-row>
+                                        <th md-column>Fecha</th>
+                                        <th md-column>Cama</th>
+                                        <th md-column>Servicio</th>
+                                        <th md-column>Resumen internación</th>
+                                        <th md-column></th>
+                                    </tr>
+                                </thead>
+                                <tbody md-body>
+                                    <tr md-row ng-repeat="item in internacion.pases | orderBy: '-fechaHora'">
+                                        <td md-cell>
+                                            {{item.fechaHora | fromNow }}<br/>
+                                            <div class="text-muted small">
+                                                {{item.fechaHora | date: "dd/MM/yyyy HH:mm"}}
+                                            </div>
+                                        </td>
+                                        <td md-cell>
+                                            {{item.cama.habitacion}}/{{item.cama.numero}}
+                                        </td>
+                                        <td md-cell>
+                                            {{item.servicio.nombreCorto}}
+                                        </td>
+                                        <td md-cell></td>
+
+                                        <td md-cell>
+                                            <md-button class="md-icon-button" aria-label="Editar pase" ng-click="editarPase(item)">
+                                                <md-icon>create</md-icon>
+                                            </md-button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </md-table-container>
+
+
+            </md-tab>
+            <md-tab label="Egreso" ng-disabled="!internacion.egreso">
+                <div ng-if="internacion.egreso">
+                        <h3 class="md-headline">Egreso</h3>
+                        <md-table-container ng-if="internacion.egreso">
+                            <table md-table md-row-select class="mdTableSingleSelect">
+                                <thead md-head>
+                                    <tr md-row>
+                                        <th md-column>Fecha</th>
+                                        <th md-column>Cama</th>
+                                        <th md-column>Servicio</th>
+                                        <th md-column>Tipo</th>
+                                        <th md-column>Resumen</th>
+                                    </tr>
+                                </thead>
+                                <tbody md-body>
+                                    <tr md-row>
+                                        <td md-cell>
+                                            {{internacion.egreso.fechaHora | fromNow }}<br/>
+                                            <div class="text-muted small">
+                                                {{internacion.egreso.fechaHora | date: "dd/MM/yyyy HH:mm"}}
+                                            </div>
+                                        </td>
+                                        <td md-cell>
+                                            {{internacion.egreso.cama.habitacion}}/{{internacion.egreso.cama.numero}}
+                                        </td>
+                                        <td md-cell>
+                                            {{item.servicio.nombreCorto}}
+                                        </td>
+                                        <td md-cell>
+                                            {{internacion.egreso.tipo}}
+                                        </td>
+                                        <td md-cell></td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </md-table-container>
+                </div>
+            </md-tab>
+        </md-tabs>
     </div>
 </div>

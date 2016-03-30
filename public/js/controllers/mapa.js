@@ -16,6 +16,8 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
 
     angular.extend($scope, {
         // servicios: [],
+        // variable que determina si la internacion tiene info de ingreso
+        ingresoInternacion: false,
         habitaciones: [],
         tipoCamas: [],
         camas: null,
@@ -26,7 +28,18 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 $scope.filter.filtrar();
 
                 var services_found = [];
-                angular.forEach(data, function(cama, key) {
+                angular.forEach($scope.camas, function(cama, key) {
+
+                    if (cama.idInternacion){
+                        Shared.internacion.get(cama.idInternacion).then(function(internacion){
+                            cama.$internacion = internacion;
+                            // riesgo caidas
+                            Shared.internacion.calcularRiesgoCaida(cama.$internacion).then(function(total) {
+                                cama.$riesgoCaidas = total;
+                            });
+                        });
+                    }
+
 
                     //asignamos las habitaciones
                     if (!$scope.habitaciones.inArray(cama.habitacion)) {
@@ -62,7 +75,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             camas: null,
             habitacion: null,
             oxigeno: false,
-            desinfectada: false,
+            desinfectada: null,
             tipoCama: false,
             nombre: null,
             estado: null,
@@ -71,9 +84,12 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 var self = this;
                 var regex_nombre = new RegExp(".*" + self.nombre + ".*", "ig");
 
+                var _desinfectada = (self.desinfectada) ? false : null;
+
                 self.camas = $scope.camas.filter(function(i) {
                     return (!self.oxigeno || (self.oxigeno && i.oxigeno)) &&
-                        (!self.desinfectada || (self.desinfectada && i.desinfectada)) &&
+                        // (!self.desinfectada || (self.desinfectada && i.desinfectada)) &&
+                        (_desinfectada === null || (!_desinfectada && !i.desinfectada)) &&
                         (!self.tipoCama || (self.tipoCama && i.tipoCama == self.tipoCama)) &&
                         (!self.habitacion || (self.habitacion && i.habitacion == self.habitacion)) &&
                         (!self.estado || (self.estado && i.estado == self.estado)) &&
@@ -92,6 +108,11 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             }
         },
 
+        verInternacion: function(idInternacion){
+            Plex.openView('internacion/ver/' + idInternacion).then(function(){
+
+            });
+        },
         // buscamos un paciente y creamos la itnernacion
         buscarPaciente: function(cama) {
             if (!cama.desinfectada) {
@@ -99,6 +120,10 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 return false;
             }
             Plex.openView('internacion/editar/cama/' + cama.id).then(function(internacion) {
+                // si la internacion
+                if (internacion.ingreso){
+                    $scope.ingresoInternacion = true;
+                }
                 // operar con el paciente / internacion devuelto en data
                 if (typeof internacion !== "undefined") {
                     $scope.cambiarEstado(cama, 'ocupada', internacion.id);
@@ -123,16 +148,20 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 // viene con el valor 'internacion' y de ser asi, entonces
                 // mostramos el formulario de valoracion de enfermeria
                 if (cama.$action == 'internacion') {
+                    // nos fijamos si no tiene datos de ingresos la internacion
+                    // y de ser asi mostramos el formulario de valoracion de enfermeria
+                    if (!$scope.ingresoInternacion){
+                        $scope.openToast("Internacion creada. A continuación puede crear la valoración inicial.");
 
-                    $scope.openToast("Internacion creada. A continuación puede crear la valoración inicial.");
+                        $timeout(function() {
+                            Plex.openView('valoracionEnfermeria/' + data.idInternacion).then(function(data) {
+                                if (data) {
+                                    $scope.openToast("Valoracion enfermeria guardada");
+                                }
+                            });
+                        }, 500);
+                    }
 
-                    $timeout(function() {
-                        Plex.openView('valoracionEnfermeria/' + data.idInternacion).then(function(data) {
-                            if (data) {
-                                $scope.openToast("Valoracion enfermeria guardada");
-                            }
-                        });
-                    }, 500);
 
                 } else {
                     switch (estado) {

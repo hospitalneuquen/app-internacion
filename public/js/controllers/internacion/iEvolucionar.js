@@ -60,6 +60,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                     var services_found = [];
 
                     angular.forEach($scope.internacion.evoluciones, function(evolucion) {
+                        console.log(evolucion);
 
                         // calculamos balance de liquidos
                         $scope.calcularBalance(evolucion);
@@ -152,17 +153,22 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
             // calculamos el balance entre el ingreso y egreso
             evolucion.$balance = evolucion.$total_ingresos - evolucion.$total_egresos;
 
+            var d = new Date(evolucion.createdAt);
+            var date = Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds());
+
+            // var date = moment(evolucion.createdAt).format('MMMM Do YYYY, h:mm:ss a');
+
             // guardamos el balance en el array de series para mostrar la grafica
             $scope.chart.options.series[0].data.push({
-                x: evolucion.createdAt,
+                x: date,
                 y: evolucion.$total_ingresos
             });
             $scope.chart.options.series[1].data.push({
-                x: evolucion.createdAt,
+                x: date,
                 y: evolucion.$total_egresos
             });
             $scope.chart.options.series[2].data.push({
-                x: evolucion.createdAt,
+                x: date,
                 y: evolucion.$balance
             });
 
@@ -183,6 +189,9 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
         chart: {
             update: 1,
             options: {
+                global: {
+                    useUTC: false
+                },
                 // Seguir docs en http://api.highcharts.com/highcharts
                 chart: {
                     type: 'spline',
@@ -221,10 +230,8 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                 }, ],
                 xAxis: {
                     type: 'datetime',
-                    dateTimeLabelFormats: {
-                        day: '%d/%m/%y',
-                        week: '%d/%m/%y',
-                        year: '%Y'
+                    labels: {
+                        format: '{value: %d/%m/%Y %H:%M }',
                     },
                     title: {
                         text: 'Fecha evolución'
@@ -238,12 +245,12 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                 },
                 tooltip: {
                     headerFormat: '<b>{series.name}</b><br>',
-                    pointFormat: '{point.x:%e. %b}: {point.y:.2f} ml',
-                    dateTimeLabelFormats: '%e / %b / %Y %H:%M'
-                    // dateTimeLabelFormats: {
-                    //     month: '%e. %b',
-                    //     year: '%b'
-                    // }
+                    pointFormat: '{point.x:  %d/%m/%Y %H:%M}: {point.y:.2f} ml',
+                    // dateTimeLabelFormats: '%e / %b / %Y %H:%M'
+                        // dateTimeLabelFormats: {
+                        //     month: '%e. %b',
+                        //     year: '%b'
+                        // }
                 },
                 plotOptions: {
                     spline: {

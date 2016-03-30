@@ -81,8 +81,7 @@ angular.module('app').controller('internacion/editar', ['$scope', 'Plex', 'plexP
                     // guardamos la internacion
                     Shared.internacion.post(item.id || null, update, {
                         minify: true
-                    }).then(function(data) {
-                        var internacion = data;
+                    }).then(function(internacion) {
                         // generamos el pase
                         var pase = {
                             fechaHora: new Date(),
@@ -90,7 +89,7 @@ angular.module('app').controller('internacion/editar', ['$scope', 'Plex', 'plexP
                             servicio: Session.servicioActual.id
                         };
 
-                        Shared.pase.post(data.id, null, pase, {
+                        Shared.pase.post(internacion.id, null, pase, {
                             minify: true
                         }).then(function(data) {
                             Plex.closeView(internacion);

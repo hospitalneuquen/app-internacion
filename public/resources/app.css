@@ -76,6 +76,36 @@ md-toast {
     position: fixed;
 }
 
+/* Estilos de textos (basados en Bootstrap) */
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.text-center {
+  text-align: center;
+}
+.text-justify {
+  text-align: justify;
+}
+.text-nowrap {
+  white-space: nowrap;
+}
+.text-lowercase {
+  text-transform: lowercase;
+}
+.text-uppercase {
+  text-transform: uppercase;
+}
+.text-capitalize {
+  text-transform: capitalize;
+}
+
+/******************************
+* Dashboard
+******************************/
+.link-icon {font-size: 100px; text-align: center; color: #03A9F4;}
 /*
 ******************************
 ** MAPA DE CAMAS
@@ -177,7 +207,8 @@ md-toast {
     background-color: rgba(0, 0, 0, 0);
     box-shadow: none;
     padding: 20px 20px 20px;
-    min-height: 225px;
+    /*min-height: 225px;*/
+    min-height: 265px;
 }
 .card .content .main {
     /*min-height: 160px;*/

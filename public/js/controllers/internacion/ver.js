@@ -2,6 +2,8 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
     'use strict';
 
     angular.extend($scope, {
+        riesgoCaidas: 0,
+        selectedTabIndex: 0,
         internacion: null,
         pases: null,
         servicios: [{
@@ -34,6 +36,9 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
         },
         editarPase: function(item) {
             alert("Definir que editar y como. Solo fecha ? Descripcion? Permitir editar si no esta egresado el pacietne?")
+        },
+        goToTab: function(tab){
+            $scope.selectedTabIndex = tab;
         },
         init: function() {
             $scope.loading = true;
@@ -68,6 +73,10 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                     });
                 }
 
+                // riesgo caidas
+                Shared.internacion.calcularRiesgoCaida(internacion).then(function(total) {
+                    $scope.riesgoCaidas = total;
+                });
             });
 
 
