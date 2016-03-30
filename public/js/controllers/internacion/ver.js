@@ -74,9 +74,9 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                 }
 
                 // riesgo caidas
-                Shared.internacion.calcularRiesgoCaida(internacion).then(function(total) {
-                    $scope.riesgoCaidas = total;
-                });
+                // Shared.internacion.calcularRiesgoCaida(internacion).then(function(total) {
+                //     $scope.riesgoCaidas = total;
+                // });
             });
 
 
