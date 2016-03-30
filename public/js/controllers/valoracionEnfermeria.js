@@ -5,6 +5,9 @@ angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'P
         internacion: undefined,
         riesgoCaida: null,
         enfermeria: null,
+        tabSeleccionado: null,
+        tabAnterior: null,
+        tabSiguiente: null,
 
         // variables para la seleccion de el antecedente
         selectedAntecedenteTipo: '',
@@ -23,6 +26,9 @@ angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'P
             };
         }),
         init: function() {
+            $scope.tabSeleccionado = 0;
+            $scope.tabAnterior = 0;
+            $scope.tabSiguiente = 1;
             Shared.internacion.get(plexParams.idInternacion).then(function(data) {
                 $scope.internacion = data;
 
@@ -149,6 +155,12 @@ angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'P
     $scope.$watch('selectedAntecedenteTipo', function(current, old) {
         if (current != old)
             $scope._antecedentes = $scope.antecedentes[current];
+    }, true);
+
+    $scope.$watch('tabSeleccionado', function(current, old) {
+        if (current != old)
+            $scope.tabAnterior = $scope.tabSeleccionado - 1;
+            $scope.tabSiguiente = $scope.tabSeleccionado + 1;
     }, true);
 
     $scope.$watch('internacion.ingreso.enfermeria.riesgoCaida', function(current, old) {
