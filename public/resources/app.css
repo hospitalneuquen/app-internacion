@@ -207,7 +207,8 @@ md-toast {
     background-color: rgba(0, 0, 0, 0);
     box-shadow: none;
     padding: 20px 20px 20px;
-    min-height: 225px;
+    /*min-height: 225px;*/
+    min-height: 265px;
 }
 .card .content .main {
     /*min-height: 160px;*/

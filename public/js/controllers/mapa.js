@@ -28,7 +28,18 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 $scope.filter.filtrar();
 
                 var services_found = [];
-                angular.forEach(data, function(cama, key) {
+                angular.forEach($scope.camas, function(cama, key) {
+
+                    if (cama.idInternacion){
+                        Shared.internacion.get(cama.idInternacion).then(function(internacion){
+                            cama.$internacion = internacion;
+                            // riesgo caidas
+                            Shared.internacion.calcularRiesgoCaida(cama.$internacion).then(function(total) {
+                                cama.$riesgoCaidas = total;
+                            });
+                        });
+                    }
+
 
                     //asignamos las habitaciones
                     if (!$scope.habitaciones.inArray(cama.habitacion)) {
@@ -64,7 +75,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             camas: null,
             habitacion: null,
             oxigeno: false,
-            desinfectada: false,
+            desinfectada: null,
             tipoCama: false,
             nombre: null,
             estado: null,
@@ -73,9 +84,12 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 var self = this;
                 var regex_nombre = new RegExp(".*" + self.nombre + ".*", "ig");
 
+                var _desinfectada = (self.desinfectada) ? false : null;
+
                 self.camas = $scope.camas.filter(function(i) {
                     return (!self.oxigeno || (self.oxigeno && i.oxigeno)) &&
-                        (!self.desinfectada || (self.desinfectada && i.desinfectada)) &&
+                        // (!self.desinfectada || (self.desinfectada && i.desinfectada)) &&
+                        (_desinfectada === null || (!_desinfectada && !i.desinfectada)) &&
                         (!self.tipoCama || (self.tipoCama && i.tipoCama == self.tipoCama)) &&
                         (!self.habitacion || (self.habitacion && i.habitacion == self.habitacion)) &&
                         (!self.estado || (self.estado && i.estado == self.estado)) &&

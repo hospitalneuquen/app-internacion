@@ -40,12 +40,16 @@
             <span class="md-caption">
                 Ultima evolución:
                 <br />
+                <div ng-if="internacion.evoluciones.length > 0">
                     <i class="fa fa-user-md"></i>
                     {{internacion.evoluciones[internacion.evoluciones.length-1].createdBy.name}}
                     {{internacion.evoluciones[internacion.evoluciones.length-1].createdAt | fromNow}}
                     <br/>
                     {{internacion.evoluciones[internacion.evoluciones.length-1].createdAt | date: "dd/MM/yyyy  'a las' HH:mm "}} hs
-
+                </div>
+                <div ng-if="internacion.evoluciones.length == 0">
+                    No se han registrado evoluciones
+                </div>
             </span>
 
 
@@ -57,6 +61,13 @@
                 {{internacion.pases[internacion.pases.length-1].cama.habitacion}}
                 /
                 {{internacion.pases[internacion.pases.length-1].cama.numero}}
+            </div>
+            <br /><br />
+            <div ng-if="riesgoCaidas > 0">
+                Riesgo caidas: {{riesgoCaidas}}
+                <span ng-if="riesgoCaidas < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
+                <span ng-if="riesgoCaidas >= 25 && riesgoCaidas <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
+                <span ng-if="riesgoCaidas > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
             </div>
         </div>
     </div>

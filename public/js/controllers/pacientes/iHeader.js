@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('Pacientes/iHeaderController', ["$scope", function ($scope) {
+angular.module('app').controller('Pacientes/iHeaderController', ["$scope", "Shared", function ($scope, Shared) {
     /*
     Este (sub)controlador espera los siguientes parametros (plex-include):
         - internacion: object          | Objeto de internación
@@ -14,8 +14,15 @@ angular.module('app').controller('Pacientes/iHeaderController', ["$scope", funct
 
     angular.extend($scope, {
         internacion: null,
+        riesgoCaidas: 0
     });
     $scope.$watch('include.internacion', function (current, old) {
         $scope.internacion = current;
+
+        // riesgo caidas
+        Shared.internacion.calcularRiesgoCaida(current).then(function(total) {
+            $scope.riesgoCaidas = total;
+        })
+
     });
 }]);

@@ -107,7 +107,9 @@
                                 </div>
                             </div>
                         </md-tab>
-                        <!-- TODO ocultar tab ingresos liquidos si es medico -->
+                        <!-- TODO ocultar tab ingresos liquidos si es medico
+                        ng-if='Session.variables.prestaciones_workflow == "enfermero"'
+                        -->
                         <md-tab label="Ingresos líquidos">
                             <div layout>
                                 <div flex="20">
@@ -160,7 +162,9 @@
                                 </div>
                             </div>
                         </md-tab>
-                        <!-- TODO ocultar tab egresos liquidos si es medico -->
+                        <!-- TODO ocultar tab egresos liquidos si es medico
+                        ng-if='Session.variables.prestaciones_workflow == "enfermero"'
+                        -->
                         <md-tab label="Egresos líquidos">
                             <div layout>
                                 <div flex flex-xs="100">
