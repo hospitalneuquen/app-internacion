@@ -15,9 +15,10 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
     // };
 
     angular.extend($scope, {
+        layout: 'grid',
         // servicios: [],
         // variable que determina si la internacion tiene info de ingreso
-        ingresoInternacion: false,
+        ingresoEnfermeria: false,
         habitaciones: [],
         tipoCamas: [],
         camas: null,
@@ -121,9 +122,11 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             }
             Plex.openView('internacion/editar/cama/' + cama.id).then(function(internacion) {
                 // si la internacion
-                if (internacion.ingreso){
-                    $scope.ingresoInternacion = true;
-                }
+                // if (!internacion.ingreso.enfermeria.createdAt){
+                console.log("INTERNCION", internacion);
+                console.log(typeof internacion.ingreso.enfermeria);
+                $scope.ingresoEnfermeria = (typeof internacion.ingreso.enfermeria === 'undefined') ? true : false;
+
                 // operar con el paciente / internacion devuelto en data
                 if (typeof internacion !== "undefined") {
                     $scope.cambiarEstado(cama, 'ocupada', internacion.id);
@@ -148,9 +151,10 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 // viene con el valor 'internacion' y de ser asi, entonces
                 // mostramos el formulario de valoracion de enfermeria
                 if (cama.$action == 'internacion') {
-                    // nos fijamos si no tiene datos de ingresos la internacion
+                    // nos fijamos si no tiene datos de ingresos de enfermeria
                     // y de ser asi mostramos el formulario de valoracion de enfermeria
-                    if (!$scope.ingresoInternacion){
+                    console.log("INGRESO ENFERMERIA", $scope.ingresoEnfermeria)
+                    if ($scope.ingresoEnfermeria){
                         $scope.openToast("Internacion creada. A continuación puede crear la valoración inicial.");
 
                         $timeout(function() {
