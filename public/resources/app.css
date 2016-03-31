@@ -210,6 +210,11 @@ md-toast {
     /*min-height: 225px;*/
     min-height: 265px;
 }
+
+.card .content.reparacion, .card .content.desinfectar{
+    min-height: 225px;
+}
+
 .card .content .main {
     /*min-height: 160px;*/
 }
@@ -368,12 +373,12 @@ md-toast {
 .oxigeno {
     color: #5bc0de;
 }
-.bg-desinfectar {
+/*.bg-desinfectar {
     background: #9cc180;
 }
 .desinfectar {
     color: #9cc180;
-}
+}*/
 
 /* Niveles */
 

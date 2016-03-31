@@ -56,7 +56,7 @@
         </div>
     </div>
 </div>
-<div layout layout-wrap>
+<div layout layout-wrap ng-show="layout == 'grid'">
     <div flex="20" flex-xl="20" flex-lg="20" flex-md="33" flex-sm="50" flex-xs="100" ng-repeat="cama in filter.camas">
         <div class="card-container manual-flip animate-repeat" ng-class="{'hover': cama.$rotar }" ng-model="cama_actual">
             <div class="card">
@@ -148,7 +148,7 @@
                             </div> -->
 
                             <div flex="20">
-                                <md-button class="md-icon-button" aria-label="Desinfectar cama" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'desinfectar'" ng-if="!cama.desinfectada">
+                                <md-button class="md-icon-button" aria-label="Desinfectar cama" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'desinfectar'" ng-if="!cama.desinfectada && cama.estado != 'reparacion'">
                                     <md-tooltip md-direction="top">
                                         Desinfectar cama
                                     </md-tooltip>
@@ -408,7 +408,7 @@
 
                     <!-- Enviar a desinfectar una cama -->
                     <div ng-if="cama.$action == 'desinfectar' && cama.estado == 'desocupada'">
-                        <div class="content">
+                        <div class="content" ng-class="{'desinfectar': cama.$action == 'desinfectar' }">
                             <form name="desinfeccionForm">
 
                                 <div class="main">
@@ -484,9 +484,18 @@
             </div>
         </div>
     </div>
-    <md-toolbar class="md-warn" ng-if="filter.camas && filter.camas.length == 0">
-        <div class="md-toolbar-tools">
-            <h2 class="md-flex">¡No se encontró ninguna cama!</h2>
-        </div>
-    </md-toolbar>
+
 </div>
+
+<div layout layout-wrap ng-show="layout == 'list'">
+    <ul>
+        <li ng-repeat="cama in filter.camas">
+        </li>
+    </ul>
+</div>
+
+<md-toolbar class="md-warn" ng-if="filter.camas && filter.camas.length == 0">
+    <div class="md-toolbar-tools">
+        <h2 class="md-flex">¡No se encontró ninguna cama!</h2>
+    </div>
+</md-toolbar>
