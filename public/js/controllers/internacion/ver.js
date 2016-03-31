@@ -10,6 +10,16 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
             id: null,
             nombreCorto: 'Todos'
         }],
+        tiposInternacion: [{ // opciones para el select del tipo de internacion
+            id: 'ambulatorio',
+            nombre: 'Ambulatorio'
+        }, {
+            id: 'guardia',
+            nombre: 'Guardia'
+        }, {
+            id: 'derivacion',
+            nombre: 'Derivación'
+        }, ],
         filtros: {
             evoluciones: [],
             servicio: null,
