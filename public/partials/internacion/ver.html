@@ -128,7 +128,50 @@
             <md-tab label="Gráficos">
                 <div plex-include="'partials/internacion/iGraficoLiquidos.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0"></div>
             </md-tab>
-            <md-tab label="Internación"></md-tab>
+            <md-tab label="Ingreso de internación">
+                <h3 class="md-headline">Datos de ingreso</h3>
+                <div layout ng-if="internacion.paciente">
+                    <div flex>
+                        <form>
+                            <label>Fecha y hora de la interación</label>
+                            <div layout>
+                                <mdp-date-picker flex mdp-format="DD/MM/YYYY" ng-model="internacion.ingreso.fechaHora" ng-required="true" plex disabled></mdp-date-picker>
+                                <mdp-time-picker flex ng-model="internacion.ingreso.fechaHora" mdp-auto-switch="true" ng-required="true" plex disabled></mdp-time-picker>
+                                <span flex></span>
+                            </div>
+                            <div layout layout-pretty>
+                                <div flex>
+                                    <md-input-container class="md-block">
+                                        <label>Tipo de ingreso</label>
+                                        <md-select ng-model="internacion.ingreso.tipo" disabled>
+                                            <md-option ng-repeat="item in tiposInternacion" value="{{item.id}}">
+                                                {{item.nombre}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </div>
+                                <div flex>
+                                    <md-input-container class="md-block">
+                                        <label>Motivo de la internación</label>
+                                        <input type="text" ng-model="internacion.ingreso.motivo" plex ng-required="true" disabled/>
+                                    </md-input-container>
+                                </div>
+                                <div flex>
+                                    <md-input-container class="md-block">
+                                        <label>Diagnóstico presuntivo</label>
+                                        <input type="text" ng-model="internacion.ingreso.diagnosticoPresuntivo" plex ng-required="true" disabled/>
+                                    </md-input-container>
+                                </div>
+                            </div>
+                            <div flex layout  style="display: none;">
+                                <span flex></span>
+                                <md-button ng-click="cancelar()">Cancelar</md-button>
+                                <md-button class="md-primary md-raised" plex-submit="guardar()">Guardar</md-button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </md-tab>
             <md-tab label="Evoluciones">
                 <!-- <div plex-include="'partials/internacion/iEvolucionar.html'" plex-include-internacion="internacion"></div> -->
                 <div plex-include="'partials/internacion/iEvolucionar.html'" plex-include-internacion="internacion"></div>
