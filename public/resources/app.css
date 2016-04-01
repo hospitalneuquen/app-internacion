@@ -127,6 +127,13 @@ md-toast {
     margin-top: 0;
 }
 
+.filtros .layout-view.active {
+    background-color: #0099ff;
+}
+.filtros .layout-view.active > *{
+    color: white;
+}
+
 .card-container {
     margin: 0;
     -webkit-perspective: 800px;
@@ -211,7 +218,7 @@ md-toast {
     min-height: 265px;
 }
 
-.card .content.reparacion, .card .content.desinfectar{
+.card .content.reparacion, .card .content.desinfectar, .card .content.evolucion{
     min-height: 225px;
 }
 
@@ -336,6 +343,7 @@ md-toast {
 .icon {
     text-align: center;
 }
+
 .icono-paciente {
     font-size: 100px;
     cursor: pointer;
@@ -380,6 +388,24 @@ md-toast {
     color: #9cc180;
 }*/
 
+/* vista de lista  para el mapa de camas */
+.list .icono-paciente{
+    font-size: 45px;
+}
+.list .numero-habitacion{
+    font-size: 15px;
+    padding: 5px;
+    margin-top: 20px;
+}
+
+.list .name{
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.list .profession{
+    margin: 5px 0;
+}
 /* Niveles */
 
 .nivel-verde {

@@ -1,8 +1,9 @@
 'use strict';
 
-angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'Plex', 'plexParams', 'Shared', 'Server', '$timeout', 'Personas', function($scope, Plex, plexParams, Shared, Server, $timeout, Personas) {
+angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'Plex', 'plexParams', 'Shared', 'Server', '$timeout', 'Personas', 'Session', function($scope, Plex, plexParams, Shared, Server, $timeout, Personas, Session) {
     angular.extend($scope, {
         internacion: undefined,
+        evolucion: null,
         riesgoCaida: null,
         enfermeria: null,
         tabSeleccionado: null,
@@ -31,6 +32,10 @@ angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'P
             $scope.tabSiguiente = 1;
             Shared.internacion.get(plexParams.idInternacion).then(function(data) {
                 $scope.internacion = data;
+
+                if (data.evoluciones[0]){
+                    $scope.evolucion = data.evoluciones[0];
+                }
 
                 Personas.get(data.paciente.id).then(function(persona) {
                     $scope.antecedentesPersonales = persona.antecedentesPersonales;
@@ -109,6 +114,14 @@ angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'P
         //     }
         // },
         guardar: function() {
+            // if (typeof $scope.internacion.evolucion === 'undefined'){
+            //     $scope.internacion.evolucion = {};
+            // }
+
+            $scope.evolucion.fechaHora = new Date();
+            $scope.evolucion.tipo = Session.variables.prestaciones_workflow;
+            $scope.evolucion.servicio = Session.servicioActual;
+
             var data = {
                 ingreso: $scope.internacion.ingreso
             };
@@ -116,6 +129,12 @@ angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'P
             Shared.internacion.post(plexParams.idInternacion, data, {
                 minify: true
             }).then(function(internacion) {
+                // guardamos la evolucion si no se cargo
+                Shared.evolucion.post(internacion.id, $scope.evolucion.id || null, $scope.evolucion, {
+                    minify: true
+                }).then(function(data) {
+                });
+
                 // guardamos los antecedentes personales de la persona
                 if ($scope.antecedentesPersonales.length > 0){
                     var data = {

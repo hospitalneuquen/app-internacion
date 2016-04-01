@@ -1,4 +1,5 @@
-<div> <!-- <<<< Este contenedor mejora el spacer del affix -->
+<div>
+    <!-- <<<< Este contenedor mejora el spacer del affix -->
     <div class="filtros" layout layout-pretty whiteframe plex-affix>
         <div flex>
             <form name="filterForm">
@@ -35,7 +36,7 @@
                     </md-input-container>
                     <div flex="5"></div>
 
-                    <md-switch ng-model="filter.desinfectada" aria-label="Sin desinfectar"  ng-false-value="null">
+                    <md-switch ng-model="filter.desinfectada" aria-label="Sin desinfectar" ng-false-value="null">
                         Sin desinfectar
                     </md-switch>
 
@@ -51,6 +52,15 @@
                             Limpiar filtros
                         </md-button>
                     </md-input-container>
+
+                    <md-button class="layout-view" ng-click="layout = 'grid'" ng-class="{'active': layout == 'grid'}">
+                        <md-tooltip>Vista de grilla</md-tooltip>
+                        <md-icon>grid_on</md-icon>
+                    </md-button>
+                    <md-button class="layout-view" ng-click="layout = 'list'" ng-class="{'active': layout == 'list'}">
+                        <md-tooltip>Vista de lista</md-tooltip>
+                        <md-icon>view_list</md-icon>
+                    </md-button>
                 </div>
             </form>
         </div>
@@ -88,9 +98,7 @@
                                 <md-icon ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total > 50" ng-class="{'rojo' : cama.$internacion.ingreso.enfermeria.riesgoCaida.total > 50}">warning</md-icon>
                                 <md-icon ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total == 0">warning</md-icon>
                             </span>
-                            <span>
-
-                            </span>
+                            <span></span>
                             <span>
                                 <md-tooltip md-direction="top" ng-if="cama.$internacion.evoluciones[cama.$internacion.evoluciones.length-1].temperatura">{{cama.$internacion.evoluciones[cama.$internacion.evoluciones.length-1].temperatura}}º C</md-tooltip>
                                 <md-icon md-svg-icon="mdi:thermometer" aria-label="thermometer "></md-icon>
@@ -98,7 +106,7 @@
                         </div>
                         <div flex>
                             <!-- layout layout-wrap layout-align="center start" -->
-                            <div class="main cama" layout layout-wrap layout-align="center start" >
+                            <div class="main cama" layout layout-wrap layout-align="center start">
 
                                 <div class="icon" flex="100">
                                     <i class="icono-paciente {{cama.paciente | persona: 'icon'}} " ng-if="cama.paciente.id" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'evolucion'" tabindex="-1"></i>
@@ -106,9 +114,9 @@
                                         <i class="fa fa-bed agregar"></i>
                                     </md-button>
 
-                                    <span class="fa-stack fa-lg reparacion" ng-if="cama.estado == 'reparacion'" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'enviada_reparacion'" >
-                                      <i class="fa fa-bed fa-stack-1x"></i>
-                                      <i class="fa fa-ban fa-stack-2x"></i>
+                                    <span class="fa-stack fa-lg reparacion" ng-if="cama.estado == 'reparacion'" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'enviada_reparacion'">
+                                        <i class="fa fa-bed fa-stack-1x"></i>
+                                        <i class="fa fa-ban fa-stack-2x"></i>
                                     </span>
                                 </div>
 
@@ -235,7 +243,7 @@
 
                     <!-- Ultima evolucion / Evolucionar -->
                     <div ng-if="cama.$action && cama.$action == 'evolucion'">
-                        <div class="content">
+                        <div class="content"  ng-class="{'evolucion': cama.$action == 'evolucion' }">
                             <div class="main " layout layout-wrap>
                                 <h4 class="text-center" flex="100">Última evolución</h4>
                                 {{cama.ultimaEvolucion.texto}}
@@ -327,20 +335,20 @@
                     <div ng-if="cama.$action == 'enviada_reparacion' && cama.estado == 'reparacion'">
                         <div class="content">
 
-                                <div class="main">
-                                    <div ng-if="!cama.paciente.id && cama.estado == 'reparacion'">
-                                        <h3 class="name reparacion">
-                                            En reparación desde:
-                                            <br/>
-                                            {{cama.reparacion.createdAt | date: "dd/MM/yyyy  'a las' HH:mm "}}hs
-                                            <br/><br/>
-                                        </h3>
-                                        <div class="motivo-reparacion">
-                                            {{cama.reparacion.motivo | limitTo: 200}}
-                                        </div>
+                            <div class="main">
+                                <div ng-if="!cama.paciente.id && cama.estado == 'reparacion'">
+                                    <h3 class="name reparacion">
+                                        En reparación desde:
+                                        <br/>
+                                        {{cama.reparacion.createdAt | date: "dd/MM/yyyy  'a las' HH:mm "}}hs
+                                        <br/><br/>
+                                    </h3>
+                                    <div class="motivo-reparacion">
+                                        {{cama.reparacion.motivo | limitTo: 200}}
                                     </div>
-
                                 </div>
+
+                            </div>
                         </div>
 
                     </div>
@@ -487,11 +495,93 @@
 
 </div>
 
-<div layout layout-wrap ng-show="layout == 'list'">
-    <ul>
-        <li ng-repeat="cama in filter.camas">
-        </li>
-    </ul>
+<div layout layout-wrap ng-show="layout == 'list'" class="list">
+    <div flex>
+        <div ng-repeat="cama in filter.camas">
+            <div whiteframe layout layout-pretty ng-if="cama.paciente.id">
+
+                <div flex="5">
+                    <div class="text-center" flex="100">
+                        <i class="icono-paciente {{cama.paciente | persona: 'icon'}} " ng-if="cama.paciente.id" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'evolucion'" tabindex="-1"></i>
+                        <md-button class="grow btn-buscar-paciente" aria-label="Agregar paciente en cama" ng-click="buscarPaciente(cama); cama.$action = 'internacion'" ng-if="!cama.paciente.id && cama.estado == 'desocupada'">
+                            <i class="fa fa-bed agregar"></i>
+                        </md-button>
+
+                        <span class="fa-stack fa-lg reparacion" ng-if="cama.estado == 'reparacion'" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'enviada_reparacion'">
+                            <i class="fa fa-bed fa-stack-1x"></i>
+                            <i class="fa fa-ban fa-stack-2x"></i>
+                        </span>
+                    </div>
+                    <div class="numero-habitacion">
+                        {{cama.habitacion}}
+                        /
+                        {{cama.numero}}
+                    </div>
+                </div>
+                <div flex>
+                    <div ng-if="cama.paciente.apellido" layout="">
+                        <h3 class="name" flex="70">
+                            {{cama.paciente | persona:"an"}}
+                        </h3>
+                        <p class="profession text-right" flex>
+                            {{cama.paciente | persona:"e"}}
+                            /
+                            {{cama.paciente.documento}}
+                        </p>
+                    </div>
+                    <div>
+                        Médico a cargo: XXXXXXXXXXXXXXXX
+                        <br />
+                        Fecha internación: {{cama.$internacion.createdAt | date: "dd/MM/yyyy  'a las' HH:mm "}} hs, {{cama.$internacion.createdAt | fromNow }}
+                        <br />
+                        Ultima evolución:
+                        <div ng-if="cama.$internacion.evoluciones.length > 0">
+                            <i class="fa fa-user-md"></i>
+                            {{cama.$internacion.evoluciones[cama.$internacion.evoluciones.length-1].createdBy.name}}
+                            {{cama.$internacion.evoluciones[cama.$internacion.evoluciones.length-1].createdAt | date: "dd/MM/yyyy  'a las' HH:mm "}} hs
+                            (
+                            {{cama.$internacion.evoluciones[cama.$internacion.evoluciones.length-1].createdAt | fromNow}} )
+                        </div>
+                    </div>
+                </div>
+                <div flex>
+                    <span class="md-caption">Diagnóstico presuntivo</span>
+                    <br/>
+                    {{cama.$internacion.ingreso.diagnosticoPresuntivo}}
+
+                    <br/>
+
+                    <span class="md-caption">Motivo de internación</span>
+                    <br/>
+                    {{cama.$internacion.ingreso.motivo}}
+                </div>
+                <div flex>
+                    <div flex="10" ng-if="cama.idInternacion">
+                        <span >
+                            <md-tooltip md-direction="top" ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total > 0 && cama.$internacion.ingreso.enfermeria.riesgoCaida.total < 25">Riesgo de caídas bajo</md-tooltip>
+                            <md-tooltip md-direction="top" ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total >= 25 && cama.$internacion.ingreso.enfermeria.riesgoCaida.total <= 50">Riesgo de caídas medio</md-tooltip>
+                            <md-tooltip md-direction="top" ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total > 50">Riesgo de caídas alto</md-tooltip>
+                            <md-tooltip md-direction="top" ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total == 0">Sin riesgo de caídas</md-tooltip>
+
+                            <md-icon ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total > 0 && cama.$internacion.ingreso.enfermeria.riesgoCaida.total < 25" ng-class="{'verde' : cama.$internacion.ingreso.enfermeria.riesgoCaida.total < 25}">warning</md-icon>
+                            <md-icon ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total >= 25 && cama.$internacion.ingreso.enfermeria.riesgoCaida.total <= 50" ng-class="{'amarillo' : cama.$internacion.ingreso.enfermeria.riesgoCaida.total >= 25 && cama.$internacion.ingreso.enfermeria.riesgoCaida.total <= 50}">warning</md-icon>
+                            <md-icon ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total > 50" ng-class="{'rojo' : cama.$internacion.ingreso.enfermeria.riesgoCaida.total > 50}">warning</md-icon>
+                            <md-icon ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total == 0">warning</md-icon>
+                        </span>
+                        <span></span>
+                        <span>
+                            <md-tooltip md-direction="top" ng-if="cama.$internacion.evoluciones[cama.$internacion.evoluciones.length-1].temperatura">{{cama.$internacion.evoluciones[cama.$internacion.evoluciones.length-1].temperatura}}º C</md-tooltip>
+                            <md-icon md-svg-icon="mdi:thermometer" aria-label="thermometer "></md-icon>
+                        </span>
+                    </div>
+                    <div flex>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 
 <md-toolbar class="md-warn" ng-if="filter.camas && filter.camas.length == 0">
