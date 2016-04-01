@@ -2,6 +2,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
     'use strict';
 
     angular.extend($scope, {
+        ordenCronologico : [],
         riesgoCaidas: 0,
         selectedTabIndex: 0,
         internacion: null,
@@ -46,6 +47,33 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
         },
         editarPase: function(item) {
             alert("Definir que editar y como. Solo fecha ? Descripcion? Permitir editar si no esta egresado el pacietne?")
+        },
+        ordenarCronologicamente: function(){
+            var elemento = {
+                fecha: $scope.internacion.ingreso.fechaHora,
+                tipo: "Ingreso",
+                data: $scope.internacion.createdBy
+            };
+
+            // agregamos el ingreso
+            $scope.ordenCronologico.push(elemento);
+
+            // agregamos la valoracion inicial
+
+            // agregamos la primera evoluciones
+            var elemento = {
+                fecha: $scope.internacion.evoluciones[0].fechaHora,
+                tipo: "Evolución",
+                data:  $scope.internacion.evoluciones[0]
+            }
+            $scope.ordenCronologico.push(elemento);
+
+            // ordenamos cronolicamente todo el array
+            $scope.ordenCronologico.sort(function(a,b) {
+                return new Date(a.fecha).getTime() - new Date(b.fecha).getTime()
+            });
+
+            console.log($scope.ordenCronologico);
         },
         goToTab: function(tab){
             $scope.selectedTabIndex = tab;

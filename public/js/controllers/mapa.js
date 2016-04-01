@@ -122,9 +122,6 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             }
             Plex.openView('internacion/editar/cama/' + cama.id).then(function(internacion) {
                 // si la internacion
-                // if (!internacion.ingreso.enfermeria.createdAt){
-                console.log("INTERNCION", internacion);
-                console.log(typeof internacion.ingreso.enfermeria);
                 $scope.ingresoEnfermeria = (typeof internacion.ingreso.enfermeria === 'undefined') ? true : false;
 
                 // operar con el paciente / internacion devuelto en data
@@ -153,7 +150,6 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 if (cama.$action == 'internacion') {
                     // nos fijamos si no tiene datos de ingresos de enfermeria
                     // y de ser asi mostramos el formulario de valoracion de enfermeria
-                    console.log("INGRESO ENFERMERIA", $scope.ingresoEnfermeria)
                     if ($scope.ingresoEnfermeria){
                         $scope.openToast("Internacion creada. A continuación puede crear la valoración inicial.");
 
