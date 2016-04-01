@@ -114,14 +114,6 @@ angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'P
         //     }
         // },
         guardar: function() {
-            // if (typeof $scope.internacion.evolucion === 'undefined'){
-            //     $scope.internacion.evolucion = {};
-            // }
-
-            $scope.evolucion.fechaHora = new Date();
-            $scope.evolucion.tipo = Session.variables.prestaciones_workflow;
-            $scope.evolucion.servicio = Session.servicioActual;
-
             var data = {
                 ingreso: $scope.internacion.ingreso
             };
@@ -130,6 +122,10 @@ angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'P
                 minify: true
             }).then(function(internacion) {
                 // guardamos la evolucion si no se cargo
+                $scope.evolucion.fechaHora = (!$scope.evolucion.fechaHora) ? new Date() : $scope.evolucion.fechaHora;
+                $scope.evolucion.tipo = ($scope.evolucion.tipo) ? $scope.evolucion.tipo : Session.variables.prestaciones_workflow;
+                $scope.evolucion.servicio = ($scope.evolucion.servicio) ? $scope.evolucion.servicio : Session.servicioActual;
+
                 Shared.evolucion.post(internacion.id, $scope.evolucion.id || null, $scope.evolucion, {
                     minify: true
                 }).then(function(data) {
