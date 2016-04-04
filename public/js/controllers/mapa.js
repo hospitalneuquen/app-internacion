@@ -34,10 +34,6 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                     if (cama.idInternacion){
                         Shared.internacion.get(cama.idInternacion).then(function(internacion){
                             cama.$internacion = internacion;
-                            // // riesgo caidas
-                            // Shared.internacion.calcularRiesgoCaida(cama.$internacion).then(function(total) {
-                            //     cama.$riesgoCaidas = total;
-                            // });
                         });
                     }
 
@@ -211,9 +207,6 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
 
             });
 
-            // Server.get('/api/internacion/internacion/' + idInternacion + '/valoracionEnfermeria').then(function(valoracionInicial){
-            //     console.log(valoracionInicial);
-            // });
         },
 
         egresarPaciente: function(cama) {
