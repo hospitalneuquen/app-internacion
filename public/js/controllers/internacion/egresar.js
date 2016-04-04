@@ -42,24 +42,6 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
                 // TODO: Definir que hacer en caso de que sea defuncion o alta,
                 // si hay que llenar algun otro formulario
 
-                // // si es un egreso por pase, entonces lo creamos
-                // if ($scope.egreso.tipo == 'pase') {
-                //     var pase = {
-                //         fechaHora: new Date(),
-                //         servicio: Session.servicioActual.id,
-                //         cama: plexParams.idCama
-                //     }
-                //
-                //     Shared.pase.post(plexParams.idInternacion, null, pase, {
-                //         minify: true
-                //     }).then(function() {
-                //         Plex.closeView(internacion);
-                //     });
-                //
-                // } else {
-                //     Plex.closeView(internacion);
-                // }
-
                 Plex.closeView(internacion);
 
             });

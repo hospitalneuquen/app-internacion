@@ -62,24 +62,7 @@ angular.module('app').factory('Shared', ["Global", "Server", "Session","$q", fun
              **/
             post: function(id, data, options) {
                 return Server.post('/api/internacion/internacion/' + (id || ''), data, options);
-            },
-            // calcularRiesgoCaida: function(internacion){
-            //     var deferred = $q.defer();
-            //
-            //     var total = 0;
-            //     // this.internacion.get(id).then(function(internacion){
-            //         if (internacion && internacion.ingreso && internacion.ingreso.enfermeria && internacion.ingreso.enfermeria.riesgoCaida) {
-            //             for (var p in internacion.ingreso.enfermeria.riesgoCaida) {
-            //                 if (p != 'total')
-            //                     total += parseInt(internacion.ingreso.enfermeria.riesgoCaida[p]) || 0;
-            //             }
-            //         }
-            //     // });
-            //
-            //     deferred.resolve(total);
-            //     return deferred.promise;
-            // }
-
+            }
         },
         evolucion: {
             /**
