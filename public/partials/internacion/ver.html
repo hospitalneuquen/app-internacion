@@ -39,7 +39,7 @@
                         <md-card class="green dashboard-card">
                             <md-card-header>
                                 <md-card-avatar>
-                                    <md-icon>content_paste</md-icon>
+                                    <md-icon>assignment</md-icon>
                                 </md-card-avatar>
                                 <md-card-header-text>
                                     <span class="md-title">Ultima evolución</span>
@@ -283,7 +283,95 @@
                 </div>
             </md-tab>
             <md-tab label="Historial">
-                <button ng-click="ordenarCronologicamente()">Ordenar cronológicamente</button>
+                <!-- <button ng-click="ordenarCronologicamente()">Ordenar cronológicamente</button> -->
+                <div layout style="background:#eee;">
+                    <div flex="10"></div>
+                    <div flex>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="timeline-centered timeline-sm">
+                                <article class="timeline-entry"  ng-repeat="elemento in ordenCronologico" ng-class="{'left-aligned': $even}">
+                                    <div class="timeline-entry-inner">
+                                        <time datetime="{{elemento.fecha}}" class="timeline-time">
+                                            <span>{{elemento.fecha | date: "HH:mm"}} hs</span>
+                                            <span>{{elemento.fecha | date: "dd 'de' MMMM 'de' yyyy"}}</span>
+                                        </time>
+
+                                        <div class="timeline-icon bg-ingreso" ng-if="elemento.tipo == 'Ingreso'">
+                                            <i class="fa fa-bed" ></i>
+                                        </div>
+
+                                        <div class="timeline-icon bg-valoracion-inicial" ng-if="elemento.tipo == 'Valoración inicial'">
+                                            <i class="material-icons" ></i>
+                                        </div>
+
+                                        <div class="timeline-icon bg-pase" ng-if="elemento.tipo == 'Pase'">
+                                            <i class="material-icons">transfer_within_a_station</i>
+                                        </div>
+
+                                        <div class="timeline-icon bg-evolucion" ng-if="elemento.tipo == 'Evolución'">
+                                            <i class="material-icons" >assignment</i>
+                                        </div>
+
+                                        <div class="timeline-icon bg-egreso" ng-if="elemento.tipo == 'Egreso'">
+                                            <i class="material-icons">exit_to_app</i>
+                                        </div>
+
+                                        <div class="timeline-label">
+                                            <h4 class="timeline-title">{{elemento.tipo}}</h4>
+
+                                            <div ng-if="elemento.tipo == 'Ingreso'">
+                                                <p>
+                                                    Tipo de ingreso: {{elemento.data.tipo}}
+                                                    <span ng-if="elemento.data.dipo == 'derivacion'">Derivado desde: {{elemento.data.derivadoDesde.nombreCorto}} </span>
+                                                    <br />
+                                                    Motivo: {{elemento.data.motivo}}
+                                                    <br />
+                                                    Diagnóstico presuntivo: {{elemento.data.diagnosticoPresuntivo}}
+                                                </p>
+                                            </div>
+
+                                            <div ng-if="elemento.tipo == 'Evolución'">
+                                                <p>
+                                                    Servicio: {{elemento.data.servicio.nombreCorto}}
+                                                    <br />
+                                                    <i class="fa fa-user-md"></i>
+                                                    {{elemento.data.createdBy.name}}
+                                                </p>
+                                            </div>
+
+                                            <div ng-if="elemento.tipo == 'Pase'">
+                                                <p>
+                                                    Pase hacia {{elemento.data.servicio.nombreCorto}}
+                                                </p>
+                                            </div>
+
+                                            <div ng-if="elemento.tipo == 'Egreso'">
+                                                <p>
+                                                    Tiempo internado: {{elemento.duracion}}
+                                                    <br />
+
+                                                    Cama: {{elemento.data.cama.habitacion}}/{{elemento.data.cama.numero}}
+                                                    <br />
+
+                                                    Servicio: {{elemento.data.servicio.nombreCorto}}
+                                                </p>
+                                                <p>
+                                                    Tipo de alta: {{elemento.data.tipoAlta}}
+                                                    <br />
+                                                    <span ng-if="elemento.data.diagnosticoAlta">Diagnóstico de alta: {{elemento.data.diagnosticoAlta}}</span>
+                                                    <span ng-if="elemento.data.derivadoHacia">Derivado hacia: {{elemento.data.derivadoHacia.nombreCorto}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div flex="10"></div>
+                </div>
             </md-tab>
         </md-tabs>
     </div>

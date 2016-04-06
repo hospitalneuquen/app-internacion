@@ -152,7 +152,6 @@ angular.module('app').controller('internacion/iGraficoLiquidos', ['$scope', 'Ple
 
     // inicializamos mediante el watch de la variable incluida
     $scope.$watch('include.internacion', function(current, old) {
-        console.log(current);
         $scope.init(current);
     });
 }]);

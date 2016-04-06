@@ -2,7 +2,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
     'use strict';
 
     angular.extend($scope, {
-        ordenCronologico : [],
+        ordenCronologico: [],
         riesgoCaidas: 0,
         selectedTabIndex: 0,
         internacion: null,
@@ -48,34 +48,78 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
         editarPase: function(item) {
             alert("Definir que editar y como. Solo fecha ? Descripcion? Permitir editar si no esta egresado el pacietne?")
         },
-        ordenarCronologicamente: function(){
-            var elemento = {
+        ordenarCronologicamente: function() {
+            // agregamos el ingreso
+            $scope.ordenCronologico.push({
                 fecha: $scope.internacion.ingreso.fechaHora,
                 tipo: "Ingreso",
-                data: $scope.internacion.createdBy
-            };
-
-            // agregamos el ingreso
-            $scope.ordenCronologico.push(elemento);
+                data: $scope.internacion.ingreso
+            });
 
             // agregamos la valoracion inicial
+            $scope.ordenCronologico.push({
+                fecha: $scope.internacion.ingreso.fechaHora,
+                tipo: "Valoración inicial",
+                data: $scope.internacion.ingreso.enfermeria
+            });
 
-            // agregamos la primera evoluciones
-            var elemento = {
-                fecha: $scope.internacion.evoluciones[0].fechaHora,
-                tipo: "Evolución",
-                data:  $scope.internacion.evoluciones[0]
+            // agregamos evoluciones
+            if ($scope.internacion.evoluciones.length) {
+                angular.forEach($scope.internacion.evoluciones, function(evolucion, key) {
+                    $scope.ordenCronologico.push({
+                        fecha: evolucion.fechaHora,
+                        tipo: "Evolución",
+                        data: evolucion
+                    });
+                });
             }
-            $scope.ordenCronologico.push(elemento);
+
+            // agregamos pase
+            if ($scope.internacion.pases.length) {
+                var i = 0;
+                angular.forEach($scope.internacion.pases, function(pase, key) {
+                    // omitimos el primer pase que es de cuando se genera la internacion
+                    if (i > 0) {
+                        $scope.ordenCronologico.push({
+                            fecha: pase.fechaHora,
+                            tipo: "Pase",
+                            data: pase
+                        });
+
+                    }
+                    i++;
+                });
+            }
+
+            // agregamos el ingreso
+            if ($scope.internacion.egreso) {
+                var inicio = moment($scope.internacion.ingreso.fechaHora);
+                var fin = moment($scope.internacion.egreso.fechaHora);
+                var duracion = inicio.to(fin, true);
+
+                $scope.ordenCronologico.push({
+                    fechaInternacion: $scope.internacion.ingreso.fechaHora,
+                    fecha: $scope.internacion.egreso.fechaHora,
+                    duracion: duracion,
+                    tipo: "Egreso",
+                    data: $scope.internacion.egreso
+                });
+            }
+
+            // // agregamos la primera evoluciones
+            // $scope.ordenCronologico.push({
+            //     fecha: $scope.internacion.evoluciones[0].fechaHora,
+            //     tipo: "Evolución",
+            //     data:  $scope.internacion.evoluciones[0]
+            // });
 
             // ordenamos cronolicamente todo el array
-            $scope.ordenCronologico.sort(function(a,b) {
+            $scope.ordenCronologico.sort(function(a, b) {
                 return new Date(a.fecha).getTime() - new Date(b.fecha).getTime()
             });
 
-            console.log($scope.ordenCronologico);
         },
-        goToTab: function(tab){
+        goToTab: function(tab) {
             $scope.selectedTabIndex = tab;
         },
         init: function() {
@@ -111,10 +155,8 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                     });
                 }
 
-                // riesgo caidas
-                // Shared.internacion.calcularRiesgoCaida(internacion).then(function(total) {
-                //     $scope.riesgoCaidas = total;
-                // });
+                // ordenamos cronologicamente
+                $scope.ordenarCronologicamente();
             });
 
 
