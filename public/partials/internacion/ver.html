@@ -80,7 +80,7 @@
                             <!-- <img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out"> -->
                             <md-card-content>
                                 <p>Antecedentes del paciente</p>
-                                <br /><br /><br />
+                                <br/><br/><br/>
                             </md-card-content>
                             <md-card-actions layout="column" layout-align="start">
                                 <md-button ng-click="goToTab(4)">Ir a los antecedentes</md-button>
@@ -163,7 +163,7 @@
                                     </md-input-container>
                                 </div>
                             </div>
-                            <div flex layout  style="display: none;">
+                            <div flex layout style="display: none;">
                                 <span flex></span>
                                 <md-button ng-click="cancelar()">Cancelar</md-button>
                                 <md-button class="md-primary md-raised" plex-submit="guardar()">Guardar</md-button>
@@ -290,104 +290,125 @@
                         <div class="row">
                             <div class="col-md-9">
                                 <div class="timeline-centered timeline-sm">
-                                <article class="timeline-entry"  ng-repeat="elemento in ordenCronologico" ng-class="{'left-aligned': $even}">
-                                    <div class="timeline-entry-inner">
-                                        <time datetime="{{elemento.fecha}}" class="timeline-time">
-                                            <span>{{elemento.fecha | date: "HH:mm"}} hs</span>
-                                            <span>{{elemento.fecha | date: "dd 'de' MMMM 'de' yyyy"}}</span>
-                                        </time>
+                                    <article class="timeline-entry" ng-repeat="elemento in ordenCronologico" ng-class="{'left-aligned': $even}">
+                                        <div class="timeline-entry-inner">
+                                            <time datetime="{{elemento.fecha}}" class="timeline-time">
+                                                <span>{{elemento.fecha | date: "HH:mm"}}
+                                                    hs</span>
+                                                <span>{{elemento.fecha | date: "dd 'de' MMMM 'de' yyyy"}}</span>
+                                            </time>
 
-                                        <div class="timeline-icon bg-ingreso" ng-if="elemento.tipo == 'Ingreso'">
-                                            <i class="fa fa-bed" ></i>
-                                        </div>
+                                            <div class="timeline-icon bg-ingreso" ng-if="elemento.tipo == 'Ingreso'">
+                                                <i class="fa fa-bed"></i>
+                                            </div>
 
-                                        <div class="timeline-icon bg-valoracion-inicial" ng-if="elemento.tipo == 'Valoración inicial'">
-                                            <i class="material-icons" ></i>
-                                        </div>
+                                            <div class="timeline-icon bg-valoracion-inicial" ng-if="elemento.tipo == 'Valoración inicial'">
+                                                <i class="material-icons">receipt</i>
+                                            </div>
 
-                                        <div class="timeline-icon bg-pase" ng-if="elemento.tipo == 'Pase'">
-                                            <i class="material-icons">transfer_within_a_station</i>
-                                        </div>
+                                            <div class="timeline-icon bg-pase" ng-if="elemento.tipo == 'Pase'">
+                                                <i class="material-icons">transfer_within_a_station</i>
+                                            </div>
 
-                                        <div class="timeline-icon bg-evolucion" ng-if="elemento.tipo == 'Evolución'">
-                                            <i class="material-icons" >assignment</i>
-                                        </div>
+                                            <div class="timeline-icon bg-evolucion" ng-if="elemento.tipo == 'Evolución'">
+                                                <i class="material-icons">assignment</i>
+                                            </div>
 
-                                        <div class="timeline-icon bg-egreso" ng-if="elemento.tipo == 'Egreso'">
-                                            <i class="material-icons">exit_to_app</i>
-                                        </div>
+                                            <div class="timeline-icon bg-egreso" ng-if="elemento.tipo == 'Egreso'">
+                                                <i class="material-icons">exit_to_app</i>
+                                            </div>
 
-                                        <div class="timeline-label">
-                                            <h4 class="timeline-title">
-                                                {{elemento.tipo}}
-                                                <div class="numero-habitacion pull-right">
-                                                    {{elemento.cama.habitacion}} / {{elemento.cama.numero}}
+                                            <div class="timeline-label">
+                                                <h4 class="timeline-title {{elemento._tipo}}">
+                                                    {{elemento.tipo}}
+                                                    <div class="numero-habitacion pull-right">
+                                                        {{elemento.cama.habitacion}}
+                                                        /
+                                                        {{elemento.cama.numero}}
+                                                    </div>
+                                                </h4>
+
+                                                <div ng-if="elemento.tipo == 'Ingreso'">
+                                                    <p>
+                                                        Tipo de ingreso:
+                                                        {{elemento.data.tipo}}
+
+                                                        <span ng-if="elemento.data.dipo == 'derivacion'">Derivado desde:
+                                                            {{elemento.data.derivadoDesde.nombreCorto}}
+                                                        </span>
+                                                        <br/>
+                                                        Motivo:
+                                                        {{elemento.data.motivo}}
+                                                        <br/>
+                                                        Diagnóstico presuntivo:
+                                                        {{elemento.data.diagnosticoPresuntivo}}
+                                                    </p>
                                                 </div>
-                                            </h4>
 
-                                            <div ng-if="elemento.tipo == 'Ingreso'">
-                                                <p>
-                                                    Tipo de ingreso: {{elemento.data.tipo}}
+                                                <div ng-if="elemento.tipo == 'Valoración inicial'">
+                                                    <p>
+                                                        <i class="fa fa-user-md"></i>
+                                                        {{internacion.createdBy.name}}
+                                                    </p>
+                                                </div>
 
-                                                    <span ng-if="elemento.data.dipo == 'derivacion'">Derivado desde: {{elemento.data.derivadoDesde.nombreCorto}} </span>
-                                                    <br />
-                                                    Motivo: {{elemento.data.motivo}}
-                                                    <br />
-                                                    Diagnóstico presuntivo: {{elemento.data.diagnosticoPresuntivo}}
-                                                </p>
+                                                <div ng-if="elemento.tipo == 'Evolución'">
+                                                    <p>
+                                                        Servicio:
+                                                        {{elemento.data.servicio.nombreCorto}}
+                                                        <br/>
+                                                        <i class="fa fa-user-md"></i>
+                                                        {{elemento.data.createdBy.name}}
+                                                    </p>
+                                                </div>
+
+                                                <div ng-if="elemento.tipo == 'Pase'">
+                                                    <p>
+                                                        Pase hacia
+                                                        {{elemento.data.servicio.nombreCorto}}
+                                                        <br/>
+                                                        Cama:
+                                                        {{elemento.data.cama.habitacion}}
+                                                        /
+                                                        {{elemento.data.cama.numero}}
+                                                    </p>
+                                                </div>
+
+                                                <div ng-if="elemento.tipo == 'Egreso'">
+                                                    <p>
+                                                        Tiempo internado:
+                                                        {{elemento.duracion}}
+                                                        <br/>
+
+                                                        Cama:
+                                                        {{elemento.data.cama.habitacion}}
+                                                        /
+                                                        {{elemento.data.cama.numero}}
+                                                        <br/>
+
+                                                        Servicio:
+                                                        {{elemento.data.servicio.nombreCorto}}
+                                                    </p>
+                                                    <p>
+                                                        Tipo de alta:
+                                                        {{elemento.data.tipoAlta}}
+                                                        <br/>
+                                                        <span ng-if="elemento.data.diagnosticoAlta">Diagnóstico de alta:
+                                                            {{elemento.data.diagnosticoAlta}}</span>
+                                                        <span ng-if="elemento.data.derivadoHacia">Derivado hacia:
+                                                            {{elemento.data.derivadoHacia.nombreCorto}}
+                                                        </p>
+                                                    </div>
+                                                </div>
                                             </div>
-
-                                            <div ng-if="elemento.tipo == 'Valoración inicial'">
-                                                <p>
-                                                    <i class="fa fa-user-md"></i>
-                                                    {{internacion.createdBy.name}}
-                                                </p>
-                                            </div>
-
-                                            <div ng-if="elemento.tipo == 'Evolución'">
-                                                <p>
-                                                    Servicio: {{elemento.data.servicio.nombreCorto}}
-                                                    <br />
-                                                    <i class="fa fa-user-md"></i>
-                                                    {{elemento.data.createdBy.name}}
-                                                </p>
-                                            </div>
-
-                                            <div ng-if="elemento.tipo == 'Pase'">
-                                                <p>
-                                                    Pase hacia {{elemento.data.servicio.nombreCorto}}
-                                                    <br />
-                                                    Cama: {{elemento.data.cama.habitacion}} / {{elemento.data.cama.numero}}
-                                                </p>
-                                            </div>
-
-                                            <div ng-if="elemento.tipo == 'Egreso'">
-                                                <p>
-                                                    Tiempo internado: {{elemento.duracion}}
-                                                    <br />
-
-                                                    Cama: {{elemento.data.cama.habitacion}} / {{elemento.data.cama.numero}}
-                                                    <br />
-
-                                                    Servicio: {{elemento.data.servicio.nombreCorto}}
-                                                </p>
-                                                <p>
-                                                    Tipo de alta: {{elemento.data.tipoAlta}}
-                                                    <br />
-                                                    <span ng-if="elemento.data.diagnosticoAlta">Diagnóstico de alta: {{elemento.data.diagnosticoAlta}}</span>
-                                                    <span ng-if="elemento.data.derivadoHacia">Derivado hacia: {{elemento.data.derivadoHacia.nombreCorto}}
-                                                </p>
-                                            </div>
-                                        </div>
+                                        </article>
                                     </div>
-                                </article>
-                            </div>
+                                </div>
                             </div>
                         </div>
+                        <div flex="10"></div>
                     </div>
-                    <div flex="10"></div>
-                </div>
-            </md-tab>
-        </md-tabs>
+                </md-tab>
+            </md-tabs>
+        </div>
     </div>
-</div>
