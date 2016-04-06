@@ -318,16 +318,29 @@
                                         </div>
 
                                         <div class="timeline-label">
-                                            <h4 class="timeline-title">{{elemento.tipo}}</h4>
+                                            <h4 class="timeline-title">
+                                                {{elemento.tipo}}
+                                                <div class="numero-habitacion pull-right">
+                                                    {{elemento.cama.habitacion}} / {{elemento.cama.numero}}
+                                                </div>
+                                            </h4>
 
                                             <div ng-if="elemento.tipo == 'Ingreso'">
                                                 <p>
                                                     Tipo de ingreso: {{elemento.data.tipo}}
+
                                                     <span ng-if="elemento.data.dipo == 'derivacion'">Derivado desde: {{elemento.data.derivadoDesde.nombreCorto}} </span>
                                                     <br />
                                                     Motivo: {{elemento.data.motivo}}
                                                     <br />
                                                     Diagnóstico presuntivo: {{elemento.data.diagnosticoPresuntivo}}
+                                                </p>
+                                            </div>
+
+                                            <div ng-if="elemento.tipo == 'Valoración inicial'">
+                                                <p>
+                                                    <i class="fa fa-user-md"></i>
+                                                    {{internacion.createdBy.name}}
                                                 </p>
                                             </div>
 
@@ -343,6 +356,8 @@
                                             <div ng-if="elemento.tipo == 'Pase'">
                                                 <p>
                                                     Pase hacia {{elemento.data.servicio.nombreCorto}}
+                                                    <br />
+                                                    Cama: {{elemento.data.cama.habitacion}} / {{elemento.data.cama.numero}}
                                                 </p>
                                             </div>
 
@@ -351,7 +366,7 @@
                                                     Tiempo internado: {{elemento.duracion}}
                                                     <br />
 
-                                                    Cama: {{elemento.data.cama.habitacion}}/{{elemento.data.cama.numero}}
+                                                    Cama: {{elemento.data.cama.habitacion}} / {{elemento.data.cama.numero}}
                                                     <br />
 
                                                     Servicio: {{elemento.data.servicio.nombreCorto}}

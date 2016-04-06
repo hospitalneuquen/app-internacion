@@ -53,14 +53,16 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
             $scope.ordenCronologico.push({
                 fecha: $scope.internacion.ingreso.fechaHora,
                 tipo: "Ingreso",
-                data: $scope.internacion.ingreso
+                data: $scope.internacion.ingreso,
+                cama: $scope.internacion.pases[$scope.internacion.pases.length-1].cama
             });
 
             // agregamos la valoracion inicial
             $scope.ordenCronologico.push({
                 fecha: $scope.internacion.ingreso.fechaHora,
                 tipo: "Valoración inicial",
-                data: $scope.internacion.ingreso.enfermeria
+                data: $scope.internacion.ingreso.enfermeria,
+                cama: $scope.internacion.pases[$scope.internacion.pases.length-1].cama
             });
 
             // agregamos evoluciones
@@ -69,7 +71,8 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                     $scope.ordenCronologico.push({
                         fecha: evolucion.fechaHora,
                         tipo: "Evolución",
-                        data: evolucion
+                        data: evolucion,
+                        cama: $scope.internacion.pases[$scope.internacion.pases.length-1].cama
                     });
                 });
             }
@@ -83,7 +86,8 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                         $scope.ordenCronologico.push({
                             fecha: pase.fechaHora,
                             tipo: "Pase",
-                            data: pase
+                            data: pase,
+                            cama: $scope.internacion.pases[$scope.internacion.pases.length-1].cama
                         });
 
                     }
@@ -102,7 +106,8 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                     fecha: $scope.internacion.egreso.fechaHora,
                     duracion: duracion,
                     tipo: "Egreso",
-                    data: $scope.internacion.egreso
+                    data: $scope.internacion.egreso,
+                    cama: $scope.internacion.pases[$scope.internacion.pases.length-1].cama
                 });
             }
 
