@@ -328,9 +328,9 @@
                                             {{item.$total_egresos}}
                                         </td>
                                         <td style="text-align: center; vertical-align: middle;">
-                                            <md-icon class="rojo" ng-if="item.$balance < 0">trending_down</md-icon>
+                                            <md-icon class="verde" ng-if="item.$balance < 0">trending_up</md-icon>
                                             <md-icon class="celeste" ng-if="item.$balance == 0">trending_flat</md-icon>
-                                            <md-icon class="verde" ng-if="item.$balance > 0">trending_up</md-icon>
+                                            <md-icon class="rojo" ng-if="item.$balance > 0">trending_down</md-icon>
                                         </td>
                                     </tr>
                                 </table>

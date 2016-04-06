@@ -111,6 +111,7 @@
                                 <div class="icon" flex="100">
                                     <i class="icono-paciente {{cama.paciente | persona: 'icon'}} " ng-if="cama.paciente.id" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'evolucion'" tabindex="-1"></i>
                                     <md-button class="grow btn-buscar-paciente" aria-label="Agregar paciente en cama" ng-click="buscarPaciente(cama); cama.$action = 'internacion'" ng-if="!cama.paciente.id && cama.estado == 'desocupada'">
+                                        <md-tooltip md-direction="bottom">Internar paciente</md-tooltip>
                                         <i class="fa fa-bed agregar"></i>
                                     </md-button>
 
