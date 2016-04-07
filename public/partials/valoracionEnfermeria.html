@@ -825,9 +825,9 @@
                 <div layout="row">
                     <md-input-container flex="25">
                         <md-radio-group ng-model="internacion.ingreso.enfermeria.orientado" layout="row">
-                            <md-radio-button flex="25" value="true">Orientado</md-radio-button>
+                            <md-radio-button flex="25" ng-value="true">Orientado</md-radio-button>
                             <div flex="5" hide-xs hide-sm></div>
-                            <md-radio-button flex="25" value="false">Desorientado</md-radio-button>
+                            <md-radio-button flex="25" ng-value="false">Desorientado</md-radio-button>
                         </md-radio-group>
                     </md-input-container>
                     <div flex="5" hide-xs hide-sm></div>
@@ -912,8 +912,8 @@
                                     <legend>Analgesia previa</legend>
                                     <br/>
                                     <md-radio-group ng-model="internacion.ingreso.enfermeria.dolorValoracion.analgesiaAutomedicacion">
-                                        <md-radio-button value="false">Indicada por médico</md-radio-button>
-                                        <md-radio-button value="true">Automedicación</md-radio-button>
+                                        <md-radio-button ng-value="false">Indicada por médico</md-radio-button>
+                                        <md-radio-button ng-value="true">Automedicación</md-radio-button>
                                     </md-radio-group>
                                 </md-input-container>
                                 <div flex="5" hide-xs hide-sm></div>
@@ -921,8 +921,8 @@
                                     <legend>Ansiolíticos previos</legend>
                                     <br/>
                                     <md-radio-group ng-model="internacion.ingreso.enfermeria.dolorValoracion.ansioliticosAutomedicacion">
-                                        <md-radio-button value="false">Indicados por médico</md-radio-button>
-                                        <md-radio-button value="true">Automedicación</md-radio-button>
+                                        <md-radio-button ng-value="false">Indicados por médico</md-radio-button>
+                                        <md-radio-button ng-value="true">Automedicación</md-radio-button>
                                     </md-radio-group>
                                 </md-input-container>
                                 <div flex="5" hide-xs hide-sm></div>
