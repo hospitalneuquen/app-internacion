@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="es-ar" ng-app="app">
-
     <head>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width">
         <base href="/app/internacion/">
         <title ng-bind="Plex.title"></title>
 
-        <link href="/lib/css/dist/lib.cosmo.css" rel="stylesheet"/>
-        <!-- <link rel="stylesheet" plex-skin="Plex.currentSkin" /> -->
+        <link href="/lib/css/dist/lib.paper.css" rel="stylesheet"/>
         <link href="resources/app.css" rel="stylesheet"/>
 
         <!--Libraries -->
@@ -38,22 +36,15 @@
         <script src="js/controllers/pacientes.js"></script>
         <script src="js/controllers/pacientes/iHeader.js"></script>
 
+        <script src="js/controllers/sandbox/test.js"></script>
         <script src="js/controllers/sandbox/personas.js"></script>
         <script src="js/controllers/sandbox/ubicaciones.js"></script>
         <script src="js/controllers/sandbox/internaciones.js"></script>
 
         <!-- Directives -->
         <script src="js/directives/plexAffix.js"></script>
-
-        <!--Evita que se muestre el HTML parcial antes de completar la carga-->
-        <style>
-            .xplex-cloak {
-                display: none !important;
-            }
-
-        </style>
     </head>
-    <body class="plex-cloak">
+    <body>
         <div ng-if="!Session.isActive()" ng-include="'/lib/html/dist/session.html'"></div>
         <div ng-if="Session.isActive()" ng-include="'/lib/html/dist/main.html'"></div>
     </body>

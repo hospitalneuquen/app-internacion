@@ -1,0 +1,223 @@
+<div plex-tabs ng-init="vista = 3" ng-model="vista">
+    <ul>
+        <li>
+            <a>
+                <i class="mdi mdi-account"></i>
+                <span>Tabs</span>
+            </a>
+        </li>
+        <li>
+            <a>
+                <i class="mdi mdi-car"></i>
+                <span>Iconos</span>
+            </a>
+        </li>
+        <li>
+            <a>
+                <i class="mdi mdi-bell"></i>
+                <span>Alert</span>
+            </a>
+        </li>
+        <li>
+            <a>
+                <i class="mdi mdi-car"></i>
+                <span>Inputs</span>
+            </a>
+        </li>
+        <li>
+            <a>
+                <i class="mdi mdi-car"></i>
+                <span>Formulario base</span>
+            </a>
+        </li>
+        <li>
+            <a>
+                <i class="mdi mdi-car"></i>
+                <span>Cards</span>
+            </a>
+        </li>
+        <li>
+            <a>
+                <i class="mdi mdi-dots-vertical"></i>
+                <span>Actions</span>
+            </a>
+        </li>
+    </ul>
+
+    <!-- Tabs -->
+    <div class="card card-block">
+        <h3>Tabs</h3>
+        <div plex-tabs ng-model="tab">
+            <ul>
+                <li>
+                    <a>
+                        <i class="mdi mdi-account"></i>
+                        <span>Uno</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <i class="mdi mdi-bell"></i>
+                        <span>Dos</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <i class="mdi mdi-car"></i>
+                        <span>Tres</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="card card-block">
+                Tab #1
+            </div>
+            <div class="card card-block">
+                Tab #2
+            </div>
+            <div class="card card-block">
+                Tab #3
+            </div>
+        </div>
+    </div>
+    <!-- Iconos -->
+    <div class="card card-block">
+        <h3>Iconos
+            <a href="https://materialdesignicons.com/" target="_blank">MDI</a>
+        </h3>
+        <h3>
+            <i class="mdi mdi-bell"></i>
+            <i class="mdi mdi-access-point"></i>
+            <i class="mdi mdi-calendar"></i>
+        </h3>
+        <!-- <iframe src="https://materialdesignicons.com/" style="width: 100%; height: 400px"></iframe> -->
+    </div>
+    <!-- Alerts -->
+    <div class="card card-block">
+        <h3>Alerts</h3>
+        <a class="btn btn-default" ng-click="Plex.alert('Este es un mensaje', 'danger', 0)">Mostrar alert global</a>
+        <a class="btn btn-default" ng-click="Plex.alert('Este es un mensaje', 'warning', null, $event)">Mostrar alert relativo al elemento</a>
+    </div>
+    <!-- Inputs -->
+    <div class="card card-block">
+        <h3>Inputs</h3>
+        <div class="row">
+            <div class="col-lg-6">
+                <input type="checkbox" label="Checkbox activo" ng-model="fields.checkbox1" plex="checkbox">
+                <label>Opciones con radio</label>
+                <input type="radio" name="group1" label="Radio 1" ng-value="1" ng-model="fields.radio1" plex="radio">
+                <input type="radio" name="group1" label="Radio 2" ng-value="2" ng-model="fields.radio1" plex="radio">
+                <input type="radio" name="group1" label="Radio 3" ng-value="3" ng-model="fields.radio1" plex="radio">
+
+                <input type=text label="Texto" ng-model="fields.texto" ng-required="true" plex="text">
+                <input type=text label="Integer" ng-model="fields.int" plex="int">
+                <input type=text label="Float" ng-model="fields.float" plex="float">
+                <input type=text label="Fecha" ng-model="fields.fecha" plex="date">
+                <input type=text label="Hora" ng-model="fields.hora" plex="time">
+                <input type=text label="Detalle" ng-model="fields.detalle" plex>
+                <select label="Select con opciones" ng-model="fields.selectOpciones" plex>
+                    <option value="AL">Alabama</option>
+                    <option value="WY">Wyoming</option>
+                </select>
+                <select label="Select múltiple con array" ng-model="fields.selectArray" multiple plex="(item.apellido + ', ' + item.nombre) for item in array"></select>
+                <select label="Select con promise" ng-model="fields.selectPersona" min="3" plex="(item.apellido + ', ' + item.nombre) for item in buscarPersona($value)"></select>
+            </div>
+            <div class="col-lg-6">
+                <label></label>
+                <pre>{{fields | json}}</pre>
+            </div>
+        </div>
+    </div>
+    <!-- Formulario -->
+    <div>
+        <h3>Formulario base</h3>
+        <ng-form>
+            <div class="card-deck-wrapper">
+                <div class="card-deck">
+                    <div class="card card-block">
+                        <h4>Algunos datos por aquí</h4>
+                        <input type=text label="Texto" ng-model="fields.texto" ng-required="true" plex="text">
+                        <input type=text label="Integer" ng-model="fields.int" plex="int">
+                    </div>
+                    <div class="card card-block">
+                        <h4>Otros por allá</h4>
+                        <input type=text label="Float" ng-model="fields.float" plex="float">
+                        <input type=text label="Fecha" ng-model="fields.fecha" plex="date">
+                        <input type=text label="Hora" ng-model="fields.hora" plex="time">
+                    </div>
+                </div>
+            </div>
+            <div class="card card-block margin-top text-right">
+                <a class="btn btn-default btn-flat">Cancelar</a>
+                <a class="btn btn-primary" plex-submit="guardar()">Guardar</a>
+            </div>
+        </ng-form>
+    </div>
+    <!-- Cards -->
+    <div class="card card-block">
+        <h3>Cards</h3>
+        <div class="card card-block">
+            Card simple
+        </div>
+        <div class="card card-block">
+            <h4 class="card-title">Card con título</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="card-link">Acción 1</a>
+            <a href="#" class="card-link">Acción 2</a>
+        </div>
+        <div class="card">
+            <div class="card-header card-primary">
+                Card con header
+            </div>
+            <div class="card-block">
+                <h4 class="card-title">Título</h4>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            </div>
+        </div>
+        <h3>Card Deck</h3>
+        <div class="card-deck-wrapper">
+            <div class="card-deck">
+                <div class="card card-block">
+                    Esta es una línea
+                    <br/>Esta es la segunda línea
+                </div>
+                <div class="card card-block">
+                    Este es un texto más largo
+                    <br/>This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action
+                </div>
+            </div>
+        </div>
+        <div class="card-deck-wrapper">
+            <div class="card-deck">
+                <div class="card card-block">
+                    Esta es una línea
+                    <br/>Esta es la segunda línea
+                </div>
+                <div class="card card-block">
+                    Este es un texto más largo
+                    <br/>This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action
+                </div>
+                <div class="card card-block">
+                    Este es un texto corto
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Actions -->
+    <div class="card card-block">
+        Opciones para la aplicación
+        <i plex-actions="actions"></i>
+        <br/><br/>
+        <h4>Más opciones con otro ícono
+            <i class="mdi mdi-dots-horizontal" plex-actions="actions"></i>
+        </h4>
+        <h3>Opciones con un botón
+            <a class="btn btn-default">
+                <i plex-actions="actions"></i>
+            </a>
+        </h3>
+    </div>
+    <div class="card card-block"></div>
+    <div class="card card-block"></div>
+    <div class="card card-block"></div>
+    <div class="card card-block"></div>
+</div>
