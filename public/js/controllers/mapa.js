@@ -1,4 +1,4 @@
-angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 'Server', '$timeout', '$alert', 'Session', function($scope, Plex, Shared, Server, $timeout, $alert, Session) {
+angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 'Server', '$timeout', 'Session', '$alert', function($scope, Plex, Shared, Server, $timeout, Session, $alert) {
     'use strict';
 
     Session.servicioActual = {
@@ -15,7 +15,10 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
     // };
 
     angular.extend($scope, {
+        layout: 'grid',
         // servicios: [],
+        // variable que determina si la internacion tiene info de ingreso
+        ingresoEnfermeria: false,
         habitaciones: [],
         tipoCamas: [],
         camas: null,
@@ -26,15 +29,22 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 $scope.filter.filtrar();
 
                 var services_found = [];
-                angular.forEach(data, function(cama, key) {
+                angular.forEach($scope.camas, function(cama, key) {
+
+                    if (cama.idInternacion){
+                        Shared.internacion.get(cama.idInternacion).then(function(internacion){
+                            cama.$internacion = internacion;
+                        });
+                    }
+
 
                     //asignamos las habitaciones
-                    if ($.inArray(cama.habitacion, $scope.habitaciones) == -1) {
+                    if (!$scope.habitaciones.inArray(cama.habitacion)) {
                         $scope.habitaciones.push(cama.habitacion);
                     }
 
                     // asignamos los tipos de camas
-                    if ($.inArray(cama.tipoCama, $scope.tipoCamas) == -1) {
+                    if (!$scope.tipoCamas.inArray(cama.tipoCama)) {
                         $scope.tipoCamas.push(cama.tipoCama);
                     }
 
@@ -62,7 +72,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             camas: null,
             habitacion: null,
             oxigeno: false,
-            desinfectada: false,
+            desinfectada: null,
             tipoCama: false,
             nombre: null,
             estado: null,
@@ -71,9 +81,12 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 var self = this;
                 var regex_nombre = new RegExp(".*" + self.nombre + ".*", "ig");
 
+                var _desinfectada = (self.desinfectada) ? false : null;
+
                 self.camas = $scope.camas.filter(function(i) {
                     return (!self.oxigeno || (self.oxigeno && i.oxigeno)) &&
-                        (!self.desinfectada || (self.desinfectada && i.desinfectada)) &&
+                        // (!self.desinfectada || (self.desinfectada && i.desinfectada)) &&
+                        (_desinfectada === null || (!_desinfectada && !i.desinfectada)) &&
                         (!self.tipoCama || (self.tipoCama && i.tipoCama == self.tipoCama)) &&
                         (!self.habitacion || (self.habitacion && i.habitacion == self.habitacion)) &&
                         (!self.estado || (self.estado && i.estado == self.estado)) &&
@@ -92,13 +105,27 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             }
         },
 
+        verInternacion: function(idInternacion){
+            Plex.openView('internacion/ver/' + idInternacion).then(function(){
+
+            });
+        },
         // buscamos un paciente y creamos la itnernacion
         buscarPaciente: function(cama) {
             if (!cama.desinfectada) {
-                Plex.showWarning("La cama está actualmente sin desinfectar, no se puede internar a un paciente en ella.");
+                $alert({
+                    title: 'Cama sin desfinfectar',
+                    content: 'La cama está actualmente sin desinfectar, no se puede internar a un paciente en ella.',
+                    placement: 'top-right',
+                    type: 'info',
+                    show: true
+                });
                 return false;
             }
             Plex.openView('internacion/editar/cama/' + cama.id).then(function(internacion) {
+                // si la internacion
+                $scope.ingresoEnfermeria = (typeof internacion.ingreso.enfermeria === 'undefined') ? true : false;
+
                 // operar con el paciente / internacion devuelto en data
                 if (typeof internacion !== "undefined") {
                     $scope.cambiarEstado(cama, 'ocupada', internacion.id);
@@ -123,38 +150,67 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 // viene con el valor 'internacion' y de ser asi, entonces
                 // mostramos el formulario de valoracion de enfermeria
                 if (cama.$action == 'internacion') {
+                    // nos fijamos si no tiene datos de ingresos de enfermeria
+                    // y de ser asi mostramos el formulario de valoracion de enfermeria
 
-                    // una vez actualizado el mapa de cama, mostramos el formulario
-                    // de carga de datos de la valoracion inicial
-                    $alert({
-                        title: 'Internacion creada',
-                        content: 'A continuación puede crear la valoración inicial.',
-                        placement: 'top-right',
-                        type: 'success',
-                        show: true
-                    });
+                    // if ($scope.ingresoEnfermeria){
+                    //     $scope.openToast("Internacion creada. A continuación puede crear la valoración inicial.");
+                    //
+                    //     $timeout(function() {
+                    //             if (data) {
+                    //                 $scope.openToast("");
+                    //                 $alert({
+                    //                     title: 'Valoracion enfermeria guardada',
+                    //                     content: '',
+                    //                     placement: 'top-right',
+                    //                     type: 'success',
+                    //                     show: true
+                    //                 });
+                    //             }
+                    //         });
+                    //     }, 500);
+                    // }
 
-                    $timeout(function() {
-                        Plex.openView('valoracionEnfermeria/' + data.idInternacion).then(function() {
-
+                    if ($scope.ingresoEnfermeria){
+                        $alert({
+                            title: 'Internacion creada',
+                            content: 'A continuación puede crear la valoración inicial.',
+                            placement: 'top-right',
+                            type: 'success',
+                            show: true
                         });
-                    }, 500);
 
-                }else {
-                    switch(estado){
+                        $timeout(function() {
+                            Plex.openView('valoracionEnfermeria/' + data.idInternacion).then(function(data) {
+                                if (data) {
+                                    $alert({
+                                        title: '',
+                                        content: 'Valoracion enfermeria guardada',
+                                        placement: 'top-right',
+                                        type: 'success',
+                                        show: true
+                                    });
+                                }
+                            });
+                        }, 500);
+                    }
+
+
+                } else {
+                    switch (estado) {
                         case 'reparacion':
                             var title = ' enviada a reparación';
-                        break;
+                            break;
                         case 'desinfectada':
                             var title = ' desinfectada';
-                        break;
+                            break;
                         case 'desocupada':
                             if (cama.$action == 'reparacion') {
                                 var title = ' reparada';
-                            }else {
+                            } else {
                                 var title = ' desocupada';
                             }
-                        break;
+                            break;
                     }
 
                     $alert({
@@ -194,45 +250,18 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
 
             });
 
-            // Server.get('/api/internacion/internacion/' + idInternacion + '/valoracionEnfermeria').then(function(valoracionInicial){
-            //     console.log(valoracionInicial);
-            // });
         },
 
         egresarPaciente: function(cama) {
             // buscamos la internacion y generamos el egreso
-            Plex.openView("internacion/egresar/" + cama.idInternacion + "/" + cama.id).then(function(internacion){
-                if (internacion){
+            Plex.openView("internacion/egresar/" + cama.idInternacion + "/" + cama.id).then(function(internacion) {
+                if (internacion) {
                     // buscamos la cama y actualizamos el estado como "desocupada"
                     // $scope.cambiarEstado(cama, 'desocupada', internacion.id);
                     $scope.cambiarEstado(cama, 'desocupada');
                 }
             });
         },
-
-        // generarPase: function(cama) {
-        //     var data = {
-        //         estado: 'enPase'
-        //     };
-        //
-        //     Shared.internacion.post(cama.idInternacion, data).then(function(){
-        //         // var pase = {
-        //         //     fechaHora : new Date(),
-        //         //     servicio : Session.servicioActual.id,
-        //         //     cama : cama.id
-        //         // }
-        //
-        //         // Shared.pase.post(cama.idInternacion, null, pase, {minify: true}).then(function(){
-        //         //     // buscamos la cama y actualizamos el estado como "desocupada"
-        //         //     $scope.cambiarEstado(cama, 'desocupada');
-        //         // });
-        //
-        //         // buscamos la cama y actualizamos el estado como "desocupada"
-        //         $scope.cambiarEstado(cama, 'desocupada');
-        //     });
-        //
-        // },
-
         actualizarMapa: function(data) {
             var length = $scope.camas.length;
 
@@ -245,7 +274,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                     // agregamos un pequeño timeout para volver a rotar la cama
                     $timeout(function() {
                         $scope.filter.camas[i].$rotar = false;
-                    }, 100);
+                    }, 120);
 
                     break;
                 }
@@ -255,8 +284,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             Plex.closeView({
 
             });
-        }
-
+        },
     });
 
     $scope.$watch('filter.nombre + filter.oxigeno + filter.desinfectada + filter.tipoCama + filter.habitacion + filter.estado', function(current, old) {
@@ -266,4 +294,6 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
     });
 
     $scope.init();
+
+    Plex.initView({title: "Mapa de camas"});
 }]);
