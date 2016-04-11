@@ -1,4 +1,5 @@
-﻿'use strict'
+﻿
+'use strict'
 
 /**
  * @ngdoc filter
@@ -37,14 +38,14 @@
       </file>
     </example>
  **/
-angular.module('app').filter('persona', ['$filter', function ($filter) {
-    return function (persona, formato, opcional) {
+angular.module('app').filter('persona', ['$filter', function($filter) {
+    return function(persona, formato, opcional) {
         // Formato default: an
         // Ejemplo de formato: "dan" --> Documento + Apellido + Nombre
         if (!persona)
             return undefined;
         else {
-            var formatDocumento = function (appendThis) {
+            var formatDocumento = function(appendThis) {
                 return !persona.documento ? "" : ((isNaN(persona.documento) ? persona.documento : $filter('number')(persona.documento)) + (appendThis || ""));
             }
 
@@ -71,46 +72,44 @@ angular.module('app').filter('persona', ['$filter', function ($filter) {
                         if (persona.fechaNacimientoEstimada)
                             years += " (estimada)";
                         return years;
-                    }
-                    else
+                    } else
                         return null;
 
-                // establece el icono para el paciente segun la edad y el sexo
-                case "icon":
-                if (persona){
-                    if (persona.fechaNacimiento) {
-                        var birthDate = new Date(persona.fechaNacimiento);
-                        var otherDate = opcional ? new Date(opcional) : new Date();
-                        var years = (otherDate.getFullYear() - birthDate.getFullYear());
-                        if (otherDate.getMonth() < birthDate.getMonth() ||
-                            otherDate.getMonth() == birthDate.getMonth() && otherDate.getDate() < birthDate.getDate()) {
-                            years--;
+                case "icon": // establece el icono para el paciente segun la edad y el sexo
+                    if (persona) {
+                        if (persona.fechaNacimiento) {
+                            var birthDate = new Date(persona.fechaNacimiento);
+                            var otherDate = opcional ? new Date(opcional) : new Date();
+                            var years = (otherDate.getFullYear() - birthDate.getFullYear());
+                            if (otherDate.getMonth() < birthDate.getMonth() ||
+                                otherDate.getMonth() == birthDate.getMonth() && otherDate.getDate() < birthDate.getDate()) {
+                                years--;
+                            }
+
+                            var edad = years;
+                        } else {
+                            var edad = null;
                         }
 
-                        var edad =  years;
-                    }else{
-                        var edad = null;
+                        if (edad >= 0 && edad < 15) {
+                            if (edad >= 0 && edad <= 3) {
+                                return 'icon-i-nursery';
+                            } else if (edad > 3 && edad < 15) {
+                                return 'fa fa-child';
+                            }
+                        } else {
+                            if (persona.sexo && persona.sexo.toLowerCase() == 'masculino') {
+                                return 'fa fa-male';
+                            } else if (persona.sexo && persona.sexo.toLowerCase() == 'femenino') {
+                                return 'fa fa-female';
+                            } else if (persona.sexo && persona.sexo.toLowerCase() == 'indeterminado') {
+                                return 'fa fa-genderless';
+                            }
+                        }
+
+                        // devolvemos por defecto
+                        return 'fa fa-male';
                     }
-
-                    if (edad && edad < 15){
-                        if (edad >= 0 && edad <= 2){
-                            return 'icon-i-nursery';
-                        }else if (edad > 3  && edad < 15) {
-                            return 'fa fa-child';
-                        }
-                    }else{
-                        if (persona.sexo && persona.sexo.toLowerCase() == 'masculino'){
-                            return 'fa fa-male';
-                        }else if (persona.sexo && persona.sexo.toLowerCase() == 'femenino') {
-                            return 'fa fa-female';
-                        }else if (persona.sexo && persona.sexo.toLowerCase() == 'indeterminado') {
-                            return 'fa fa-user-secret';
-                        }
-                    }
-
-                    // devolvemos por defecto
-                    return 'fa fa-male';
-                }
                 default:
                     return persona.apellido + ", " + persona.nombre;
             }

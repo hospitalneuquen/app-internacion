@@ -106,6 +106,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
         },
 
         verInternacion: function(idInternacion){
+            alert("internacion");
             Plex.openView('internacion/ver/' + idInternacion).then(function(){
 
             });
@@ -246,6 +247,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
         },
 
         verValoracionInicial: function(idInternacion) {
+            alert("ola");
             Plex.openView('valoracionEnfermeria/' + idInternacion).then(function(internacion) {
 
             });

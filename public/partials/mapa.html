@@ -117,11 +117,11 @@
 
                                     <i class="icono-paciente {{cama.paciente | persona: 'icon'}} " ng-if="cama.paciente.id" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'evolucion'"></i>
 
-                                    <button type="button" class="btn btn-buscar-paciente grow tips" title="Agregar paciente en cama" ng-click="buscarPaciente(cama); cama.$action = 'internacion'" ng-if="!cama.paciente.id && cama.estado == 'desocupada'">
-                                        <i class="mdi mdi-account-plus agregar"></i>
+                                    <button type="button" class="btn btn-buscar-paciente btn-flat grow tips" title="Agregar paciente en cama" ng-click="buscarPaciente(cama); cama.$action = 'internacion'" ng-if="!cama.paciente.id && cama.estado == 'desocupada'">
+                                        <i class="fa fa-bed agregar"></i>
                                     </button>
 
-                                    <span class="fa-stack fa-lg reparacion" ng-if="cama.estado == 'reparacion'" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'enviada_reparacion'">
+                                    <span class="fa-stack fa-lg reparacion tips" ng-if="cama.estado == 'reparacion'" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'enviada_reparacion'" title="Cama en reparación">
                                         <i class="fa fa-bed fa-stack-1x"></i>
                                         <i class="fa fa-ban fa-stack-2x"></i>
                                     </span>
@@ -143,7 +143,7 @@
 
                     <div class="footer">
                             <div class="col-xs-3 text-left col-left">
-                                <div class="stacked-icon oxigeno" ng-if="cama.oxigeno" class="Cama con oxígeno">
+                                <div class="stacked-icon oxigeno tips" ng-if="cama.oxigeno" title="Cama con oxígeno">
                                     O
                                     <sub>2</sub>
                                 </div>
@@ -252,7 +252,7 @@
                         </div>
                         <div class="footer">
                             <div class="col-xs-3 text-left col-left">
-                                <div class="stacked-icon oxigeno" ng-if="cama.oxigeno" class="Cama con oxígeno">
+                                <div class="stacked-icon oxigeno tips" ng-if="cama.oxigeno" title="Cama con oxígeno">
                                     O
                                     <sub>2</sub>
                                 </div>
