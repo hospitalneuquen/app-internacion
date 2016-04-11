@@ -104,39 +104,45 @@
                     <div class="content">
 
                         <div class="main cama">
-                            <div ng-if="cama.idInternacion">
-                                <i ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total > 0 && cama.$internacion.ingreso.enfermeria.riesgoCaida.total < 25" ng-class="{'verde' : cama.$internacion.ingreso.enfermeria.riesgoCaida.total < 25}" class="mdi mdi-alert tips" title="Riesgo de caídas bajo"></i>
-                                <i ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total >= 25 && cama.$internacion.ingreso.enfermeria.riesgoCaida.total <= 50" ng-class="{'amarillo' : cama.$internacion.ingreso.enfermeria.riesgoCaida.total >= 25 && cama.$internacion.ingreso.enfermeria.riesgoCaida.total <= 50}" class="mdi mdi-alert tips" title="Riesgo de caídas medio"></i>
-                                <i ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total > 50" ng-class="{'rojo' : cama.$internacion.ingreso.enfermeria.riesgoCaida.total > 50}" class="mdi mdi-alert tips" title="Riesgo de caídas alto"></i>
-                                <i ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total == 0" class="mdi mdi-alert tips" title="Sin riesgo de caídas"></i>
+                            <div class="col-xs-1 text-left">
+                                <div ng-if="cama.idInternacion">
+                                    <i ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total > 0 && cama.$internacion.ingreso.enfermeria.riesgoCaida.total < 25" ng-class="{'verde' : cama.$internacion.ingreso.enfermeria.riesgoCaida.total < 25}" class="mdi mdi-alert tips" title="Riesgo de caídas bajo"></i>
+                                    <i ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total >= 25 && cama.$internacion.ingreso.enfermeria.riesgoCaida.total <= 50" ng-class="{'amarillo' : cama.$internacion.ingreso.enfermeria.riesgoCaida.total >= 25 && cama.$internacion.ingreso.enfermeria.riesgoCaida.total <= 50}" class="mdi mdi-alert tips" title="Riesgo de caídas medio"></i>
+                                    <i ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total > 50" ng-class="{'rojo' : cama.$internacion.ingreso.enfermeria.riesgoCaida.total > 50}" class="mdi mdi-alert tips" title="Riesgo de caídas alto"></i>
+                                    <i ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total == 0" class="mdi mdi-alert tips" title="Sin riesgo de caídas"></i>
 
-                                <i class="mdi mdi-thermometer" title="{{cama.$internacion.evoluciones[cama.$internacion.evoluciones.length-1].temperatura}}º C"></i>
+                                    <i class="mdi mdi-thermometer" title="{{cama.$internacion.evoluciones[cama.$internacion.evoluciones.length-1].temperatura}}º C"></i>
+                                </div>
                             </div>
-                            <div>
-                                <div class="icon">
+                            <div class="col-xs-10">
+                                <div>
+                                    <div class="icon">
 
-                                    <i class="icono-paciente {{cama.paciente | persona: 'icon'}} " ng-if="cama.paciente.id" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'evolucion'"></i>
+                                        <i class="icono-paciente {{cama.paciente | persona: 'icon'}} " ng-if="cama.paciente.id" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'evolucion'"></i>
 
-                                    <button type="button" class="btn btn-buscar-paciente btn-flat grow tips" title="Agregar paciente en cama" ng-click="buscarPaciente(cama); cama.$action = 'internacion'" ng-if="!cama.paciente.id && cama.estado == 'desocupada'">
-                                        <i class="fa fa-bed agregar"></i>
-                                    </button>
+                                        <button type="button" class="btn btn-buscar-paciente btn-flat grow tips" title="Agregar paciente en cama" ng-click="buscarPaciente(cama); cama.$action = 'internacion'" ng-if="!cama.paciente.id && cama.estado == 'desocupada'">
+                                            <i class="fa fa-bed agregar"></i>
+                                        </button>
 
-                                    <span class="fa-stack fa-lg reparacion tips" ng-if="cama.estado == 'reparacion'" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'enviada_reparacion'" title="Cama en reparación">
-                                        <i class="fa fa-bed fa-stack-1x"></i>
-                                        <i class="fa fa-ban fa-stack-2x"></i>
-                                    </span>
+                                        <span class="fa-stack fa-lg reparacion tips" ng-if="cama.estado == 'reparacion'" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'enviada_reparacion'" title="Cama en reparación">
+                                            <i class="fa fa-bed fa-stack-1x"></i>
+                                            <i class="fa fa-ban fa-stack-2x"></i>
+                                        </span>
+                                    </div>
+
+                                    <div ng-if="cama.paciente.apellido">
+                                        <h3 class="name">
+                                            {{cama.paciente | persona:"an"}}
+                                        </h3>
+                                        <p class="profession">
+                                            {{cama.paciente | persona:"e"}}
+                                            /
+                                            {{cama.paciente.documento}}
+                                        </p>
+                                    </div>
                                 </div>
-
-                                <div ng-if="cama.paciente.apellido">
-                                    <h3 class="name">
-                                        {{cama.paciente | persona:"an"}}
-                                    </h3>
-                                    <p class="profession">
-                                        {{cama.paciente | persona:"e"}}
-                                        /
-                                        {{cama.paciente.documento}}
-                                    </p>
-                                </div>
+                            </div>
+                            <div class="col-xs-1 text-right">
                             </div>
                         </div>
                     </div>
@@ -150,38 +156,18 @@
                             </div>
 
                             <div class="col-xs-3 text-left col-left">
-                                <button type="button" class="btn-nostyle" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'desinfectar'" ng-if="!cama.desinfectada && cama.estado != 'reparacion'">
-                                    <i class="mdi mdi-bug-report"></i>
+                                <button type="button" class="btn btn-default btn-flat" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'desinfectar'" ng-if="!cama.desinfectada && cama.estado != 'reparacion'">
+                                    <i class="mdi mdi-bug"></i>
                                 </button>
 
                             </div>
 
                             <div class="col-xs-6 col-right text-right">
-                                <div class="btn-group" role="group" ng-if="cama.paciente.id">
-                                    <button type="button" class="btn btn-default  tips" data-placement="top" data-animation="am-flip-x" bs-dropdown aria-haspopup="true" aria-expanded="false">
-                                        <i class="mdi mdi-dots-vertical"></i>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li>
-                                            <a href="#" ng-click="editarIngresoInternacion(cama.id, cama.idInternacion)">Internación</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" ng-click="evolucionarPaciente(cama)">Evoluciones</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" ng-click="verValoracionInicial(cama.idInternacion)">Valoración inicial</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" ng-click="cargarPrestaciones()">
-                                                Cargar prestaciones
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" ng-click="egresarPaciente(cama)">Desocupar cama</a>
-                                        </li>
-                                    </ul>
+                                <button class="btn btn-default btn-flat" ng-if="cama.paciente.id">
+                                    <i plex-actions="actions"></i>
+                                </button>
 
-                                </div>
+
 
                                 <button class="btn btn-default tips" title="Ver internación" ng-click="verInternacion(cama.idInternacion)" ng-if="cama.idInternacion">
                                     <i class="mdi mdi-eye"></i>
@@ -259,8 +245,8 @@
                             </div>
 
                             <div class="col-xs-3 text-left col-left">
-                                <button type="button" class="btn-nostyle" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'desinfectar'" ng-if="!cama.desinfectada && cama.estado != 'reparacion'">
-                                    <i class="mdi mdi-bug-report"></i>
+                                <button type="button" class="btn btn-default btn-flat" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'desinfectar'" ng-if="!cama.desinfectada && cama.estado != 'reparacion'">
+                                    <i class="mdi mdi-bug"></i>
                                 </button>
 
                             </div>
@@ -346,7 +332,7 @@
                         </div>
                         <div class="footer">
 
-                            <div class="col-lg-6">
+                            <div class="col-xs-6">
                                 <div class="form-group">
                                     <button class="btn btn-default tips form-control" ng-click="cama.$rotar = !cama.$rotar" title="No enviar a reparar">
                                         <i class="mdi mdi-close"></i>
@@ -354,7 +340,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-xs-6">
                                 <div class="form-group">
                                     <button class="btn btn-primary tips form-control" title="Enviar a reparar" ng-click="reparacionForm.$valid && cambiarEstado(cama, 'reparacion')">
                                         <i class="mdi mdi-check"></i>
@@ -376,7 +362,7 @@
                         </div>
                         <div class="footer">
 
-                            <div class="col-lg-6">
+                            <div class="col-xs-6">
                                 <div class="form-group">
 
                                     <button class="btn btn-default tips form-control" ng-click="cama.$rotar = !cama.$rotar" title="No">
@@ -385,7 +371,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-xs-6">
                                 <div class="form-group">
                                     <button class="btn btn-primary tips form-control" title="Si" ng-click="cambiarEstado(cama, 'desocupada')">
                                         <i class="mdi mdi-check"></i>
@@ -408,7 +394,7 @@
                             </form>
                         </div>
                         <div class="footer">
-                            <div class="col-lg-6">
+                            <div class="col-xs-6">
                                 <div class="form-group">
 
                                     <button class="btn btn-default tips form-control" ng-click="cama.$rotar = !cama.$rotar" title="No">
@@ -417,7 +403,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-xs-6">
                                 <div class="form-group">
                                     <button class="btn btn-primary tipos form-control" title="Si" ng-click="desinfeccionForm.$valid && cambiarEstado(cama, 'desinfectada')">
                                         <i class="mdi mdi-check"></i>
