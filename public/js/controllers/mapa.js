@@ -248,8 +248,6 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
         },
 
         evolucionarPaciente: function(cama) {
-            console.log('internacion/evolucionar/' + cama.idInternacion);
-            debugger;
             Plex.openView('internacion/evolucionar/' + cama.idInternacion).then(function(data) {
                 if (data) {
                     // buscamos la cama y actualizamos el estado como "desocupada"
@@ -270,7 +268,6 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
         },
 
         verValoracionInicial: function(idInternacion) {
-            alert("ola");
             Plex.openView('valoracionEnfermeria/' + idInternacion).then(function(internacion) {
 
             });
