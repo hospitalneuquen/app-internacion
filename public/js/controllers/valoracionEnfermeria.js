@@ -1,45 +1,148 @@
 'use strict';
 
-angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'Plex', 'plexParams', 'Shared', 'Server', '$timeout', '$alert', function($scope, Plex, plexParams, Shared, Server, $timeout, $alert) {
+angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'Plex', 'plexParams', 'Shared', 'Server', '$timeout', 'Personas', 'Session', function($scope, Plex, plexParams, Shared, Server, $timeout, Personas, Session) {
     angular.extend($scope, {
         internacion: undefined,
-        enfermeria: {
-            FR: null, SAT2: null, disneaEsfuerzo: null, disneaReposo: null, tos: null, secreciones: null, usoMusculos: null, secrecionesCaracteristicas: null, musculosCuales: null, observacionesOxigenacion: null,
-            TA: null, FC: null, carotideo: null, radial: null, popliteo: null, pedio: null, observacionesCirculacion: null,
-            peso: null, talla: null, habitosAlimentarios: null, vomitos: null, vomitosCaracteristicas: null, nauseas: null, otrosNutricion: null, piezasDentarias:  null, protesis: null, protesisTipo: null,
-            dificultadesDeglutir: null, dificultadesMasticar: null, lactanciaMaterna: null, observacionesNutricion: null,
-            espontaneaVesical: null, incontinenciaVesical: null, urostomiaVesical: null, sondaVesical: null, tallaVesical: null, otrosVesical: null, caracteristicaVesical: null,
-            espontaneaIntestinal: null, ostomiaIntestinal: null, diarreaIntestinal: null, incontinenciaIntestinal: null, constipacionIntestinal: null, otrosIntestinal: null,
-            caracteristicaIntestinal: null, drenajes: null, otrosEliminacion: null, drenajesCaracteristicas: null, otrosCaracteristicas: null, observacionesEliminacion: null,
-            temperatura: null, color: null, higiene: null, higieneAyuda: null, edemas: null, edemasLocalizacion: null, estadoMucosas: null, estadoPiel: null, estadoPie: null, estadoBoca: null,
-            estadoGenitales: null, observacionesTegumentos: null,
-            ayudaVestirse: null, dificultadesCaminar: null, dispositivosMovilizacion: null, dispositivosCuales: null, observacionesMovilizarse: null,
-            dormirContinuo: null, dormirDiscontinuo: null, dormirInsomnio: null, dormirSomnolencia: null, observacionesDormir: null,
-            tabaco: null, tabacoCuantos: null, alcohol: null, alcoholCuanto: null, drogas: null, drogasCuales: null, otrosAdicciones: null, riesgosFisicos: null, riesgosQuimicos: null, riesgosCuales: null,
-            revisionGinecologica: null, fechaRevisionGinecologica: null, revisionUrologica: null, fechaRevisionUrologica: null, ETS: null, riesgoCardiovascular: null, otrosDescriba: null,
-            riesgosDescriba: null, observacionesSeguridad: null,
-            orientado: null, glasgow: null, idioma: null, vision: null, audicion: null, lenguaje: null, describaSensopercepcion: null, dolor: null, dolorLocalizacion: null, observacionesComunicacion: null,
-            creenciasReligiosas: null, frecuenciaIglesia: null, visitaReligioso: null, religiosoCual: null, observacionesEspiritualidad: null,
-            comprendeSituacion: null, sentimientosSituacion: null, dudasExpresadas: null, actividadesHabituales: null, observacionesAprender: null, observacionesGenerales: null
-          },
+        evolucion: null,
+        riesgoCaida: null,
+        enfermeria: null,
+        tabSeleccionado: null,
+        tabAnterior: null,
+        tabSiguiente: null,
+
+        // variables para la seleccion de el antecedente
+        selectedAntecedenteTipo: '',
+        selectedAntecedente: '',
+
+        // variables para los select anidados
+        antecedentesTipos: '',
+        antecedentes: [],
+        _antecedentes: '',
+
+        antecedentesPersonales: [],
+
+        intensidades: ('0 1 2 3 4 5 6 7 8 9 10').split(' ').map(function(intensidad) {
+            return {
+                abbrev: intensidad
+            };
+        }),
         init: function() {
-            Server.get("/api/internacion/internacion/" + plexParams.idInternacion, {}, {
-                updateUI: false
-            }).then(function(internacion) {
-                if (!internacion) {
-                    alert("No se ha podido encontrar la internacion");
-                } else {
-                    $scope.internacion = internacion;
-                    $scope.enfermeria = internacion.enfermeria;
-                                        console.log($scope.enfermeria)
+            $scope.tabSeleccionado = 0;
+            $scope.tabAnterior = 0;
+            $scope.tabSiguiente = 1;
+            Shared.internacion.get(plexParams.idInternacion).then(function(data) {
+                $scope.internacion = data;
+
+                if (data.evoluciones[0]){
+                    $scope.evolucion = data.evoluciones[0];
                 }
+
+                Personas.get(data.paciente.id).then(function(persona) {
+                    $scope.antecedentesPersonales = persona.antecedentesPersonales;
+                });
+            });
+
+            // buscamos todos los tipos de antecedentes
+            // Server.get('/api/internacion/antecedente_tipo').then(function(antecedentes_tipos) {
+            //     $scope.antecedentesTipos = antecedentes_tipos;
+            //
+            //     angular.forEach($scope.antecedentesTipos, function(antecedente_tipo) {
+            //         // buscamos todos los antecedentes segun el tipo
+            //         Server.get('/api/internacion/antecedente_tipo/' + antecedente_tipo.id + '/antecedentes').then(function(antecedentes) {
+            //             var _antecedentes = [];
+            //             angular.forEach(antecedentes, function(antecedente) {
+            //                 _antecedentes.push(antecedente);
+            //             });
+            //
+            //             $scope.antecedentes[antecedente_tipo.id] = _antecedentes;
+            //         });
+            //     });
+            //
+            // });
+            Server.get('/api/internacion/antecedente').then(function(antecedentes) {
+                $scope.antecedentes = antecedentes;
             });
         },
-        guardar: function() {
-            Server.patch('/api/internacion/internacion/' + plexParams.idInternacion + '/valoracionEnfermeria', $scope.enfermeria).then(function(data) {
-                Plex.closeView();
-            }, function() {
+        agregarAntecedente: function() {
+            $scope.selectedAntecedente = JSON.parse($scope.selectedAntecedente);
 
+            if ($scope.selectedAntecedente.id){
+
+                var nuevoAntecedente = {
+                    _antecedente: $scope.selectedAntecedente.id,
+                    observaciones: null,
+                    antecedente: $scope.selectedAntecedente
+                };
+
+                // agregamos a los antecedentes personales, pero al principio
+                // $scope.antecedentesPersonales.push(nuevoAntecedente);
+                $scope.antecedentesPersonales.unshift(nuevoAntecedente);
+
+                $scope.selectedAntecedenteTipo = null;
+                $scope.selectedAntecedente = null;
+
+            }
+        },
+        // antecedentes: {                        //     data: null,
+        //     selectedItem: null,
+        //     searchText: null,
+        //     querySearch: function(query) {
+        //         var allStates = 'Alergias, Cardiovasculares, Metabólicos, Infectológicos, Oncológicos, Respiratorios, Hábitos toxicos, Neurológicos, Urogenital, Oftalmológicos,
+        //Circulatorio, Digestivos, Alimentación, Hematopoyeticos, Accidente, Infectológicos, Quirúrgicos, Traumatológicos';
+        //         $scope.antecedentes = allStates;
+        //         var self = $scope.antecedentes;
+        //         var regex_nombre = new RegExp(".*" + self.searchText + ".*", "ig");
+        //
+        //         if (query) {
+        //             return self.data.filter(function(i) {
+        //                     return allStates.split(/, +/g).map(function(state) {
+        //                         return {
+        //                             value: state.toLowerCase(),
+        //                             display: state
+        //                         };
+        //                     });
+        //             });
+        //         }else{
+        //             return self.data;
+        //         }
+        //     },
+        //     createFilterFor: function(query) {
+        //         var lowercaseQuery = angular.lowercase(query);
+        //         return function filterFn(antecedente) {
+        //             return (antecedente.value.indexOf(lowercaseQuery) === 0);
+        //         };
+        //     }
+        // },
+        guardar: function() {
+            var data = {
+                ingreso: $scope.internacion.ingreso
+            };
+
+            Shared.internacion.post(plexParams.idInternacion, data, {
+                minify: true
+            }).then(function(internacion) {
+                // guardamos la evolucion si no se cargo
+                $scope.evolucion.fechaHora = (!$scope.evolucion.fechaHora) ? new Date() : $scope.evolucion.fechaHora;
+                $scope.evolucion.tipo = ($scope.evolucion.tipo) ? $scope.evolucion.tipo : Session.variables.prestaciones_workflow;
+                $scope.evolucion.servicio = ($scope.evolucion.servicio) ? $scope.evolucion.servicio : Session.servicioActual;
+
+                Shared.evolucion.post(internacion.id, $scope.evolucion.id || null, $scope.evolucion, {
+                    minify: true
+                }).then(function(data) {
+                });
+
+                // guardamos los antecedentes personales de la persona
+                if ($scope.antecedentesPersonales.length > 0){
+                    var data = {
+                        antecedentesPersonales: $scope.antecedentesPersonales
+                    };
+
+                    Personas.post($scope.internacion.paciente.id, data).then(function(data) {
+                        Plex.closeView(internacion);
+                    });
+                }else {
+                    Plex.closeView(internacion);
+                }
             });
         },
         cargarRiesgoCaidas: function(idInternacion) {
@@ -47,10 +150,40 @@ angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'P
 
             });
         },
-    });
-    $scope.init();
+        actualizarRiesgoCaida: function() {
+            if ($scope.internacion.ingreso.enfermeria.riesgoCaida) {
+                var total = 0;
+                for (var p in $scope.internacion.ingreso.enfermeria.riesgoCaida) {
+                    if (p != 'total')
+                        total += parseInt($scope.internacion.ingreso.enfermeria.riesgoCaida[p]) || 0;
+                }
+                $scope.internacion.ingreso.enfermeria.riesgoCaida.total = total;
+                console.log(total);
+            }
+        },
+        cancelar: function() {
+            Plex.closeView();
+        },
+    }); $scope.init();
+
+    // Watches
+    $scope.$watch('selectedAntecedenteTipo', function(current, old) {
+        if (current != old)
+            $scope._antecedentes = $scope.antecedentes[current];
+    }, true);
+
+    $scope.$watch('tabSeleccionado', function(current, old) {
+        if (current != old)
+            $scope.tabAnterior = $scope.tabSeleccionado - 1;
+            $scope.tabSiguiente = $scope.tabSeleccionado + 1;
+    }, true);
+
+    $scope.$watch('internacion.ingreso.enfermeria.riesgoCaida', function(current, old) {
+        if (current != old)
+            $scope.actualizarRiesgoCaida();
+    }, true);
 
     Plex.initView({
-        title: "Valoración inicial de enfermería"
+        title: "Valoración inicial"
     });
 }]);
