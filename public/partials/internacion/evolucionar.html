@@ -1,10 +1,6 @@
 <!-- Header de paciente -->
 <div plex-include="'partials/Pacientes/iHeader.html'" plex-include-internacion="internacion"></div>
 
-<div layout layout-pretty whiteframe ng-if="internacion.evoluciones.length > 0">
-    <div flex>
-        <div plex-include="'partials/internacion/iGraficoLiquidos.html'" plex-include-internacion="internacion"></div>
-    </div>
-</div>
+<div plex-include="'partials/internacion/iGraficoLiquidos.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0"></div>
 
 <div plex-include="'partials/internacion/iEvolucionar.html'" plex-include-internacion="internacion"></div>

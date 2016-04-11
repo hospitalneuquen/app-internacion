@@ -1,20 +1,8 @@
 angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 'Server', '$timeout', 'Session', '$alert', function($scope, Plex, Shared, Server, $timeout, Session, $alert) {
     'use strict';
 
-    Session.servicioActual = {
-        "id": '56b3352698a74c8422cf8224',
-        "_id": '56b3352698a74c8422cf8224',
-        "nombre": "Servicio de Clínica Médica",
-        "nombreCorto": "Clínica Médica"
-    };
-    //
-    // Session.servicioActual = {
-    //     _id : '56b3352898a74c8422cf8263',
-    //     "nombre": "Servicio de Clínica Quirúrgica",
-    //     "nombreCorto" : "Clínica Quirúrgica"
-    // };
-
     angular.extend($scope, {
+        vista: 0,
         layout: 'grid',
         // servicios: [],
         // variable que determina si la internacion tiene info de ingreso
@@ -22,7 +10,40 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
         habitaciones: [],
         tipoCamas: [],
         camas: null,
+        actions: [
+            {
+                text: 'Internación',
+                handler: function(scope) {
+                    $scope.editarIngresoInternacion(scope.cama.id, scope.cama.idInternacion);
+                }
+            },
+            {
+                text: 'Evoluciones',
+                handler: function(scope) {
+                    $scope.evolucionarPaciente(scope.cama);
+                }
+            },
+            {
+                text: 'Valoración inicial',
+                handler: function(scope) {
+                    $scope.verValoracionInicial(scope.cama0.idInternacion);
+                }
+            },
+            {
+                text: 'Cargar prestaciones',
+                handler: function(scope) {
+                    $scope.cargarPrestaciones();
+                }
+            },
+            {
+                text: 'Desocupar cama',
+                handler: function(scope) {
+                    $scope.egresarPaciente(scope.cama);
+                }
+            }
+        ],
         init: function() {
+            console.log(Session);
             // obtenemos las camas para armar el mapa
             Shared.Mapa.get(Session.ubicacionActual).then(function(data) {
                 $scope.camas = data;
@@ -227,6 +248,8 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
         },
 
         evolucionarPaciente: function(cama) {
+            console.log('internacion/evolucionar/' + cama.idInternacion);
+            debugger;
             Plex.openView('internacion/evolucionar/' + cama.idInternacion).then(function(data) {
                 if (data) {
                     // buscamos la cama y actualizamos el estado como "desocupada"

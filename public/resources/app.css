@@ -11,6 +11,19 @@
     background: #e50018;
     color: white;
 }
+.verde {
+    color: #b1c900;
+}
+.amarillo {
+    color: #ffeb34;
+}
+.rojo {
+    color: #e50018;
+}
+.celeste {
+    color: #00ABFF;
+}
+
 
 /*  Plex-Affix
 ------------------------------------------------------------------------
@@ -193,6 +206,7 @@
     min-height: 390px;
     width: 100%;
     margin-bottom: 20px;
+    margin-top: 10px;
 }
 .cama-container:hover .cama .front, .cama-container:hover .cama .back {
     -webkit-box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);

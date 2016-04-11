@@ -1,22 +1,8 @@
 angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 'Shared', 'Server', '$timeout', 'Session', function($scope, Plex, Shared, Server, $timeout, Session) {
     'use strict';
 
-    // DEBUG
-    // Session.servicioActual = {
-    //     "id": '56b3352698a74c8422cf8224',
-    //     "_id": '56b3352698a74c8422cf8224',
-    //     "nombre": "Servicio de Clínica Médica",
-    //     "nombreCorto": "Clínica Médica"
-    // };
-    // Session.variables.prestaciones_workflow = "enfermero";
-    // Shared.pase.post("56d5d9beb2953f2814509fbc", "56d723bb44550e180d6be265", {
-    //     fechaHora: new Date(),
-    //     servicio: Session.servicioActual.id,
-    //     cama: '56cef2ebc070385d4770b7f0'
-    // });
-    //
-
     angular.extend($scope, {
+        tab: 0,
         show_toolbar: true,
         tituloEvolucion: '',
         loading: true,
@@ -86,6 +72,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                 angular.copy(evolucion, $scope.evolucionesEdit);
                 //item.$editing = true;
             } else { // Alta
+                $scope.tab = 1;
                 $scope.tituloFormulario = "Agregar evolución";
                 // Valores por defecto
                 $scope.evolucionesEdit = {
