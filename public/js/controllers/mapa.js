@@ -26,7 +26,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             {
                 text: 'Valoración inicial',
                 handler: function(scope) {
-                    $scope.verValoracionInicial(scope.cama0.idInternacion);
+                    $scope.verValoracionInicial(scope.cama.idInternacion);
                 }
             },
             {
@@ -43,7 +43,6 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             }
         ],
         init: function() {
-            console.log(Session);
             // obtenemos las camas para armar el mapa
             Shared.Mapa.get(Session.ubicacionActual).then(function(data) {
                 $scope.camas = data;
@@ -127,7 +126,6 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
         },
 
         verInternacion: function(idInternacion){
-            alert("internacion");
             Plex.openView('internacion/ver/' + idInternacion).then(function(){
 
             });

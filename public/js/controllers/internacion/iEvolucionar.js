@@ -127,7 +127,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
             $scope.loading = false;
 
             // actualizamos el grafico
-            $scope.chart.update++;
+            // $scope.chart.update++;
         },
         // calcula los balances de liquidos que ha tenido una evoluciones
         calcularBalance: function(evolucion) {

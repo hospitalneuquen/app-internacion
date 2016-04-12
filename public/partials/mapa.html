@@ -167,10 +167,8 @@
                                     <i plex-actions="actions"></i>
                                 </button>
 
-
-
-                                <button class="btn btn-default tips" title="Ver internación" ng-click="verInternacion(cama.idInternacion)" ng-if="cama.idInternacion">
-                                    <i class="mdi mdi-eye"></i>
+                                <button class="btn btn-default btn-flat tips" title="Ver internación" ng-click="verInternacion(cama.idInternacion)" ng-if="cama.idInternacion">
+                                    <i class="mdi mdi-eye "></i>
                                 </button>
 
                                 <button class="btn btn-default" title="Enviar a reparación " ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'reparacion'" ng-if="!cama.paciente.id && (cama.estado == 'desocupada' && cama.estado != 'reparacion')">
@@ -194,7 +192,7 @@
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <button class="btn btn-default  pull-right" ng-show="cama.paciente.id || (cama.$action == 'enviada_reparacion')" ng-click="cama.$rotar = !cama.$rotar">
+                            <button class="btn btn-default btn-flat pull-right" ng-show="cama.paciente.id || (cama.$action == 'enviada_reparacion')" ng-click="cama.$rotar = !cama.$rotar">
                                 <i class="mdi mdi-close"></i>
                             </button>
                         </div>
@@ -252,40 +250,18 @@
                             </div>
 
                             <div class="col-xs-6 col-right text-right">
-                                <div class="btn-group" role="group" ng-if="cama.paciente.id">
-                                    <button type="button" class="btn btn-default  tips" data-placement="top" data-animation="am-flip-x" bs-dropdown aria-haspopup="true" aria-expanded="false">
-                                        <i class="mdi mdi-dots-vertical"></i>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li>
-                                            <a href="#" ng-click="editarIngresoInternacion(cama.id, cama.idInternacion)">Internación</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" ng-click="evolucionarPaciente(cama)">Evoluciones</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" ng-click="verValoracionInicial(cama.idInternacion)">Valoración inicial</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" ng-click="cargarPrestaciones()">
-                                                Cargar prestaciones
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" ng-click="egresarPaciente(cama)">Desocupar cama</a>
-                                        </li>
-                                    </ul>
+                                <button class="btn btn-default btn-flat" ng-if="cama.paciente.id">
+                                    <i plex-actions="actions"></i>
+                                </button>
 
-                                </div>
-
-                                <button class="btn btn-default tips" title="Ver internación" ng-click="verInternacion(cama.idInternacion)" ng-if="cama.idInternacion">
+                                <button class="btn btn-default btn-flat tips" title="Ver internación" ng-click="verInternacion(cama.idInternacion)" ng-if="cama.idInternacion">
                                     <i class="mdi mdi-eye"></i>
                                 </button>
 
-                                <button class="btn btn-default" title="Enviar a reparación " ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'reparacion'" ng-if="!cama.paciente.id && (cama.estado == 'desocupada' && cama.estado != 'reparacion')">
+                                <button class="btn btn-default btn-flat" title="Enviar a reparación " ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'reparacion'" ng-if="!cama.paciente.id && (cama.estado == 'desocupada' && cama.estado != 'reparacion')">
                                     <i class="mdi mdi-wrench"></i>
                                 </button>
-                                <button class="btn btn-default" title="Confirmar reparación" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'reparacion'" ng-if="!cama.paciente.id && (cama.estado == 'desocupada' && cama.estado == 'reparacion')">
+                                <button class="btn btn-default btn-flat" title="Confirmar reparación" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'reparacion'" ng-if="!cama.paciente.id && (cama.estado == 'desocupada' && cama.estado == 'reparacion')">
                                     <i class="mdi mdi-wrench"></i>
                                 </button>
                             </div>

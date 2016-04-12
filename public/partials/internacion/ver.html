@@ -1,414 +1,449 @@
 <div plex-include="'partials/Pacientes/iHeader.html'" plex-include-internacion="internacion"></div>
 
-<div layout layout-pretty whiteframe>
-    <div flex>
-        <md-tabs md-dynamic-height md-border-bottom md-selected="selectedTabIndex">
-            <md-tab label="Resúmen internación">
-                <div layout>
-                    <div flex="25">
-                        <md-card class="blue dashboard-card">
-                            <md-card-header>
-                                <md-card-avatar>
-                                    <md-icon>insert_chart</md-icon>
-                                </md-card-avatar>
-                                <md-card-header-text>
-                                    <span class="md-title">Gráficos</span>
-                                    <span class="md-subhead">Gráficas de internacion de un pacientes.</span>
-                                </md-card-header-text>
-                            </md-card-header>
-                            <!-- <img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out"> -->
-                            <md-card-content>
-                                <p>
-                                    Puede ver gráficas de
-                                    <ul>
-                                        <li>
-                                            Balance de líquidos
-                                        </li>
-                                        <li>
-                                            Temperatura
-                                        </li>
-                                    </ul>
-                                </p>
-                            </md-card-content>
-                            <md-card-actions layout="column" layout-align="start">
-                                <md-button ng-click="goToTab(1)">Ir a los gráficos</md-button>
-                            </md-card-actions>
-                        </md-card>
-                    </div>
-                    <div flex="25">
-                        <md-card class="green dashboard-card">
-                            <md-card-header>
-                                <md-card-avatar>
-                                    <md-icon>assignment</md-icon>
-                                </md-card-avatar>
-                                <md-card-header-text>
-                                    <span class="md-title">Ultima evolución</span>
-                                    <!-- <span class="md-subhead">Gráficas de internacion de un pacientes.</span> -->
-                                </md-card-header-text>
-                            </md-card-header>
-                            <!-- <img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out"> -->
-                            <md-card-content>
-                                <p>
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].texto}}
-                                </p>
-                                <p flex="100">
-                                    <i class="fa fa-user-md"></i>
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].createdBy.name}}
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].createdAt | fromNow}}
-                                    <br/>
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].createdAt | date: "dd/MM/yyyy  'a las' HH:mm "}}
-                                    hs
-                                </p>
-                            </md-card-content>
-                            <md-card-actions layout="column" layout-align="start">
-                                <md-button ng-click="goToTab(3)">Ir a las evoluciones</md-button>
-                            </md-card-actions>
-                        </md-card>
+<div class="row">
+    <div class="col-lg-12" plex-tabs ng-model="tab">
+        <ul class="nav nav-tabs">
+            <li>
+                <a>
+                    Resúmen internación
+                </a>
+            </li>
+            <li>
+                <a>
+                    Gráficos
+                </a>
+            </li>
+            <li>
+                <a>
+                    Ingreso de internación
+                </a>
+            </li>
+            <li>
+                <a>
+                    Evoluciones
+                </a>
+            </li>
+            <li>
+                <a>
+                    Antecedentes
+                </a>
+            </li>
+            <li>
+                <a>
+                    Pases
+                </a>
+            </li>
+            <li ng-class="{'disabled': !internacion.egreso}">
+                <a>
+                    Egreso
+                </a>
+            </li>
+            <li>
+                <a>
+                    Historial
+                </a>
+            </li>
+        </ul>
 
-                    </div>
-                    <div flex="25">
-                        <md-card class="purple dashboard-card">
-                            <md-card-header>
-                                <md-card-avatar>
-                                    <md-icon>subject</md-icon>
-                                </md-card-avatar>
-                                <md-card-header-text>
-                                    <span class="md-title">Antecedentes</span>
-                                    <!-- <span class="md-subhead">Gráficas de internacion de un pacientes.</span> -->
-                                </md-card-header-text>
-                            </md-card-header>
-                            <!-- <img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out"> -->
-                            <md-card-content>
-                                <p>Antecedentes del paciente</p>
-                                <br/><br/><br/>
-                            </md-card-content>
-                            <md-card-actions layout="column" layout-align="start">
-                                <md-button ng-click="goToTab(4)">Ir a los antecedentes</md-button>
-                            </md-card-actions>
-                        </md-card>
+        <div class="card card-block">
 
-                    </div>
-                    <div flex="25">
-                        <md-card class="yellow dashboard-card">
-                            <md-card-header>
-                                <md-card-avatar>
-                                    <md-icon>timeline</md-icon>
-                                </md-card-avatar>
-                                <md-card-header-text>
-                                    <span class="md-title">Indicadores</span>
-                                    <!-- <span class="md-subhead">Gráficas de internacion de un pacientes.</span> -->
-                                </md-card-header-text>
-                            </md-card-header>
-                            <!-- <img ng-src="{{imagePath}}" class="md-card-image" alt="Washed Out"> -->
-                            <md-card-content>
-                                <p>
-                                    <div ng-if="internacion.ingreso.enfermeria.riesgoCaida.total > 0">
-                                        Riesgo caidas:
-                                        {{internacion.ingreso.enfermeria.riesgoCaida.total}}
-                                        <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
-                                        <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total >= 25 && internacion.ingreso.enfermeria.riesgoCaida.total <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
-                                        <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
-                                    </div>
-                                </p>
-                                <p>
-                                    Valoración del dolor
-                                </p>
-                                <p>
-                                    Ulceras por presión
-                                </p>
-                            </md-card-content>
-                            <!-- <md-card-actions layout="column" layout-align="start">
-                                <md-button ng-click="goToTab(4)">Ir a los antecedentes</md-button>
-                            </md-card-actions> -->
-                        </md-card>
-
-                    </div>
-                </div>
-            </md-tab>
-            <md-tab label="Gráficos">
-                <div plex-include="'partials/internacion/iGraficoLiquidos.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0"></div>
-            </md-tab>
-            <md-tab label="Ingreso de internación">
-                <h3 class="md-headline">Datos de ingreso</h3>
-                <div layout ng-if="internacion.paciente">
-                    <div flex>
-                        <form>
-                            <label>Fecha y hora de la interación</label>
-                            <div layout>
-                                <mdp-date-picker flex mdp-format="DD/MM/YYYY" ng-model="internacion.ingreso.fechaHora" ng-required="true" plex disabled></mdp-date-picker>
-                                <mdp-time-picker flex ng-model="internacion.ingreso.fechaHora" mdp-auto-switch="true" ng-required="true" plex disabled></mdp-time-picker>
-                                <span flex></span>
+            <div class="card-deck-wrapper">
+                <div class="card-deck">
+                    <div class="card dashboard-card">
+                        <div class="card-header card-blue">
+                            <div class="card-header-icon">
+                                <i class="mdi mdi-chart-bar"></i>
                             </div>
-                            <div layout layout-pretty>
-                                <div flex>
-                                    <md-input-container class="md-block">
-                                        <label>Tipo de ingreso</label>
-                                        <md-select ng-model="internacion.ingreso.tipo" disabled>
-                                            <md-option ng-repeat="item in tiposInternacion" value="{{item.id}}">
-                                                {{item.nombre}}
-                                            </md-option>
-                                        </md-select>
-                                    </md-input-container>
-                                </div>
-                                <div flex>
-                                    <md-input-container class="md-block">
-                                        <label>Motivo de la internación</label>
-                                        <input type="text" ng-model="internacion.ingreso.motivo" plex ng-required="true" disabled/>
-                                    </md-input-container>
-                                </div>
-                                <div flex>
-                                    <md-input-container class="md-block">
-                                        <label>Diagnóstico presuntivo</label>
-                                        <input type="text" ng-model="internacion.ingreso.diagnosticoPresuntivo" plex ng-required="true" disabled/>
-                                    </md-input-container>
-                                </div>
-                            </div>
-                            <div flex layout style="display: none;">
-                                <span flex></span>
-                                <md-button ng-click="cancelar()">Cancelar</md-button>
-                                <md-button class="md-primary md-raised" plex-submit="guardar()">Guardar</md-button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </md-tab>
-            <md-tab label="Evoluciones">
-                <!-- <div plex-include="'partials/internacion/iEvolucionar.html'" plex-include-internacion="internacion"></div> -->
-                <div plex-include="'partials/internacion/iEvolucionar.html'" plex-include-internacion="internacion"></div>
-            </md-tab>
-            <md-tab label="Antecedentes">
+                            <div class="card-header-title">
 
-                <h3 class="md-headline">Antecedentes</h3>
-                <md-table-container ng-if="antecedentesPersonales && antecedentesPersonales.length > 0">
-                    <table md-table class="mdTableSingleSelect">
-                        <thead md-head>
-                            <tr md-row>
-                                <th md-column>Tipo</th>
-                                <th md-column>Observaciones</th>
-                            </tr>
-                        </thead>
-                        <tbody md-body>
-                            <tr md-row ng-repeat="item in antecedentesPersonales">
-                                {{item || json}}
-                                <td md-cell>
-                                    {{item.antecedente.nombre}}
-                                </td>
-                                <td md-cell>
-                                    {{item.observaciones}}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </md-table-container>
-
-            </md-tab>
-            <md-tab label="Pases">
-
-                <h3 class="md-headline">Pases</h3>
-                <md-table-container ng-if="internacion.pases && internacion.pases.length > 0">
-                    <table md-table md-row-select class="mdTableSingleSelect">
-                        <thead md-head>
-                            <tr md-row>
-                                <th md-column>Fecha</th>
-                                <th md-column>Cama</th>
-                                <th md-column>Servicio</th>
-                                <th md-column>Resumen internación</th>
-                                <th md-column></th>
-                            </tr>
-                        </thead>
-                        <tbody md-body>
-                            <tr md-row ng-repeat="item in internacion.pases | orderBy: '-fechaHora'">
-                                <td md-cell>
-                                    {{item.fechaHora | fromNow }}<br/>
-                                    <div class="text-muted small">
-                                        {{item.fechaHora | date: "dd/MM/yyyy HH:mm"}}
-                                    </div>
-                                </td>
-                                <td md-cell>
-                                    {{item.cama.habitacion}}/{{item.cama.numero}}
-                                </td>
-                                <td md-cell>
-                                    {{item.servicio.nombreCorto}}
-                                </td>
-                                <td md-cell></td>
-
-                                <td md-cell>
-                                    <md-button class="md-icon-button" aria-label="Editar pase" ng-click="editarPase(item)">
-                                        <md-icon>create</md-icon>
-                                    </md-button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </md-table-container>
-
-            </md-tab>
-            <md-tab label="Egreso" ng-disabled="!internacion.egreso">
-                <div ng-if="internacion.egreso">
-                    <h3 class="md-headline">Egreso</h3>
-                    <md-table-container ng-if="internacion.egreso">
-                        <table md-table md-row-select class="mdTableSingleSelect">
-                            <thead md-head>
-                                <tr md-row>
-                                    <th md-column>Fecha</th>
-                                    <th md-column>Cama</th>
-                                    <th md-column>Servicio</th>
-                                    <th md-column>Tipo</th>
-                                    <th md-column>Resumen</th>
-                                </tr>
-                            </thead>
-                            <tbody md-body>
-                                <tr md-row>
-                                    <td md-cell>
-                                        {{internacion.egreso.fechaHora | fromNow }}<br/>
-                                        <div class="text-muted small">
-                                            {{internacion.egreso.fechaHora | date: "dd/MM/yyyy HH:mm"}}
-                                        </div>
-                                    </td>
-                                    <td md-cell>
-                                        {{internacion.egreso.cama.habitacion}}/{{internacion.egreso.cama.numero}}
-                                    </td>
-                                    <td md-cell>
-                                        {{item.servicio.nombreCorto}}
-                                    </td>
-                                    <td md-cell>
-                                        {{internacion.egreso.tipo}}
-                                    </td>
-                                    <td md-cell></td>
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </md-table-container>
-                </div>
-            </md-tab>
-            <md-tab label="Historial">
-                <!-- <button ng-click="ordenarCronologicamente()">Ordenar cronológicamente</button> -->
-                <div layout style="background:#eee;">
-                    <div flex="10"></div>
-                    <div flex>
-                        <div class="row">
-                            <div class="col-md-9">
-                                <div class="timeline-centered timeline-sm">
-                                    <article class="timeline-entry" ng-repeat="elemento in ordenCronologico" ng-class="{'left-aligned': $even}">
-                                        <div class="timeline-entry-inner">
-                                            <time datetime="{{elemento.fecha}}" class="timeline-time">
-                                                <span>{{elemento.fecha | date: "HH:mm"}}
-                                                    hs</span>
-                                                <span>{{elemento.fecha | date: "dd 'de' MMMM 'de' yyyy"}}</span>
-                                            </time>
-
-                                            <div class="timeline-icon bg-ingreso" ng-if="elemento.tipo == 'Ingreso'">
-                                                <i class="fa fa-bed"></i>
-                                            </div>
-
-                                            <div class="timeline-icon bg-valoracion-inicial" ng-if="elemento.tipo == 'Valoración inicial'">
-                                                <i class="material-icons">receipt</i>
-                                            </div>
-
-                                            <div class="timeline-icon bg-pase" ng-if="elemento.tipo == 'Pase'">
-                                                <i class="material-icons">transfer_within_a_station</i>
-                                            </div>
-
-                                            <div class="timeline-icon bg-evolucion" ng-if="elemento.tipo == 'Evolución'">
-                                                <i class="material-icons">assignment</i>
-                                            </div>
-
-                                            <div class="timeline-icon bg-egreso" ng-if="elemento.tipo == 'Egreso'">
-                                                <i class="material-icons">exit_to_app</i>
-                                            </div>
-
-                                            <div class="timeline-label">
-                                                <h4 class="timeline-title {{elemento._tipo}}">
-                                                    {{elemento.tipo}}
-                                                    <div class="numero-habitacion pull-right">
-                                                        {{elemento.cama.habitacion}}
-                                                        /
-                                                        {{elemento.cama.numero}}
-                                                    </div>
-                                                </h4>
-
-                                                <div ng-if="elemento.tipo == 'Ingreso'">
-                                                    <p>
-                                                        Tipo de ingreso:
-                                                        {{elemento.data.tipo}}
-
-                                                        <span ng-if="elemento.data.dipo == 'derivacion'">Derivado desde:
-                                                            {{elemento.data.derivadoDesde.nombreCorto}}
-                                                        </span>
-                                                        <br/>
-                                                        Motivo:
-                                                        {{elemento.data.motivo}}
-                                                        <br/>
-                                                        Diagnóstico presuntivo:
-                                                        {{elemento.data.diagnosticoPresuntivo}}
-                                                    </p>
-                                                </div>
-
-                                                <div ng-if="elemento.tipo == 'Valoración inicial'">
-                                                    <p>
-                                                        <i class="fa fa-user-md"></i>
-                                                        {{internacion.createdBy.name}}
-                                                    </p>
-                                                </div>
-
-                                                <div ng-if="elemento.tipo == 'Evolución'">
-                                                    <p>
-                                                        Servicio:
-                                                        {{elemento.data.servicio.nombreCorto}}
-                                                        <br/>
-                                                        <i class="fa fa-user-md"></i>
-                                                        {{elemento.data.createdBy.name}}
-                                                    </p>
-                                                </div>
-
-                                                <div ng-if="elemento.tipo == 'Pase'">
-                                                    <p>
-                                                        Pase hacia
-                                                        {{elemento.data.servicio.nombreCorto}}
-                                                        <br/>
-                                                        Cama:
-                                                        {{elemento.data.cama.habitacion}}
-                                                        /
-                                                        {{elemento.data.cama.numero}}
-                                                    </p>
-                                                </div>
-
-                                                <div ng-if="elemento.tipo == 'Egreso'">
-                                                    <p>
-                                                        Tiempo internado:
-                                                        {{elemento.duracion}}
-                                                        <br/>
-
-                                                        Cama:
-                                                        {{elemento.data.cama.habitacion}}
-                                                        /
-                                                        {{elemento.data.cama.numero}}
-                                                        <br/>
-
-                                                        Servicio:
-                                                        {{elemento.data.servicio.nombreCorto}}
-                                                    </p>
-                                                    <p>
-                                                        Tipo de alta:
-                                                        {{elemento.data.tipoAlta}}
-                                                        <br/>
-                                                        <span ng-if="elemento.data.diagnosticoAlta">Diagnóstico de alta:
-                                                            {{elemento.data.diagnosticoAlta}}</span>
-                                                        <span ng-if="elemento.data.derivadoHacia">Derivado hacia:
-                                                            {{elemento.data.derivadoHacia.nombreCorto}}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </div>
-                                </div>
+                                <div class="title">Gráficos</div>
+                                <div class="subtitle">Gráficas de internacion de un pacientes.</div>
                             </div>
                         </div>
-                        <div flex="10"></div>
+                        <div class="card-block">
+                            <p class="card-text">
+                                Puede ver gráficas de
+                                <ul>
+                                    <li>
+                                        Balance de líquidos
+                                    </li>
+                                    <li>
+                                        Temperatura
+                                    </li>
+                                </ul>
+                            </p>
+
+                            <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 1">
+                                Ir a los gráficos
+                            </button>
+                        </div>
                     </div>
-                </md-tab>
-            </md-tabs>
+
+                    <div class="card dashboard-card">
+                        <div class="card-header card-green">
+                            <div class="card-header-icon">
+                                <i class="mdi mdi-clipboard-outline"></i>
+                            </div>
+                            <div class="card-header-title">
+
+                                <div class="title">Ultima evolución</div>
+                                <div class="subtitle"></div>
+                            </div>
+                        </div>
+                        <div class="card-block">
+                            <p class="card-text">
+                                {{internacion.evoluciones[internacion.evoluciones.length-1].texto}}
+                            </p>
+                            <p class="card-text">
+                                <i class="fa fa-user-md"></i>
+                                {{internacion.evoluciones[internacion.evoluciones.length-1].createdBy.name}}
+                                {{internacion.evoluciones[internacion.evoluciones.length-1].createdAt | fromNow}}
+                                <br/>
+                                {{internacion.evoluciones[internacion.evoluciones.length-1].createdAt | date: "dd/MM/yyyy  'a las' HH:mm "}}
+                                hs
+                            </p>
+                            <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 3">
+                                Ir a las evoluciones
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card dashboard-card">
+                        <div class="card-header card-purple">
+                            <div class="card-header-icon">
+                                <i class="mdi mdi-format-float-left"></i>
+                            </div>
+                            <div class="card-header-title">
+
+                                <div class="title">Antecedentes</div>
+                                <div class="subtitle"></div>
+                            </div>
+                        </div>
+                        <div class="card-block">
+                            <p class="card-text">
+                                Antecedentes del paciente
+                            </p>
+
+                            <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 4">
+                                Ir a los antecedetnes
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card dashboard-card">
+                        <div class="card-header card-yellow">
+                            <div class="card-header-icon">
+                                <i class="mdi mdi-chart-line"></i>
+                            </div>
+                            <div class="card-header-title">
+
+                                <div class="title">Indicadores</div>
+                                <div class="subtitle"></div>
+                            </div>
+                        </div>
+                        <div class="card-block">
+                            <p class="card-text">
+
+                                <div ng-if="internacion.ingreso.enfermeria.riesgoCaida.total > 0">
+                                    Riesgo caidas:
+                                    {{internacion.ingreso.enfermeria.riesgoCaida.total}}
+                                    <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
+                                    <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total >= 25 && internacion.ingreso.enfermeria.riesgoCaida.total <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
+                                    <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
+                                </div>
+                            </p>
+                            <p class="card-text">
+                                Valoración del dolor
+                            </p>
+                            <p class="card-text">
+                                Ulceras por presión
+                            </p>
+
+                            <!-- <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 4">
+                                Ir a los antecedetnes
+                            </button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <div>
+            <div plex-include="'partials/internacion/iGraficoLiquidos.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0"></div>
+        </div>
+
+        <div class="card card-block">
+            <h3 >Datos de ingreso</h3>
+            <div layout ng-if="internacion.paciente">
+                <div flex>
+                    <form>
+                        <label>Fecha y hora de la interación</label>
+                        <div layout>
+                            <mdp-date-picker flex mdp-format="DD/MM/YYYY" ng-model="internacion.ingreso.fechaHora" ng-required="true" plex disabled></mdp-date-picker>
+                            <mdp-time-picker flex ng-model="internacion.ingreso.fechaHora" mdp-auto-switch="true" ng-required="true" plex disabled></mdp-time-picker>
+                            <span flex></span>
+                        </div>
+                        <div layout layout-pretty>
+                            <div flex>
+                                <md-input-container class="md-block">
+                                    <label>Tipo de ingreso</label>
+                                    <md-select ng-model="internacion.ingreso.tipo" disabled>
+                                        <md-option ng-repeat="item in tiposInternacion" value="{{item.id}}">
+                                            {{item.nombre}}
+                                        </md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+                            <div flex>
+                                <md-input-container class="md-block">
+                                    <label>Motivo de la internación</label>
+                                    <input type="text" ng-model="internacion.ingreso.motivo" plex ng-required="true" disabled/>
+                                </md-input-container>
+                            </div>
+                            <div flex>
+                                <md-input-container class="md-block">
+                                    <label>Diagnóstico presuntivo</label>
+                                    <input type="text" ng-model="internacion.ingreso.diagnosticoPresuntivo" plex ng-required="true" disabled/>
+                                </md-input-container>
+                            </div>
+                        </div>
+                        <div flex layout style="display: none;">
+                            <span flex></span>
+                            <md-button ng-click="cancelar()">Cancelar</md-button>
+                            <md-button class="md-primary md-raised" plex-submit="guardar()">Guardar</md-button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div plex-include="'partials/internacion/iEvolucionar.html'" plex-include-internacion="internacion"></div>
+        </div>
+
+        <div class="card card-block">
+            <h3 >Antecedentes</h3>
+            <div ng-if="antecedentesPersonales && antecedentesPersonales.length > 0">
+                <table class="table table-hover table-striped">
+                    <thead >
+                        <tr >
+                            <th >Tipo</th>
+                            <th >Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr ng-repeat="item in antecedentesPersonales">
+                            <td >
+                                {{item.antecedente.nombre}}
+                            </td>
+                            <td >
+                                {{item.observaciones}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card card-block">
+            <h3 >Pases</h3>
+            <div ng-if="internacion.pases && internacion.pases.length > 0">
+                <table class="table table-hover table-striped">
+                    <thead >
+                        <tr >
+                            <th >Fecha</th>
+                            <th >Cama</th>
+                            <th >Servicio</th>
+                            <th >Resumen internación</th>
+                            <th ></th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr ng-repeat="item in internacion.pases | orderBy: '-fechaHora'">
+                            <td >
+                                {{item.fechaHora | fromNow }}<br/>
+                                <div class="text-muted small">
+                                    {{item.fechaHora | date: "dd/MM/yyyy HH:mm"}}
+                                </div>
+                            </td>
+                            <td >
+                                {{item.cama.habitacion}}/{{item.cama.numero}}
+                            </td>
+                            <td >
+                                {{item.servicio.nombreCorto}}
+                            </td>
+                            <td ></td>
+
+                            <td >
+                                <md-button class="md-icon-button" aria-label="Editar pase" ng-click="editarPase(item)">
+                                    <md-icon>create</md-icon>
+                                </md-button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card card-block">
+            <div ng-if="internacion.egreso">
+                <h3 >Egreso</h3>
+                <div ng-if="internacion.egreso">
+                    <table class="table table-hover table-striped">
+                        <thead >
+                            <tr >
+                                <th >Fecha</th>
+                                <th >Cama</th>
+                                <th >Servicio</th>
+                                <th >Tipo</th>
+                                <th >Resumen</th>
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <tr >
+                                <td >
+                                    {{internacion.egreso.fechaHora | fromNow }}<br/>
+                                    <div class="text-muted small">
+                                        {{internacion.egreso.fechaHora | date: "dd/MM/yyyy HH:mm"}}
+                                    </div>
+                                </td>
+                                <td >
+                                    {{internacion.egreso.cama.habitacion}}/{{internacion.egreso.cama.numero}}
+                                </td>
+                                <td >
+                                    {{item.servicio.nombreCorto}}
+                                </td>
+                                <td >
+                                    {{internacion.egreso.tipo}}
+                                </td>
+                                <td ></td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card card-block container-timeline">
+
+            <div class="row">
+                <div class="col-md-offset-2 col-md-9">
+                    <div class="timeline-centered timeline-sm">
+                        <article class="timeline-entry" ng-repeat="elemento in ordenCronologico" ng-class="{'left-aligned': $even}">
+                            <div class="timeline-entry-inner">
+                                <time datetime="{{elemento.fecha}}" class="timeline-time">
+                                    <span>{{elemento.fecha | date: "HH:mm"}}
+                                        hs</span>
+                                    <span>{{elemento.fecha | date: "dd 'de' MMMM 'de' yyyy"}}</span>
+                                </time>
+
+                                <div class="timeline-icon bg-ingreso" ng-if="elemento.tipo == 'Ingreso'">
+                                    <i class="fa fa-bed"></i>
+                                </div>
+
+                                <div class="timeline-icon bg-valoracion-inicial" ng-if="elemento.tipo == 'Valoración inicial'">
+                                    <i class="mdi mdi-receipt"></i>
+                                </div>
+
+                                <div class="timeline-icon bg-pase" ng-if="elemento.tipo == 'Pase'">
+                                    <i class="mdi mdi-walk"></i>
+                                </div>
+
+                                <div class="timeline-icon bg-evolucion" ng-if="elemento.tipo == 'Evolución'">
+                                    <i class="mdi mdi-clipboard-outline"></i>
+                                </div>
+
+                                <div class="timeline-icon bg-egreso" ng-if="elemento.tipo == 'Egreso'">
+                                    <i class="mdi mdi-exit-to-app"></i>
+                                </div>
+
+                                <div class="timeline-label">
+                                    <h4 class="timeline-title {{elemento._tipo}}">
+                                        {{elemento.tipo}}
+                                        <div class="numero-habitacion pull-right">
+                                            {{elemento.cama.habitacion}}
+                                            /
+                                            {{elemento.cama.numero}}
+                                        </div>
+                                    </h4>
+
+                                    <div ng-if="elemento.tipo == 'Ingreso'">
+                                        <p>
+                                            Tipo de ingreso:
+                                            {{elemento.data.tipo}}
+
+                                            <span ng-if="elemento.data.dipo == 'derivacion'">Derivado desde:
+                                                {{elemento.data.derivadoDesde.nombreCorto}}
+                                            </span>
+                                            <br/>
+                                            Motivo:
+                                            {{elemento.data.motivo}}
+                                            <br/>
+                                            Diagnóstico presuntivo:
+                                            {{elemento.data.diagnosticoPresuntivo}}
+                                        </p>
+                                    </div>
+
+                                    <div ng-if="elemento.tipo == 'Valoración inicial'">
+                                        <p>
+                                            <i class="fa fa-user-md"></i>
+                                            {{internacion.createdBy.name}}
+                                        </p>
+                                    </div>
+
+                                    <div ng-if="elemento.tipo == 'Evolución'">
+                                        <p>
+                                            Servicio:
+                                            {{elemento.data.servicio.nombreCorto}}
+                                            <br/>
+                                            <i class="fa fa-user-md"></i>
+                                            {{elemento.data.createdBy.name}}
+                                        </p>
+                                    </div>
+
+                                    <div ng-if="elemento.tipo == 'Pase'">
+                                        <p>
+                                            Pase hacia
+                                            {{elemento.data.servicio.nombreCorto}}
+                                            <br/>
+                                            Cama:
+                                            {{elemento.data.cama.habitacion}}
+                                            /
+                                            {{elemento.data.cama.numero}}
+                                        </p>
+                                    </div>
+
+                                    <div ng-if="elemento.tipo == 'Egreso'">
+                                        <p>
+                                            Tiempo internado:
+                                            {{elemento.duracion}}
+                                            <br/>
+
+                                            Cama:
+                                            {{elemento.data.cama.habitacion}}
+                                            /
+                                            {{elemento.data.cama.numero}}
+                                            <br/>
+
+                                            Servicio:
+                                            {{elemento.data.servicio.nombreCorto}}
+                                        </p>
+                                        <p>
+                                            Tipo de alta:
+                                            {{elemento.data.tipoAlta}}
+                                            <br/>
+                                            <span ng-if="elemento.data.diagnosticoAlta">Diagnóstico de alta:
+                                                {{elemento.data.diagnosticoAlta}}</span>
+                                            <span ng-if="elemento.data.derivadoHacia">Derivado hacia:
+                                                {{elemento.data.derivadoHacia.nombreCorto}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
     </div>
