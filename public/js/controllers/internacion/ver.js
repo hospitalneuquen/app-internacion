@@ -2,6 +2,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
     'use strict';
 
     angular.extend($scope, {
+        tab: 0,
         ordenCronologico: [],
         riesgoCaidas: 0,
         selectedTabIndex: 0,

@@ -167,8 +167,6 @@
                                     <i plex-actions="actions"></i>
                                 </button>
 
-
-
                                 <button class="btn btn-default tips" title="Ver internación" ng-click="verInternacion(cama.idInternacion)" ng-if="cama.idInternacion">
                                     <i class="mdi mdi-eye"></i>
                                 </button>
@@ -252,31 +250,9 @@
                             </div>
 
                             <div class="col-xs-6 col-right text-right">
-                                <div class="btn-group" role="group" ng-if="cama.paciente.id">
-                                    <button type="button" class="btn btn-default  tips" data-placement="top" data-animation="am-flip-x" bs-dropdown aria-haspopup="true" aria-expanded="false">
-                                        <i class="mdi mdi-dots-vertical"></i>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li>
-                                            <a href="#" ng-click="editarIngresoInternacion(cama.id, cama.idInternacion)">Internación</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" ng-click="evolucionarPaciente(cama)">Evoluciones</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" ng-click="verValoracionInicial(cama.idInternacion)">Valoración inicial</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" ng-click="cargarPrestaciones()">
-                                                Cargar prestaciones
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" ng-click="egresarPaciente(cama)">Desocupar cama</a>
-                                        </li>
-                                    </ul>
-
-                                </div>
+                                <button class="btn btn-default btn-flat" ng-if="cama.paciente.id">
+                                    <i plex-actions="actions"></i>
+                                </button>
 
                                 <button class="btn btn-default tips" title="Ver internación" ng-click="verInternacion(cama.idInternacion)" ng-if="cama.idInternacion">
                                     <i class="mdi mdi-eye"></i>
