@@ -92,16 +92,16 @@
                         </div>
                         <div class="card-block">
                             <p class="card-text">
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].texto}}
-                                </p>
-                                <p class="card-text">
-                                    <i class="fa fa-user-md"></i>
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].createdBy.name}}
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].createdAt | fromNow}}
-                                    <br/>
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].createdAt | date: "dd/MM/yyyy  'a las' HH:mm "}}
-                                    hs
-                                </p>
+                                {{internacion.evoluciones[internacion.evoluciones.length-1].texto}}
+                            </p>
+                            <p class="card-text">
+                                <i class="fa fa-user-md"></i>
+                                {{internacion.evoluciones[internacion.evoluciones.length-1].createdBy.name}}
+                                {{internacion.evoluciones[internacion.evoluciones.length-1].createdAt | fromNow}}
+                                <br/>
+                                {{internacion.evoluciones[internacion.evoluciones.length-1].createdAt | date: "dd/MM/yyyy  'a las' HH:mm "}}
+                                hs
+                            </p>
                             <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 3">
                                 Ir a las evoluciones
                             </button>
@@ -144,21 +144,20 @@
                         <div class="card-block">
                             <p class="card-text">
 
-                                    <div ng-if="internacion.ingreso.enfermeria.riesgoCaida.total > 0">
-                                        Riesgo caidas:
-                                        {{internacion.ingreso.enfermeria.riesgoCaida.total}}
-                                        <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
-                                        <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total >= 25 && internacion.ingreso.enfermeria.riesgoCaida.total <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
-                                        <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
-                                    </div>
-                                </p>
-                                <p class="card-text">
-                                    Valoración del dolor
-                                </p>
-                                <p class="card-text">
-                                    Ulceras por presión
-                                </p>
-
+                                <div ng-if="internacion.ingreso.enfermeria.riesgoCaida.total > 0">
+                                    Riesgo caidas:
+                                    {{internacion.ingreso.enfermeria.riesgoCaida.total}}
+                                    <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
+                                    <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total >= 25 && internacion.ingreso.enfermeria.riesgoCaida.total <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
+                                    <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
+                                </div>
+                            </p>
+                            <p class="card-text">
+                                Valoración del dolor
+                            </p>
+                            <p class="card-text">
+                                Ulceras por presión
+                            </p>
 
                             <!-- <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 4">
                                 Ir a los antecedetnes
@@ -225,7 +224,7 @@
         <div class="card card-block">
             <h3 >Antecedentes</h3>
             <div ng-if="antecedentesPersonales && antecedentesPersonales.length > 0">
-                <table  class="table table-hover table-striped">
+                <table class="table table-hover table-striped">
                     <thead >
                         <tr >
                             <th >Tipo</th>
@@ -233,7 +232,7 @@
                         </tr>
                     </thead>
                     <tbody >
-                        <tr  ng-repeat="item in antecedentesPersonales">
+                        <tr ng-repeat="item in antecedentesPersonales">
                             <td >
                                 {{item.antecedente.nombre}}
                             </td>
@@ -248,7 +247,7 @@
         <div class="card card-block">
             <h3 >Pases</h3>
             <div ng-if="internacion.pases && internacion.pases.length > 0">
-                <table  class="table table-hover table-striped">
+                <table class="table table-hover table-striped">
                     <thead >
                         <tr >
                             <th >Fecha</th>
@@ -259,7 +258,7 @@
                         </tr>
                     </thead>
                     <tbody >
-                        <tr  ng-repeat="item in internacion.pases | orderBy: '-fechaHora'">
+                        <tr ng-repeat="item in internacion.pases | orderBy: '-fechaHora'">
                             <td >
                                 {{item.fechaHora | fromNow }}<br/>
                                 <div class="text-muted small">
@@ -284,7 +283,7 @@
                 </table>
             </div>
         </div>
-        <div class="card card-block" >
+        <div class="card card-block">
             <div ng-if="internacion.egreso">
                 <h3 >Egreso</h3>
                 <div ng-if="internacion.egreso">

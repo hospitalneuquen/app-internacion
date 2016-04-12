@@ -129,7 +129,7 @@
 }
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon i {
     font-size: 24px;
-    margin-top: 10px;
+    margin-top: 0px;
 }
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-ingreso {
     background-color: #5bc0de;
