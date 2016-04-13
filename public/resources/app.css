@@ -94,3 +94,6 @@
 .card-yellow {
     background-color: #FBC02D;
 }
+
+.bl {border-left: 1px solid #ccc;}
+.br {border-right: 1px solid #ccc;}

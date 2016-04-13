@@ -171,10 +171,10 @@
                                     <i class="mdi mdi-eye "></i>
                                 </button>
 
-                                <button class="btn btn-default" title="Enviar a reparación " ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'reparacion'" ng-if="!cama.paciente.id && (cama.estado == 'desocupada' && cama.estado != 'reparacion')">
+                                <button class="btn btn-default btn-flat" title="Enviar a reparación " ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'reparacion'" ng-if="!cama.paciente.id && (cama.estado == 'desocupada' && cama.estado != 'reparacion')">
                                     <i class="mdi mdi-wrench"></i>
                                 </button>
-                                <button class="btn btn-default" title="Confirmar reparación" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'reparacion'" ng-if="!cama.paciente.id && (cama.estado == 'desocupada' && cama.estado == 'reparacion')">
+                                <button class="btn btn-default btn-flat" title="Confirmar reparación" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'reparacion'" ng-if="!cama.paciente.id && (cama.estado == 'desocupada' && cama.estado == 'reparacion')">
                                     <i class="mdi mdi-wrench"></i>
                                 </button>
                             </div>
