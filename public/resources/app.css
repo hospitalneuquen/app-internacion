@@ -54,6 +54,7 @@
 .plex-affix.affix + .plex-affix-spacer {
     display: block;
 }
+.clickable {cursor: pointer;}
 
 /* dashboard cards */
 

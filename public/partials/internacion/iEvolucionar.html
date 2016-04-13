@@ -4,7 +4,7 @@
     <div class="card card-block" ng-show="show_toolbar">
         <div class="row">
             <div class="col-xs-4">
-                <h2 class="md-headline">Evoluciones del paciente</h2>
+                <h3>Evoluciones del paciente</h3>
             </div>
             <div class="col-xs-4">
                 <div class="form-group"></div>
@@ -332,6 +332,24 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <select label="Características del líquido" ng-model="drenajes.caracteristicas_liquido" plex>
+                                            <option value="Hemático">Hemático</option>
+                                            <option value="Seroso">Seroso</option>
+                                            <option value="Serohemático">Serohemático</option>
+                                            <option value="Purulento">Purulento</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" label="Observaciones" ng-model="drenajes.observaciones" plex="text">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="card card-block">
@@ -449,7 +467,7 @@
                     <div class="col-lg-12">
                         <div class="card card-block margin-top text-right">
                             <button type="button" class="btn btn-default btn-flat" ng-click="cancelarEdicion();">Cancelar</button>
-                            <button class="btn btn-primary" plex plex-submit="guardarEvolucion(evolucionesEdit)" ng-disabled="formEditarEvolucion.$invalid">Guardar</button>
+                            <button class="btn btn-primary" plex-submit="guardarEvolucion(evolucionesEdit)" ng-disabled="formEditarEvolucion.$invalid"><i class="mdi mdi-content-save"></i> Guardar</button>
                         </div>
                     </div>
                 </div>

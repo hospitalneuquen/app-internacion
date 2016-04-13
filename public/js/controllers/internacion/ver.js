@@ -3,11 +3,14 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
 
     angular.extend($scope, {
         tab: 0,
+        show_toolbar_drenajes: true,
+        drenajesEdit: undefined, // Item actual que se está editando de los drenajes
         ordenCronologico: [],
         riesgoCaidas: 0,
         selectedTabIndex: 0,
         internacion: null,
         pases: null,
+        drenajesInternacion: '',
         servicios: [{
             id: null,
             nombreCorto: 'Todos'
@@ -117,6 +120,33 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                 });
             }
 
+
+            // agregamos los drenajes cuando comienzan
+            if ($scope.internacion.drenajes.length) {
+                angular.forEach($scope.internacion.drenajes, function(drenaje, key) {
+                    $scope.ordenCronologico.push({
+                        fecha: drenaje.fechaDesde,
+                        tipo: "Colocación de drenaje",
+                        _tipo: "drenaje",
+                        data: drenaje,
+                        cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
+                    });
+                });
+            }
+
+            // agregamos los drenajes cuando finalizan
+            if ($scope.internacion.drenajes.length) {
+                angular.forEach($scope.internacion.drenajes, function(drenaje, key) {
+                    $scope.ordenCronologico.push({
+                        fecha: drenaje.fechaHasta,
+                        tipo: "Extracción de drenaje",
+                        _tipo: "drenaje",
+                        data: drenaje,
+                        cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
+                    });
+                });
+            }
+
             // // agregamos la primera evoluciones
             // $scope.ordenCronologico.push({
             //     fecha: $scope.internacion.evoluciones[0].fechaHora,
@@ -129,6 +159,74 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                 return new Date(a.fecha).getTime() - new Date(b.fecha).getTime()
             });
 
+        },
+        editarDrenaje: function(drenaje){
+            $scope.show_toolbar_drenajes = false;
+            if (drenaje) { // Modificación
+                $scope.tituloFormulario = "Editar drenaje";
+                $scope.drenajesEdit = {};
+                angular.copy(drenaje, $scope.evolucionesEdit);
+                //item.$editing = true;
+            } else { // Alta
+                $scope.tituloFormulario = "Agregar drenaje";
+                // Valores por defecto
+                $scope.drenajesEdit = {
+                    fechaHora: new Date()
+                };
+            }
+        },
+        guardarDrenaje: function(){
+            // creamos el objeto de drenaje que almacenaremos en la internacion
+            var drenaje = {
+                tipo : $scope.drenajesInternacion.tipo.value,
+                _tipo : $scope.drenajesInternacion.tipo.text,
+                lado : $scope.drenajesInternacion.lado.value,
+                _lado : $scope.drenajesInternacion.lado.text,
+                fechaDesde: $scope.drenajesInternacion.fechaDesde,
+                fechaHasta: $scope.drenajesInternacion.fechaHasta
+            };
+
+            if ($scope.internacion.drenajes && $scope.internacion.drenajes.length > 0){
+                $scope.internacion.drenajes.unshift(drenaje);
+            }else{
+                $scope.internacion.drenajes.push(drenaje);
+            }
+
+            Shared.internacion.post($scope.internacion.idInternacion, $scope.internacion, {
+                minify: true
+            }).then(function(data) {
+
+            });
+
+            $scope.drenajesInternacion = {};
+        },
+        // Cancelar la edición
+        cancelarEdicion: function() {
+            $scope.drenajesEdit = null;
+            $scope.show_toolbar_drenajes = true;
+        },
+        actualizarEvoluciones: function(data) {
+            var found = false;
+            // $scope.loading = true;
+
+            var length = $scope.internacion.drenajes.length;
+            // buscamos la cama y actualizamos el valor con los datos
+            for (var i = 0; i < length; i++) {
+                if ($scope.internacion.drenajes[i].id === data.id) {
+                    // evolucion encontrada, actualizamos datos
+                    $scope.internacion.drenajes[i] = data;
+                    found = true;
+                    break;
+                }
+            }
+
+            // si no lo encontro, entonces es porque acaba de cargarla
+            // se la asignamos al resto de las evoluciones
+            if (!found) {
+                $scope.internacion.drenajes.push(data);
+            }
+
+            // $scope.loading = false;
         },
         goToTab: function(tab) {
             $scope.selectedTabIndex = tab;
