@@ -41,6 +41,12 @@ angular.module('app').controller('sandbox/test', ['$scope', 'Plex', 'Server', '$
             return Personas.get({
                 fulltext: query
             });
+        },
+        guardar: function(){
+            // Debe devolver la promise para que plex-submit muestre la animación
+            return $timeout(function(){
+                alert("Finalizado!");
+            }, 5000);
         }
     });
 

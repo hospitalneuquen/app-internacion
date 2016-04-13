@@ -1,4 +1,4 @@
-<div plex-tabs ng-init="vista = 3" ng-model="vista">
+<div plex-tabs ng-init="vista = 4" ng-model="vista">
     <ul>
         <li>
             <a>
@@ -135,7 +135,7 @@
                 <div class="card-deck">
                     <div class="card card-block">
                         <h4>Algunos datos por aquí</h4>
-                        <input type=text label="Texto" ng-model="fields.texto" ng-required="true" plex="text">
+                        <input type=text label="Texto" ng-model="fields.texto" xng-required="true" plex="text">
                         <input type=text label="Integer" ng-model="fields.int" plex="int">
                     </div>
                     <div class="card card-block">
@@ -148,7 +148,10 @@
             </div>
             <div class="card card-block margin-top text-right">
                 <a class="btn btn-default btn-flat">Cancelar</a>
-                <a class="btn btn-primary" plex-submit="guardar()">Guardar</a>
+                <button class="btn btn-primary" plex-submit="guardar()">
+                    <i class="mdi mdi-content-save"></i>
+                    <span>Guardar</span>
+                </button>
             </div>
         </ng-form>
     </div>
@@ -212,6 +215,11 @@
         </h4>
         <h3>Opciones con un botón
             <a class="btn btn-default">
+                <i plex-actions="actions"></i>
+            </a>
+        </h3>
+        <h3>Opciones con un botón flat
+            <a class="btn btn-default btn-flat">
                 <i plex-actions="actions"></i>
             </a>
         </h3>
