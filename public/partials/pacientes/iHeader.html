@@ -1,39 +1,9 @@
-<!-- <div plex-affix class="am-slide-left">
-    <div class="row" ng-controller="Pacientes/iHeaderController">
-        <div class="col-md-12">
-            <div class="box box-info">
-                <div class="box-header">
-                    <div class="col-xs-1" style="text-align: right">
-
-                        <i class="{{internacion.paciente | persona:'icon'}} fa-4x"></i>
-                    </div>
-                    <div class="col-xs-4">
-                        <h3 class="box-title">
-                            {{internacion.paciente | persona}}
-                        </h3>
-                        <div>
-                            <strong>{{internacion.paciente | persona:'d'}}</strong>
-                        </div>
-                        <div>{{internacion.paciente | persona:'e'}}
-                        </div>
-                    </div>
-                    <div class="col-xs-4">
-                        <label class="small">Diagnóstico presuntivo</label><br />
-                        {{internacion.ingreso.diagnosticoPresuntivo}}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
 <div plex-affix class="am-slide-left" ng-controller="Pacientes/iHeaderController">
     <div class="row">
         <div class="col-lg-12">
             <div class="card card-block">
                 <div class="box-header">
                         <div class="col-lg-1" style="text-align: right">
-                            <!-- <i class="fa fa-male fa-4x" ng-if="internacion.paciente.sexo != 'femenino'"></i>
-                            <i class="fa fa-female fa-4x" ng-if="internacion.paciente.sexo == 'femenino'"></i> -->
                             <br/>
                             <i class="{{internacion.paciente | persona:'icon'}} fa-4x"></i>
                         </div>
@@ -102,82 +72,3 @@
         </div>
     </div>
 </div>
-
-
-<!-- <div ng-controller="Pacientes/iHeaderController" layout layout-pretty whiteframe plex-affix>
-    <div flex layout>
-        <div flex="5">
-
-            <i class="{{internacion.paciente | persona:'icon'}} fa-4x"></i>
-        </div>
-
-        <div flex="40">
-            <div class="md-title">
-                {{internacion.paciente | persona}}
-            </div>
-            <div>
-                <strong>{{internacion.paciente | persona:'d'}}</strong>
-            </div>
-            <div>{{internacion.paciente | persona:'e'}}
-            </div>
-            <br/>
-            <span class="md-caption">
-                Internado {{internacion.createdAt | fromNow }}
-            </span>
-        </div>
-        <div flex>
-
-            <span class="md-caption">Diagnóstico presuntivo</span>
-            <br/>
-            {{internacion.ingreso.diagnosticoPresuntivo}}
-
-            <br/>
-
-            <span class="md-caption">Motivo de internación</span>
-            <br/>
-            {{internacion.ingreso.motivo}}
-
-            <br/>
-
-            <div class="md-caption" ng-if="internacion.paciente.obrasSociales != ''">
-                Obra social
-                <br/>
-                {{internacion.paciente.obrasSociales}}
-            </div>
-        </div>
-        <div flex >
-            <span class="md-caption">
-                Ultima evolución:
-                <br />
-                <div ng-if="internacion.evoluciones.length > 0">
-                    <i class="fa fa-user-md"></i>
-                    {{internacion.evoluciones[internacion.evoluciones.length-1].createdBy.name}}
-                    {{internacion.evoluciones[internacion.evoluciones.length-1].createdAt | fromNow}}
-                    <br/>
-                    {{internacion.evoluciones[internacion.evoluciones.length-1].createdAt | date: "dd/MM/yyyy  'a las' HH:mm "}} hs
-                </div>
-                <div ng-if="internacion.evoluciones.length == 0">
-                    No se han registrado evoluciones
-                </div>
-            </span>
-
-
-            <br />
-        </div>
-
-        <div flex="10">
-            <div class="numero-habitacion">
-                {{internacion.pases[internacion.pases.length-1].cama.habitacion}}
-                /
-                {{internacion.pases[internacion.pases.length-1].cama.numero}}
-            </div>
-            <br /><br />
-            <div ng-if="internacion.ingreso.enfermeria.riesgoCaida.total > 0">
-                Riesgo caidas: {{internacion.ingreso.enfermeria.riesgoCaida.total}}
-                <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
-                <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total >= 25 && internacion.ingreso.enfermeria.riesgoCaida.total <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
-                <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
-            </div>
-        </div>
-    </div>
-</div> -->

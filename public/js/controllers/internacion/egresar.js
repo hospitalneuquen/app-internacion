@@ -7,6 +7,7 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
         egreso: {
             servicio: Session.servicioActual.id
         },
+
         // opciones para el select del tipo de internacion
         tiposEgresos: [{
             id: 'pase',
