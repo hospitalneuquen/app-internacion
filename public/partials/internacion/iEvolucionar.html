@@ -278,64 +278,66 @@
                         <!-- <div ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
                         <div class="card card-block">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <input type="text" ng-model="evolucionesEdit.egresos.lavadoVesicalI" label="Lavado vesical I" suffix="ml" plex/>
                                     </div>
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <input type="text" ng-model="evolucionesEdit.egresos.diuresis" label="Diuresis" suffix="ml" plex/>
                                     </div>
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <input type="text" ng-model="evolucionesEdit.egresos.catarsis" label="Catarsis" suffix="ml" plex/>
                                     </div>
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="col-md-1">
                                     <div class="form-group">
                                         <input type="text" ng-model="evolucionesEdit.egresos.sng" label="S.N.G" suffix="ml" plex/>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-md-3">
+
+                                <div class="col-md-1">
                                     <div class="form-group">
                                         <input type="text" ng-model="evolucionesEdit.egresos.sny" label="S.N.Y" suffix="ml" plex/>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <input label="Drenajes" type="text" ng-model="evolucionesEdit.egresos.drenajes" suffix="ml" plex/>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <input label="Drenajes II" type="text" ng-model="evolucionesEdit.egresos.drenajes2" suffix="ml" plex/>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
+
+
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <input type="text" ng-model="evolucionesEdit.egresos.ostomias" label="Ostomias I" suffix="ml" plex/>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <input type="text" ng-model="evolucionesEdit.egresos.ostomias2" label="Ostomias II" suffix="ml" plex/>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" ng-repeat="drenaje in internacion.drenajes track by $index">
+                                <input type="hidden" value="{{drenaje.id}}" ng-model="evolucionesEdit.egresos.drenajes[$index].id" />
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <select label="Características del líquido" ng-model="drenajes.caracteristicas_liquido" plex>
+                                        <label>Lado</label>
+                                        <p>{{drenaje.lado}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Tipo</label>
+                                        <p>{{drenaje.tipo}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <select label="Características del líquido" ng-model="evolucionesEdit.egresos.drenajes[$index].caracteristicas_liquido" plex>
                                             <option value="Hemático">Hemático</option>
                                             <option value="Seroso">Seroso</option>
                                             <option value="Serohemático">Serohemático</option>
@@ -346,7 +348,7 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input type="text" label="Observaciones" ng-model="drenajes.observaciones" plex="text">
+                                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.egresos.drenajes[$index].observaciones" plex="text">
                                     </div>
                                 </div>
                             </div>

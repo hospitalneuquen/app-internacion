@@ -78,6 +78,20 @@ angular.module('app').factory('Shared', ["Global", "Server", "Session", function
                 return Server.post('/api/internacion/internacion/' + idInternacion + '/evolucion/' + (idEvolucion || ''), data, options);
             },
         },
+        drenaje: {
+            /**
+             * @ngdoc method
+             * @name Shared#drenaje.post
+             * @description Crea o modifica un drenaje
+             * @param {String} idInternacion Id de la internación
+             * @param {String} idDrenaje Id del drenaje (enviar ```null``` para crear una nueva)
+             * @param {Object} data Datos
+             * @param {Object} options Opciones
+             **/
+            post: function(idInternacion, idDrenaje, data, options) {
+                return Server.post('/api/internacion/internacion/' + idInternacion + '/drenaje/' + (idDrenaje || ''), data, options);
+            },
+        },
         pase: {
             /**
              * @ngdoc method

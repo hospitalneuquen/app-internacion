@@ -1,7 +1,15 @@
 angular.module('app').controller('sandbox/test', ['$scope', 'Plex', 'Server', '$timeout', 'Personas', function($scope, Plex, Server, $timeout, Personas) {
     angular.extend($scope, {
-        fields: {},
+        fields: {
+            selectOpciones: 'AL',
+            selectArray : {
+                id: '1',
+                apellido: 'Garcia',
+                nombre: 'Jorge'
+            }
+        },
         tab: 0,
+
         array: [{
             id: '1',
             apellido: 'Garcia',
