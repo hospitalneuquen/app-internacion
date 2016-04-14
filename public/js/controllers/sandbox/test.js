@@ -1,6 +1,7 @@
 angular.module('app').controller('sandbox/test', ['$scope', 'Plex', 'Server', '$timeout', 'Personas', function($scope, Plex, Server, $timeout, Personas) {
     angular.extend($scope, {
-        fields: {},
+        fields: {
+        },
         tab: 0,
         array: [{
             id: '1',
@@ -42,23 +43,17 @@ angular.module('app').controller('sandbox/test', ['$scope', 'Plex', 'Server', '$
                 fulltext: query
             });
         },
-        guardar: function(){
+        guardar: function() {
             // Debe devolver la promise para que plex-submit muestre la animación
-            return $timeout(function(){
-                alert("Finalizado!");
-            }, 5000);
+            return $timeout(function() {
+                alert("¡Datos guardados!");
+            }, 2000);
         }
     });
 
     //$scope.fields.selectSingle = $scope.data[1];
-
     // Inicializa vista
     Plex.initView({
         title: "UI Elements",
     });
-
-    // $.fn.select2.defaults.set("theme", "bootstrap");
-    // $('#hola').select2({
-    //     theme: "bootstrap"
-    // });
 }]);
