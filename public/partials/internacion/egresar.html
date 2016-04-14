@@ -1,54 +1,59 @@
-<!-- Header de paciente -->
 <div plex-include="'partials/Pacientes/iHeader.html'" plex-include-internacion="internacion"></div>
-
-<div layout layout-pretty whiteframe>
-    <div flex>
-
-        <ng-form name="formEgreso">
-            <div layout>
-                <div flex>
-                    <h2 class="md-headline">Egreso</h2>
-                </div>
+<ng-form name="formEgreso">
+    <div class="card card-block">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="md-headline">Egreso</h2>
             </div>
-
-            <div layout>
-                <div flex="20">
-                    <!-- <label>Fecha</label> -->
-                    <mdp-date-picker flex mdp-format="DD/MM/YYYY" ng-model="egreso.fechaHora" ng-required="true" plex></mdp-date-picker>
-
-                </div>
-                <div flex="20">
-
-                    <!-- <label>Hora</label> -->
-                    <mdp-time-picker flex ng-model="egreso.fechaHora" mdp-auto-switch="true" ng-required="true" plex></mdp-time-picker>
-
-                </div>
-                <div flex="20">
-                    <md-input-container class="md-block">
-                        <md-select ng-model="egreso.tipo" ng-required="true" placeholder="Tipo de egreso">
-                            <md-option ng-repeat="item in tiposEgresos" value="{{item.id}}">{{item.nombre}}</md-option>
-                        </md-select>
-                    </md-input-container>
-                </div>
-
-                <div flex="5"></div>
-
-                <div flex ng-show="egreso.tipo == 'alta'">
-
-                    <md-input-container class="md-block">
-                        <!-- <label>Tipo de alta</label> -->
-                        <md-radio-group ng-model="egreso.tipoAlta" layout="row">
-                            <md-radio-button value="medica">Alta médica</md-radio-button>
-                            <md-radio-button value="derivacion">Derivación</md-radio-button>
-                            <md-radio-button value="voluntaria">Voluntaria</md-radio-button>
-                        </md-radio-group>
-                    </md-input-container>
-
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2">
+                <input type=text label="Fecha" ng-model="egreso.fechaHora" plex="date">
             </div>
+            <div class="col-lg-2">
+                <input type=text label="Hora" ng-model="egreso.fechaHora" plex="time">
+            </div>
+            <div class="col-lg-2">
+                <select label="Tipo de egreso" ng-model="egreso.tipo" plex>
+                    <option ng-repeat="item in tiposEgresos" ng-value="item.id">{{item.nombre}}</option>
+                </select>
+            </div>
+            <div class="col-lg-3" ng-show="egreso.tipo.value == 'alta'">
+                    <input type="radio" name="group1" label="Alta médica" value="medica" ng-model="egreso.tipoAlta" plex="radio">
+                    <input type="radio" name="group1" label="Derivación" value="derivacion" ng-model="egreso.tipoAlta" plex="radio">
+                    <input type="radio" name="group1" label="Voluntaria" value="voluntaria" ng-model="egreso.tipoAlta" plex="radio">
+            </div>
+        </div>
+        <div class="row" ng-show="egreso.tipoAlta == 'derivacion'">
+            <div class="col-lg-6">
+                <!-- <select label="Hospital" ng-model="egreso.derivadoHacia" min="3" plex="hospital.nombre in hospitales.querySearch($value)"></select> -->
+            </div>
+        </div>
+        <div class="row" ng-show="egreso.tipo.value == 'alta'">
+            <div class="col-lg-6">
+                <textarea label="Resumen de internación" ng-model="egreso.resumenInternacion" plex></textarea>
+            </div>
+        </div>
+        <div class="row" ng-show="egreso.tipo.value == 'alta'">
+            <div class="col-lg-6">
+                <textarea label="Diagnóstico de alta" ng-model="egreso.diagnosticoAlta" plex></textarea>
+            </div>
+        </div>
+        <div class="row" ng-show="egreso.tipo.value == 'alta'">
+            <div class="col-lg-6">
+                <textarea label="Tratamiento a seguir" ng-model="egreso.tratamientoaSeguir" plex></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="card card-block margin-top text-right">
+        <a class="btn btn-default btn-flat" ng-click="cancelarEgreso()">Cancelar</a>
+        <a class="btn btn-primary" plex-submit="egresar()" ng-disabled="formEgreso.$invalid">Guardar</a>
+    </div>
+</ng-form>
+</div>
 
+<!--
             <div flex ng-show="egreso.tipo == 'alta' && egreso.tipoAlta == 'derivacion'">
-
                 <md-autocomplete
                     md-selected-item-change="hospitales.selectItem(hospital)"
                     md-selected-item="hospitales.selectedItem"
@@ -64,49 +69,4 @@
                         Hospital no encontrado.
                     </md-not-found>
                 </md-autocomplete>
-
-            <!-- <md-select ng-model="egreso.derivadoHacia" ng-required="true" aria-label="Hospital a derivar">
-                    <md-option ng-repeat="hospital in hospitales" value="hospital.id">{{hospital.nombreCorto}}</md-option>
-                </md-select> -->
             </div>
-
-            <div layout ng-show="egreso.tipo == 'alta'">
-                <div flex="">
-                    <md-input-container class="md-block" flex-gt-sm>
-                        <label>Resumen de internación</label>
-                        <textarea placeholder="" ng-model="egreso.resumenInternacion"></textarea>
-                    </md-input-container>
-                </div>
-            </div>
-
-            <div layout ng-show="egreso.tipo == 'alta'">
-                <div flex="">
-                    <md-input-container class="md-block" flex-gt-sm>
-                        <label>Diagnóstico de alta</label>
-                        <textarea placeholder="" ng-model="egreso.diagnosticoAlta"></textarea>
-                    </md-input-container>
-                </div>
-            </div>
-
-            <div layout ng-show="egreso.tipo == 'alta'">
-                <div flex="">
-                    <md-input-container class="md-block" flex-gt-sm>
-                        <label>Tratamiento a seguir</label>
-                        <textarea label="Tratamiento" placeholder="" ng-model="egreso.tratamientoaSeguir"></textarea>
-                    </md-input-container>
-                </div>
-            </div>
-
-            <div layout>
-                <!-- <input type="hidden" ng-model="egreso.idCama" value="idCama" /> -->
-                <span flex></span>
-                <md-button ng-click="cancelarEgreso()">
-                    Cancelar
-                </md-button>
-                <md-button class="md-primary md-raised" plex-submit="egresar()" ng-disabled="formEgreso.$invalid">
-                    Egresar
-                </md-button>
-            </div>
-        </ng-form>
-    </div>
-</div>
