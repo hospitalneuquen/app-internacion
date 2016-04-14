@@ -102,7 +102,8 @@
         <h3>Inputs</h3>
         <div class="row">
             <div class="col-lg-6">
-                <input type="checkbox" label="Checkbox activo" ng-model="fields.checkbox1" plex="checkbox">
+                <input type="checkbox" label="Este es un switch" ng-model="fields.switch" plex="switch">
+                <input type="checkbox" label="Este es un checkbox" ng-model="fields.checkbox1" plex="checkbox">
                 <label>Opciones con radio</label>
                 <input type="radio" name="group1" label="Radio 1" ng-value="1" ng-model="fields.radio1" plex="radio">
                 <input type="radio" name="group1" label="Radio 2" ng-value="2" ng-model="fields.radio1" plex="radio">
@@ -111,9 +112,10 @@
                 <input type=text label="Texto" ng-model="fields.texto" ng-required="true" plex="text">
                 <input type=text label="Integer" ng-model="fields.int" plex="int">
                 <input type=text label="Float" ng-model="fields.float" plex="float">
-                <input type=text label="Fecha" ng-model="fields.fecha" plex="date">
+                <input type=text label="Fecha" ng-model="fields.hora" plex="date">
                 <input type=text label="Hora" ng-model="fields.hora" plex="time">
-                <input type=text label="Detalle" ng-model="fields.detalle" plex>
+                <input type=text label="Fecha & Hora" ng-model="fields.fechaHora" plex="datetime">
+                <textarea label="Textarea"  ng-model="fields.detalle" plex></textarea>
                 <select label="Select con opciones" ng-model="fields.selectOpciones" plex>
                     <option value="AL">Alabama</option>
                     <option value="WY">Wyoming</option>
@@ -135,7 +137,7 @@
                 <div class="card-deck">
                     <div class="card card-block">
                         <h4>Algunos datos por aquí</h4>
-                        <input type=text label="Texto" ng-model="fields.texto" ng-required="true" plex="text">
+                        <input type=text label="Texto" ng-model="fields.texto" xng-required="true" plex="text">
                         <input type=text label="Integer" ng-model="fields.int" plex="int">
                     </div>
                     <div class="card card-block">
@@ -148,7 +150,10 @@
             </div>
             <div class="card card-block margin-top text-right">
                 <a class="btn btn-default btn-flat">Cancelar</a>
-                <a class="btn btn-primary" plex-submit="guardar()">Guardar</a>
+                <button class="btn btn-primary" plex-submit="guardar()">
+                    <i class="mdi mdi-content-save"></i>
+                    <span>Guardar</span>
+                </button>
             </div>
         </ng-form>
     </div>
@@ -212,6 +217,11 @@
         </h4>
         <h3>Opciones con un botón
             <a class="btn btn-default">
+                <i plex-actions="actions"></i>
+            </a>
+        </h3>
+        <h3>Opciones con un botón flat
+            <a class="btn btn-default btn-flat">
                 <i plex-actions="actions"></i>
             </a>
         </h3>

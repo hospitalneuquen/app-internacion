@@ -1,0 +1,5 @@
+{
+  "eqeqeq": false,
+  "predef": ["angular", "console", "module", "Highcharts", "moment", "window"],
+  "strict": "implied"
+}

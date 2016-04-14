@@ -1,0 +1,60 @@
+<div ng-controller="internacion/iAntecedentes">
+    <!-- Antecedentes binarios -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Antecedente</th>
+                <th></th>
+                <th>Observaciones</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in internacion.ingreso.antecedentes.binarios" ng-class="{success: nuevaFila == $index}">
+                <td>
+                    <span class="text-muted">{{item.antecedente.grupo + " / "}}</span><span>{{item.antecedente.nombre}}</span>
+                </td>
+                <td>
+                    <input type="radio" name="{{item.antecedente.id}}" label="Si" ng-value="true" ng-model="item.activo" plex="radio">
+                    <input type="radio" name="{{item.antecedente.id}}" label="No" ng-value="false" ng-model="item.activo" plex="radio">
+                </td>
+                <td><input type="text" ng-if="item.activo" ng-model="item.observaciones" plex="text"></td>
+                <td class="text-right">
+                    <button class="btn btn-default btn-flat" ng-click="remove(item)">
+                        <i class="mdi mdi-delete"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan=4>
+                    <select ng-model="seleccionado" label="Seleccione un antecedente para agregar a la lista" plex="(item.grupo + ' / ' + item.nombre) for item in antecedentesBinarios"></select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Antecedentes gineco-obstétricos -->
+    <h5>Antecedentes gineco-obstétricos</h5>
+    <div class="row">
+        <div class="col-sm-3">
+            <input type="text" label="Gestas" ng-model="internacion.ingreso.antecedentes.ginecoobstetricos.gestas" plex-min="0" plex="int">
+        </div>
+        <div class="col-sm-3">
+            <input type="text" label="Partos" ng-model="internacion.ingreso.antecedentes.ginecoobstetricos.partos" plex-min="0" plex="int">
+        </div>
+        <div class="col-sm-3">
+            <input type="text" label="Cesáreas" ng-model="internacion.ingreso.antecedentes.ginecoobstetricos.cesareas" plex-min="0" plex="int">
+        </div>
+        <div class="col-sm-3">
+            <input type="text" label="Abortos" ng-model="internacion.ingreso.antecedentes.ginecoobstetricos.abortos" plex-min="0" plex="int">
+        </div>
+    </div>
+
+    <!-- Antecedentes varios -->
+    <h5>Antecedentes quirúrgicos</h5>
+    <input type="text" label="Indicar antecedentes quirúrgicos" ng-model="internacion.ingreso.antecedentes.quirurgicos" plex />
+    <h5>Antecedentes familiares</h5>
+    <input type="text" label="Indicar antecedentes familiares" ng-model="internacion.ingreso.antecedentes.familiares" plex />
+    <h5>Medicación</h5>
+    <input type="text" label="Medicación habitual" ng-model="internacion.ingreso.antecedentes.medicacion" plex />
+</div>
