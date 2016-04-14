@@ -18,7 +18,7 @@
                     <option ng-repeat="item in tiposEgresos" ng-value="item.id">{{item.nombre}}</option>
                 </select>
             </div>
-            <div class="col-lg-3" ng-show="egreso.tipo.value == 'alta'">
+            <div class="col-lg-3" ng-show="egreso.tipo == 'alta'">
                     <input type="radio" name="group1" label="Alta médica" value="medica" ng-model="egreso.tipoAlta" plex="radio">
                     <input type="radio" name="group1" label="Derivación" value="derivacion" ng-model="egreso.tipoAlta" plex="radio">
                     <input type="radio" name="group1" label="Voluntaria" value="voluntaria" ng-model="egreso.tipoAlta" plex="radio">
@@ -29,17 +29,17 @@
                 <!-- <select label="Hospital" ng-model="egreso.derivadoHacia" min="3" plex="hospital.nombre in hospitales.querySearch($value)"></select> -->
             </div>
         </div>
-        <div class="row" ng-show="egreso.tipo.value == 'alta'">
+        <div class="row" ng-show="egreso.tipo == 'alta'">
             <div class="col-lg-6">
                 <textarea label="Resumen de internación" ng-model="egreso.resumenInternacion" plex></textarea>
             </div>
         </div>
-        <div class="row" ng-show="egreso.tipo.value == 'alta'">
+        <div class="row" ng-show="egreso.tipo == 'alta'">
             <div class="col-lg-6">
                 <textarea label="Diagnóstico de alta" ng-model="egreso.diagnosticoAlta" plex></textarea>
             </div>
         </div>
-        <div class="row" ng-show="egreso.tipo.value == 'alta'">
+        <div class="row" ng-show="egreso.tipo == 'alta'">
             <div class="col-lg-6">
                 <textarea label="Tratamiento a seguir" ng-model="egreso.tratamientoaSeguir" plex></textarea>
             </div>
