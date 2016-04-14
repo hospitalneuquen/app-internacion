@@ -94,8 +94,9 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
                 Shared.ubicaciones.get({
                     tipo: 'hospital'
                 }).then(function(hospitales) {
-                    $scope.hospitales.data = hospitales;
+                    $scope.hospitales = hospitales;
                 });
+
             });
         }
     });
