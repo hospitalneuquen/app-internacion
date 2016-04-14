@@ -1,95 +1,102 @@
-<md-tabs md-dynamic-height md-border-bottom md-selected="tab">
-    <md-tab label="Seleccionar paciente">
-        <div layout layout-pretty whiteframe>
-            <div flex>
-                <form name="buscarPaciente" ng-submit="checkInternacion()">
-                    <!-- Buscar personas por nombre o documento -->
-                    <h3>Buscar personas</h3>
-                    <md-input-container class="md-icon-float md-block">
-                        <label>Ingrese el documento o apellido</label>
-                        <md-icon>search</md-icon>
-                        <input type="text" ng-model="personas.query" ng-model-options="{ debounce: { default: 300, blur: 0 } }">
-                    </md-input-container>
-                    <md-table-container ng-if="personas.promise || personas.data">
-                        <table md-table md-row-select ng-model="personas.seleccionado" md-progress="personas.promise" class="mdTableSingleSelect">
-                            <thead md-head>
-                                <tr md-row>
-                                    <th md-column>Nombre</th>
-                                    <th md-column>Documento</th>
-                                    <th md-column>Edad</th>
-                                </tr>
-                            </thead>
-                            <tbody md-body>
-                                <tr md-row md-select="item" md-on-select="personas.seleccionar" md-auto-select ng-repeat="item in personas.data">
-                                    <td md-cell>{{item | persona:"an"}}</td>
-                                    <td md-cell>{{item | persona:"d"}}</td>
-                                    <td md-cell>{{item | persona:"e"}}</td>
-                                </tr>
-                            </tbody>
-                            <tfoot md-foot>
-                                <tr md-row>
-                                    <td md-cell colspan="3">
-                                        <md-progress-circular ng-if="personas.promise" md-mode="indeterminate"></md-progress-circular>
-                                        <span ng-if="!personas.promise">
-                                            Personas encontradas
-                                            <strong>{{personas.data.length}}</strong>
-                                        </span>
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </md-table-container>
-                </form>
-            </div>
-        </div>
-    </md-tab>
-    <md-tab label="Internaciones" ng-disabled="internacionesDisabled">
-        <div layout layout-pretty whiteframe>
-            <div flex>
-                <h3>Internaciones</h3>
-                <md-table-container ng-if="internaciones">
-                    <table md-table ng-model="personas.seleccionado" class="mdTableSingleSelect">
+<div class="row">
+    <div class="col-lg-12" plex-tabs ng-model="tab">
+        <ul class="nav nav-tabs">
+            <li>
+                <a>
+                    Seleccionar paciente
+                </a>
+            </li>
+            <li ng-disabled="internacionesDisabled">
+                <a>
+                    Internaciones
+                </a>
+            </li>
+        </ul>
+
+        <div class="card card-block">
+            <form name="buscarPaciente" ng-submit="checkInternacion()">
+                <!-- Buscar personas por nombre o documento -->
+                <h3>Buscar personas</h3>
+                <md-input-container class="md-icon-float md-block">
+                    <label>Ingrese el documento o apellido</label>
+                    <md-icon>search</md-icon>
+                    <input type="text" ng-model="personas.query" ng-model-options="{ debounce: { default: 300, blur: 0 } }">
+                </md-input-container>
+                <md-table-container ng-if="personas.promise || personas.data">
+                    <table md-table md-row-select ng-model="personas.seleccionado" md-progress="personas.promise" class="mdTableSingleSelect">
                         <thead md-head>
                             <tr md-row>
-                                <th md-column>Fecha</th>
-                                <th md-column>Motivo</th>
-                                <th md-column>Diagnóstico presuntivo</th>
-                                <th md-column>Estado</th>
+                                <th md-column>Nombre</th>
+                                <th md-column>Documento</th>
+                                <th md-column>Edad</th>
                             </tr>
                         </thead>
                         <tbody md-body>
-                            <tr md-row ng-repeat="internacion in internaciones | orderBy: '-ingreso.fechaHora'" ng-click="ver(internacion.id)">
-                                <td md-cell>
-                                    <b>Desde:</b> {{internacion.ingreso.fechaHora | date : 'dd/MM/yyyy HH:mm'}}
-                                    <div ng-if="internacion.egreso.fechaHora">
-                                        <b>Hasta:</b> {{internacion.egreso.fechaHora | date : 'dd/MM/yyyy HH:mm'}}
-                                    </div>
-                                </td>
-                                <td md-cell>{{internacion.ingreso.motivo}}</td>
-                                <td md-cell>{{internacion.ingreso.diagnosticoPresuntivo}}</td>
-                                <td md-cell>
-                                    {{internacion.estado}}
-                                    <span ng-if="internacion.egreso.tipoAlta">
-                                        <br/>
-                                        {{internacion.egreso.tipoAlta}}
-                                    </span>
-                                </td>
+                            <tr md-row md-select="item" md-on-select="personas.seleccionar" md-auto-select ng-repeat="item in personas.data">
+                                <td md-cell>{{item | persona:"an"}}</td>
+                                <td md-cell>{{item | persona:"d"}}</td>
+                                <td md-cell>{{item | persona:"e"}}</td>
                             </tr>
                         </tbody>
                         <tfoot md-foot>
                             <tr md-row>
-                                <td md-cell colspan="4">
-                                    <!-- <md-progress-circular ng-if="personas.promise" md-mode="indeterminate"></md-progress-circular> -->
-                                    <span ng-if="internaciones">
-                                        Internaciones encontradas
-                                        <strong>{{internaciones.length}}</strong>
+                                <td md-cell colspan="3">
+                                    <md-progress-circular ng-if="personas.promise" md-mode="indeterminate"></md-progress-circular>
+                                    <span ng-if="!personas.promise">
+                                        Personas encontradas
+                                        <strong>{{personas.data.length}}</strong>
                                     </span>
                                 </td>
                             </tr>
                         </tfoot>
                     </table>
                 </md-table-container>
-            </div>
+            </form>
         </div>
-    </md-tab>
-</md-tabs>
+        <div class="card card-block">
+            <h3>Internaciones</h3>
+            <md-table-container ng-if="internaciones">
+                <table md-table ng-model="personas.seleccionado" class="mdTableSingleSelect">
+                    <thead md-head>
+                        <tr md-row>
+                            <th md-column>Fecha</th>
+                            <th md-column>Motivo</th>
+                            <th md-column>Diagnóstico presuntivo</th>
+                            <th md-column>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row ng-repeat="internacion in internaciones | orderBy: '-ingreso.fechaHora'" ng-click="ver(internacion.id)">
+                            <td md-cell>
+                                <b>Desde:</b> {{internacion.ingreso.fechaHora | date : 'dd/MM/yyyy HH:mm'}}
+                                <div ng-if="internacion.egreso.fechaHora">
+                                    <b>Hasta:</b> {{internacion.egreso.fechaHora | date : 'dd/MM/yyyy HH:mm'}}
+                                </div>
+                            </td>
+                            <td md-cell>{{internacion.ingreso.motivo}}</td>
+                            <td md-cell>{{internacion.ingreso.diagnosticoPresuntivo}}</td>
+                            <td md-cell>
+                                {{internacion.estado}}
+                                <span ng-if="internacion.egreso.tipoAlta">
+                                    <br/>
+                                    {{internacion.egreso.tipoAlta}}
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot md-foot>
+                        <tr md-row>
+                            <td md-cell colspan="4">
+                                <!-- <md-progress-circular ng-if="personas.promise" md-mode="indeterminate"></md-progress-circular> -->
+                                <span ng-if="internaciones">
+                                    Internaciones encontradas
+                                    <strong>{{internaciones.length}}</strong>
+                                </span>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </md-table-container>
+        </div>
+    </div>
+</div>

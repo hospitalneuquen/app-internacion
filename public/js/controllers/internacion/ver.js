@@ -3,6 +3,8 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
 
     angular.extend($scope, {
         tab: 0,
+        show_toolbar_drenajes: true,
+        drenajesEdit: undefined, // Item actual que se está editando de los drenajes
         ordenCronologico: [],
         riesgoCaidas: 0,
         selectedTabIndex: 0,
@@ -11,6 +13,22 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
         servicios: [{
             id: null,
             nombreCorto: 'Todos'
+        }],
+        tiposDrenajes: [{
+            id: 'pleural',
+            nombre: 'Pleural'
+        },
+        {
+            id: 'percutaneo',
+            nombre: 'Percutáneo'
+        }],
+        ladosDrenajes: [{
+            id: 'izquierdo',
+            nombre: 'Izquierdo'
+        },
+        {
+            id: 'derecho',
+            nombre: 'Derecho'
         }],
         tiposInternacion: [{ // opciones para el select del tipo de internacion
             id: 'ambulatorio',
@@ -48,6 +66,57 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
         },
         editarPase: function(item) {
             alert("Definir que editar y como. Solo fecha ? Descripcion? Permitir editar si no esta egresado el pacietne?")
+        },
+        editarDrenaje: function(drenaje){
+            $scope.show_toolbar_drenajes = false;
+            if (drenaje) { // Modificación
+                $scope.tituloFormulario = "Editar drenaje";
+                $scope.drenajesEdit = {};
+                angular.copy(drenaje, $scope.drenajesEdit);
+            } else { // Alta
+                $scope.tituloFormulario = "Agregar drenaje";
+                // Valores por defecto
+                $scope.drenajesEdit = {
+                    fechaDesde: new Date()
+                };
+            }
+        },
+        guardarDrenaje: function(){
+            Shared.drenaje.post($scope.internacion.id, $scope.drenajesEdit.id || null, $scope.drenajesEdit, {
+                minify: true
+            }).then(function(data) {
+                // actualizamos el listado de evoluciones
+                $scope.actualizarDrenajes(data);
+                $scope.cancelarEdicion();
+            });
+        },
+        // Cancelar la edición
+        cancelarEdicion: function() {
+            $scope.drenajesEdit = null;
+            $scope.show_toolbar_drenajes = true;
+        },
+        actualizarDrenajes: function(data) {
+            var found = false;
+            // $scope.loading = true;
+
+            var length = $scope.internacion.drenajes.length;
+            // buscamos la cama y actualizamos el valor con los datos
+            for (var i = 0; i < length; i++) {
+                if ($scope.internacion.drenajes[i].id === data.id) {
+                    // evolucion encontrada, actualizamos datos
+                    $scope.internacion.drenajes[i] = data;
+                    found = true;
+                    break;
+                }
+            }
+
+            // si no lo encontro, entonces es porque acaba de cargarla
+            // se la asignamos al resto de las evoluciones
+            if (!found) {
+                $scope.internacion.drenajes.push(data);
+            }
+
+            // $scope.loading = false;
         },
         ordenarCronologicamente: function() {
             // agregamos el ingreso
@@ -114,6 +183,37 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                     _tipo: "egreso",
                     data: $scope.internacion.egreso,
                     cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
+                });
+            }
+
+
+            // agregamos los drenajes cuando comienzan
+            if ($scope.internacion.drenajes.length) {
+                angular.forEach($scope.internacion.drenajes, function(drenaje, key) {
+                    if (drenaje.fechaHasta){
+                        angular.forEach($scope.internacion.drenajes, function(drenaje, key) {
+                            var inicio = moment(drenaje.fechaDesde);
+                            var fin = moment(drenaje.fechaHasta);
+                            var duracion = inicio.to(fin, true);
+                            $scope.ordenCronologico.push({
+                                fecha: drenaje.fechaHasta,
+                                tipo: "Extracción de drenaje",
+                                _tipo: "drenaje",
+                                data: drenaje,
+                                duracion: duracion,
+                                cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
+                            });
+                        });
+                    }else{
+                        $scope.ordenCronologico.push({
+                            fecha: drenaje.fechaDesde,
+                            tipo: "Colocación de drenaje",
+                            _tipo: "drenaje",
+                            data: drenaje,
+                            cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
+                        });
+                    }
+
                 });
             }
 

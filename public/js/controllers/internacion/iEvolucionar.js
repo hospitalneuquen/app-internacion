@@ -89,6 +89,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
         },
         // Guarda la evolución
         guardarEvolucion: function(evolucion) {
+            console.log($scope.evolucionesEdit);
             Shared.evolucion.post($scope.internacion.id, evolucion.id || null, $scope.evolucionesEdit, {
                 minify: true
             }).then(function(data) {

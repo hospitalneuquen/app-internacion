@@ -1,6 +1,19 @@
 angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 'Server', '$timeout', 'Session', '$alert', function($scope, Plex, Shared, Server, $timeout, Session, $alert) {
     'use strict';
 
+    Session.servicioActual = {
+        "id": '56b3352698a74c8422cf8224',
+        "_id": '56b3352698a74c8422cf8224',
+        "nombre": "Servicio de Clínica Médica",
+        "nombreCorto": "Clínica Médica"
+    };
+    //
+    // Session.servicioActual = {
+    //     _id : '56b3352898a74c8422cf8263',
+    //     "nombre": "Servicio de Clínica Quirúrgica",
+    //     "nombreCorto" : "Clínica Quirúrgica"
+    // };
+
     angular.extend($scope, {
         vista: 0,
         layout: 'grid',

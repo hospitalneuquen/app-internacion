@@ -4,7 +4,7 @@
     <div class="card card-block" ng-show="show_toolbar">
         <div class="row">
             <div class="col-xs-4">
-                <h2 class="md-headline">Evoluciones del paciente</h2>
+                <h3>Evoluciones del paciente</h3>
             </div>
             <div class="col-xs-4">
                 <div class="form-group"></div>
@@ -234,25 +234,25 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <input type="text" ng-model="evolucionesEdit.ingresos.ph" label="P.H I" plex/>
+                                        <input type="text" ng-model="evolucionesEdit.ingresos.ph" label="P.H I" suffix="ml" plex/>
                                     </div>
                                 </div>
 
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <input type="text" ng-model="evolucionesEdit.ingresos.ph2" label="P.H II" plex/>
+                                        <input type="text" ng-model="evolucionesEdit.ingresos.ph2" label="P.H II" suffix="ml" plex/>
                                     </div>
                                 </div>
 
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <input type="text" ng-model="evolucionesEdit.ingresos.atb" label="ATB" plex/>
+                                        <input type="text" ng-model="evolucionesEdit.ingresos.atb" label="ATB" suffix="ml" plex/>
                                     </div>
                                 </div>
 
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <input type="text" ng-model="evolucionesEdit.ingresos.hemo" label="HEMO." plex/>
+                                        <input type="text" ng-model="evolucionesEdit.ingresos.hemo" label="HEMO." suffix="ml" plex/>
                                     </div>
                                 </div>
                             </div>
@@ -260,17 +260,17 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <input label="NP" type="text" ng-model="evolucionesEdit.ingresos.np" plex/>
+                                        <input label="NP" type="text" ng-model="evolucionesEdit.ingresos.np" suffix="ml" plex/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <input label="Prep." type="text" ng-model="evolucionesEdit.ingresos.prep" plex/>
+                                        <input label="Prep." type="text" ng-model="evolucionesEdit.ingresos.prep" suffix="ml" plex/>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <input label="H20" type="text" ng-model="evolucionesEdit.ingresos.h2o" plex/>
+                                        <input label="H20" type="text" ng-model="evolucionesEdit.ingresos.h2o" suffix="ml" plex/>
                                     </div>
                                 </div>
                             </div>
@@ -278,61 +278,180 @@
                         <!-- <div ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
                         <div class="card card-block">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
-                                        <input type="text" ng-model="evolucionesEdit.egresos.lavadoVesicalI" label="Lavado vesical I" plex/>
+                                        <input type="text" ng-model="evolucionesEdit.egresos.lavadoVesicalI" label="Lavado vesical I" suffix="ml" plex/>
                                     </div>
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
-                                        <input type="text" ng-model="evolucionesEdit.egresos.diuresis" label="Diuresis" plex/>
+                                        <input type="text" ng-model="evolucionesEdit.egresos.diuresis" label="Diuresis" suffix="ml" plex/>
                                     </div>
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
-                                        <input type="text" ng-model="evolucionesEdit.egresos.catarsis" label="Catarsis" plex/>
+                                        <input type="text" ng-model="evolucionesEdit.egresos.catarsis" label="Catarsis" suffix="ml" plex/>
                                     </div>
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="col-md-1">
                                     <div class="form-group">
-                                        <input type="text" ng-model="evolucionesEdit.egresos.sng" label="S.N.G" plex/>
+                                        <input type="text" ng-model="evolucionesEdit.egresos.sng" label="S.N.G" suffix="ml" plex/>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-1">
+                                    <div class="form-group">
+                                        <input type="text" ng-model="evolucionesEdit.egresos.sny" label="S.N.Y" suffix="ml" plex/>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <input type="text" ng-model="evolucionesEdit.egresos.ostomias" label="Ostomias I" suffix="ml" plex/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <input type="text" ng-model="evolucionesEdit.egresos.ostomias2" label="Ostomias II" suffix="ml" plex/>
                                     </div>
                                 </div>
                             </div>
+                            <div class="row" ng-repeat="drenaje in internacion.drenajes track by $index">
+                                <input type="hidden" value="'{{drenaje.id}}'" ng-model="evolucionesEdit.egresos.drenajes[$index].id" ng-init="evolucionesEdit.egresos.drenajes[$index].id = drenaje.id"/>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Lado</label>
+                                        <p>{{drenaje.lado}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Tipo</label>
+                                        <p>{{drenaje.tipo}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <select label="Características del líquido" ng-model="evolucionesEdit.egresos.drenajes[$index].caracteristicaLiquido" plex>
+                                            <option value="Hemático">Hemático</option>
+                                            <option value="Seroso">Seroso</option>
+                                            <option value="Serohemático">Serohemático</option>
+                                            <option value="Purulento">Purulento</option>
+                                        </select>
+                                    </div>
+                                </div>
 
-                            <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <input label="Drenajes" type="text" ng-model="evolucionesEdit.egresos.drenajes" plex/>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <input label="Drenajes II" type="text" ng-model="evolucionesEdit.egresos.drenajes2" plex/>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <input type="text" ng-model="evolucionesEdit.egresos.ostomias" label="Ostomias I" plex/>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <input type="text" ng-model="evolucionesEdit.egresos.ostomias2" label="Ostomias II" plex/>
+                                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.egresos.drenajes[$index].observaciones" plex="text">
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="card card-block">
-                            <div class="row" ng-if="internaciones.evoluciones.length > 0">
+                            <div class=" row" ng-if="internacion.evoluciones.length > 0">
                                 <div class="col-lg-12">
-                                    Hola
+                                    <h6 class="text-uppercase">
+                                        Evolución anterior ({{internacion.evoluciones[internacion.evoluciones.length-1].fechaHora | fromNow}})
+                                        <span class=" pull-right">
+                                            {{internacion.evoluciones[internacion.evoluciones.length-1].fechaHora | date: "dd/MM/yyyy  'a las' HH:mm "}} hs
+                                        </span>
+                                    </h6>
+                                    <hr />
+                                </div>
+
+                            </div>
+
+                            <div class=" row" ng-if="internacion.evoluciones.length > 0">
+                                <div class="col-lg-2">
+                                    <span class="text-uppercase">Signos vitales</span>
+                                    <br />
+                                    <strong>Frecuencia cardíaca:</strong> {{internacion.evoluciones[internacion.evoluciones.length-1].pulso}} PPM
+                                    <br />
+                                    <strong>Frecuencia respiratoria:</strong> {{internacion.evoluciones[internacion.evoluciones.length-1].respiracion}} PPM
+                                    <br />
+                                    <strong>Tensión diastólica:</strong> {{internacion.evoluciones[internacion.evoluciones.length-1].tensionDiastolica}} mmHG
+                                    <br />
+                                    <strong>Tensión sistólica:</strong> {{internacion.evoluciones[internacion.evoluciones.length-1].tensionSistolica}} mmHG
+                                </div>
+                                <div class="col-lg-2 br">
+                                    <br />
+                                    <strong>Temperatura:</strong> {{internacion.evoluciones[internacion.evoluciones.length-1].temperatura}} ºC
+                                    <br />
+                                    <strong>Saturación O<sub>2</sub>:</strong> {{internacion.evoluciones[internacion.evoluciones.length-1].sp02}} %
+                                    <br />
+                                    <strong>Peso:</strong> {{internacion.evoluciones[internacion.evoluciones.length-1].peso}} kgs
+                                    <br />
+                                    <br />
+                                </div>
+                                <div class="col-lg-2">
+                                    <span class="text-uppercase">Ingresos</span>
+                                    <br />
+                                    <strong>ATB:</strong> {{internacion.evoluciones[internacion.evoluciones.length-1].ingresos.atb}} ml
+                                    <br />
+                                    <strong>HEMO.:</strong> {{internacion.evoluciones[internacion.evoluciones.length-1].ingresos.hemo}} ml
+                                    <br />
+                                    <strong>NP:</strong> {{internacion.evoluciones[internacion.evoluciones.length-1].ingresos.np}} ml
+                                    <br />
+                                    <strong>Prep.:</strong> {{internacion.evoluciones[internacion.evoluciones.length-1].ingresos.prep}} ml
+                                </div>
+                                <div class="col-lg-1 br">
+                                    <br />
+                                    <strong>H<sub>2</sub>O:</strong> {{internacion.evoluciones[internacion.evoluciones.length-1].ingresos.h2o}} ml
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <br />
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <span class="text-uppercase">Egresos</span>
+                                    <br />
+                                    <strong>Lavado Vesical I:</strong> {{internacion.evoluciones[internacion.evoluciones.length-1].egresos.lavadoVeasicalI}} ml
+                                    <br />
+                                    <strong>Lavado Vesical II:</strong> {{internacion.evoluciones[internacion.evoluciones.length-1].egresos.lavadoVeasicalI}} ml
+                                    <br />
+                                    <strong>Diuresis:</strong> {{internacion.evoluciones[internacion.evoluciones.length-1].egresos.diuresis}} ml
+                                    <br />
+                                    <strong>Catarsis:</strong> {{internacion.evoluciones[internacion.evoluciones.length-1].egresos.catarsis}} ml
+                                </div>
+                                <div class="col-lg-2 br">
+                                    <br />
+                                    <strong>S.N.G:</strong> {{internacion.evoluciones[internacion.evoluciones.length-1].egresos.sng}} ml
+                                    <br />
+                                    <strong>S.N.Y:</strong> {{internacion.evoluciones[internacion.evoluciones.length-1].sny}} ml
+                                    <br />
+                                    <strong>Ostomias I:</strong> {{internacion.evoluciones[internacion.evoluciones.length-1].egresos.ostomias}} ml
+                                    <br />
+                                    <strong>Ostomias II:</strong> {{internacion.evoluciones[internacion.evoluciones.length-1].egresos.ostomias}} ml
+                                    <!-- Drenajes -->
+                                </div>
+                                <div class="col-lg-1">
+                                    <span class="text-uppercase">
+                                        Balance</span>
+                                        <i class="verde mdi mdi-trending-up" ng-if="internacion.evoluciones[internacion.evoluciones.length-1].$balance < 0"></i>
+                                        <i class="celeste mdi mdi-trending-flat" ng-if="internacion.evoluciones[internacion.evoluciones.length-1].$balance == 0"></i>
+                                        <i class="rojo mdi mdi-trending-down" ng-if="internacion.evoluciones[internacion.evoluciones.length-1].$balance > 0"></i>
+                                    </span>
+
+                                    <br />
+                                    <span>
+                                        <strong>I =</strong>
+                                        {{internacion.evoluciones[internacion.evoluciones.length-1].$total_ingresos}}
+                                        <br/>
+                                        <strong>E =</strong>
+                                        {{internacion.evoluciones[internacion.evoluciones.length-1].$total_egresos}}
+                                    </span>
+
                                 </div>
                             </div>
+                            <hr />
                             <div class="row">
                                 <div class="col-xs-12">
                                     <div class="form-group">
@@ -350,7 +469,7 @@
                     <div class="col-lg-12">
                         <div class="card card-block margin-top text-right">
                             <button type="button" class="btn btn-default btn-flat" ng-click="cancelarEdicion();">Cancelar</button>
-                            <button class="btn btn-primary" plex plex-submit="guardarEvolucion(evolucionesEdit)" ng-disabled="formEditarEvolucion.$invalid">Guardar</button>
+                            <button class="btn btn-primary" plex-submit="guardarEvolucion(evolucionesEdit)" ng-disabled="formEditarEvolucion.$invalid"><i class="mdi mdi-content-save"></i> Guardar</button>
                         </div>
                     </div>
                 </div>

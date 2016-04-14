@@ -54,6 +54,7 @@
 .plex-affix.affix + .plex-affix-spacer {
     display: block;
 }
+.clickable {cursor: pointer;}
 
 /* dashboard cards */
 
@@ -94,3 +95,6 @@
 .card-yellow {
     background-color: #FBC02D;
 }
+
+.bl {border-left: 1px solid #ccc;}
+.br {border-right: 1px solid #ccc;}

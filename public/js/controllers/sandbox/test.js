@@ -3,6 +3,7 @@ angular.module('app').controller('sandbox/test', ['$scope', 'Plex', 'Server', '$
         fields: {
         },
         tab: 0,
+
         array: [{
             id: '1',
             apellido: 'Garcia',
