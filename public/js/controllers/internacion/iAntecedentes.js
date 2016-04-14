@@ -30,7 +30,8 @@ angular.module('app').controller('internacion/iAntecedentes', ["$scope", "Server
                 Plex.alert("El antecedente ya está indicado", "info");
             } else {
                 $scope.internacion.ingreso.antecedentes.binarios.push({
-                    antecedente: current
+                    antecedente: current,
+                    activo: true,
                 });
                 $scope.nuevaFila = $scope.internacion.ingreso.antecedentes.binarios.length - 1;
             }

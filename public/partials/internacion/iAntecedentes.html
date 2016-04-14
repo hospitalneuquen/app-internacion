@@ -15,10 +15,9 @@
                     <span class="text-muted">{{item.antecedente.grupo + " / "}}</span><span>{{item.antecedente.nombre}}</span>
                 </td>
                 <td>
-                    <input type="radio" name="{{item.antecedente.id}}" label="Si" ng-value="true" ng-model="item.activo" plex="radio">
-                    <input type="radio" name="{{item.antecedente.id}}" label="No" ng-value="false" ng-model="item.activo" plex="radio">
+                    <input type="checkbox" label="{{ item.activo ? 'Si' : 'No' }}" ng-model="item.activo" plex="switch">
                 </td>
-                <td><input type="text" ng-if="item.activo" ng-model="item.observaciones" plex="text"></td>
+                <td style="width: 50%"><input type="text" ng-if="item.activo" ng-model="item.observaciones" plex="text"></td>
                 <td class="text-right">
                     <button class="btn btn-default btn-flat" ng-click="remove(item)">
                         <i class="mdi mdi-delete"></i>
