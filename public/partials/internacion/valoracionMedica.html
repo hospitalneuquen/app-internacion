@@ -1,0 +1,72 @@
+<div plex-include="'partials/Pacientes/iHeader.html'" plex-include-internacion="internacion" plex-affix></div>
+<ng-form>
+    <div plex-tabs ng-init="tabs = 0" ng-model="tabs">
+        <ul>
+            <li>
+                <a>
+                    <i class="mdi mdi-backburger"></i>
+                    <span>Antecedentes</span>
+                </a>
+            </li>
+            <li>
+                <a>
+                    <i class="icon-i-mammography"></i>
+                    <span>Estudios previos</span>
+                </a>
+            </li>
+            <li>
+                <a>
+                    <i class="mdi mdi-checkbox-multiple-marked-outline"></i>
+                    <span>Examen físico</span>
+                </a>
+            </li>
+            <li>
+                <a>
+                    <i class="icon-i-cardiology"></i>
+                    <span>Examenes complementarios</span>
+                </a>
+            </li>
+        </ul>
+        <!-- Antecedentes -->
+        <div class="card card-block">
+            <div plex-include="'partials/internacion/iAntecedentes.html'" plex-include-internacion="internacion"></div>
+        </div>
+        <!-- Estudios previos -->
+        <div class="card card-block">
+            <input type="text" label="PAP / HPV" ng-model="internacion.ingreso.estudiosPrevios.pap" plex>
+            <input type="text" label="Mamografía" ng-model="internacion.ingreso.estudiosPrevios.mamografia" plex>
+            <input type="text" label="Otros" ng-model="internacion.ingreso.estudiosPrevios.otros" plex>
+        </div>
+        <!-- Examen físico -->
+        <div class="card card-block">
+            <input type="text" label="Piel" ng-model="internacion.ingreso.medico.examenFisico.piel" plex>
+            <input type="text" label="Cabeza y cuello" ng-model="internacion.ingreso.medico.examenFisico.cabezaCuello" plex>
+            <input type="text" label="Tórax / Mamas" ng-model="internacion.ingreso.medico.examenFisico.torax" plex>
+            <input type="text" label="Cardiovascular" ng-model="internacion.ingreso.medico.examenFisico.cardiovascular" plex>
+            <input type="text" label="Respiratorio" ng-model="internacion.ingreso.medico.examenFisico.respiratorio" plex>
+            <input type="text" label="Abdomen" ng-model="internacion.ingreso.medico.examenFisico.abdomen" plex>
+            <input type="text" label="Genitales" ng-model="internacion.ingreso.medico.examenFisico.genitales" plex>
+            <input type="text" label="Tacto rectal" ng-model="internacion.ingreso.medico.examenFisico.recto" plex>
+            <input type="text" label="Osteo Artro Muscular" ng-model="internacion.ingreso.medico.examenFisico.osteoartromuscular" plex>
+            <input type="text" label="Neurológico y psiquismo" ng-model="internacion.ingreso.medico.examenFisico.neurologico" plex>
+            <input type="text" label="Fondo de ojo" ng-model="internacion.ingreso.medico.examenFisico.fondoOjo" plex>
+        </div>
+        <!-- Estudios complementarios  -->
+        <div class="card card-block">
+            <input type="text" label="ECG" ng-model="internacion.ingreso.medico.estudios.ecg" plex>
+            <input type="text" label="RX" ng-model="internacion.ingreso.medico.estudios.rx" plex>
+            <input type="text" label="Otros estudios" ng-model="internacion.ingreso.medico.estudios.otros" plex>
+        </div>
+        <!-- Impresión diagnóstica -->
+        <div class="card card-block">
+            <input type="text" label="Impresión diagnóstica" ng-model="internacion.ingreso.medico.impresionDiagnostica" plex>
+        </div>
+    </div>
+    <div class="card card-block margin-top text-right">
+        <a class="btn btn-default btn-flat">Cancelar</a>
+        <button class="btn btn-primary" plex-submit="guardar()">
+            <i class="mdi mdi-content-save"></i>
+            <span>Guardar</span>
+        </button>
+    </div>
+</ng-form>

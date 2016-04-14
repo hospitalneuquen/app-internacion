@@ -322,7 +322,7 @@
                                 </div>
                             </div>
                             <div class="row" ng-repeat="drenaje in internacion.drenajes track by $index">
-                                <input type="hidden" value="{{drenaje.id}}" ng-model="evolucionesEdit.egresos.drenajes[$index].id" />
+                                <input type="hidden" value="'{{drenaje.id}}'" ng-model="evolucionesEdit.egresos.drenajes[$index].id" ng-init="evolucionesEdit.egresos.drenajes[$index].id = drenaje.id"/>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label>Lado</label>
@@ -337,7 +337,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <select label="Características del líquido" ng-model="evolucionesEdit.egresos.drenajes[$index].caracteristicas_liquido" plex>
+                                        <select label="Características del líquido" ng-model="evolucionesEdit.egresos.drenajes[$index].caracteristicaLiquido" plex>
                                             <option value="Hemático">Hemático</option>
                                             <option value="Seroso">Seroso</option>
                                             <option value="Serohemático">Serohemático</option>

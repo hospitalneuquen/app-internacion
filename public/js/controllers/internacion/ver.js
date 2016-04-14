@@ -67,6 +67,57 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
         editarPase: function(item) {
             alert("Definir que editar y como. Solo fecha ? Descripcion? Permitir editar si no esta egresado el pacietne?")
         },
+        editarDrenaje: function(drenaje){
+            $scope.show_toolbar_drenajes = false;
+            if (drenaje) { // Modificación
+                $scope.tituloFormulario = "Editar drenaje";
+                $scope.drenajesEdit = {};
+                angular.copy(drenaje, $scope.drenajesEdit);
+            } else { // Alta
+                $scope.tituloFormulario = "Agregar drenaje";
+                // Valores por defecto
+                $scope.drenajesEdit = {
+                    fechaDesde: new Date()
+                };
+            }
+        },
+        guardarDrenaje: function(){
+            Shared.drenaje.post($scope.internacion.id, $scope.drenajesEdit.id || null, $scope.drenajesEdit, {
+                minify: true
+            }).then(function(data) {
+                // actualizamos el listado de evoluciones
+                $scope.actualizarDrenajes(data);
+                $scope.cancelarEdicion();
+            });
+        },
+        // Cancelar la edición
+        cancelarEdicion: function() {
+            $scope.drenajesEdit = null;
+            $scope.show_toolbar_drenajes = true;
+        },
+        actualizarDrenajes: function(data) {
+            var found = false;
+            // $scope.loading = true;
+
+            var length = $scope.internacion.drenajes.length;
+            // buscamos la cama y actualizamos el valor con los datos
+            for (var i = 0; i < length; i++) {
+                if ($scope.internacion.drenajes[i].id === data.id) {
+                    // evolucion encontrada, actualizamos datos
+                    $scope.internacion.drenajes[i] = data;
+                    found = true;
+                    break;
+                }
+            }
+
+            // si no lo encontro, entonces es porque acaba de cargarla
+            // se la asignamos al resto de las evoluciones
+            if (!found) {
+                $scope.internacion.drenajes.push(data);
+            }
+
+            // $scope.loading = false;
+        },
         ordenarCronologicamente: function() {
             // agregamos el ingreso
             $scope.ordenCronologico.push({
@@ -141,11 +192,15 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                 angular.forEach($scope.internacion.drenajes, function(drenaje, key) {
                     if (drenaje.fechaHasta){
                         angular.forEach($scope.internacion.drenajes, function(drenaje, key) {
+                            var inicio = moment(drenaje.fechaDesde);
+                            var fin = moment(drenaje.fechaHasta);
+                            var duracion = inicio.to(fin, true);
                             $scope.ordenCronologico.push({
                                 fecha: drenaje.fechaHasta,
                                 tipo: "Extracción de drenaje",
                                 _tipo: "drenaje",
                                 data: drenaje,
+                                duracion: duracion,
                                 cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
                             });
                         });
@@ -174,74 +229,6 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                 return new Date(a.fecha).getTime() - new Date(b.fecha).getTime()
             });
 
-        },
-        editarDrenaje: function(drenaje){
-            $scope.show_toolbar_drenajes = false;
-            if (drenaje) { // Modificación
-                $scope.tituloFormulario = "Editar drenaje";
-                $scope.drenajesEdit = {};
-                angular.copy(drenaje, $scope.drenajesEdit);
-            } else { // Alta
-                $scope.tituloFormulario = "Agregar drenaje";
-                // Valores por defecto
-                $scope.drenajesEdit = {
-                    fechaHora: new Date()
-                };
-            }
-        },
-        guardarDrenaje: function(){
-            // creamos el objeto de drenaje que almacenaremos en la internacion
-            var drenaje = {
-                id: $scope.drenajesEdit.id || null,
-                tipo : $scope.drenajesEdit.tipo.value,
-                _tipo : $scope.drenajesEdit.tipo.text,
-                lado : $scope.drenajesEdit.lado.value,
-                _lado : $scope.drenajesEdit.lado.text,
-                fechaDesde: $scope.drenajesEdit.fechaDesde,
-                fechaHasta: $scope.drenajesEdit.fechaHasta
-            };
-
-            if ($scope.internacion.drenajes && $scope.internacion.drenajes.length > 0){
-                $scope.internacion.drenajes.unshift(drenaje);
-            }else{
-                $scope.internacion.drenajes.push(drenaje);
-            }
-
-            Shared.drenaje.post($scope.internacion.id, $scope.drenajesEdit.id || null, drenaje, {
-                minify: true
-            }).then(function(data) {
-                // actualizamos el listado de evoluciones
-                $scope.actualizarDrenajes(data);
-                $scope.cancelarEdicion();
-            });
-        },
-        // Cancelar la edición
-        cancelarEdicion: function() {
-            $scope.drenajesEdit = null;
-            $scope.show_toolbar_drenajes = true;
-        },
-        actualizarDrenajes: function(data) {
-            var found = false;
-            // $scope.loading = true;
-
-            var length = $scope.internacion.drenajes.length;
-            // buscamos la cama y actualizamos el valor con los datos
-            for (var i = 0; i < length; i++) {
-                if ($scope.internacion.drenajes[i].id === data.id) {
-                    // evolucion encontrada, actualizamos datos
-                    $scope.internacion.drenajes[i] = data;
-                    found = true;
-                    break;
-                }
-            }
-
-            // si no lo encontro, entonces es porque acaba de cargarla
-            // se la asignamos al resto de las evoluciones
-            if (!found) {
-                $scope.internacion.drenajes.push(data);
-            }
-
-            // $scope.loading = false;
         },
         goToTab: function(tab) {
             $scope.selectedTabIndex = tab;

@@ -29,7 +29,7 @@
                 </a>
             </li>
             <li>
-            <!-- <li ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
+                <!-- <li ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
                 <a>
                     Drenajes
                 </a>
@@ -255,7 +255,7 @@
         <div>
             <div class="card card-block">
 
-                <div class="row"  ng-show="show_toolbar_drenajes">
+                <div class="row" ng-show="show_toolbar_drenajes">
                     <div class="col-md-8">
                         <h3>Drenajes</h3>
                     </div>
@@ -266,11 +266,11 @@
                         </button>
                     </div>
                 </div>
-                <table class="table table-hover table-striped" ng-if="internacion.drenajes.length > 0"  ng-show="show_toolbar_drenajes">
+                <table class="table table-hover table-striped" ng-if="internacion.drenajes.length > 0" ng-show="show_toolbar_drenajes">
                     <thead>
                         <tr>
-                            <th>Tipo</th>
                             <th>Lado</th>
+                            <th>Tipo</th>
                             <th>Fecha colocación</th>
                             <th>Fecha extracción</th>
                             <th></th>
@@ -279,13 +279,14 @@
                     <tbody>
                         <tr ng-repeat="drenaje in internacion.drenajes ">
                             <td>
-                                {{drenaje.tipo}}
-                            </td>
-                            <td>
                                 {{drenaje.lado}}
                             </td>
                             <td>
-                                {{drenaje.fechaDesde | date: "dd/MM/yyyy  'a las' HH:mm "}} hs
+                                {{drenaje.tipo}}
+                            </td>
+                            <td>
+                                {{drenaje.fechaDesde | date: "dd/MM/yyyy  'a las' HH:mm "}}
+                                hs
                                 <!-- <br />
                                 {{drenaje.fechaDesde | fromNow}} -->
                             </td>
@@ -301,19 +302,11 @@
                     </tbody>
                 </table>
 
-                <div class="card card-block" ng-if="drenajesEdit" >
+                <div  ng-if="drenajesEdit">
                     <ng-form name="formEditarDrenaje">
                         <fieldset>
                             <legend>{{tituloFormulario}}</legend>
                             <div class="row">
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <select class="form-control" label="Lado" ng-model="drenajesEdit.lado" plex>
-                                            <option value="izquierdo">Izquierdo</option>
-                                            <option value="derecho">Derecho</option>
-                                        </select>
-                                    </div>
-                                </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <select class="form-control" label="Tipo" ng-model="drenajesEdit.tipo" plex>
@@ -324,38 +317,37 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <input class="form-control" type="text" label="Fecha desde" ng-model="drenajesEdit.fechaDesde" plex="date">
+                                        <select class="form-control" label="Lado" ng-model="drenajesEdit.lado" plex>
+                                            <option value="izquierdo">Izquierdo</option>
+                                            <option value="derecho">Derecho</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" label="Fecha desde" ng-model="drenajesEdit.fechaDesde" plex="datetime">
                                     </div>
                                 </div>
 
-                                <div class="col-lg-1 col-md-2">
+                                <div class="col-xs-2" ng-if="drenajesEdit.id">
                                     <div class="form-group">
-                                        <input class="form-control" type="text" label="Hora desde" ng-model="drenajesEdit.fechaDesde" plex="time">
+                                        <input class="form-control" type="text" label="Fecha hasta" ng-model="drenajesEdit.fechaHasta" plex="datetime">
                                     </div>
                                 </div>
 
-                                <!-- <div class="col-xs-2">
-                                    <div class="form-group">
-                                        <input class="form-control" type="text" label="Fecha desde" ng-model="drenajesInternacion.fechaHasta" plex="date">
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-1">
-                                    <div class="form-group">
-                                        <input class="form-control" type="text" label="Hora hasta" ng-model="drenajesInternacion.fechaHasta" plex="time">
-                                    </div>
-                                </div> -->
                             </div>
                             <div class="row">
                                 <div class="col-md-12 text-right">
-                                    <br />
+                                    <br/>
                                     <!-- <button type="button" class="btn btn-primary tips form-control" plex-submit="guardarDrenaje()" title="Agregar drenaje a internación">
                                         <span>
                                             <i class="mdi mdi-plus"></i> Agregar
                                         </span>
                                     </button> -->
                                     <button type="button" class="btn btn-default btn-flat" ng-click="cancelarEdicion();">Cancelar</button>
-                                    <button class="btn btn-primary" plex-submit="guardarDrenaje(drenajesEdit)" ng-disabled="formEditarDrenaje.$invalid"><i class="mdi mdi-content-save"></i> Guardar</button>
+                                    <button class="btn btn-primary" plex-submit="guardarDrenaje(drenajesEdit)" ng-disabled="formEditarDrenaje.$invalid">
+                                        <i class="mdi mdi-content-save"></i>
+                                        Guardar</button>
                                 </div>
                             </div>
                         </fieldset>
@@ -537,15 +529,22 @@
 
                                     <div ng-if="elemento.tipo == 'Colocación de drenaje'">
                                         <p>
-                                            Colocación de drenaje {{elemento.data.tipo}} en el lado {{elemento.data.lado}}
+                                            Colocación de drenaje
+                                            {{elemento.data.tipo}}
+                                            en el lado
+                                            {{elemento.data.lado}}
 
                                         </p>
                                     </div>
 
                                     <div ng-if="elemento.tipo == 'Extracción de drenaje'">
                                         <p>
-                                            Extracción de drenaje {{elemento.data.tipo}} en el lado {{elemento.data.lado}}
-
+                                            Extracción de drenaje
+                                            {{elemento.data.tipo}}
+                                            colocado en el lado
+                                            {{elemento.data.lado}}
+                                            Tiempo colocado:
+                                            {{elemento.duracion}}
                                         </p>
                                     </div>
 
