@@ -45,7 +45,6 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </md-table-container>
                 </div>
             </div>
 
@@ -93,42 +92,9 @@
             </div>
         </div>
 
-        <div>
 
-            <div class="card card-block">
-                <div class="row">
-                    <div class="col-lg-1" style="text-align: center">
-                        <i class="{{internacion.paciente | persona:'icon'}} fa-4x"></i>
-                    </div>
-                    <div class="col-lg-3">
-                        <h3>
-                            {{internacion.paciente | persona}}
-                        </h3>
-                        <div>
-                            <strong>{{internacion.paciente | persona:'d'}}</strong>
-                        </div>
-                        <div>
-                            {{internacion.paciente | persona:'e'}}
-                        </div>
-                    </div>
-                    <div class="col-xs-3">
-                        <div ng-if="internacion.paciente.obrasSociales != ''">
-                            <label class="small" >Obra social: </label>
-                            <b>{{internacion.paciente.obrasSociales}}</b>
-                        </div>
-                    </div>
-                    <div class="col-lg-2" >
-                        <br />
-                    </div>
-                    <div class="col-lg-2">
-                        <br />
-                    </div>
-                    <div class="col-lg-1">
 
-                    </div>
-
-                </div>
-            </div>
+            <div plex-include="'partials/Pacientes/iHeader.html'" plex-include-internacion="internacion"></div>
 
             <ng-form>
             <div class="card card-block">
@@ -149,7 +115,9 @@
 
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <select label="Tipo de ingreso" ng-model="internacion.ingreso.tipo" plex="(item.nombre) for item in tiposInternacion"></select>
+                                    <select label="Tipo de ingreso" ng-model="internacion.ingreso.tipo" plex>
+                                        <option ng-repeat="item in tiposInternacion" ng-value="item.id">{{item.nombre}}</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -159,7 +127,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <input type="text" label="Diagnóstico presuntivo" ng-model="internacion.ingreso.diagnosticoPresuntivo" ng-required="true" plex="text">
+                                    <input type="text" label="Diagnóstico presuntivo" ng-model="internacion.ingreso.diagnosticoPresuntivo" plex="text">
                                 </div>
                             </div>
 
