@@ -186,26 +186,26 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
             // agregamos los drenajes cuando comienzan
             if ($scope.internacion.drenajes.length) {
                 angular.forEach($scope.internacion.drenajes, function(drenaje, key) {
+                    $scope.ordenCronologico.push({
+                        fecha: drenaje.fechaDesde,
+                        tipo: "Colocación de drenaje",
+                        _tipo: "drenaje",
+                        data: drenaje,
+                        cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
+                    });
+
                     if (drenaje.fechaHasta) {
-                        angular.forEach($scope.internacion.drenajes, function(drenaje, key) {
-                            var inicio = moment(drenaje.fechaDesde);
-                            var fin = moment(drenaje.fechaHasta);
-                            var duracion = inicio.to(fin, true);
-                            $scope.ordenCronologico.push({
-                                fecha: drenaje.fechaHasta,
-                                tipo: "Extracción de drenaje",
-                                _tipo: "drenaje",
-                                data: drenaje,
-                                duracion: duracion,
-                                cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
-                            });
-                        });
-                    } else {
+                        var inicio = moment(drenaje.fechaDesde);
+                        var fin = moment(drenaje.fechaHasta);
+                        var duracion = inicio.to(fin, true);
+
+
                         $scope.ordenCronologico.push({
-                            fecha: drenaje.fechaDesde,
-                            tipo: "Colocación de drenaje",
+                            fecha: drenaje.fechaHasta,
+                            tipo: "Extracción de drenaje",
                             _tipo: "drenaje",
                             data: drenaje,
+                            duracion: duracion,
                             cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
                         });
                     }
