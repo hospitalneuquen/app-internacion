@@ -273,6 +273,7 @@
                             <th>Tipo</th>
                             <th>Fecha colocación</th>
                             <th>Fecha extracción</th>
+                            <th>Duración</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -291,7 +292,14 @@
                                 {{drenaje.fechaDesde | fromNow}} -->
                             </td>
                             <td>
-                                {{drenaje.fechaHasta}}
+                                <span ng-if="drenaje.fechaHasta">
+                                    {{drenaje.fechaHasta | date: "dd/MM/yyyy  'a las' HH:mm "}} hs
+                                </span>
+                            </td>
+                            <td>
+                                <span ng-if="drenaje.fechaDesde && drenaje.fechaHasta">
+                                    {{getDuration(drenaje.fechaDesde, drenaje.fechaHasta)}}
+                                </span>
                             </td>
                             <td >
                                 <button class="btn btn-default btn-flat tips" title="Editar drenaje" ng-click="editarDrenaje(drenaje);">

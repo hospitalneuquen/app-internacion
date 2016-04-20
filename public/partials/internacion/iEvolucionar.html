@@ -93,7 +93,8 @@
                     </td>
                     <td >
 
-                        <table ng-if="item.$total_ingresos || item.$total_ingresos > 0">
+                        <!-- <table ng-if="item.$total_ingresos || item.$total_ingresos > 0"> -->
+                        <table >
                             <tr>
                                 <td>
                                     I =
@@ -321,8 +322,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- <input type="hidden" value="" ng-model="evolucionesEdit.egresos.drenajes" ng-init="evolucionesEdit.egresos.drenajes = []"/>
                             <div class="row" ng-repeat="drenaje in internacion.drenajes track by $index">
-                                <input type="hidden" value="'{{drenaje.id}}'" ng-model="evolucionesEdit.egresos.drenajes[$index].id" ng-init="evolucionesEdit.egresos.drenajes[$index].id = drenaje.id"/>
+                                <input type="hidden" value="'{{drenaje.id}}'" ng-model="drenajes[$index].idDrenaje" ng-init="drenajes[$index].idDrenaje = drenaje.id"/>
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label>Lado</label>
@@ -337,7 +339,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group">
-                                        <select label="Características del líquido" ng-model="evolucionesEdit.egresos.drenajes[$index].caracteristicaLiquido" plex>
+                                        <select label="Características del líquido" ng-model="drenajes[$index].caracteristicaLiquido" plex>
                                             <option value="Hemático">Hemático</option>
                                             <option value="Seroso">Seroso</option>
                                             <option value="Serohemático">Serohemático</option>
@@ -345,10 +347,60 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class="col-md-1">
+                                    <input type="text" label="Cantidad" suffix="ml" ng-model="drenajes[$index].cantidad" plex>
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" label="Observaciones" ng-model="drenajes[$index].observaciones" plex="text">
+                                </div>
+                            </div> -->
+                            <div class="row" ng-repeat="drenaje in  drenajes track by $index">
+                                <div>
 
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.egresos.drenajes[$index].observaciones" plex="text">
+                                    <input type="hidden" value="'{{drenaje.id}}'" ng-model="drenajes[$index].idDrenaje" ng-init="drenajes[$index].idDrenaje = drenaje.id"/>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Lado</label>
+                                            <p>{{drenaje.lado}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Tipo</label>
+                                            <p>{{drenaje.tipo}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group" ng-if="!drenaje.$activo">
+                                            <label>Características del líquido</label>
+                                            <br />
+                                            <span>{{drenajes[$index].caracteristicaLiquido}}</span>
+                                        </div>
+
+                                        <select label="Características del líquido" ng-model="drenajes[$index].caracteristicaLiquido" plex ng-if="drenaje.$activo">
+                                            <option value="Hemático">Hemático</option>
+                                            <option value="Seroso">Seroso</option>
+                                            <option value="Serohemático">Serohemático</option>
+                                            <option value="Purulento">Purulento</option>
+                                        </select>
+
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div class="form-group" ng-if="!drenaje.$activo">
+                                            <label>Cantidad</label>
+                                            <br />
+                                            <span ng-if="!drenaje.$activo">{{drenajes[$index].cantidad}}</span>
+                                        </div>
+
+                                        <input type="text" label="Cantidad" suffix="ml" ng-model="drenajes[$index].cantidad" plex ng-if="drenaje.$activo">
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group" ng-if="!drenaje.$activo">
+                                            <label>Cantidad</label>
+                                            <br />
+                                            <span ng-if="!drenaje.$activo">{{drenajes[$index].observaciones}}</span>
+                                        </div>
+                                        <input type="text" label="Observaciones" ng-model="drenajes[$index].observaciones" plex="text" ng-if="drenaje.$activo">
                                     </div>
                                 </div>
                             </div>
