@@ -188,7 +188,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
             $scope.loading = true;
 
             // calculamos balance de liquidos
-            $scope.calcularBalance(data);
+            //$scope.calcularBalance(data);
 
             var length = $scope.internacion.evoluciones.length;
             // buscamos la cama y actualizamos el valor con los datos
@@ -219,7 +219,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
             evolucion.$total_egresos = $scope.sumar(evolucion.egresos);
 
             // calculamos el balance entre el ingreso y egreso
-            evolucion.$balance = evolucion.$total_ingresos - evolucion.$total_egresos;
+            evolucion.$balance = parseFloat(evolucion.$total_ingresos) - parseFloat(evolucion.$total_egresos);
 
             // devolvemos la evolucion con los balances y los totales
             return evolucion;
