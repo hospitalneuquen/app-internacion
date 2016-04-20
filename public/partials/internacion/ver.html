@@ -180,47 +180,38 @@
 
         <div class="card card-block">
             <h3 >Datos de ingreso</h3>
-            <div layout ng-if="internacion.paciente">
-                <div flex>
-                    <form>
-                        <label>Fecha y hora de la interación</label>
-                        <div layout>
-                            <mdp-date-picker flex mdp-format="DD/MM/YYYY" ng-model="internacion.ingreso.fechaHora" ng-required="true" plex disabled></mdp-date-picker>
-                            <mdp-time-picker flex ng-model="internacion.ingreso.fechaHora" mdp-auto-switch="true" ng-required="true" plex disabled></mdp-time-picker>
-                            <span flex></span>
-                        </div>
-                        <div layout layout-pretty>
-                            <div flex>
-                                <md-input-container class="md-block">
-                                    <label>Tipo de ingreso</label>
-                                    <md-select ng-model="internacion.ingreso.tipo" disabled>
-                                        <md-option ng-repeat="item in tiposInternacion" value="{{item.id}}">
-                                            {{item.nombre}}
-                                        </md-option>
-                                    </md-select>
-                                </md-input-container>
-                            </div>
-                            <div flex>
-                                <md-input-container class="md-block">
-                                    <label>Motivo de la internación</label>
-                                    <input type="text" ng-model="internacion.ingreso.motivo" plex ng-required="true" disabled/>
-                                </md-input-container>
-                            </div>
-                            <div flex>
-                                <md-input-container class="md-block">
-                                    <label>Diagnóstico presuntivo</label>
-                                    <input type="text" ng-model="internacion.ingreso.diagnosticoPresuntivo" plex ng-required="true" disabled/>
-                                </md-input-container>
+            <br />
+                <form>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input class="form-control" type="text" label="Fecha de internación" ng-model="internacion.ingreso.fechaHora" plex="date" ng-required="true">
                             </div>
                         </div>
-                        <div flex layout style="display: none;">
-                            <span flex></span>
-                            <md-button ng-click="cancelar()">Cancelar</md-button>
-                            <md-button class="md-primary md-raised" plex-submit="guardar()">Guardar</md-button>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <input class="form-control" type="text" label="Hora de internación" ng-model="internacion.ingreso.fechaHora" plex="time" ng-required="true">
+                            </div>
                         </div>
-                    </form>
-                </div>
-            </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <select label="Tipo de ingreso" ng-model="internacion.ingreso.tipo" plex>
+                                    <option ng-repeat="item in tiposInternacion" ng-value="item.id">{{item.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <input type="text" label="Motivo de la internación" ng-model="internacion.ingreso.motivo" ng-required="true" plex="text">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <input type="text" label="Diagnóstico presuntivo" ng-model="internacion.ingreso.diagnosticoPresuntivo" plex="text">
+                            </div>
+                        </div>
+                    </div>
+                </form>
         </div>
 
         <div>

@@ -1,3 +1,4 @@
+
 <div class="row">
     <div class="col-lg-12" plex-tabs ng-model="tab">
         <ul class="nav nav-tabs">
@@ -12,171 +13,127 @@
                 </a>
             </li>
         </ul>
-
-        <div>
-            <div class="card card-block">
-                <div ng-if="!esModificacion && pendientes.data.length > 0">
-                    <h3>Pacientes que aguardan asignación de cama</h3>
-
-                        <table class="table table-hover table-striped" >
-                            <thead>
-                                <tr >
-                                    <th>Fecha</th>
-                                    <th>Nombre</th>
-                                    <th>Documento</th>
-                                    <th>Edad</th>
-                                    <th>Ingreso</th>
-                                    <th>Motivo</th>
-                                    <th>Tipo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="clickable" ng-click="pendientes.seleccionar(item)" ng-repeat="item in pendientes.data">
-                                    <td >{{item.ingreso.fechaHora | date: "dd/MM/yyyy HH:mm "}}</td>
-                                    <td >{{item.paciente | persona:"an"}}</td>
-                                    <td >{{item.paciente | persona:"d"}}</td>
-                                    <td >{{item.paciente | persona:"e"}}</td>
-                                    <td >{{item.ingreso.tipo}}</td>
-                                    <td >{{item.ingreso.motivo}}</td>
-                                    <td >
-                                        <span ng-if="item.estado == 'enIngreso'">En ingreso</span>
-                                        <span ng-if="item.estado == 'enPase'">En pase</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </md-table-container>
-                </div>
+         <div class="card card-block">
+            <div ng-if="!esModificacion && pendientes.data.length > 0">
+                <h3>Pacientes que aguardan asignación de cama</h3>
+                <table class="table table-hover table-striped" >
+                    <thead>
+                        <tr >
+                            <th>Fecha</th>
+                            <th>Nombre</th>
+                            <th>Documento</th>
+                            <th>Edad</th>
+                            <th>Ingreso</th>
+                            <th>Motivo</th>
+                            <th>Tipo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="clickable" ng-click="pendientes.seleccionar(item)" ng-repeat="item in pendientes.data">
+                            <td >{{item.ingreso.fechaHora | date: "dd/MM/yyyy HH:mm "}}</td>
+                            <td >{{item.paciente | persona:"an"}}</td>
+                            <td >{{item.paciente | persona:"d"}}</td>
+                            <td >{{item.paciente | persona:"e"}}</td>
+                            <td >{{item.ingreso.tipo}}</td>
+                            <td >{{item.ingreso.motivo}}</td>
+                            <td >
+                                <span ng-if="item.estado == 'enIngreso'">En ingreso</span>
+                                <span ng-if="item.estado == 'enPase'">En pase</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
-
-            <!-- Buscar personas por nombre o documento -->
-            <div class="card card-block">
-                <h3>Buscar personas</h3>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <input type="text" label="Buscar personas por nombre / documento " ng-model="personas.query" plex>
-                    </div>
+            <h3>Buscar personas</h3>
+            <br />
+            <div class="row">
+                <div class="col-lg-12">
+                    <input type="text" label="Buscar personas por nombre / documento " ng-model="personas.query" plex>
                 </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <table class="table table-hover table-striped" ng-if="personas.data && personas.data.length > 0">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        Nombre
-                                    </th>
-                                    <th>
-                                        Documento
-                                    </th>
-                                    <th>
-                                        Edad
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="item in personas.data" ng-click="personas.seleccionar(item)" class="clickable">
-                                    <td>
-                                        {{item | persona:"an"}}
-                                    </td>
-                                    <td>
-                                        {{item | persona:"d"}}
-                                    </td>
-                                    <td>
-                                        {{item | persona:"e"}}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table table-hover table-striped" ng-if="personas.data && personas.data.length > 0">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Nombre
+                                </th>
+                                <th>
+                                    Documento
+                                </th>
+                                <th>
+                                    Edad
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in personas.data" ng-click="personas.seleccionar(item)" class="clickable">
+                                <td>
+                                    {{item | persona:"an"}}
+                                </td>
+                                <td>
+                                    {{item | persona:"d"}}
+                                </td>
+                                <td>
+                                    {{item | persona:"e"}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-
-        <div>
-
-            <div class="card card-block">
-                <div class="row">
-                    <div class="col-lg-1" style="text-align: center">
-                        <i class="{{internacion.paciente | persona:'icon'}} fa-4x"></i>
+        <div class="card card-block">
+            <div plex-include="'partials/Pacientes/iHeader.html'" plex-include-internacion="internacion"></div>
+            <br />
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <input class="form-control" type="text" label="Fecha de internación" ng-model="internacion.ingreso.fechaHora" plex="date" ng-required="true">
                     </div>
-                    <div class="col-lg-3">
-                        <h3>
-                            {{internacion.paciente | persona}}
-                        </h3>
-                        <div>
-                            <strong>{{internacion.paciente | persona:'d'}}</strong>
-                        </div>
-                        <div>
-                            {{internacion.paciente | persona:'e'}}
-                        </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <input class="form-control" type="text" label="Hora  de internación" ng-model="internacion.ingreso.fechaHora" plex="time" ng-required="true">
                     </div>
-                    <div class="col-xs-3">
-                        <div ng-if="internacion.paciente.obrasSociales != ''">
-                            <label class="small" >Obra social: </label>
-                            <b>{{internacion.paciente.obrasSociales}}</b>
-                        </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <select label="Tipo de ingreso" ng-model="internacion.ingreso.tipo" plex>
+                            <option ng-repeat="item in tiposInternacion" ng-value="item.id">{{item.nombre}}</option>
+                        </select>
                     </div>
-                    <div class="col-lg-2" >
-                        <br />
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <input type="text" label="Motivo de la internación" ng-model="internacion.ingreso.motivo" ng-required="true" plex="text">
                     </div>
-                    <div class="col-lg-2">
-                        <br />
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <input type="text" label="Diagnóstico presuntivo" ng-model="internacion.ingreso.diagnosticoPresuntivo" plex="text">
                     </div>
-                    <div class="col-lg-1">
-
-                    </div>
-
                 </div>
             </div>
-
-            <ng-form>
-            <div class="card card-block">
-                <div flex>
-                    <form>
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <input class="form-control" type="text" label="Fecha de internación" ng-model="internacion.ingreso.fechaHora" plex="date" ng-required="true">
-                                </div>
-                            </div>
-
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <input class="form-control" type="text" label="Hora  de internación" ng-model="internacion.ingreso.fechaHora" plex="time" ng-required="true">
-                                </div>
-                            </div>
-
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <select label="Tipo de ingreso" ng-model="internacion.ingreso.tipo" plex="(item.nombre) for item in tiposInternacion"></select>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <input type="text" label="Motivo de la internación" ng-model="internacion.ingreso.motivo" ng-required="true" plex="text">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <input type="text" label="Diagnóstico presuntivo" ng-model="internacion.ingreso.diagnosticoPresuntivo" ng-required="true" plex="text">
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </form>
-                </div>
-            </div>
-            <div class="card card-block text-right">
-                <button class="btn btn-default" ng-click="cancelar()">Cancelar</button>
-                <button class="btn btn-default btn-primary" plex-submit="guardar()"><i class="mdi mdi-content-save"></i> Guardar</button>
-            </div>
-            <ng-form>
         </div>
     </div>
-</div>
+    <!-- <div>
+        <form>
+            <button class="btn btn-default" ng-click="cancelar()">Cancelar</button>
+            <button class="btn btn-default btn-primary" plex-submit="guardar()"><i class="mdi mdi-content-save"></i> Guardar</button>
+        </form>
+    </div> -->
 
+</div>
+<div class="card card-block margin-top text-right">
+    <a class="btn btn-default btn-flat">Cancelar</a>
+    <button class="btn btn-primary" plex-submit="guardar()">
+        <i class="mdi mdi-content-save"></i>
+        <span>Guardar</span>
+    </button>
+</div>
 <div class="alert alert-danger" ng-if="personas.data && personas.data.length == 0">
     ¡No se encontró ningún resultado!
 </div>
