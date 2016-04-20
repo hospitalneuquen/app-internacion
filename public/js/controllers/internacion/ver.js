@@ -17,16 +17,14 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
         tiposDrenajes: [{
             id: 'pleural',
             nombre: 'Pleural'
-        },
-        {
+        }, {
             id: 'percutaneo',
             nombre: 'Percutáneo'
         }],
         ladosDrenajes: [{
             id: 'izquierdo',
             nombre: 'Izquierdo'
-        },
-        {
+        }, {
             id: 'derecho',
             nombre: 'Derecho'
         }],
@@ -67,7 +65,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
         editarPase: function(item) {
             alert("Definir que editar y como. Solo fecha ? Descripcion? Permitir editar si no esta egresado el pacietne?")
         },
-        editarDrenaje: function(drenaje){
+        editarDrenaje: function(drenaje) {
             $scope.show_toolbar_drenajes = false;
             if (drenaje) { // Modificación
                 $scope.tituloFormulario = "Editar drenaje";
@@ -81,10 +79,11 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                 };
             }
         },
-        guardarDrenaje: function(){
+        guardarDrenaje: function() {
             Shared.drenaje.post($scope.internacion.id, $scope.drenajesEdit.id || null, $scope.drenajesEdit, {
                 minify: true
             }).then(function(data) {
+                $scope.internacion.drenajes.push(data);
                 // actualizamos el listado de evoluciones
                 $scope.actualizarDrenajes(data);
                 $scope.cancelarEdicion();
@@ -97,13 +96,12 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
         },
         actualizarDrenajes: function(data) {
             var found = false;
-            // $scope.loading = true;
 
             var length = $scope.internacion.drenajes.length;
-            // buscamos la cama y actualizamos el valor con los datos
+            // buscamos el drenaje y actualizamos el valor con los datos
             for (var i = 0; i < length; i++) {
                 if ($scope.internacion.drenajes[i].id === data.id) {
-                    // evolucion encontrada, actualizamos datos
+                    // drenaje encontrado, actualizamos datos
                     $scope.internacion.drenajes[i] = data;
                     found = true;
                     break;
@@ -111,12 +109,10 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
             }
 
             // si no lo encontro, entonces es porque acaba de cargarla
-            // se la asignamos al resto de las evoluciones
             if (!found) {
                 $scope.internacion.drenajes.push(data);
             }
 
-            // $scope.loading = false;
         },
         ordenarCronologicamente: function() {
             // agregamos el ingreso
@@ -190,7 +186,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
             // agregamos los drenajes cuando comienzan
             if ($scope.internacion.drenajes.length) {
                 angular.forEach($scope.internacion.drenajes, function(drenaje, key) {
-                    if (drenaje.fechaHasta){
+                    if (drenaje.fechaHasta) {
                         angular.forEach($scope.internacion.drenajes, function(drenaje, key) {
                             var inicio = moment(drenaje.fechaDesde);
                             var fin = moment(drenaje.fechaHasta);
@@ -204,7 +200,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                                 cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
                             });
                         });
-                    }else{
+                    } else {
                         $scope.ordenCronologico.push({
                             fecha: drenaje.fechaDesde,
                             tipo: "Colocación de drenaje",
@@ -252,15 +248,10 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                     // buscamos los servicios para el filtro de evoluciones
                     angular.forEach($scope.internacion.evoluciones, function(evolucion) {
                         if (evolucion.servicio && evolucion.servicio.id) {
-                            // if ($.inArray(evolucion.servicio.id, services_found) === -1) {
+
                             if (!services_found.inArray(evolucion.servicio.id)) {
                                 $scope.servicios.push(evolucion.servicio);
                                 services_found.push(evolucion.servicio.id);
-                                // $scope.servicios.push({
-                                //     'text': evolucion.servicio.nombreCorto,
-                                //     'nombreCorto': evolucion.servicio.nombreCorto,
-                                //     'href': '#'
-                                // });
                             }
                         }
                     });
@@ -274,6 +265,16 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
         }
     });
 
+    $scope.getDuration = function(start, end) {
+        // try {
+        //     return ((moment.duration(end - start)).humanize());
+        // } catch (e) {
+        //     return "Cant evaluate"
+        // }
+        var inicio = moment(start);
+        var fin = moment(end);
+        return inicio.to(fin, true);
+    };
     // Init
     $scope.init();
 
