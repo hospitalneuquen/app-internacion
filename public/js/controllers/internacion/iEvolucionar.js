@@ -10,6 +10,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
         drenajes: [],
         drenajesInternacion: [],
         evolucionesEdit: undefined, // Item actual que se está editando
+        balanceTotal: 0,
         // evoluciones: {},
         // array de servicios para filtrar en la vista
         servicios: [{
@@ -51,6 +52,8 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
 
                         // calculamos balance de liquidos
                         $scope.calcularBalance(evolucion);
+
+                        $scope.balanceTotal += evolucion.$balance;
 
                         // buscamos los servicios para el filtro de evoluciones
                         if (evolucion.servicio && evolucion.servicio.id) {

@@ -197,8 +197,6 @@
             </div>
         </div>
 
-
-
         <div class="card card-block">
             <h3 >Datos de ingreso</h3>
             <br/>
@@ -209,24 +207,24 @@
                             <input class="form-control" type="text" label="Fecha de internación" ng-model="internacion.ingreso.fechaHora" plex="date" ng-required="true">
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                         <div class="form-group">
                             <input class="form-control" type="text" label="Hora de internación" ng-model="internacion.ingreso.fechaHora" plex="time" ng-required="true">
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                         <div class="form-group">
                             <select label="Tipo de ingreso" ng-model="internacion.ingreso.tipo" plex>
                                 <option ng-repeat="item in tiposInternacion" ng-value="item.id">{{item.nombre}}</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <input type="text" label="Motivo de la internación" ng-model="internacion.ingreso.motivo" ng-required="true" plex="text">
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <input type="text" label="Diagnóstico presuntivo" ng-model="internacion.ingreso.diagnosticoPresuntivo" plex="text">
                         </div>
@@ -407,9 +405,9 @@
                             <td ></td>
 
                             <td >
-                                <md-button class="md-icon-button" aria-label="Editar pase" ng-click="editarPase(item)">
-                                    <md-icon>create</md-icon>
-                                </md-button>
+                                <button class="btn btn-default btn-flat tips" title="Editar pase" ng-click="editarPase(item)">
+                                    <i class="mdi mdi-pencil"></i>
+                                </button>
                             </td>
                         </tr>
                     </tbody>
