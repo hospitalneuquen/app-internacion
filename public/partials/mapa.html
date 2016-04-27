@@ -112,6 +112,10 @@
                                     <i ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total == 0" class="mdi mdi-alert tips" title="Sin riesgo de caídas"></i>
 
                                     <i class="mdi mdi-thermometer" title="{{cama.$internacion.evoluciones[cama.$internacion.evoluciones.length-1].temperatura}}º C"></i>
+
+                                    <div ng-repeat="drenaje in cama.$internacion.drenajes">
+                                        <i class="mdi mdi-steam" ng-if="drenaje.fechaHasta" title="Drenaje {{drenaje.tipo}} {{drenaje.lado}} colocado hace {{diasColocacionDrenaje(drenaje.fechaDesde)}} días" ng-class="{'rojo': diasColocacionDrenaje(drenaje.fechaDesde) >= 5}"></i>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-xs-10">

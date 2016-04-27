@@ -51,6 +51,7 @@
             </li>
         </ul>
 
+
         <div class="card card-block">
 
             <div class="card-deck-wrapper">
@@ -164,6 +165,13 @@
                             <p class="card-text">
                                 Ulceras por presión
                             </p>
+                            <p class="card-text" ng-if="internacion.drenajes.length">
+                                <div ng-repeat="drenaje in internacion.drenajes">
+                                    <div ng-if="drenaje.fechaHasta">
+                                        <i class="mdi mdi-steam" title="Drenaje {{drenaje.tipo}} {{drenaje.lado}} colocado hace {{diasColocacionDrenaje(drenaje.fechaDesde)}} días" ng-class="{'rojo': diasColocacionDrenaje(drenaje.fechaDesde) >= 5}"></i> Drenaje {{drenaje.tipo}} {{drenaje.lado}} colocado hace {{diasColocacionDrenaje(drenaje.fechaDesde)}} días
+                                    </div>
+                                </div>
+                            </p>
 
                             <!-- <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 4">
                                 Ir a los antecedetnes
@@ -266,10 +274,10 @@
             <div class="card card-block">
 
                 <div class="row" ng-show="show_toolbar_drenajes">
-                    <div class="col-md-8">
+                    <div class="col-md-8 col-lg-10">
                         <h3>Drenajes</h3>
                     </div>
-                    <div class="col-md-4 text-right" ng-if="internacion.estado != 'egresado'">
+                    <div class="col-md-4 col-lg-2 text-right" ng-if="internacion.estado != 'egresado'">
                         <br/>
                         <button class="btn btn-primary form-control" ng-click="editarDrenaje();" ng-if="!dreanajesEdit">
                             Nuevo drenaje
