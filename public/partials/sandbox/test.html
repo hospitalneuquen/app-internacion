@@ -42,6 +42,12 @@
                 <span>Actions</span>
             </a>
         </li>
+        <li>
+            <a>
+                <i class="mdi mdi-needle"></i>
+                <span>Valoración inicial de enfermería</span>
+            </a>
+        </li>
     </ul>
 
     <!-- Tabs -->
@@ -225,6 +231,710 @@
                 <i plex-actions="actions"></i>
             </a>
         </h3>
+    </div>
+    <!-- Valoración inicial de enfermería -->
+    <div class="card card-block">
+        <h4>Necesidades</h4>
+        <div plex-tabs ng-model="tab">
+            <ul>
+                <li>
+                    <a>
+                        <span>Oxigenación</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <span>Circulación</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <span>Nutrición</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <span>Eliminación</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <span>Proteger los Tegumentos</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <span>Movilizarse/Vestirse</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <span>Dormir y Reposar</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <span>Seguridad</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <span>Comunicación y Sensopercepción</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <span>Espiritualidad</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <span>Aprender/Autorealizarse/Recrearse</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <span>Observaciones Generales</span>
+                    </a>
+                </li>
+            </ul>
+            <!-- Oxigenación -->
+            <div class="card card-block">
+                <br />
+                <div class="row">
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Disnea esfuerzo" ng-model="evolucionesEdit.disneaEsfuerzo" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Disnea reposo" ng-model="evolucionesEdit.disneaReposo" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Tos" ng-model="evolucionesEdit.tos" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Secreciones" ng-model="evolucionesEdit.secreciones" plex="checkbox">
+                        <input type="text" hint="Ingrese las características de las secreciones" ng-model="evolucionesEdit.secrecionesCaracteristicas" ng-show="evolucionesEdit.secreciones" plex="text"/>
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Uso de músculos accesorios" ng-model="evolucionesEdit.usoMusculos" plex="checkbox">
+                        <!-- <input type="text" hint="Ingrese cuales son los músculos accesorios" ng-model="evolucionesEdit.musculosCuales" ng-show="evolucionesEdit.usoMusculos" plex="text"/> -->
+                        <select hint="Ingrese cuales son los músculos accesorios" ng-model="evolucionesEdit.musculosCuales" ng-show="evolucionesEdit.usoMusculos" plex>
+                            <option value="1">Leve intercostal</option>
+                            <option value="2">Tiraje</option>
+                            <option value="3">Generalizado</option>
+                            <option value="4">Tiraje y aleteo</option>
+                            <option value="5">Nasal</option>
+                        </select>
+                    </div>
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-12">
+                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesOxigenacion" plex="text">
+                    </div>
+                </div>
+            </div>
+            <!-- Circulación -->
+            <div class="card card-block">
+                <br />
+                <div class="row">
+                    <div class="col-lg-3">
+                        <input type="text" label="Pulso carotídeo" ng-model="evolucionesEdit.carotideo" plex="text">
+                    </div>
+                    <div class="col-lg-3">
+                        <input type="text" label="Pulso radial" ng-model="evolucionesEdit.radial" plex="text">
+                    </div>
+                    <div class="col-lg-3">
+                        <input type="text" label="Pulso poplíteo" ng-model="evolucionesEdit.popliteo" plex="text">
+                    </div>
+                    <div class="col-lg-3">
+                        <input type="text" label="Pulso pedio" ng-model="evolucionesEdit.pedio" plex="text">
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-12">
+                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesCirculacion" plex="text">
+                    </div>
+                </div>
+            </div>
+            <!-- Nutrición -->
+            <div class="card card-block">
+                <br />
+                <div class="row">
+                    <div class="col-lg-2" style="width: 15%">
+                        <input type="checkbox" label="Náuseas" ng-model="evolucionesEdit.nauseas" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Vómitos" ng-model="evolucionesEdit.vomitos" plex="checkbox">
+                        <input type="text" hint="Ingrese las características de los vómitos" ng-model="evolucionesEdit.vomitosCaracteristicas" ng-show="evolucionesEdit.vomitos" plex="text"/>
+                    </div>
+                    <div class="col-lg-2" style="width: 30%">
+                        <input type="text" label="Hábitos Alimentarios" ng-model="evolucionesEdit.habitosAlimentarios" plex="text">
+                    </div>
+                    <div class="col-lg-2" style="width: 35%">
+                        <input type="text" label="Otros" ng-model="evolucionesEdit.otrosNutricion" plex="text">
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-2" style="width: 15%">
+                        <input type="checkbox" label="Piezas dentarias incompletas" ng-model="evolucionesEdit.piezasDentarias" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Prótesis" ng-model="evolucionesEdit.protesis" plex="checkbox">
+                        <input type="text" hint="Ingrese tipo de prótesis" ng-model="evolucionesEdit.protesisTipo" ng-show="evolucionesEdit.protesis" plex="text"/>
+                    </div>
+                    <div class="col-lg-2" style="width: 15%">
+                        <input type="checkbox" label="Dificultades para deglutir" ng-model="evolucionesEdit.dificultadesDeglutir" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 15%">
+                        <input type="checkbox" label="Dificultades para masticar" ng-model="evolucionesEdit.dificultadesMasticar" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 35%">
+                        <input type="text" label="Lactancia materna" ng-model="evolucionesEdit.lactanciaMaterna" plex="text">
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-12">
+                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesNutricion" plex="text">
+                    </div>
+                </div>
+            </div>
+            <!-- Eliminación -->
+            <div class="card card-block">
+                <h5 class="card-title">Vesical</h5>
+                <div class="row">
+                    <div class="col-lg-2" style="width: 15%">
+                        <input type="checkbox" label="Espontánea" ng-model="evolucionesEdit.espontaneaVesical" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 15%">
+                        <input type="checkbox" label="Incontinencia" ng-model="evolucionesEdit.incontinenciaVesical" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 15%">
+                        <input type="checkbox" label="Urostomía" ng-model="evolucionesEdit.urostomiaVesical" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 15%">
+                        <input type="checkbox" label="Sonda vesical" ng-model="evolucionesEdit.sondaVesical" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 15%">
+                        <input type="checkbox" label="Talla vesical" ng-model="evolucionesEdit.tallaVesical" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Otros" ng-model="evolucionesEdit.otrosVesical" plex="checkbox">
+                        <input type="text" hint="Característica" ng-model="evolucionesEdit.caracteristicaVesical" ng-show="evolucionesEdit.otrosVesical" plex="text"/>
+                    </div>
+                </div>
+                <br />
+                <h5 class="card-title">Intestinal</h5>
+                <div class="row">
+                    <div class="col-lg-2" style="width: 15%">
+                        <input type="checkbox" label="Espontánea" ng-model="evolucionesEdit.espontaneaIntestinal" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 15%">
+                        <input type="checkbox" label="Ostomía" ng-model="evolucionesEdit.ostomiaIntestinal" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 15%">
+                        <input type="checkbox" label="Diarrea" ng-model="evolucionesEdit.diarreaIntestinal" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 15%">
+                        <input type="checkbox" label="Incontinencia" ng-model="evolucionesEdit.incontinenciaIntestinal" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 15%">
+                        <input type="checkbox" label="Constipación" ng-model="evolucionesEdit.constipacionIntestinal" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Otros" ng-model="evolucionesEdit.otrosIntestinal" plex="checkbox">
+                        <input type="text" hint="Característica" ng-model="evolucionesEdit.caracteristicaIntestinal" ng-show="evolucionesEdit.otrosIntestinal" plex="text"/>
+                    </div>
+                </div>
+                <br /><br />
+                <div class="row">
+                    <!-- <div class="col-lg-2" style="width: 30%">
+                        <input type="checkbox" label="Drenajes" ng-model="evolucionesEdit.drenajes" plex="checkbox">
+                        <input type="text" hint="Ingrese las características de los drenajes" ng-model="evolucionesEdit.drenajesCaracteristicas" ng-show="evolucionesEdit.drenajes" plex="text"/>
+                    </div> -->
+                    <div class="col-lg-2" style="width: 10%">
+                        <input type="checkbox" label="Otros" ng-model="evolucionesEdit.otrosEliminacion" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 30%">
+                        <input type="text" hint="Ingrese características" ng-model="evolucionesEdit.otrosCaracteristicas" ng-show="evolucionesEdit.otrosEliminacion" plex="text"/>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-12">
+                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesEliminacion" plex="text">
+                    </div>
+                </div>
+            </div>
+            <!-- Proteger los Tegumentos -->
+            <div class="card card-block">
+                <br />
+                <div class="row">
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="text" label="Color" ng-model="evolucionesEdit.color" plex="text">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="text" label="Higiene" ng-model="evolucionesEdit.higiene" plex="text">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Con ayuda" ng-model="evolucionesEdit.higieneAyuda" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Edemas" ng-model="evolucionesEdit.edemas" plex="checkbox">
+                        <input type="text" hint="Ingrese localización de los edemas" ng-model="evolucionesEdit.edemasLocalizacion" ng-show="evolucionesEdit.edemas" plex="text"/>
+                    </div>
+                </div>
+                <br /><br />
+                <div class="row">
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Mucosas con lesiones" ng-model="evolucionesEdit.mucosasLesiones" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Piel con lesiones" ng-model="evolucionesEdit.pielLesiones" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Pies con lesiones" ng-model="evolucionesEdit.piesLesiones" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Boca con lesiones" ng-model="evolucionesEdit.bocaLesiones" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Genitales con lesiones" ng-model="evolucionesEdit.genitalesLesiones" plex="checkbox">
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Mucosas deshidratadas" ng-model="evolucionesEdit.mucosasDeshidratadas" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Piel deshidratada" ng-model="evolucionesEdit.pielDeshidratada" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Pies deshidratados" ng-model="evolucionesEdit.piesDeshidratados" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Boca deshidratada" ng-model="evolucionesEdit.bocaDeshidratada" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Genitales deshidratados" ng-model="evolucionesEdit.genitalesDeshidratados" plex="checkbox">
+                    </div>
+                </div>
+                <br /><br />
+                <div class="row">
+                    <div class="col-lg-12">
+                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesTegumentos" plex="text">
+                    </div>
+                </div>
+            </div>
+            <!-- Movilizarse/Vestirse -->
+            <div class="card card-block">
+                <br />
+                <div class="row">
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Necesita ayuda para vestirse" ng-model="evolucionesEdit.ayudaVestirse" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Presenta dificultades para caminar" ng-model="evolucionesEdit.dificultadesCaminar" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Uso de dispositivos de movilización" ng-model="evolucionesEdit.dispositivosMovilizacion" plex="checkbox">
+                        <input type="text" hint="Ingrese cuáles son los dispositivos de movilización" ng-model="evolucionesEdit.dispositivosCuales" ng-show="evolucionesEdit.dispositivosMovilizacion" plex="text"/>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-12">
+                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesMovilizarse" plex="text">
+                    </div>
+                </div>
+            </div>
+            <!-- Dormir y Reposar -->
+            <div class="card card-block">
+                <br />
+                <div class="row">
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Sueño continuo" ng-model="evolucionesEdit.dormirContinuo" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Sueño discontinuo" ng-model="evolucionesEdit.dormirDiscontinuo" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Insomnio" ng-model="evolucionesEdit.dormirInsomnio" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Somnolencia" ng-model="evolucionesEdit.dormirSomnolencia" plex="checkbox">
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-12">
+                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesDormir" plex="text">
+                    </div>
+                </div>
+            </div>
+            <!-- Seguridad -->
+            <div class="card card-block">
+                <!-- <br />
+                <div class="row">
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Tabaco" ng-model="evolucionesEdit.tabaco" plex="checkbox">
+                        <input type="text" hint="Cuántos" ng-model="evolucionesEdit.tabacoCuantos" ng-show="evolucionesEdit.tabaco" plex="text"/>
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Alcohol" ng-model="evolucionesEdit.alcohol" plex="checkbox">
+                        <input type="text" hint="Cuánto" ng-model="evolucionesEdit.alcoholCuanto" ng-show="evolucionesEdit.alcohol" plex="text"/>
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Drogas" ng-model="evolucionesEdit.drogas" plex="checkbox">
+                        <input type="text" hint="Cuáles" ng-model="evolucionesEdit.drogasCuales" ng-show="evolucionesEdit.drogas" plex="text"/>
+                    </div>
+                    <div class="col-lg-2" style="width: 10%">
+                        <input type="checkbox" label="Otros" ng-model="evolucionesEdit.otrosAdiccionesCheck" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="text" ng-model="evolucionesEdit.otrosAdicciones" ng-show="evolucionesEdit.otrosAdiccionesCheck" plex="text"/>
+                    </div>
+                </div> -->
+                <br />
+                <div class="row">
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Riesgos Físicos" ng-model="evolucionesEdit.riesgosFisicos" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Riesgos Químicos" ng-model="evolucionesEdit.riesgosQuimicos" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="text" hint="Cuáles" ng-model="evolucionesEdit.riesgosCuales" ng-show="evolucionesEdit.riesgosFisicos || evolucionesEdit.riesgosQuimicos" plex="text"/>
+                    </div>
+                </div>
+                <br /><br />
+                <div class="row">
+                    <!-- <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Revisión Ginecológica" ng-model="evolucionesEdit.revisionGinecologica" plex="checkbox">
+                        <input type=text label="Fecha" ng-model="evolucionesEdit.fechaRevisionGinecologica" ng-show="evolucionesEdit.revisionGinecologica" plex="date">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Revisión Urológica" ng-model="evolucionesEdit.revisionUrologica" plex="checkbox">
+                        <input type=text label="Fecha" ng-model="evolucionesEdit.fechaRevisionUrologica" ng-show="evolucionesEdit.revisionUrologica" plex="date">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="ETS" ng-model="evolucionesEdit.ETS" plex="checkbox">
+                    </div> -->
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Riesgo Cardiovascular" ng-model="evolucionesEdit.riesgoCardiovascular" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="text" label="Describa" ng-model="evolucionesEdit.otrosDescriba" plex="text">
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Riesgo de Caídas" ng-model="evolucionesEdit.riesgoCaidas" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="checkbox" label="Riesgo de UPP" ng-model="evolucionesEdit.riesgoUPP" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="text" label="Describa" ng-model="evolucionesEdit.riesgosDescriba" plex="text">
+                    </div>
+                </div>
+                <br />
+                <div class="card card-block" ng-show="evolucionesEdit.riesgoCaidas">
+                    <h4 class="card-title">Valoración de riesgo de caídas</h4>
+                    <br />
+                    <div class="col-lg-2" style="width: 14%">
+                        <label><b>Caídas previas</b></label>
+                        <input type="radio" label="No" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.caidasPrevias" plex="radio">
+                        <input type="radio" label="Si" ng-value="25" ng-model="evolucionesEdit.riesgoCaida.caidasPrevias" plex="radio">
+                    </div>
+                    <div class="col-lg-2" style="width: 14%">
+                        <label><b>Marcha</b></label>
+                        <input type="radio" label="Normal" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.marcha" plex="radio">
+                        <input type="radio" label="Débil" ng-value="10" ng-model="evolucionesEdit.riesgoCaida.marcha" plex="radio">
+                        <input type="radio" label="Limitada" ng-value="20" ng-model="evolucionesEdit.riesgoCaida.marcha" plex="radio">
+                    </div>
+                    <div class="col-lg-2" style="width: 14%">
+                        <label><b>Ayuda para deambular</b></label>
+                        <input type="radio" label="Ninguna" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.ayudaDeambular" plex="radio">
+                        <input type="radio" label="Necesita ayuda" ng-value="15" ng-model="evolucionesEdit.riesgoCaida.ayudaDeambular" plex="radio">
+                        <input type="radio" label="Se apoya en los muebles" ng-value="30" ng-model="evolucionesEdit.riesgoCaida.ayudaDeambular" plex="radio">
+                    </div>
+                    <div class="col-lg-2" style="width: 14%">
+                        <label><b>Venoclisis</b></label>
+                        <input type="radio" label="No" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.venoclisis" plex="radio">
+                        <input type="radio" label="Si" ng-value="20" ng-model="evolucionesEdit.riesgoCaida.venoclisis" plex="radio">
+                    </div>
+                    <div class="col-lg-2" style="width: 14%">
+                        <label><b>Comorbilidad</b></label>
+                        <input type="radio" label="No" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.comorbilidad" plex="radio">
+                        <input type="radio" label="Si" ng-value="15" ng-model="evolucionesEdit.riesgoCaida.comorbilidad" plex="radio">
+                    </div>
+                    <div class="col-lg-2" style="width: 18%">
+                        <label><b>Estado mental</b></label>
+                        <input type="radio" label="Reconoce sus limitaciones" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.estadoMental" plex="radio">
+                        <input type="radio" label="Sobreestima u olvida sus limitaciones" ng-value="15" ng-model="evolucionesEdit.riesgoCaida.estadoMental" plex="radio">
+                    </div>
+                    <div class="col-lg-2" style="width: 10%">
+                        <label><b>Total</b></label>
+                        <h4>{{evolucionesEdit.riesgoCaida.caidasPrevias + evolucionesEdit.riesgoCaida.marcha + evolucionesEdit.riesgoCaida.ayudaDeambular + evolucionesEdit.riesgoCaida.venoclisis + evolucionesEdit.riesgoCaida.comorbilidad + evolucionesEdit.riesgoCaida.estadoMental}}</h4>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-12">
+                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesSeguridad" plex="text">
+                    </div>
+                </div>
+            </div>
+            <!-- Comunicación y Sensopercepción -->
+            <div class="card card-block">
+                <br />
+                <div class="row">
+                    <div class="col-lg-2" style="width: 14%">
+                        <input type="radio" label="Orientado" ng-value="true" ng-model="evolucionesEdit.riesgoCaida.orientado" plex="radio">
+                        <input type="radio" label="Desorientado" ng-value="false" ng-model="evolucionesEdit.riesgoCaida.orientado" plex="radio">
+                    </div>
+                    <div class="col-lg-2" style="width: 6%">
+                        <h5 class="card-title">Glasgow</h5>
+                    </div>
+                    <div class="col-lg-2" style="width: 8%">
+                        <select hint="Ocular" ng-model="evolucionesEdit.glasgowOcular" plex>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-2" style="width: 8%">
+                        <select hint="Verbal" ng-model="evolucionesEdit.glasgowVerbal" plex>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-2" style="width: 8%">
+                        <select hint="Motor" ng-model="evolucionesEdit.glasgowMotor" plex>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-2" style="width: 14%">
+                        <label><b>Visión</b></label>
+                        <input type="radio" label="Normal" ng-value="0" ng-model="evolucionesEdit.vision" plex="radio">
+                        <input type="radio" label="Deficiente" ng-value="1" ng-model="evolucionesEdit.vision" plex="radio">
+                        <input type="radio" label="Ausente" ng-value="2" ng-model="evolucionesEdit.vision" plex="radio">
+                    </div>
+                    <div class="col-lg-2" style="width: 14%">
+                        <label><b>Audición</b></label>
+                        <input type="radio" label="Normal" ng-value="0" ng-model="evolucionesEdit.audicion" plex="radio">
+                        <input type="radio" label="Deficiente" ng-value="1" ng-model="evolucionesEdit.audicion" plex="radio">
+                        <input type="radio" label="Ausente" ng-value="2" ng-model="evolucionesEdit.audicion" plex="radio">
+                    </div>
+                    <div class="col-lg-2" style="width: 14%">
+                        <label><b>Lenguaje</b></label>
+                        <input type="radio" label="Normal" ng-value="0" ng-model="evolucionesEdit.lenguaje" plex="radio">
+                        <input type="radio" label="Deficiente" ng-value="1" ng-model="evolucionesEdit.lenguaje" plex="radio">
+                        <input type="radio" label="Ausente" ng-value="2" ng-model="evolucionesEdit.lenguaje" plex="radio">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="text" label="Describa" ng-model="evolucionesEdit.describaSensopercepcion" plex="text">
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-2" style="width: 14%">
+                        <input type="checkbox" label="Dolor" ng-model="evolucionesEdit.dolor" plex="checkbox">
+                    </div>
+                    <div class="col-lg-2" style="width: 20%">
+                        <input type="text" label="Localización" ng-model="evolucionesEdit.dolorLocalizacion" ng-show="evolucionesEdit.dolor" plex="text">
+                    </div>
+                </div>
+                <div class="card card-block" ng-show="evolucionesEdit.dolor">
+                    <h4 class="card-title">Valoración del dolor</h4>
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-2" style="width: 14%">
+                            <label><b>Analgesia previa</b></label>
+                            <input type="radio" label="Indicada por médico" ng-value="false" ng-model="evolucionesEdit.dolorValoracion.analgesiaAutomedicacion" plex="radio">
+                            <input type="radio" label="Automedicación" ng-value="true" ng-model="evolucionesEdit.dolorValoracion.analgesiaAutomedicacion" plex="radio">
+                        </div>
+                        <div class="col-lg-2" style="width: 14%">
+                            <label><b>Ansiolíticos previos</b></label>
+                            <input type="radio" label="Indicados por médico" ng-value="false" ng-model="evolucionesEdit.dolorValoracion.ansioliticosAutomedicacion" plex="radio">
+                            <input type="radio" label="Automedicación" ng-value="true" ng-model="evolucionesEdit.dolorValoracion.ansioliticosAutomedicacion" plex="radio">
+                        </div>
+                        <div class="col-lg-2" style="width: 14%">
+                            <label><b>Intensidad</b></label>
+                            <select ng-model="evolucionesEdit.dolorValoracion.intensidad" plex>
+                                <option value="0">0 (sin dolor)</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10 (máximo dolor)</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6" style="width: 30%">
+                            <label><b>Características del dolor</b></label>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <input type="checkbox" label="Punzante" ng-model="evolucionesEdit.dolorValoracion.punzante" plex="checkbox">
+                                    <input type="checkbox" label="Tipo cólico" ng-model="evolucionesEdit.dolorValoracion.tipoColico" plex="checkbox">
+                                </div>
+                                <div class="col-lg-4">
+                                    <input type="checkbox" label="Pesadez" ng-model="evolucionesEdit.dolorValoracion.pesadez" plex="checkbox">
+                                    <input type="checkbox" label="Pulsante" ng-model="evolucionesEdit.dolorValoracion.pulsante" plex="checkbox">
+                                </div>
+                                <div class="col-lg-4">
+                                    <input type="checkbox" label="Caliente" ng-model="evolucionesEdit.dolorValoracion.caliente" plex="checkbox">
+                                    <input type="checkbox" label="Adormecimiento/Hormigueo" ng-model="evolucionesEdit.dolorValoracion.hormigueo" plex="checkbox">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br \>
+                    <label><b>Valoración de enfermería</b></label>
+                    <div class="row">
+                        <div class="col-lg-2" style="width: 20%">
+                            <input type="text" label="Manifestación del dolor" ng-model="evolucionesEdit.dolorValoracion.dolorManifestacionEnfermeria" plex="text">
+                        </div>
+                        <div class="col-lg-2" style="width: 20%">
+                            <input type="text" label="Características del dolor" ng-model="evolucionesEdit.dolorValoracion.dolorCaracteristicasEnfermeria" plex="text">
+                        </div>
+                        <div class="col-lg-2" style="width: 20%">
+                            <input type="text" label="Intensidad del dolor" ng-model="evolucionesEdit.dolorValoracion.dolorIntensidadEnfermeria" plex="text">
+                        </div>
+                        <div class="col-lg-2" style="width: 14%">
+                            <input type="checkbox" label="Intervención" ng-model="evolucionesEdit.dolorValoracion.intervencion" plex="checkbox">
+                        </div>
+                        <div class="col-lg-2" style="width: 14%">
+                            <input type="checkbox" label="Evaluación" ng-model="evolucionesEdit.dolorValoracion.evaluacion" plex="checkbox">
+                        </div>
+                    </div>
+                    <br \>
+                    <label><b>Evolución médica</b></label>
+                    <div class="row">
+                        <div class="col-lg-2" style="width: 20%">
+                            <input type="text" label="Manifestación del dolor" ng-model="evolucionesEdit.dolorValoracion.dolorManifestacionMedica" plex="text">
+                        </div>
+                        <div class="col-lg-2" style="width: 20%">
+                            <input type="text" label="Características del dolor" ng-model="evolucionesEdit.dolorValoracion.dolorCaracteristicasMedica" plex="text">
+                        </div>
+                        <div class="col-lg-2" style="width: 20%">
+                            <input type="text" label="Intensidad del dolor" ng-model="evolucionesEdit.dolorValoracion.dolorIntensidadMedica" plex="text">
+                        </div>
+                    </div>
+                    <br \>
+                    <label><b>Entrevista</b></label>
+                    <div class="row">
+                        <div class="col-lg-4" style="width: 25%">
+                            <input type="text" label="Cuando tiene dolor, ¿a quién avisa?" ng-model="evolucionesEdit.dolorValoracion.dolorAvisa" plex="text">
+                        </div>
+                        <div class="col-lg-4" style="width: 25%">
+                            <input type="checkbox" label="El personal de salud, ¿acude a su llamado?" ng-model="evolucionesEdit.dolorValoracion.dolorAcude" plex="checkbox">
+                        </div>
+                        <div class="col-lg-4" style="width: 25%">
+                            <input type="checkbox" label="¿Se le informa si se administra algún analgésico?" ng-model="evolucionesEdit.dolorValoracion.informaAnalgesico" plex="checkbox">
+                        </div>
+                    </div>
+                    <br \>
+                    <div class="row">
+                        <div class="col-lg-4" style="width: 25%">
+                            <input type="checkbox" label="Luego de administrado el analgésico, ¿disminuye el dolor?" ng-model="evolucionesEdit.dolorValoracion.dolorDisminuye" plex="checkbox">
+                        </div>
+                        <div class="col-lg-4" style="width: 25%">
+                            <input type="text" label="¿Qué le provoca la aparición del dolor o su aumento?" ng-model="evolucionesEdit.dolorValoracion.dolorProvoca" plex="text">
+                        </div>
+                        <div class="col-lg-4" style="width: 25%">
+                            <input type="checkbox" label="¿Logra descansar por la noche?" ng-model="evolucionesEdit.dolorValoracion.descansaNoche" plex="checkbox">
+                        </div>
+                    </div>
+                    <br \>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-12">
+                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesComunicacion" plex="text">
+                    </div>
+                </div>
+            </div>
+            <!-- Espiritualidad -->
+            <div class="card card-block">
+                <br />
+                <div class="row">
+                    <div class="col-lg-3" style="width: 20%">
+                        <input type="text" label="Creencias religiosas" ng-model="evolucionesEdit.creenciasReligiosas" plex="text">
+                    </div>
+                    <div class="col-lg-3" style="width: 20%">
+                        <input type="text" label="Frecuencia con la que asiste a la iglesia" ng-model="evolucionesEdit.frecuenciaIglesia" plex="text">
+                    </div>
+                    <div class="col-lg-3" style="width: 20%">
+                        <input type="checkbox" label="Desea visita de religioso (internación)" ng-model="evolucionesEdit.visitaReligioso" plex="checkbox">
+                    </div>
+                    <div class="col-lg-3" style="width: 20%">
+                        <input type="text" hint="Cuál" ng-model="evolucionesEdit.religiosoCual" ng-show="evolucionesEdit.visitaReligioso" plex="text"/>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-12">
+                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesEspiritualidad" plex="text">
+                    </div>
+                </div>
+            </div>
+            <!-- Aprender/Autorealizarse/Recrearse -->
+            <div class="card card-block">
+                <br />
+                <div class="row">
+                    <div class="col-lg-4" style="width: 20%">
+                        <input type="checkbox" label="Comprende su situación de salud" ng-model="evolucionesEdit.comprendeSituacion" plex="checkbox">
+                        <input type="text" hint="Sentimientos en relación a ello" ng-model="evolucionesEdit.sentimientosSituacion" ng-show="evolucionesEdit.comprendeSituacion" plex="text"/>
+                    </div>
+                    <div class="col-lg-4" style="width: 25%">
+                        <input type="text" label="Dudas expresadas" ng-model="evolucionesEdit.dudasExpresadas" plex="text">
+                    </div>
+                    <div class="col-lg-4" style="width: 25%">
+                        <input type="checkbox" label="Actividades recreativas habituales" ng-model="evolucionesEdit.actividadesHabituales" plex="checkbox">
+                    </div>
+
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-12">
+                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesAprender" plex="text">
+                    </div>
+                </div>
+            </div>
+            <!-- Observaciones Generales -->
+            <div class="card card-block">
+                <br />
+                <div class="row">
+                    <div class="col-lg-12">
+                        <input type="text" label="Observaciones" hint="Ingrese las observaciones generales que surjan de la valoración inicial." ng-model="evolucionesEdit.observacionesGenerales" plex="text">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="card card-block"></div>
     <div class="card card-block"></div>
