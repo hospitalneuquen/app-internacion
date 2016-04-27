@@ -67,6 +67,8 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                     if (cama.idInternacion){
                         Shared.internacion.get(cama.idInternacion).then(function(internacion){
                             cama.$internacion = internacion;
+                            if (internacion.id == '57177536678e90cc051205d0')
+                                console.log(internacion);
                         });
                     }
 
@@ -319,6 +321,17 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             });
         },
     });
+
+    $scope.diasColocacionDrenaje = function(start, end) {
+        if (!end) {
+            end = Date.now();
+        }
+        var inicio = moment(start);
+        var fin = moment(end);
+
+
+        return parseInt(moment.duration(fin.diff(inicio)).asDays());
+    };
 
     $scope.$watch('filter.nombre + filter.oxigeno + filter.desinfectada + filter.tipoCama + filter.habitacion + filter.estado', function(current, old) {
         if (current != old) {

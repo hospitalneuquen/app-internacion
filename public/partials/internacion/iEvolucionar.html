@@ -9,7 +9,7 @@
             <div class="col-xs-4">
                 <div class="form-group"></div>
             </div>
-            <div class="col-xs-6 text-right">
+            <div class="col-xs-6 col-lg-2 text-right">
                 <div class="form-group">
                     <select class="form-control" label="Servicio" ng-model="filtros.servicio" ng-click="filtros.filtrar()" plex="(servicio.nombreCorto) for servicio in servicios"></select>
                 </div>
@@ -60,6 +60,16 @@
                 </tr>
             </thead>
             <tbody>
+                <tr>
+                    <td colspan="8"></td>
+                    <td>
+                        {{balanceTotal}} ml
+                        <i class="verde mdi mdi-trending-up" ng-if="balanceTotal < 0"></i>
+                        <i class="celeste mdi mdi-trending-flat" ng-if="balanceTotal == 0"></i>
+                        <i class="rojo mdi mdi-trending-down" ng-if="balanceTotal > 0"></i>
+                    </td>
+                    <td colspan="2"></td>
+                </tr>
                 <tr data-ng-repeat="item in filtros.evoluciones | orderBy: '-fechaHora'">
                     <td >
                         {{item.fechaHora | fromNow }}<br/>

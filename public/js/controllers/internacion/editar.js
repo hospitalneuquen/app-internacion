@@ -97,7 +97,7 @@ angular.module('app').controller('internacion/editar', ['$scope', 'Plex', 'plexP
                     });
 
                 } else {
-                    Plex.closeView(data);
+                    Plex.closeView(item);
                 }
             }
         },

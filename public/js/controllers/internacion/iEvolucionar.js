@@ -1,4 +1,4 @@
-angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 'Shared', 'Server', '$timeout', 'Session', function($scope, Plex, Shared, Server, $timeout, Session) {
+angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 'Shared', 'Server', '$timeout', 'Session', '$alert', function($scope, Plex, Shared, Server, $timeout, Sessionm, $alert) {
     'use strict';
 
     angular.extend($scope, {
@@ -10,6 +10,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
         drenajes: [],
         drenajesInternacion: [],
         evolucionesEdit: undefined, // Item actual que se está editando
+        balanceTotal: 0,
         // evoluciones: {},
         // array de servicios para filtrar en la vista
         servicios: [{
@@ -51,6 +52,8 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
 
                         // calculamos balance de liquidos
                         $scope.calcularBalance(evolucion);
+
+                        $scope.balanceTotal += evolucion.$balance;
 
                         // buscamos los servicios para el filtro de evoluciones
                         if (evolucion.servicio && evolucion.servicio.id) {
@@ -156,6 +159,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
             $scope.evolucionesEdit = null;
             $scope.show_toolbar = true;
         },
+
         // Guarda la evolución
         guardarEvolucion: function(evolucion) {
             // si se han evolucionado los drenajes entonces los cargamos
@@ -172,9 +176,18 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                 });
                 // angular.copy($scope.drenajes, $scope.evolucionesEdit.egresos.drenajes);
             }
+
             Shared.evolucion.post($scope.internacion.id, evolucion.id || null, $scope.evolucionesEdit, {
                 minify: true
             }).then(function(data) {
+                $alert({
+                    title: '',
+                    content: 'Evolución guardada',
+                    placement: 'top-right',
+                    type: 'success',
+                    show: true
+                });
+
                 // actualizamos el listado de evoluciones
                 $scope.actualizarEvoluciones(data);
                 $scope.cancelarEdicion();
@@ -183,6 +196,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                 //    Plex.closeView($scope.cama);
             });
         },
+
         actualizarEvoluciones: function(data) {
             var found = false;
             $scope.loading = true;

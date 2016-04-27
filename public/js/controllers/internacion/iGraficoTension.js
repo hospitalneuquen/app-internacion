@@ -69,9 +69,23 @@ angular.module('app').controller('internacion/iGraficoTension', ['$scope', 'Plex
                     },
                     title: {
                         text: 'Fecha evolución'
-                    }
+                    },
+                    gridLineWidth: 1,
+                    lineColor: '#000',
+                    tickColor: '#000',
+                    type: 'datetime',
+                    // dateTimeLabelFormats: { // don't display the dummy year
+                    //     month: '%e. %b',
+                    //     year: '%b'
+                    // },
+                    startOnTick: true
                 },
                 yAxis: {
+                    minorTickInterval: 'auto',
+                    lineColor: '#000',
+                    lineWidth: 1,
+                    tickWidth: 1,
+                    tickColor: '#000',
                     title: {
                         text: 'Valores mmHG'
                     },

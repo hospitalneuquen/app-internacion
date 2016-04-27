@@ -83,6 +83,14 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
             Shared.drenaje.post($scope.internacion.id, $scope.drenajesEdit.id || null, $scope.drenajesEdit, {
                 minify: true
             }).then(function(data) {
+                $alert({
+                    title: '',
+                    content: 'Drenaje guardado',
+                    placement: 'top-right',
+                    type: 'success',
+                    show: true
+                });
+
                 $scope.internacion.drenajes.push(data);
                 // actualizamos el listado de evoluciones
                 $scope.actualizarDrenajes(data);
@@ -266,15 +274,22 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
     });
 
     $scope.getDuration = function(start, end) {
-        // try {
-        //     return ((moment.duration(end - start)).humanize());
-        // } catch (e) {
-        //     return "Cant evaluate"
-        // }
         var inicio = moment(start);
         var fin = moment(end);
         return inicio.to(fin, true);
     };
+
+    $scope.diasColocacionDrenaje = function(start, end) {
+        if (!end) {
+            end = Date.now();
+        }
+        var inicio = moment(start);
+        var fin = moment(end);
+
+
+        return parseInt(moment.duration(fin.diff(inicio)).asDays());
+    };
+
     // Init
     $scope.init();
 

@@ -42,6 +42,14 @@ angular.module('app').controller('internacion/iGraficoSaturacion', ['$scope', 'P
                     x: -20
                 },
                 xAxis: {
+                    type: 'datetime',
+                    labels: {
+                        rotation: -45,
+                        format: '{value: %d/%m/%Y %H:%M }',
+                    },
+                    title: {
+                        text: ''
+                    },
                     gridLineWidth: 1,
                     lineColor: '#000',
                     tickColor: '#000',
@@ -50,14 +58,7 @@ angular.module('app').controller('internacion/iGraficoSaturacion', ['$scope', 'P
                     //     month: '%e. %b',
                     //     year: '%b'
                     // },
-                    startOnTick: true,
-                    labels: {
-                        rotation: -45,
-                        format: '{value: %d/%m/%Y %H:%M }',
-                    },
-                    title: {
-                        text: ''
-                    }
+                    startOnTick: true
                 },
                 yAxis: {
                     minorTickInterval: 'auto',
@@ -73,7 +74,8 @@ angular.module('app').controller('internacion/iGraficoSaturacion', ['$scope', 'P
                     // valueSuffix: '',
                     // headerFormat: '<b>{series.name}</b><br>',
                     // pointFormat: '{point.x:%e. %b}: {point.y:.2f} °C'
-                    pointFormat: '{point.y:.2f} %'
+                    headerFormat: '<b>{point.y:.2f} %</b><br>',
+                    pointFormat: '{point.x: %d/%m/%Y %H:%M}'
                 },
                 legend: {
                     enabled: false
