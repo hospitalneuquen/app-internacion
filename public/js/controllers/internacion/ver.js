@@ -129,7 +129,8 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                 tipo: "Ingreso",
                 _tipo: "ingreso",
                 data: $scope.internacion.ingreso,
-                cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
+                cama: ''
+                // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
             });
 
             // agregamos la valoracion inicial
@@ -138,7 +139,8 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                 tipo: "Valoración inicial",
                 _tipo: "valoracion-inicial",
                 data: $scope.internacion.ingreso.enfermeria,
-                cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
+                cama: ''
+                // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
             });
 
             // agregamos evoluciones
@@ -149,7 +151,8 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                         tipo: "Evolución",
                         _tipo: "evolucion",
                         data: evolucion,
-                        cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
+                        cama: ''
+                        // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
                     });
                 });
             }
@@ -165,7 +168,8 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                             tipo: "Pase",
                             _tipo: "pase",
                             data: pase,
-                            cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
+                            cama: ''
+                            // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
                         });
 
                     }
@@ -186,10 +190,10 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                     tipo: "Egreso",
                     _tipo: "egreso",
                     data: $scope.internacion.egreso,
-                    cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
+                    cama: ''
+                    // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
                 });
             }
-
 
             // agregamos los drenajes cuando comienzan
             if ($scope.internacion.drenajes.length) {
@@ -199,7 +203,8 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                         tipo: "Colocación de drenaje",
                         _tipo: "drenaje",
                         data: drenaje,
-                        cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
+                        cama: ''
+                        // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
                     });
 
                     if (drenaje.fechaHasta) {
@@ -207,17 +212,16 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                         var fin = moment(drenaje.fechaHasta);
                         var duracion = inicio.to(fin, true);
 
-
                         $scope.ordenCronologico.push({
                             fecha: drenaje.fechaHasta,
                             tipo: "Extracción de drenaje",
                             _tipo: "drenaje",
                             data: drenaje,
                             duracion: duracion,
-                            cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
+                            cama: ''
+                            // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
                         });
                     }
-
                 });
             }
 
@@ -233,6 +237,37 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                 return new Date(a.fecha).getTime() - new Date(b.fecha).getTime()
             });
 
+            // ordenamos los pases en orden cronologico descendiente a como
+            // han sido cargados, y asi recorremos los elementos del historial
+            // y comparamos fechas asi vamos agregando la cama para cada elemento
+            // console.log(pasesOrdenDesc);
+
+            angular.forEach($scope.ordenCronologico, function(elemento, index) {
+                // console.log("%c" + elemento.cama.habitacion + "/" + elemento.cama.numero, 'font-size: 14px;');
+
+                var cantidadPases = ($scope.internacion.pases.length - 1);
+
+                for (var i = cantidadPases; i >= 0; i--){
+                    var pase = $scope.internacion.pases[i];
+                    // si la fecha del elemento, es menor o igual a la del pase
+                    // entonces le asignamos esa cama (nro habitacion y nro cama)
+                    if (elemento.fecha <= pase.fechaHora){
+                        console.info(elemento.fecha + " < " + pase.fechaHora);
+
+                    // if (moment(elemento.fecha) <= moment(pase.fechaHora)){
+                    // if (moment(elemento.fecha).isSameOrBefore(pase.fechaHora)){
+                        // console.log(pase.cama.habitacion + "/" + pase.cama.numero);
+                        $scope.ordenCronologico[index].cama = pase.cama;
+
+                        // console.info(elemento.fecha + " < " + pase.fechaHora);
+                        //console.log($scope.ordenCronologico[index].cama);
+                    }
+
+                }
+
+            });
+
+            // console.log($scope.ordenCronologico[index].cama.habitacion + "/" + $scope.ordenCronologico[index].cama.numero);
         },
         goToTab: function(tab) {
             $scope.selectedTabIndex = tab;
