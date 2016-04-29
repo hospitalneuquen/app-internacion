@@ -172,6 +172,21 @@
                             </li>
                             <li>
                                 <a>
+                                    Riesgo de caídas
+                                </a>
+                            </li>
+                            <li>
+                                <a>
+                                    Riesgo de UPP
+                                </a>
+                            </li>
+                            <li>
+                                <a>
+                                    Dolor
+                                </a>
+                            </li>
+                            <li>
+                                <a>
                                     Texto evolución
                                 </a>
                             </li>
@@ -240,21 +255,20 @@
                                     </div>
                                 </div>
                             </div>
-
                             <fieldset>
                                 <legend>Circulación</legend>
                                 <div class="row">
                                     <div class="col-lg-3">
-                                        <input type="text" label="Pulso caritídeo" ng-model="evolucionesEdit.carotideo" plex="text">
+                                        <input type="text" label="Pulso carotídeo" ng-model="evolucionesEdit.carotideo" suffix="PPM" plex="int">
                                     </div>
                                     <div class="col-lg-3">
-                                        <input type="text" label="Pulso radial" ng-model="evolucionesEdit.radial" plex="text">
+                                        <input type="text" label="Pulso radial" ng-model="evolucionesEdit.radial" suffix="PPM" plex="int">
                                     </div>
                                     <div class="col-lg-3">
-                                        <input type="text" label="Pulso poplíteo" ng-model="evolucionesEdit.popliteo" plex="text">
+                                        <input type="text" label="Pulso poplíteo" ng-model="evolucionesEdit.popliteo" suffix="PPM" plex="int">
                                     </div>
                                     <div class="col-lg-3">
-                                        <input type="text" label="Pulso pedio" ng-model="evolucionesEdit.pedio" plex="text">
+                                        <input type="text" label="Pulso pedio" ng-model="evolucionesEdit.pedio" suffix="PPM" plex="int">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -263,7 +277,36 @@
                                     </div>
                                 </div>
                             </fieldset>
-
+                            <fieldset>
+                                <legend>Glasgow</legend>
+                                <div class="col-lg-2" style="width: 8%">
+                                    <select hint="Ocular" ng-model="evolucionesEdit.glasgowOcular" plex>
+                                        <option value="1">1</option>            <!-- Ausencia de respuesta -->
+                                        <option value="2">2</option>            <!-- Al dolor -->
+                                        <option value="3">3</option>            <!-- A estímulos verbales -->
+                                        <option value="4">4</option>            <!-- Espontánea -->
+                                    </select>
+                                </div>
+                                <div class="col-lg-2" style="width: 8%">
+                                    <select hint="Verbal" ng-model="evolucionesEdit.glasgowVerbal" plex>
+                                        <option value="1">1</option>            <!-- Ausencia de respuesta -->
+                                        <option value="2">2</option>            <!-- Sonidos incomprensibles -->
+                                        <option value="3">3</option>            <!-- Incoherente -->
+                                        <option value="4">4</option>            <!-- Desorientado/confuso -->
+                                        <option value="5">5</option>            <!-- Orientado -->
+                                    </select>
+                                </div>
+                                <div class="col-lg-2" style="width: 8%">
+                                    <select hint="Motor" ng-model="evolucionesEdit.glasgowMotor" plex>
+                                        <option value="1">1</option>            <!-- Ausencia de respuesta -->
+                                        <option value="2">2</option>            <!-- Extensión anormal -->
+                                        <option value="3">3</option>            <!-- Flexión anormal -->
+                                        <option value="4">4</option>            <!-- Retirada al dolor -->
+                                        <option value="5">5</option>            <!-- Localiza el dolor -->
+                                        <option value="6">6</option>            <!-- Obedece ordenes -->
+                                    </select>
+                                </div>
+                            </fieldset>
                         </div>
                         <!-- <div ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
                         <div class="card card-block">
@@ -446,7 +489,116 @@
                                 </div>
                             </div>
                         </div>
-
+                        <!-- Riesgo de caídas -->
+                        <div class="card card-block">
+                            <h4 class="card-title">Valoración de riesgo de caídas</h4>
+                            <br />
+                            <div class="col-lg-2" style="width: 14%">
+                                <label><b>Caídas previas</b></label>
+                                <input type="radio" label="No" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.caidasPrevias" plex="radio">
+                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.caidasPrevias==0">El paciente no se ha caído.</span>
+                                <input type="radio" label="Si" ng-value="25" ng-model="evolucionesEdit.riesgoCaida.caidasPrevias" plex="radio">
+                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.caidasPrevias==25">El paciente se ha caído durante la presente internación o tiene antecedentes dentro de los últimos 3 meses de caídas por convulsiones o trastornos de la marcha.</span>
+                            </div>
+                            <div class="col-lg-2" style="width: 14%">
+                                <label><b>Marcha</b></label>
+                                <input type="radio" label="Normal" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.marcha" plex="radio">
+                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.marcha==0">El paciente camina con la cabeza erecta, los brazos balanceándose libremente a los costados y con pasos seguros.</span>
+                                <input type="radio" label="Débil" ng-value="10" ng-model="evolucionesEdit.riesgoCaida.marcha" plex="radio">
+                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.marcha==10">El paciente camina encorvado pero es capaz de levantar la cabeza mientras camina sin perder equilibrio. Los pasos son cortos y puede arrastrar los pies.</span>
+                                <input type="radio" label="Limitada" ng-value="20" ng-model="evolucionesEdit.riesgoCaida.marcha" plex="radio">
+                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.marcha==20">El paciente puede tener dificultades para levantarse de la silla, pudiendo realizar varios intentos apoyando sus brazos en los brazos de la silla o tomando impulso. La cabeza del paciente está baja, mirando al piso.</span>
+                            </div>
+                            <div class="col-lg-2" style="width: 14%">
+                                <label><b>Ayuda para deambular</b></label>
+                                <input type="radio" label="Ninguna" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.ayudaDeambular" plex="radio">
+                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.ayudaDeambular==0">El paciente camina sin ningún dispositivo de ayuda, se encuentra en silla de ruedas o está en reposo y no se levanta de la cama para nada.</span>
+                                <input type="radio" label="Necesita ayuda" ng-value="15" ng-model="evolucionesEdit.riesgoCaida.ayudaDeambular" plex="radio">
+                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.ayudaDeambular==15">El paciente utiliza muletas, bastón o andador.</span>
+                                <input type="radio" label="Se apoya en los muebles" ng-value="30" ng-model="evolucionesEdit.riesgoCaida.ayudaDeambular" plex="radio">
+                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.ayudaDeambular==30">El paciente sólo camina apoyándose en los muebles.</span>
+                            </div>
+                            <div class="col-lg-2" style="width: 14%">
+                                <label><b>Venoclisis</b></label>
+                                <input type="radio" label="No" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.venoclisis" plex="radio">
+                                <input type="radio" label="Si" ng-value="20" ng-model="evolucionesEdit.riesgoCaida.venoclisis" plex="radio">
+                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.venoclisis==20">El paciente tiene una vía IV.</span>
+                            </div>
+                            <div class="col-lg-2" style="width: 14%">
+                                <label><b>Comorbilidad</b></label>
+                                <input type="radio" label="No" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.comorbilidad" plex="radio">
+                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.comorbilidad==0">El paciente tiene un solo diagnóstico.</span>
+                                <input type="radio" label="Si" ng-value="15" ng-model="evolucionesEdit.riesgoCaida.comorbilidad" plex="radio">
+                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.comorbilidad==15">El paciente presenta múltiples diagnósticos.</span>
+                            </div>
+                            <div class="col-lg-2" style="width: 18%">
+                                <label><b>Estado mental</b></label>
+                                <input type="radio" label="Reconoce sus limitaciones" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.estadoMental" plex="radio">
+                                <input type="radio" label="Sobreestima u olvida sus limitaciones" ng-value="15" ng-model="evolucionesEdit.riesgoCaida.estadoMental" plex="radio">
+                            </div>
+                            <div class="col-lg-2" style="width: 10%">
+                                <label><b>Total</b></label>
+                                <h4>{{evolucionesEdit.riesgoCaida.caidasPrevias + evolucionesEdit.riesgoCaida.marcha + evolucionesEdit.riesgoCaida.ayudaDeambular + evolucionesEdit.riesgoCaida.venoclisis + evolucionesEdit.riesgoCaida.comorbilidad + evolucionesEdit.riesgoCaida.estadoMental}}</h4>
+                            </div>
+                        </div>
+                        <!-- Riesgo de UPP -->
+                        <div class="card card-block"></div>
+                        <!-- Dolor -->
+                        <div class="card card-block">
+                            <h4 class="card-title">Valoración del dolor</h4>
+                            <br />
+                            <div class="row">
+                                <div class="col-lg-2" style="width: 14%">
+                                    <label><b>Analgesia previa</b></label>
+                                    <input type="radio" label="Indicada por médico" ng-value="false" ng-model="evolucionesEdit.dolorValoracion.analgesiaAutomedicacion" plex="radio">
+                                    <input type="radio" label="Automedicación" ng-value="true" ng-model="evolucionesEdita.dolorValoracion.analgesiaAutomedicacion" plex="radio">
+                                </div>
+                                <div class="col-lg-2" style="width: 14%">
+                                    <label><b>Ansiolíticos previos</b></label>
+                                    <input type="radio" label="Indicados por médico" ng-value="false" ng-model="evolucionesEdit.dolorValoracion.ansioliticosAutomedicacion" plex="radio">
+                                    <input type="radio" label="Automedicación" ng-value="true" ng-model="evolucionesEdit.dolorValoracion.ansioliticosAutomedicacion" plex="radio">
+                                </div>
+                                <div class="col-lg-2" style="width: 14%">
+                                    <label><b>Intensidad</b></label>
+                                    <select ng-model="evolucionesEdit.dolorValoracion.intensidad" plex>
+                                        <option value="0">0 (sin dolor)</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10 (máximo dolor)</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-6" style="width: 30%">
+                                    <label><b>Características del dolor</b></label>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <input type="checkbox" label="Punzante" ng-model="evolucionesEdit.dolorValoracion.punzante" plex="checkbox">
+                                            <input type="checkbox" label="Tipo cólico" ng-model="evolucionesEdit.dolorValoracion.tipoColico" plex="checkbox">
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <input type="checkbox" label="Pesadez" ng-model="evolucionesEdit.dolorValoracion.pesadez" plex="checkbox">
+                                            <input type="checkbox" label="Pulsante" ng-model="evolucionesEdit.dolorValoracion.pulsante" plex="checkbox">
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <input type="checkbox" label="Caliente" ng-model="evolucionesEdit.dolorValoracion.caliente" plex="checkbox">
+                                            <input type="checkbox" label="Adormecimiento/Hormigueo" ng-model="evolucionesEdit.dolorValoracion.hormigueo" plex="checkbox">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesDolor" plex="text">
+                                </div>
+                            </div>
+                        </div>
+                        <br />
                         <div class="card card-block">
                             <div class=" row" ng-if="internacion.evoluciones.length > 0">
                                 <div class="col-lg-12">

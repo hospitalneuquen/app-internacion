@@ -303,22 +303,22 @@
                 <br />
                 <div class="row">
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Disnea esfuerzo" ng-model="evolucionesEdit.disneaEsfuerzo" plex="checkbox">
+                        <input type="checkbox" label="Disnea esfuerzo" ng-model="internacion.ingreso.enfermeria.disneaEsfuerzo" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Disnea reposo" ng-model="evolucionesEdit.disneaReposo" plex="checkbox">
+                        <input type="checkbox" label="Disnea reposo" ng-model="internacion.ingreso.enfermeria.disneaReposo" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Tos" ng-model="evolucionesEdit.tos" plex="checkbox">
+                        <input type="checkbox" label="Tos" ng-model="internacion.ingreso.enfermeria.tos" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Secreciones" ng-model="evolucionesEdit.secreciones" plex="checkbox">
-                        <input type="text" hint="Ingrese las características de las secreciones" ng-model="evolucionesEdit.secrecionesCaracteristicas" ng-show="evolucionesEdit.secreciones" plex="text"/>
+                        <input type="checkbox" label="Secreciones" ng-model="internacion.ingreso.enfermeria.secreciones" plex="checkbox">
+                        <input type="text" hint="Ingrese las características de las secreciones" ng-model="internacion.ingreso.enfermeria.secrecionesCaracteristicas" ng-show="internacion.ingreso.enfermeria.secreciones" plex="text"/>
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Uso de músculos accesorios" ng-model="evolucionesEdit.usoMusculos" plex="checkbox">
-                        <!-- <input type="text" hint="Ingrese cuales son los músculos accesorios" ng-model="evolucionesEdit.musculosCuales" ng-show="evolucionesEdit.usoMusculos" plex="text"/> -->
-                        <select hint="Ingrese cuales son los músculos accesorios" ng-model="evolucionesEdit.musculosCuales" ng-show="evolucionesEdit.usoMusculos" plex>
+                        <input type="checkbox" label="Uso de músculos accesorios" ng-model="internacion.ingreso.enfermeria.usoMusculos" plex="checkbox">
+                        <!-- <input type="text" hint="Ingrese cuales son los músculos accesorios" ng-model="internacion.ingreso.enfermeria.musculosCuales" ng-show="internacion.ingreso.enfermeria.usoMusculos" plex="text"/> -->
+                        <select hint="Ingrese cuales son los músculos accesorios" ng-model="internacion.ingreso.enfermeria.musculosCuales" ng-show="internacion.ingreso.enfermeria.usoMusculos" plex>
                             <option value="1">Leve intercostal</option>
                             <option value="2">Tiraje</option>
                             <option value="3">Generalizado</option>
@@ -331,7 +331,7 @@
                 <br />
                 <div class="row">
                     <div class="col-lg-12">
-                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesOxigenacion" plex="text">
+                        <input type="text" label="Observaciones" ng-model="internacion.ingreso.enfermeria.observacionesOxigenacion" plex="text">
                     </div>
                 </div>
             </div>
@@ -340,22 +340,22 @@
                 <br />
                 <div class="row">
                     <div class="col-lg-3">
-                        <input type="text" label="Pulso carotídeo" ng-model="evolucionesEdit.carotideo" plex="text">
+                        <input type="text" label="Pulso carotídeo" ng-model="internacion.ingreso.enfermeria.carotideo" plex="text">
                     </div>
                     <div class="col-lg-3">
-                        <input type="text" label="Pulso radial" ng-model="evolucionesEdit.radial" plex="text">
+                        <input type="text" label="Pulso radial" ng-model="internacion.ingreso.enfermeria.radial" plex="text">
                     </div>
                     <div class="col-lg-3">
-                        <input type="text" label="Pulso poplíteo" ng-model="evolucionesEdit.popliteo" plex="text">
+                        <input type="text" label="Pulso poplíteo" ng-model="internacion.ingreso.enfermeria.popliteo" plex="text">
                     </div>
                     <div class="col-lg-3">
-                        <input type="text" label="Pulso pedio" ng-model="evolucionesEdit.pedio" plex="text">
+                        <input type="text" label="Pulso pedio" ng-model="internacion.ingreso.enfermeria.pedio" plex="text">
                     </div>
                 </div>
                 <br />
                 <div class="row">
                     <div class="col-lg-12">
-                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesCirculacion" plex="text">
+                        <input type="text" label="Observaciones" ng-model="internacion.ingreso.enfermeria.observacionesCirculacion" plex="text">
                     </div>
                 </div>
             </div>
@@ -364,42 +364,42 @@
                 <br />
                 <div class="row">
                     <div class="col-lg-2" style="width: 15%">
-                        <input type="checkbox" label="Náuseas" ng-model="evolucionesEdit.nauseas" plex="checkbox">
+                        <input type="checkbox" label="Náuseas" ng-model="internacion.ingreso.enfermeria.nauseas" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Vómitos" ng-model="evolucionesEdit.vomitos" plex="checkbox">
-                        <input type="text" hint="Ingrese las características de los vómitos" ng-model="evolucionesEdit.vomitosCaracteristicas" ng-show="evolucionesEdit.vomitos" plex="text"/>
+                        <input type="checkbox" label="Vómitos" ng-model="internacion.ingreso.enfermeria.vomitos" plex="checkbox">
+                        <input type="text" hint="Ingrese las características de los vómitos" ng-model="internacion.ingreso.enfermeria.vomitosCaracteristicas" ng-show="internacion.ingreso.enfermeria.vomitos" plex="text"/>
                     </div>
                     <div class="col-lg-2" style="width: 30%">
-                        <input type="text" label="Hábitos Alimentarios" ng-model="evolucionesEdit.habitosAlimentarios" plex="text">
+                        <input type="text" label="Hábitos Alimentarios" ng-model="internacion.ingreso.enfermeria.habitosAlimentarios" plex="text">
                     </div>
                     <div class="col-lg-2" style="width: 35%">
-                        <input type="text" label="Otros" ng-model="evolucionesEdit.otrosNutricion" plex="text">
+                        <input type="text" label="Otros" ng-model="internacion.ingreso.enfermeria.otrosNutricion" plex="text">
                     </div>
                 </div>
                 <br />
                 <div class="row">
                     <div class="col-lg-2" style="width: 15%">
-                        <input type="checkbox" label="Piezas dentarias incompletas" ng-model="evolucionesEdit.piezasDentarias" plex="checkbox">
+                        <input type="checkbox" label="Piezas dentarias incompletas" ng-model="internacion.ingreso.enfermeria.piezasDentarias" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Prótesis" ng-model="evolucionesEdit.protesis" plex="checkbox">
-                        <input type="text" hint="Ingrese tipo de prótesis" ng-model="evolucionesEdit.protesisTipo" ng-show="evolucionesEdit.protesis" plex="text"/>
+                        <input type="checkbox" label="Prótesis" ng-model="internacion.ingreso.enfermeria.protesis" plex="checkbox">
+                        <input type="text" hint="Ingrese tipo de prótesis" ng-model="internacion.ingreso.enfermeria.protesisTipo" ng-show="internacion.ingreso.enfermeria.protesis" plex="text"/>
                     </div>
                     <div class="col-lg-2" style="width: 15%">
-                        <input type="checkbox" label="Dificultades para deglutir" ng-model="evolucionesEdit.dificultadesDeglutir" plex="checkbox">
+                        <input type="checkbox" label="Dificultades para deglutir" ng-model="internacion.ingreso.enfermeria.dificultadesDeglutir" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 15%">
-                        <input type="checkbox" label="Dificultades para masticar" ng-model="evolucionesEdit.dificultadesMasticar" plex="checkbox">
+                        <input type="checkbox" label="Dificultades para masticar" ng-model="internacion.ingreso.enfermeria.dificultadesMasticar" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 35%">
-                        <input type="text" label="Lactancia materna" ng-model="evolucionesEdit.lactanciaMaterna" plex="text">
+                        <input type="text" label="Lactancia materna" ng-model="internacion.ingreso.enfermeria.lactanciaMaterna" plex="text">
                     </div>
                 </div>
                 <br />
                 <div class="row">
                     <div class="col-lg-12">
-                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesNutricion" plex="text">
+                        <input type="text" label="Observaciones" ng-model="internacion.ingreso.enfermeria.observacionesNutricion" plex="text">
                     </div>
                 </div>
             </div>
@@ -408,65 +408,65 @@
                 <h5 class="card-title">Vesical</h5>
                 <div class="row">
                     <div class="col-lg-2" style="width: 15%">
-                        <input type="checkbox" label="Espontánea" ng-model="evolucionesEdit.espontaneaVesical" plex="checkbox">
+                        <input type="checkbox" label="Espontánea" ng-model="internacion.ingreso.enfermeria.espontaneaVesical" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 15%">
-                        <input type="checkbox" label="Incontinencia" ng-model="evolucionesEdit.incontinenciaVesical" plex="checkbox">
+                        <input type="checkbox" label="Incontinencia" ng-model="internacion.ingreso.enfermeria.incontinenciaVesical" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 15%">
-                        <input type="checkbox" label="Urostomía" ng-model="evolucionesEdit.urostomiaVesical" plex="checkbox">
+                        <input type="checkbox" label="Urostomía" ng-model="internacion.ingreso.enfermeria.urostomiaVesical" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 15%">
-                        <input type="checkbox" label="Sonda vesical" ng-model="evolucionesEdit.sondaVesical" plex="checkbox">
+                        <input type="checkbox" label="Sonda vesical" ng-model="internacion.ingreso.enfermeria.sondaVesical" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 15%">
-                        <input type="checkbox" label="Talla vesical" ng-model="evolucionesEdit.tallaVesical" plex="checkbox">
+                        <input type="checkbox" label="Talla vesical" ng-model="internacion.ingreso.enfermeria.tallaVesical" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Otros" ng-model="evolucionesEdit.otrosVesical" plex="checkbox">
-                        <input type="text" hint="Característica" ng-model="evolucionesEdit.caracteristicaVesical" ng-show="evolucionesEdit.otrosVesical" plex="text"/>
+                        <input type="checkbox" label="Otros" ng-model="internacion.ingreso.enfermeria.otrosVesical" plex="checkbox">
+                        <input type="text" hint="Característica" ng-model="internacion.ingreso.enfermeria.caracteristicaVesical" ng-show="internacion.ingreso.enfermeria.otrosVesical" plex="text"/>
                     </div>
                 </div>
                 <br />
                 <h5 class="card-title">Intestinal</h5>
                 <div class="row">
                     <div class="col-lg-2" style="width: 15%">
-                        <input type="checkbox" label="Espontánea" ng-model="evolucionesEdit.espontaneaIntestinal" plex="checkbox">
+                        <input type="checkbox" label="Espontánea" ng-model="internacion.ingreso.enfermeria.espontaneaIntestinal" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 15%">
-                        <input type="checkbox" label="Ostomía" ng-model="evolucionesEdit.ostomiaIntestinal" plex="checkbox">
+                        <input type="checkbox" label="Ostomía" ng-model="internacion.ingreso.enfermeria.ostomiaIntestinal" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 15%">
-                        <input type="checkbox" label="Diarrea" ng-model="evolucionesEdit.diarreaIntestinal" plex="checkbox">
+                        <input type="checkbox" label="Diarrea" ng-model="internacion.ingreso.enfermeria.diarreaIntestinal" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 15%">
-                        <input type="checkbox" label="Incontinencia" ng-model="evolucionesEdit.incontinenciaIntestinal" plex="checkbox">
+                        <input type="checkbox" label="Incontinencia" ng-model="internacion.ingreso.enfermeria.incontinenciaIntestinal" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 15%">
-                        <input type="checkbox" label="Constipación" ng-model="evolucionesEdit.constipacionIntestinal" plex="checkbox">
+                        <input type="checkbox" label="Constipación" ng-model="internacion.ingreso.enfermeria.constipacionIntestinal" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Otros" ng-model="evolucionesEdit.otrosIntestinal" plex="checkbox">
-                        <input type="text" hint="Característica" ng-model="evolucionesEdit.caracteristicaIntestinal" ng-show="evolucionesEdit.otrosIntestinal" plex="text"/>
+                        <input type="checkbox" label="Otros" ng-model="internacion.ingreso.enfermeria.otrosIntestinal" plex="checkbox">
+                        <input type="text" hint="Característica" ng-model="internacion.ingreso.enfermeria.caracteristicaIntestinal" ng-show="internacion.ingreso.enfermeria.otrosIntestinal" plex="text"/>
                     </div>
                 </div>
                 <br /><br />
                 <div class="row">
                     <!-- <div class="col-lg-2" style="width: 30%">
-                        <input type="checkbox" label="Drenajes" ng-model="evolucionesEdit.drenajes" plex="checkbox">
-                        <input type="text" hint="Ingrese las características de los drenajes" ng-model="evolucionesEdit.drenajesCaracteristicas" ng-show="evolucionesEdit.drenajes" plex="text"/>
+                        <input type="checkbox" label="Drenajes" ng-model="internacion.ingreso.enfermeria.drenajes" plex="checkbox">
+                        <input type="text" hint="Ingrese las características de los drenajes" ng-model="internacion.ingreso.enfermeria.drenajesCaracteristicas" ng-show="internacion.ingreso.enfermeria.drenajes" plex="text"/>
                     </div> -->
                     <div class="col-lg-2" style="width: 10%">
-                        <input type="checkbox" label="Otros" ng-model="evolucionesEdit.otrosEliminacion" plex="checkbox">
+                        <input type="checkbox" label="Otros" ng-model="internacion.ingreso.enfermeria.otrosEliminacion" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 30%">
-                        <input type="text" hint="Ingrese características" ng-model="evolucionesEdit.otrosCaracteristicas" ng-show="evolucionesEdit.otrosEliminacion" plex="text"/>
+                        <input type="text" hint="Ingrese características" ng-model="internacion.ingreso.enfermeria.otrosCaracteristicas" ng-show="internacion.ingreso.enfermeria.otrosEliminacion" plex="text"/>
                     </div>
                 </div>
                 <br />
                 <div class="row">
                     <div class="col-lg-12">
-                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesEliminacion" plex="text">
+                        <input type="text" label="Observaciones" ng-model="internacion.ingreso.enfermeria.observacionesEliminacion" plex="text">
                     </div>
                 </div>
             </div>
@@ -475,59 +475,59 @@
                 <br />
                 <div class="row">
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="text" label="Color" ng-model="evolucionesEdit.color" plex="text">
+                        <input type="text" label="Color" ng-model="internacion.ingreso.enfermeria.color" plex="text">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="text" label="Higiene" ng-model="evolucionesEdit.higiene" plex="text">
+                        <input type="text" label="Higiene" ng-model="internacion.ingreso.enfermeria.higiene" plex="text">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Con ayuda" ng-model="evolucionesEdit.higieneAyuda" plex="checkbox">
+                        <input type="checkbox" label="Con ayuda" ng-model="internacion.ingreso.enfermeria.higieneAyuda" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Edemas" ng-model="evolucionesEdit.edemas" plex="checkbox">
-                        <input type="text" hint="Ingrese localización de los edemas" ng-model="evolucionesEdit.edemasLocalizacion" ng-show="evolucionesEdit.edemas" plex="text"/>
+                        <input type="checkbox" label="Edemas" ng-model="internacion.ingreso.enfermeria.edemas" plex="checkbox">
+                        <input type="text" hint="Ingrese localización de los edemas" ng-model="internacion.ingreso.enfermeria.edemasLocalizacion" ng-show="internacion.ingreso.enfermeria.edemas" plex="text"/>
                     </div>
                 </div>
                 <br /><br />
                 <div class="row">
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Mucosas con lesiones" ng-model="evolucionesEdit.mucosasLesiones" plex="checkbox">
+                        <input type="checkbox" label="Mucosas con lesiones" ng-model="internacion.ingreso.enfermeria.mucosasLesiones" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Piel con lesiones" ng-model="evolucionesEdit.pielLesiones" plex="checkbox">
+                        <input type="checkbox" label="Piel con lesiones" ng-model="internacion.ingreso.enfermeria.pielLesiones" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Pies con lesiones" ng-model="evolucionesEdit.piesLesiones" plex="checkbox">
+                        <input type="checkbox" label="Pies con lesiones" ng-model="internacion.ingreso.enfermeria.piesLesiones" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Boca con lesiones" ng-model="evolucionesEdit.bocaLesiones" plex="checkbox">
+                        <input type="checkbox" label="Boca con lesiones" ng-model="internacion.ingreso.enfermeria.bocaLesiones" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Genitales con lesiones" ng-model="evolucionesEdit.genitalesLesiones" plex="checkbox">
+                        <input type="checkbox" label="Genitales con lesiones" ng-model="internacion.ingreso.enfermeria.genitalesLesiones" plex="checkbox">
                     </div>
                 </div>
                 <br />
                 <div class="row">
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Mucosas deshidratadas" ng-model="evolucionesEdit.mucosasDeshidratadas" plex="checkbox">
+                        <input type="checkbox" label="Mucosas deshidratadas" ng-model="internacion.ingreso.enfermeria.mucosasDeshidratadas" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Piel deshidratada" ng-model="evolucionesEdit.pielDeshidratada" plex="checkbox">
+                        <input type="checkbox" label="Piel deshidratada" ng-model="internacion.ingreso.enfermeria.pielDeshidratada" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Pies deshidratados" ng-model="evolucionesEdit.piesDeshidratados" plex="checkbox">
+                        <input type="checkbox" label="Pies deshidratados" ng-model="internacion.ingreso.enfermeria.piesDeshidratados" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Boca deshidratada" ng-model="evolucionesEdit.bocaDeshidratada" plex="checkbox">
+                        <input type="checkbox" label="Boca deshidratada" ng-model="internacion.ingreso.enfermeria.bocaDeshidratada" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Genitales deshidratados" ng-model="evolucionesEdit.genitalesDeshidratados" plex="checkbox">
+                        <input type="checkbox" label="Genitales deshidratados" ng-model="internacion.ingreso.enfermeria.genitalesDeshidratados" plex="checkbox">
                     </div>
                 </div>
                 <br /><br />
                 <div class="row">
                     <div class="col-lg-12">
-                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesTegumentos" plex="text">
+                        <input type="text" label="Observaciones" ng-model="internacion.ingreso.enfermeria.observacionesTegumentos" plex="text">
                     </div>
                 </div>
             </div>
@@ -536,20 +536,20 @@
                 <br />
                 <div class="row">
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Necesita ayuda para vestirse" ng-model="evolucionesEdit.ayudaVestirse" plex="checkbox">
+                        <input type="checkbox" label="Necesita ayuda para vestirse" ng-model="internacion.ingreso.enfermeria.ayudaVestirse" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Presenta dificultades para caminar" ng-model="evolucionesEdit.dificultadesCaminar" plex="checkbox">
+                        <input type="checkbox" label="Presenta dificultades para caminar" ng-model="internacion.ingreso.enfermeria.dificultadesCaminar" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Uso de dispositivos de movilización" ng-model="evolucionesEdit.dispositivosMovilizacion" plex="checkbox">
-                        <input type="text" hint="Ingrese cuáles son los dispositivos de movilización" ng-model="evolucionesEdit.dispositivosCuales" ng-show="evolucionesEdit.dispositivosMovilizacion" plex="text"/>
+                        <input type="checkbox" label="Uso de dispositivos de movilización" ng-model="internacion.ingreso.enfermeria.dispositivosMovilizacion" plex="checkbox">
+                        <input type="text" hint="Ingrese cuáles son los dispositivos de movilización" ng-model="internacion.ingreso.enfermeria.dispositivosCuales" ng-show="internacion.ingreso.enfermeria.dispositivosMovilizacion" plex="text"/>
                     </div>
                 </div>
                 <br />
                 <div class="row">
                     <div class="col-lg-12">
-                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesMovilizarse" plex="text">
+                        <input type="text" label="Observaciones" ng-model="internacion.ingreso.enfermeria.observacionesMovilizarse" plex="text">
                     </div>
                 </div>
             </div>
@@ -558,22 +558,22 @@
                 <br />
                 <div class="row">
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Sueño continuo" ng-model="evolucionesEdit.dormirContinuo" plex="checkbox">
+                        <input type="checkbox" label="Sueño continuo" ng-model="internacion.ingreso.enfermeria.dormirContinuo" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Sueño discontinuo" ng-model="evolucionesEdit.dormirDiscontinuo" plex="checkbox">
+                        <input type="checkbox" label="Sueño discontinuo" ng-model="internacion.ingreso.enfermeria.dormirDiscontinuo" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Insomnio" ng-model="evolucionesEdit.dormirInsomnio" plex="checkbox">
+                        <input type="checkbox" label="Insomnio" ng-model="internacion.ingreso.enfermeria.dormirInsomnio" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Somnolencia" ng-model="evolucionesEdit.dormirSomnolencia" plex="checkbox">
+                        <input type="checkbox" label="Somnolencia" ng-model="internacion.ingreso.enfermeria.dormirSomnolencia" plex="checkbox">
                     </div>
                 </div>
                 <br />
                 <div class="row">
                     <div class="col-lg-12">
-                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesDormir" plex="text">
+                        <input type="text" label="Observaciones" ng-model="internacion.ingreso.enfermeria.observacionesDormir" plex="text">
                     </div>
                 </div>
             </div>
@@ -582,113 +582,113 @@
                 <!-- <br />
                 <div class="row">
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Tabaco" ng-model="evolucionesEdit.tabaco" plex="checkbox">
-                        <input type="text" hint="Cuántos" ng-model="evolucionesEdit.tabacoCuantos" ng-show="evolucionesEdit.tabaco" plex="text"/>
+                        <input type="checkbox" label="Tabaco" ng-model="internacion.ingreso.enfermeria.tabaco" plex="checkbox">
+                        <input type="text" hint="Cuántos" ng-model="internacion.ingreso.enfermeria.tabacoCuantos" ng-show="internacion.ingreso.enfermeria.tabaco" plex="text"/>
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Alcohol" ng-model="evolucionesEdit.alcohol" plex="checkbox">
-                        <input type="text" hint="Cuánto" ng-model="evolucionesEdit.alcoholCuanto" ng-show="evolucionesEdit.alcohol" plex="text"/>
+                        <input type="checkbox" label="Alcohol" ng-model="internacion.ingreso.enfermeria.alcohol" plex="checkbox">
+                        <input type="text" hint="Cuánto" ng-model="internacion.ingreso.enfermeria.alcoholCuanto" ng-show="internacion.ingreso.enfermeria.alcohol" plex="text"/>
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Drogas" ng-model="evolucionesEdit.drogas" plex="checkbox">
-                        <input type="text" hint="Cuáles" ng-model="evolucionesEdit.drogasCuales" ng-show="evolucionesEdit.drogas" plex="text"/>
+                        <input type="checkbox" label="Drogas" ng-model="internacion.ingreso.enfermeria.drogas" plex="checkbox">
+                        <input type="text" hint="Cuáles" ng-model="internacion.ingreso.enfermeria.drogasCuales" ng-show="internacion.ingreso.enfermeria.drogas" plex="text"/>
                     </div>
                     <div class="col-lg-2" style="width: 10%">
-                        <input type="checkbox" label="Otros" ng-model="evolucionesEdit.otrosAdiccionesCheck" plex="checkbox">
+                        <input type="checkbox" label="Otros" ng-model="internacion.ingreso.enfermeria.otrosAdiccionesCheck" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="text" ng-model="evolucionesEdit.otrosAdicciones" ng-show="evolucionesEdit.otrosAdiccionesCheck" plex="text"/>
+                        <input type="text" ng-model="internacion.ingreso.enfermeria.otrosAdicciones" ng-show="internacion.ingreso.enfermeria.otrosAdiccionesCheck" plex="text"/>
                     </div>
                 </div> -->
                 <br />
                 <div class="row">
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Riesgos Físicos" ng-model="evolucionesEdit.riesgosFisicos" plex="checkbox">
+                        <input type="checkbox" label="Riesgos Físicos" ng-model="internacion.ingreso.enfermeria.riesgosFisicos" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Riesgos Químicos" ng-model="evolucionesEdit.riesgosQuimicos" plex="checkbox">
+                        <input type="checkbox" label="Riesgos Químicos" ng-model="internacion.ingreso.enfermeria.riesgosQuimicos" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="text" hint="Cuáles" ng-model="evolucionesEdit.riesgosCuales" ng-show="evolucionesEdit.riesgosFisicos || evolucionesEdit.riesgosQuimicos" plex="text"/>
+                        <input type="text" hint="Cuáles" ng-model="internacion.ingreso.enfermeria.riesgosCuales" ng-show="internacion.ingreso.enfermeria.riesgosFisicos || internacion.ingreso.enfermeria.riesgosQuimicos" plex="text"/>
                     </div>
                 </div>
                 <br /><br />
                 <div class="row">
                     <!-- <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Revisión Ginecológica" ng-model="evolucionesEdit.revisionGinecologica" plex="checkbox">
-                        <input type=text label="Fecha" ng-model="evolucionesEdit.fechaRevisionGinecologica" ng-show="evolucionesEdit.revisionGinecologica" plex="date">
+                        <input type="checkbox" label="Revisión Ginecológica" ng-model="internacion.ingreso.enfermeria.revisionGinecologica" plex="checkbox">
+                        <input type=text label="Fecha" ng-model="internacion.ingreso.enfermeria.fechaRevisionGinecologica" ng-show="internacion.ingreso.enfermeria.revisionGinecologica" plex="date">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Revisión Urológica" ng-model="evolucionesEdit.revisionUrologica" plex="checkbox">
-                        <input type=text label="Fecha" ng-model="evolucionesEdit.fechaRevisionUrologica" ng-show="evolucionesEdit.revisionUrologica" plex="date">
+                        <input type="checkbox" label="Revisión Urológica" ng-model="internacion.ingreso.enfermeria.revisionUrologica" plex="checkbox">
+                        <input type=text label="Fecha" ng-model="internacion.ingreso.enfermeria.fechaRevisionUrologica" ng-show="internacion.ingreso.enfermeria.revisionUrologica" plex="date">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="ETS" ng-model="evolucionesEdit.ETS" plex="checkbox">
+                        <input type="checkbox" label="ETS" ng-model="internacion.ingreso.enfermeria.ETS" plex="checkbox">
                     </div> -->
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Riesgo Cardiovascular" ng-model="evolucionesEdit.riesgoCardiovascular" plex="checkbox">
+                        <input type="checkbox" label="Riesgo Cardiovascular" ng-model="internacion.ingreso.enfermeria.riesgoCardiovascular" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="text" label="Describa" ng-model="evolucionesEdit.otrosDescriba" plex="text">
+                        <input type="text" label="Describa" ng-model="internacion.ingreso.enfermeria.otrosDescriba" plex="text">
                     </div>
                 </div>
                 <br />
                 <div class="row">
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Riesgo de Caídas" ng-model="evolucionesEdit.riesgoCaidas" plex="checkbox">
+                        <input type="checkbox" label="Riesgo de Caídas" ng-model="internacion.ingreso.enfermeria.riesgoCaidas" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="checkbox" label="Riesgo de UPP" ng-model="evolucionesEdit.riesgoUPP" plex="checkbox">
+                        <input type="checkbox" label="Riesgo de UPP" ng-model="internacion.ingreso.enfermeria.riesgoUPP" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="text" label="Describa" ng-model="evolucionesEdit.riesgosDescriba" plex="text">
+                        <input type="text" label="Describa" ng-model="internacion.ingreso.enfermeria.riesgosDescriba" plex="text">
                     </div>
                 </div>
                 <br />
-                <div class="card card-block" ng-show="evolucionesEdit.riesgoCaidas">
+                <div class="card card-block" ng-show="internacion.ingreso.enfermeria.riesgoCaidas">
                     <h4 class="card-title">Valoración de riesgo de caídas</h4>
                     <br />
                     <div class="col-lg-2" style="width: 14%">
                         <label><b>Caídas previas</b></label>
-                        <input type="radio" label="No" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.caidasPrevias" plex="radio">
-                        <input type="radio" label="Si" ng-value="25" ng-model="evolucionesEdit.riesgoCaida.caidasPrevias" plex="radio">
+                        <input type="radio" label="No" ng-value="0" ng-model="internacion.ingreso.enfermeria.riesgoCaida.caidasPrevias" plex="radio">
+                        <input type="radio" label="Si" ng-value="25" ng-model="internacion.ingreso.enfermeria.riesgoCaida.caidasPrevias" plex="radio">
                     </div>
                     <div class="col-lg-2" style="width: 14%">
                         <label><b>Marcha</b></label>
-                        <input type="radio" label="Normal" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.marcha" plex="radio">
-                        <input type="radio" label="Débil" ng-value="10" ng-model="evolucionesEdit.riesgoCaida.marcha" plex="radio">
-                        <input type="radio" label="Limitada" ng-value="20" ng-model="evolucionesEdit.riesgoCaida.marcha" plex="radio">
+                        <input type="radio" label="Normal" ng-value="0" ng-model="internacion.ingreso.enfermeria.riesgoCaida.marcha" plex="radio">
+                        <input type="radio" label="Débil" ng-value="10" ng-model="internacion.ingreso.enfermeria.riesgoCaida.marcha" plex="radio">
+                        <input type="radio" label="Limitada" ng-value="20" ng-model="internacion.ingreso.enfermeria.riesgoCaida.marcha" plex="radio">
                     </div>
                     <div class="col-lg-2" style="width: 14%">
                         <label><b>Ayuda para deambular</b></label>
-                        <input type="radio" label="Ninguna" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.ayudaDeambular" plex="radio">
-                        <input type="radio" label="Necesita ayuda" ng-value="15" ng-model="evolucionesEdit.riesgoCaida.ayudaDeambular" plex="radio">
-                        <input type="radio" label="Se apoya en los muebles" ng-value="30" ng-model="evolucionesEdit.riesgoCaida.ayudaDeambular" plex="radio">
+                        <input type="radio" label="Ninguna" ng-value="0" ng-model="internacion.ingreso.enfermeria.riesgoCaida.ayudaDeambular" plex="radio">
+                        <input type="radio" label="Necesita ayuda" ng-value="15" ng-model="internacion.ingreso.enfermeria.riesgoCaida.ayudaDeambular" plex="radio">
+                        <input type="radio" label="Se apoya en los muebles" ng-value="30" ng-model="internacion.ingreso.enfermeria.riesgoCaida.ayudaDeambular" plex="radio">
                     </div>
                     <div class="col-lg-2" style="width: 14%">
                         <label><b>Venoclisis</b></label>
-                        <input type="radio" label="No" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.venoclisis" plex="radio">
-                        <input type="radio" label="Si" ng-value="20" ng-model="evolucionesEdit.riesgoCaida.venoclisis" plex="radio">
+                        <input type="radio" label="No" ng-value="0" ng-model="internacion.ingreso.enfermeria.riesgoCaida.venoclisis" plex="radio">
+                        <input type="radio" label="Si" ng-value="20" ng-model="internacion.ingreso.enfermeria.riesgoCaida.venoclisis" plex="radio">
                     </div>
                     <div class="col-lg-2" style="width: 14%">
                         <label><b>Comorbilidad</b></label>
-                        <input type="radio" label="No" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.comorbilidad" plex="radio">
-                        <input type="radio" label="Si" ng-value="15" ng-model="evolucionesEdit.riesgoCaida.comorbilidad" plex="radio">
+                        <input type="radio" label="No" ng-value="0" ng-model="internacion.ingreso.enfermeria.riesgoCaida.comorbilidad" plex="radio">
+                        <input type="radio" label="Si" ng-value="15" ng-model="internacion.ingreso.enfermeria.riesgoCaida.comorbilidad" plex="radio">
                     </div>
                     <div class="col-lg-2" style="width: 18%">
                         <label><b>Estado mental</b></label>
-                        <input type="radio" label="Reconoce sus limitaciones" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.estadoMental" plex="radio">
-                        <input type="radio" label="Sobreestima u olvida sus limitaciones" ng-value="15" ng-model="evolucionesEdit.riesgoCaida.estadoMental" plex="radio">
+                        <input type="radio" label="Reconoce sus limitaciones" ng-value="0" ng-model="internacion.ingreso.enfermeria.riesgoCaida.estadoMental" plex="radio">
+                        <input type="radio" label="Sobreestima u olvida sus limitaciones" ng-value="15" ng-model="internacion.ingreso.enfermeria.riesgoCaida.estadoMental" plex="radio">
                     </div>
                     <div class="col-lg-2" style="width: 10%">
                         <label><b>Total</b></label>
-                        <h4>{{evolucionesEdit.riesgoCaida.caidasPrevias + evolucionesEdit.riesgoCaida.marcha + evolucionesEdit.riesgoCaida.ayudaDeambular + evolucionesEdit.riesgoCaida.venoclisis + evolucionesEdit.riesgoCaida.comorbilidad + evolucionesEdit.riesgoCaida.estadoMental}}</h4>
+                        <h4>{{internacion.ingreso.enfermeria.riesgoCaida.caidasPrevias + internacion.ingreso.enfermeria.riesgoCaida.marcha + internacion.ingreso.enfermeria.riesgoCaida.ayudaDeambular + internacion.ingreso.enfermeria.riesgoCaida.venoclisis + internacion.ingreso.enfermeria.riesgoCaida.comorbilidad + internacion.ingreso.enfermeria.riesgoCaida.estadoMental}}</h4>
                     </div>
                 </div>
                 <br />
                 <div class="row">
                     <div class="col-lg-12">
-                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesSeguridad" plex="text">
+                        <input type="text" label="Observaciones" ng-model="internacion.ingreso.enfermeria.observacionesSeguridad" plex="text">
                     </div>
                 </div>
             </div>
@@ -697,14 +697,14 @@
                 <br />
                 <div class="row">
                     <div class="col-lg-2" style="width: 14%">
-                        <input type="radio" label="Orientado" ng-value="true" ng-model="evolucionesEdit.riesgoCaida.orientado" plex="radio">
-                        <input type="radio" label="Desorientado" ng-value="false" ng-model="evolucionesEdit.riesgoCaida.orientado" plex="radio">
+                        <input type="radio" label="Orientado" ng-value="true" ng-model="internacion.ingreso.enfermeria.riesgoCaida.orientado" plex="radio">
+                        <input type="radio" label="Desorientado" ng-value="false" ng-model="internacion.ingreso.enfermeria.riesgoCaida.orientado" plex="radio">
                     </div>
                     <div class="col-lg-2" style="width: 6%">
                         <h5 class="card-title">Glasgow</h5>
                     </div>
                     <div class="col-lg-2" style="width: 8%">
-                        <select hint="Ocular" ng-model="evolucionesEdit.glasgowOcular" plex>
+                        <select hint="Ocular" ng-model="internacion.ingreso.enfermeria.glasgowOcular" plex>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -712,7 +712,7 @@
                         </select>
                     </div>
                     <div class="col-lg-2" style="width: 8%">
-                        <select hint="Verbal" ng-model="evolucionesEdit.glasgowVerbal" plex>
+                        <select hint="Verbal" ng-model="internacion.ingreso.enfermeria.glasgowVerbal" plex>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -721,7 +721,7 @@
                         </select>
                     </div>
                     <div class="col-lg-2" style="width: 8%">
-                        <select hint="Motor" ng-model="evolucionesEdit.glasgowMotor" plex>
+                        <select hint="Motor" ng-model="internacion.ingreso.enfermeria.glasgowMotor" plex>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -735,52 +735,52 @@
                 <div class="row">
                     <div class="col-lg-2" style="width: 14%">
                         <label><b>Visión</b></label>
-                        <input type="radio" label="Normal" ng-value="0" ng-model="evolucionesEdit.vision" plex="radio">
-                        <input type="radio" label="Deficiente" ng-value="1" ng-model="evolucionesEdit.vision" plex="radio">
-                        <input type="radio" label="Ausente" ng-value="2" ng-model="evolucionesEdit.vision" plex="radio">
+                        <input type="radio" label="Normal" ng-value="0" ng-model="internacion.ingreso.enfermeria.vision" plex="radio">
+                        <input type="radio" label="Deficiente" ng-value="1" ng-model="internacion.ingreso.enfermeria.vision" plex="radio">
+                        <input type="radio" label="Ausente" ng-value="2" ng-model="internacion.ingreso.enfermeria.vision" plex="radio">
                     </div>
                     <div class="col-lg-2" style="width: 14%">
                         <label><b>Audición</b></label>
-                        <input type="radio" label="Normal" ng-value="0" ng-model="evolucionesEdit.audicion" plex="radio">
-                        <input type="radio" label="Deficiente" ng-value="1" ng-model="evolucionesEdit.audicion" plex="radio">
-                        <input type="radio" label="Ausente" ng-value="2" ng-model="evolucionesEdit.audicion" plex="radio">
+                        <input type="radio" label="Normal" ng-value="0" ng-model="internacion.ingreso.enfermeria.audicion" plex="radio">
+                        <input type="radio" label="Deficiente" ng-value="1" ng-model="internacion.ingreso.enfermeria.audicion" plex="radio">
+                        <input type="radio" label="Ausente" ng-value="2" ng-model="internacion.ingreso.enfermeria.audicion" plex="radio">
                     </div>
                     <div class="col-lg-2" style="width: 14%">
                         <label><b>Lenguaje</b></label>
-                        <input type="radio" label="Normal" ng-value="0" ng-model="evolucionesEdit.lenguaje" plex="radio">
-                        <input type="radio" label="Deficiente" ng-value="1" ng-model="evolucionesEdit.lenguaje" plex="radio">
-                        <input type="radio" label="Ausente" ng-value="2" ng-model="evolucionesEdit.lenguaje" plex="radio">
+                        <input type="radio" label="Normal" ng-value="0" ng-model="internacion.ingreso.enfermeria.lenguaje" plex="radio">
+                        <input type="radio" label="Deficiente" ng-value="1" ng-model="internacion.ingreso.enfermeria.lenguaje" plex="radio">
+                        <input type="radio" label="Ausente" ng-value="2" ng-model="internacion.ingreso.enfermeria.lenguaje" plex="radio">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="text" label="Describa" ng-model="evolucionesEdit.describaSensopercepcion" plex="text">
+                        <input type="text" label="Describa" ng-model="internacion.ingreso.enfermeria.describaSensopercepcion" plex="text">
                     </div>
                 </div>
                 <br />
                 <div class="row">
                     <div class="col-lg-2" style="width: 14%">
-                        <input type="checkbox" label="Dolor" ng-model="evolucionesEdit.dolor" plex="checkbox">
+                        <input type="checkbox" label="Dolor" ng-model="internacion.ingreso.enfermeria.dolor" plex="checkbox">
                     </div>
                     <div class="col-lg-2" style="width: 20%">
-                        <input type="text" label="Localización" ng-model="evolucionesEdit.dolorLocalizacion" ng-show="evolucionesEdit.dolor" plex="text">
+                        <input type="text" label="Localización" ng-model="internacion.ingreso.enfermeria.dolorLocalizacion" ng-show="internacion.ingreso.enfermeria.dolor" plex="text">
                     </div>
                 </div>
-                <div class="card card-block" ng-show="evolucionesEdit.dolor">
+                <div class="card card-block" ng-show="internacion.ingreso.enfermeria.dolor">
                     <h4 class="card-title">Valoración del dolor</h4>
                     <br />
                     <div class="row">
                         <div class="col-lg-2" style="width: 14%">
                             <label><b>Analgesia previa</b></label>
-                            <input type="radio" label="Indicada por médico" ng-value="false" ng-model="evolucionesEdit.dolorValoracion.analgesiaAutomedicacion" plex="radio">
-                            <input type="radio" label="Automedicación" ng-value="true" ng-model="evolucionesEdit.dolorValoracion.analgesiaAutomedicacion" plex="radio">
+                            <input type="radio" label="Indicada por médico" ng-value="false" ng-model="internacion.ingreso.enfermeria.dolorValoracion.analgesiaAutomedicacion" plex="radio">
+                            <input type="radio" label="Automedicación" ng-value="true" ng-model="internacion.ingreso.enfermeria.dolorValoracion.analgesiaAutomedicacion" plex="radio">
                         </div>
                         <div class="col-lg-2" style="width: 14%">
                             <label><b>Ansiolíticos previos</b></label>
-                            <input type="radio" label="Indicados por médico" ng-value="false" ng-model="evolucionesEdit.dolorValoracion.ansioliticosAutomedicacion" plex="radio">
-                            <input type="radio" label="Automedicación" ng-value="true" ng-model="evolucionesEdit.dolorValoracion.ansioliticosAutomedicacion" plex="radio">
+                            <input type="radio" label="Indicados por médico" ng-value="false" ng-model="internacion.ingreso.enfermeria.dolorValoracion.ansioliticosAutomedicacion" plex="radio">
+                            <input type="radio" label="Automedicación" ng-value="true" ng-model="internacion.ingreso.enfermeria.dolorValoracion.ansioliticosAutomedicacion" plex="radio">
                         </div>
                         <div class="col-lg-2" style="width: 14%">
                             <label><b>Intensidad</b></label>
-                            <select ng-model="evolucionesEdit.dolorValoracion.intensidad" plex>
+                            <select ng-model="internacion.ingreso.enfermeria.dolorValoracion.intensidad" plex>
                                 <option value="0">0 (sin dolor)</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -798,16 +798,16 @@
                             <label><b>Características del dolor</b></label>
                             <div class="row">
                                 <div class="col-lg-4">
-                                    <input type="checkbox" label="Punzante" ng-model="evolucionesEdit.dolorValoracion.punzante" plex="checkbox">
-                                    <input type="checkbox" label="Tipo cólico" ng-model="evolucionesEdit.dolorValoracion.tipoColico" plex="checkbox">
+                                    <input type="checkbox" label="Punzante" ng-model="internacion.ingreso.enfermeria.dolorValoracion.punzante" plex="checkbox">
+                                    <input type="checkbox" label="Tipo cólico" ng-model="internacion.ingreso.enfermeria.dolorValoracion.tipoColico" plex="checkbox">
                                 </div>
                                 <div class="col-lg-4">
-                                    <input type="checkbox" label="Pesadez" ng-model="evolucionesEdit.dolorValoracion.pesadez" plex="checkbox">
-                                    <input type="checkbox" label="Pulsante" ng-model="evolucionesEdit.dolorValoracion.pulsante" plex="checkbox">
+                                    <input type="checkbox" label="Pesadez" ng-model="internacion.ingreso.enfermeria.dolorValoracion.pesadez" plex="checkbox">
+                                    <input type="checkbox" label="Pulsante" ng-model="internacion.ingreso.enfermeria.dolorValoracion.pulsante" plex="checkbox">
                                 </div>
                                 <div class="col-lg-4">
-                                    <input type="checkbox" label="Caliente" ng-model="evolucionesEdit.dolorValoracion.caliente" plex="checkbox">
-                                    <input type="checkbox" label="Adormecimiento/Hormigueo" ng-model="evolucionesEdit.dolorValoracion.hormigueo" plex="checkbox">
+                                    <input type="checkbox" label="Caliente" ng-model="internacion.ingreso.enfermeria.dolorValoracion.caliente" plex="checkbox">
+                                    <input type="checkbox" label="Adormecimiento/Hormigueo" ng-model="internacion.ingreso.enfermeria.dolorValoracion.hormigueo" plex="checkbox">
                                 </div>
                             </div>
                         </div>
@@ -816,57 +816,57 @@
                     <label><b>Valoración de enfermería</b></label>
                     <div class="row">
                         <div class="col-lg-2" style="width: 20%">
-                            <input type="text" label="Manifestación del dolor" ng-model="evolucionesEdit.dolorValoracion.dolorManifestacionEnfermeria" plex="text">
+                            <input type="text" label="Manifestación del dolor" ng-model="internacion.ingreso.enfermeria.dolorValoracion.dolorManifestacionEnfermeria" plex="text">
                         </div>
                         <div class="col-lg-2" style="width: 20%">
-                            <input type="text" label="Características del dolor" ng-model="evolucionesEdit.dolorValoracion.dolorCaracteristicasEnfermeria" plex="text">
+                            <input type="text" label="Características del dolor" ng-model="internacion.ingreso.enfermeria.dolorValoracion.dolorCaracteristicasEnfermeria" plex="text">
                         </div>
                         <div class="col-lg-2" style="width: 20%">
-                            <input type="text" label="Intensidad del dolor" ng-model="evolucionesEdit.dolorValoracion.dolorIntensidadEnfermeria" plex="text">
+                            <input type="text" label="Intensidad del dolor" ng-model="internacion.ingreso.enfermeria.dolorValoracion.dolorIntensidadEnfermeria" plex="text">
                         </div>
                         <div class="col-lg-2" style="width: 14%">
-                            <input type="checkbox" label="Intervención" ng-model="evolucionesEdit.dolorValoracion.intervencion" plex="checkbox">
+                            <input type="checkbox" label="Intervención" ng-model="internacion.ingreso.enfermeria.dolorValoracion.intervencion" plex="checkbox">
                         </div>
                         <div class="col-lg-2" style="width: 14%">
-                            <input type="checkbox" label="Evaluación" ng-model="evolucionesEdit.dolorValoracion.evaluacion" plex="checkbox">
+                            <input type="checkbox" label="Evaluación" ng-model="internacion.ingreso.enfermeria.dolorValoracion.evaluacion" plex="checkbox">
                         </div>
                     </div>
                     <br \>
                     <label><b>Evolución médica</b></label>
                     <div class="row">
                         <div class="col-lg-2" style="width: 20%">
-                            <input type="text" label="Manifestación del dolor" ng-model="evolucionesEdit.dolorValoracion.dolorManifestacionMedica" plex="text">
+                            <input type="text" label="Manifestación del dolor" ng-model="internacion.ingreso.enfermeria.dolorValoracion.dolorManifestacionMedica" plex="text">
                         </div>
                         <div class="col-lg-2" style="width: 20%">
-                            <input type="text" label="Características del dolor" ng-model="evolucionesEdit.dolorValoracion.dolorCaracteristicasMedica" plex="text">
+                            <input type="text" label="Características del dolor" ng-model="internacion.ingreso.enfermeria.dolorValoracion.dolorCaracteristicasMedica" plex="text">
                         </div>
                         <div class="col-lg-2" style="width: 20%">
-                            <input type="text" label="Intensidad del dolor" ng-model="evolucionesEdit.dolorValoracion.dolorIntensidadMedica" plex="text">
+                            <input type="text" label="Intensidad del dolor" ng-model="internacion.ingreso.enfermeria.dolorValoracion.dolorIntensidadMedica" plex="text">
                         </div>
                     </div>
                     <br \>
                     <label><b>Entrevista</b></label>
                     <div class="row">
                         <div class="col-lg-4" style="width: 25%">
-                            <input type="text" label="Cuando tiene dolor, ¿a quién avisa?" ng-model="evolucionesEdit.dolorValoracion.dolorAvisa" plex="text">
+                            <input type="text" label="Cuando tiene dolor, ¿a quién avisa?" ng-model="internacion.ingreso.enfermeria.dolorValoracion.dolorAvisa" plex="text">
                         </div>
                         <div class="col-lg-4" style="width: 25%">
-                            <input type="checkbox" label="El personal de salud, ¿acude a su llamado?" ng-model="evolucionesEdit.dolorValoracion.dolorAcude" plex="checkbox">
+                            <input type="checkbox" label="El personal de salud, ¿acude a su llamado?" ng-model="internacion.ingreso.enfermeria.dolorValoracion.dolorAcude" plex="checkbox">
                         </div>
                         <div class="col-lg-4" style="width: 25%">
-                            <input type="checkbox" label="¿Se le informa si se administra algún analgésico?" ng-model="evolucionesEdit.dolorValoracion.informaAnalgesico" plex="checkbox">
+                            <input type="checkbox" label="¿Se le informa si se administra algún analgésico?" ng-model="internacion.ingreso.enfermeria.dolorValoracion.informaAnalgesico" plex="checkbox">
                         </div>
                     </div>
                     <br \>
                     <div class="row">
                         <div class="col-lg-4" style="width: 25%">
-                            <input type="checkbox" label="Luego de administrado el analgésico, ¿disminuye el dolor?" ng-model="evolucionesEdit.dolorValoracion.dolorDisminuye" plex="checkbox">
+                            <input type="checkbox" label="Luego de administrado el analgésico, ¿disminuye el dolor?" ng-model="internacion.ingreso.enfermeria.dolorValoracion.dolorDisminuye" plex="checkbox">
                         </div>
                         <div class="col-lg-4" style="width: 25%">
-                            <input type="text" label="¿Qué le provoca la aparición del dolor o su aumento?" ng-model="evolucionesEdit.dolorValoracion.dolorProvoca" plex="text">
+                            <input type="text" label="¿Qué le provoca la aparición del dolor o su aumento?" ng-model="internacion.ingreso.enfermeria.dolorValoracion.dolorProvoca" plex="text">
                         </div>
                         <div class="col-lg-4" style="width: 25%">
-                            <input type="checkbox" label="¿Logra descansar por la noche?" ng-model="evolucionesEdit.dolorValoracion.descansaNoche" plex="checkbox">
+                            <input type="checkbox" label="¿Logra descansar por la noche?" ng-model="internacion.ingreso.enfermeria.dolorValoracion.descansaNoche" plex="checkbox">
                         </div>
                     </div>
                     <br \>
@@ -874,7 +874,7 @@
                 <br />
                 <div class="row">
                     <div class="col-lg-12">
-                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesComunicacion" plex="text">
+                        <input type="text" label="Observaciones" ng-model="internacion.ingreso.enfermeria.observacionesComunicacion" plex="text">
                     </div>
                 </div>
             </div>
@@ -883,22 +883,22 @@
                 <br />
                 <div class="row">
                     <div class="col-lg-3" style="width: 20%">
-                        <input type="text" label="Creencias religiosas" ng-model="evolucionesEdit.creenciasReligiosas" plex="text">
+                        <input type="text" label="Creencias religiosas" ng-model="internacion.ingreso.enfermeria.creenciasReligiosas" plex="text">
                     </div>
                     <div class="col-lg-3" style="width: 20%">
-                        <input type="text" label="Frecuencia con la que asiste a la iglesia" ng-model="evolucionesEdit.frecuenciaIglesia" plex="text">
+                        <input type="text" label="Frecuencia con la que asiste a la iglesia" ng-model="internacion.ingreso.enfermeria.frecuenciaIglesia" plex="text">
                     </div>
                     <div class="col-lg-3" style="width: 20%">
-                        <input type="checkbox" label="Desea visita de religioso (internación)" ng-model="evolucionesEdit.visitaReligioso" plex="checkbox">
+                        <input type="checkbox" label="Desea visita de religioso (internación)" ng-model="internacion.ingreso.enfermeria.visitaReligioso" plex="checkbox">
                     </div>
                     <div class="col-lg-3" style="width: 20%">
-                        <input type="text" hint="Cuál" ng-model="evolucionesEdit.religiosoCual" ng-show="evolucionesEdit.visitaReligioso" plex="text"/>
+                        <input type="text" hint="Cuál" ng-model="internacion.ingreso.enfermeria.religiosoCual" ng-show="internacion.ingreso.enfermeria.visitaReligioso" plex="text"/>
                     </div>
                 </div>
                 <br />
                 <div class="row">
                     <div class="col-lg-12">
-                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesEspiritualidad" plex="text">
+                        <input type="text" label="Observaciones" ng-model="internacion.ingreso.enfermeria.observacionesEspiritualidad" plex="text">
                     </div>
                 </div>
             </div>
@@ -907,21 +907,21 @@
                 <br />
                 <div class="row">
                     <div class="col-lg-4" style="width: 20%">
-                        <input type="checkbox" label="Comprende su situación de salud" ng-model="evolucionesEdit.comprendeSituacion" plex="checkbox">
-                        <input type="text" hint="Sentimientos en relación a ello" ng-model="evolucionesEdit.sentimientosSituacion" ng-show="evolucionesEdit.comprendeSituacion" plex="text"/>
+                        <input type="checkbox" label="Comprende su situación de salud" ng-model="internacion.ingreso.enfermeria.comprendeSituacion" plex="checkbox">
+                        <input type="text" hint="Sentimientos en relación a ello" ng-model="internacion.ingreso.enfermeria.sentimientosSituacion" ng-show="internacion.ingreso.enfermeria.comprendeSituacion" plex="text"/>
                     </div>
                     <div class="col-lg-4" style="width: 25%">
-                        <input type="text" label="Dudas expresadas" ng-model="evolucionesEdit.dudasExpresadas" plex="text">
+                        <input type="text" label="Dudas expresadas" ng-model="internacion.ingreso.enfermeria.dudasExpresadas" plex="text">
                     </div>
                     <div class="col-lg-4" style="width: 25%">
-                        <input type="checkbox" label="Actividades recreativas habituales" ng-model="evolucionesEdit.actividadesHabituales" plex="checkbox">
+                        <input type="checkbox" label="Actividades recreativas habituales" ng-model="internacion.ingreso.enfermeria.actividadesHabituales" plex="checkbox">
                     </div>
 
                 </div>
                 <br />
                 <div class="row">
                     <div class="col-lg-12">
-                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesAprender" plex="text">
+                        <input type="text" label="Observaciones" ng-model="internacion.ingreso.enfermeria.observacionesAprender" plex="text">
                     </div>
                 </div>
             </div>
@@ -930,7 +930,7 @@
                 <br />
                 <div class="row">
                     <div class="col-lg-12">
-                        <input type="text" label="Observaciones" hint="Ingrese las observaciones generales que surjan de la valoración inicial." ng-model="evolucionesEdit.observacionesGenerales" plex="text">
+                        <input type="text" label="Observaciones" hint="Ingrese las observaciones generales que surjan de la valoración inicial." ng-model="internacion.ingreso.enfermeria.observacionesGenerales" plex="text">
                     </div>
                 </div>
             </div>
