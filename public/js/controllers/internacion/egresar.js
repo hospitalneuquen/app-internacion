@@ -53,7 +53,7 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
             // cargar el select con las opciones
             var buscar = {
                 tipo: tipo,
-                fulltext: query
+                nombre: query
             }
 
             return Shared.ubicaciones.get(buscar);
@@ -80,9 +80,7 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
     });
 
     $scope.$watch('egreso.tipoAlta', function(current, old) {
-        if ($scope.egreso.tipoAlta != 'derivacion'){
-            $scope.egreso.derivadoHacia = null;
-        }
+        $scope.egreso.derivadoHacia = null;
     });
 
     $scope.$watch('egreso.tipo', function(current, old) {

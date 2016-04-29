@@ -24,7 +24,7 @@
                     <input type="radio" name="group1" label="Voluntaria" value="voluntaria" ng-model="egreso.tipoAlta" plex="radio">
             </div>
             <div class="col-lg-2" ng-show="egreso.tipo == 'pase'">
-                <select label="Servicio" ng-model="egreso.derivadoHacia" min="3" plex="(item.nombre) for item in buscarUbicacion($value, 'servicio')"></select>
+                <select label="Servicio sugerido" ng-model="egreso.derivadoHacia" min="3" plex="(item.nombre) for item in buscarUbicacion($value, 'servicio')"></select>
             </div>
 
         </div>
