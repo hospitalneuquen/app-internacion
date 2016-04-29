@@ -38,6 +38,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
             id: 'derivacion',
             nombre: 'Derivación'
         }, ],
+        tipoInternacionSeleccionada: '',
         filtros: {
             evoluciones: [],
             servicio: null,
@@ -279,6 +280,8 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                 $scope.internacion = internacion;
                 $scope.filtros.evoluciones = internacion.evoluciones;
                 $scope.loading = false;
+
+                $scope.tipoInternacionSeleccionada = Global.getById($scope.tiposInternacion, internacion.ingreso.tipo);
 
                 // buscamos los antecedentes personales
                 Personas.get(internacion.paciente.id).then(function(persona) {

@@ -36,8 +36,10 @@
             </div>
         </div>
 
-        <div class="col-lg-1">
-            <div class="form-group"></div>
+        <div class="col-lg-2">
+            <div class="form-group">
+                <select label="Servicio" ng-model="filter.servicio" plex="(item.nombre) for item in servicios"></select>
+            </div>
         </div>
 
         <div class="col-lg-1">
@@ -54,7 +56,7 @@
             </div>
         </div>
 
-        <div class="col-lg-2">
+        <div class="col-lg-1">
             <div class="form-group">
                 <br/>
                 <button class="btn btn-default" ng-click="filter.limpiarFiltros()">
