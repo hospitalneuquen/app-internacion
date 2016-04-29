@@ -23,10 +23,14 @@
                     <input type="radio" name="group1" label="Derivación" value="derivacion" ng-model="egreso.tipoAlta" plex="radio">
                     <input type="radio" name="group1" label="Voluntaria" value="voluntaria" ng-model="egreso.tipoAlta" plex="radio">
             </div>
+            <div class="col-lg-2" ng-show="egreso.tipo == 'pase'">
+                <select label="Servicio" ng-model="egreso.derivadoHacia" min="3" plex="(item.nombre) for item in buscarUbicacion($value, 'servicio')"></select>
+            </div>
+
         </div>
         <div class="row" ng-show="egreso.tipoAlta == 'derivacion'">
             <div class="col-lg-6">
-                <select label="Hospital a derivar" ng-model="egreso.derivadoHacia" plex="(hospital.nombre) for hospital in hospitales"></select>
+                <select label="Hospital a derivar" ng-model="egreso.derivadoHacia" min="3" plex="(hospital.nombre) for hospital in buscarUbicacion($value, 'hospital')"></select>
             </div>
         </div>
         <div class="row" ng-show="egreso.tipo == 'alta'">
@@ -51,22 +55,3 @@
     </div>
 </ng-form>
 </div>
-
-<!--
-            <div flex ng-show="egreso.tipo == 'alta' && egreso.tipoAlta == 'derivacion'">
-                <md-autocomplete
-                    md-selected-item-change="hospitales.selectItem(hospital)"
-                    md-selected-item="hospitales.selectedItem"
-                    md-search-text="hospitales.searchText"
-                    md-items="hospital in hospitales.querySearch(hospitales.searchText)"
-                    md-item-text="hospital.nombreCorto"
-                    md-min-length="0"
-                    md-floating-label="Hospital a derivar">
-                    <md-item-template>
-                        <span md-highlight-text="searchText">{{hospital.nombreCorto}}</span>
-                    </md-item-template>
-                    <md-not-found>
-                        Hospital no encontrado.
-                    </md-not-found>
-                </md-autocomplete>
-            </div>

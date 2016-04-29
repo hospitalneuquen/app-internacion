@@ -37,6 +37,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
         },
 
         init: function(internacion) {
+            console.log(Session);
             $scope.loading = true;
             // buscamos la internacion
             if (internacion != null) {

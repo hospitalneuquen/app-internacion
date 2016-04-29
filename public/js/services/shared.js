@@ -20,10 +20,10 @@ angular.module('app').factory('Shared', ["Global", "Server", "Session", function
              **/
             get: function(query) {
                 query = (typeof query !== "undefined") ? query : '';
-                if (Session.servicioActual && Session.servicioActual.id) {
-                    query = Session.servicioActual.id;
-                    //console.log("/api/internacion/mapa/" + query);
-                }
+                // if (Session.servicioActual && Session.servicioActual.id) {
+                //     query = Session.servicioActual.id;
+                //     //console.log("/api/internacion/mapa/" + query);
+                // }
                 // TODO : Resolver si query viene limpio, poder resolver segun los permisos
                 // y accesos del usuario logueado, que tipo de servicio hay que consultar
                 // para traer las camas, si es 'medica'  o 'quirurgica'

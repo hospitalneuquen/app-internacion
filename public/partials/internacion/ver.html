@@ -24,16 +24,17 @@
                 </a>
             </li>
             <li>
-                <a>
-                    Antecedentes
-                </a>
-            </li>
-            <li>
                 <!-- <li ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
                 <a>
                     Drenajes
                 </a>
             </li>
+            <li>
+                <a>
+                    Antecedentes
+                </a>
+            </li>
+
             <li>
                 <a>
                     Pases
@@ -212,29 +213,28 @@
                 <div class="row">
                     <div class="col-md-2">
                         <div class="form-group">
-                            <input class="form-control" type="text" label="Fecha de internación" ng-model="internacion.ingreso.fechaHora" plex="date" ng-required="true">
+                            <!-- <input class="form-control" type="text" label="Fecha de internación" ng-model="internacion.ingreso.fechaHora" plex="date" ng-required="true"> -->
+                            <label>Fecha de internación</label>
+                            <p>{{internacion.ingreso.fechaHora | date: 'dd/MM/yyyy H:mm'}} hs</p>
                         </div>
                     </div>
-                    <div class="col-md-1">
+
+                    <div class="col-md-2">
                         <div class="form-group">
-                            <input class="form-control" type="text" label="Hora de internación" ng-model="internacion.ingreso.fechaHora" plex="time" ng-required="true">
-                        </div>
-                    </div>
-                    <div class="col-md-1">
-                        <div class="form-group">
-                            <select label="Tipo de ingreso" ng-model="internacion.ingreso.tipo" plex>
-                                <option ng-repeat="item in tiposInternacion" ng-value="item.id">{{item.nombre}}</option>
-                            </select>
+                            <label>Tipo de ingreso</label>
+                            <p>{{tipoInternacionSeleccionada.nombre}}</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <input type="text" label="Motivo de la internación" ng-model="internacion.ingreso.motivo" ng-required="true" plex="text">
+                            <label>Motivo de la internación</label>
+                            <p>{{internacion.ingreso.motivo}}</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <input type="text" label="Diagnóstico presuntivo" ng-model="internacion.ingreso.diagnosticoPresuntivo" plex="text">
+                            <label>Diagnóstico presuntivo</label>
+                            <p>{{internacion.ingreso.diagnosticoPresuntivo}}</p>
                         </div>
                     </div>
                 </div>
@@ -243,30 +243,6 @@
 
         <div>
             <div plex-include="'partials/internacion/iEvolucionar.html'" plex-include-internacion="internacion"></div>
-        </div>
-
-        <div class="card card-block">
-            <h3 >Antecedentes</h3>
-            <div ng-if="antecedentesPersonales && antecedentesPersonales.length > 0">
-                <table class="table table-hover table-striped">
-                    <thead >
-                        <tr >
-                            <th >Tipo</th>
-                            <th >Observaciones</th>
-                        </tr>
-                    </thead>
-                    <tbody >
-                        <tr ng-repeat="item in antecedentesPersonales">
-                            <td >
-                                {{item.antecedente.nombre}}
-                            </td>
-                            <td >
-                                {{item.observaciones}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
         </div>
 
         <!-- <div ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
@@ -380,6 +356,30 @@
                         </fieldset>
                     </ng-form>
                 </div>
+            </div>
+        </div>
+
+        <div class="card card-block">
+            <h3 >Antecedentes</h3>
+            <div ng-if="antecedentesPersonales && antecedentesPersonales.length > 0">
+                <table class="table table-hover table-striped">
+                    <thead >
+                        <tr >
+                            <th >Tipo</th>
+                            <th >Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr ng-repeat="item in antecedentesPersonales">
+                            <td >
+                                {{item.antecedente.nombre}}
+                            </td>
+                            <td >
+                                {{item.observaciones}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 

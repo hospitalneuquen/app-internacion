@@ -17,61 +17,56 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
     angular.extend($scope, {
         vista: 0,
         layout: 'grid',
-        // servicios: [],
+        servicios: [{
+            id: '',
+            nombre: 'Todos'
+        }],
+        idServicioActual: '',
         // variable que determina si la internacion tiene info de ingreso
         ingresoEnfermeria: false,
         habitaciones: [],
         tipoCamas: [],
         camas: null,
-        actions: [
-            {
-                text: 'Internación',
-                handler: function(scope) {
-                    $scope.editarIngresoInternacion(scope.cama.id, scope.cama.idInternacion);
-                }
-            },
-            {
-                text: 'Evoluciones',
-                handler: function(scope) {
-                    $scope.evolucionarPaciente(scope.cama);
-                }
-            },
-            {
-                text: 'Valoración inicial',
-                handler: function(scope) {
-                    $scope.verValoracionInicial(scope.cama.idInternacion);
-                }
-            },
-            {
-                text: 'Cargar prestaciones',
-                handler: function(scope) {
-                    $scope.cargarPrestaciones();
-                }
-            },
-            {
-                text: 'Desocupar cama',
-                handler: function(scope) {
-                    $scope.egresarPaciente(scope.cama);
-                }
+        actions: [{
+            text: 'Internación',
+            handler: function(scope) {
+                $scope.editarIngresoInternacion(scope.cama.id, scope.cama.idInternacion);
             }
-        ],
+        }, {
+            text: 'Evoluciones',
+            handler: function(scope) {
+                $scope.evolucionarPaciente(scope.cama);
+            }
+        }, {
+            text: 'Valoración inicial',
+            handler: function(scope) {
+                $scope.verValoracionInicial(scope.cama.idInternacion);
+            }
+        }, {
+            text: 'Cargar prestaciones',
+            handler: function(scope) {
+                $scope.cargarPrestaciones();
+            }
+        }, {
+            text: 'Desocupar cama',
+            handler: function(scope) {
+                $scope.egresarPaciente(scope.cama);
+            }
+        }],
         init: function() {
             // obtenemos las camas para armar el mapa
             Shared.Mapa.get(Session.ubicacionActual).then(function(data) {
                 $scope.camas = data;
                 $scope.filter.filtrar();
 
-                var services_found = [];
+                var idServicios = [];
                 angular.forEach($scope.camas, function(cama, key) {
 
-                    if (cama.idInternacion){
-                        Shared.internacion.get(cama.idInternacion).then(function(internacion){
+                    if (cama.idInternacion) {
+                        Shared.internacion.get(cama.idInternacion).then(function(internacion) {
                             cama.$internacion = internacion;
-                            if (internacion.id == '57177536678e90cc051205d0')
-                                console.log(internacion);
                         });
                     }
-
 
                     //asignamos las habitaciones
                     if (!$scope.habitaciones.inArray(cama.habitacion)) {
@@ -83,17 +78,21 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                         $scope.tipoCamas.push(cama.tipoCama);
                     }
 
-                    // asignamos los servicios
-                    // if (!$scope.servicios.length) {
-                    //     $scope.servicios.push(cama.servicio);
-                    //     services_found.push(cama.servicio._id);
-                    // } else {
-                    //
-                    //     if ($.inArray(cama.servicio._id, services_found) == -1) {
-                    //         $scope.servicios.push(cama.servicio);
-                    //         services_found.push(cama.servicio._id);
-                    //     }
-                    // }
+                    // asignamos los servicios en base a los servicios
+                    // que tiene cada cama
+                    if (cama.servicio && typeof cama.servicio.id !== "undefined") {
+
+                        if ($scope.servicios.length == 0) {
+                            $scope.servicios.push(cama.servicio);
+                            idServicios.push(cama.servicio._id);
+                        } else {
+                            if ($.inArray(cama.servicio._id, idServicios) == -1) {
+                                $scope.servicios.push(cama.servicio);
+                                idServicios.push(cama.servicio._id);
+                            }
+                        }
+                    }
+
                 });
 
                 // ordenamos las habitaciones
@@ -111,7 +110,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             tipoCama: false,
             nombre: null,
             estado: null,
-            // servicio: false,
+            servicio: null,
             filtrar: function() {
                 var self = this;
                 var regex_nombre = new RegExp(".*" + self.nombre + ".*", "ig");
@@ -119,13 +118,15 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 var _desinfectada = (self.desinfectada) ? false : null;
 
                 self.camas = $scope.camas.filter(function(i) {
+                    // if (i.servicio && i.servicio.id && self.servicio && self.servicio.id)
+                    //     console.log(Date.now(), self.servicio.id, i.servicio.id);
                     return (!self.oxigeno || (self.oxigeno && i.oxigeno)) &&
                         // (!self.desinfectada || (self.desinfectada && i.desinfectada)) &&
                         (_desinfectada === null || (!_desinfectada && !i.desinfectada)) &&
                         (!self.tipoCama || (self.tipoCama && i.tipoCama == self.tipoCama)) &&
                         (!self.habitacion || (self.habitacion && i.habitacion == self.habitacion)) &&
                         (!self.estado || (self.estado && i.estado == self.estado)) &&
-                        // (!self.servicio || (self.servicio && i.servicio._id == self.servicio)) &&
+                        (!self.servicio || !self.servicio.id || (self.servicio && i.servicio && i.servicio.id == self.servicio.id)) &&
                         (!self.nombre || (self.nombre && i.paciente && (regex_nombre.test(i.paciente.nombre) || (regex_nombre.test(i.paciente.apellido)) || (regex_nombre.test(i.paciente.documento)))));
                 });
             },
@@ -137,11 +138,12 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 self.tipoCama = false;
                 self.nombre = null;
                 self.estado = null;
+                self.servicio = null;
             }
         },
 
-        verInternacion: function(idInternacion){
-            Plex.openView('internacion/ver/' + idInternacion).then(function(){
+        verInternacion: function(idInternacion) {
+            Plex.openView('internacion/ver/' + idInternacion).then(function() {
 
             });
         },
@@ -206,7 +208,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                     //     }, 500);
                     // }
 
-                    if ($scope.ingresoEnfermeria){
+                    if ($scope.ingresoEnfermeria) {
                         $alert({
                             title: 'Internacion creada',
                             content: 'A continuación puede crear la valoración inicial.',
@@ -329,9 +331,14 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
         var inicio = moment(start);
         var fin = moment(end);
 
-
         return parseInt(moment.duration(fin.diff(inicio)).asDays());
     };
+
+    $scope.$watch('filter.servicio', function(current, old) {
+        if (current != old || (current && old && current.id && old.id != current.id != old.id)) {
+            $scope.filter.filtrar();
+        }
+    });
 
     $scope.$watch('filter.nombre + filter.oxigeno + filter.desinfectada + filter.tipoCama + filter.habitacion + filter.estado', function(current, old) {
         if (current != old) {
@@ -341,5 +348,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
 
     $scope.init();
 
-    Plex.initView({title: "Mapa de camas"});
+    Plex.initView({
+        title: "Mapa de camas"
+    });
 }]);
