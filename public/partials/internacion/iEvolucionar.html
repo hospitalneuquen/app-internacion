@@ -129,7 +129,8 @@
                         {{item.servicio.nombreCorto}}
                     </td>
                     <td >
-                        <button ng-if='item.tipo == Session.variables.prestaciones_workflow' class="btn btn-default btn-flat tips" title="Editar evolución" ng-click="editarEvolucion(item);">
+                        <!-- ng-if='item.tipo == Session.variables.prestaciones_workflow' -->
+                        <button class="btn btn-default btn-flat tips" title="Editar evolución" ng-click="editarEvolucion(item);">
                             <i class="mdi mdi-pencil"></i>
                         </button>
                     </td>
@@ -451,9 +452,9 @@
                             <div class=" row" ng-if="internacion.evoluciones.length > 0">
                                 <div class="col-lg-12">
                                     <h6 class="text-uppercase">
-                                        Evolución anterior ({{internacion.evoluciones[internacion.evoluciones.length-1].fechaHora | fromNow}})
+                                        Evolución anterior ({{ultimaEvolucion.fechaHora | fromNow}})
                                         <span class=" pull-right">
-                                            {{internacion.evoluciones[internacion.evoluciones.length-1].fechaHora | date: "dd/MM/yyyy  'a las' HH:mm "}}
+                                            {{ultimaEvolucion.fechaHora | date: "dd/MM/yyyy  'a las' HH:mm "}}
                                             hs
                                         </span>
                                     </h6>
@@ -463,126 +464,153 @@
                             </div>
 
                             <div class=" row" ng-if="internacion.evoluciones.length > 0">
-                                <div class="col-lg-2">
+                                <div class="col-lg-2 evolucion-anterior">
                                     <span class="text-uppercase">Signos vitales</span>
                                     <br/>
-                                    <strong>Frecuencia cardíaca:</strong>
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].pulso}}
-                                    PPM
-                                    <br/>
-                                    <strong>Frecuencia respiratoria:</strong>
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].respiracion}}
-                                    PPM
-                                    <br/>
-                                    <strong>Tensión diastólica:</strong>
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].tensionDiastolica}}
-                                    mmHG
-                                    <br/>
-                                    <strong>Tensión sistólica:</strong>
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].tensionSistolica}}
-                                    mmHG
+                                    <div ng-show="ultimaEvolucion.pulso">
+                                        <strong>Frecuencia cardíaca:</strong>
+                                        {{ultimaEvolucion.pulso}}
+                                        PPM
+                                    </div>
+                                    <div ng-show="ultimaEvolucion.respiracion">
+                                        <strong>Frecuencia respiratoria:</strong>
+                                        {{ultimaEvolucion.respiracion}}
+                                        PPM
+                                    </div>
+                                    <div ng-show="ultimaEvolucion.tensionDiastolica">
+                                        <strong>Tensión diastólica:</strong>
+                                        {{ultimaEvolucion.tensionDiastolica}}
+                                        mmHG
+                                    </div>
+                                    <div ng-show="ultimaEvolucion.tensionSistolica">
+                                        <strong>Tensión sistólica:</strong>
+                                        {{ultimaEvolucion.tensionSistolica}}
+                                        mmHG
+                                    </div>
                                 </div>
-                                <div class="col-lg-2 br">
+                                <div class="col-lg-2 br evolucion-anterior">
                                     <br/>
-                                    <strong>Temperatura:</strong>
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].temperatura}}
-                                    ºC
-                                    <br/>
-                                    <strong>Saturación O
-                                        <sub>2</sub>:</strong>
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].sp02}}
-                                    %
-                                    <br/>
-                                    <strong>Peso:</strong>
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].peso}}
-                                    kgs
-                                    <br/>
+                                    <div ng-show="ultimaEvolucion.temperatura">
+                                        <strong>Temperatura:</strong>
+                                        {{ultimaEvolucion.temperatura}}
+                                        ºC
+                                    </div>
+                                    <div ng-show="ultimaEvolucion.spo2">
+                                        <strong>Saturación O
+                                            <sub>2</sub>:</strong>
+                                        {{ultimaEvolucion.spo2}}
+                                        %
+                                    </div>
+                                    <div ng-show="ultimaEvolucion.peso">
+                                        <strong>Peso:</strong>
+                                        {{ultimaEvolucion.peso}}
+                                        kgs
+                                    </div>
                                     <br/>
                                 </div>
-                                <div class="col-lg-2">
+                                <div class="col-lg-2 evolucion-anterior">
                                     <span class="text-uppercase">Ingresos</span>
                                     <br/>
-                                    <strong>ATB:</strong>
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].ingresos.atb}}
-                                    ml
-                                    <br/>
-                                    <strong>HEMO.:</strong>
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].ingresos.hemo}}
-                                    ml
-                                    <br/>
-                                    <strong>NP:</strong>
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].ingresos.np}}
-                                    ml
-                                    <br/>
-                                    <strong>Prep.:</strong>
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].ingresos.prep}}
-                                    ml
+                                    <div ng-show="ultimaEvolucion.ingresos.atb">
+                                        <strong>ATB:</strong>
+                                        {{ultimaEvolucion.ingresos.atb}}
+                                        ml
+                                    </div>
+                                    <div ng-show="ultimaEvolucion.ingresos.hemo">
+                                        <strong>HEMO.:</strong>
+                                        {{ultimaEvolucion.ingresos.hemo}}
+                                        ml
+                                    </div>
+                                    <div ng-show="ultimaEvolucion.ingresos.np">
+                                        <strong>NP:</strong>
+                                        {{ultimaEvolucion.ingresos.np}}
+                                        ml
+                                    </div>
+                                    <div ng-show="ultimaEvolucion.ingresos.prep">
+                                        <strong>Prep.:</strong>
+                                        {{ultimaEvolucion.ingresos.prep}}
+                                        ml
+                                    </div>
                                 </div>
-                                <div class="col-lg-1 br">
+                                <div class="col-lg-1 br evolucion-anterior">
                                     <br/>
-                                    <strong>H
-                                        <sub>2</sub>O:</strong>
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].ingresos.h2o}}
-                                    ml
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                    <br/>
+                                    <div ng-show="ultimaEvolucion.ingresos.h2o">
+                                        <strong>H
+                                            <sub>2</sub>O:</strong>
+                                        {{ultimaEvolucion.ingresos.h2o}}
+                                        ml
+                                    </div>
+
                                 </div>
 
-                                <div class="col-lg-2">
+                                <div class="col-lg-2 evolucion-anterior">
                                     <span class="text-uppercase">Egresos</span>
                                     <br/>
-                                    <strong>Lavado Vesical I:</strong>
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].egresos.lavadoVeasicalI}}
-                                    ml
-                                    <br/>
-                                    <strong>Lavado Vesical II:</strong>
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].egresos.lavadoVeasicalI}}
-                                    ml
-                                    <br/>
-                                    <strong>Diuresis:</strong>
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].egresos.diuresis}}
-                                    ml
-                                    <br/>
-                                    <strong>Catarsis:</strong>
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].egresos.catarsis}}
-                                    ml
+                                    <div ng-show="ultimaEvolucion.egresos.lavadoVesicalI">
+                                        <strong>Lavado Vesical I:</strong>
+                                        {{ultimaEvolucion.egresos.lavadoVesicalI}}
+                                        ml
+                                    </div>
+                                    <div ng-show="ultimaEvolucion.egresos.lavadoVesicalE">
+                                        <strong>Lavado Vesical II:</strong>
+                                        {{ultimaEvolucion.egresos.lavadoVesicalE}}
+                                        ml
+                                    </div>
+                                    <div ng-show="ultimaEvolucion.egresos.diuresis">
+                                        <strong>Diuresis:</strong>
+                                        {{ultimaEvolucion.egresos.diuresis}}
+                                        ml
+                                    </div>
+                                    <div ng-show="ultimaEvolucion.egresos.catarsis">
+                                        <strong>Catarsis:</strong>
+                                        {{ultimaEvolucion.egresos.catarsis}}
+                                        ml
+                                    </div>
                                 </div>
-                                <div class="col-lg-2 br">
+                                <div class="col-lg-2 br evolucion-anterior">
                                     <br/>
-                                    <strong>S.N.G:</strong>
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].egresos.sng}}
-                                    ml
-                                    <br/>
-                                    <strong>S.N.Y:</strong>
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].sny}}
-                                    ml
-                                    <br/>
-                                    <strong>Ostomias I:</strong>
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].egresos.ostomias}}
-                                    ml
-                                    <br/>
-                                    <strong>Ostomias II:</strong>
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].egresos.ostomias}}
-                                    ml
-                                    <!-- Drenajes -->
+                                    <div ng-show="ultimaEvolucion.egresos.sng">
+                                        <strong>S.N.G:</strong>
+                                        {{ultimaEvolucion.egresos.sng}}
+                                        ml
+                                    </div>
+                                    <div ng-show="ultimaEvolucion.egresos.sny">
+                                        <strong>S.N.Y:</strong>
+                                        {{ultimaEvolucion.sny}}
+                                        ml
+                                    </div>
+                                    <div ng-show="ultimaEvolucion.egresos.ostomias">
+                                        <strong>Ostomias I:</strong>
+                                        {{ultimaEvolucion.egresos.ostomias}}
+                                        ml
+                                    </div>
+                                    <div ng-show="ultimaEvolucion.egresos.ostomias2">
+                                        <strong>Ostomias II:</strong>
+                                        {{ultimaEvolucion.egresos.ostomias2}}
+                                        ml
+                                    </div>
+
+                                    <div ng-repeat="drenaje in drenajes track by $index">
+                                        <div ng-show="drenajes[$index].cantidad">
+                                        {{drenaje.tipo}}, lado {{drenaje.lado}} {{drenajes[$index].cantidad}} ml ({{drenajes[$index].caracteristicaLiquido}})
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-lg-1">
+                                <div class="col-lg-1 evolucion-anterior">
                                     <span class="text-uppercase">
                                         Balance</span>
-                                    <i class="verde mdi mdi-trending-up" ng-if="internacion.evoluciones[internacion.evoluciones.length-1].$balance < 0"></i>
-                                    <i class="celeste mdi mdi-trending-flat" ng-if="internacion.evoluciones[internacion.evoluciones.length-1].$balance == 0"></i>
-                                    <i class="rojo mdi mdi-trending-down" ng-if="internacion.evoluciones[internacion.evoluciones.length-1].$balance > 0"></i>
+                                    <i class="verde mdi mdi-trending-up" ng-if="ultimaEvolucion.$balance < 0"></i>
+                                    <i class="celeste mdi mdi-trending-flat" ng-if="ultimaEvolucion.$balance == 0"></i>
+                                    <i class="rojo mdi mdi-trending-down" ng-if="ultimaEvolucion.$balance > 0"></i>
                                 </span>
 
                                 <br/>
                                 <span>
                                     <strong>I =</strong>
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].$total_ingresos}}
+                                    {{ultimaEvolucion.$total_ingresos}}
                                     <br/>
                                     <strong>E =</strong>
-                                    {{internacion.evoluciones[internacion.evoluciones.length-1].$total_egresos}}
+                                    {{ultimaEvolucion.$total_egresos}}
                                 </span>
 
                             </div>

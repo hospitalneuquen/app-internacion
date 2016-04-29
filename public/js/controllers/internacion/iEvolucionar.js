@@ -11,6 +11,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
         drenajesInternacion: [],
         evolucionesEdit: undefined, // Item actual que se está editando
         balanceTotal: 0,
+        ultimaEvolucion: null,
         // evoluciones: {},
         // array de servicios para filtrar en la vista
         servicios: [{
@@ -88,7 +89,15 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
             if (evolucion) { // Modificación
                 $scope.tituloFormulario = "Editar evolución";
                 $scope.evolucionesEdit = {};
+
+                // buscamos los datos de la ultima evolucion para poder mostrar
+                // el resumen cuando el medico escribe el texto de la evolucion
+                if ($scope.internacion.evoluciones[$scope.internacion.evoluciones.length-2]){
+                    $scope.ultimaEvolucion = $scope.internacion.evoluciones[$scope.internacion.evoluciones.length-2];
+                }
+
                 angular.copy(evolucion, $scope.evolucionesEdit);
+
 
                 // cargamos los drenajes de la internacion
                 if ($scope.drenajesInternacion.length) {
@@ -127,6 +136,13 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
             } else { // Alta
                 $scope.tab = 1;
                 $scope.tituloFormulario = "Agregar evolución";
+
+                // buscamos los datos de la ultima evolucion para poder mostrar
+                // el resumen cuando el medico escribe el texto de la evolucion
+                if ($scope.internacion.evoluciones[$scope.internacion.evoluciones.length-1]){
+                    $scope.ultimaEvolucion = $scope.internacion.evoluciones[$scope.internacion.evoluciones.length-1];
+                }
+
                 // Valores por defecto
                 $scope.evolucionesEdit = {
                     fechaHora: new Date(),

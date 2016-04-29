@@ -47,39 +47,17 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
 
             });
         },
-        hospitales: {
-            data: null,
-            // selectedItem: null,
-            searchText: null,
-            querySearch: function(query) {
-                var self = $scope.hospitales;
-                var regex_nombre = new RegExp(".*" + self.searchText + ".*", "ig");
 
-                if (query) {
-                    return self.data.filter(function(i) {
-
-                        return ( (regex_nombre.test(i.nombreCorto) || (regex_nombre.test(i.nombre)) ));
-                    });
-                }else{
-                    return self.data;
-                }
-            },
-
-            /**
-             * Create filter function for a query string
-             */
-            createFilterFor: function(query) {
-                var lowercaseQuery = angular.lowercase(query);
-                return function filterFn(hospital) {
-                    return (hospital.value.indexOf(lowercaseQuery) === 0);
-                };
-            },
-
-            selectItem: function(hospital){
-                $scope.egreso.derivadoHacia = hospital.id
+        buscarUbicacion: function(query, tipo){
+            // buscamos todos los servicios para en caso de ser un pase
+            // cargar el select con las opciones
+            var buscar = {
+                tipo: tipo,
+                nombre: query
             }
-        },
 
+            return Shared.ubicaciones.get(buscar);
+        },
         cancelarEgreso: function() {
             Plex.closeView();
         },
@@ -91,20 +69,18 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
 
                 $scope.egreso.cama = plexParams.idCama
 
-                Shared.ubicaciones.get({
-                    tipo: 'hospital'
-                }).then(function(hospitales) {
-                    $scope.hospitales = hospitales;
-                });
+                // Shared.ubicaciones.get({
+                //     tipo: 'hospital'
+                // }).then(function(hospitales) {
+                //     $scope.hospitales = hospitales;
+                // });
 
             });
         }
     });
 
     $scope.$watch('egreso.tipoAlta', function(current, old) {
-        if ($scope.egreso.tipoAlta != 'derivacion'){
-            $scope.egreso.derivadoHacia = null;
-        }
+        $scope.egreso.derivadoHacia = null;
     });
 
     $scope.$watch('egreso.tipo', function(current, old) {
