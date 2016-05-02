@@ -52,7 +52,6 @@
             </li>
         </ul>
 
-
         <div class="card card-block">
 
             <div class="card-deck-wrapper">
@@ -169,7 +168,13 @@
                             <p class="card-text" ng-if="internacion.drenajes.length">
                                 <div ng-repeat="drenaje in internacion.drenajes">
                                     <div ng-if="drenaje.fechaHasta">
-                                        <i class="mdi mdi-steam" title="Drenaje {{drenaje.tipo}} {{drenaje.lado}} colocado hace {{diasColocacionDrenaje(drenaje.fechaDesde)}} días" ng-class="{'rojo': diasColocacionDrenaje(drenaje.fechaDesde) >= 5}"></i> Drenaje {{drenaje.tipo}} {{drenaje.lado}} colocado hace {{diasColocacionDrenaje(drenaje.fechaDesde)}} días
+                                        <i class="mdi mdi-steam" title="Drenaje {{drenaje.tipo}} {{drenaje.lado}} colocado hace {{diasColocacionDrenaje(drenaje.fechaDesde)}} días" ng-class="{'rojo': diasColocacionDrenaje(drenaje.fechaDesde) >= 5}"></i>
+                                        Drenaje
+                                        {{drenaje.tipo}}
+                                        {{drenaje.lado}}
+                                        colocado hace
+                                        {{diasColocacionDrenaje(drenaje.fechaDesde)}}
+                                        días
                                     </div>
                                 </div>
                             </p>
@@ -183,23 +188,22 @@
             </div>
         </div>
 
-
         <div class="card card-block">
             <div class="row">
                 <div class="col-lg-4">
-                        <!-- <div plex-include="'partials/internacion/iGraficoLiquidos.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0"></div> -->
+                    <!-- <div plex-include="'partials/internacion/iGraficoLiquidos.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0"></div> -->
 
-                        <div plex-include="'partials/internacion/iGraficoTemperatura.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
-
-                </div>
-                <div class="col-lg-4">
-
-                        <div plex-include="'partials/internacion/iGraficoTension.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
+                    <div plex-include="'partials/internacion/iGraficoTemperatura.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
 
                 </div>
                 <div class="col-lg-4">
 
-                        <div plex-include="'partials/internacion/iGraficoSaturacion.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
+                    <div plex-include="'partials/internacion/iGraficoTension.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
+
+                </div>
+                <div class="col-lg-4">
+
+                    <div plex-include="'partials/internacion/iGraficoSaturacion.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
 
                 </div>
 
@@ -215,7 +219,8 @@
                         <div class="form-group">
                             <!-- <input class="form-control" type="text" label="Fecha de internación" ng-model="internacion.ingreso.fechaHora" plex="date" ng-required="true"> -->
                             <label>Fecha de internación</label>
-                            <p>{{internacion.ingreso.fechaHora | date: 'dd/MM/yyyy H:mm'}} hs</p>
+                            <p>{{internacion.ingreso.fechaHora | date: 'dd/MM/yyyy H:mm'}}
+                                hs</p>
                         </div>
                     </div>
 
@@ -384,7 +389,17 @@
         </div>
 
         <div class="card card-block">
-            <h3 >Pases</h3>
+            <div class="row" ng-show="show_toolbar_pases">
+                <div class="col-md-8 col-lg-10">
+                    <h3>Pases</h3>
+                </div>
+                <div class="col-md-4 col-lg-2 text-right">
+                    <br/>
+                    <button class="btn btn-primary form-control" ng-click="editarPase();" ng-if="!pasesEdit">
+                        Nuevo pase
+                    </button>
+                </div>
+            </div>
             <div ng-if="internacion.pases && internacion.pases.length > 0">
                 <table class="table table-hover table-striped">
                     <thead >
@@ -410,7 +425,9 @@
                             <td >
                                 {{item.servicio.nombreCorto}}
                             </td>
-                            <td ></td>
+                            <td >
+                                {{item.resumenInternacion}}
+                            </td>
 
                             <td >
                                 <button class="btn btn-default btn-flat tips" title="Editar pase" ng-click="editarPase(item)">
@@ -421,6 +438,47 @@
                     </tbody>
                 </table>
             </div>
+
+            <div ng-if="pasesEdit">
+                <ng-form name="formEditarPase">
+                    <fieldset>
+                        <legend>{{tituloFormulario}}</legend>
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <input type=text label="Fecha" ng-model="pasesEdit.fechaHora" plex="date">
+                            </div>
+                            <div class="col-lg-2">
+                                <input type=text label="Hora" ng-model="pasesEdit.fechaHora" plex="time">
+                            </div>
+                            <div class="col-lg-1">
+                                <select label="Cama" ng-model="pasesEdit.cama" plex="(item.habitacion + ' / ' + item.numero) for item in camas"></select>
+                            </div>
+                            <div class="col-lg-2">
+                                <select label="Servicio actual" ng-model="pasesEdit.servicio" min="3" plex="(item.nombre) for item in buscarUbicacion($value, 'servicio')"></select>
+                            </div>
+                            <div class="col-lg-2">
+                                <select label="Servicio sugerido" ng-model="pasesEdit.servicioSugerido" min="3" plex="(item.nombre) for item in buscarUbicacion($value, 'servicio')"></select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <textarea label="Resumen de la internación" ng-model="pasesEdit.resumenInternacion" plex rows="5" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <br/>
+                                <button type="button" class="btn btn-default btn-flat" ng-click="cancelarEdicionPase();">Cancelar</button>
+                                <button class="btn btn-primary" plex-submit="guardarPase(pasesEdit)" ng-disabled="formEditarPase.$invalid">
+                                    <i class="mdi mdi-content-save"></i>
+                                    Guardar</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </ng-form>
+            </div>
+
         </div>
         <div class="card card-block">
             <div ng-if="internacion.egreso">
