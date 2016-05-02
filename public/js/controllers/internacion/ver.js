@@ -1,9 +1,10 @@
-angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexParams', 'Server', '$timeout', 'Personas', 'Global', 'Shared', function($scope, Plex, plexParams, Server, $timeout, Personas, Global, Shared) {
+angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexParams', 'Server', '$timeout', 'Personas', 'Global', 'Shared', '$alert', function($scope, Plex, plexParams, Server, $timeout, Personas, Global, Shared, $alert) {
     'use strict';
 
     angular.extend($scope, {
         tab: 0,
         show_toolbar_drenajes: true,
+        show_toolbar_pases: true,
         drenajesEdit: undefined, // Item actual que se está editando de los drenajes
         ordenCronologico: [],
         riesgoCaidas: 0,
@@ -39,6 +40,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
             nombre: 'Derivación'
         }, ],
         tipoInternacionSeleccionada: '',
+        camas: null,
         filtros: {
             evoluciones: [],
             servicio: null,
@@ -62,9 +64,6 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
             Plex.closeView({
 
             });
-        },
-        editarPase: function(item) {
-            alert("Definir que editar y como. Solo fecha ? Descripcion? Permitir editar si no esta egresado el pacietne?")
         },
         editarDrenaje: function(drenaje) {
             $scope.show_toolbar_drenajes = false;
@@ -122,6 +121,78 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                 $scope.internacion.drenajes.push(data);
             }
 
+        },
+        editarPase: function(pase) {
+            // obtenemos el listadod de camas
+            Shared.Mapa.get().then(function(camas){
+                $scope.camas = camas;
+            });
+
+            $scope.show_toolbar_pases = false;
+            if (pase) { // Modificación
+                $scope.tituloFormulario = "Editar pase";
+                $scope.pasesEdit = {};
+                angular.copy(pase, $scope.pasesEdit);
+            } else { // Alta
+                $scope.tituloFormulario = "Agregar pase";
+                // Valores por defecto
+                $scope.pasesEdit = {
+                    fechaDesde: new Date()
+                };
+            }
+        },
+        guardarPase: function() {
+            Shared.pase.post($scope.internacion.id, $scope.pasesEdit.id || null, $scope.pasesEdit, {
+                minify: true
+            }).then(function(data) {
+                $alert({
+                    title: '',
+                    content: 'Pase guardado',
+                    placement: 'top-right',
+                    type: 'success',
+                    show: true
+                });
+
+                $scope.internacion.pases.push(data);
+                // actualizamos el listado de evoluciones
+                $scope.actualizarPases(data);
+                $scope.cancelarEdicionPase();
+            });
+        },
+        // Cancelar la edición
+        cancelarEdicionPase: function() {
+            $scope.pasesEdit = null;
+            $scope.show_toolbar_pases = true;
+        },
+        actualizarPases: function(data) {
+            var found = false;
+
+            var length = $scope.internacion.pases.length;
+            // buscamos el drenaje y actualizamos el valor con los datos
+            for (var i = 0; i < length; i++) {
+                if ($scope.internacion.pases[i].id === data.id) {
+                    // drenaje encontrado, actualizamos datos
+                    $scope.internacion.pases[i] = data;
+                    found = true;
+                    break;
+                }
+            }
+
+            // si no lo encontro, entonces es porque acaba de cargarla
+            if (!found) {
+                $scope.internacion.pases.push(data);
+            }
+
+        },
+        buscarUbicacion: function(query, tipo){
+            // buscamos todos los servicios para en caso de ser un pase
+            // cargar el select con las opciones
+            var buscar = {
+                tipo: tipo,
+                nombre: query
+            }
+
+            return Shared.ubicaciones.get(buscar);
         },
         ordenarCronologicamente: function() {
             // agregamos el ingreso
@@ -238,13 +309,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                 return new Date(a.fecha).getTime() - new Date(b.fecha).getTime()
             });
 
-            // ordenamos los pases en orden cronologico descendiente a como
-            // han sido cargados, y asi recorremos los elementos del historial
-            // y comparamos fechas asi vamos agregando la cama para cada elemento
-            // console.log(pasesOrdenDesc);
-
             angular.forEach($scope.ordenCronologico, function(elemento, index) {
-                // console.log("%c" + elemento.cama.habitacion + "/" + elemento.cama.numero, 'font-size: 14px;');
 
                 var cantidadPases = ($scope.internacion.pases.length - 1);
 
@@ -252,16 +317,9 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                     var pase = $scope.internacion.pases[i];
                     // si la fecha del elemento, es menor o igual a la del pase
                     // entonces le asignamos esa cama (nro habitacion y nro cama)
-                    if (elemento.fecha <= pase.fechaHora){
-                        console.info(elemento.fecha + " < " + pase.fechaHora);
+                    if (Global.compareDateTime(elemento.fecha, pase.fechaHora) < 0){
 
-                    // if (moment(elemento.fecha) <= moment(pase.fechaHora)){
-                    // if (moment(elemento.fecha).isSameOrBefore(pase.fechaHora)){
-                        // console.log(pase.cama.habitacion + "/" + pase.cama.numero);
                         $scope.ordenCronologico[index].cama = pase.cama;
-
-                        // console.info(elemento.fecha + " < " + pase.fechaHora);
-                        //console.log($scope.ordenCronologico[index].cama);
                     }
 
                 }

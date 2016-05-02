@@ -21,7 +21,6 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             id: '',
             nombre: 'Todos'
         }],
-        idServicioActual: '',
         // variable que determina si la internacion tiene info de ingreso
         ingresoEnfermeria: false,
         habitaciones: [],
@@ -57,6 +56,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             // obtenemos las camas para armar el mapa
             Shared.Mapa.get(Session.ubicacionActual).then(function(data) {
                 $scope.camas = data;
+                $scope.filter.servicio = Session.servicioActual;
                 $scope.filter.filtrar();
 
                 var idServicios = [];
