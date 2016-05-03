@@ -15,24 +15,37 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
         // evoluciones: {},
         // array de servicios para filtrar en la vista
         servicios: [{
-            id: null,
-            nombreCorto: 'Todos'
+            id: 'mis-servicios',
+            nombreCorto: "Mis evoluciones"
+        }, {
+            id: '',
+            nombreCorto: 'Todas'
         }],
         filtros: {
             evoluciones: [],
             servicio: null,
-            filtrar: function() {
+            filtrar: function(){
                 var self = this;
 
-                if (!this.servicio) {
+                if (!self.servicio.id) {
                     $scope.filtros.evoluciones = $scope.internacion.evoluciones;
                 } else {
                     $scope.filtros.evoluciones = [];
-                    angular.forEach($scope.internacion.evoluciones, function(evolucion) {
-                        if (self.servicio && evolucion.servicio.id === self.servicio) {
-                            $scope.filtros.evoluciones.push(evolucion);
-                        }
-                    });
+
+                    if (self.servicio.id == 'mis-servicios'){
+                        angular.forEach($scope.internacion.evoluciones, function(evolucion) {
+                            if (self.servicio && evolucion.createdBy.id === Session.user.id) {
+                                $scope.filtros.evoluciones.push(evolucion);
+                            }
+                        });
+                    }else{
+
+                        angular.forEach($scope.internacion.evoluciones, function(evolucion) {
+                            if (self.servicio && evolucion.servicio.id === self.servicio.id) {
+                                $scope.filtros.evoluciones.push(evolucion);
+                            }
+                        });
+                    }
                 }
             }
         },
@@ -65,6 +78,8 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                         }
                     });
                 }
+
+                $scope.filtros.filtrar();
 
                 if ($scope.internacion.drenajes.length) {
                     // cargamos los drenajes al array de drenajesInternacion

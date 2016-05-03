@@ -150,18 +150,13 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
         // buscamos un paciente y creamos la itnernacion
         buscarPaciente: function(cama) {
             if (!cama.desinfectada) {
-                $alert({
-                    title: 'Cama sin desfinfectar',
-                    content: 'La cama está actualmente sin desinfectar, no se puede internar a un paciente en ella.',
-                    placement: 'top-right',
-                    type: 'info',
-                    show: true
-                });
+                Plex.alert('La cama está actualmente sin desinfectar, no se puede internar a un paciente en ella.');
+
                 return false;
             }
             Plex.openView('internacion/editar/cama/' + cama.id).then(function(internacion) {
-                // si la internacion
-                $scope.ingresoEnfermeria = (typeof internacion.ingreso.enfermeria === 'undefined') ? true : false;
+                // si la internacion no se le ha cargado el ingreso a enfermeria
+                $scope.ingresoEnfermeria = (internacion.ingreso && typeof internacion.ingreso.enfermeria === 'undefined') ? true : false;
 
                 // operar con el paciente / internacion devuelto en data
                 if (typeof internacion !== "undefined") {
@@ -190,43 +185,13 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                     // nos fijamos si no tiene datos de ingresos de enfermeria
                     // y de ser asi mostramos el formulario de valoracion de enfermeria
 
-                    // if ($scope.ingresoEnfermeria){
-                    //     $scope.openToast("Internacion creada. A continuación puede crear la valoración inicial.");
-                    //
-                    //     $timeout(function() {
-                    //             if (data) {
-                    //                 $scope.openToast("");
-                    //                 $alert({
-                    //                     title: 'Valoracion enfermeria guardada',
-                    //                     content: '',
-                    //                     placement: 'top-right',
-                    //                     type: 'success',
-                    //                     show: true
-                    //                 });
-                    //             }
-                    //         });
-                    //     }, 500);
-                    // }
-
                     if ($scope.ingresoEnfermeria) {
-                        $alert({
-                            title: 'Internacion creada',
-                            content: 'A continuación puede crear la valoración inicial.',
-                            placement: 'top-right',
-                            type: 'success',
-                            show: true
-                        });
+                        Plex.alert('Internacion creada. A continuación puede crear la valoración inicial.');
 
                         $timeout(function() {
                             Plex.openView('valoracionEnfermeria/' + data.idInternacion).then(function(data) {
                                 if (data) {
-                                    $alert({
-                                        title: '',
-                                        content: 'Valoracion enfermeria guardada',
-                                        placement: 'top-right',
-                                        type: 'success',
-                                        show: true
-                                    });
+                                    Plex.alert('Valoracion enfermeria guardada');
                                 }
                             });
                         }, 500);
@@ -250,13 +215,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                             break;
                     }
 
-                    $alert({
-                        title: 'Cama ' + title,
-                        content: '',
-                        placement: 'top-right',
-                        type: 'success',
-                        show: true
-                    });
+                    Plex.alert('Cama ' + title);
                 }
 
             });
