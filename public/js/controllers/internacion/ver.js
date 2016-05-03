@@ -11,10 +11,10 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
         selectedTabIndex: 0,
         internacion: null,
         pases: null,
-        servicios: [{
-            id: null,
-            nombreCorto: 'Todos'
-        }],
+        // servicios: [{
+        //     id: null,
+        //     nombreCorto: 'Todos'
+        // }],
         tiposDrenajes: [{
             id: 'pleural',
             nombre: 'Pleural'
@@ -41,24 +41,24 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
         }, ],
         tipoInternacionSeleccionada: '',
         camas: null,
-        filtros: {
-            evoluciones: [],
-            servicio: null,
-            filtrar: function() {
-                var self = this;
-
-                if (!this.servicio) {
-                    $scope.filtros.evoluciones = $scope.internacion.evoluciones;
-                } else {
-                    $scope.filtros.evoluciones = [];
-                    angular.forEach($scope.internacion.evoluciones, function(evolucion) {
-                        if (self.servicio && evolucion.servicio.id === self.servicio) {
-                            $scope.filtros.evoluciones.push(evolucion);
-                        }
-                    });
-                }
-            }
-        },
+        // filtros: {
+        //     evoluciones: [],
+        //     servicio: null,
+        //     filtrar: function() {
+        //         var self = this;
+        //
+        //         if (!this.servicio) {
+        //             $scope.filtros.evoluciones = $scope.internacion.evoluciones;
+        //         } else {
+        //             $scope.filtros.evoluciones = [];
+        //             angular.forEach($scope.internacion.evoluciones, function(evolucion) {
+        //                 if (self.servicio && evolucion.servicio.id === self.servicio) {
+        //                     $scope.filtros.evoluciones.push(evolucion);
+        //                 }
+        //             });
+        //         }
+        //     }
+        // },
 
         closeView: function() {
             Plex.closeView({
@@ -336,7 +336,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
             // buscamos la internacion
             Shared.internacion.get(plexParams.idInternacion).then(function(internacion) {
                 $scope.internacion = internacion;
-                $scope.filtros.evoluciones = internacion.evoluciones;
+                // $scope.filtros.evoluciones = internacion.evoluciones;
                 $scope.loading = false;
 
                 $scope.tipoInternacionSeleccionada = Global.getById($scope.tiposInternacion, internacion.ingreso.tipo);
@@ -347,19 +347,19 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                 });
 
                 // evoluciones
-                if ($scope.internacion.evoluciones.length) {
-                    var services_found = [];
-                    // buscamos los servicios para el filtro de evoluciones
-                    angular.forEach($scope.internacion.evoluciones, function(evolucion) {
-                        if (evolucion.servicio && evolucion.servicio.id) {
-
-                            if (!services_found.inArray(evolucion.servicio.id)) {
-                                $scope.servicios.push(evolucion.servicio);
-                                services_found.push(evolucion.servicio.id);
-                            }
-                        }
-                    });
-                }
+                // if ($scope.internacion.evoluciones.length) {
+                //     var services_found = [];
+                //     // buscamos los servicios para el filtro de evoluciones
+                //     angular.forEach($scope.internacion.evoluciones, function(evolucion) {
+                //         if (evolucion.servicio && evolucion.servicio.id) {
+                //
+                //             if (!services_found.inArray(evolucion.servicio.id)) {
+                //                 $scope.servicios.push(evolucion.servicio);
+                //                 services_found.push(evolucion.servicio.id);
+                //             }
+                //         }
+                //     });
+                // }
 
                 // ordenamos cronologicamente
                 $scope.ordenarCronologicamente();

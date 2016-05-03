@@ -42,7 +42,7 @@ angular.module('app').controller('internacion/editar', ['$scope', 'Plex', 'plexP
                     paciente: item.id
                 }).then(function(data) {
                     if (data.length) {
-                        alert("Atención: El paciente se encuentra actualmente internado");
+                        Plex.alert("Atención: El paciente se encuentra actualmente internado");
                     } else {
                         $scope.tab = 1;
                         $scope.internacion.paciente = item;
