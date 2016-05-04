@@ -42,6 +42,11 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 $scope.verValoracionInicial(scope.cama.idInternacion);
             }
         }, {
+            text: 'Valoración inicial medica',
+            handler: function(scope) {
+                $scope.verValoracionMedica(scope.cama.idInternacion);
+            }
+        }, {
             text: 'Cargar prestaciones',
             handler: function(scope) {
                 $scope.cargarPrestaciones();
@@ -247,7 +252,11 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             });
 
         },
+        verValoracionMedica: function(idInternacion) {
+            Plex.openView('internacion/' + idInternacion + '/valoracionMedica').then(function(internacion) {
 
+            });
+        },
         egresarPaciente: function(cama) {
             // buscamos la internacion y generamos el egreso
             Plex.openView("internacion/egresar/" + cama.idInternacion + "/" + cama.id).then(function(internacion) {

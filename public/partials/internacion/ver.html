@@ -40,6 +40,11 @@
                     Pases
                 </a>
             </li>
+            <li>
+                <a>
+                    Pedidos de prestaciones
+                </a>
+            </li>
             <li ng-class="{'disabled': !internacion.egreso}">
                 <a>
                     Egreso
@@ -365,26 +370,61 @@
         </div>
 
         <div class="card card-block">
-            <h3 >Antecedentes</h3>
-            <div ng-if="antecedentesPersonales && antecedentesPersonales.length > 0">
-                <table class="table table-hover table-striped">
-                    <thead >
-                        <tr >
-                            <th >Tipo</th>
-                            <th >Observaciones</th>
+            <div ng-if="internacion.ingreso.antecedentes.binarios">
+                <h3>Antecedentes</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Antecedente</th>
+                            <th>Observaciones</th>
                         </tr>
                     </thead>
-                    <tbody >
-                        <tr ng-repeat="item in antecedentesPersonales">
-                            <td >
-                                {{item.antecedente.nombre}}
+                    <tbody>
+                        <tr ng-repeat="item in internacion.ingreso.antecedentes.binarios">
+                            <td ng-if="item.activo">
+                                <span class="text-muted">{{item.antecedente.grupo + " / "}}</span><span>{{item.antecedente.nombre}}</span>
                             </td>
-                            <td >
+                            <td ng-if="item.activo">
                                 {{item.observaciones}}
                             </td>
                         </tr>
                     </tbody>
                 </table>
+            </div>
+
+            <!-- Antecedentes gineco-obstétricos -->
+            <div ng-if="internacion.ingreso.antecedentes.ginecoobstetricos">
+                <h5>Antecedentes gineco-obstétricos</h5>
+                <div class="row">
+                    <div class="col-sm-3" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.gestas">
+                        Gestas: {{internacion.ingreso.antecedentes.ginecoobstetricos.gestas}}
+                    </div>
+                    <div class="col-sm-3" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.partos">
+                        Partos: {{internacion.ingreso.antecedentes.ginecoobstetricos.partos}}
+                    </div>
+                    <div class="col-sm-3" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.cesareas">
+                        Cesáreas: {{internacion.ingreso.antecedentes.ginecoobstetricos.cesareas}}
+                    </div>
+                    <div class="col-sm-3" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.abortos">
+                        Abortos: {{internacion.ingreso.antecedentes.ginecoobstetricos.abortos}}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Antecedentes varios -->
+            <div ng-if="internacion.ingreso.antecedentes.quirurgicos">
+                <h5>Antecedentes quirúrgicos</h5>
+                {{internacion.ingreso.antecedentes.quirurgicos}}
+            </div>
+
+            <div ng-if="internacion.ingreso.antecedentes.familiares">
+                <h5>Antecedentes familiares</h5>
+                {{internacion.ingreso.antecedentes.familiares}}
+            </div>
+
+            <div ng-if="internacion.ingreso.antecedentes.medicacion">
+                <h5>Medicación habitual</h5>
+                {{internacion.ingreso.antecedentes.medicacion}}
             </div>
         </div>
 
@@ -480,6 +520,10 @@
             </div>
 
         </div>
+
+        <div class="card card-block">
+        </div>
+
         <div class="card card-block">
             <div ng-if="internacion.egreso">
                 <h3 >Egreso</h3>

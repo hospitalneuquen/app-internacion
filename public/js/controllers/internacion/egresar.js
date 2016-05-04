@@ -36,15 +36,31 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
                     egreso: $scope.egreso
                 };
             }
+            console.log($scope.egreso.tipo);
+            console.log(data);
 
             Shared.internacion.post(plexParams.idInternacion, data, {
                 minify: true
             }).then(function(internacion) {
                 // TODO: Definir que hacer en caso de que sea defuncion o alta,
                 // si hay que llenar algun otro formulario
+                if (internacion){
+                    // si es un pase entonces actualizamos los valores del pase
+                    if ($scope.egreso.tipo == 'pase') {
+                        console.log("PASEW");
+                        var pase = $scope.internacion.pases[$scope.internacion.pases.length-1];
 
-                Plex.closeView(internacion);
+                        pase.servicioSugerido = $scope.servicioSugerido.id;
+                        pase.resumenInternacion = $scope.egreso.resumenInternacion;
 
+                        Shared.pase.post(plexParams.idInternacion, pase.id, pase, {minify: true}).then(function(pase){
+
+                            Plex.closeView(internacion);
+                        });
+                    }
+                }else{
+                    Plex.closeView(internacion);
+                }
             });
         },
 

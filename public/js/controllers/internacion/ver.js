@@ -145,13 +145,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
             Shared.pase.post($scope.internacion.id, $scope.pasesEdit.id || null, $scope.pasesEdit, {
                 minify: true
             }).then(function(data) {
-                $alert({
-                    title: '',
-                    content: 'Pase guardado',
-                    placement: 'top-right',
-                    type: 'success',
-                    show: true
-                });
+                Plex.alert('Pase guardado');
 
                 $scope.internacion.pases.push(data);
                 // actualizamos el listado de evoluciones
