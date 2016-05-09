@@ -30,7 +30,7 @@
         </div>
         <div class="row" ng-show="egreso.tipoAlta == 'derivacion'">
             <div class="col-lg-6">
-                <select label="Hospital a derivar" ng-model="egreso.derivadoHacia" min="3" plex="(hospital.nombre) for hospital in buscarUbicacion($value, 'hospital')"></select>
+                <select label="Hospital a derivar" ng-model="derivadoHacia" min="3" plex="(hospital.nombre) for hospital in buscarUbicacion($value, 'hospital')"></select>
             </div>
         </div>
         <div class="row" ng-show="egreso.tipo == 'alta' || egreso.tipo == 'pase'">

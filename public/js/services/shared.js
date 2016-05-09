@@ -163,6 +163,43 @@ angular.module('app').factory('Shared', ["Global", "Server", "Session", function
                     params: opciones
                 });
             },
+        },
+        tipoPrestaciones: {
+            /**
+             * @ngdoc method
+             * @name Shared#tiposPrestaciones.get
+             * @description Obtiene una o varias tipo de prestaciones según los parámetros de búsqueda
+             * @param {String|Object} query Parámetros para la consulta.
+             *
+             * Puede ser uno de los siguientes tipos:
+             *   - `String`: Busca por id
+             *   - `Object`: Permite buscar por una o más propiedades, por ejemplo `nombre`, `tipo`, etc. Para más información consultar la api correspondiente.
+             **/
+            get: function(query) {
+                if (angular.isObject(query)) {
+                    return Server.get("/api/internacion/tipoPrestacion", {
+                        params: query
+                    });
+                } else if (query) {
+                    return Server.get("/api/internacion/tipoPrestacion/" + query);
+                } else {
+                    return Server.get("/api/internacion/tipoPrestacion");
+                }
+            }
+        },
+        prestaciones: {
+            /**
+             * @ngdoc method
+             * @name Shared#prestacion.post
+             * @description Crea o modifica una prestacion
+             * @param {String} idInternacion Id de la internación a modificar
+             * @param {String} idPrestacion Id de la prestacion (enviar ```null``` para crear una nueva)
+             * @param {Object} data Datos
+             * @param {Object} options Opciones
+             **/
+            post: function(idInternacion, idPrestacion, data, options) {
+                return Server.post('/api/internacion/internacion/' + idInternacion + '/prestacion/' + (idPrestacion || ''), data, options);
+            },
         }
     };
     return self;

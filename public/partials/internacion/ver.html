@@ -34,7 +34,6 @@
                     Antecedentes
                 </a>
             </li>
-
             <li>
                 <a>
                     Pases
@@ -42,7 +41,7 @@
             </li>
             <li>
                 <a>
-                    Pedidos de prestaciones
+                    Solicitud de prestaciones
                 </a>
             </li>
             <li ng-class="{'disabled': !internacion.egreso}">
@@ -522,6 +521,7 @@
         </div>
 
         <div class="card card-block">
+            <div plex-include="'partials/internacion/iPrestaciones.html'" plex-include-internacion="internacion"></div>
         </div>
 
         <div class="card card-block">
@@ -547,13 +547,19 @@
                                     </div>
                                 </td>
                                 <td >
-                                    {{internacion.egreso.cama.habitacion}}/{{internacion.egreso.cama.numero}}
+                                    {{internacion.pases[internacion.pases.length-1].cama.habitacion}}/{{internacion.pases[internacion.pases.length-1].cama.numero}}
                                 </td>
                                 <td >
-                                    {{item.servicio.nombreCorto}}
+                                    {{internacion.pases[internacion.pases.length-1].servicio.nombreCorto}}
                                 </td>
                                 <td >
                                     {{internacion.egreso.tipo}}
+                                    <div ng-if="tipo == 'alta'">
+                                        ({{internacion.egreso.tipoAlta}})
+                                        <div ng-if="tipoAlta == 'derivacion'">
+                                            Derivado hacia: {{internacion.egreso.derivadoHacia.nombre}}
+                                        </div>
+                                    </div>
                                 </td>
                                 <td ></td>
 

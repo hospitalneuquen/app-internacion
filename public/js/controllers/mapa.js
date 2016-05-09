@@ -47,9 +47,9 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 $scope.verValoracionMedica(scope.cama.idInternacion);
             }
         }, {
-            text: 'Cargar prestaciones',
+            text: 'Solicitar prestaciones',
             handler: function(scope) {
-                $scope.cargarPrestaciones();
+                $scope.solicitarPrestaciones(scope.cama.idInternacion);
             }
         }, {
             text: 'Desocupar cama',
@@ -69,7 +69,9 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
 
                     if (cama.idInternacion) {
                         Shared.internacion.get(cama.idInternacion).then(function(internacion) {
-                            cama.$internacion = internacion;
+                            if (internacion){
+                                cama.$internacion = internacion;
+                            }
                         });
                     }
 
@@ -160,23 +162,28 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 return false;
             }
             Plex.openView('internacion/editar/cama/' + cama.id).then(function(internacion) {
-                // si la internacion no se le ha cargado el ingreso a enfermeria
-                $scope.ingresoEnfermeria = (internacion.ingreso && typeof internacion.ingreso.enfermeria === 'undefined') ? true : false;
+                if (internacion){
+                    // si la internacion no se le ha cargado el ingreso a enfermeria
+                    $scope.ingresoEnfermeria = (typeof internacion.ingreso !== "undefined" && typeof internacion.ingreso.enfermeria === 'undefined') ? true : false;
+                    // $scope.ingresoEnfermeria = (typeof internacion.ingreso && typeof internacion.ingreso.enfermeria === 'undefined') ? true : false;
 
-                // operar con el paciente / internacion devuelto en data
-                if (typeof internacion !== "undefined") {
-                    $scope.cambiarEstado(cama, 'ocupada', internacion.id);
-                } else {
-                    //Plex.showError("Internacion no encontrada");
+                    // operar con el paciente / internacion devuelto en data
+                    if (typeof internacion !== "undefined") {
+                        $scope.cambiarEstado(cama, 'ocupada', internacion.id, internacion.paciente);
+                    } else {
+                        //Plex.showError("Internacion no encontrada");
+                    }
                 }
+
             });
         },
         // cambiamos el estado de una cama
-        cambiarEstado: function(cama, estado, idInternacion) {
+        cambiarEstado: function(cama, estado, idInternacion, idPaciente) {
             var dto = {
                 estado: estado,
                 motivo: (cama.$motivo && typeof cama.$motivo != "undefined") ? cama.$motivo : '',
-                idInternacion: (idInternacion && typeof idInternacion != "undefined") ? idInternacion : ''
+                idInternacion: (idInternacion && typeof idInternacion != "undefined") ? idInternacion : '',
+                idPaciente: (idPaciente && typeof idPaciente != "undefined") ? idPaciente : ''
             };
 
             // el parametro updateUI en false, es para evitar la pantalla de error
@@ -255,6 +262,15 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
         verValoracionMedica: function(idInternacion) {
             Plex.openView('internacion/' + idInternacion + '/valoracionMedica').then(function(internacion) {
 
+            });
+        },
+        solicitarPrestaciones: function(idInternacion){
+            // buscamos la internacion y generamos el egreso
+            // Plex.openView("internacion/prestaciones/" + cama.idInternacion).then(function(internacion) {
+            Plex.openView('internacion/ver/' + idInternacion + "/7").then(function(internacion) {
+                if (internacion) {
+
+                }
             });
         },
         egresarPaciente: function(cama) {

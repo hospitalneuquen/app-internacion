@@ -210,13 +210,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
             Shared.evolucion.post($scope.internacion.id, evolucion.id || null, $scope.evolucionesEdit, {
                 minify: true
             }).then(function(data) {
-                $alert({
-                    title: '',
-                    content: 'Evolución guardada',
-                    placement: 'top-right',
-                    type: 'success',
-                    show: true
-                });
+                Plex.alert('Evolución guardada');
 
                 // actualizamos el listado de evoluciones
                 $scope.actualizarEvoluciones(data);

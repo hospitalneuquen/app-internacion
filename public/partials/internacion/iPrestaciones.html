@@ -1,0 +1,143 @@
+<div ng-controller="internacion/iPrestaciones">
+
+    <div class="card-block" ng-show="show_toolbar_prestaciones">
+        <div class="row">
+            <div class="col-xs-4">
+                <h3>Solicitud de prestaciones</h3>
+            </div>
+            <div class="col-xs-4">
+                <div class="form-group"></div>
+            </div>
+            <div class="col-xs-6 col-lg-2 text-right">
+                <div class="form-group">
+                    <select class="form-control" label="Servicio" ng-model="filtros.servicio" ng-change="filtros.filtrar()" plex="(servicio.nombreCorto) for servicio in servicios"></select>
+                </div>
+            </div>
+
+            <div class="col-xs-2 text-right" ng-if="internacion.estado != 'egresado'" ng-show="show_toolbar_prestaciones">
+                <br/>
+                <button class="btn btn-primary form-control" ng-click="editarPrestacion();">
+                    Nueva prestacion
+                </button>
+            </div>
+        </div>
+
+        <table class="table table-hover table-striped" ng-if="internacion.prestaciones && internacion.prestaciones.length > 0" ng-if="!prestacionesEdit">
+            <thead >
+                <tr>
+                    <th >
+                        Fecha
+                    </th>
+                    <th>
+                        Prestación
+                    </th>
+                    <th >
+                        Estado
+                    </th>
+                    <th >
+                        Prioridad
+                    </th>
+                    <th >
+                        Usuario / Servicio
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="item in filtros.prestaciones | orderBy: '-fechaHora'">
+                    <td >
+                        {{item.fechaHora | fromNow }}<br/>
+                        <div class="text-muted small">
+                            {{item.fechaHora | date: "dd/MM/yyyy HH:mm"}}
+                        </div>
+                    </td>
+                    <td >
+                        {{item.tipoPrestacion.nombre}}
+                    </td>
+                    <td >
+                        {{item.estado}}
+                    </td>
+                    <td >
+                        {{item.prioridad}}
+                    </td>
+                    <td >
+                        {{item.createdBy.name}}
+                        <br/>
+                        {{item.servicio.nombreCorto}}
+                    </td>
+                    <td >
+                        <button class="btn btn-default btn-flat tips" title="Editar prestación" ng-click="editarPrestacion(item);" ng-disabled="Session.user.id != item.createdBy.id">
+                            <i class="mdi mdi-pencil"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div ng-if="prestacionesEdit">
+        <ng-form name="formEditarPrestacion" ng-show="!loading">
+
+            <!-- <legend>{{tituloFormulario}}</legend> -->
+
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="card-block">
+
+                        <fieldset>
+                            <legend>Solicitar prestacion</legend>
+
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <input type="text" label="Fecha pedido" ng-model="prestacionesEdit.fechaHora" plex="date">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <input type="text" label="Hora pedido" ng-model="prestacionesEdit.fechaHora" plex="time">
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <select label="Prioridad" ng-model="prestacionesEdit.prioridad" plex="(item.nombre) for item in prioridad"></select>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <select label="Tipo prestación" ng-model="prestacionesEdit.tipoPrestacion" min="3" plex="(item.nombre + ' (' + item.grupo + ')') for item in buscarTipoPrestacion($value)" required></select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <input type="text" label="Texto" ng-model="prestacionesEdit.texto" plex class="form-control" required/>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card-block margin-top text-right">
+                        <button type="button" class="btn btn-default btn-flat" ng-click="cancelarEdicion();">Cancelar</button>
+                        <button class="btn btn-primary" plex-submit="guardarPrestacion(prestacionesEdit)" ng-disabled="formEditarPrestacion.$invalid">
+                            <i class="mdi mdi-content-save"></i>
+                            Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </ng-form>
+
+    </div>

@@ -98,11 +98,11 @@ angular.module('app').filter('persona', ['$filter', function($filter) {
                                 return 'fa fa-child';
                             }
                         } else {
-                            if (persona.sexo && persona.sexo.toLowerCase() == 'masculino') {
+                            if (persona.sexo && persona.sexo == 'Masculino') {
                                 return 'fa fa-male';
-                            } else if (persona.sexo && persona.sexo.toLowerCase() == 'femenino') {
+                            } else if (persona.sexo && persona.sexo == 'Femenino') {
                                 return 'fa fa-female';
-                            } else if (persona.sexo && persona.sexo.toLowerCase() == 'indeterminado') {
+                            } else if (persona.sexo && persona.sexo == 'Indeterminado') {
                                 return 'fa fa-genderless';
                             }
                         }
