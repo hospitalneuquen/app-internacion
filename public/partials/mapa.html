@@ -1,13 +1,13 @@
 <div class="row " plex-affix>
     <div class="card card-block ">
 
-        <div class="col-lg-3">
+        <div class="col-sm-3 col-lg-3">
             <div class="form-group">
                 <input type="text" ng-model="filter.nombre" id="filter-nombre" plex label="Nombre paciente"/>
             </div>
         </div>
 
-        <div class="col-lg-1">
+        <div class="col-sm-2 col-lg-1">
             <div class="form-group">
                 <select ng-model="filter.habitacion" label="Habitación" class="form-control" plex>
                     <option value="">Todas</option>
@@ -16,7 +16,7 @@
             </div>
         </div>
 
-        <div class="col-lg-1">
+        <div class="col-sm-2 col-lg-1">
             <div class="form-group">
                 <select ng-model="filter.tipoCama" id="filter-tipo-cama" class="form-control" label="Tipo de cama" plex>
                     <option value="">Todas</option>
@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <div class="col-lg-1">
+        <div class="col-sm-2 col-lg-1">
             <div class="form-group">
                 <select ng-model="filter.estado" id="filter-estado" class="form-control" label="Estado" plex>
                     <option value="">Todas</option>
@@ -36,27 +36,27 @@
             </div>
         </div>
 
-        <div class="col-lg-2">
+        <div class="col-sm-3 col-lg-2">
             <div class="form-group">
                 <select label="Servicio" ng-model="filter.servicio" plex="(item.nombre) for item in servicios"></select>
             </div>
         </div>
 
-        <div class="col-lg-1">
+        <div class="col-sm-2 col-lg-1">
             <div class="form-group">
                 <br/>
                 <input type="checkbox" ng-model="filter.desinfectada" label="Sin desinfectar" plex="checkbox">
             </div>
         </div>
 
-        <div class="col-lg-1">
+        <div class="col-sm-2 col-lg-1">
             <div class="form-group">
                 <br/>
                 <input type="checkbox" ng-model="filter.oxigeno" label="Oxígeno" plex="checkbox">
             </div>
         </div>
 
-        <div class="col-lg-1">
+        <div class="col-sm-3 col-lg-1">
             <div class="form-group">
                 <br/>
                 <button class="btn btn-default" ng-click="filter.limpiarFiltros()">
@@ -65,7 +65,7 @@
             </div>
         </div>
 
-        <div class="col-lg-1">
+        <div class="col-sm-4 col-lg-1">
             <div class="form-group">
                 <br/>
                 <button class="btn btn-default layout-view tips" ng-click="layout = 'grid'" ng-class="{'active': layout == 'grid'}" title="Vista de grilla">
@@ -113,7 +113,7 @@
                                     <i ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total > 50" ng-class="{'rojo' : cama.$internacion.ingreso.enfermeria.riesgoCaida.total > 50}" class="mdi mdi-alert tips" title="Riesgo de caídas alto"></i>
                                     <i ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total == 0" class="mdi mdi-alert tips" title="Sin riesgo de caídas"></i>
 
-                                    <i class="mdi mdi-thermometer" title="{{cama.$internacion.evoluciones[cama.$internacion.evoluciones.length-1].temperatura}}º C"></i>
+                                    <i ng-if="cama.$internacion.evoluciones[cama.$internacion.evoluciones.length-1].temperatura > 0" class="mdi mdi-thermometer" title="{{cama.$internacion.evoluciones[cama.$internacion.evoluciones.length-1].temperatura}}º C"></i>
 
                                     <div ng-repeat="drenaje in cama.$internacion.drenajes">
                                         <i class="mdi mdi-steam" ng-if="drenaje.fechaHasta" title="Drenaje {{drenaje.tipo}} {{drenaje.lado}} colocado hace {{diasColocacionDrenaje(drenaje.fechaDesde)}} días" ng-class="{'rojo': diasColocacionDrenaje(drenaje.fechaDesde) >= 5}"></i>

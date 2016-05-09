@@ -11,10 +11,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
         selectedTabIndex: 0,
         internacion: null,
         pases: null,
-        // servicios: [{
-        //     id: null,
-        //     nombreCorto: 'Todos'
-        // }],
+
         tiposDrenajes: [{
             id: 'pleural',
             nombre: 'Pleural'
@@ -83,13 +80,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
             Shared.drenaje.post($scope.internacion.id, $scope.drenajesEdit.id || null, $scope.drenajesEdit, {
                 minify: true
             }).then(function(data) {
-                $alert({
-                    title: '',
-                    content: 'Drenaje guardado',
-                    placement: 'top-right',
-                    type: 'success',
-                    show: true
-                });
+                Plex.alert('Drenaje guardado');
 
                 $scope.internacion.drenajes.push(data);
                 // actualizamos el listado de evoluciones
@@ -145,13 +136,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
             Shared.pase.post($scope.internacion.id, $scope.pasesEdit.id || null, $scope.pasesEdit, {
                 minify: true
             }).then(function(data) {
-                $alert({
-                    title: '',
-                    content: 'Pase guardado',
-                    placement: 'top-right',
-                    type: 'success',
-                    show: true
-                });
+                Plex.alert('Pase guardado');
 
                 $scope.internacion.pases.push(data);
                 // actualizamos el listado de evoluciones
@@ -223,6 +208,20 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                         tipo: "Evolución",
                         _tipo: "evolucion",
                         data: evolucion,
+                        cama: ''
+                        // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
+                    });
+                });
+            }
+
+            // agregamos prestaciones
+            if ($scope.internacion.prestaciones.length) {
+                angular.forEach($scope.internacion.prestaciones, function(prestacion, key) {
+                    $scope.ordenCronologico.push({
+                        fecha: prestacion.fechaHora,
+                        tipo: "Presetación",
+                        _tipo: "prestacion",
+                        data: prestacion,
                         cama: ''
                         // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
                     });
@@ -304,27 +303,29 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
             //     data:  $scope.internacion.evoluciones[0]
             // });
 
-            // ordenamos cronolicamente todo el array
-            $scope.ordenCronologico.sort(function(a, b) {
-                return new Date(a.fecha).getTime() - new Date(b.fecha).getTime()
-            });
+            if ($scope.ordenCronologico.length) {
+                // ordenamos cronolicamente todo el array
+                $scope.ordenCronologico.sort(function(a, b) {
+                    return new Date(a.fecha).getTime() - new Date(b.fecha).getTime()
+                });
 
-            angular.forEach($scope.ordenCronologico, function(elemento, index) {
+                angular.forEach($scope.ordenCronologico, function(elemento, index) {
 
-                var cantidadPases = ($scope.internacion.pases.length - 1);
+                    var cantidadPases = ($scope.internacion.pases.length - 1);
 
-                for (var i = cantidadPases; i >= 0; i--){
-                    var pase = $scope.internacion.pases[i];
-                    // si la fecha del elemento, es menor o igual a la del pase
-                    // entonces le asignamos esa cama (nro habitacion y nro cama)
-                    if (Global.compareDateTime(elemento.fecha, pase.fechaHora) < 0){
+                    for (var i = cantidadPases; i >= 0; i--){
+                        var pase = $scope.internacion.pases[i];
+                        // si la fecha del elemento, es menor o igual a la del pase
+                        // entonces le asignamos esa cama (nro habitacion y nro cama)
+                        if (Global.compareDateTime(elemento.fecha, pase.fechaHora) < 0){
 
-                        $scope.ordenCronologico[index].cama = pase.cama;
+                            $scope.ordenCronologico[index].cama = pase.cama;
+                        }
+
                     }
 
-                }
-
-            });
+                });
+            }
 
             // console.log($scope.ordenCronologico[index].cama.habitacion + "/" + $scope.ordenCronologico[index].cama.numero);
         },
@@ -332,6 +333,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
             $scope.selectedTabIndex = tab;
         },
         init: function() {
+            $scope.tab = plexParams.tab || 0;
             $scope.loading = true;
             // buscamos la internacion
             Shared.internacion.get(plexParams.idInternacion).then(function(internacion) {
@@ -381,7 +383,6 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
         }
         var inicio = moment(start);
         var fin = moment(end);
-
 
         return parseInt(moment.duration(fin.diff(inicio)).asDays());
     };

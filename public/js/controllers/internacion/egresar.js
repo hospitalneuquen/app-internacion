@@ -21,19 +21,24 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
         }, ],
 
         egresar: function() {
+
             if ($scope.egreso.tipo == 'alta' || $scope.egreso.tipo == 'defuncion') {
-                var data = {
-                    estado: 'egresado',
-                    egreso: $scope.egreso
-                };
+                if ($scope.egreso.tipoAlta == 'derivacion') {
+                    var data = {
+                        estado: 'egresado',
+                        egreso: $scope.egreso,
+                    };
+
+                    data.egreso.derivadoHacia = $scope.derivadoHacia.id || null;
+                }else {
+                    var data = {
+                        estado: 'egresado',
+                        egreso: $scope.egreso
+                    };
+                }
             } else if ($scope.egreso.tipo == 'pase') {
                 var data = {
                     estado: 'enPase'
-                };
-            } else if ($scope.egreso.tipo == 'derivacion') {
-                var data = {
-                    estado: 'derivacion',
-                    egreso: $scope.egreso
                 };
             }
 
@@ -42,9 +47,24 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
             }).then(function(internacion) {
                 // TODO: Definir que hacer en caso de que sea defuncion o alta,
                 // si hay que llenar algun otro formulario
+                if (internacion){
+                    // si es un pase entonces actualizamos los valores del pase
+                    if ($scope.egreso.tipo == 'pase') {
+                        var pase = $scope.internacion.pases[$scope.internacion.pases.length-1];
 
-                Plex.closeView(internacion);
+                        pase.servicioSugerido = $scope.servicioSugerido.id;
+                        pase.resumenInternacion = $scope.egreso.resumenInternacion;
 
+                        Shared.pase.post(plexParams.idInternacion, pase.id, pase, {minify: true}).then(function(pase){
+
+                            Plex.closeView(internacion);
+                        });
+                    }else{
+                        Plex.closeView(internacion);
+                    }
+                }else{
+                    Plex.closeView(internacion);
+                }
             });
         },
 

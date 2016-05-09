@@ -15,7 +15,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
         // evoluciones: {},
         // array de servicios para filtrar en la vista
         servicios: [{
-            id: 'mis-servicios',
+            id: 'mis-evoluciones',
             nombreCorto: "Mis evoluciones"
         }, {
             id: '',
@@ -27,19 +27,18 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
             filtrar: function(){
                 var self = this;
 
-                if (!self.servicio.id) {
+                if (!self.servicio) {
                     $scope.filtros.evoluciones = $scope.internacion.evoluciones;
                 } else {
                     $scope.filtros.evoluciones = [];
 
-                    if (self.servicio.id == 'mis-servicios'){
+                    if (self.servicio.id !== "undefined" && self.servicio.id == 'mis-evoluciones'){
                         angular.forEach($scope.internacion.evoluciones, function(evolucion) {
                             if (self.servicio && evolucion.createdBy.id === Session.user.id) {
                                 $scope.filtros.evoluciones.push(evolucion);
                             }
                         });
                     }else{
-
                         angular.forEach($scope.internacion.evoluciones, function(evolucion) {
                             if (self.servicio && evolucion.servicio.id === self.servicio.id) {
                                 $scope.filtros.evoluciones.push(evolucion);
@@ -211,13 +210,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
             Shared.evolucion.post($scope.internacion.id, evolucion.id || null, $scope.evolucionesEdit, {
                 minify: true
             }).then(function(data) {
-                $alert({
-                    title: '',
-                    content: 'Evolución guardada',
-                    placement: 'top-right',
-                    type: 'success',
-                    show: true
-                });
+                Plex.alert('Evolución guardada');
 
                 // actualizamos el listado de evoluciones
                 $scope.actualizarEvoluciones(data);

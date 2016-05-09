@@ -20,13 +20,13 @@ angular.module('app')
              .when('/internacion/editar', { templateUrl: 'partials/internacion/editar.html', controller: 'internacion/editar' })
              .when('/internacion/evolucionar/:idInternacion', { templateUrl: 'partials/internacion/evolucionar.html', controller: 'internacion/evolucionar' })
              .when('/internacion/egresar/:idInternacion/:idCama', { templateUrl: 'partials/internacion/egresar.html', controller: 'internacion/egresar' })
-             .when('/internacion/ver/:idInternacion', { templateUrl: 'partials/internacion/ver.html', controller: 'internacion/ver' })
+             .when('/internacion/ver/:idInternacion/:tab?', { templateUrl: 'partials/internacion/ver.html', controller: 'internacion/ver' })
              .when('/internacion/:idInternacion/valoracionMedica', { templateUrl: 'partials/internacion/valoracionMedica.html', controller: 'internacion/valoracionMedica' })
              // Enfermería
              .when('/valoracionEnfermeria/:idInternacion', { templateUrl: 'partials/valoracionEnfermeria.html', controller: 'ValoracionEnfermeriaController' })
              .when('/riesgoCaidas/:idInternacion', { templateUrl: 'partials/riesgoCaidas.html', controller: 'RiesgoCaidasController' })
              // Pacientes
-             .when('/pacientes/prestaciones', { templateUrl: 'partials/pacientes/prestaciones.html', controller: 'pacientes/prestaciones' })
+            //  .when('/pacientes/prestaciones', { templateUrl: 'partials/pacientes/prestaciones.html', controller: 'pacientes/prestaciones' })
              // Sandbox
              .when('/sandbox/test', { templateUrl: 'partials/sandbox/test.html', controller: 'sandbox/test' })
              .when('/sandbox/personas', { templateUrl: 'partials/sandbox/personas.html', controller: 'sandbox/personas' })

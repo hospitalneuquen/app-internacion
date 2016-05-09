@@ -12,6 +12,9 @@ angular.module('app').controller('internacion/valoracionMedica', ['$scope', 'Ple
             };
 
             return Shared.internacion.post(plexParams.idInternacion, data).then(function(internacion){
+                if (internacion){
+                    Plex.alert("Valoración médica guardada");
+                }
                 Plex.closeView(internacion);
             });
         },
