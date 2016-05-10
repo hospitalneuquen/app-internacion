@@ -44,6 +44,11 @@
                     Solicitud de prestaciones
                 </a>
             </li>
+            <li>
+                <a>
+                    Lista de problemas
+                </a>
+            </li>
             <li ng-class="{'disabled': !internacion.egreso}">
                 <a>
                     Egreso
@@ -522,6 +527,10 @@
 
         <div class="card card-block">
             <div plex-include="'partials/internacion/iPrestaciones.html'" plex-include-internacion="internacion"></div>
+        </div>
+
+        <div class="card card-block">
+            <div plex-include="'partials/internacion/iListaProblemas.html'" plex-include-internacion="internacion"></div>
         </div>
 
         <div class="card card-block">

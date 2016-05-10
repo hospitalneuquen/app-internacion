@@ -1,0 +1,132 @@
+<div ng-controller="internacion/iListaProblemas">
+
+    <div class="card-block" ng-show="show_toolbar_problemas">
+        <div class="row">
+            <div class="col-xs-4">
+                <h3>Lista de problemas</h3>
+            </div>
+            <div class="col-xs-4">
+                <div class="form-group"></div>
+            </div>
+            <div class="col-xs-6 col-lg-2 text-right">
+                <div class="form-group">
+                    <select class="form-control" label="Servicio" ng-model="filtros.servicio" ng-change="filtros.filtrar()" plex="(servicio.nombreCorto) for servicio in servicios"></select>
+                </div>
+            </div>
+
+            <div class="col-xs-2 text-right" ng-if="internacion.estado != 'egresado'" ng-show="show_toolbar_problemas">
+                <br/>
+                <button class="btn btn-primary form-control" ng-click="editarProblema();">
+                    Nuevo problema
+                </button>
+            </div>
+        </div>
+
+        <table class="table table-hover table-striped" ng-if="internacion.problemas && internacion.problemas.length > 0" ng-if="!problemasEdit">
+            <thead >
+                <tr>
+                    <th>
+                        Problema
+                    </th>
+                    <th >
+                        Estado
+                    </th>
+                    <th >
+                        Activo desde
+                    </th>
+                    <th >
+                        Crónico
+                    </th>
+                    <th >
+                        Usuario / Servicio
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="item in filtros.problemas | orderBy: '-activoDesde'">
+                    <td >
+                        {{item.descripcion}}
+                    </td>
+                    <td >
+                        {{item.estado}}
+                    </td>
+                    <td >
+                        {{item.activoDesde | fromNow }}<br/>
+                        <div class="text-muted small">
+                            {{item.activoDesde | date: "dd/MM/yyyy HH:mm"}}
+                        </div>
+                    </td>
+                    <td >
+                        {{item.esCronico ? "Si" : "No"}}
+                    </td>
+                    <td >
+                        {{item.createdBy.name}}
+                        <br/>
+                        {{item.servicio.nombreCorto}}
+                    </td>
+                    <td >
+                        <button class="btn btn-default btn-flat tips" title="Editar problema" ng-click="editarProblema(item);" ng-disabled="Session.user.id != item.createdBy.id">
+                            <i class="mdi mdi-pencil"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div ng-if="problemasEdit">
+        <ng-form name="formEditarProblema" ng-show="!loading">
+
+            <!-- <legend>{{tituloFormulario}}</legend> -->
+
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="card-block">
+
+                        <fieldset>
+                            <legend>Cargar problema</legend>
+
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <input type="text" label="Descripción" ng-model="problemasEdit.descripcion" plex class="form-control" required/>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <select label="Estado" ng-model="problemasEdit.estado" plex="(item.nombre) for item in estado"></select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <div class="form-group">
+                                        <input type="text" label="Activo desde" ng-model="problemasEdit.activoDesde" plex="date">
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
+                                    <label>Es crónico</label>
+                                    <input type="radio" label="Si" ng-value="true" ng-model="problemasEdit.esCronico" plex="radio">
+                                    <input type="radio" label="No" ng-value="false" ng-model="problemasEdit.esCronico" plex="radio">
+                                </div>
+                            </div>
+                        </fieldset>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card-block margin-top text-right">
+                        <button type="button" class="btn btn-default btn-flat" ng-click="cancelarEdicion();">Cancelar</button>
+                        <button class="btn btn-primary" plex-submit="guardarProblema(problemasEdit)" ng-disabled="formEditarProblema.$invalid">
+                            <i class="mdi mdi-content-save"></i>
+                            Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </ng-form>
+
+    </div>
