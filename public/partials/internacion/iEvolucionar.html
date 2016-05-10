@@ -193,591 +193,611 @@
                         </ul>
 
                         <div class="card card-block">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <input type="text" label="Fecha evolución" ng-model="evolucionesEdit.fechaHora" plex="date">
-                                    </div>
-                                </div>
-
-                                <div class="col-xs-3">
-                                    <div class="form-group">
-                                        <input type="text" label="Hora evolución" ng-model="evolucionesEdit.fechaHora" plex="time">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- <div ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
-                        <div class="card card-block">
                             <fieldset>
-                                <legend>Signos vitales</legend>
+                                <legend>Fecha y hora</legend>
                                 <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-xs-3">
                                         <div class="form-group">
-                                            <input type="text" ng-model="evolucionesEdit.pulso" label="Frecuencia cardíaca" suffix="PPM" plex="int" plex/>
+                                            <input type="text" label="Fecha evolución" ng-model="evolucionesEdit.fechaHora" plex="date">
                                         </div>
                                     </div>
 
-                                    <div class="col-md-3">
+                                    <div class="col-xs-3">
                                         <div class="form-group">
-                                            <input type="text" ng-model="evolucionesEdit.respiracion" label="Frecuencia respiratoria" suffix="RPM" plex="int" plex/>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <input type="text" ng-model="evolucionesEdit.tensionDiastolica" label="Tensión diastólica" suffix="mmHG" plex="int" plex/>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <input type="text" ng-model="evolucionesEdit.tensionSistolica" label="Tensión sistólica" suffix="mmHG" plex="int" plex/>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <input type="text" ng-model="evolucionesEdit.temperatura" label="Temperatura" suffix="º C" plex="float" plex/>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <input type="text" ng-model="evolucionesEdit.spo2" label="Saturación O&#178;" suffix="%" plex="int" plex-min="0" plex-max="100" plex/>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <input type="text" ng-model="evolucionesEdit.peso" label="Peso" suffix="Kgs" plex="float" plex/>
+                                            <input type="text" label="Hora evolución" ng-model="evolucionesEdit.fechaHora" plex="time">
                                         </div>
                                     </div>
                                 </div>
                             </fieldset>
-                            <fieldset>
-                                <legend>Circulación</legend>
-                                <div class="row">
-                                    <div class="col-lg-3">
-                                        <input type="text" label="Pulso carotídeo" ng-model="evolucionesEdit.carotideo" suffix="PPM" plex="int">
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <input type="text" label="Pulso radial" ng-model="evolucionesEdit.radial" suffix="PPM" plex="int">
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <input type="text" label="Pulso poplíteo" ng-model="evolucionesEdit.popliteo" suffix="PPM" plex="int">
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <input type="text" label="Pulso pedio" ng-model="evolucionesEdit.pedio" suffix="PPM" plex="int">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesCirculacion" plex="text">
-                                    </div>
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <legend>Glasgow</legend>
-                                <div class="col-lg-2" style="width: 8%">
-                                    <select hint="Ocular" ng-model="evolucionesEdit.glasgowOcular" plex>
-                                        <option value="1">1</option>            <!-- Ausencia de respuesta -->
-                                        <option value="2">2</option>            <!-- Al dolor -->
-                                        <option value="3">3</option>            <!-- A estímulos verbales -->
-                                        <option value="4">4</option>            <!-- Espontánea -->
-                                    </select>
-                                </div>
-                                <div class="col-lg-2" style="width: 8%">
-                                    <select hint="Verbal" ng-model="evolucionesEdit.glasgowVerbal" plex>
-                                        <option value="1">1</option>            <!-- Ausencia de respuesta -->
-                                        <option value="2">2</option>            <!-- Sonidos incomprensibles -->
-                                        <option value="3">3</option>            <!-- Incoherente -->
-                                        <option value="4">4</option>            <!-- Desorientado/confuso -->
-                                        <option value="5">5</option>            <!-- Orientado -->
-                                    </select>
-                                </div>
-                                <div class="col-lg-2" style="width: 8%">
-                                    <select hint="Motor" ng-model="evolucionesEdit.glasgowMotor" plex>
-                                        <option value="1">1</option>            <!-- Ausencia de respuesta -->
-                                        <option value="2">2</option>            <!-- Extensión anormal -->
-                                        <option value="3">3</option>            <!-- Flexión anormal -->
-                                        <option value="4">4</option>            <!-- Retirada al dolor -->
-                                        <option value="5">5</option>            <!-- Localiza el dolor -->
-                                        <option value="6">6</option>            <!-- Obedece ordenes -->
-                                    </select>
-                                </div>
-                            </fieldset>
                         </div>
+
                         <!-- <div ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
                         <div class="card card-block">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <input type="text" ng-model="evolucionesEdit.ingresos.ph" label="P.H I" suffix="ml" plex/>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <input type="text" ng-model="evolucionesEdit.ingresos.ph2" label="P.H II" suffix="ml" plex/>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <input type="text" ng-model="evolucionesEdit.ingresos.atb" label="ATB" suffix="ml" plex/>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <input type="text" ng-model="evolucionesEdit.ingresos.hemo" label="HEMO." suffix="ml" plex/>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <input label="NP" type="text" ng-model="evolucionesEdit.ingresos.np" suffix="ml" plex/>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <input label="Prep." type="text" ng-model="evolucionesEdit.ingresos.prep" suffix="ml" plex/>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <input label="H20" type="text" ng-model="evolucionesEdit.ingresos.h2o" suffix="ml" plex/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- <div ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
-                        <div class="card card-block">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <input type="text" ng-model="evolucionesEdit.egresos.lavadoVesicalI" label="Lavado vesical I" suffix="ml" plex/>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <input type="text" ng-model="evolucionesEdit.egresos.diuresis" label="Diuresis" suffix="ml" plex/>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <input type="text" ng-model="evolucionesEdit.egresos.catarsis" label="Catarsis" suffix="ml" plex/>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-1">
-                                    <div class="form-group">
-                                        <input type="text" ng-model="evolucionesEdit.egresos.sng" label="S.N.G" suffix="ml" plex/>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-1">
-                                    <div class="form-group">
-                                        <input type="text" ng-model="evolucionesEdit.egresos.sny" label="S.N.Y" suffix="ml" plex/>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <input type="text" ng-model="evolucionesEdit.egresos.ostomias" label="Ostomias I" suffix="ml" plex/>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <input type="text" ng-model="evolucionesEdit.egresos.ostomias2" label="Ostomias II" suffix="ml" plex/>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row" ng-if="drenajes.length">
-                                <div class="col-md-12">
-                                    <fieldset>
-                                        <legend>Drenajes</legend>
-                                        <div class="row" ng-repeat="drenaje in drenajes track by $index">
-                                            <div>
-
-                                                <input type="hidden" value="'{{drenaje.id}}'" ng-model="drenajes[$index].idDrenaje" ng-init="drenajes[$index].idDrenaje = drenaje.id"/>
-                                                <div class="col-md-2">
-                                                    <div class="form-group">
-                                                        <label>Lado</label>
-                                                        <p>{{drenaje.lado}}</p>
-                                                    </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <fieldset>
+                                        <legend>Signos vitales</legend>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input type="text" ng-model="evolucionesEdit.pulso" label="Frecuencia cardíaca" suffix="PPM" plex="int" plex/>
                                                 </div>
-                                                <div class="col-md-2">
-                                                    <div class="form-group">
-                                                        <label>Tipo</label>
-                                                        <p>{{drenaje.tipo}}</p>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="form-group" ng-if="!drenaje.$activo">
-                                                        <label>Características del líquido</label>
-                                                        <br/>
-                                                        <span>{{drenajes[$index].caracteristicaLiquido}}</span>
-                                                    </div>
+                                            </div>
 
-                                                    <select label="Características del líquido" ng-model="drenajes[$index].caracteristicaLiquido" plex ng-if="drenaje.$activo">
-                                                        <option value="Hemático"></option>
-                                                        <option value="Seroso">Seroso</option>
-                                                        <option value="Serohemático">Serohemático</option>
-                                                        <option value="Purulento">Purulento</option>
-                                                    </select>
-
-                                                </div>
-                                                <div class="col-md-1">
-                                                    <div class="form-group" ng-if="!drenaje.$activo">
-                                                        <label>Cantidad</label>
-                                                        <br/>
-                                                        <span ng-if="!drenaje.$activo">{{drenajes[$index].cantidad}}</span>
-                                                    </div>
-
-                                                    <input type="text" label="Cantidad" suffix="ml" ng-model="drenajes[$index].cantidad" plex ng-if="drenaje.$activo">
-                                                </div>
-                                                <div class="col-md-5">
-                                                    <div class="form-group" ng-if="!drenaje.$activo">
-                                                        <label>Cantidad</label>
-                                                        <br/>
-                                                        <span ng-if="!drenaje.$activo">{{drenajes[$index].observaciones}}</span>
-                                                    </div>
-                                                    <input type="text" label="Observaciones" ng-model="drenajes[$index].observaciones" plex="text" ng-if="drenaje.$activo">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <input type="text" ng-model="evolucionesEdit.respiracion" label="Frecuencia respiratoria" suffix="RPM" plex="int" plex/>
                                                 </div>
                                             </div>
                                         </div>
-                                    </fieldset >
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" ng-model="evolucionesEdit.temperatura" label="Temperatura" suffix="º C" plex="float" plex/>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" ng-model="evolucionesEdit.spo2" label="Saturación O&#178;" suffix="%" plex="int" plex-min="0" plex-max="100" plex/>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" ng-model="evolucionesEdit.peso" label="Peso" suffix="Kgs" plex="float" plex/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <fieldset>
+                                            <legend>Circulación</legend>
+                                            <div class="row">
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <input type="text" ng-model="evolucionesEdit.tensionDiastolica" label="Tensión diastólica" suffix="mmHG" plex="int" plex/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <input type="text" ng-model="evolucionesEdit.tensionSistolica" label="Tensión sistólica" suffix="mmHG" plex="int" plex/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <input type="text" label="Pulso carotídeo" ng-model="evolucionesEdit.carotideo" suffix="PPM" plex="int">
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <input type="text" label="Pulso radial" ng-model="evolucionesEdit.radial" suffix="PPM" plex="int">
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <input type="text" label="Pulso poplíteo" ng-model="evolucionesEdit.popliteo" suffix="PPM" plex="int">
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <input type="text" label="Pulso pedio" ng-model="evolucionesEdit.pedio" suffix="PPM" plex="int">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesCirculacion" plex="text">
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <fieldset>
+                                            <legend>Glasgow</legend>
+                                            <div class="col-lg-3">
+                                                <select hint="Ocular" ng-model="evolucionesEdit.glasgowOcular" plex>
+                                                    <option value="1">1</option>            <!-- Ausencia de respuesta -->
+                                                    <option value="2">2</option>            <!-- Al dolor -->
+                                                    <option value="3">3</option>            <!-- A estímulos verbales -->
+                                                    <option value="4">4</option>            <!-- Espontánea -->
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <select hint="Verbal" ng-model="evolucionesEdit.glasgowVerbal" plex>
+                                                    <option value="1">1</option>            <!-- Ausencia de respuesta -->
+                                                    <option value="2">2</option>            <!-- Sonidos incomprensibles -->
+                                                    <option value="3">3</option>            <!-- Incoherente -->
+                                                    <option value="4">4</option>            <!-- Desorientado/confuso -->
+                                                    <option value="5">5</option>            <!-- Orientado -->
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <select hint="Motor" ng-model="evolucionesEdit.glasgowMotor" plex>
+                                                    <option value="1">1</option>            <!-- Ausencia de respuesta -->
+                                                    <option value="2">2</option>            <!-- Extensión anormal -->
+                                                    <option value="3">3</option>            <!-- Flexión anormal -->
+                                                    <option value="4">4</option>            <!-- Retirada al dolor -->
+                                                    <option value="5">5</option>            <!-- Localiza el dolor -->
+                                                    <option value="6">6</option>            <!-- Obedece ordenes -->
+                                                </select>
+                                            </div>
+                                        </fieldset>
+                                    </div>
                                 </div>
-                            </div>
+
+                        </div>
+                        <!-- <div ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
+                        <div class="card card-block">
+                            <fieldset>
+                                <legend>Ingresos líquidos</legend>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <input type="text" ng-model="evolucionesEdit.ingresos.ph" label="P.H I" suffix="ml" plex/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <input type="text" ng-model="evolucionesEdit.ingresos.ph2" label="P.H II" suffix="ml" plex/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <input type="text" ng-model="evolucionesEdit.ingresos.atb" label="ATB" suffix="ml" plex/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <input type="text" ng-model="evolucionesEdit.ingresos.hemo" label="HEMO." suffix="ml" plex/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <input label="NP" type="text" ng-model="evolucionesEdit.ingresos.np" suffix="ml" plex/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <input label="Prep." type="text" ng-model="evolucionesEdit.ingresos.prep" suffix="ml" plex/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <input label="H20" type="text" ng-model="evolucionesEdit.ingresos.h2o" suffix="ml" plex/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <!-- <div ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
+                        <div class="card card-block">
+                            <fieldset>
+                                <legend>Glasgow</legend>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <input type="text" ng-model="evolucionesEdit.egresos.lavadoVesicalI" label="Lavado vesical I" suffix="ml" plex/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <input type="text" ng-model="evolucionesEdit.egresos.diuresis" label="Diuresis" suffix="ml" plex/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <input type="text" ng-model="evolucionesEdit.egresos.catarsis" label="Catarsis" suffix="ml" plex/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <div class="form-group">
+                                            <input type="text" ng-model="evolucionesEdit.egresos.sng" label="S.N.G" suffix="ml" plex/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-1">
+                                        <div class="form-group">
+                                            <input type="text" ng-model="evolucionesEdit.egresos.sny" label="S.N.Y" suffix="ml" plex/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <input type="text" ng-model="evolucionesEdit.egresos.ostomias" label="Ostomias I" suffix="ml" plex/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <input type="text" ng-model="evolucionesEdit.egresos.ostomias2" label="Ostomias II" suffix="ml" plex/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" ng-if="drenajes.length">
+                                    <div class="col-md-12">
+                                        <fieldset>
+                                            <legend>Drenajes</legend>
+                                            <div class="row" ng-repeat="drenaje in drenajes track by $index">
+                                                <div>
+
+                                                    <input type="hidden" value="'{{drenaje.id}}'" ng-model="drenajes[$index].idDrenaje" ng-init="drenajes[$index].idDrenaje = drenaje.id"/>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group">
+                                                            <label>Lado</label>
+                                                            <p>{{drenaje.lado}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group">
+                                                            <label>Tipo</label>
+                                                            <p>{{drenaje.tipo}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group" ng-if="!drenaje.$activo">
+                                                            <label>Características del líquido</label>
+                                                            <br/>
+                                                            <span>{{drenajes[$index].caracteristicaLiquido}}</span>
+                                                        </div>
+
+                                                        <select label="Características del líquido" ng-model="drenajes[$index].caracteristicaLiquido" plex ng-if="drenaje.$activo">
+                                                            <option value="Hemático"></option>
+                                                            <option value="Seroso">Seroso</option>
+                                                            <option value="Serohemático">Serohemático</option>
+                                                            <option value="Purulento">Purulento</option>
+                                                        </select>
+
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <div class="form-group" ng-if="!drenaje.$activo">
+                                                            <label>Cantidad</label>
+                                                            <br/>
+                                                            <span ng-if="!drenaje.$activo">{{drenajes[$index].cantidad}}</span>
+                                                        </div>
+
+                                                        <input type="text" label="Cantidad" suffix="ml" ng-model="drenajes[$index].cantidad" plex ng-if="drenaje.$activo">
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <div class="form-group" ng-if="!drenaje.$activo">
+                                                            <label>Cantidad</label>
+                                                            <br/>
+                                                            <span ng-if="!drenaje.$activo">{{drenajes[$index].observaciones}}</span>
+                                                        </div>
+                                                        <input type="text" label="Observaciones" ng-model="drenajes[$index].observaciones" plex="text" ng-if="drenaje.$activo">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset >
+                                    </div>
+                                </div>
+                            </fieldset>
                         </div>
                         <!-- Riesgo de caídas -->
                         <div class="card card-block">
-                            <h4 class="card-title">Valoración de riesgo de caídas</h4>
-                            <br />
-                            <div class="col-lg-2" style="width: 14%">
-                                <label><b>Caídas previas</b></label>
-                                <input type="radio" label="No" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.caidasPrevias" plex="radio">
-                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.caidasPrevias==0">El paciente no se ha caído.</span>
-                                <input type="radio" label="Si" ng-value="25" ng-model="evolucionesEdit.riesgoCaida.caidasPrevias" plex="radio">
-                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.caidasPrevias==25">El paciente se ha caído durante la presente internación o tiene antecedentes dentro de los últimos 3 meses de caídas por convulsiones o trastornos de la marcha.</span>
-                            </div>
-                            <div class="col-lg-2" style="width: 14%">
-                                <label><b>Marcha</b></label>
-                                <input type="radio" label="Normal" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.marcha" plex="radio">
-                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.marcha==0">El paciente camina con la cabeza erecta, los brazos balanceándose libremente a los costados y con pasos seguros.</span>
-                                <input type="radio" label="Débil" ng-value="10" ng-model="evolucionesEdit.riesgoCaida.marcha" plex="radio">
-                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.marcha==10">El paciente camina encorvado pero es capaz de levantar la cabeza mientras camina sin perder equilibrio. Los pasos son cortos y puede arrastrar los pies.</span>
-                                <input type="radio" label="Limitada" ng-value="20" ng-model="evolucionesEdit.riesgoCaida.marcha" plex="radio">
-                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.marcha==20">El paciente puede tener dificultades para levantarse de la silla, pudiendo realizar varios intentos apoyando sus brazos en los brazos de la silla o tomando impulso. La cabeza del paciente está baja, mirando al piso.</span>
-                            </div>
-                            <div class="col-lg-2" style="width: 14%">
-                                <label><b>Ayuda para deambular</b></label>
-                                <input type="radio" label="Ninguna" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.ayudaDeambular" plex="radio">
-                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.ayudaDeambular==0">El paciente camina sin ningún dispositivo de ayuda, se encuentra en silla de ruedas o está en reposo y no se levanta de la cama para nada.</span>
-                                <input type="radio" label="Necesita ayuda" ng-value="15" ng-model="evolucionesEdit.riesgoCaida.ayudaDeambular" plex="radio">
-                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.ayudaDeambular==15">El paciente utiliza muletas, bastón o andador.</span>
-                                <input type="radio" label="Se apoya en los muebles" ng-value="30" ng-model="evolucionesEdit.riesgoCaida.ayudaDeambular" plex="radio">
-                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.ayudaDeambular==30">El paciente sólo camina apoyándose en los muebles.</span>
-                            </div>
-                            <div class="col-lg-2" style="width: 14%">
-                                <label><b>Venoclisis</b></label>
-                                <input type="radio" label="No" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.venoclisis" plex="radio">
-                                <input type="radio" label="Si" ng-value="20" ng-model="evolucionesEdit.riesgoCaida.venoclisis" plex="radio">
-                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.venoclisis==20">El paciente tiene una vía IV.</span>
-                            </div>
-                            <div class="col-lg-2" style="width: 14%">
-                                <label><b>Comorbilidad</b></label>
-                                <input type="radio" label="No" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.comorbilidad" plex="radio">
-                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.comorbilidad==0">El paciente tiene un solo diagnóstico.</span>
-                                <input type="radio" label="Si" ng-value="15" ng-model="evolucionesEdit.riesgoCaida.comorbilidad" plex="radio">
-                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.comorbilidad==15">El paciente presenta múltiples diagnósticos.</span>
-                            </div>
-                            <div class="col-lg-2" style="width: 18%">
-                                <label><b>Estado mental</b></label>
-                                <input type="radio" label="Reconoce sus limitaciones" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.estadoMental" plex="radio">
-                                <input type="radio" label="Sobreestima u olvida sus limitaciones" ng-value="15" ng-model="evolucionesEdit.riesgoCaida.estadoMental" plex="radio">
-                            </div>
-                            <div class="col-lg-2" style="width: 10%">
-                                <label><b>Total</b></label>
-                                <h4>{{evolucionesEdit.riesgoCaida.caidasPrevias + evolucionesEdit.riesgoCaida.marcha + evolucionesEdit.riesgoCaida.ayudaDeambular + evolucionesEdit.riesgoCaida.venoclisis + evolucionesEdit.riesgoCaida.comorbilidad + evolucionesEdit.riesgoCaida.estadoMental}}</h4>
-                            </div>
+                            <fieldset>
+                                <legend>Valoración de riesgo de caídas</legend>
+                                <div class="row">
+                                    <div class="col-lg-2" style="width: 14%">
+                                        <label><b>Caídas previas</b></label>
+                                        <input type="radio" label="No" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.caidasPrevias" plex="radio">
+                                        <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.caidasPrevias==0">El paciente no se ha caído.</span>
+                                        <input type="radio" label="Si" ng-value="25" ng-model="evolucionesEdit.riesgoCaida.caidasPrevias" plex="radio">
+                                        <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.caidasPrevias==25">El paciente se ha caído durante la presente internación o tiene antecedentes dentro de los últimos 3 meses de caídas por convulsiones o trastornos de la marcha.</span>
+                                    </div>
+                                    <div class="col-lg-2" style="width: 14%">
+                                        <label><b>Marcha</b></label>
+                                        <input type="radio" label="Normal" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.marcha" plex="radio">
+                                        <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.marcha==0">El paciente camina con la cabeza erecta, los brazos balanceándose libremente a los costados y con pasos seguros.</span>
+                                        <input type="radio" label="Débil" ng-value="10" ng-model="evolucionesEdit.riesgoCaida.marcha" plex="radio">
+                                        <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.marcha==10">El paciente camina encorvado pero es capaz de levantar la cabeza mientras camina sin perder equilibrio. Los pasos son cortos y puede arrastrar los pies.</span>
+                                        <input type="radio" label="Limitada" ng-value="20" ng-model="evolucionesEdit.riesgoCaida.marcha" plex="radio">
+                                        <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.marcha==20">El paciente puede tener dificultades para levantarse de la silla, pudiendo realizar varios intentos apoyando sus brazos en los brazos de la silla o tomando impulso. La cabeza del paciente está baja, mirando al piso.</span>
+                                    </div>
+                                    <div class="col-lg-2" style="width: 14%">
+                                        <label><b>Ayuda para deambular</b></label>
+                                        <input type="radio" label="Ninguna" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.ayudaDeambular" plex="radio">
+                                        <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.ayudaDeambular==0">El paciente camina sin ningún dispositivo de ayuda, se encuentra en silla de ruedas o está en reposo y no se levanta de la cama para nada.</span>
+                                        <input type="radio" label="Necesita ayuda" ng-value="15" ng-model="evolucionesEdit.riesgoCaida.ayudaDeambular" plex="radio">
+                                        <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.ayudaDeambular==15">El paciente utiliza muletas, bastón o andador.</span>
+                                        <input type="radio" label="Se apoya en los muebles" ng-value="30" ng-model="evolucionesEdit.riesgoCaida.ayudaDeambular" plex="radio">
+                                        <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.ayudaDeambular==30">El paciente sólo camina apoyándose en los muebles.</span>
+                                    </div>
+                                    <div class="col-lg-2" style="width: 14%">
+                                        <label><b>Venoclisis</b></label>
+                                        <input type="radio" label="No" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.venoclisis" plex="radio">
+                                        <input type="radio" label="Si" ng-value="20" ng-model="evolucionesEdit.riesgoCaida.venoclisis" plex="radio">
+                                        <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.venoclisis==20">El paciente tiene una vía IV.</span>
+                                    </div>
+                                    <div class="col-lg-2" style="width: 14%">
+                                        <label><b>Comorbilidad</b></label>
+                                        <input type="radio" label="No" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.comorbilidad" plex="radio">
+                                        <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.comorbilidad==0">El paciente tiene un solo diagnóstico.</span>
+                                        <input type="radio" label="Si" ng-value="15" ng-model="evolucionesEdit.riesgoCaida.comorbilidad" plex="radio">
+                                        <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.comorbilidad==15">El paciente presenta múltiples diagnósticos.</span>
+                                    </div>
+                                    <div class="col-lg-2" style="width: 18%">
+                                        <label><b>Estado mental</b></label>
+                                        <input type="radio" label="Reconoce sus limitaciones" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.estadoMental" plex="radio">
+                                        <input type="radio" label="Sobreestima u olvida sus limitaciones" ng-value="15" ng-model="evolucionesEdit.riesgoCaida.estadoMental" plex="radio">
+                                    </div>
+                                    <div class="col-lg-2" style="width: 10%">
+                                        <label><b>Total</b></label>
+                                        <h4>{{evolucionesEdit.riesgoCaida.caidasPrevias + evolucionesEdit.riesgoCaida.marcha + evolucionesEdit.riesgoCaida.ayudaDeambular + evolucionesEdit.riesgoCaida.venoclisis + evolucionesEdit.riesgoCaida.comorbilidad + evolucionesEdit.riesgoCaida.estadoMental}}</h4>
+                                    </div>
+                                </div>
+                            </fielset>
                         </div>
                         <!-- Riesgo de UPP -->
                         <div class="card card-block"></div>
                         <!-- Dolor -->
                         <div class="card card-block">
-                            <h4 class="card-title">Valoración del dolor</h4>
-                            <br />
-                            <div class="row">
-                                <div class="col-lg-2" style="width: 14%">
-                                    <label><b>Analgesia previa</b></label>
-                                    <input type="radio" label="Indicada por médico" ng-value="false" ng-model="evolucionesEdit.dolorValoracion.analgesiaAutomedicacion" plex="radio">
-                                    <input type="radio" label="Automedicación" ng-value="true" ng-model="evolucionesEdita.dolorValoracion.analgesiaAutomedicacion" plex="radio">
-                                </div>
-                                <div class="col-lg-2" style="width: 14%">
-                                    <label><b>Ansiolíticos previos</b></label>
-                                    <input type="radio" label="Indicados por médico" ng-value="false" ng-model="evolucionesEdit.dolorValoracion.ansioliticosAutomedicacion" plex="radio">
-                                    <input type="radio" label="Automedicación" ng-value="true" ng-model="evolucionesEdit.dolorValoracion.ansioliticosAutomedicacion" plex="radio">
-                                </div>
-                                <div class="col-lg-2" style="width: 14%">
-                                    <label><b>Intensidad</b></label>
-                                    <select ng-model="evolucionesEdit.dolorValoracion.intensidad" plex>
-                                        <option value="0">0 (sin dolor)</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10 (máximo dolor)</option>
-                                    </select>
-                                </div>
-                                <div class="col-lg-6" style="width: 30%">
-                                    <label><b>Características del dolor</b></label>
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <input type="checkbox" label="Punzante" ng-model="evolucionesEdit.dolorValoracion.punzante" plex="checkbox">
-                                            <input type="checkbox" label="Tipo cólico" ng-model="evolucionesEdit.dolorValoracion.tipoColico" plex="checkbox">
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <input type="checkbox" label="Pesadez" ng-model="evolucionesEdit.dolorValoracion.pesadez" plex="checkbox">
-                                            <input type="checkbox" label="Pulsante" ng-model="evolucionesEdit.dolorValoracion.pulsante" plex="checkbox">
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <input type="checkbox" label="Caliente" ng-model="evolucionesEdit.dolorValoracion.caliente" plex="checkbox">
-                                            <input type="checkbox" label="Adormecimiento/Hormigueo" ng-model="evolucionesEdit.dolorValoracion.hormigueo" plex="checkbox">
+                            <fieldset>
+                                <legend>Valoración del dolor</legend>
+
+                                <div class="row">
+                                    <div class="col-lg-2" style="width: 14%">
+                                        <label><b>Analgesia previa</b></label>
+                                        <input type="radio" label="Indicada por médico" ng-value="false" ng-model="evolucionesEdit.dolorValoracion.analgesiaAutomedicacion" plex="radio">
+                                        <input type="radio" label="Automedicación" ng-value="true" ng-model="evolucionesEdita.dolorValoracion.analgesiaAutomedicacion" plex="radio">
+                                    </div>
+                                    <div class="col-lg-2" style="width: 14%">
+                                        <label><b>Ansiolíticos previos</b></label>
+                                        <input type="radio" label="Indicados por médico" ng-value="false" ng-model="evolucionesEdit.dolorValoracion.ansioliticosAutomedicacion" plex="radio">
+                                        <input type="radio" label="Automedicación" ng-value="true" ng-model="evolucionesEdit.dolorValoracion.ansioliticosAutomedicacion" plex="radio">
+                                    </div>
+                                    <div class="col-lg-2" style="width: 14%">
+                                        <label><b>Intensidad</b></label>
+                                        <select ng-model="evolucionesEdit.dolorValoracion.intensidad" plex>
+                                            <option value="0">0 (sin dolor)</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10 (máximo dolor)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-6" style="width: 30%">
+                                        <label><b>Características del dolor</b></label>
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <input type="checkbox" label="Punzante" ng-model="evolucionesEdit.dolorValoracion.punzante" plex="checkbox">
+                                                <input type="checkbox" label="Tipo cólico" ng-model="evolucionesEdit.dolorValoracion.tipoColico" plex="checkbox">
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <input type="checkbox" label="Pesadez" ng-model="evolucionesEdit.dolorValoracion.pesadez" plex="checkbox">
+                                                <input type="checkbox" label="Pulsante" ng-model="evolucionesEdit.dolorValoracion.pulsante" plex="checkbox">
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <input type="checkbox" label="Caliente" ng-model="evolucionesEdit.dolorValoracion.caliente" plex="checkbox">
+                                                <input type="checkbox" label="Adormecimiento/Hormigueo" ng-model="evolucionesEdit.dolorValoracion.hormigueo" plex="checkbox">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesDolor" plex="text">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesDolor" plex="text">
+                                    </div>
                                 </div>
-                            </div>
+                            </fieldset>
                         </div>
-                        <br />
+
                         <div class="card card-block">
-                            <div class=" row" ng-if="internacion.evoluciones.length > 0">
-                                <div class="col-lg-12">
-                                    <h6 class="text-uppercase">
-                                        Evolución anterior ({{ultimaEvolucion.fechaHora | fromNow}})
-                                        <span class=" pull-right">
-                                            {{ultimaEvolucion.fechaHora | date: "dd/MM/yyyy  'a las' HH:mm "}}
-                                            hs
-                                        </span>
-                                    </h6>
-                                    <hr/>
-                                </div>
-
-                            </div>
-
-                            <div class=" row" ng-if="internacion.evoluciones.length > 0">
-                                <div class="col-lg-2 evolucion-anterior">
-                                    <span class="text-uppercase">Signos vitales</span>
-                                    <br/>
-                                    <div ng-show="ultimaEvolucion.pulso">
-                                        <strong>Frecuencia cardíaca:</strong>
-                                        {{ultimaEvolucion.pulso}}
-                                        PPM
-                                    </div>
-                                    <div ng-show="ultimaEvolucion.respiracion">
-                                        <strong>Frecuencia respiratoria:</strong>
-                                        {{ultimaEvolucion.respiracion}}
-                                        PPM
-                                    </div>
-                                    <div ng-show="ultimaEvolucion.tensionDiastolica">
-                                        <strong>Tensión diastólica:</strong>
-                                        {{ultimaEvolucion.tensionDiastolica}}
-                                        mmHG
-                                    </div>
-                                    <div ng-show="ultimaEvolucion.tensionSistolica">
-                                        <strong>Tensión sistólica:</strong>
-                                        {{ultimaEvolucion.tensionSistolica}}
-                                        mmHG
-                                    </div>
-                                </div>
-                                <div class="col-lg-2 br evolucion-anterior">
-                                    <br/>
-                                    <div ng-show="ultimaEvolucion.temperatura">
-                                        <strong>Temperatura:</strong>
-                                        {{ultimaEvolucion.temperatura}}
-                                        ºC
-                                    </div>
-                                    <div ng-show="ultimaEvolucion.spo2">
-                                        <strong>Saturación O
-                                            <sub>2</sub>:</strong>
-                                        {{ultimaEvolucion.spo2}}
-                                        %
-                                    </div>
-                                    <div ng-show="ultimaEvolucion.peso">
-                                        <strong>Peso:</strong>
-                                        {{ultimaEvolucion.peso}}
-                                        kgs
-                                    </div>
-                                    <br/>
-                                </div>
-                                <div class="col-lg-2 evolucion-anterior">
-                                    <span class="text-uppercase">Ingresos</span>
-                                    <br/>
-                                    <div ng-show="ultimaEvolucion.ingresos.atb">
-                                        <strong>ATB:</strong>
-                                        {{ultimaEvolucion.ingresos.atb}}
-                                        ml
-                                    </div>
-                                    <div ng-show="ultimaEvolucion.ingresos.hemo">
-                                        <strong>HEMO.:</strong>
-                                        {{ultimaEvolucion.ingresos.hemo}}
-                                        ml
-                                    </div>
-                                    <div ng-show="ultimaEvolucion.ingresos.np">
-                                        <strong>NP:</strong>
-                                        {{ultimaEvolucion.ingresos.np}}
-                                        ml
-                                    </div>
-                                    <div ng-show="ultimaEvolucion.ingresos.prep">
-                                        <strong>Prep.:</strong>
-                                        {{ultimaEvolucion.ingresos.prep}}
-                                        ml
-                                    </div>
-                                </div>
-                                <div class="col-lg-1 br evolucion-anterior">
-                                    <br/>
-                                    <div ng-show="ultimaEvolucion.ingresos.h2o">
-                                        <strong>H
-                                            <sub>2</sub>O:</strong>
-                                        {{ultimaEvolucion.ingresos.h2o}}
-                                        ml
+                            <fieldset>
+                                <legend>Texto de resumen de la evolución</legend>
+                                <div class=" row" ng-if="internacion.evoluciones.length > 0">
+                                    <div class="col-lg-12">
+                                        <h6 class="text-uppercase">
+                                            Evolución anterior ({{ultimaEvolucion.fechaHora | fromNow}})
+                                            <span class=" pull-right">
+                                                {{ultimaEvolucion.fechaHora | date: "dd/MM/yyyy  'a las' HH:mm "}}
+                                                hs
+                                            </span>
+                                        </h6>
+                                        <hr/>
                                     </div>
 
                                 </div>
 
-                                <div class="col-lg-2 evolucion-anterior">
-                                    <span class="text-uppercase">Egresos</span>
-                                    <br/>
-                                    <div ng-show="ultimaEvolucion.egresos.lavadoVesicalI">
-                                        <strong>Lavado Vesical I:</strong>
-                                        {{ultimaEvolucion.egresos.lavadoVesicalI}}
-                                        ml
-                                    </div>
-                                    <div ng-show="ultimaEvolucion.egresos.lavadoVesicalE">
-                                        <strong>Lavado Vesical II:</strong>
-                                        {{ultimaEvolucion.egresos.lavadoVesicalE}}
-                                        ml
-                                    </div>
-                                    <div ng-show="ultimaEvolucion.egresos.diuresis">
-                                        <strong>Diuresis:</strong>
-                                        {{ultimaEvolucion.egresos.diuresis}}
-                                        ml
-                                    </div>
-                                    <div ng-show="ultimaEvolucion.egresos.catarsis">
-                                        <strong>Catarsis:</strong>
-                                        {{ultimaEvolucion.egresos.catarsis}}
-                                        ml
-                                    </div>
-                                </div>
-                                <div class="col-lg-2 br evolucion-anterior">
-                                    <br/>
-                                    <div ng-show="ultimaEvolucion.egresos.sng">
-                                        <strong>S.N.G:</strong>
-                                        {{ultimaEvolucion.egresos.sng}}
-                                        ml
-                                    </div>
-                                    <div ng-show="ultimaEvolucion.egresos.sny">
-                                        <strong>S.N.Y:</strong>
-                                        {{ultimaEvolucion.sny}}
-                                        ml
-                                    </div>
-                                    <div ng-show="ultimaEvolucion.egresos.ostomias">
-                                        <strong>Ostomias I:</strong>
-                                        {{ultimaEvolucion.egresos.ostomias}}
-                                        ml
-                                    </div>
-                                    <div ng-show="ultimaEvolucion.egresos.ostomias2">
-                                        <strong>Ostomias II:</strong>
-                                        {{ultimaEvolucion.egresos.ostomias2}}
-                                        ml
-                                    </div>
-
-                                    <div ng-repeat="drenaje in drenajes track by $index">
-                                        <div ng-show="drenajes[$index].cantidad">
-                                        {{drenaje.tipo}}, lado {{drenaje.lado}} {{drenajes[$index].cantidad}} ml ({{drenajes[$index].caracteristicaLiquido}})
+                                <div class=" row" ng-if="internacion.evoluciones.length > 0">
+                                    <div class="col-lg-2 evolucion-anterior">
+                                        <span class="text-uppercase">Signos vitales</span>
+                                        <br/>
+                                        <div ng-show="ultimaEvolucion.pulso">
+                                            <strong>Frecuencia cardíaca:</strong>
+                                            {{ultimaEvolucion.pulso}}
+                                            PPM
+                                        </div>
+                                        <div ng-show="ultimaEvolucion.respiracion">
+                                            <strong>Frecuencia respiratoria:</strong>
+                                            {{ultimaEvolucion.respiracion}}
+                                            PPM
+                                        </div>
+                                        <div ng-show="ultimaEvolucion.tensionDiastolica">
+                                            <strong>Tensión diastólica:</strong>
+                                            {{ultimaEvolucion.tensionDiastolica}}
+                                            mmHG
+                                        </div>
+                                        <div ng-show="ultimaEvolucion.tensionSistolica">
+                                            <strong>Tensión sistólica:</strong>
+                                            {{ultimaEvolucion.tensionSistolica}}
+                                            mmHG
                                         </div>
                                     </div>
+                                    <div class="col-lg-2 br evolucion-anterior">
+                                        <br/>
+                                        <div ng-show="ultimaEvolucion.temperatura">
+                                            <strong>Temperatura:</strong>
+                                            {{ultimaEvolucion.temperatura}}
+                                            ºC
+                                        </div>
+                                        <div ng-show="ultimaEvolucion.spo2">
+                                            <strong>Saturación O
+                                                <sub>2</sub>:</strong>
+                                            {{ultimaEvolucion.spo2}}
+                                            %
+                                        </div>
+                                        <div ng-show="ultimaEvolucion.peso">
+                                            <strong>Peso:</strong>
+                                            {{ultimaEvolucion.peso}}
+                                            kgs
+                                        </div>
+                                        <br/>
+                                    </div>
+                                    <div class="col-lg-2 evolucion-anterior">
+                                        <span class="text-uppercase">Ingresos</span>
+                                        <br/>
+                                        <div ng-show="ultimaEvolucion.ingresos.atb">
+                                            <strong>ATB:</strong>
+                                            {{ultimaEvolucion.ingresos.atb}}
+                                            ml
+                                        </div>
+                                        <div ng-show="ultimaEvolucion.ingresos.hemo">
+                                            <strong>HEMO.:</strong>
+                                            {{ultimaEvolucion.ingresos.hemo}}
+                                            ml
+                                        </div>
+                                        <div ng-show="ultimaEvolucion.ingresos.np">
+                                            <strong>NP:</strong>
+                                            {{ultimaEvolucion.ingresos.np}}
+                                            ml
+                                        </div>
+                                        <div ng-show="ultimaEvolucion.ingresos.prep">
+                                            <strong>Prep.:</strong>
+                                            {{ultimaEvolucion.ingresos.prep}}
+                                            ml
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-1 br evolucion-anterior">
+                                        <br/>
+                                        <div ng-show="ultimaEvolucion.ingresos.h2o">
+                                            <strong>H
+                                                <sub>2</sub>O:</strong>
+                                            {{ultimaEvolucion.ingresos.h2o}}
+                                            ml
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-lg-2 evolucion-anterior">
+                                        <span class="text-uppercase">Egresos</span>
+                                        <br/>
+                                        <div ng-show="ultimaEvolucion.egresos.lavadoVesicalI">
+                                            <strong>Lavado Vesical I:</strong>
+                                            {{ultimaEvolucion.egresos.lavadoVesicalI}}
+                                            ml
+                                        </div>
+                                        <div ng-show="ultimaEvolucion.egresos.lavadoVesicalE">
+                                            <strong>Lavado Vesical II:</strong>
+                                            {{ultimaEvolucion.egresos.lavadoVesicalE}}
+                                            ml
+                                        </div>
+                                        <div ng-show="ultimaEvolucion.egresos.diuresis">
+                                            <strong>Diuresis:</strong>
+                                            {{ultimaEvolucion.egresos.diuresis}}
+                                            ml
+                                        </div>
+                                        <div ng-show="ultimaEvolucion.egresos.catarsis">
+                                            <strong>Catarsis:</strong>
+                                            {{ultimaEvolucion.egresos.catarsis}}
+                                            ml
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 br evolucion-anterior">
+                                        <br/>
+                                        <div ng-show="ultimaEvolucion.egresos.sng">
+                                            <strong>S.N.G:</strong>
+                                            {{ultimaEvolucion.egresos.sng}}
+                                            ml
+                                        </div>
+                                        <div ng-show="ultimaEvolucion.egresos.sny">
+                                            <strong>S.N.Y:</strong>
+                                            {{ultimaEvolucion.sny}}
+                                            ml
+                                        </div>
+                                        <div ng-show="ultimaEvolucion.egresos.ostomias">
+                                            <strong>Ostomias I:</strong>
+                                            {{ultimaEvolucion.egresos.ostomias}}
+                                            ml
+                                        </div>
+                                        <div ng-show="ultimaEvolucion.egresos.ostomias2">
+                                            <strong>Ostomias II:</strong>
+                                            {{ultimaEvolucion.egresos.ostomias2}}
+                                            ml
+                                        </div>
+
+                                        <div ng-repeat="drenaje in drenajes track by $index">
+                                            <div ng-show="drenajes[$index].cantidad">
+                                            {{drenaje.tipo}}, lado {{drenaje.lado}} {{drenajes[$index].cantidad}} ml ({{drenajes[$index].caracteristicaLiquido}})
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-1 evolucion-anterior">
+                                        <span class="text-uppercase">
+                                            Balance</span>
+                                            <i class="verde mdi mdi-trending-up" ng-if="ultimaEvolucion.$balance < 0"></i>
+                                            <i class="celeste mdi mdi-trending-flat" ng-if="ultimaEvolucion.$balance == 0"></i>
+                                            <i class="rojo mdi mdi-trending-down" ng-if="ultimaEvolucion.$balance > 0"></i>
+                                        </span>
+
+                                        <br/>
+                                        <span>
+                                            <strong>I =</strong>
+                                            {{ultimaEvolucion.$total_ingresos}}
+                                            <br/>
+                                            <strong>E =</strong>
+                                            {{ultimaEvolucion.$total_egresos}}
+                                        </span>
+
+                                    </div>
                                 </div>
-                                <div class="col-lg-1 evolucion-anterior">
-                                    <span class="text-uppercase">
-                                        Balance</span>
-                                    <i class="verde mdi mdi-trending-up" ng-if="ultimaEvolucion.$balance < 0"></i>
-                                    <i class="celeste mdi mdi-trending-flat" ng-if="ultimaEvolucion.$balance == 0"></i>
-                                    <i class="rojo mdi mdi-trending-down" ng-if="ultimaEvolucion.$balance > 0"></i>
-                                </span>
-
-                                <br/>
-                                <span>
-                                    <strong>I =</strong>
-                                    {{ultimaEvolucion.$total_ingresos}}
-                                    <br/>
-                                    <strong>E =</strong>
-                                    {{ultimaEvolucion.$total_egresos}}
-                                </span>
-
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <textarea label="Texto de la evolución" placeholder="Consignar los tratamientos y cuidados efectuados y los síntomas observados" plex-focus="true" ng-model="evolucionesEdit.texto" plex ng-required="true" rows="5" class="form-control"></textarea>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-2">
-                                <input type="checkbox" label="¿Flebitis?" ng-model="evolucionesEdit.flebitis" plex="checkbox" />
-                            </div>
-                            <div class="col-xs-10">
-                                <input type="text" label="Observaciones flebitis" ng-model="evolucionesEdit.observacionesFlebitis" plex class="form-control" ng-disabled="!evolucionesEdit.flebitis" />
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <button class="btn btn-primary" type="button">
-                                    Solicitar prestaciones
-                                </button>
-                            </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <textarea label="Texto de la evolución" placeholder="Consignar los tratamientos y cuidados efectuados y los síntomas observados" plex-focus="true" ng-model="evolucionesEdit.texto" plex ng-required="true" rows="5" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-2">
+                                        <input type="checkbox" label="¿Flebitis?" ng-model="evolucionesEdit.flebitis" plex="checkbox" />
+                                    </div>
+                                    <div class="col-xs-10">
+                                        <input type="text" label="Observaciones flebitis" ng-model="evolucionesEdit.observacionesFlebitis" plex class="form-control" ng-disabled="!evolucionesEdit.flebitis" />
+                                    </div>
+                                </div>
+                            </fieldset>
                         </div>
                     </div>
 
                 </div>
 
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card card-block margin-top text-right">
-                        <button type="button" class="btn btn-default btn-flat" ng-click="cancelarEdicion();">Cancelar</button>
-                        <button class="btn btn-primary" plex-submit="guardarEvolucion(evolucionesEdit)" ng-disabled="formEditarEvolucion.$invalid">
-                            <i class="mdi mdi-content-save"></i>
-                            Guardar</button>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card card-block margin-top text-right">
+                            <button type="button" class="btn btn-default btn-flat" ng-click="cancelarEdicion();">Cancelar</button>
+                            <button class="btn btn-primary" plex-submit="guardarEvolucion(evolucionesEdit)" ng-disabled="formEditarEvolucion.$invalid">
+                                <i class="mdi mdi-content-save"></i>
+                                Guardar</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </fieldset>
-    </ng-form>
+            </fieldset>
+        </ng-form>
 
-</div>
+    </div>
 
 </div>
 <!-- TODO ocultar tab ingresos liquidos si es medico

@@ -200,7 +200,30 @@ angular.module('app').factory('Shared', ["Global", "Server", "Session", function
             post: function(idInternacion, idPrestacion, data, options) {
                 return Server.post('/api/internacion/internacion/' + idInternacion + '/prestacion/' + (idPrestacion || ''), data, options);
             },
-        }
+        },
+        diagnosticos: {
+            /**
+             * @ngdoc method
+             * @name Shared#diagnosticos.get
+             * @description Obtiene una o varios diagnosticos según los parámetros de búsqueda
+             * @param {String|Object} query Parámetros para la consulta.
+             *
+             * Puede ser uno de los siguientes tipos:
+             *   - `String`: Busca por id
+             *   - `Object`: Permite buscar por una o más propiedades, por ejemplo `nombre`, `tipo`, etc. Para más información consultar la api correspondiente.
+             **/
+            get: function(query) {
+                if (angular.isObject(query)) {
+                    return Server.get("/api/internacion/diagnostico", {
+                        params: query
+                    });
+                } else if (query) {
+                    return Server.get("/api/internacion/diagnostico/" + query);
+                } else {
+                    return Server.get("/api/internacion/diagnostico");
+                }
+            }
+        },
     };
     return self;
 }]);

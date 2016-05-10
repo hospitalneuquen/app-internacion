@@ -99,3 +99,12 @@
 .bl {border-left: 1px solid #ccc;}
 .br {border-right: 1px solid #ccc;}
 .evolucion-anterior {min-height: 80px;}
+
+label{font-weight: bold;}
+
+
+/* tabs */
+.nav-tabs{ background: #fefefe; border-bottom: 1px solid #ddd;}
+.nav-tabs > li > a{border-radius: 0; text-transform: uppercase;}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus{color: white; background-color: #2196F3;}
+.nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{color: white; background-color: #247DC3;}

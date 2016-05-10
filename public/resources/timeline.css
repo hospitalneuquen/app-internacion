@@ -151,6 +151,10 @@
     background-color: #594857;
     color: #fff;
 }
+.timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-prestacion {
+    background-color: #39CCCC;
+    color: #fff;
+}
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label .timeline-title.ingreso {
     color: #5bc0de;
 }
@@ -165,6 +169,9 @@
 }
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label .timeline-title.egreso {
     color: #594857;
+}
+.timeline-centered .timeline-entry .timeline-entry-inner .timeline-label .timeline-title.prestacion {
+    color: #39CCCC;
 }
 
 /*.timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-primary {
