@@ -599,6 +599,10 @@
                                     <i class="mdi mdi-receipt"></i>
                                 </div>
 
+                                <div class="timeline-icon bg-prestacion" ng-if="elemento._tipo == 'prestacion'">
+                                    <i class="mdi mdi-television-guide"></i>
+                                </div>
+
                                 <div class="timeline-icon bg-pase" ng-if="elemento.tipo == 'Pase'">
                                     <i class="mdi mdi-walk"></i>
                                 </div>
@@ -630,7 +634,7 @@
                                             Tipo de ingreso:
                                             {{elemento.data.tipo}}
 
-                                            <span ng-if="elemento.data.dipo == 'derivacion'">Derivado desde:
+                                            <span ng-if="elemento.data.tipo == 'derivacion'">Derivado desde:
                                                 {{elemento.data.derivadoDesde.nombreCorto}}
                                             </span>
                                             <br/>
@@ -671,6 +675,19 @@
                                         </p>
                                     </div>
 
+                                    <div ng-if="elemento._tipo == 'prestacion'">
+                                        <p>
+                                            {{elemento.data.tipoPrestacion.nombre}}
+                                            <br />
+                                            Prioridad: {{elemento.data.prioridad}}
+                                            <br/>
+                                            <i class="fa fa-user-md"></i>
+                                            {{elemento.data.createdBy.name}}
+                                            <br/>
+                                            {{elemento.data.servicio.nombreCorto}}
+                                        </td>
+                                    </div>
+
                                     <div ng-if="elemento.tipo == 'Colocación de drenaje'">
                                         <p>
                                             Colocación de drenaje
@@ -699,22 +716,26 @@
                                             <br/>
 
                                             Cama:
-                                            {{elemento.data.cama.habitacion}}
+                                            {{internacion.pases[internacion.pases.length-1].cama.habitacion}}
                                             /
-                                            {{elemento.data.cama.numero}}
+                                            {{internacion.pases[internacion.pases.length-1].cama.numero}}
                                             <br/>
 
                                             Servicio:
-                                            {{elemento.data.servicio.nombreCorto}}
+                                            {{internacion.pases[internacion.pases.length-1].servicio.nombreCorto}}
                                         </p>
                                         <p>
                                             Tipo de alta:
                                             {{elemento.data.tipoAlta}}
                                             <br/>
-                                            <span ng-if="elemento.data.diagnosticoAlta">Diagnóstico de alta:
-                                                {{elemento.data.diagnosticoAlta}}</span>
+                                            <span ng-if="elemento.data.diagnosticoAlta">
+                                                Diagnóstico de alta:
+                                                {{elemento.data.diagnosticoAlta}}
+                                            </span>
+                                            <br />
                                             <span ng-if="elemento.data.derivadoHacia">Derivado hacia:
                                                 {{elemento.data.derivadoHacia.nombreCorto}}
+                                            </span>
                                             </p>
                                         </div>
                                     </div>

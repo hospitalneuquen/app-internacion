@@ -1,6 +1,7 @@
 angular.module('app').controller('internacion/editar', ['$scope', 'Plex', 'plexParams', 'Server', '$timeout', 'Personas', 'Global', 'Shared', 'Session', '$filter', function($scope, Plex, plexParams, Server, $timeout, Personas, Global, Shared, Session, $filter) {
     angular.extend($scope, {
         esModificacion: plexParams.idInternacion,
+        datosDisabled: true,
         tab: 1,
         internacion: null,
         tiposInternacion: [{ // opciones para el select del tipo de internacion
@@ -19,6 +20,7 @@ angular.module('app').controller('internacion/editar', ['$scope', 'Plex', 'plexP
             seleccionado: [],
             query: null,
             actualizar: function() {
+                $scope.datosDisabled = true;
                 var self = this;
                 if (self.query) {
                     var params = {};
@@ -44,6 +46,7 @@ angular.module('app').controller('internacion/editar', ['$scope', 'Plex', 'plexP
                     if (data.length) {
                         Plex.alert("Atención: El paciente se encuentra actualmente internado");
                     } else {
+                        $scope.datosDisabled = false;
                         $scope.tab = 1;
                         $scope.internacion.paciente = item;
                     }
@@ -154,8 +157,14 @@ angular.module('app').controller('internacion/editar', ['$scope', 'Plex', 'plexP
 
     // Inicializa watches
     $scope.$watch('personas.query', function(current, old) {
-        if (current != old)
+        if (current != old){
             $scope.personas.actualizar();
+            $scope.datosDisabled = true;
+        }
+    });
+
+    $scope.$watch('datosDisabled', function(current, old) {
+        console.log("Current: ", current);
     });
 
     // Init

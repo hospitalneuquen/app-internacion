@@ -219,7 +219,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                 angular.forEach($scope.internacion.prestaciones, function(prestacion, key) {
                     $scope.ordenCronologico.push({
                         fecha: prestacion.fechaHora,
-                        tipo: "Presetación",
+                        tipo: "Solicitud de prestación",
                         _tipo: "prestacion",
                         data: prestacion,
                         cama: ''
@@ -311,23 +311,26 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
 
                 angular.forEach($scope.ordenCronologico, function(elemento, index) {
 
-                    var cantidadPases = ($scope.internacion.pases.length - 1);
+                    if ($scope.internacion.pases.length > 1){
 
-                    for (var i = cantidadPases; i >= 0; i--){
-                        var pase = $scope.internacion.pases[i];
-                        // si la fecha del elemento, es menor o igual a la del pase
-                        // entonces le asignamos esa cama (nro habitacion y nro cama)
-                        if (Global.compareDateTime(elemento.fecha, pase.fechaHora) < 0){
+                        var cantidadPases = ($scope.internacion.pases.length - 1);
 
-                            $scope.ordenCronologico[index].cama = pase.cama;
+                        for (var i = 0; i <= cantidadPases; i++){
+                            var pase = $scope.internacion.pases[i];
+
+                            // si la fecha del elemento, es menor o igual a la del pase
+                            // entonces le asignamos esa cama (nro habitacion y nro cama)
+                            if (Global.compareDateTime(new Date(elemento.fecha), new Date(pase.fechaHora)) >= 0){
+                                $scope.ordenCronologico[index].cama = pase.cama;
+                            }
+
                         }
-
+                    }else{
+                        $scope.ordenCronologico[index].cama = $scope.internacion.pases[0].cama;
                     }
 
                 });
             }
-
-            // console.log($scope.ordenCronologico[index].cama.habitacion + "/" + $scope.ordenCronologico[index].cama.numero);
         },
         goToTab: function(tab) {
             $scope.selectedTabIndex = tab;

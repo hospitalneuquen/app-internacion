@@ -4,6 +4,7 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
     angular.extend($scope, {
         searchText: null,
         selectedItem: null,
+        diagnosticoAlta: [],
         egreso: {
             servicio: Session.servicioActual.id
         },
@@ -77,6 +78,15 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
             }
 
             return Shared.ubicaciones.get(buscar);
+        },
+        buscarDiagnosticoAlta: function(query){
+            // buscamos todos los servicios para en caso de ser un pase
+            // cargar el select con las opciones
+            var buscar = {
+                nombre: query
+            }
+
+            return Shared.diagnosticos.get(buscar);
         },
         cancelarEgreso: function() {
             Plex.closeView();

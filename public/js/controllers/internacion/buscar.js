@@ -32,13 +32,7 @@ angular.module('app').controller('internacion/buscar', ['$scope', 'Plex', 'Serve
                     paciente: item.id
                 }).then(function(data) {
                     if (!data.length) {
-                        $alert({
-                            // title: 'Cama sin desfinfectar',
-                            content: "El paciente " + item.apellido + ", " + item.nombre + " no posee internaciones",
-                            placement: 'top-right',
-                            type: 'info',
-                            show: true
-                        });
+                        Plex.alert("El paciente " + item.apellido + ", " + item.nombre + " no posee internaciones");
                     } else {
                         $scope.internacionesDisabled = false;
                         $scope.tab = 1;
