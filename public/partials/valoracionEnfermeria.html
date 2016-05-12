@@ -95,16 +95,29 @@
                         </div>
                         <div class="col-lg-2" style="width: 20%">
                             <input type="checkbox" label="Secreciones" ng-model="internacion.ingreso.enfermeria.secreciones" plex="checkbox">
-                            <input type="text" hint="Ingrese las características de las secreciones" ng-model="internacion.ingreso.enfermeria.secrecionesCaracteristicas" ng-show="internacion.ingreso.enfermeria.secreciones" plex="text"/>
+                            <select label="Ingrese las características de las secreciones" ng-model="internacion.ingreso.enfermeria.secrecionesCaracteristicas" ng-show="internacion.ingreso.enfermeria.secreciones" plex>
+                                <option value="Serosa">Serosa</option>
+                                <option value="Mucosa">Mucosa</option>
+                                <option value="Mucopurulenta">Mucopurulenta</option>
+                                <option value="Purulenta">Purulenta</option>
+                            </select>
+                            <select label="Ingrese el color de las secreciones" ng-model="internacion.ingreso.enfermeria.secrecionesColor" ng-show="internacion.ingreso.enfermeria.secreciones" plex>
+                                <option value="Transparente o blanco">Transparente o blanco</option>
+                                <option value="Amarillo o verde">Amarillo o verde</option>
+                                <option value="Herrumbroso">Herrumbroso</option>
+                                <option value="Cafe">Café</option>
+                                <option value="Rojo vivo">Rojo vivo</option>
+                                <option value="Rojo oscuro rosado">Rojo oscuro rosado</option>
+                            </select>
                         </div>
                         <div class="col-lg-2" style="width: 20%">
                             <input type="checkbox" label="Uso de músculos accesorios" ng-model="internacion.ingreso.enfermeria.usoMusculos" plex="checkbox">
-                            <select hint="Ingrese cuales son los músculos accesorios" ng-model="internacion.ingreso.enfermeria.musculosCuales" ng-show="internacion.ingreso.enfermeria.usoMusculos" plex>
-                                <option value="1">Leve intercostal</option>
-                                <option value="2">Tiraje</option>
-                                <option value="3">Generalizado</option>
-                                <option value="4">Tiraje y aleteo</option>
-                                <option value="5">Nasal</option>
+                            <select label="Ingrese cuales son los músculos accesorios" ng-model="internacion.ingreso.enfermeria.musculosCuales" ng-show="internacion.ingreso.enfermeria.usoMusculos" plex>
+                                <option value="Leve intercostal">Leve intercostal</option>
+                                <option value="Tiraje">Tiraje</option>
+                                <option value="Generalizado">Generalizado</option>
+                                <option value="Tiraje y aleteo">Tiraje y aleteo</option>
+                                <option value="Nasal">Nasal</option>
                             </select>
                         </div>
                     </div>
@@ -124,7 +137,11 @@
                         </div>
                         <div class="col-lg-2" style="width: 20%">
                             <input type="checkbox" label="Vómitos" ng-model="internacion.ingreso.enfermeria.vomitos" plex="checkbox">
-                            <input type="text" hint="Ingrese las características de los vómitos" ng-model="internacion.ingreso.enfermeria.vomitosCaracteristicas" ng-show="internacion.ingreso.enfermeria.vomitos" plex="text"/>
+                            <select label="Ingrese las características de los vómitos" ng-model="internacion.ingreso.enfermeria.vomitosCaracteristicas" ng-show="internacion.ingreso.enfermeria.vomitos" plex>
+                                <option value="Hematemesis">Hematemesis</option>
+                                <option value="Fecaloide">Fecaloide</option>
+                                <option value="Biliar">Biliar</option>
+                            </select>
                         </div>
                         <div class="col-lg-2" style="width: 30%">
                             <input type="text" label="Hábitos Alimentarios" ng-model="internacion.ingreso.enfermeria.habitosAlimentarios" plex="text">
@@ -140,7 +157,7 @@
                         </div>
                         <div class="col-lg-2" style="width: 20%">
                             <input type="checkbox" label="Prótesis" ng-model="internacion.ingreso.enfermeria.protesis" plex="checkbox">
-                            <input type="text" hint="Ingrese tipo de prótesis" ng-model="internacion.ingreso.enfermeria.protesisTipo" ng-show="internacion.ingreso.enfermeria.protesis" plex="text"/>
+                            <input type="text" label="Ingrese tipo de prótesis" ng-model="internacion.ingreso.enfermeria.protesisTipo" ng-show="internacion.ingreso.enfermeria.protesis" plex="text"/>
                         </div>
                         <div class="col-lg-2" style="width: 15%">
                             <input type="checkbox" label="Dificultades para deglutir" ng-model="internacion.ingreso.enfermeria.dificultadesDeglutir" plex="checkbox">
@@ -149,7 +166,8 @@
                             <input type="checkbox" label="Dificultades para masticar" ng-model="internacion.ingreso.enfermeria.dificultadesMasticar" plex="checkbox">
                         </div>
                         <div class="col-lg-2" style="width: 35%">
-                            <input type="text" label="Lactancia materna" ng-model="internacion.ingreso.enfermeria.lactanciaMaterna" plex="text">
+                            <input type="checkbox" label="Lactancia materna" ng-model="internacion.ingreso.enfermeria.lactanciaMaterna" plex="checkbox">
+                            <input type="text" label="Observaciones" ng-model="internacion.ingreso.enfermeria.observacionesLactancia" ng-show="internacion.ingreso.enfermeria.lactanciaMaterna" plex="text">
                         </div>
                     </div>
                     <br />
@@ -295,7 +313,14 @@
                         </div>
                         <div class="col-lg-2" style="width: 20%">
                             <input type="checkbox" label="Uso de dispositivos de movilización" ng-model="internacion.ingreso.enfermeria.dispositivosMovilizacion" plex="checkbox">
-                            <input type="text" hint="Ingrese cuáles son los dispositivos de movilización" ng-model="internacion.ingreso.enfermeria.dispositivosCuales" ng-show="internacion.ingreso.enfermeria.dispositivosMovilizacion" plex="text"/>
+                            <select hint="Ingrese cuáles son los dispositivos de movilización" ng-model="internacion.ingreso.enfermeria.dispositivosCuales" ng-show="internacion.ingreso.enfermeria.dispositivosMovilizacion" multiple plex>
+                                <option value="1">Una muleta</option>
+                                <option value="2">Dos muletas</option>
+                                <option value="3">Silla de ruedas</option>
+                                <option value="4">Andador</option>
+                                <option value="5">Trípode</option>
+                                <option value="6">Bastón</option>
+                            </select>
                         </div>
                     </div>
                     <br />

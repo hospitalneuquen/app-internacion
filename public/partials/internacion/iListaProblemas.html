@@ -95,7 +95,12 @@
                                 </div>
                                 <div class="col-xs-3">
                                     <div class="form-group">
-                                        <select label="Estado" ng-model="problemasEdit.estado" plex="(item.nombre) for item in estado"></select>
+                                        <select label="Estado" ng-model="problemasEdit.estado" plex>
+                                            <option value="Activo">Activo</option>
+                                            <option value="Inactivo">Inactivo</option>
+                                            <option value="Resuelto">Resuelto</option>
+                                            <option value="Transformado">Transformado</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-xs-3">
