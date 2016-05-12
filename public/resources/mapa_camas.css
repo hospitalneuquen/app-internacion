@@ -198,6 +198,10 @@
 .cama .back .content.reparacion .footer .col-left::after {
     border-right: 0 none;
 }
+
+.cama .back .footer.with-buttons {padding: 7px 0;}
+.cama .back .footer.with-buttons .form-group{margin-bottom: 5px;}
+
 .cama  .icon .fa.agregar {
     font-size: 160px;
 }

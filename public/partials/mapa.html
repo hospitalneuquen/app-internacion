@@ -3,7 +3,7 @@
 
         <div class="col-sm-3 col-lg-3">
             <div class="form-group">
-                <input type="text" ng-model="filter.nombre" id="filter-nombre" plex label="Nombre paciente"/>
+                <input type="text" ng-model="filter.nombre" id="filter-nombre" plex label="Nombre paciente / Número de documento"/>
             </div>
         </div>
 
@@ -180,7 +180,7 @@
                                 <button class="btn btn-default btn-flat" title="Enviar a reparación " ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'reparacion'" ng-if="!cama.paciente.id && (cama.estado == 'desocupada' && cama.estado != 'reparacion')">
                                     <i class="mdi mdi-wrench"></i>
                                 </button>
-                                <button class="btn btn-default btn-flat" title="Confirmar reparación" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'reparacion'" ng-if="!cama.paciente.id && (cama.estado == 'desocupada' && cama.estado == 'reparacion')">
+                                <button class="btn btn-default btn-flat" title="Confirmar reparación" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'reparacion'" ng-if="!cama.paciente.id && cama.estado == 'reparacion'">
                                     <i class="mdi mdi-wrench"></i>
                                 </button>
                             </div>
@@ -342,7 +342,7 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="footer">
+                        <div class="footer with-buttons">
 
                             <div class="col-xs-6">
                                 <div class="form-group">
@@ -523,7 +523,7 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="alert alert-danger" ng-if="filter.camas && filter.camas.length == 0">
-            ¡No se encontró ninguna cama!
+            No se encontró ningun paciente con esos datos
         </div>
     </div>
 </div>

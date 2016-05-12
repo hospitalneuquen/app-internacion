@@ -6,7 +6,7 @@
                     Seleccionar paciente
                 </a>
             </li>
-            <li>
+            <li class="disabled" ng-disabled="datosDisabled">
                 <a>
                     Datos de la internación
                 </a>
@@ -163,7 +163,10 @@
                 </div>
 
                 <div class=" card-block margin-top text-right">
-                    <a class="btn btn-default btn-flat">Cancelar</a>
+
+                    <button class="btn btn-default btn-flat"  type="button" ng-click="cancelar()">
+                        Cancelar
+                    </button>
                     <button class="btn btn-primary" plex-submit="guardar()">
                         <i class="mdi mdi-content-save"></i>
                         <span>Guardar</span>
