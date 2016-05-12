@@ -5,7 +5,7 @@
         <ul class="nav nav-tabs">
             <li>
                 <a>
-                    Resúmen internación
+                    Resumen internación
                 </a>
             </li>
             <li>
@@ -73,7 +73,7 @@
                             <div class="card-header-title">
 
                                 <div class="title">Gráficos</div>
-                                <div class="subtitle">Gráficas de internacion de un pacientes.</div>
+                                <div class="subtitle">Gráficos de internacion de las evoluciones del paciente.</div>
                             </div>
                         </div>
                         <div class="card-block">
@@ -90,7 +90,7 @@
                             </p>
 
                             <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 1">
-                                Ir a los gráficos
+                                Ver los gráficos
                             </button>
                         </div>
                     </div>
@@ -141,7 +141,7 @@
                             </p>
 
                             <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 5">
-                                Ir a los antecedetnes
+                                Ir a los antecedentes
                             </button>
                         </div>
                     </div>
@@ -198,7 +198,8 @@
         </div>
 
         <div class="card card-block">
-            <div class="row">
+            <h3>Gráficos</h3>
+            <div class="row" ng-if="internacion.evoluciones.length > 0">
                 <div class="col-lg-4">
                     <!-- <div plex-include="'partials/internacion/iGraficoLiquidos.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0"></div> -->
 
@@ -217,6 +218,7 @@
                 </div>
 
             </div>
+            <p ng-if="!internacion.evoluciones.length">No se han cargado evoluciones aún para poder generar gráficos</p>
         </div>
 
         <div class="card card-block">
@@ -318,6 +320,8 @@
                         </tr>
                     </tbody>
                 </table>
+
+                <p ng-if="!internacion.drenajes.length">No se han cargado drenajes</p>
 
                 <div ng-if="drenajesEdit">
                     <ng-form name="formEditarDrenaje">

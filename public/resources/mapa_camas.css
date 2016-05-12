@@ -223,6 +223,13 @@
 /*.cama .stacked-icon {
     margin-top: 8px;
 }*/
+
+.cama .rounded-background {
+    border-radius: 18px;
+    color: white;
+    padding: 5px;
+    width: 32px;
+}
 .cama .numero-habitacion-header {
     background: #f4f4f4;
     color: #000;
@@ -245,7 +252,6 @@
     transform: scale(1.1);
 }
 
-
 /* varios */
 .numero-habitacion {
     background: #f4f4f4;
@@ -256,7 +262,7 @@
     display: inline-block;
 }
 .bg-oxigeno {
-    background: #5bc0de;
+    background-color: #5bc0de;
 }
 .oxigeno {
     color: #5bc0de;
