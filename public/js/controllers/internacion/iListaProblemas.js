@@ -5,16 +5,6 @@ angular.module('app').controller('internacion/iListaProblemas', ['$scope', 'Plex
         show_toolbar_problemas: true,
         loading: true,
         internacion: undefined,
-        // prioridad: [{
-        //     id: 'No prioritario',
-        //     nombre: 'No prioritario'
-        // }, {
-        //     id: 'Urgente',
-        //     nombre: 'Urgente'
-        // }, {
-        //     id: 'Emergencia',
-        //     nombre: 'Emergencia'
-        // }],
         problemasEdit: undefined, // Item actual que se está editando
 
         filtros: {
@@ -56,7 +46,7 @@ angular.module('app').controller('internacion/iListaProblemas', ['$scope', 'Plex
 
                 // Valores por defecto
                 $scope.problemasEdit = {
-                    activoDesde: new Date(),
+                    fechaDesde: new Date(),
                     servicio: Session.servicioActual,
                     estado: 'Activo'
                 };

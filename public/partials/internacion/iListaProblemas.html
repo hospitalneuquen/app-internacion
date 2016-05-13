@@ -32,7 +32,7 @@
                         Estado
                     </th>
                     <th >
-                        Activo desde
+                        Desde
                     </th>
                     <th >
                         Crónico
@@ -44,7 +44,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr data-ng-repeat="item in filtros.problemas | orderBy: '-activoDesde'">
+                <tr data-ng-repeat="item in filtros.problemas | orderBy: '-fechaDesde'">
                     <td >
                         {{item.descripcion}}
                     </td>
@@ -52,9 +52,9 @@
                         {{item.estado}}
                     </td>
                     <td >
-                        {{item.activoDesde | fromNow }}<br/>
+                        {{item.fechaDesde | fromNow }}<br/>
                         <div class="text-muted small">
-                            {{item.activoDesde | date: "dd/MM/yyyy HH:mm"}}
+                            {{item.fechaDesde | date: "dd/MM/yyyy HH:mm"}}
                         </div>
                     </td>
                     <td >
@@ -106,7 +106,7 @@
                                 </div>
                                 <div class="col-xs-3">
                                     <div class="form-group">
-                                        <input type="text" label="Activo desde" ng-model="problemasEdit.activoDesde" plex="date">
+                                        <input type="text" label="Desde" ng-model="problemasEdit.fechaDesde" plex="date">
                                     </div>
                                 </div>
                                 <div class="col-xs-3">
