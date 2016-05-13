@@ -215,7 +215,7 @@
                         <!-- <div ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
                         <div class="card card-block">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <fieldset>
                                         <legend>Signos vitales</legend>
                                         <div class="row">
@@ -252,7 +252,7 @@
                                         </div>
                                     </fieldset>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <fieldset>
                                         <legend>Circulación</legend>
                                         <div class="row">
@@ -290,55 +290,77 @@
                                         </div>
                                     </fieldset>
                                 </div>
-                                <div class="col-md-4">
-                                    <fieldset>
-                                        <legend>Glasgow</legend>
-                                        <div class="col-lg-3">
-                                            <select hint="Ocular" ng-model="evolucionesEdit.glasgowOcular" plex>
-                                                <option value="1">1</option>
-                                                <!-- Ausencia de respuesta -->
-                                                <option value="2">2</option>
-                                                <!-- Al dolor -->
-                                                <option value="3">3</option>
-                                                <!-- A estímulos verbales -->
-                                                <option value="4">4</option>
-                                                <!-- Espontánea -->
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <select hint="Verbal" ng-model="evolucionesEdit.glasgowVerbal" plex>
-                                                <option value="1">1</option>
-                                                <!-- Ausencia de respuesta -->
-                                                <option value="2">2</option>
-                                                <!-- Sonidos incomprensibles -->
-                                                <option value="3">3</option>
-                                                <!-- Incoherente -->
-                                                <option value="4">4</option>
-                                                <!-- Desorientado/confuso -->
-                                                <option value="5">5</option>
-                                                <!-- Orientado -->
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <select hint="Motor" ng-model="evolucionesEdit.glasgowMotor" plex>
-                                                <option value="1">1</option>
-                                                <!-- Ausencia de respuesta -->
-                                                <option value="2">2</option>
-                                                <!-- Extensión anormal -->
-                                                <option value="3">3</option>
-                                                <!-- Flexión anormal -->
-                                                <option value="4">4</option>
-                                                <!-- Retirada al dolor -->
-                                                <option value="5">5</option>
-                                                <!-- Localiza el dolor -->
-                                                <option value="6">6</option>
-                                                <!-- Obedece ordenes -->
-                                            </select>
-                                        </div>
-                                    </fieldset>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                        <fieldset>
+                                            <legend>Glasgow</legend>
+                                            <!-- <div class="col-lg-4">
+                                                <select hint="Ocular" ng-model="evolucionesEdit.glasgowOcular" plex>
+                                                    <option ng-value="1">1 - Ausencia de respuesta</option>
+                                                    <option ng-value="2">2 - Al dolor</option>
+                                                    <option ng-value="3">3 - A estímulos verbales</option>
+                                                    <option ng-value="4">4 - Espontánea</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <select hint="Verbal" ng-model="evolucionesEdit.glasgowVerbal" plex>
+                                                    <option ng-value="1">1 - Ausencia de respuesta</option>
+                                                    <option ng-value="2">2 - Sonidos incomprensibles</option>
+                                                    <option ng-value="3">3 - Incoherente</option>
+                                                    <option ng-value="4">4 - Desorientado/confuso</option>
+                                                    <option ng-value="5">5 - Orientado</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <select hint="Motor" ng-model="evolucionesEdit.glasgowMotor" plex>
+                                                    <option ng-value="1">1 - Ausencia de respuesta</option>
+                                                    <option ng-value="2">2 - Extensión anormal</option>
+                                                    <option ng-value="3">3 - Flexión anormal</option>
+                                                    <option ng-value="4">4 - Retirada al dolor</option>
+                                                    <option ng-value="5">5 - Localiza el dolor</option>
+                                                    <option ng-value="6">6 - Obedece ordenes</option>
+                                                </select>
+                                            </div> -->
+                                            <div class="col-lg-2">
+                                                <label>
+                                                    <b>Ocular</b>
+                                                </label>
+                                                <input type="radio" label="1 - Ausencia de respuesta" ng-value="1" ng-model="evolucionesEdit.glasgowOcular" plex="radio">
+                                                <input type="radio" label="2 - Al dolor" ng-value="2" ng-model="evolucionesEdit.glasgowOcular" plex="radio">
+                                                <input type="radio" label="3 - A estímulos verbales" ng-value="3" ng-model="evolucionesEdit.glasgowOcular" plex="radio">
+                                                <input type="radio" label="4 - Espontánea" ng-value="4" ng-model="evolucionesEdit.glasgowOcular" plex="radio">
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <label>
+                                                    <b>Verbal</b>
+                                                </label>
+                                                <input type="radio" label="1 - Ausencia de respuesta" ng-value="1" ng-model="evolucionesEdit.glasgowVerbal" plex="radio">
+                                                <input type="radio" label="2 - Sonidos incomprensibles" ng-value="2" ng-model="evolucionesEdit.glasgowVerbal" plex="radio">
+                                                <input type="radio" label="3 - Incoherente" ng-value="3" ng-model="evolucionesEdit.glasgowVerbal" plex="radio">
+                                                <input type="radio" label="4 - Desorientado/confuso" ng-value="4" ng-model="evolucionesEdit.glasgowVerbal" plex="radio">
+                                                <input type="radio" label="5 - Orientado" ng-value="5" ng-model="evolucionesEdit.glasgowVerbal" plex="radio">
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <label>
+                                                    <b>Motor</b>
+                                                </label>
+                                                <input type="radio" label="1 - Ausencia de respuesta" ng-value="1" ng-model="evolucionesEdit.glasgowMotor" plex="radio">
+                                                <input type="radio" label="2 - Extensión anormal" ng-value="2" ng-model="evolucionesEdit.glasgowMotor" plex="radio">
+                                                <input type="radio" label="3 - Flexión anormal" ng-value="3" ng-model="evolucionesEdit.glasgowMotor" plex="radio">
+                                                <input type="radio" label="4 - Retirada al dolor" ng-value="4" ng-model="evolucionesEdit.glasgowMotor" plex="radio">
+                                                <input type="radio" label="5 - Localiza el dolor" ng-value="5" ng-model="evolucionesEdit.glasgowMotor" plex="radio">
+                                                <input type="radio" label="6 - Obedece ordenes" ng-value="6" ng-model="evolucionesEdit.glasgowMotor" plex="radio">
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <label>
+                                                    <b>Total</b>
+                                                </label>
+                                                <h4>{{evolucionesEdit.glasgowMotor + evolucionesEdit.glasgowVerbal + evolucionesEdit.glasgowOcular}}</h4>
+                                            </div>
+                                        </fieldset>
                                 </div>
                             </div>
-
                         </div>
                         <!-- <div ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
                         <div class="card card-block">
