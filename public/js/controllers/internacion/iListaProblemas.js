@@ -15,19 +15,6 @@ angular.module('app').controller('internacion/iListaProblemas', ['$scope', 'Plex
         //     id: 'Emergencia',
         //     nombre: 'Emergencia'
         // }],
-        estado: [{
-            id: 'Activo',
-            nombre: 'Activo'
-        }, {
-            id: 'Inactivo',
-            nombre: 'Inactivo'
-        }, {
-            id: 'Resuelto',
-            nombre: 'Resuelto'
-        }, {
-            id: 'Transformado',
-            nombre: 'Transformado'
-        }],
         problemasEdit: undefined, // Item actual que se está editando
 
         filtros: {
@@ -63,7 +50,6 @@ angular.module('app').controller('internacion/iListaProblemas', ['$scope', 'Plex
 
                 angular.copy(problema, $scope.problemasEdit);
 
-                $scope.problemasEdit.estado = Global.getById($scope.estado, problema.estado);
 
             } else { // Alta
                 $scope.tituloFormulario = "Agregar problema";

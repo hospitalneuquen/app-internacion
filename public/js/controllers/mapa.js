@@ -37,12 +37,12 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 $scope.evolucionarPaciente(scope.cama);
             }
         }, {
-            text: 'Valoración inicial',
+            text: 'Valoración inicial enfermería',
             handler: function(scope) {
                 $scope.verValoracionInicial(scope.cama.idInternacion);
             }
         }, {
-            text: 'Valoración inicial medica',
+            text: 'Valoración inicial médica',
             handler: function(scope) {
                 $scope.verValoracionMedica(scope.cama.idInternacion);
             }
