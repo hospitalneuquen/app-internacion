@@ -7,6 +7,12 @@
             </div>
         </div>
 
+        <div class="col-sm-3 col-lg-2">
+            <div class="form-group">
+                <select label="Servicio" ng-model="filter.servicio" plex="(item.nombre) for item in servicios"></select>
+            </div>
+        </div>
+
         <div class="col-sm-2 col-lg-1">
             <div class="form-group">
                 <select ng-model="filter.habitacion" label="Habitación" class="form-control" plex>
@@ -33,12 +39,6 @@
                     <option value="desocupada">Desocupadas</option>
                     <option value="reparacion">En reparación</option>
                 </select>
-            </div>
-        </div>
-
-        <div class="col-sm-3 col-lg-2">
-            <div class="form-group">
-                <select label="Servicio" ng-model="filter.servicio" plex="(item.nombre) for item in servicios"></select>
             </div>
         </div>
 
@@ -297,39 +297,39 @@
 
                     <!-- Enviar a reparar una cama -->
                     <div ng-if="cama.$action == 'reparacion' && cama.estado == 'desocupada'">
-                        <div class="content" ng-class="{'reparacion': cama.$action == 'reparacion' }">
-                            <form name="reparacionForm">
+                        <form name="reparacionForm">
+                            <div class="content" ng-class="{'reparacion': cama.$action == 'reparacion' }">
 
                                 <div class="main">
                                     <!-- <textarea rows="8" name="motivo_{{$index}}" class="form-control" placeholder="¿Motivo de reparación?" plex ng-required="true" ng-model="cama.$motivo"></textarea> -->
                                     <div class="form-group">
-                                        <textarea rows="6" class="form-control" placeholder="¿Motivo de reparación?" plex ng-required="true" ng-model="cama.$motivo"></textarea>
+                                        <textarea rows="6" class="form-control" placeholder="¿Motivo por el cual envía a reparación?" plex required ng-model="cama.$motivo"></textarea>
                                     </div>
 
                                 </div>
 
-                            </form>
 
-                        </div>
-                        <div class="footer">
-
-                            <div class="col-xs-6">
-                                <div class="form-group">
-                                    <button class="btn btn-default tips form-control" ng-click="cama.$rotar = !cama.$rotar" title="No enviar a reparar">
-                                        <i class="mdi mdi-close"></i>
-                                    </button>
-                                </div>
                             </div>
+                            <div class="footer">
 
-                            <div class="col-xs-6">
-                                <div class="form-group">
-                                    <button class="btn btn-primary tips form-control" title="Enviar a reparar" ng-click="reparacionForm.$valid && cambiarEstado(cama, 'reparacion')">
-                                        <i class="mdi mdi-check"></i>
-                                    </button>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <button class="btn btn-default tips form-control" ng-click="cama.$rotar = !cama.$rotar" title="No enviar a reparar">
+                                            <i class="mdi mdi-close"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
 
-                        </div>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary tips form-control" title="Enviar a reparar" plex-submit="reparacionForm.$valid && cambiarEstado(cama, 'reparacion')">
+                                            <i class="mdi mdi-check"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
                     </div>
 
                     <!-- Confirmar reparacion completa de una cama -->
