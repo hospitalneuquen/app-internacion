@@ -75,11 +75,6 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                         });
                     }
 
-                    //asignamos las habitaciones
-                    if (!$scope.habitaciones.inArray(cama.habitacion)) {
-                        $scope.habitaciones.push(cama.habitacion);
-                    }
-
                     // asignamos los tipos de camas
                     if (!$scope.tipoCamas.inArray(cama.tipoCama)) {
                         $scope.tipoCamas.push(cama.tipoCama);
@@ -99,7 +94,6 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                             }
                         }
                     }
-
                 });
 
                 // ordenamos las habitaciones
@@ -320,6 +314,22 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
 
     $scope.$watch('filter.servicio', function(current, old) {
         if (current != old || (current && old && current.id && old.id != current.id != old.id)) {
+            $scope.habitaciones = [];
+
+            angular.forEach($scope.camas, function(cama, key) {
+                //asignamos las habitaciones segun el servicio
+                if (current.id == "" && current.nombre == "Todos"){
+                    if (!$scope.habitaciones.inArray(cama.habitacion)) {
+                        $scope.habitaciones.push(cama.habitacion);
+                    }
+                }else if (current.id && current.id == cama.servicio.id){
+                    if (!$scope.habitaciones.inArray(cama.habitacion)) {
+                        $scope.habitaciones.push(cama.habitacion);
+                    }
+
+                }
+            });
+
             $scope.filter.filtrar();
         }
     });
