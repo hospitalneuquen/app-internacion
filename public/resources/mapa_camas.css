@@ -146,6 +146,9 @@
         visibility: visible;
     }
 }
+
+.cama .front.bloqueada { background: rgba(249, 249, 249, 0.5); }
+
 .cama-container .front {}
 .cama-container, .front, .back {
     min-height: 390px;
@@ -220,6 +223,10 @@
 .cama .icon .fa.agregar {
     font-size: 160px;
 }
+
+.cama .icon .mdi {
+    font-size: 160px;
+}
 /*.cama .stacked-icon {
     margin-top: 8px;
 }*/
@@ -237,9 +244,15 @@
     padding: 5px 10px;
     font-size: 15px;
 }
-.cama .btn-buscar-paciente {
+.cama .btn-buscar-paciente{
     background: white;
 }
+
+.cama .btn-bloqueada {
+    padding: 0;
+    background: transparent;
+}
+
 .cama .btn-buscar-paciente .agregar {
     background: white;
     color: #5F90A7;

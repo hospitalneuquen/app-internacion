@@ -1,12 +1,12 @@
 angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 'Server', '$timeout', 'Session', '$alert', function($scope, Plex, Shared, Server, $timeout, Session, $alert) {
     'use strict';
 
-    Session.servicioActual = {
-        "id": '56b3352698a74c8422cf8224',
-        "_id": '56b3352698a74c8422cf8224',
-        "nombre": "Servicio de Clínica Médica",
-        "nombreCorto": "Clínica Médica"
-    };
+    // Session.servicioActual = {
+    //     "id": '56b3352698a74c8422cf8224',
+    //     "_id": '56b3352698a74c8422cf8224',
+    //     "nombre": "Servicio de Clínica Médica",
+    //     "nombreCorto": "Clínica Médica"
+    // };
     //
     // Session.servicioActual = {
     //     _id : '56b3352898a74c8422cf8263',
@@ -57,52 +57,6 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 $scope.egresarPaciente(scope.cama);
             }
         }],
-        init: function() {
-            // obtenemos las camas para armar el mapa
-            Shared.Mapa.get(Session.ubicacionActual).then(function(data) {
-                $scope.camas = data;
-                $scope.filter.servicio = Session.servicioActual;
-                $scope.filter.filtrar();
-
-                var idServicios = [];
-                angular.forEach($scope.camas, function(cama, key) {
-
-                    if (cama.idInternacion) {
-                        Shared.internacion.get(cama.idInternacion).then(function(internacion) {
-                            if (internacion){
-                                cama.$internacion = internacion;
-                            }
-                        });
-                    }
-
-                    // asignamos los tipos de camas
-                    if (!$scope.tipoCamas.inArray(cama.tipoCama)) {
-                        $scope.tipoCamas.push(cama.tipoCama);
-                    }
-
-                    // asignamos los servicios en base a los servicios
-                    // que tiene cada cama
-                    if (cama.servicio && typeof cama.servicio.id !== "undefined") {
-
-                        if ($scope.servicios.length == 0) {
-                            $scope.servicios.push(cama.servicio);
-                            idServicios.push(cama.servicio._id);
-                        } else {
-                            if ($.inArray(cama.servicio._id, idServicios) == -1) {
-                                $scope.servicios.push(cama.servicio);
-                                idServicios.push(cama.servicio._id);
-                            }
-                        }
-                    }
-                });
-
-                // ordenamos las habitaciones
-                if ($scope.habitaciones.length > 0) {
-                    $scope.habitaciones.sort();
-                }
-            });
-
-        },
         filter: {
             camas: null,
             habitacion: null,
@@ -212,6 +166,9 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                         case 'desinfectada':
                             var title = ' desinfectada';
                             break;
+                        case 'bloqueada':
+                            var title = ' bloqueada';
+                            break;
                         case 'desocupada':
                             if (cama.$action == 'reparacion') {
                                 var title = ' reparada';
@@ -300,6 +257,52 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
 
             });
         },
+        init: function() {
+            // obtenemos las camas para armar el mapa
+            Shared.Mapa.get().then(function(data) {
+                $scope.camas = data;
+                $scope.filter.servicio = Session.variables.servicioActual;
+                $scope.filter.filtrar();
+
+                var idServicios = [];
+                angular.forEach($scope.camas, function(cama, key) {
+
+                    if (cama.idInternacion) {
+                        Shared.internacion.get(cama.idInternacion).then(function(internacion) {
+                            if (internacion){
+                                cama.$internacion = internacion;
+                            }
+                        });
+                    }
+
+                    // asignamos los tipos de camas
+                    if (!$scope.tipoCamas.inArray(cama.tipoCama)) {
+                        $scope.tipoCamas.push(cama.tipoCama);
+                    }
+
+                    // asignamos los servicios en base a los servicios
+                    // que tiene cada cama
+                    if (cama.servicio && typeof cama.servicio.id !== "undefined") {
+
+                        if ($scope.servicios.length == 0) {
+                            $scope.servicios.push(cama.servicio);
+                            idServicios.push(cama.servicio._id);
+                        } else {
+                            if ($.inArray(cama.servicio._id, idServicios) == -1) {
+                                $scope.servicios.push(cama.servicio);
+                                idServicios.push(cama.servicio._id);
+                            }
+                        }
+                    }
+                });
+
+                // ordenamos las habitaciones
+                if ($scope.habitaciones.length > 0) {
+                    $scope.habitaciones.sort();
+                }
+            });
+
+        }
     });
 
     $scope.diasColocacionDrenaje = function(start, end) {
