@@ -89,7 +89,7 @@ angular.module('app').controller('internacion/editar', ['$scope', 'Plex', 'plexP
                         var pase = {
                             fechaHora: new Date(),
                             cama: plexParams.idCama,
-                            servicio: Session.servicioActual.id
+                            servicio: Session.variables.servicioActual.id
                         };
 
                         Shared.pase.post(internacion.id, null, pase, {
@@ -116,7 +116,7 @@ angular.module('app').controller('internacion/editar', ['$scope', 'Plex', 'plexP
                     $scope.internacion.pases = [{
                         fechaHora: $scope.internacion.ingreso.fechaHora,
                         cama: plexParams.idCama,
-                        servicio: Session.servicioActual.id
+                        servicio: Session.variables.servicioActual.id
                     }];
                 } else {
                     $scope.internacion.estado = 'enIngreso';

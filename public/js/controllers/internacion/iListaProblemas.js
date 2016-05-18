@@ -6,6 +6,8 @@ angular.module('app').controller('internacion/iListaProblemas', ['$scope', 'Plex
         loading: true,
         internacion: undefined,
         problemasEdit: undefined, // Item actual que se está editando
+        // campo que se muestra en caso que no encontrar diagnostico en la busqueda
+        showDiagnosticoTexto: false,
 
         filtros: {
             problemas: [],
@@ -30,6 +32,22 @@ angular.module('app').controller('internacion/iListaProblemas', ['$scope', 'Plex
             }
         },
 
+        buscarDiagnostico: function(query){
+            // buscamos todos los diagnosticos
+            var buscar = {
+                nombre: query,
+                idPadre: 1 // harcodeamos el idPadre = 1 para que traiga solo CIE10
+            }
+
+            var diagnostico = Shared.diagnosticos.get(buscar);
+
+            diagnostico.then(function(data){
+                $scope.showDiagnosticoTexto = (data.length) ? false : true;
+            });
+
+            return diagnostico;
+        },
+
         // Inicia la edición de una evolución
         editarProblema: function(problema) {
             $scope.show_toolbar_problemas = false;
@@ -47,7 +65,7 @@ angular.module('app').controller('internacion/iListaProblemas', ['$scope', 'Plex
                 // Valores por defecto
                 $scope.problemasEdit = {
                     fechaDesde: new Date(),
-                    servicio: Session.servicioActual,
+                    servicio: Session.variables.servicioActual,
                     estado: 'Activo'
                 };
             }
@@ -60,6 +78,7 @@ angular.module('app').controller('internacion/iListaProblemas', ['$scope', 'Plex
 
         // Guarda el problema
         guardarProblema: function(problema) {
+            // console.log(problema);
             Shared.problemas.post($scope.internacion.id, problema.id || null, $scope.problemasEdit, {
                 minify: true
             }).then(function(data) {
@@ -94,6 +113,10 @@ angular.module('app').controller('internacion/iListaProblemas', ['$scope', 'Plex
             $scope.loading = false;
         }
     });
+
+    // $scope.$watch('include.internacion', function(current, old) {
+    //     $scope.init(current);
+    // });
 
     // inicializamos mediante el watch de la variable incluida
     $scope.$watch('include.internacion', function(current, old) {

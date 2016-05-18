@@ -35,9 +35,10 @@
             <div class="form-group">
                 <select ng-model="filter.estado" id="filter-estado" class="form-control" label="Estado" plex>
                     <option value="">Todas</option>
-                    <option value="ocupada">Ocupadas</option>
+                    <option value="bloqueada">Bloqueadas</option>
                     <option value="desocupada">Desocupadas</option>
                     <option value="reparacion">En reparación</option>
+                    <option value="ocupada">Ocupadas</option>
                 </select>
             </div>
         </div>
@@ -89,7 +90,7 @@
     <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12" ng-repeat="cama in filter.camas">
         <div class="cama-container manual-flip animate-repeat" ng-class="{'hover': cama.$rotar }" ng-model="cama_actual">
             <div class="cama">
-                <div class="front">
+                <div class="front {{cama.estado}}">
 
                     <div class="header">
                         <!-- <button class="btn  btn-default pull-right" ng-show="cama.paciente.id" ng-click="cama.$rotar = true; cama.$action = 'menu_extra'">
@@ -130,6 +131,16 @@
                                             <i class="fa fa-bed agregar"></i>
                                         </button>
 
+                                        <div ng-if="!cama.paciente.id && cama.estado == 'bloqueada'">
+                                            <button type="button" class="btn btn-bloqueada btn-flat tips" title="Cama bloqueada" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'estado_bloqueada'">
+                                                <i class="mdi mdi-close"></i>
+                                            </button>
+
+                                            <h5>
+                                                Cama bloqueada
+                                            </h5>
+                                        </div>
+
                                         <span class="fa-stack fa-lg reparacion tips" ng-if="cama.estado == 'reparacion'" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'enviada_reparacion'" title="Cama en reparación">
                                             <i class="fa fa-bed fa-stack-1x"></i>
                                             <i class="fa fa-ban fa-stack-2x"></i>
@@ -161,7 +172,7 @@
                         </div>
 
                         <div class="col-xs-3 text-left col-left">
-                            <button type="button" class="btn btn-default btn-flat" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'desinfectar'" ng-if="!cama.desinfectada && cama.estado != 'reparacion'">
+                            <button type="button" class="btn btn-default btn-flat" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'desinfectar'" ng-if="!cama.desinfectada && cama.estado != 'reparacion' && cama.estado != 'bloqueada'">
                                 <i class="mdi mdi-bug"></i>
                             </button>
 
@@ -174,6 +185,13 @@
 
                             <button class="btn btn-default btn-flat tips" title="Ver internación" ng-click="verInternacion(cama.idInternacion)" ng-if="cama.idInternacion">
                                 <i class="mdi mdi-eye "></i>
+                            </button>
+
+                            <button class="btn btn-default btn-flat tips" title="Bloquear cama" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'bloquear'" ng-if="!cama.idInternacion && cama.estado == 'desocupada'">
+                                <i class="mdi mdi-block-helper"></i>
+                            </button>
+                            <button class="btn btn-success btn-flat tips" title="Desbloquear cama" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'bloquear'" ng-if="!cama.idInternacion && cama.estado == 'bloqueada'">
+                                <i class="mdi mdi-reload"></i>
                             </button>
 
                             <button class="btn btn-default btn-flat" title="Enviar a reparación " ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'reparacion'" ng-if="!cama.paciente.id && (cama.estado == 'desocupada' && cama.estado != 'reparacion')">
@@ -197,7 +215,7 @@
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <button class="btn btn-default btn-flat pull-right" ng-show="cama.paciente.id || (cama.$action == 'enviada_reparacion')" ng-click="cama.$rotar = !cama.$rotar">
+                            <button class="btn btn-default btn-flat pull-right" ng-show="cama.paciente.id || (cama.$action == 'enviada_reparacion' || cama.$action == 'estado_bloqueada')" ng-click="cama.$rotar = !cama.$rotar">
                                 <i class="mdi mdi-close"></i>
                             </button>
                         </div>
@@ -282,11 +300,11 @@
                                     <h3 class="name reparacion">
                                         En reparación desde:
                                         <br/>
-                                        {{cama.reparacion.createdAt | date: "dd/MM/yyyy  'a las' HH:mm "}}hs
+                                        {{cama.ultimoEstado.createdAt | date: "dd/MM/yyyy  'a las' HH:mm "}}hs
                                         <br/><br/>
                                     </h3>
                                     <div class="motivo-reparacion">
-                                        {{cama.reparacion.motivo | limitTo: 200}}
+                                        {{cama.ultimoEstado.motivo | limitTo: 200}}
                                     </div>
                                 </div>
 
@@ -392,6 +410,96 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Bloquear una cama -->
+                    <div ng-if="cama.$action == 'bloquear' && cama.estado == 'desocupada'">
+                        <form name="bloquearForm">
+                            <div class="content" ng-class="{'bloquear': cama.$action == 'bloquear' }">
+
+                                <div class="main">
+                                    <!-- <textarea rows="8" name="motivo_{{$index}}" class="form-control" placeholder="¿Motivo de reparación?" plex ng-required="true" ng-model="cama.$motivo"></textarea> -->
+                                    <div class="form-group">
+                                        <textarea rows="6" class="form-control" placeholder="¿Motivo por el cual bloquea la cama?" plex required ng-model="cama.$motivo"></textarea>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                            <div class="footer">
+
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <button class="btn btn-default tips form-control" ng-click="cama.$rotar = !cama.$rotar" title="No bloquear cama">
+                                            <i class="mdi mdi-close"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary tips form-control" title="Bloquear cama" plex-submit="bloquearForm.$valid && cambiarEstado(cama, 'bloqueada')">
+                                            <i class="mdi mdi-check"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Confirmar desbloqueo de una cama -->
+                    <div ng-if="cama.$action && cama.$action == 'bloquear' && cama.estado == 'bloqueada'">
+                        <div class="content" ng-class="{'bloqueada': cama.$action == 'bloqueada' }">
+                            <div class="main">
+                                <p class="text-center">
+                                    ¿Desbloquear la cama?
+                                </p>
+                            </div>
+                        </div>
+                        <div class="footer with-buttons">
+
+                            <div class="col-xs-6">
+                                <div class="form-group">
+
+                                    <button class="btn btn-default tips form-control" ng-click="cama.$rotar = !cama.$rotar" title="No">
+                                        <i class="mdi mdi-close"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <button class="btn btn-primary tips form-control" title="Si" ng-click="cambiarEstado(cama, 'desocupada')">
+                                        <i class="mdi mdi-check"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Ver cama bloqueadea -->
+                    <div ng-if="cama.$action == 'estado_bloqueada' && cama.estado == 'bloqueada'">
+                        <div class="content">
+
+                            <div class="main">
+                                <div ng-if="!cama.paciente.id && cama.estado == 'bloqueada'">
+                                    <h3 class="name reparacion">
+                                        Bloqueada desde:
+                                        <br/>
+                                        {{cama.ultimoEstado.createdAt | date: "dd/MM/yyyy  'a las' HH:mm "}}hs
+                                        <br/><br/>
+                                    </h3>
+                                    <div class="motivo-reparacion">
+                                        {{cama.ultimoEstado.motivo | limitTo: 200}}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
                     </div>
 
                     <!-- extra menu -->

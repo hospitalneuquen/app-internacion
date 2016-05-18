@@ -29,6 +29,9 @@
                         Problema
                     </th>
                     <th >
+                        Descripción
+                    </th>
+                    <th >
                         Estado
                     </th>
                     <th >
@@ -46,6 +49,10 @@
             <tbody>
                 <tr data-ng-repeat="item in filtros.problemas | orderBy: '-fechaDesde'">
                     <td >
+                        {{item.diagnostico.nombre}}
+
+                    </td>
+                    <td >
                         {{item.descripcion}}
                     </td>
                     <td >
@@ -58,7 +65,7 @@
                         </div>
                     </td>
                     <td >
-                        {{item.esCronico ? "Si" : "No"}}
+                        <span class="label label-warning" ng-if="item.esCronico">Crónico</span>
                     </td>
                     <td >
                         {{item.createdBy.name}}
@@ -91,9 +98,28 @@
                             <legend>Cargar problema</legend>
 
                             <div class="row">
-                                <div class="col-xs-3">
-                                    <input type="text" label="Descripción" ng-model="problemasEdit.descripcion" plex class="form-control" required/>
+                                <div class="col-sm-6">
+                                    <!-- <input type="text" label="Descripción" ng-model="problemasEdit.descripcion" plex class="form-control" required/> -->
+                                    <select label="Diagnóstico" ng-model="problemasEdit.diagnostico" plex="(item.codigo + ' - ' + item.nombre) for item in buscarDiagnostico($value)"></select>
+
                                 </div>
+                                <div class="col-sm-6">
+                                    <input type="text" label="Escriba el diagnóstico" ng-model="problemasEdit.diagnosticoTexto" plex class="form-control" ng-show="showDiagnosticoTexto" />
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <input type="text" label="Descripción (examen físico, intensidad, frecuencia, parte del cuerpo afectada, síntomas y otras observaciones)" hint="Escriba sólo detalles permanentes/semipermanentes del problema" ng-model="problemasEdit.descripcion" plex class="form-control" required/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <label>Inicio estimado</label>
+                                    <paciente-selector-fecha fecha="problemasEdit.fechaDesde" ></paciente-selector-fecha>
+                                </div>
+
                                 <div class="col-xs-3">
                                     <div class="form-group">
                                         <select label="Estado" ng-model="problemasEdit.estado" plex>
@@ -103,18 +129,34 @@
                                             <option value="Transformado">Transformado</option>
                                         </select>
                                     </div>
+
                                 </div>
+
+                                <div class="col-xs-3">
+                                    <input type="checkbox" label="¿Es crónico?" label-orientation="top" ng-model="problemasEdit.esCronico" plex="switch">
+                                </div>
+
+                                <!-- <div class="col-sm-4" ng-if="vista == 'alta' && data.estado.id != Constantes.EstadosProblema.Activo">
+                                    <label>Fecha de cambio de estado</label>
+                                    <paciente-selector-fecha fecha="data.evolucionFecha" requerido="true"></paciente-selector-fecha>
+                                </div> -->
+                                <!-- <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <div class="form-group" ng-class="{'has-error': data.esCronico == undefined}">
+                                            <input type="checkbox" label="¿Es un problema crónico?" ng-model="data.esCronico" plex="bool" />
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+
+                            <!-- <div class="row">
                                 <div class="col-xs-3">
                                     <div class="form-group">
                                         <input type="text" label="Desde" ng-model="problemasEdit.fechaDesde" plex="date">
                                     </div>
                                 </div>
-                                <div class="col-xs-3">
-                                    <label>Es crónico</label>
-                                    <input type="radio" label="Si" ng-value="true" ng-model="problemasEdit.esCronico" plex="radio">
-                                    <input type="radio" label="No" ng-value="false" ng-model="problemasEdit.esCronico" plex="radio">
-                                </div>
-                            </div>
+                            </div> -->
+
                         </fieldset>
 
                     </div>

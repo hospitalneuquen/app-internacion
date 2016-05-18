@@ -38,17 +38,20 @@
                         Prioridad
                     </th>
                     <th >
+                        Turno
+                    </th>
+                    <th >
                         Usuario / Servicio
                     </th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr data-ng-repeat="item in filtros.prestaciones | orderBy: '-fechaHora'">
+                <tr ng-repeat="item in filtros.prestaciones | orderBy: '-fechaHora'">
                     <td >
                         {{item.fechaHora | fromNow }}<br/>
                         <div class="text-muted small">
-                            {{item.fechaHora | date: "dd/MM/yyyy HH:mm"}}
+                            {{item.fechaHora | date: "dd/MM/yyyy HH:mm"}} hs
                         </div>
                     </td>
                     <td >
@@ -61,10 +64,14 @@
                         {{item.prioridad}}
                     </td>
                     <td >
+                        {{item.turnoFechaHora | date: "dd/MM/yyyy HH:mm"}}
+                    </td>
+                    <td >
                         {{item.createdBy.name}}
                         <br/>
                         {{item.servicio.nombreCorto}}
                     </td>
+
                     <td >
                         <button class="btn btn-default btn-flat tips" title="Editar prestación" ng-click="editarPrestacion(item);" ng-disabled="Session.user.id != item.createdBy.id">
                             <i class="mdi mdi-pencil"></i>
@@ -90,27 +97,39 @@
                             <legend>Solicitar prestacion</legend>
 
                             <div class="row">
-                                <div class="col-xs-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <input type="text" label="Fecha pedido" ng-model="prestacionesEdit.fechaHora" plex="date">
                                     </div>
                                 </div>
 
-                                <div class="col-xs-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <input type="text" label="Hora pedido" ng-model="prestacionesEdit.fechaHora" plex="time">
                                     </div>
                                 </div>
 
-                                <div class="col-xs-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <select label="Prioridad" ng-model="prestacionesEdit.prioridad" plex="(item.nombre) for item in prioridad"></select>
                                     </div>
                                 </div>
 
-                                <div class="col-xs-3">
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <select label="Tipo prestación" ng-model="prestacionesEdit.tipoPrestacion" min="3" plex="(item.nombre + ' (' + item.grupo + ')') for item in buscarTipoPrestacion($value)" required></select>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-2" ng-if="prestacionesEdit.id">
+                                    <div class="form-group">
+                                        <input type="text" label="Fecha turno" ng-model="prestacionesEdit.turnoFechaHora" plex="date" />
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-2" ng-if="prestacionesEdit.id">
+                                    <div class="form-group">
+                                        <input type="text" label="Fecha turno" ng-model="prestacionesEdit.turnoFechaHora" plex="time" />
                                     </div>
                                 </div>
                             </div>

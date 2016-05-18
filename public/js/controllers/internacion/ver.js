@@ -228,6 +228,20 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                 });
             }
 
+            // // agregamos problemas
+            // if ($scope.internacion.problemas.length) {
+            //     angular.forEach($scope.internacion.problemas, function(problema, key) {
+            //         $scope.ordenCronologico.push({
+            //             fecha: problema.fechaDesde,
+            //             tipo: "Solicitud de prestación",
+            //             _tipo: "prestacion",
+            //             data: prestacion,
+            //             cama: ''
+            //             // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
+            //         });
+            //     });
+            // }
+
             // agregamos pase
             if ($scope.internacion.pases.length) {
                 var i = 0;
