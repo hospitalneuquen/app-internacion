@@ -101,7 +101,7 @@ angular.module('app').controller('internacion/iPrestaciones', ['$scope', 'Plex',
                 // Valores por defecto
                 $scope.prestacionesEdit = {
                     fechaHora: new Date(),
-                    servicio: Session.servicioActual,
+                    servicio: Session.variables.servicioActual,
                     estado: 'Pendiente'
                 };
             }

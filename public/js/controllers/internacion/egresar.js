@@ -6,7 +6,7 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
         selectedItem: null,
         diagnosticoAlta: [],
         egreso: {
-            servicio: Session.servicioActual.id
+            servicio: Session.variables.servicioActual.id
         },
 
         // opciones para el select del tipo de internacion
@@ -79,9 +79,8 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
 
             return Shared.ubicaciones.get(buscar);
         },
-        buscarDiagnosticoAlta: function(query){
-            // buscamos todos los servicios para en caso de ser un pase
-            // cargar el select con las opciones
+        buscarDiagnostico: function(query){
+            // buscamos todos los diagnosticos
             var buscar = {
                 nombre: query
             }

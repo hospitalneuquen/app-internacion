@@ -161,7 +161,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                 $scope.evolucionesEdit = {
                     fechaHora: new Date(),
                     tipo: Session.variables.prestaciones_workflow,
-                    servicio: Session.servicioActual,
+                    servicio: Session.variables.servicioActual,
                     egresos: {
                         drenajes : []
                     }
