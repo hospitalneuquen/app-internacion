@@ -113,11 +113,15 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
             }
 
         },
-        editarPase: function(pase) {
+        getCamas: function(){
+            var idServicio = $scope.pasesEdit.servicio.id;
+
             // obtenemos el listadod de camas
-            Shared.Mapa.get().then(function(camas){
+            Shared.Mapa.get(idServicio).then(function(camas){
                 $scope.camas = camas;
             });
+        },
+        editarPase: function(pase) {
 
             $scope.show_toolbar_pases = false;
             if (pase) { // Modificación
@@ -232,10 +236,10 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
             // if ($scope.internacion.problemas.length) {
             //     angular.forEach($scope.internacion.problemas, function(problema, key) {
             //         $scope.ordenCronologico.push({
-            //             fecha: problema.fechaDesde,
-            //             tipo: "Solicitud de prestación",
-            //             _tipo: "prestacion",
-            //             data: prestacion,
+            //             fecha: problema.createdAt,
+            //             tipo: "Problema",
+            //             _tipo: "problema",
+            //             data: problema,
             //             cama: ''
             //             // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
             //         });

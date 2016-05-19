@@ -194,7 +194,13 @@
                         </div>
                     </div>
 
-                    <!-- <div class="card dashboard-card">
+
+                </div>
+            </div>
+
+            <div class="card-deck-wrapper">
+                <div class="card-deck ">
+                    <div class="card dashboard-card">
                         <div class="card-header card-purple">
                             <div class="card-header-icon">
                                 <i class="mdi mdi-format-float-left"></i>
@@ -207,9 +213,11 @@
                         </div>
                         <div class="card-block">
                             <p class="card-text" ng-if="internacion.problemas.length">
-                                <div ng-repeat="{{problema in internacion.problemas}}">
-                                    <span ng-if="problema.estado == 'Activo' || problema.estado == 'Transformado'"
+
+                                <div ng-repeat="problema in internacion.problemas">
+                                    <span ng-if="problema.estado == 'Activo' || problema.estado == 'Transformado'">
                                     {{problema.descripcion}}
+                                    </span>
                                 </div>
                             </p>
 
@@ -217,9 +225,10 @@
                                 Ir al listado de problemas
                             </button>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
+
         </div>
 
         <div class="card card-block">
@@ -525,11 +534,11 @@
                             <div class="col-lg-2">
                                 <input type=text label="Hora" ng-model="pasesEdit.fechaHora" plex="time">
                             </div>
+                            <div class="col-lg-2">
+                                <select label="Servicio actual" ng-model="pasesEdit.servicio" min="3" plex="(item.nombre) for item in buscarUbicacion($value, 'servicio')" ng-change="getCamas(item.id)"></select>
+                            </div>
                             <div class="col-lg-1">
                                 <select label="Cama" ng-model="pasesEdit.cama" plex="(item.habitacion + ' / ' + item.numero) for item in camas"></select>
-                            </div>
-                            <div class="col-lg-2">
-                                <select label="Servicio actual" ng-model="pasesEdit.servicio" min="3" plex="(item.nombre) for item in buscarUbicacion($value, 'servicio')"></select>
                             </div>
                             <div class="col-lg-2">
                                 <select label="Servicio sugerido" ng-model="pasesEdit.servicioSugerido" min="3" plex="(item.nombre) for item in buscarUbicacion($value, 'servicio')"></select>
