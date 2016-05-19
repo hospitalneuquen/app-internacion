@@ -4,17 +4,61 @@ angular.module('app').controller('internacion/iListaProblemas', ['$scope', 'Plex
     angular.extend($scope, {
         show_toolbar_problemas: true,
         loading: true,
+        layout: 'grid',
         internacion: undefined,
         problemasEdit: undefined, // Item actual que se está editando
         // campo que se muestra en caso que no encontrar diagnostico en la busqueda
         showDiagnosticoTexto: false,
 
+        // array de estados para filtrar en la vista
+        estados: [
+        {
+            id: 'ActivoInactivo',
+            nombre: 'Activos + Inactivos'
+        }, {
+            id: 'Activo',
+            nombre: 'Activo'
+        }, {
+            id: 'Inactivo',
+            nombre: 'Inactivo'
+        }, {
+            id: 'Resuelto',
+            nombre: 'Resuelto'
+        }, {
+            id: 'Transformado',
+            nombre: 'Transformado'
+        },{
+            id: '',
+            nombre: 'Todos'
+        }],
+        // array de servicios para filtrar en la vista
+        servicios: [{
+            id: '',
+            nombreCorto: 'Todos'
+        }],
+
         filtros: {
             problemas: [],
+            estado: null,
             servicio: null,
-            filtrar: function(){
+            filtrar: function() {
                 var self = this;
-                $scope.filtros.problemas = $scope.internacion.problemas;
+
+                // $scope.filtros.problemas = $scope.internacion.problemas;
+
+                if (!self.servicio) {
+                    self.servicio = $scope.servicios[0];
+                }
+
+                if (!self.estado) {
+                    self.estado = $scope.estados[0];
+                }
+
+                self.problemas = $scope.internacion.problemas.filter(function(problema) {
+                    return (!self.estado.id || (self.estado.id && problema.estado == self.estado.id) || (self.estado.id == 'ActivoInactivo' && (problema.estado == 'Activo' || problema.estado == 'Inactivo')) ) &&
+                        (!self.servicio.id || (self.servicio && problema.servicio && problema.servicio.id == self.servicio.id))
+                });
+
             }
         },
 
@@ -25,14 +69,30 @@ angular.module('app').controller('internacion/iListaProblemas', ['$scope', 'Plex
                 $scope.internacion = internacion;
 
                 $scope.filtros.problemas = internacion.problemas;
+
                 $scope.loading = false;
+
+                if ($scope.internacion.problemas.length) {
+                    var services_found = [];
+
+                    angular.forEach($scope.internacion.problemas, function(problema) {
+
+                        // buscamos los servicios para el filtro de problemas
+                        if (problema.servicio && problema.servicio.id) {
+                            if (!services_found.inArray(problema.servicio.id)) {
+                                $scope.servicios.push(problema.servicio);
+                                services_found.push(problema.servicio.id);
+                            }
+                        }
+                    });
+                }
 
                 $scope.filtros.filtrar();
 
             }
         },
 
-        buscarDiagnostico: function(query){
+        buscarDiagnostico: function(query) {
             // buscamos todos los diagnosticos
             var buscar = {
                 nombre: query,
@@ -41,7 +101,7 @@ angular.module('app').controller('internacion/iListaProblemas', ['$scope', 'Plex
 
             var diagnostico = Shared.diagnosticos.get(buscar);
 
-            diagnostico.then(function(data){
+            diagnostico.then(function(data) {
                 $scope.showDiagnosticoTexto = (data.length) ? false : true;
             });
 
@@ -109,6 +169,8 @@ angular.module('app').controller('internacion/iListaProblemas', ['$scope', 'Plex
             if (!found) {
                 $scope.internacion.problemas.push(data);
             }
+
+            $scope.filtros.filtrar();
 
             $scope.loading = false;
         }

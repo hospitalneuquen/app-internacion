@@ -2,19 +2,32 @@
 
     <div class="card-block" ng-show="show_toolbar_problemas">
         <div class="row">
-            <div class="col-xs-4">
+            <div class="col-md-4 col-lg-5">
                 <h3>Lista de problemas</h3>
             </div>
-            <div class="col-xs-4">
-                <div class="form-group"></div>
+
+            <div class="col-md-4 col-lg-2" >
+                <select class="form-control" label="Estado" ng-model="filtros.estado" ng-change="filtros.filtrar()" plex="(estado.nombre) for estado in estados"></select>
             </div>
-            <div class="col-xs-6 col-lg-2 text-right">
+
+            <div class="col-md-4 col-lg-2">
+                <select class="form-control" label="Servicio" ng-model="filtros.servicio" ng-change="filtros.filtrar()" plex="(servicio.nombreCorto) for servicio in servicios"></select>
+            </div>
+
+            <div class="col-lg-1">
                 <div class="form-group">
-                    <select class="form-control" label="Servicio" ng-model="filtros.servicio" ng-change="filtros.filtrar()" plex="(servicio.nombreCorto) for servicio in servicios"></select>
+                    <br/>
+                    <button class="btn btn-default layout-view tips" ng-click="layout = 'grid'" ng-class="{'active': layout == 'grid'}" title="Tabla completa">
+                        <i class="mdi mdi-grid"></i>
+                    </button>
+
+                    <button class="btn btn-default layout-view tips" ng-click="layout = 'table'" ng-class="{'active': layout == 'table'}" title="Tabla de activos / inactivos">
+                        <i class="mdi mdi-table"></i>
+                    </button>
                 </div>
             </div>
 
-            <div class="col-xs-2 text-right" ng-if="internacion.estado != 'egresado'" ng-show="show_toolbar_problemas">
+            <div class="col-md-2 col-lg-2 text-right" ng-if="internacion.estado != 'egresado'" ng-show="show_toolbar_problemas">
                 <br/>
                 <button class="btn btn-primary form-control" ng-click="editarProblema();">
                     Nuevo problema
@@ -22,7 +35,7 @@
             </div>
         </div>
 
-        <table class="table table-hover table-striped" ng-if="internacion.problemas && internacion.problemas.length > 0" ng-if="!problemasEdit">
+        <table class="table table-hover table-striped" ng-if="internacion.problemas && internacion.problemas.length > 0" ng-if="!problemasEdit"  ng-show="layout == 'grid'">
             <thead >
                 <tr>
                     <th>
@@ -49,8 +62,12 @@
             <tbody>
                 <tr data-ng-repeat="item in filtros.problemas | orderBy: '-fechaDesde'">
                     <td >
-                        {{item.diagnostico.nombre}}
-
+                        <span ng-if="item.diagnostico.nombre">
+                            {{item.diagnostico.nombre}}
+                        </span>
+                        <span ng-if="!item.diagnostico.nombre">
+                            {{item.diagnosticoTexto}}
+                        </span>
                     </td>
                     <td >
                         {{item.descripcion}}
@@ -81,7 +98,92 @@
             </tbody>
         </table>
 
+        <table class="table " ng-if="internacion.problemas && internacion.problemas.length > 0" ng-if="!problemasEdit"  ng-show="layout == 'table'">
+            <thead >
+                <tr>
+                    <th>
+                        Activo
+                    </th>
+                    <th >
+                        Inactivo
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="width: 50%;">
+                        <div data-ng-repeat="item in filtros.problemas | orderBy: '-fechaDesde'">
+                            <div ng-if="item.estado == 'Activo'">
+                                <span ng-if="item.diagnostico.nombre">
+                                    {{item.diagnostico.nombre}}
+                                </span>
+
+                                <span ng-if="!item.diagnostico.nombre">
+                                    {{item.diagnosticoTexto}}
+                                </span>
+
+                                {{item.descripcion}}
+
+                                <br />
+
+                                {{item.fechaDesde | fromNow }}
+                                <br/>
+                                <div class="text-muted small">
+                                    {{item.fechaDesde | date: "dd/MM/yyyy HH:mm"}}
+                                </div>
+
+                                <br />
+
+                                <span class="label label-warning" ng-if="item.esCronico">Crónico</span>
+
+                                <br />
+                                {{item.createdBy.name}} - {{item.servicio.nombreCorto}}
+
+                                <hr />
+                            </div>
+
+                        </div>
+                    </td>
+                    <td style="width: 50%;">
+                        <div data-ng-repeat="item in filtros.problemas | orderBy: '-fechaDesde'">
+                            <div ng-if="item.estado == 'Inactivo'">
+                                <span ng-if="item.diagnostico.nombre">
+                                    {{item.diagnostico.nombre}}
+                                </span>
+
+                                <span ng-if="!item.diagnostico.nombre">
+                                    {{item.diagnosticoTexto}}
+                                </span>
+
+                                {{item.descripcion}}
+
+                                <br />
+
+                                {{item.fechaDesde | fromNow }}
+                                <br/>
+                                <div class="text-muted small">
+                                    {{item.fechaDesde | date: "dd/MM/yyyy HH:mm"}}
+                                </div>
+
+                                <br />
+
+                                <span class="label label-warning" ng-if="item.esCronico">Crónico</span>
+
+                                <br />
+                                {{item.createdBy.name}} - {{item.servicio.nombreCorto}}
+
+                                <hr />
+                            </div>
+
+                        </div>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+
         <p ng-if="!internacion.problemas.length">No se han cargado problemas</p>
+        <p ng-if="!filtros.problemas.length">No se han cargado problemas bajo esos criterios de filtrado</p>
     </div>
 
     <div ng-if="problemasEdit">

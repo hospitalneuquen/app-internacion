@@ -30,7 +30,7 @@ angular.module('app').factory('Shared', ["Global", "Server", "Session", function
                 return Server.get("/api/internacion/mapa/" + query, {
                     updateUI: 'big'
                 });
-            },
+            }
         },
         internacion: {
             /**
