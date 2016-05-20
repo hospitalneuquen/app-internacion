@@ -52,6 +52,11 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 $scope.solicitarPrestaciones(scope.cama.idInternacion);
             }
         }, {
+            text: 'Lista de problemas',
+            handler: function(scope) {
+                $scope.listaDeProblemas(scope.cama.idInternacion);
+            }
+        }, {
             text: 'Desocupar cama',
             handler: function(scope) {
                 $scope.egresarPaciente(scope.cama);
@@ -212,6 +217,11 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
         },
         verValoracionMedica: function(idInternacion) {
             Plex.openView('internacion/' + idInternacion + '/valoracionMedica').then(function(internacion) {
+
+            });
+        },
+        listaDeProblemas: function(idInternacion) {
+            Plex.openView('internacion/' + idInternacion + '/8').then(function(internacion) {
 
             });
         },

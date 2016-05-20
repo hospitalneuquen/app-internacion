@@ -109,3 +109,15 @@ label{font-weight: bold;}
 .nav-tabs > li > a{border-radius: 0; text-transform: uppercase;}
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus{color: white; background-color: #2196F3;}
 .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{color: white; background-color: #247DC3;}
+
+/* tabla problemas */
+.table.tabla-problemas{border-top: 0; border-left: 0; border-right: 0;}
+.table.tabla-problemas tbody tr td{ border-bottom: 1px solid transparent; padding: 0;}
+.table.tabla-problemas tbody tr td div.problemas { padding: 10px;}
+.table.tabla-problemas tbody tr td div.problemas:nth-child(odd) {
+    background: #f9f9f9;
+}
+/*.table.tabla-problemas tbody tr td div.problema:first-child  {border-top: 0 none;}
+.table.tabla-problemas tbody tr td div.problema {border-top: 1px solid #ccc;}*/
+/*.table.tabla-problemas thead tr th:first-child{border-left: 0;}
+.table.tabla-problemas thead tr th:last-child{border-right: 0;}*/

@@ -11,7 +11,7 @@ angular.module('app').controller('ValoracionEnfermeriaController', ['$scope', 'P
                 ingreso: $scope.internacion.ingreso
             };
 
-            return Shared.internacion.post(plexParams.idInternacion, data).then(function(internacion){
+            Shared.internacion.post(plexParams.idInternacion, data).then(function(internacion){
                 Plex.closeView(internacion);
             });
         },

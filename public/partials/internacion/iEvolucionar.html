@@ -3,19 +3,17 @@
 
     <div class="card card-block" ng-show="show_toolbar">
         <div class="row">
-            <div class="col-xs-4">
+            <div class="col-xs-4 col-lg-6">
                 <h3>Evoluciones del paciente</h3>
             </div>
-            <div class="col-xs-4">
-                <div class="form-group"></div>
+            <div class="col-xs-4 col-lg-2">
+                <select class="form-control" label="Tipo de profesional" ng-model="filtros.profesional" ng-change="filtros.filtrar()" plex="(profesional.nombre) for profesional in profesionales"></select>
             </div>
-            <div class="col-xs-6 col-lg-2 text-right">
-                <div class="form-group">
-                    <select class="form-control" label="Servicio" ng-model="filtros.servicio" ng-change="filtros.filtrar()" plex="(servicio.nombreCorto) for servicio in servicios"></select>
-                </div>
+            <div class="col-xs-6 col-lg-2">
+                <select class="form-control" label="Servicio" ng-model="filtros.servicio" ng-change="filtros.filtrar()" plex="(servicio.nombreCorto) for servicio in servicios"></select>
             </div>
 
-            <div class="col-xs-2 text-right" ng-if="internacion.estado != 'egresado'" ng-show="show_toolbar">
+            <div class="col-xs-2 col-lg-2 text-right" ng-if="internacion.estado != 'egresado'" ng-show="show_toolbar">
                 <br/>
                 <button class="btn btn-primary form-control" ng-click="editarEvolucion();">
                     Nueva evolución

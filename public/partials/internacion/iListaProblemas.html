@@ -7,7 +7,7 @@
             </div>
 
             <div class="col-md-4 col-lg-2" >
-                <select class="form-control" label="Estado" ng-model="filtros.estado" ng-change="filtros.filtrar()" plex="(estado.nombre) for estado in estados"></select>
+                <select class="form-control" label="Estado" ng-model="filtros.estado" ng-change="filtros.filtrar()" ng-show="layout == 'grid'" plex="(estado.nombre) for estado in estados"></select>
             </div>
 
             <div class="col-md-4 col-lg-2">
@@ -98,7 +98,7 @@
             </tbody>
         </table>
 
-        <table class="table " ng-if="internacion.problemas && internacion.problemas.length > 0" ng-if="!problemasEdit"  ng-show="layout == 'table'">
+        <table class="table table-bordered tabla-problemas" ng-if="internacion.problemas && internacion.problemas.length > 0" ng-if="!problemasEdit"  ng-show="layout == 'table'">
             <thead >
                 <tr>
                     <th>
@@ -112,67 +112,116 @@
             <tbody>
                 <tr>
                     <td style="width: 50%;">
-                        <div data-ng-repeat="item in filtros.problemas | orderBy: '-fechaDesde'">
-                            <div ng-if="item.estado == 'Activo'">
-                                <span ng-if="item.diagnostico.nombre">
-                                    {{item.diagnostico.nombre}}
-                                </span>
+                        <div class="problemas" ng-repeat="item in filtros.activos | orderBy: '-fechaDesde'">
 
-                                <span ng-if="!item.diagnostico.nombre">
-                                    {{item.diagnosticoTexto}}
-                                </span>
+                            <div class="row">
+                                <div  class="col-lg-10">
+                                    <h5>
+                                        <span ng-if="item.diagnostico.nombre">
+                                            {{item.diagnostico.nombre}}
+                                        </span>
+                                        <span ng-if="!item.diagnostico.nombre">
+                                            {{item.diagnosticoTexto}}
+                                        </span>
 
-                                {{item.descripcion}}
+                                    </h5>
 
-                                <br />
-
-                                {{item.fechaDesde | fromNow }}
-                                <br/>
-                                <div class="text-muted small">
-                                    {{item.fechaDesde | date: "dd/MM/yyyy HH:mm"}}
                                 </div>
+                                <div class="col-lg-2 text-right">
+                                    <span class="label label-warning " ng-if="item.esCronico">Crónico</span>
 
-                                <br />
-
-                                <span class="label label-warning" ng-if="item.esCronico">Crónico</span>
-
-                                <br />
-                                {{item.createdBy.name}} - {{item.servicio.nombreCorto}}
-
-                                <hr />
+                                </div>
                             </div>
+
+                            <div class="row">
+                                <div  class="col-lg-6">
+                                    {{item.fechaDesde | date: "dd/MM/yyyy HH:mm"}} hs
+                                </div>
+                                <div  class="col-lg-6 text-right">
+                                    {{item.fechaDesde | fromNow }}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div  class="col-lg-12">
+                                    <p>
+                                        {{item.descripcion}}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div  class="col-lg-10">
+                                    <p>
+                                        <b>
+                                            {{item.createdBy.name}} / AGREGAR FUNCION / {{item.servicio.nombreCorto}}
+                                        </b>
+
+                                    </p>
+                                </div>
+                                <div  class="col-lg-2 text-right">
+                                    <button class="btn btn-sm btn-primary btn-flat tips" title="Editar problema" ng-click="editarProblema(item);" ng-disabled="Session.user.id != item.createdBy.id">
+                                        <i class="mdi mdi-pencil"></i>
+                                    </button>
+                                </div>
+                            </div>
+
 
                         </div>
                     </td>
                     <td style="width: 50%;">
-                        <div data-ng-repeat="item in filtros.problemas | orderBy: '-fechaDesde'">
-                            <div ng-if="item.estado == 'Inactivo'">
-                                <span ng-if="item.diagnostico.nombre">
-                                    {{item.diagnostico.nombre}}
-                                </span>
+                        <div class="problemas" ng-repeat="item in filtros.inactivos | orderBy: '-fechaDesde'">
 
-                                <span ng-if="!item.diagnostico.nombre">
-                                    {{item.diagnosticoTexto}}
-                                </span>
+                            <div class="row">
+                                <div  class="col-lg-10">
+                                    <h5>
+                                        <span ng-if="item.diagnostico.nombre">
+                                            {{item.diagnostico.nombre}}
+                                        </span>
+                                        <span ng-if="!item.diagnostico.nombre">
+                                            {{item.diagnosticoTexto}}
+                                        </span>
 
-                                {{item.descripcion}}
+                                    </h5>
 
-                                <br />
-
-                                {{item.fechaDesde | fromNow }}
-                                <br/>
-                                <div class="text-muted small">
-                                    {{item.fechaDesde | date: "dd/MM/yyyy HH:mm"}}
                                 </div>
+                                <div class="col-lg-2 text-right">
+                                    <span class="label label-warning " ng-if="item.esCronico">Crónico</span>
 
-                                <br />
+                                </div>
+                            </div>
 
-                                <span class="label label-warning" ng-if="item.esCronico">Crónico</span>
+                            <div class="row">
+                                <div  class="col-lg-6">
+                                    {{item.fechaDesde | date: "dd/MM/yyyy HH:mm"}} hs
+                                </div>
+                                <div  class="col-lg-6 text-right">
+                                    {{item.fechaDesde | fromNow }}
+                                </div>
+                            </div>
 
-                                <br />
-                                {{item.createdBy.name}} - {{item.servicio.nombreCorto}}
+                            <div class="row">
+                                <div  class="col-lg-12">
+                                    <p>
+                                        {{item.descripcion}}
+                                    </p>
+                                </div>
+                            </div>
 
-                                <hr />
+                            <div class="row">
+                                <div  class="col-lg-10">
+                                    <p>
+                                        <b>
+                                            {{item.createdBy.name}} / AGREGAR FUNCION / {{item.servicio.nombreCorto}}
+                                        </b>
+
+                                    </p>
+                                </div>
+                                <div  class="col-lg-2 text-right">
+                                    <button class="btn btn-sm btn-primary btn-flat tips" title="Editar problema" ng-click="editarProblema(item);" ng-disabled="Session.user.id != item.createdBy.id">
+                                        <i class="mdi mdi-pencil"></i>
+                                    </button>
+                                </div>
                             </div>
 
                         </div>

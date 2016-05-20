@@ -234,25 +234,25 @@
         <div class="card card-block">
             <h3>Gráficos</h3>
             <div class="row" ng-if="internacion.evoluciones.length > 0">
-                <div class="col-lg-4">
+                <div class="col-lg-4" ng-if="hayEvoluciones('temperatura')">
                     <!-- <div plex-include="'partials/internacion/iGraficoLiquidos.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0"></div> -->
-
-                    <div plex-include="'partials/internacion/iGraficoTemperatura.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
-
+                    <div>
+                        <div plex-include="'partials/internacion/iGraficoTemperatura.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
+                    </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4" ng-if="hayEvoluciones('tension')">
 
                     <div plex-include="'partials/internacion/iGraficoTension.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
 
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4" ng-if="hayEvoluciones('saturacion')">
 
                     <div plex-include="'partials/internacion/iGraficoSaturacion.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
 
                 </div>
 
             </div>
-            <p ng-if="!internacion.evoluciones.length">No se han cargado evoluciones aún para poder generar gráficos</p>
+            <p ng-if="!hayEvoluciones('temperatura') && !hayEvoluciones('tension') && !hayEvoluciones('saturacion')">No se han cargado evoluciones aún para poder generar gráficos</p>
         </div>
 
         <div class="card card-block">
@@ -313,8 +313,8 @@
                 <table class="table table-hover table-striped" ng-if="internacion.drenajes.length > 0" ng-show="show_toolbar_drenajes">
                     <thead>
                         <tr>
-                            <th>Lado</th>
                             <th>Tipo</th>
+                            <th>Lado</th>
                             <th>Fecha colocación</th>
                             <th>Fecha extracción</th>
                             <th>Duración</th>
@@ -324,10 +324,10 @@
                     <tbody>
                         <tr ng-repeat="drenaje in internacion.drenajes ">
                             <td>
-                                {{drenaje.lado}}
+                                {{drenaje.tipo}}
                             </td>
                             <td>
-                                {{drenaje.tipo}}
+                                {{drenaje.lado}}
                             </td>
                             <td>
                                 {{drenaje.fechaDesde | date: "dd/MM/yyyy  'a las' HH:mm "}}
@@ -412,63 +412,88 @@
         </div>
 
         <div class="card card-block">
-            <h3>Antecedentes</h3>
-            <div ng-if="internacion.ingreso.antecedentes.binarios">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Antecedente</th>
-                            <th>Observaciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="item in internacion.ingreso.antecedentes.binarios">
-                            <td ng-if="item.activo">
-                                <span class="text-muted">{{item.antecedente.grupo + " / "}}</span><span>{{item.antecedente.nombre}}</span>
-                            </td>
-                            <td ng-if="item.activo">
-                                {{item.observaciones}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
 
-            <!-- Antecedentes gineco-obstétricos -->
-            <div ng-if="internacion.ingreso.antecedentes.ginecoobstetricos">
-                <h5>Antecedentes gineco-obstétricos</h5>
-                <div class="row">
-                    <div class="col-sm-3" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.gestas">
-                        Gestas: {{internacion.ingreso.antecedentes.ginecoobstetricos.gestas}}
-                    </div>
-                    <div class="col-sm-3" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.partos">
-                        Partos: {{internacion.ingreso.antecedentes.ginecoobstetricos.partos}}
-                    </div>
-                    <div class="col-sm-3" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.cesareas">
-                        Cesáreas: {{internacion.ingreso.antecedentes.ginecoobstetricos.cesareas}}
-                    </div>
-                    <div class="col-sm-3" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.abortos">
-                        Abortos: {{internacion.ingreso.antecedentes.ginecoobstetricos.abortos}}
-                    </div>
+            <div class="row" ng-show="show_toolbar_antecedentes">
+                <div class="col-md-8 col-lg-10">
+                    <h3>Antecedentes</h3>
+                </div>
+                <div class="col-md-4 col-lg-2 text-right">
+                    <br/>
+                    <button class="btn btn-primary form-control" ng-click="editarAntecedentes();" ng-if="!antecedentesEdit">
+                        Editar antecedentes
+                    </button>
                 </div>
             </div>
 
-            <!-- Antecedentes varios -->
-            <div ng-if="internacion.ingreso.antecedentes.quirurgicos">
-                <h5>Antecedentes quirúrgicos</h5>
-                {{internacion.ingreso.antecedentes.quirurgicos}}
+            <div ng-if="antecedentesEdit">
+                <ng-form>
+                    <div plex-include="'partials/internacion/iAntecedentes.html'" plex-include-internacion="internacion"></div>
+                    <div class="card card-block margin-top text-right">
+                        <a class="btn btn-default btn-flat" ng-click="cancelarEdicionAntecedentes()">Cancelar</a>
+                        <button class="btn btn-primary" plex-submit="guardarAntecedentes()">
+                            <i class="mdi mdi-content-save"></i>
+                            <span>Guardar</span>
+                        </button>
+                    </div>
+                </ng-form>
             </div>
+            <div ng-if="!antecedentesEdit">
+                <div ng-if="internacion.ingreso.antecedentes.binarios">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Antecedente</th>
+                                <th>Observaciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in internacion.ingreso.antecedentes.binarios">
+                                <td ng-if="item.activo">
+                                    <span class="text-muted">{{item.antecedente.grupo + " / "}}</span><span>{{item.antecedente.nombre}}</span>
+                                </td>
+                                <td ng-if="item.activo">
+                                    {{item.observaciones}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-            <div ng-if="internacion.ingreso.antecedentes.familiares">
-                <h5>Antecedentes familiares</h5>
-                {{internacion.ingreso.antecedentes.familiares}}
+                <!-- Antecedentes gineco-obstétricos -->
+                <div ng-if="internacion.ingreso.antecedentes.ginecoobstetricos">
+                    <h5>Antecedentes gineco-obstétricos</h5>
+                    <div class="row">
+                        <div class="col-sm-3" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.gestas">
+                            Gestas: {{internacion.ingreso.antecedentes.ginecoobstetricos.gestas}}
+                        </div>
+                        <div class="col-sm-3" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.partos">
+                            Partos: {{internacion.ingreso.antecedentes.ginecoobstetricos.partos}}
+                        </div>
+                        <div class="col-sm-3" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.cesareas">
+                            Cesáreas: {{internacion.ingreso.antecedentes.ginecoobstetricos.cesareas}}
+                        </div>
+                        <div class="col-sm-3" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.abortos">
+                            Abortos: {{internacion.ingreso.antecedentes.ginecoobstetricos.abortos}}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Antecedentes varios -->
+                <div ng-if="internacion.ingreso.antecedentes.quirurgicos">
+                    <h5>Antecedentes quirúrgicos</h5>
+                    {{internacion.ingreso.antecedentes.quirurgicos}}
+                </div>
+
+                <div ng-if="internacion.ingreso.antecedentes.familiares">
+                    <h5>Antecedentes familiares</h5>
+                    {{internacion.ingreso.antecedentes.familiares}}
+                </div>
+
+                <div ng-if="internacion.ingreso.antecedentes.medicacion">
+                    <h5>Medicación habitual</h5>
+                    {{internacion.ingreso.antecedentes.medicacion}}
+                </div>
             </div>
-
-            <div ng-if="internacion.ingreso.antecedentes.medicacion">
-                <h5>Medicación habitual</h5>
-                {{internacion.ingreso.antecedentes.medicacion}}
-            </div>
-
             <!-- <p ng-if="!internacion.ingreso.antecedentes.binarios && !internacion.ingreso.antecedentes.ginecoobstetricos && !internacion.ingreso.antecedentes.quirurgicos && !internacion.ingreso.antecedentes.familiares && !internacion.ingreso.antecedentes.medicacion">El paciente no posee antecedentes</p> -->
         </div>
 

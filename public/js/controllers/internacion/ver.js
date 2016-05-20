@@ -4,6 +4,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
     angular.extend($scope, {
         tab: 0,
         show_toolbar_drenajes: true,
+        show_toolbar_antecedentes: true,
         show_toolbar_pases: true,
         drenajesEdit: undefined, // Item actual que se está editando de los drenajes
         ordenCronologico: [],
@@ -99,18 +100,36 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
             var length = $scope.internacion.drenajes.length;
             // buscamos el drenaje y actualizamos el valor con los datos
             for (var i = 0; i < length; i++) {
-                if ($scope.internacion.drenajes[i].id === data.id) {
+                if (!found && $scope.internacion.drenajes[i].id === data.id) {
                     // drenaje encontrado, actualizamos datos
                     $scope.internacion.drenajes[i] = data;
+
                     found = true;
                     break;
                 }
             }
 
-            // si no lo encontro, entonces es porque acaba de cargarla
+            // si no lo encontro, entonces es porque acaba de cargarlo
             if (!found) {
                 $scope.internacion.drenajes.push(data);
             }
+
+        },
+        editarAntecedentes: function(){
+            $scope.antecedentesEdit = true;
+        },
+        cancelarEdicionAntecedentes: function(){
+            $scope.antecedentesEdit = false;
+        },
+        guardarAntecedentes: function(){
+            var data = {
+                ingreso: $scope.internacion.ingreso
+            };
+
+            Shared.internacion.post(plexParams.idInternacion, data).then(function(internacion){
+                if (internacion)
+                    $scope.antecedentesEdit = false;
+            });
 
         },
         getCamas: function(){
@@ -167,7 +186,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                 }
             }
 
-            // si no lo encontro, entonces es porque acaba de cargarla
+            // si no lo encontro, entonces es porque acaba de cargarlo
             if (!found) {
                 $scope.internacion.pases.push(data);
             }
@@ -182,6 +201,33 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
             }
 
             return Shared.ubicaciones.get(buscar);
+        },
+        hayEvoluciones : function(tipo){
+            var total = 0;
+
+            if ($scope.internacion && $scope.internacion.evoluciones && $scope.internacion.evoluciones.length > 0){
+                angular.forEach($scope.internacion.evoluciones, function(evolucion){
+                    if (tipo == 'temperatura'){
+                        if (evolucion.temperatura && evolucion.temperatura > 0){
+                            total += evolucion.temperatura;
+                        }
+                    }else if (tipo == 'tension') {
+                        if (evolucion.tensionSistolica && evolucion.tensionSistolica > 0){
+                            total += evolucion.tensionSistolica;
+                        }
+                        if (evolucion.tensionDiastolica && evolucion.tensionDiastolica > 0){
+                            total += evolucion.tensionDiastolica;
+                        }
+
+                    }else if (tipo == 'saturacion') {
+                        if (evolucion.spo2 && evolucion.spo2 > 0){
+                            total += evolucion.spo2;
+                        }
+                    }
+                });
+            }
+
+            return (total > 0) ? true : false;
         },
         ordenarCronologicamente: function() {
             // agregamos el ingreso
