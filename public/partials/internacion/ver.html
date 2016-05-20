@@ -49,6 +49,11 @@
                     Lista de problemas
                 </a>
             </li>
+            <li>
+                <a>
+                    Hoja de tratamiento
+                </a>
+            </li>
             <li ng-disabled="internacion.egreso === null">
                 <a>
                     Egreso
@@ -596,6 +601,10 @@
 
         <div class="card card-block">
             <div plex-include="'partials/internacion/iListaProblemas.html'" plex-include-internacion="internacion"></div>
+        </div>
+
+        <div class="card card-block">
+            <div plex-include="'partials/internacion/iHojaTratamiento.html'" plex-include-internacion="internacion"></div>
         </div>
 
         <div class="card card-block">
