@@ -10,6 +10,12 @@
             </li>
             <li>
                 <a>
+                    <i class="mdi mdi-backburger"></i>
+                    <span>Enfermedad actual</span>
+                </a>
+            </li>
+            <li>
+                <a>
                     <i class="icon-i-mammography"></i>
                     <span>Estudios previos</span>
                 </a>
@@ -26,10 +32,20 @@
                     <span>Examenes complementarios</span>
                 </a>
             </li>
+            <li>
+                <a>
+                    <i class="mdi mdi-checkbox-multiple-marked-outline"></i>
+                    <span>Impresión diagnóstica</span>
+                </a>
+            </li>
         </ul>
         <!-- Antecedentes -->
         <div class="card card-block">
             <div plex-include="'partials/internacion/iAntecedentes.html'" plex-include-internacion="internacion"></div>
+        </div>
+        <!-- Enfermedad actual -->
+        <div class="card card-block">
+            <input type="text" label="Enfermedad actual" ng-model="internacion.ingreso.medico.enfermedadActual" plex>
         </div>
         <!-- Estudios previos -->
         <div class="card card-block">
