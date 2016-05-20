@@ -14,38 +14,68 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
         ultimaEvolucion: null,
         // evoluciones: {},
         // array de servicios para filtrar en la vista
+        profesionales: [{
+            id: '',
+            nombre: 'Todos'
+        }],
         servicios: [{
-            id: 'mis-evoluciones',
-            nombreCorto: "Mis evoluciones"
-        }, {
             id: '',
             nombreCorto: 'Todas'
+        }, {
+            id: 'mis-evoluciones',
+            nombreCorto: "Mis evoluciones"
         }],
         filtros: {
             evoluciones: [],
             servicio: null,
-            filtrar: function(){
+            profesional: null,
+            filtrar: function() {
                 var self = this;
 
-                if (!self.servicio) {
-                    $scope.filtros.evoluciones = $scope.internacion.evoluciones;
-                } else {
-                    $scope.filtros.evoluciones = [];
-
-                    if (self.servicio.id !== "undefined" && self.servicio.id == 'mis-evoluciones'){
-                        angular.forEach($scope.internacion.evoluciones, function(evolucion) {
-                            if (self.servicio && evolucion.createdBy.id === Session.user.id) {
-                                $scope.filtros.evoluciones.push(evolucion);
-                            }
-                        });
-                    }else{
-                        angular.forEach($scope.internacion.evoluciones, function(evolucion) {
-                            if (self.servicio && evolucion.servicio.id === self.servicio.id) {
-                                $scope.filtros.evoluciones.push(evolucion);
-                            }
-                        });
-                    }
+                if (!self.profesional) {
+                    self.profesional = $scope.profesionales[0];
                 }
+
+                if (!self.servicio) {
+                    self.servicio = $scope.servicios[0];
+                }
+
+                self.evoluciones = $scope.internacion.evoluciones.filter(function(evolucion) {
+                    return (!self.servicio.id || (self.servicio && evolucion.servicio && (evolucion.servicio.id == self.servicio.id  || (self.servicio.id == 'mis-evoluciones' && evolucion.createdBy.id === Session.user.id) ))) &&
+                        // (!self.servicio.id || (self.servicio.id == 'mis-evoluciones' && evolucion.createdBy.id === Session.user.id )) &&
+                        (!self.profesional.id || (self.profesional && evolucion.tipo && evolucion.tipo == self.profesional.id))
+
+                    //     (!self.profesional.id || (self.profesional && evolucion.tipo && evolucion.tipo == self.profesional.id))
+                    // return (!self.servicio.id || self.servicio.id == 'mis-evoluciones') &&
+                    //     (!self.servicio.id || (self.servicio && evolucion.servicio && evolucion.servicio.id == self.servicio.id)) &&
+
+                });
+
+                // if (!self.servicio) {
+                //     $scope.filtros.evoluciones = $scope.internacion.evoluciones;
+                // } else {
+                //     $scope.filtros.evoluciones = [];
+                //
+                //     if (self.servicio.id !== "undefined" && self.servicio.id == 'mis-evoluciones') {
+                //         angular.forEach($scope.internacion.evoluciones, function(evolucion) {
+                //             if (self.servicio && evolucion.createdBy.id === Session.user.id) {
+                //                 $scope.filtros.evoluciones.push(evolucion);
+                //             }
+                //         });
+                //     } else {
+                //         angular.forEach($scope.internacion.evoluciones, function(evolucion) {
+                //             if (self.servicio && evolucion.servicio.id === self.servicio.id) {
+                //                 $scope.filtros.evoluciones.push(evolucion);
+                //             }
+                //         });
+                //     }
+
+                    // angular.forEach($scope.filtros.evoluciones, function(evolucion) {
+                    //     if (self.profesional == "" || self.profesional.id == evolucion.tipo) {
+                    //         $scope.filtros.evoluciones.push(evolucion);
+                    //     }
+                    // });
+                // }
             }
         },
 
@@ -60,6 +90,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
 
                 if ($scope.internacion.evoluciones.length) {
                     var services_found = [];
+                    var profesionales_found = [];
 
                     angular.forEach($scope.internacion.evoluciones, function(evolucion) {
 
@@ -75,6 +106,15 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                                 services_found.push(evolucion.servicio.id);
                             }
                         }
+
+                        if (!profesionales_found.inArray(evolucion.tipo)) {
+
+                            $scope.profesionales.push({
+                                id: evolucion.tipo,
+                                nombre: evolucion.tipo
+                            });
+                            profesionales_found.push(evolucion.tipo);
+                        }
                     });
                 }
 
@@ -82,10 +122,10 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
 
                 if ($scope.internacion.drenajes.length) {
                     // cargamos los drenajes al array de drenajesInternacion
-                    angular.forEach($scope.internacion.drenajes, function(drenaje){
+                    angular.forEach($scope.internacion.drenajes, function(drenaje) {
                         // if (drenaje.fechaHasta && moment(new Date()).isBefore(drenaje.fechaHasta)){
                         drenaje.$activo = false;
-                        if (!drenaje.fechaHasta){
+                        if (!drenaje.fechaHasta) {
                             drenaje.$activo = true;
                         }
 
@@ -106,8 +146,8 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
 
                 // buscamos los datos de la ultima evolucion para poder mostrar
                 // el resumen cuando el medico escribe el texto de la evolucion
-                if ($scope.internacion.evoluciones[$scope.internacion.evoluciones.length-2]){
-                    $scope.ultimaEvolucion = $scope.internacion.evoluciones[$scope.internacion.evoluciones.length-2];
+                if ($scope.internacion.evoluciones[$scope.internacion.evoluciones.length - 2]) {
+                    $scope.ultimaEvolucion = $scope.internacion.evoluciones[$scope.internacion.evoluciones.length - 2];
                 }
 
                 angular.copy(evolucion, $scope.evolucionesEdit);
@@ -115,14 +155,14 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
 
                 // cargamos los drenajes de la internacion
                 if ($scope.drenajesInternacion.length) {
-                    angular.forEach($scope.drenajesInternacion, function(drenajeInternacion){
+                    angular.forEach($scope.drenajesInternacion, function(drenajeInternacion) {
                         var drenaje = drenajeInternacion;
                         var encontrado = false;
                         // si el drenaje de la evolucion esta dentro de los de la internacion
                         if ($scope.evolucionesEdit.egresos.drenajes.length) {
                             angular.forEach($scope.evolucionesEdit.egresos.drenajes, function(drenajeEvolucion) {
 
-                                if (!encontrado && drenajeInternacion.id == drenajeEvolucion.idDrenaje){
+                                if (!encontrado && drenajeInternacion.id == drenajeEvolucion.idDrenaje) {
                                     drenaje.idDrenaje = drenajeEvolucion.idDrenaje;
                                     drenaje.caracteristicaLiquido = drenajeEvolucion.caracteristicaLiquido;
                                     drenaje.cantidad = drenajeEvolucion.cantidad;
@@ -135,7 +175,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                             });
                         }
 
-                        if (!encontrado && drenajeInternacion.$activo === true){
+                        if (!encontrado && drenajeInternacion.$activo === true) {
                             drenaje.idDrenaje = "";
                             drenaje.caracteristicaLiquido = "";
                             drenaje.cantidad = "";
@@ -153,8 +193,8 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
 
                 // buscamos los datos de la ultima evolucion para poder mostrar
                 // el resumen cuando el medico escribe el texto de la evolucion
-                if ($scope.internacion.evoluciones[$scope.internacion.evoluciones.length-1]){
-                    $scope.ultimaEvolucion = $scope.internacion.evoluciones[$scope.internacion.evoluciones.length-1];
+                if ($scope.internacion.evoluciones[$scope.internacion.evoluciones.length - 1]) {
+                    $scope.ultimaEvolucion = $scope.internacion.evoluciones[$scope.internacion.evoluciones.length - 1];
                 }
 
                 // Valores por defecto
@@ -163,19 +203,19 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                     tipo: Session.variables.prestaciones_workflow,
                     servicio: Session.variables.servicioActual,
                     egresos: {
-                        drenajes : []
+                        drenajes: []
                     }
                 };
 
                 // asignamos los drenajes activos
                 if ($scope.drenajesInternacion.length) {
                     // cargamos los drenajes
-                    angular.forEach($scope.drenajesInternacion, function(drenaje){
+                    angular.forEach($scope.drenajesInternacion, function(drenaje) {
                         drenaje.idDrenaje = "";
                         drenaje.caracteristicaLiquido = "";
                         drenaje.cantidad = "";
                         drenaje.observaciones = "";
-                        if (drenaje.$activo){
+                        if (drenaje.$activo) {
                             $scope.drenajes.push(drenaje);
                         }
                     });
@@ -193,7 +233,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
         // Guarda la evolución
         guardarEvolucion: function(evolucion) {
             // si se han evolucionado los drenajes entonces los cargamos
-            if ($scope.drenajes.length > 0){
+            if ($scope.drenajes.length > 0) {
                 $scope.evolucionesEdit.egresos.drenajes = [];
                 angular.forEach($scope.drenajes, function(drenaje) {
                     var _drenaje = {
@@ -269,23 +309,23 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
             angular.forEach(valores, function(value, key) {
                 // verificamos si es un drenaje y entonces recorremos
                 // para sumar los valores
-                if (key === 'drenajes' ){
-                    if (value.length > 0){
+                if (key === 'drenajes') {
+                    if (value.length > 0) {
                         angular.forEach(value, function(drenaje, k) {
-                            if (drenaje.cantidad){
+                            if (drenaje.cantidad) {
                                 total += drenaje.cantidad;
                             }
                         });
                     }
 
-                }else{
+                } else {
                     total += value;
                 }
 
             });
 
             return total;
-        },
+        }
     });
 
     // inicializamos mediante el watch de la variable incluida

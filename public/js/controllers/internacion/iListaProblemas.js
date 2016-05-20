@@ -39,6 +39,8 @@ angular.module('app').controller('internacion/iListaProblemas', ['$scope', 'Plex
 
         filtros: {
             problemas: [],
+            activos: [],
+            inactivos: [],
             estado: null,
             servicio: null,
             filtrar: function() {
@@ -57,6 +59,15 @@ angular.module('app').controller('internacion/iListaProblemas', ['$scope', 'Plex
                 self.problemas = $scope.internacion.problemas.filter(function(problema) {
                     return (!self.estado.id || (self.estado.id && problema.estado == self.estado.id) || (self.estado.id == 'ActivoInactivo' && (problema.estado == 'Activo' || problema.estado == 'Inactivo')) ) &&
                         (!self.servicio.id || (self.servicio && problema.servicio && problema.servicio.id == self.servicio.id))
+                });
+
+
+                self.activos = $scope.internacion.problemas.filter(function(problema) {
+                    return (problema.estado == 'Activo')
+                });
+
+                self.inactivos = $scope.internacion.problemas.filter(function(problema) {
+                    return (problema.estado == 'Inactivo')
                 });
 
             }

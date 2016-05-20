@@ -64,7 +64,7 @@
                         {{item.prioridad}}
                     </td>
                     <td >
-                        {{item.turnoFechaHora | date: "dd/MM/yyyy HH:mm"}}
+                        {{item.turnoFechaHora | date: "dd/MM/yyyy HH:mm"}} hs
                     </td>
                     <td >
                         {{item.createdBy.name}}
@@ -129,7 +129,7 @@
 
                                 <div class="col-xs-2" ng-if="prestacionesEdit.id">
                                     <div class="form-group">
-                                        <input type="text" label="Fecha turno" ng-model="prestacionesEdit.turnoFechaHora" plex="time" />
+                                        <input type="text" label="Hora turno" ng-model="prestacionesEdit.turnoFechaHora" plex="time" />
                                     </div>
                                 </div>
                             </div>
