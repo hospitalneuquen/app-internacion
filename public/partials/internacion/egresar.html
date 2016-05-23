@@ -49,6 +49,53 @@
                 <textarea label="Tratamiento a seguir" ng-model="egreso.tratamientoaSeguir" plex></textarea>
             </div>
         </div>
+        <div class="row" ng-show="egreso.tipo == 'alta'">
+            <div class="col-lg-3">
+                <input type="checkbox" label="¿Al alta quedó alguna situación pendiente?" ng-model="egreso.situacionPendiente" plex="checkbox">
+                <textarea hint="Ingrese una descripción de la situación pendiente" ng-model="egreso.descripcionSituacionPendiente" ng-if="egreso.situacionPendiente" plex></textarea>
+            </div>
+            <div class="col-lg-3">
+                <select label="Estado del paciente al alta" ng-model="egreso.estadoPacienteAlta" plex>
+                    <option value="Bueno">Bueno</option>
+                    <option value="Regular">Regular</option>
+                    <option value="Malo">Malo</option>
+                    <option value="MuyMalo">Muy malo</option>
+                </select>
+            </div>
+            <div class="col-lg-3">
+                <select label="Pronóstico de la evolución" ng-model="egreso.pronosticoEvolucion" plex>
+                    <option value="Bueno">Bueno</option>
+                    <option value="Regular">Regular</option>
+                    <option value="Malo">Malo</option>
+                    <option value="MuyMalo">Muy malo</option>
+                    <option value="Desconocido">Desconocido</option>
+                </select>
+            </div>
+        </div>
+        <div class="row" ng-show="egreso.tipo == 'alta'">
+            <div class="col-lg-6">
+                <input type="text" label="Pautas de alarma" ng-model="egreso.pautasAlarma" plex="text"></textarea>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <label>Dieta al alta</label>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <input type="checkbox" label="General" ng-model="egreso.dietaGeneral" plex="checkbox">
+                </div>
+                <div class="col-lg-2">
+                    <input type="checkbox" label="Hepatoprotectora" ng-model="egreso.dietaHepatoprotectora" plex="checkbox">
+                </div>
+                <div class="col-lg-2">
+                    <input type="checkbox" label="Especial" ng-model="egreso.dietaEspecial" plex="checkbox">
+                </div>
+                <div class="col-lg-2">
+                    <input type="checkbox" label="Soporte nutricional" ng-model="egreso.dietaSoporteNutricional" plex="checkbox">
+                </div>
+            </div>
+        </div>
     </div>
     <div class="card card-block margin-top text-right">
         <a class="btn btn-default btn-flat" ng-click="cancelarEgreso()">Cancelar</a>
