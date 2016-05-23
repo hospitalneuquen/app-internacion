@@ -2,6 +2,7 @@
 @import 'timeline.css';
 @import 'header_paciente.css';
 
+fieldset{margin: 0 0 40px 0;}
 /* Niveles */
 
 .nivel-verde {

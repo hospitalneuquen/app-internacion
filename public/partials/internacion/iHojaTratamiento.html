@@ -8,6 +8,9 @@
             <div class="col-xs-4">
                 <div class="form-group"></div>
             </div>
+            <div class="col-xs-2">
+                <div class="form-group"></div>
+            </div>
             <!-- <div class="col-xs-6 col-lg-2 text-right">
                 <div class="form-group">
                     <select class="form-control" label="Servicio" ng-model="filtros.servicio" ng-change="filtros.filtrar()" plex="(servicio.nombreCorto) for servicio in servicios"></select>
@@ -29,13 +32,10 @@
                         Fecha
                     </th>
                     <th>
-                        Descripción
+                        Usuario / Servicio
                     </th>
                     <th >
-                        Vía
-                    </th>
-                    <th >
-                        Frecuencia
+
                     </th>
                 </tr>
             </thead>
@@ -46,24 +46,15 @@
                         {{item.fecha | date: "dd/MM/yyyy HH:mm"}}
                     </td>
                     <td >
-                        {{item.descripcion}}
-                    </td>
-                    <td >
-                        {{item.via}}
-                    </td>
-                    <td >
-                        {{item.frecuencia}}
-                    </td>
-                    <td >
                         {{item.createdBy.name}}
                         <br/>
                         {{item.servicio.nombreCorto}}
                     </td>
-                    <!-- <td >
-                        <button class="btn btn-default btn-flat tips" title="Editar problema" ng-click="editarProblema(item);" ng-disabled="Session.user.id != item.createdBy.id">
+                    <td >
+                        <button class="btn btn-default btn-flat tips" title="Editar tratamiento" ng-click="editarTratamiento(item);" ng-disabled="Session.user.id != item.createdBy.id">
                             <i class="mdi mdi-pencil"></i>
                         </button>
-                    </td> -->
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -79,36 +70,105 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <fieldset>
-                            <legend>Cargar tratamiento</legend>
+                            <legend>Tratamiento</legend>
+                            <input type="text" label="Fecha" ng-model="tratamientosEdit.fecha" plex="date">
+                        </fieldset>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-7">
+                        <fieldset>
+                            <legend>Carga de indicaciones</legend>
                             <div class="row">
-                                <div class="col-xs-3">
-                                    <input type="text" label="Fecha" ng-model="tratamientosEdit.fecha" plex="date">
+                                <div class="col-lg-2">
+                                    <select label="Tipo de indicación" ng-model="indicacion.tipo" plex>
+                                        <option value="Plan Hidratación">Plan Hidratación</option>
+                                        <option value="Heparina o profilaxis">Heparina o profilaxis</option>
+                                        <option value="Protección gástrica">Protección gástrica</option>
+                                        <option value="Otra medicación">Otra medicación</option>
+                                        <option value="Otra indicación">Otra indicación</option>
+                                    </select>
                                 </div>
-                                <div class="col-xs-3">
+
+                                <div class="col-lg-4">
                                     <div class="form-group">
-                                        <input type="text" label="Descripción" ng-model="tratamientosEdit.descripcion" plex />
+                                        <input type="text" label="Descripción" ng-model="indicacion.descripcion" plex/>
                                     </div>
                                 </div>
-                                <div class="col-xs-3">
-                                    <select label="Vía" ng-model="tratamientosEdit.via" plex>
+                                <div class="col-lg-2">
+                                    <select label="Vía" ng-model="indicacion.via" plex>
                                         <option value="SC">Subcutánea</option>
                                         <option value="EV">Endovenosa</option>
                                         <option value="VO">Oral</option>
                                     </select>
                                 </div>
-                                <div class="col-xs-3">
-                                    <select label="Frecuencia" ng-model="tratamientosEdit.frecuencia" plex>
-                                        <option value="Día">Una vez al día</option>
-                                        <option value="C/12hs.">Cada 12 hs.</option>
-                                        <option value="C/8hs.">Cada 8 hs.</option>
-                                        <option value="C/6hs.">Cada 6 hs.</option>
-                                        <option value="C/4hs.">Cada 4 hs.</option>
+                                <div class="col-lg-2">
+                                    <select label="Frecuencia" ng-model="indicacion.frecuencia" plex>
+                                        <option value="unica">Única dosis</option>
+                                        <option value="24">Una vez al día</option>
+                                        <option value="12">Cada 12 hs.</option>
+                                        <option value="8">Cada 8 hs.</option>
+                                        <option value="6">Cada 6 hs.</option>
+                                        <option value="4">Cada 4 hs.</option>
                                     </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <br/>
+                                    <div ng-show="editandoIndicacion">
+                                        <button type="button" class="btn btn-default tips" title="Cancelar edición de la indicación" ng-click="cancelarEditarIndicacion()">
+                                            <i class="mdi mdi-block-helper"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-success btn-flat tips" title="Guardar indicación" ng-click="guardarIndicacion()">
+                                            <i class="mdi mdi-content-save"></i>
+                                        </button>
+                                    </div>
+                                    <div ng-show="!editandoIndicacion">
+                                        <button type="button" class="btn btn-success btn-flat tips" title="Agregar la indicación" ng-click="agregarIndicacion()">
+                                            <i class="mdi mdi-plus"></i>
+                                        </button>
+                                    </div>
+
                                 </div>
                             </div>
                         </fieldset>
                     </div>
-                    <div class="row">
+
+                    <div class="col-lg-4 col-lg-offset-1">
+                        <legend>Indicaciones</legend>
+                        <table class="table table-bordered" ng-if="tratamientosEdit.indicaciones.length > 0">
+                            <thead>
+                                <th></th>
+                                <th>Medicación / Hidratación / Alimentación parenteral</th>
+                                <th>Vía</th>
+                                <th>Frec.</th>
+                                <th></th>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="indicacion in tratamientosEdit.indicaciones">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{indicacion.descripcion}}</td>
+                                    <td>{{indicacion.via}}</td>
+                                    <td>
+                                        <span ng-if="indicacion.frecuencia == 'unica'">UD</span>
+                                        <span ng-if="indicacion.frecuencia == '24'">Día</span>
+                                        <span ng-if="indicacion.frecuencia == '12' || indicacion.frecuencia == '8' || indicacion.frecuencia == '6' || indicacion.frecuencia == '4'">
+                                            c/{{indicacion.frecuencia}}
+                                            hs
+                                        </span>
+
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-default btn-flat tips" title="Editar indicacion" ng-click="editarIndicacion(indicacion, $index);" >
+                                            <i class="mdi mdi-pencil"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- <div class="row">
                         <div class="col-lg-12">
                             <a class="btn btn-default" ng-model="controles" ng-click="cargarControles()">Cargar controles</a>
                             <a class="btn btn-default" ng-model="cuidadosGenerales" ng-click="cargarCuidadosGenerales()">Cargar cuidados generales</a>
@@ -116,253 +176,207 @@
                             <a class="btn btn-default" ng-model="dieta" ng-click="cargarDieta()">Cargar dieta</a>
                             <a class="btn btn-default" ng-model="preparadoEnteral" ng-click="cargarPreparadoEnteral()">Cargar preparado enteral</a>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
-                <br \>
+            </div>
+            <div class="card-block">
                 <div class="row">
-                    <div class="col-lg-4" ng-if="controles">
+                    <div class="col-lg-4">
                         <fieldset>
-                            <!-- <legend><a ng-model="controles" style="cursor: pointer" ng-click="cargarControles()">Cargar controles</a></legend> -->
-                            <legend>Cargar controles</legend>
-                                <div class="row">
-                                    <div class="col-lg-3">
-                                        <input type="checkbox" label="Signos vitales" ng-model="tratamientosEdit.controlSignosVitales" plex="checkbox">
-                                        <select hint="Frecuencia" ng-model="tratamientosEdit.frecuenciaSignosVitales" ng-if="tratamientosEdit.controlSignosVitales" plex>
-                                            <option value="Día">Una vez al día</option>
-                                            <option value="C/12hs.">Cada 12 hs.</option>
-                                            <option value="C/8hs.">Cada 8 hs.</option>
-                                            <option value="C/6hs.">Cada 6 hs.</option>
-                                            <option value="C/4hs.">Cada 4 hs.</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <input type="checkbox" label="Diuresis" ng-model="tratamientosEdit.controlDiuresis" plex="checkbox">
-                                        <select hint="Frecuencia" ng-model="tratamientosEdit.frecuenciaDiuresis" ng-if="tratamientosEdit.controlDiuresis" plex>
-                                            <option value="Día">Una vez al día</option>
-                                            <option value="C/12hs.">Cada 12 hs.</option>
-                                            <option value="C/8hs.">Cada 8 hs.</option>
-                                            <option value="C/6hs.">Cada 6 hs.</option>
-                                            <option value="C/4hs.">Cada 4 hs.</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <input type="checkbox" label="Peso" ng-model="tratamientosEdit.controlPeso" plex="checkbox">
-                                        <select hint="Frecuencia" ng-model="tratamientosEdit.frecuenciaPeso" ng-if="tratamientosEdit.controlPeso" plex>
-                                            <option value="Día">Una vez al día</option>
-                                            <option value="C/12hs.">Cada 12 hs.</option>
-                                            <option value="C/8hs.">Cada 8 hs.</option>
-                                            <option value="C/6hs.">Cada 6 hs.</option>
-                                            <option value="C/4hs.">Cada 4 hs.</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <input type="checkbox" label="Glasgow" ng-model="tratamientosEdit.controlGlasgow" plex="checkbox">
-                                        <select hint="Frecuencia" ng-model="tratamientosEdit.frecuenciaGlasgow" ng-if="tratamientosEdit.controlGlasgow" plex>
-                                            <option value="Día">Una vez al día</option>
-                                            <option value="C/12hs.">Cada 12 hs.</option>
-                                            <option value="C/8hs.">Cada 8 hs.</option>
-                                            <option value="C/6hs.">Cada 6 hs.</option>
-                                            <option value="C/4hs.">Cada 4 hs.</option>
-                                        </select>
-                                    </div>
+                            <legend>Controles</legend>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <input type="checkbox" label="Signos vitales" ng-model="tratamientosEdit.controlSignosVitales" plex="checkbox"/>
                                 </div>
+                                <div class="col-lg-6">
+                                    <select hint="Frecuencia" ng-model="tratamientosEdit.frecuenciaSignosVitales" ng-if="tratamientosEdit.controlSignosVitales" plex="(frecuencia.nombre) for frecuencia in frecuencias "></select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <input type="checkbox" label="Diuresis" ng-model="tratamientosEdit.controlDiuresis" plex="checkbox"/>
+                                </div>
+                                <div class="col-lg-6">
+                                    <select hint="Frecuencia" ng-model="tratamientosEdit.frecuenciaDiuresis" ng-if="tratamientosEdit.controlDiuresis" plex="(frecuencia.nombre) for frecuencia in frecuencias "></select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+
+                                    <input type="checkbox" label="Peso" ng-model="tratamientosEdit.controlPeso" plex="checkbox"/>
+                                </div>
+                                <div class="col-lg-6">
+                                    <select hint="Frecuencia" ng-model="tratamientosEdit.frecuenciaPeso" ng-if="tratamientosEdit.controlPeso" plex="(frecuencia.nombre) for frecuencia in frecuencias "></select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <input type="checkbox" label="Glasgow" ng-model="tratamientosEdit.controlGlasgow" plex="checkbox"/>
+                                </div>
+                                <div class="col-lg-6">
+                                    <select hint="Frecuencia" ng-model="tratamientosEdit.frecuenciaGlasgow" ng-if="tratamientosEdit.controlGlasgow" plex="(frecuencia.nombre) for frecuencia in frecuencias "></select>
+                                </div>
+                            </div>
                         </fieldset>
                     </div>
-                    <div class="col-lg-5" ng-if="cuidadosGenerales">
+                    <div class="col-lg-4">
                         <fieldset>
-                            <!-- <legend><a ng-model="cuidadosGenerales" style="cursor: pointer" ng-click="cargarCuidadosGenerales()">Cargar cuidados generales</a></legend> -->
-                            <legend>Cargar cuidados generales</legend>
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <input type="checkbox" label="Rotar decubito" ng-model="tratamientosEdit.rotarDecubito" plex="checkbox">
-                                        <select hint="Frecuencia" ng-model="tratamientosEdit.frecuenciaRotarDecubito" ng-if="tratamientosEdit.rotarDecubito" plex>
-                                            <option value="Día">Una vez al día</option>
-                                            <option value="C/12hs.">Cada 12 hs.</option>
-                                            <option value="C/8hs.">Cada 8 hs.</option>
-                                            <option value="C/6hs.">Cada 6 hs.</option>
-                                            <option value="C/4hs.">Cada 4 hs.</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <input type="checkbox" label="Aspirar secreciones" ng-model="tratamientosEdit.aspirarSecreciones" plex="checkbox">
-                                        <select hint="Frecuencia" ng-model="tratamientosEdit.frecuenciaAspirarSecreciones" ng-if="tratamientosEdit.aspirarSecreciones" plex>
-                                            <option value="Día">Una vez al día</option>
-                                            <option value="C/12hs.">Cada 12 hs.</option>
-                                            <option value="C/8hs.">Cada 8 hs.</option>
-                                            <option value="C/6hs.">Cada 6 hs.</option>
-                                            <option value="C/4hs.">Cada 4 hs.</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <input type="checkbox" label="Kinesiología" ng-model="tratamientosEdit.kinesiologia" plex="checkbox">
-                                        <select hint="Frecuencia" ng-model="tratamientosEdit.frecuenciaKinesiologia" ng-if="tratamientosEdit.kinesiologia" plex>
-                                            <option value="Día">Una vez al día</option>
-                                            <option value="C/12hs.">Cada 12 hs.</option>
-                                            <option value="C/8hs.">Cada 8 hs.</option>
-                                            <option value="C/6hs.">Cada 6 hs.</option>
-                                            <option value="C/4hs.">Cada 4 hs.</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <input type="checkbox" label="Oxígeno l/min" ng-model="tratamientosEdit.oxigeno" plex="checkbox">
-                                        <select hint="Frecuencia" ng-model="tratamientosEdit.frecuenciaOxigeno" ng-if="tratamientosEdit.oxigeno" plex>
-                                            <option value="Día">Una vez al día</option>
-                                            <option value="C/12hs.">Cada 12 hs.</option>
-                                            <option value="C/8hs.">Cada 8 hs.</option>
-                                            <option value="C/6hs.">Cada 6 hs.</option>
-                                            <option value="C/4hs.">Cada 4 hs.</option>
-                                        </select>
-                                    </div>
+                            <legend>Cuidados generales</legend>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <input type="checkbox" label="Rotar decubito" ng-model="tratamientosEdit.rotarDecubito" plex="checkbox">
                                 </div>
+                                <div class="col-lg-6">
+                                    <select hint="Frecuencia" ng-model="tratamientosEdit.frecuenciaRotarDecubito" ng-if="tratamientosEdit.rotarDecubito" plex="(frecuencia.nombre) for frecuencia in frecuencias "></select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <input type="checkbox" label="Aspirar secreciones" ng-model="tratamientosEdit.aspirarSecreciones" plex="checkbox">
+                                </div>
+                                <div class="col-lg-6">
+                                    <select hint="Frecuencia" ng-model="tratamientosEdit.frecuenciaAspirarSecreciones" ng-if="tratamientosEdit.aspirarSecreciones" plex="(frecuencia.nombre) for frecuencia in frecuencias "></select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <input type="checkbox" label="Kinesiología" ng-model="tratamientosEdit.kinesiologia" plex="checkbox">
+                                </div>
+                                <div class="col-lg-6">
+                                    <select hint="Frecuencia" ng-model="tratamientosEdit.frecuenciaKinesiologia" ng-if="tratamientosEdit.kinesiologia" plex="(frecuencia.nombre) for frecuencia in frecuencias "></select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <input type="checkbox" label="Oxígeno l/min" ng-model="tratamientosEdit.oxigeno" plex="checkbox">
+                                </div>
+                                <div class="col-lg-6">
+                                    <select hint="Frecuencia" ng-model="tratamientosEdit.frecuenciaOxigeno" ng-if="tratamientosEdit.oxigeno" plex="(frecuencia.nombre) for frecuencia in frecuencias "></select>
+                                </div>
+                            </div>
                         </fieldset>
                     </div>
-                    <div class="col-lg-3" ng-if="cuidadosEspeciales">
+
+                    <div class="col-lg-4">
                         <fieldset>
-                            <!-- <legend><a ng-model="cuidadosEspeciales" style="cursor: pointer" ng-click="cargarCuidadosEspeciales()">Cargar cuidados especiales</a></legend> -->
-                            <legend>Cargar cuidados especiales</legend>
-                                <div class="row">
-                                    <div class="col-xs-4">
-                                        <input type="checkbox" label="SNG" ng-model="tratamientosEdit.SNG" plex="checkbox">
-                                        <select hint="Cuál" ng-model="tratamientosEdit.cualSNG" ng-if="tratamientosEdit.SNG" plex>
-                                            <option value="SNG1">SNG1</option>
-                                            <option value="SNG2">SNG2</option>
-                                            <option value="SNG3">SNG3</option>
-                                            <option value="SNG4">SNG4</option>
-                                            <option value="SNG5">SNG5</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-xs-4">
-                                        <input type="checkbox" label="Sonda vesical" ng-model="tratamientosEdit.sondaVesical" plex="checkbox">
-                                    </div>
-                                    <div class="col-xs-4">
-                                        <input type="checkbox" label="Aislamiento" ng-model="tratamientosEdit.aislamiento" plex="checkbox">
-                                        <select hint="Cuál" ng-model="tratamientosEdit.cualAislamiento" ng-if="tratamientosEdit.aislamiento" plex>
-                                            <option value="Neutropenico">Neutropénico</option>
-                                            <option value="Respiratorio">Respitaorio</option>
-                                            <option value="Contacto">De contacto</option>
-                                        </select>
-                                    </div>
+                            <legend>Cuidados especiales</legend>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <input type="checkbox" label="SNG" ng-model="tratamientosEdit.SNG" plex="checkbox">
                                 </div>
+                                <div class="col-lg-6">
+                                    <select hint="Cuál" ng-model="tratamientosEdit.cualSNG" ng-if="tratamientosEdit.SNG" plex>
+                                        <option value="SNG1">SNG1</option>
+                                        <option value="SNG2">SNG2</option>
+                                        <option value="SNG3">SNG3</option>
+                                        <option value="SNG4">SNG4</option>
+                                        <option value="SNG5">SNG5</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <input type="checkbox" label="Sonda vesical" ng-model="tratamientosEdit.sondaVesical" plex="checkbox">
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <input type="checkbox" label="Aislamiento" ng-model="tratamientosEdit.aislamiento" plex="checkbox">
+                                </div>
+                                <div class="col-lg-6">
+                                    <select hint="Cuál" ng-model="tratamientosEdit.cualAislamiento" ng-if="tratamientosEdit.aislamiento" plex>
+                                        <option value="Neutropenico">Neutropénico</option>
+                                        <option value="Respiratorio">Respitaorio</option>
+                                        <option value="Contacto">De contacto</option>
+                                    </select>
+                                </div>
+                            </div>
                         </fieldset>
                     </div>
                 </div>
-                <br \>
+
                 <div class="row">
-                    <div class="col-lg-6" ng-if="dieta">
+                    <div class="col-lg-8">
                         <fieldset>
                             <!-- <legend><a ng-model="dieta" style="cursor: pointer" ng-click="cargarDieta()">Cargar dieta</a></legend> -->
-                            <legend>Cargar dieta</legend>
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <input type="checkbox" label="Ayuno" ng-model="tratamientosEdit.dietaAyuno" plex="checkbox">
-                                        <input type="checkbox" label="General" ng-model="tratamientosEdit.dietaGeneral" plex="checkbox">
-                                        <input type="checkbox" label="Diabético" ng-model="tratamientosEdit.dietaDiabetico" plex="checkbox">
-                                        <input type="checkbox" label="Insuficiencia renal" ng-model="tratamientosEdit.dietaInsuficienciaRenal" plex="checkbox">
-                                        <input type="checkbox" label="Hepato/Gastro protectora" ng-model="tratamientosEdit.dietaHepatoGastroProtectora" plex="checkbox">
-                                        <input type="checkbox" label="Líquido 01" ng-model="tratamientosEdit.liquido01" plex="checkbox">
-                                        <input type="checkbox" label="Blando sin carne 02" ng-model="tratamientosEdit.blandoSinCarne02" plex="checkbox">
-                                        <input type="checkbox" label="Blando con carne 03" ng-model="tratamientosEdit.blandoConCarne03" plex="checkbox">
-                                        <input type="checkbox" label="Individual" ng-model="tratamientosEdit.individual" plex="checkbox">
-                                        <input type="checkbox" label="Pediátrico 1-2" ng-model="tratamientosEdit.pediatrico1_2" plex="checkbox">
-                                        <input type="checkbox" label="Lactante 1-2" ng-model="tratamientosEdit.lactante1_2" plex="checkbox">
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <input type="checkbox" label="Blando mecánico" ng-model="tratamientosEdit.dietaBlandoMecanico" plex="checkbox">
-                                        <input type="checkbox" label="Acompañante" ng-model="tratamientosEdit.dietaAcompanante" plex="checkbox">
-                                        <input type="checkbox" label="Licuado" ng-model="tratamientosEdit.dietaLicuado" plex="checkbox">
-                                        <input type="checkbox" label="Rico en residuo" ng-model="tratamientosEdit.dietaRicoEnResiduo" plex="checkbox">
-                                        <input type="checkbox" label="Astringente" ng-model="tratamientosEdit.dietaAstringente" plex="checkbox">
-                                        <input type="checkbox" label="Sin sal" ng-model="tratamientosEdit.sinSal" plex="checkbox">
-                                        <input type="checkbox" label="Sin gluten" ng-model="tratamientosEdit.sinGluten" plex="checkbox">
-                                        <input type="checkbox" label="Todo cocido" ng-model="tratamientosEdit.todoCocido" plex="checkbox">
-                                        <input type="checkbox" label="Hiper con colacion" ng-model="tratamientosEdit.hiperConColacion" plex="checkbox">
-                                        <input type="checkbox" label="Nada por boca" ng-model="tratamientosEdit.nadaPorBoca" plex="checkbox">
-                                        <input type="checkbox" label="Hipocalórico" ng-model="tratamientosEdit.hipocalorico" plex="checkbox">
-                                    </div>
-                                </div>
-                        </fieldset>
-                    </div>
-                    <div class="col-lg-6" ng-if="preparadoEnteral">
-                        <fieldset>
-                            <!-- <legend><a ng-model="preparadoEnteral" style="cursor: pointer" ng-click="cargarPreparadoEnteral()">Cargar preparado enteral</a></legend> -->
-                            <legend>Cargar preparado enteral</legend>
-                                <div class="row">
-                                    <div class="col-lg-8">
-                                        <input type="text" label="Tipo" ng-model="tratamientosEdit.tipoPreparadoEnteral" plex>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <input type="text" label="Volúmen 24 hs." ng-model="tratamientosEdit.volumen24hs" plex-suffix="ml" plex>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <input type="text" label="Cantidad de tomas" ng-model="tratamientosEdit.cantidadDeTomas" plex>
-                                    </div>
-                                </div>
-                        </fieldset>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card-block margin-top text-right">
-                        <button type="button" class="btn btn-default btn-flat" ng-click="cancelarEdicion();">Cancelar</button>
-                        <button class="btn btn-primary" plex-submit="guardarTratamiento(tratamientosEdit)" ng-disabled="formEditarTratamiento.$invalid">
-                            <i class="mdi mdi-content-save"></i>
-                            Guardar</button>
-                    </div>
-                </div>
-            </div>
+                            <legend>Dieta</legend>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <input type="checkbox" label="Ayuno" ng-model="tratamientosEdit.dietaAyuno" plex="checkbox">
+                                    <input type="checkbox" label="General" ng-model="tratamientosEdit.dietaGeneral" plex="checkbox">
+                                    <input type="checkbox" label="Diabético" ng-model="tratamientosEdit.dietaDiabetico" plex="checkbox">
+                                    <input type="checkbox" label="Insuficiencia renal" ng-model="tratamientosEdit.dietaInsuficienciaRenal" plex="checkbox">
+                                    <input type="checkbox" label="Hepato/Gastro protectora" ng-model="tratamientosEdit.dietaHepatoGastroProtectora" plex="checkbox">
+                                    <input type="checkbox" label="Líquido 01" ng-model="tratamientosEdit.liquido01" plex="checkbox">
 
-            <table class="table table-hover table-striped" ng-if="internacion.tratamientos && internacion.tratamientos.length > 0">
-                <thead >
-                    <tr>
-                        <th>
-                            Fecha
-                        </th>
-                        <th>
-                            Descripción
-                        </th>
-                        <th >
-                            Vía
-                        </th>
-                        <th >
-                            Frecuencia
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- <tr data-ng-repeat="item in filtros.problemas | orderBy: '-fechaDesde'"> -->
-                    <tr data-ng-repeat="item in filtros.tratamientos | orderBy: '-fecha'">
-                        <td >
-                            {{item.fecha | date: "dd/MM/yyyy HH:mm"}}
-                        </td>
-                        <td >
-                            {{item.descripcion}}
-                        </td>
-                        <td >
-                            {{item.via}}
-                        </td>
-                        <td >
-                            {{item.frecuencia}}
-                        </td>
-                        <td >
-                            {{item.createdBy.name}}
-                            <br/>
-                            {{item.servicio.nombreCorto}}
-                        </td>
-                        <!-- <td >
-                            <button class="btn btn-default btn-flat tips" title="Editar problema" ng-click="editarProblema(item);" ng-disabled="Session.user.id != item.createdBy.id">
-                                <i class="mdi mdi-pencil"></i>
-                            </button>
-                        </td> -->
-                        <td class="text-right">
-                            <button class="btn btn-default btn-flat" ng-click="remove(item)">
-                                <i class="mdi mdi-delete"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                                </div>
+                                <div class="col-lg-3">
+                                    <input type="checkbox" label="Blando sin carne 02" ng-model="tratamientosEdit.blandoSinCarne02" plex="checkbox">
+                                    <input type="checkbox" label="Blando con carne 03" ng-model="tratamientosEdit.blandoConCarne03" plex="checkbox">
+                                    <input type="checkbox" label="Individual" ng-model="tratamientosEdit.individual" plex="checkbox">
+                                    <input type="checkbox" label="Pediátrico 1-2" ng-model="tratamientosEdit.pediatrico1_2" plex="checkbox">
+                                    <input type="checkbox" label="Lactante 1-2" ng-model="tratamientosEdit.lactante1_2" plex="checkbox">
+                                    <input type="checkbox" label="Blando mecánico" ng-model="tratamientosEdit.dietaBlandoMecanico" plex="checkbox">
+                                </div>
+                                <div class="col-lg-3">
+
+                                    <input type="checkbox" label="Acompañante" ng-model="tratamientosEdit.dietaAcompanante" plex="checkbox">
+                                    <input type="checkbox" label="Licuado" ng-model="tratamientosEdit.dietaLicuado" plex="checkbox">
+                                    <input type="checkbox" label="Rico en residuo" ng-model="tratamientosEdit.dietaRicoEnResiduo" plex="checkbox">
+                                    <input type="checkbox" label="Astringente" ng-model="tratamientosEdit.dietaAstringente" plex="checkbox">
+                                    <input type="checkbox" label="Sin sal" ng-model="tratamientosEdit.sinSal" plex="checkbox">
+                                    <input type="checkbox" label="Sin gluten" ng-model="tratamientosEdit.sinGluten" plex="checkbox">
+                                </div>
+                                <div class="col-lg-3">
+                                    <input type="checkbox" label="Todo cocido" ng-model="tratamientosEdit.todoCocido" plex="checkbox">
+                                    <input type="checkbox" label="Hiper con colacion" ng-model="tratamientosEdit.hiperConColacion" plex="checkbox">
+                                    <input type="checkbox" label="Nada por boca" ng-model="tratamientosEdit.nadaPorBoca" plex="checkbox">
+                                    <input type="checkbox" label="Hipocalórico" ng-model="tratamientosEdit.hipocalorico" plex="checkbox">
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-4">
+                        <fieldset>
+                            <legend>Preparado enteral</legend>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <input type="text" label="Tipo" ng-model="tratamientosEdit.tipoPreparadoEnteral" plex>
+                                </div>
+                                <div class="col-lg-6">
+                                    <input type="text" label="Observaciones" ng-model="tratamientosEdit.observacionesPreparadoEnteral" plex>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <input type="text" label="Volúmen 24 hs." ng-model="tratamientosEdit.volumen24hs" plex-suffix="ml" plex>
+                                </div>
+                                <div class="col-lg-4">
+                                    <input type="text" label="Cantidad de tomas" ng-model="tratamientosEdit.cantidadDeTomas" plex>
+                                </div>
+                                <div class="col-lg-4">
+                                    <input type="text" label="Velocidad (ml/h)" ng-model="tratamientosEdit.velocidad" plex>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-block margin-top text-right">
+                            <button type="button" class="btn btn-default btn-flat" ng-click="cancelarEdicion();">Cancelar</button>
+                            <button class="btn btn-primary" plex-submit="guardarTratamiento(tratamientosEdit)" ng-disabled="formEditarTratamiento.$invalid">
+                                <i class="mdi mdi-content-save"></i>
+                                Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </ng-form>
 
     </div>
+</div>

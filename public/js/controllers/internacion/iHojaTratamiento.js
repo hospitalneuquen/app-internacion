@@ -2,24 +2,36 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
     'use strict';
 
     angular.extend($scope, {
+        ultimo: 0, // para armar el listado de indicaciones
         show_toolbar_tratamientos: true,
         loading: true,
-        dieta: false, controles: false, cuidadosEspeciales: false, cuidadosGenerales: false, preparadoEnteral: false,
         internacion: undefined,
         tratamientosEdit: undefined, // Item actual que se está editando
-        // servicios: [{
-        //     id: 'solo-hoy',
-        //     nombreCorto: "Sólo los de hoy"
-        // }, {
-        //     id: '',
-        //     nombreCorto: 'Todos'
-        // }],
+        indicacion: {},
+        editandoIndicacion: false,
+        indexIndicacion: undefined,
+        frecuencias: [{
+            id: '24',
+            nombre: 'Una vez al día'
+        }, {
+            id: '12',
+            nombre: 'Cada 12 hs.'
+        }, {
+            id: '8',
+            nombre: 'Cada 8 hs.'
+        }, {
+            id: '6',
+            nombre: 'Cada 6 hs.'
+        }, {
+            id: '4',
+            nombre: 'Cada 4 hs.'
+        }],
         filtros: {
             tratamientos: [],
             servicio: null,
-            filtrar: function(){
+            filtrar: function() {
                 var self = this;
-                $scope.filtros.problemas = $scope.internacion.problemas;
+                $scope.filtros.tratamientos = $scope.internacion.tratamientos;
 
                 // if (!self.servicio) {
                 //     $scope.filtros.tratamientos = $scope.internacion.tratamientos;
@@ -45,11 +57,7 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
 
         init: function(internacion) {
             $scope.loading = true;
-            $scope.dieta = false;
-            $scope.controles = false;
-            $scope.cuidadosGenerales = false;
-            $scope.cuidadosEspeciales = false;
-            $scope.preparadoEnteral = false;
+
             // buscamos la internacion
             if (internacion !== null) {
                 $scope.internacion = internacion;
@@ -61,50 +69,35 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
 
             }
         },
-
-        cargarDieta: function(){
-            if (!$scope.dieta){
-                $scope.dieta = true;
-            }else{
-                $scope.dieta = false;
+        agregarIndicacion: function(){
+            // console.log($scope.indicacion);
+            if (typeof $scope.tratamientosEdit.indicaciones == "undefined"){
+                $scope.tratamientosEdit.indicaciones = [];
             }
-        },
 
-        cargarControles: function(){
-            if (!$scope.controles){
-                $scope.controles = true;
-            }else{
-                $scope.controles = false;
-            }
-        },
+            $scope.tratamientosEdit.indicaciones.push($scope.indicacion);
 
-        cargarCuidadosEspeciales: function(){
-            if (!$scope.cuidadosEspeciales){
-                $scope.cuidadosEspeciales = true;
-            }else{
-                $scope.cuidadosEspeciales = false;
-            }
+            $scope.indicacion = {};
         },
+        editarIndicacion: function(indicacion, index){
+            $scope.editandoIndicacion = true;
+            $scope.indexIndicacion = index;
+            angular.copy(indicacion, $scope.indicacion);
+        },
+        guardarIndicacion: function(){
+            $scope.tratamientosEdit.indicaciones[$scope.indexIndicacion] = $scope.indicacion;
 
-        cargarCuidadosGenerales: function(){
-            if (!$scope.cuidadosGenerales){
-                $scope.cuidadosGenerales = true;
-            }else{
-                $scope.cuidadosGenerales = false;
-            }
+            $scope.indexIndicacion = undefined;
+            $scope.editandoIndicacion = false;
+            $scope.indicacion = {};
         },
-
-        cargarPreparadoEnteral: function(){
-            if (!$scope.preparadoEnteral){
-                $scope.preparadoEnteral = true;
-            }else{
-                $scope.preparadoEnteral = false;
-            }
+        cancelarEditarIndicacion: function(){
+            $scope.editandoIndicacion = false;
+            $scope.indicacion = {};
         },
-
-        remove: function(item) {
-            $scope.internacion.tratamientos.splice($scope.internacion.tratamientos.indexOf(item), 1);
-        },
+        // remove: function(item) {
+        //     $scope.internacion.tratamientos.splice($scope.internacion.tratamientos.indexOf(item), 1);
+        // },
 
         // Inicia la edición de una evolución
         editarTratamiento: function(tratamiento) {
@@ -116,6 +109,16 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
 
                 angular.copy(tratamiento, $scope.tratamientosEdit);
 
+                // seleccionamos las frecuencias elegidas para cada elemento
+                $scope.tratamientosEdit.frecuenciaSignosVitales = Global.getById($scope.frecuencias, $scope.tratamientosEdit.frecuenciaSignosVitales);
+                $scope.tratamientosEdit.frecuenciaDiuresis = Global.getById($scope.frecuencias, $scope.tratamientosEdit.frecuenciaDiuresis);
+                $scope.tratamientosEdit.frecuenciaPeso = Global.getById($scope.frecuencias, $scope.tratamientosEdit.frecuenciaPeso);
+                $scope.tratamientosEdit.frecuenciaGlasgow = Global.getById($scope.frecuencias, $scope.tratamientosEdit.frecuenciaGlasgow);
+                $scope.tratamientosEdit.frecuenciaRotarDecubito = Global.getById($scope.frecuencias, $scope.tratamientosEdit.frecuenciaRotarDecubito);
+                $scope.tratamientosEdit.frecuenciaAspirarSecreciones = Global.getById($scope.frecuencias, $scope.tratamientosEdit.frecuenciaAspirarSecreciones);
+                $scope.tratamientosEdit.frecuenciaKinesiologia = Global.getById($scope.frecuencias, $scope.tratamientosEdit.frecuenciaKinesiologia);
+                $scope.tratamientosEdit.frecuenciaOxigeno = Global.getById($scope.frecuencias, $scope.tratamientosEdit.frecuenciaOxigeno);
+                $scope.tratamientosEdit.cualAislamiento = Global.getById($scope.frecuencias, $scope.tratamientosEdit.cualAislamiento);
 
             } else { // Alta
                 $scope.tituloFormulario = "Agregar tratamiento";
@@ -123,7 +126,7 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
                 // Valores por defecto
                 $scope.tratamientosEdit = {
                     fecha: new Date(),
-                    servicio: Session.servicioActual,
+                    servicio: Session.variables.servicioActual,
                 };
             }
         },
@@ -142,7 +145,8 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
 
                 // actualizamos el listado de tratamientos
                 $scope.actualizartratamientos(data);
-                //$scope.cancelarEdicion();
+
+                $scope.cancelarEdicion();
             });
         },
 
