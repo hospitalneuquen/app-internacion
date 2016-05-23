@@ -44,11 +44,6 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                     return (!self.servicio.id || (self.servicio && evolucion.servicio && (evolucion.servicio.id == self.servicio.id  || (self.servicio.id == 'mis-evoluciones' && evolucion.createdBy.id === Session.user.id) ))) &&
                         // (!self.servicio.id || (self.servicio.id == 'mis-evoluciones' && evolucion.createdBy.id === Session.user.id )) &&
                         (!self.profesional.id || (self.profesional && evolucion.tipo && evolucion.tipo == self.profesional.id))
-
-                    //     (!self.profesional.id || (self.profesional && evolucion.tipo && evolucion.tipo == self.profesional.id))
-                    // return (!self.servicio.id || self.servicio.id == 'mis-evoluciones') &&
-                    //     (!self.servicio.id || (self.servicio && evolucion.servicio && evolucion.servicio.id == self.servicio.id)) &&
-
                 });
 
                 // if (!self.servicio) {
@@ -282,11 +277,13 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
             // si no lo encontro, entonces es porque acaba de cargarla
             // se la asignamos al resto de las evoluciones
             if (!found) {
+                console.log("nueva");
                 $scope.internacion.evoluciones.push(data);
             }
 
             $scope.loading = false;
 
+            $scope.filtros.filtrar();
             // actualizamos el grafico
             // $scope.chart.update++;
         },

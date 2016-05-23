@@ -133,7 +133,8 @@
 
                                         <div ng-if="!cama.paciente.id && cama.estado == 'bloqueada'">
                                             <button type="button" class="btn btn-bloqueada btn-flat tips" title="Cama bloqueada" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'estado_bloqueada'">
-                                                <i class="mdi mdi-close"></i>
+                                                <!-- <i class="mdi mdi-close"></i> -->
+                                                <i class="mdi mdi-lock"></i>
                                             </button>
 
                                             <h5>
@@ -188,10 +189,12 @@
                             </button>
 
                             <button class="btn btn-default btn-flat tips" title="Bloquear cama" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'bloquear'" ng-if="!cama.idInternacion && cama.estado == 'desocupada'">
-                                <i class="mdi mdi-block-helper"></i>
+                                <!-- <i class="mdi mdi-block-helper"></i> -->
+                                <i class="mdi mdi-lock"></i>
                             </button>
                             <button class="btn btn-success btn-flat tips" title="Desbloquear cama" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'bloquear'" ng-if="!cama.idInternacion && cama.estado == 'bloqueada'">
-                                <i class="mdi mdi-reload"></i>
+                                <!-- <i class="mdi mdi-reload"></i> -->
+                                <i class="mdi mdi-lock-open-outline"></i>
                             </button>
 
                             <button class="btn btn-default btn-flat" title="Enviar a reparación " ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'reparacion'" ng-if="!cama.paciente.id && (cama.estado == 'desocupada' && cama.estado != 'reparacion')">
