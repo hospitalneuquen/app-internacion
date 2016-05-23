@@ -43,7 +43,7 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
                 };
             }
 
-            Shared.internacion.post(plexParams.idInternacion, data, {
+            Shared.internacion.post(plexParams.idInternacion, {
                 minify: true
             }).then(function(internacion) {
                 // TODO: Definir que hacer en caso de que sea defuncion o alta,
@@ -75,7 +75,7 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
             var buscar = {
                 tipo: tipo,
                 nombre: query
-            }
+            };
 
             return Shared.ubicaciones.get(buscar);
         },
@@ -83,7 +83,7 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
             // buscamos todos los diagnosticos
             var buscar = {
                 nombre: query
-            }
+            };
 
             return Shared.diagnosticos.get(buscar);
         },
@@ -96,7 +96,7 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
             Server.get('/api/internacion/internacion/' + plexParams.idInternacion).then(function(data) {
                 $scope.internacion = data;
 
-                $scope.egreso.cama = plexParams.idCama
+                $scope.egreso.cama = plexParams.idCama;
 
                 // Shared.ubicaciones.get({
                 //     tipo: 'hospital'
@@ -121,6 +121,15 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
             $scope.egreso.resumenInternacion = null;
             $scope.egreso.diagnosticoAlta = null;
             $scope.egreso.tratamientoaSeguir = null;
+            $scope.egreso.situacionPendiente = null;
+            $scope.egreso.descripcionSituacionPendiente = null;
+            $scope.egreso.estadoPacienteAlta = null;
+            $scope.egreso.pronosticoEvolucion = null;
+            $scope.egreso.pautasAlarma = null;
+            $scope.egreso.dietaGeneral = null;
+            $scope.egreso.dietaHepatoprotectora = null;
+            $scope.egreso.dietaEspecial = null;
+            $scope.egreso.dietaSoporteNutricional = null;
         }
     });
 
