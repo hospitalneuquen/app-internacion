@@ -15,9 +15,22 @@ angular.module('app').controller('internacion/iAntecedentes', ["$scope", "Server
         antecedentesBinarios: null,
         seleccionado: null,
         nuevaFila: null, // Indica el índice de la nueva fila para destacarla
+        antecedenteFamiliar: undefined,
+
         remove: function(item) {
             $scope.internacion.ingreso.antecedentes.binarios.splice($scope.internacion.ingreso.antecedentes.binarios.indexOf(item), 1);
-        }
+        },
+
+        agregarAntecedenteFamiliar: function(){
+            // console.log($scope.indicacion);
+            if (typeof $scope.internacion.ingreso.antecedentes.familiares == "undefined"){
+                $scope.internacion.ingreso.antecedentes.familiares = [];
+            }
+
+            $scope.internacion.ingreso.antecedentes.familiares.push($scope.antecedenteFamiliar);
+
+            $scope.antecedenteFamiliar = {};
+        },
     });
 
     // Watches
