@@ -72,7 +72,7 @@ angular.module('app').controller('internacion/verTratamiento', ['$scope', 'Plex'
                             }
                         }
 
-                        
+
                         // <span ng-if="">
                         //     <span ng-init="anterior = hora"></span>
                         //     X
