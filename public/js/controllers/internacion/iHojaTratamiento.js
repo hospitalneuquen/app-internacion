@@ -7,10 +7,15 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
         loading: true,
         internacion: undefined,
         tratamientosEdit: undefined, // Item actual que se está editando
-        indicacion: {},
+        tiposIndicaciones: [],
+        opcionesIndicacion: [],
+        indicacion: {}, // objeto que se crea para agregar a array de indicaciones
         editandoIndicacion: false,
         indexIndicacion: undefined,
         frecuencias: [{
+            id: '48',
+            nombre: 'Cada 2 días'
+        }, {
             id: '24',
             nombre: 'Una vez al día'
         }, {
@@ -58,6 +63,16 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
         init: function(internacion) {
             $scope.loading = true;
 
+            // buscamos los tipos de indicaciones disponibles
+            Server.get("/api/internacion/internacion/tratamiento/tipos/tipo").then(function(tiposIndicaciones) {
+                angular.forEach(tiposIndicaciones, function(indicacion) {
+                    $scope.tiposIndicaciones.push({
+                        id: indicacion,
+                        nombre: indicacion
+                    });
+                });
+            });
+
             // buscamos la internacion
             if (internacion !== null) {
                 $scope.internacion = internacion;
@@ -66,32 +81,104 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
                 $scope.loading = false;
 
                 $scope.filtros.filtrar();
-
             }
         },
-        agregarIndicacion: function(){
-            // console.log($scope.indicacion);
-            if (typeof $scope.tratamientosEdit.indicaciones == "undefined"){
+        getOpcionesIndicacion: function() {
+            console.log($scope.indicacion.tipoIndicacion);
+
+            switch ($scope.indicacion.tipoIndicacion.id) {
+                case 'Plan Hidratación':
+                case 'Heparina o profilaxis':
+                case 'Protección gástrica':
+                case 'Otra medicación':
+                case 'Otra indicación':
+                    var tipo = "";
+                    $scope.opcionesIndicacion = "";
+                break;
+                case 'Controles':
+                    var tipo = "controles.tipo";
+                break;
+                case 'Cuidados generales':
+                    var tipo = "cuidadosGenerales.tipo";
+                break;
+                case 'Cuidados especiales':
+                    var tipo = "cuidadosEspeciales";
+                break;
+                case 'Dieta':
+                    var tipo = "dieta";
+                break;
+            }
+
+            if (tipo != ""){
+                $scope.opcionesIndicacion = [];
+                // buscamos los tipos de indicaciones disponibles
+                Server.get("/api/internacion/internacion/tratamiento/tipos/"+ tipo).then(function(tiposIndicaciones) {
+                    angular.forEach(tiposIndicaciones, function(indicacion) {
+                        $scope.opcionesIndicacion.push({
+                            id: indicacion,
+                            nombre: indicacion
+                        });
+                    });
+                });
+            }
+        },
+
+        agregarIndicacion: function() {
+            if (typeof $scope.tratamientosEdit.indicaciones == "undefined") {
                 $scope.tratamientosEdit.indicaciones = [];
             }
 
+            $scope.indicacion.tipo = $scope.indicacion.tipoIndicacion.id;
+
+            if($scope.indicacion.descripcion){
+                $scope.indicacion.$descripcion = $scope.indicacion.descripcion;
+            }
+
+            if ($scope.indicacion.tipo == 'Plan Hidratación' ||
+                $scope.indicacion.tipo == 'Heparina o profilaxis' ||
+                $scope.indicacion.tipo == 'Protección gástrica' ||
+                $scope.indicacion.tipo == 'Otra medicación'){
+
+                $scope.indicacion.medicamento = {
+                    descripcion: $scope.indicacion.descripcion
+                }
+
+                $scope.indicacion.$descripcion = $scope.indicacion.descripcion;
+            }else if ($scope.indicacion.tipo == "Controles"){
+                $scope.indicacion.controles = {
+                    tipo: $scope.indicacion.opcionIndicacion.id
+                }
+
+                $scope.indicacion.$descripcion = $scope.indicacion.opcionIndicacion.id;
+            }else if ($scope.indicacion.tipo == "Cuidados generales"){
+                $scope.indicacion.cuidadosGenerales = {
+                    tipo: $scope.indicacion.opcionIndicacion.id
+                }
+
+                $scope.indicacion.$descripcion = $scope.indicacion.opcionIndicacion.id;
+            }
+
             $scope.tratamientosEdit.indicaciones.push($scope.indicacion);
+            console.log($scope.tratamientosEdit.indicaciones);
 
             $scope.indicacion = {};
         },
-        editarIndicacion: function(indicacion, index){
+
+        editarIndicacion: function(indicacion, index) {
             $scope.editandoIndicacion = true;
             $scope.indexIndicacion = index;
+
             angular.copy(indicacion, $scope.indicacion);
+
         },
-        guardarIndicacion: function(){
+        guardarIndicacion: function() {
             $scope.tratamientosEdit.indicaciones[$scope.indexIndicacion] = $scope.indicacion;
 
             $scope.indexIndicacion = undefined;
             $scope.editandoIndicacion = false;
             $scope.indicacion = {};
         },
-        cancelarEditarIndicacion: function(){
+        cancelarEditarIndicacion: function() {
             $scope.editandoIndicacion = false;
             $scope.indicacion = {};
         },
@@ -109,16 +196,37 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
 
                 angular.copy(tratamiento, $scope.tratamientosEdit);
 
+                if ($scope.tratamientosEdit.indicaciones.length){
+
+                    angular.forEach($scope.tratamientosEdit.indicaciones, function(indicacion){
+                        if (indicacion.tipo == 'Plan Hidratación' ||
+                            indicacion.tipo == 'Heparina o profilaxis' ||
+                            indicacion.tipo == 'Protección gástrica' ||
+                            indicacion.tipo == 'Otra medicación'){
+
+                            indicacion.$descripcion = indicacion.medicamento.descripcion;
+
+                        }else if (indicacion.tipo == "Controles"){
+                            indicacion.$descripcion = indicacion.controles.tipo;
+                        }else if (indicacion.tipo == "Cuidados generales"){
+                            indicacion.$descripcion = indicacion.cuidadosGenerales.tipo;
+                        }
+
+                    });
+                }
+
+                // console.log($scope.tratamientosEdit);
+
                 // seleccionamos las frecuencias elegidas para cada elemento
-                $scope.tratamientosEdit.frecuenciaSignosVitales = Global.getById($scope.frecuencias, $scope.tratamientosEdit.frecuenciaSignosVitales);
-                $scope.tratamientosEdit.frecuenciaDiuresis = Global.getById($scope.frecuencias, $scope.tratamientosEdit.frecuenciaDiuresis);
-                $scope.tratamientosEdit.frecuenciaPeso = Global.getById($scope.frecuencias, $scope.tratamientosEdit.frecuenciaPeso);
-                $scope.tratamientosEdit.frecuenciaGlasgow = Global.getById($scope.frecuencias, $scope.tratamientosEdit.frecuenciaGlasgow);
-                $scope.tratamientosEdit.frecuenciaRotarDecubito = Global.getById($scope.frecuencias, $scope.tratamientosEdit.frecuenciaRotarDecubito);
-                $scope.tratamientosEdit.frecuenciaAspirarSecreciones = Global.getById($scope.frecuencias, $scope.tratamientosEdit.frecuenciaAspirarSecreciones);
-                $scope.tratamientosEdit.frecuenciaKinesiologia = Global.getById($scope.frecuencias, $scope.tratamientosEdit.frecuenciaKinesiologia);
-                $scope.tratamientosEdit.frecuenciaOxigeno = Global.getById($scope.frecuencias, $scope.tratamientosEdit.frecuenciaOxigeno);
-                $scope.tratamientosEdit.cualAislamiento = Global.getById($scope.frecuencias, $scope.tratamientosEdit.cualAislamiento);
+                // $scope.tratamientosEdit.frecuenciaSignosVitales = Global.getById($scope.frecuencias, $scope.tratamientosEdit.frecuenciaSignosVitales);
+                // $scope.tratamientosEdit.frecuenciaDiuresis = Global.getById($scope.frecuencias, $scope.tratamientosEdit.frecuenciaDiuresis);
+                // $scope.tratamientosEdit.frecuenciaPeso = Global.getById($scope.frecuencias, $scope.tratamientosEdit.frecuenciaPeso);
+                // $scope.tratamientosEdit.frecuenciaGlasgow = Global.getById($scope.frecuencias, $scope.tratamientosEdit.frecuenciaGlasgow);
+                // $scope.tratamientosEdit.frecuenciaRotarDecubito = Global.getById($scope.frecuencias, $scope.tratamientosEdit.frecuenciaRotarDecubito);
+                // $scope.tratamientosEdit.frecuenciaAspirarSecreciones = Global.getById($scope.frecuencias, $scope.tratamientosEdit.frecuenciaAspirarSecreciones);
+                // $scope.tratamientosEdit.frecuenciaKinesiologia = Global.getById($scope.frecuencias, $scope.tratamientosEdit.frecuenciaKinesiologia);
+                // $scope.tratamientosEdit.frecuenciaOxigeno = Global.getById($scope.frecuencias, $scope.tratamientosEdit.frecuenciaOxigeno);
+                // $scope.tratamientosEdit.cualAislamiento = Global.getById($scope.frecuencias, $scope.tratamientosEdit.cualAislamiento);
 
             } else { // Alta
                 $scope.tituloFormulario = "Agregar tratamiento";

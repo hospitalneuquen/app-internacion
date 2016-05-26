@@ -77,23 +77,18 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-7">
+                    <div class="col-lg-8">
                         <fieldset>
                             <legend>Carga de indicaciones</legend>
                             <div class="row">
                                 <div class="col-lg-2">
-                                    <select label="Tipo de indicación" ng-model="indicacion.tipo" plex>
-                                        <option value="Plan Hidratación">Plan Hidratación</option>
-                                        <option value="Heparina o profilaxis">Heparina o profilaxis</option>
-                                        <option value="Protección gástrica">Protección gástrica</option>
-                                        <option value="Otra medicación">Otra medicación</option>
-                                        <option value="Otra indicación">Otra indicación</option>
-                                    </select>
+                                    <select label="Tipo de indicación" ng-model="indicacion.tipoIndicacion" plex="(tipo.nombre) for tipo in tiposIndicaciones" ng-change="getOpcionesIndicacion()"></select>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-group">
-                                        <input type="text" label="Descripción" ng-model="indicacion.descripcion" plex/>
+                                        <input type="text" label="Descripción" ng-model="indicacion.descripcion" ng-show="!opcionesIndicacion.length" plex />
+                                        <select label="Indicación" ng-model="indicacion.opcionIndicacion" plex="(opcion.nombre) for opcion in opcionesIndicacion" ng-show="opcionesIndicacion.length > 0"></select>
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
@@ -134,7 +129,7 @@
                         </fieldset>
                     </div>
 
-                    <div class="col-lg-4 col-lg-offset-1">
+                    <div class="col-lg-4">
                         <legend>Indicaciones</legend>
                         <table class="table table-bordered" ng-if="tratamientosEdit.indicaciones.length > 0">
                             <thead>
@@ -147,7 +142,7 @@
                             <tbody>
                                 <tr ng-repeat="indicacion in tratamientosEdit.indicaciones">
                                     <td>{{$index+1}}</td>
-                                    <td>{{indicacion.descripcion}}</td>
+                                    <td>{{indicacion.$descripcion}}</td>
                                     <td>{{indicacion.via}}</td>
                                     <td>
                                         <span ng-if="indicacion.frecuencia == 'unica'">UD</span>
@@ -168,19 +163,10 @@
                         </table>
                     </div>
 
-                    <!-- <div class="row">
-                        <div class="col-lg-12">
-                            <a class="btn btn-default" ng-model="controles" ng-click="cargarControles()">Cargar controles</a>
-                            <a class="btn btn-default" ng-model="cuidadosGenerales" ng-click="cargarCuidadosGenerales()">Cargar cuidados generales</a>
-                            <a class="btn btn-default" ng-model="cuidadosEspeciales" ng-click="cargarCuidadosEspeciales()">Cargar cuidados especiales</a>
-                            <a class="btn btn-default" ng-model="dieta" ng-click="cargarDieta()">Cargar dieta</a>
-                            <a class="btn btn-default" ng-model="preparadoEnteral" ng-click="cargarPreparadoEnteral()">Cargar preparado enteral</a>
-                        </div>
-                    </div> -->
                 </div>
             </div>
             <div class="card-block">
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-lg-4">
                         <fieldset>
                             <legend>Controles</legend>
@@ -295,12 +281,11 @@
                             </div>
                         </fieldset>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="row">
-                    <div class="col-lg-8">
+                    <!-- <div class="col-lg-8">
                         <fieldset>
-                            <!-- <legend><a ng-model="dieta" style="cursor: pointer" ng-click="cargarDieta()">Cargar dieta</a></legend> -->
                             <legend>Dieta</legend>
                             <div class="row">
                                 <div class="col-lg-3">
@@ -337,7 +322,7 @@
                                 </div>
                             </div>
                         </fieldset>
-                    </div>
+                    </div> -->
                     <div class="col-lg-4">
                         <fieldset>
                             <legend>Preparado enteral</legend>
