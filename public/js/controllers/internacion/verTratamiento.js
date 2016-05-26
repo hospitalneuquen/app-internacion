@@ -11,7 +11,15 @@ angular.module('app').controller('internacion/verTratamiento', ['$scope', 'Plex'
             Shared.internacion.get(plexParams.idInternacion).then(function(internacion) {
                 $scope.internacion = internacion;
 
-                $scope.tratamiento = internacion.tratamientos[internacion.tratamientos.length - 1];
+                if (plexParams.idTratamiento){
+                    angular.forEach(internacion.tratamientos, function(tratamiento){
+                        if (tratamiento.id == plexParams.idTratamiento){
+                            $scope.tratamiento = tratamiento;
+                        }
+                    });
+                }else{
+                    $scope.tratamiento = internacion.tratamientos[internacion.tratamientos.length - 1];
+                }
 
                 angular.forEach($scope.tratamiento.indicaciones, function(indicacion){
                     if (indicacion.tipo == 'Plan Hidratación' ||

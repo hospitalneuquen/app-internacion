@@ -185,7 +185,11 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
         // remove: function(item) {
         //     $scope.internacion.tratamientos.splice($scope.internacion.tratamientos.indexOf(item), 1);
         // },
+        verTratamiento: function(tratamiento){
+            Plex.openView('internacion/verTratamiento/' + $scope.internacion.id + '/' + tratamiento.id).then(function(internacion) {
 
+            });
+        },
         // Inicia la edición de una evolución
         editarTratamiento: function(tratamiento) {
             $scope.show_toolbar_tratamientos = false;
