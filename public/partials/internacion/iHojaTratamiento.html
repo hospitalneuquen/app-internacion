@@ -54,6 +54,9 @@
                         <button class="btn btn-default btn-flat tips" title="Editar tratamiento" ng-click="editarTratamiento(item);" ng-disabled="Session.user.id != item.createdBy.id">
                             <i class="mdi mdi-pencil"></i>
                         </button>
+                        <button class="btn btn-default btn-flat tips" title="Ver tratamiento" ng-click="verTratamiento(item);" >
+                            <i class="mdi mdi-eye"></i>
+                        </button>
                     </td>
                 </tr>
             </tbody>
