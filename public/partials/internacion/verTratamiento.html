@@ -1,0 +1,53 @@
+<div plex-include="'partials/Pacientes/iHeader.html'" plex-include-internacion="internacion"></div>
+
+<div class="card card-block">
+    <div class="row">
+        <div class="col-lg-12">
+            <legend>Indicaciones</legend>
+            <table class="table table-bordered" ng-if="tratamiento.indicaciones.length > 0">
+                <thead>
+                    <th></th>
+                    <th>Medicación / Hidratación / Alimentación parenteral</th>
+                    <th>Vía</th>
+                    <th>Frec.</th>
+                    <th ng-repeat="hora in horarios">
+                        {{hora}}
+                    </th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="indicacion in tratamiento.indicaciones">
+                        <td>{{$index+1}}</td>
+                        <td>{{indicacion.$descripcion}}</td>
+                        <td>{{indicacion.via}}</td>
+                        <td>
+                            <span ng-if="indicacion.frecuencia == 'unica'">UD</span>
+                            <span ng-if="indicacion.frecuencia == '24'">Día</span>
+                            <span ng-if="indicacion.frecuencia == '12' || indicacion.frecuencia == '8' || indicacion.frecuencia == '6' || indicacion.frecuencia == '4'">
+                                c/{{indicacion.frecuencia}}
+                                hs
+                            </span>
+                        </td>
+
+                        <td class="text-center" ng-repeat="hora in horarios">
+                            {{ indicacion.horarios[hora] }}
+                            <!-- <span ng-if="{{ indicacion.horarios[hora] }}">
+                                X
+                            </span> -->
+                        </td>
+
+                        <!-- <td class="text-center" ng-repeat="hora in horarios" ng-init="anterior = 0">
+                            <span ng-if="(indicacion.frecuencia == 'unica' || indicacion.frecuencia == '24' ) && hora == '8'">
+                                X
+                            </span>
+                            {{hora}} - {{anterior}}
+                            <span ng-if="(indicacion.frecuencia == '12' ) && (hora == '8' || hora % anterior == 0)">
+                                <span ng-init="anterior = hora"></span>
+                                X
+                            </span>
+                        </td> -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
