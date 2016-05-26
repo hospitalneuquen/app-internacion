@@ -226,7 +226,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             });
         },
         listaDeProblemas: function(idInternacion) {
-            Plex.openView('internacion/' + idInternacion + '/8').then(function(internacion) {
+            Plex.openView('internacion/ver/' + idInternacion + '/8').then(function(internacion) {
 
             });
         },
