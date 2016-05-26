@@ -55,7 +55,148 @@
     <h5>Antecedentes quirúrgicos</h5>
     <input type="text" label="Indicar antecedentes quirúrgicos" ng-model="internacion.ingreso.antecedentes.quirurgicos" plex />
     <h5>Antecedentes familiares</h5>
-    <input type="text" label="Indicar antecedentes familiares" ng-model="internacion.ingreso.antecedentes.familiares" plex />
+    <div class="row">
+        <div class="col-lg-3">
+            <select label="Familiar" ng-model="antecedenteFamiliar.familiar" plex>
+                <option value="Padre">Padre</option>
+                <option value="Madre">Madre</option>
+                <option value="Hijo/a">Hijo/a</option>
+                <option value="Hermano/a">Hermano/a</option>
+                <option value="Gemelo/a">Gemelo/a</option>
+                <option value="Tío/a materno">Tío/a materno</option>
+                <option value="Tío/a paterno">Tío/a paterno</option>
+                <option value="Abuelo/a materno">Abuelo/a materno</option>
+                <option value="Abuelo/a paterno">Abuelo/a paterno</option>
+            </select>
+        </div>
+        <div class="col-lg-3">
+            <input type="text" label="Observaciones" ng-model="antecedenteFamiliar.observaciones" plex />
+        </div>
+        <div class="col-lg-1">
+            <button type="button" class="btn btn-success btn-flat tips" title="Agregar antecedente familiar" ng-click="agregarAntecedenteFamiliar()">
+                <i class="mdi mdi-plus"></i>
+            </button>
+        </div>
+        <div class="col-lg-5" ng-if="internacion.ingreso.antecedentes.familiares.length > 0">
+            <legend>Antecedentes familiares</legend>
+            <table class="table table-bordered" ng-if="internacion.ingreso.antecedentes.familiares.length > 0">
+                <thead>
+                    <th>Familiar</th>
+                    <th>Observaciones</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="antecedenteFamiliar in internacion.ingreso.antecedentes.familiares">
+                        <td>{{antecedenteFamiliar.familiar}}</td>
+                        <td>{{antecedenteFamiliar.observaciones}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
     <h5>Medicación</h5>
     <input type="text" label="Medicación habitual" ng-model="internacion.ingreso.antecedentes.medicacion" plex />
+    <h5>Sociales</h5>
+    <div class="row">
+        <div class="col-lg-2">
+            <input type="checkbox" label="Primario completo" ng-model="internacion.ingreso.antecedentes.sociales.primarioCompleto" plex="checkbox">
+            <input type="checkbox" label="Secundario completo" ng-model="internacion.ingreso.antecedentes.sociales.secundarioCompleto" plex="checkbox">
+            <input type="checkbox" label="Terciario completo" ng-model="internacion.ingreso.antecedentes.sociales.terciarioCompleto" plex="checkbox">
+            <input type="checkbox" label="Universitario completo" ng-model="internacion.ingreso.antecedentes.sociales.universitarioCompleto" plex="checkbox">
+        </div>
+        <div class="col-lg-4">
+            <input type="text" label="Profesión/Ocupación" ng-model="internacion.ingreso.antecedentes.sociales.ocupacion" plex />
+            <input type="text" label="Obra social" ng-model="internacion.ingreso.antecedentes.sociales.obraSocial" plex />
+        </div>
+        <div class="col-lg-4">
+            <div class="col-lg-3">
+                <input type="checkbox" label="¿Trabaja?" ng-model="internacion.ingreso.antecedentes.sociales.trabaja" plex="checkbox">
+            </div>
+            <div class="col-lg-9">
+                <input type="text" label="¿Dónde?" ng-model="internacion.ingreso.antecedentes.sociales.dondeTrabaja" ng-show="internacion.ingreso.antecedentes.sociales.trabaja" plex />
+            </div>
+        </div>
+    </div>
+    <h5>Condiciones habitacionales</h5>
+    <div class="row">
+        <div class="col-lg-4">
+            <input type="text" label="Domicilio" ng-model="internacion.ingreso.antecedentes.condicionesHabitacionales.domicilio" plex />
+            <input type="text" label="Barrio" ng-model="internacion.ingreso.antecedentes.condicionesHabitacionales.barrio" plex />
+        </div>
+        <div class="col-lg-1">
+            <label><b>Vivienda</b></label>
+            <input type="radio" label="Material" value="Material" ng-model="internacion.ingreso.antecedentes.condicionesHabitacionales.tipoVivienda" plex="radio">
+            <input type="radio" label="Casilla" value="Casilla" ng-model="internacion.ingreso.antecedentes.condicionesHabitacionales.tipoVivienda" plex="radio">
+            <input type="radio" label="Otra" value="Otra" ng-model="internacion.ingreso.antecedentes.condicionesHabitacionales.tipoVivienda" plex="radio">
+        </div>
+        <div class="col-lg-2">
+            <input type="checkbox" label="Asentamiento/Toma" ng-model="internacion.ingreso.antecedentes.condicionesHabitacionales.asentamientoToma" plex="checkbox">
+        </div>
+        <div class="col-lg-5">
+            <div class="col-lg-4">
+                <input type="checkbox" label="Agua potable" ng-model="internacion.ingreso.antecedentes.condicionesHabitacionales.aguaPotable" plex="checkbox">
+                <input type="checkbox" label="Cloacas" ng-model="internacion.ingreso.antecedentes.condicionesHabitacionales.cloacas" plex="checkbox">
+            </div>
+            <div class="col-lg-4">
+                <input type="checkbox" label="Electricidad" ng-model="internacion.ingreso.antecedentes.condicionesHabitacionales.electricidad" plex="checkbox">
+                <input type="checkbox" label="Gas" ng-model="internacion.ingreso.antecedentes.condicionesHabitacionales.gas" plex="checkbox">
+            </div>
+            <div class="col-lg-4">
+                <input type="checkbox" label="Calefacción leña" ng-model="internacion.ingreso.antecedentes.condicionesHabitacionales.calefaccionLenia" plex="checkbox">
+            </div>
+        </div>
+    </div>
+    <h5>Grupo familiar conviviente</h5>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col-lg-2">
+                <input type="checkbox" label="¿Vive acompañado?" ng-model="internacion.ingreso.antecedentes.grupoFamiliarConviviente.viveAcompaniado" plex="checkbox">
+            </div>
+            <div class="col-lg-10">
+                <input type="text" hint="¿Con quién convive?" ng-model="internacion.ingreso.antecedentes.grupoFamiliarConviviente.conQuienConvive" ng-show="internacion.ingreso.antecedentes.grupoFamiliarConviviente.viveAcompaniado" plex />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <textarea label="Familiograma (especificar edades, sexo, convivientes, patologías)" ng-model="internacion.ingreso.antecedentes.grupoFamiliarConviviente.familiograma" plex ></textarea>
+        </div>
+    </div>
+    <h5>Estilo de vida</h5>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-1">
+                    <input type="checkbox" label="Tabaco" ng-model="internacion.ingreso.antecedentes.estiloVida.tabaco" plex="checkbox">
+                </div>
+                <div class="col-lg-4">
+                    <input type="text" label="Cigarrillos/día" ng-model="internacion.ingreso.antecedentes.estiloVida.cigarrillosXdia" plex />
+                </div>
+                <div class="col-lg-4">
+                    <input type="text" label="Tiempo" ng-model="internacion.ingreso.antecedentes.estiloVida.fumaTiempo" plex />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-1">
+                    <input type="checkbox" label="Alcohol" ng-model="internacion.ingreso.antecedentes.estiloVida.alcohol" plex="checkbox">
+                </div>
+                <div class="col-lg-4">
+                    <input type="text" label="Consumo/día" ng-model="internacion.ingreso.antecedentes.estiloVida.consumoXdia" plex />
+                </div>
+                <div class="col-lg-4">
+                    <input type="text" label="Tiempo" ng-model="internacion.ingreso.antecedentes.estiloVida.bebeTiempo" plex />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-1">
+                    <input type="checkbox" label="Drogas" ng-model="internacion.ingreso.antecedentes.estiloVida.drogas" plex="checkbox">
+                </div>
+                <div class="col-lg-4">
+                    <input type="text" label="¿Cuál/Cuáles?" ng-model="internacion.ingreso.antecedentes.estiloVida.cualesDrogas" plex />
+                </div>
+                <div class="col-lg-4">
+                    <input type="text" label="Tiempo" ng-model="internacion.ingreso.antecedentes.estiloVida.drogaTiempo" plex />
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
