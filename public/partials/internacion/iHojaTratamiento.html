@@ -1,5 +1,7 @@
 <div ng-controller="internacion/iHojaTratamiento">
-
+    <!-- <pre>
+        {{indicacion | json}}
+    </pre> -->
     <div class="card-block" ng-show="show_toolbar_tratamientos">
         <div class="row">
             <div class="col-xs-4">
@@ -80,28 +82,54 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-lg-12">
                         <fieldset>
-                            <legend>Carga de indicaciones</legend>
+                            <legend>Cargar nueva indicacion</legend>
                             <div class="row">
                                 <div class="col-lg-2">
-                                    <select label="Tipo de indicación" ng-model="indicacion.tipoIndicacion" plex="(tipo.nombre) for tipo in tiposIndicaciones" ng-change="getOpcionesIndicacion()"></select>
+                                    <select label="Tipo de indicación" ng-model="indicacion.tipo" plex="(tipo.nombre) for tipo in tiposIndicaciones" ng-change="getOpcionesIndicacion()"></select>
                                 </div>
 
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <input type="text" label="Descripción" ng-model="indicacion.descripcion" ng-show="!opcionesIndicacion.length" plex />
-                                        <select label="Indicación" ng-model="indicacion.opcionIndicacion" plex="(opcion.nombre) for opcion in opcionesIndicacion" ng-show="opcionesIndicacion.length > 0"></select>
+                                <div ng-if="!indicacion.tipo || indicacion.tipo == 'Otra indicación'">
+                                    <div class="col-lg-7">
+                                        <input type="text" label="Descripción" ng-model="indicacion.descripcion" plex />
                                     </div>
                                 </div>
-                                <div class="col-lg-2">
+
+                                <div ng-if="indicacion.tipo.nombre == 'Heparina o profilaxis' ||
+                                    indicacion.tipo.nombre == 'Protección gástrica' || indicacion.tipo == 'Otra medicación'">
+                                    <div class="col-lg-7">
+                                        <input type="text" label="Descripción" ng-model="indicacion.medicamento.descripcion" plex />
+                                    </div>
+                                </div>
+
+                                <div ng-if="indicacion.tipo.nombre == 'Plan Hidratación'">
+                                    <div class="col-lg-1">
+                                        <select label="Tipo plan" ng-model="indicacion.planHidratacion.tipoPlan" plex>
+                                            <option value="Parenteral">Parenteral</option>
+                                            <option value="Enteral">Enteral</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <input type="text" label="Cantidad" ng-model="indicacion.planHidratacion.cantidad" suffix="ml" plex ng-required="true" />
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <select label="Tipo de solución" ng-model="indicacion.planHidratacion.tipoSolucion" plex="(opcion.nombre) for opcion in tiposSoluciones" ></select>
+                                    </div>
+
+                                        <!-- <input type="text" label="Descripción" ng-model="indicacion.descripcion" ng-show="!opcionesIndicacion.length" plex />
+                                        <select label="Indicación" ng-model="indicacion.opcionIndicacion" plex="(opcion.nombre) for opcion in opcionesIndicacion" ng-show="opcionesIndicacion.length > 0"></select> -->
+                                </div>
+
+                                <div class="col-lg-1">
                                     <select label="Vía" ng-model="indicacion.via" plex>
                                         <option value="SC">Subcutánea</option>
                                         <option value="EV">Endovenosa</option>
                                         <option value="VO">Oral</option>
                                     </select>
                                 </div>
-                                <div class="col-lg-2">
+
+                                <div class="col-lg-1">
                                     <select label="Frecuencia" ng-model="indicacion.frecuencia" plex>
                                         <option value="unica">Única dosis</option>
                                         <option value="24">Una vez al día</option>
@@ -111,7 +139,8 @@
                                         <option value="4">Cada 4 hs.</option>
                                     </select>
                                 </div>
-                                <div class="col-lg-2">
+
+                                <div class="col-lg-1">
                                     <br/>
                                     <div ng-show="editandoIndicacion">
                                         <button type="button" class="btn btn-default tips" title="Cancelar edición de la indicación" ng-click="cancelarEditarIndicacion()">
@@ -123,20 +152,94 @@
                                     </div>
                                     <div ng-show="!editandoIndicacion">
                                         <button type="button" class="btn btn-success btn-flat tips" title="Agregar la indicación" ng-click="agregarIndicacion()">
-                                            <i class="mdi mdi-plus"></i>
+                                            <!-- <i class="mdi mdi-plus"></i> -->
+                                            Agregar
                                         </button>
                                     </div>
 
                                 </div>
                             </div>
+
+                            <!-- Opciones para los agregados del plan de hidratacion -->
+                            <div ng-if="indicacion.tipo.nombre == 'Plan Hidratación'">
+                                <div class="row">
+                                    <div class="col-lg-2 text-right">
+                                        <br />
+                                        <b>Agregados</b>
+                                    </div>
+
+                                    <div class="col-lg-2">
+                                        <select label="Tipo agregado" ng-model="agregado.tipoAgregado" plex="(agregado.nombre) for agregado in tiposAgregados"  ></select>
+                                    </div>
+
+                                    <div class="col-lg-2">
+                                        <input type="text" label="Descripción" ng-model="agregado.descripcion" plex />
+                                    </div>
+
+                                    <div class="col-lg-1">
+                                        <br />
+                                        <!-- <button type="button" class="btn btn-success btn-flat tips" title="Agregar preparado" ng-click="editarAgregado()">
+                                            <i class="mdi mdi-plus"></i>
+                                        </button> -->
+
+                                        <div ng-show="editandoAgregado">
+                                            <button type="button" class="btn btn-default tips" title="Cancelar edición del agregado" ng-click="cancelarEditarAgregado()">
+                                                <i class="mdi mdi-block-helper"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-success btn-flat tips" title="Guardar agregado" ng-click="guardarAgregado()">
+                                                <i class="mdi mdi-content-save"></i>
+                                            </button>
+                                        </div>
+                                        <div ng-show="!editandoAgregado">
+                                            <button class="btn btn-default btn-flat tips" title="Agregar" ng-click="editarAgregado()" >
+                                                <i class="mdi mdi-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row"  ng-if="!editandoAgregado && indicacion.planHidratacion.agregados.length > 0">
+                                    <div class="col-lg-offset-2 col-lg-5">
+                                        <legend>Agregados</legend>
+                                        <table class="table table-condensed">
+                                            <thead>
+                                                <th>#</th>
+                                                <th>Tipo</th>
+                                                <th>Cantidad</th>
+                                                <th></th>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="agregado in indicacion.planHidratacion.agregados">
+                                                    <td>{{agregado.posicion+1}}</td>
+                                                    <td>
+                                                        <span>
+                                                            {{agregado.tipoAgregado.nombre ? agregado.tipoAgregado.nombre : agregado.tipoAgregado}}
+                                                        </span>
+                                                    </td>
+                                                    <td>{{agregado.descripcion}} </td>
+                                                    <td>
+                                                        <button class="btn btn-default btn-flat tips" title="Editar agregado" ng-click="editarAgregado(agregado)" >
+                                                            <i class="mdi mdi-pencil"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+
                         </fieldset>
                     </div>
+                </div>
 
-                    <div class="col-lg-4">
+                <div class="row"  ng-if="tratamientosEdit.indicaciones.length > 0 && !editandoIndicacion">
+                    <div class="col-lg-12">
                         <legend>Indicaciones</legend>
-                        <table class="table table-bordered" ng-if="tratamientosEdit.indicaciones.length > 0">
+                        <table class="table table-bordered">
                             <thead>
-                                <th></th>
+                                <th>#</th>
                                 <th>Medicación / Hidratación / Alimentación parenteral</th>
                                 <th>Vía</th>
                                 <th>Frec.</th>
@@ -145,7 +248,22 @@
                             <tbody>
                                 <tr ng-repeat="indicacion in tratamientosEdit.indicaciones">
                                     <td>{{$index+1}}</td>
-                                    <td>{{indicacion.$descripcion}}</td>
+                                    <td>
+                                        <span>
+                                            {{indicacion.tipo.nombre ? indicacion.tipo.nombre : indicacion.tipo }}
+                                        </span>
+                                        <span ng-if="indicacion.tipo.nombre == 'Plan Hidratación' || indicacion.tipo == 'Plan Hidratación'">
+                                            {{indicacion.planHidratacion.tipoPlan.nombre ? indicacion.planHidratacion.tipoPlan.nombre : indicacion.planHidratacion.tipoPlan }}
+                                            {{indicacion.planHidratacion.cantidad}} ml
+                                            {{indicacion.planHidratacion.tipoSolucion.nombre ? indicacion.planHidratacion.tipoSolucion.nombre : indicacion.planHidratacion.tipoSolucion }}
+                                        </span>
+
+                                        <div ng-if="indicacion.planHidratacion.agregados.length" >
+                                            <div ng-repeat="agregado in indicacion.planHidratacion.agregados">
+                                                +  {{agregado.tipoAgregado.nombre ? agregado.tipoAgregado.nombre : agregado.tipoAgregado}} {{agregado.descripcion}}
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td>{{indicacion.via}}</td>
                                     <td>
                                         <span ng-if="indicacion.frecuencia == 'unica'">UD</span>
@@ -326,7 +444,7 @@
                             </div>
                         </fieldset>
                     </div> -->
-                    <div class="col-lg-4">
+                    <!-- <div class="col-lg-4">
                         <fieldset>
                             <legend>Preparado enteral</legend>
                             <div class="row">
@@ -350,9 +468,9 @@
                             </div>
                         </fieldset>
                     </div>
-                </div>
+                </div> -->
 
-                <div class="row">
+                <div class="row" ng-show="!editandoIndicacion">
                     <div class="col-lg-12">
                         <div class="card-block margin-top text-right">
                             <button type="button" class="btn btn-default btn-flat" ng-click="cancelarEdicion();">Cancelar</button>
