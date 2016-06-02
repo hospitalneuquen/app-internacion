@@ -14,7 +14,7 @@
                         <th colspan="6" class="text-center">Turno mañana</th>
                         <th colspan="6" class="text-center">Turno tarde</th>
                         <th colspan="6" class="text-center">Turno noche</th>
-                        <th colspan="6" class="text-center">Turno zombie</th>
+                        <th colspan="6" class="text-center">Turno madrugada</th>
                         <th rowspan="2" class="text-center">Acciones</th>
                     </tr>
                     <tr>
@@ -93,9 +93,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="indicacion in tratamiento.indicaciones">
+                    <tr ng-repeat="indicacion in tratamiento.indicaciones" ng-class="{'tachado': !indicacion.activo}">
                         <td class="text-center">{{$index+1}}</td>
-                        <td>{{indicacion.$descripcion}}</td>
+                        <td>
+                            <span>
+                                {{indicacion.tipo.nombre ? indicacion.tipo.nombre : indicacion.tipo }}
+                            </span>
+                            <span ng-if="indicacion.tipo.nombre == 'Plan Hidratación' || indicacion.tipo == 'Plan Hidratación'">
+                                {{indicacion.planHidratacion.tipoPlan.nombre ? indicacion.planHidratacion.tipoPlan.nombre : indicacion.planHidratacion.tipoPlan }}
+                                {{indicacion.planHidratacion.cantidad}} ml
+                                {{indicacion.planHidratacion.tipoSolucion.nombre ? indicacion.planHidratacion.tipoSolucion.nombre : indicacion.planHidratacion.tipoSolucion }}
+                            </span>
+
+                            <div ng-if="indicacion.planHidratacion.agregados.length" >
+                                <div ng-repeat="agregado in indicacion.planHidratacion.agregados">
+                                    +  {{agregado.tipoAgregado.nombre ? agregado.tipoAgregado.nombre : agregado.tipoAgregado}} {{agregado.descripcion}}
+                                </div>
+                            </div>
+
+                            <div ng-if="indicacion.tipo.nombre == 'Heparina o profilaxis' || indicacion.tipo == 'Heparina o profilaxis'
+                                || indicacion.tipo.nombre == 'Protección gástrica' || indicacion.tipo == 'Protección gástrica'
+                                || indicacion.tipo.nombre == 'Otra medicación' || indicacion.tipo == 'Otra medicación'">
+                                {{indicacion.medicamento.descripcion}}
+                            </div>
+                        </td>
                         <td class="text-center">{{indicacion.via}}</td>
                         <td class="text-center">
                             <span ng-if="indicacion.frecuencia == 'unica'">UD</span>
@@ -114,12 +135,14 @@
                         </td>
 
                         <td>
-                            <button class="btn btn-default btn-flat tips" title="Editar indicación" ng-click="editarIndicacion(item);">
-                                <i class="mdi mdi-pencil"></i>
-                            </button>
-                            <button class="btn btn-default btn-flat tips" title="Anular indicación" ng-click="cancelarIndicacion(item);" >
-                                <i class="mdi mdi-delete"></i>
-                            </button>
+                            <div ng-show="indicacion.activo">
+                                <button class="btn btn-default btn-flat tips" title="Editar indicación" ng-click="editarIndicacion(item);">
+                                    <i class="mdi mdi-pencil"></i>
+                                </button>
+                                <button class="btn btn-default btn-flat tips" title="Anular indicación" ng-click="cancelarIndicacion(item);" >
+                                    <i class="mdi mdi-delete"></i>
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 </tbody>

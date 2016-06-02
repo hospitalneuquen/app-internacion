@@ -90,19 +90,60 @@
                                     <select label="Tipo de indicación" ng-model="indicacion.tipo" plex="(tipo.nombre) for tipo in tiposIndicaciones" ng-change="getOpcionesIndicacion()"></select>
                                 </div>
 
-                                <div ng-if="!indicacion.tipo || indicacion.tipo == 'Otra indicación'">
+                                <!-- Otra indicacion -->
+                                <div ng-if="!indicacion.tipo || indicacion.tipo.nombre == 'Otra indicación'">
                                     <div class="col-lg-7">
                                         <input type="text" label="Descripción" ng-model="indicacion.descripcion" plex />
                                     </div>
-                                </div>
 
-                                <div ng-if="indicacion.tipo.nombre == 'Heparina o profilaxis' ||
-                                    indicacion.tipo.nombre == 'Protección gástrica' || indicacion.tipo == 'Otra medicación'">
-                                    <div class="col-lg-7">
-                                        <input type="text" label="Descripción" ng-model="indicacion.medicamento.descripcion" plex />
+                                    <div class="col-lg-1">
+                                        <select label="Vía" ng-model="indicacion.via" plex>
+                                            <option value="SC">Subcutánea</option>
+                                            <option value="EV">Endovenosa</option>
+                                            <option value="VO">Oral</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-lg-1">
+                                        <select label="Frecuencia" ng-model="indicacion.frecuencia" plex>
+                                            <option value="unica">Única dosis</option>
+                                            <option value="24">Una vez al día</option>
+                                            <option value="12">Cada 12 hs.</option>
+                                            <option value="8">Cada 8 hs.</option>
+                                            <option value="6">Cada 6 hs.</option>
+                                            <option value="4">Cada 4 hs.</option>
+                                        </select>
                                     </div>
                                 </div>
 
+                                <!-- Heparina o Profilaxis / Proteccion gastrica / Otar medicacion -->
+                                <div ng-if="indicacion.tipo.nombre == 'Heparina o profilaxis' ||
+                                    indicacion.tipo.nombre == 'Protección gástrica' || indicacion.tipo.nombre == 'Otra medicación'">
+                                    <div class="col-lg-7">
+                                        <input type="text" label="Descripción" ng-model="indicacion.medicamento.descripcion" plex />
+                                    </div>
+
+                                    <div class="col-lg-1">
+                                        <select label="Vía" ng-model="indicacion.via" plex>
+                                            <option value="SC">Subcutánea</option>
+                                            <option value="EV">Endovenosa</option>
+                                            <option value="VO">Oral</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-lg-1">
+                                        <select label="Frecuencia" ng-model="indicacion.frecuencia" plex>
+                                            <option value="unica">Única dosis</option>
+                                            <option value="24">Una vez al día</option>
+                                            <option value="12">Cada 12 hs.</option>
+                                            <option value="8">Cada 8 hs.</option>
+                                            <option value="6">Cada 6 hs.</option>
+                                            <option value="4">Cada 4 hs.</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Plan de Hidratacion -->
                                 <div ng-if="indicacion.tipo.nombre == 'Plan Hidratación'">
                                     <div class="col-lg-1">
                                         <select label="Tipo plan" ng-model="indicacion.planHidratacion.tipoPlan" plex>
@@ -117,27 +158,163 @@
                                         <select label="Tipo de solución" ng-model="indicacion.planHidratacion.tipoSolucion" plex="(opcion.nombre) for opcion in tiposSoluciones" ></select>
                                     </div>
 
+                                    <div class="col-lg-1">
+                                        <select label="Vía" ng-model="indicacion.via" plex>
+                                            <option value="SC">Subcutánea</option>
+                                            <option value="EV">Endovenosa</option>
+                                            <option value="VO">Oral</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-lg-1">
+                                        <select label="Frecuencia" ng-model="indicacion.frecuencia" plex>
+                                            <option value="unica">Única dosis</option>
+                                            <option value="24">Una vez al día</option>
+                                            <option value="12">Cada 12 hs.</option>
+                                            <option value="8">Cada 8 hs.</option>
+                                            <option value="6">Cada 6 hs.</option>
+                                            <option value="4">Cada 4 hs.</option>
+                                        </select>
+                                    </div>
                                         <!-- <input type="text" label="Descripción" ng-model="indicacion.descripcion" ng-show="!opcionesIndicacion.length" plex />
                                         <select label="Indicación" ng-model="indicacion.opcionIndicacion" plex="(opcion.nombre) for opcion in opcionesIndicacion" ng-show="opcionesIndicacion.length > 0"></select> -->
                                 </div>
 
-                                <div class="col-lg-1">
-                                    <select label="Vía" ng-model="indicacion.via" plex>
-                                        <option value="SC">Subcutánea</option>
-                                        <option value="EV">Endovenosa</option>
-                                        <option value="VO">Oral</option>
-                                    </select>
+                                <!-- Controles -->
+                                <div ng-if="indicacion.tipo.nombre == 'Controles'">
+                                    <div class="col-lg-7">
+                                        <select label="Tipo de control" ng-model="indicacion.controles.tipo" plex="(opcion.nombre) for opcion in tiposControles" ></select>
+                                    </div>
+
+                                    <div class="col-lg-2">
+                                        <select label="Frecuencia" ng-model="indicacion.frecuencia" plex>
+                                            <option value="unica">Única dosis</option>
+                                            <option value="24">Una vez al día</option>
+                                            <option value="12">Cada 12 hs.</option>
+                                            <option value="8">Cada 8 hs.</option>
+                                            <option value="6">Cada 6 hs.</option>
+                                            <option value="4">Cada 4 hs.</option>
+                                        </select>
+                                    </div>
                                 </div>
 
-                                <div class="col-lg-1">
-                                    <select label="Frecuencia" ng-model="indicacion.frecuencia" plex>
-                                        <option value="unica">Única dosis</option>
-                                        <option value="24">Una vez al día</option>
-                                        <option value="12">Cada 12 hs.</option>
-                                        <option value="8">Cada 8 hs.</option>
-                                        <option value="6">Cada 6 hs.</option>
-                                        <option value="4">Cada 4 hs.</option>
-                                    </select>
+                                <!-- Controles generales -->
+                                <div ng-if="indicacion.tipo.nombre == 'Cuidados generales'">
+                                    <div class="col-lg-7">
+                                        <select label="Tipo de control" ng-model="indicacion.cuidadosGenerales.tipo" plex="(opcion.nombre) for opcion in tiposCuidadosGenerales" ></select>
+                                    </div>
+
+                                    <div class="col-lg-2">
+                                        <select label="Vía" ng-model="indicacion.via" plex>
+                                            <option value="SC">Subcutánea</option>
+                                            <option value="EV">Endovenosa</option>
+                                            <option value="VO">Oral</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Controles especiales -->
+                                <!-- <div ng-if="indicacion.tipo.nombre == 'Cuidados especiales'">
+                                    <div class="col-lg-7">
+                                        <select label="Tipo de control" ng-model="indicacion.controles.tipo" plex="(opcion.nombre) for opcion in tiposControles" ></select>
+                                    </div>
+                                </div> -->
+
+                                <!-- Dieta -->
+                                <!-- <div class="col-lg-1">
+                                    <div ng-if="indicacion.tipo.nombre == 'Heparina o profilaxis' || indicacion.tipo.nombre == 'Plan Hidratación' ||
+                                        indicacion.tipo.nombre == 'Protección gástrica' || indicacion.tipo.nombre == 'Otra medicación'">
+                                        <select label="Vía" ng-model="indicacion.via" plex>
+                                            <option value="SC">Subcutánea</option>
+                                            <option value="EV">Endovenosa</option>
+                                            <option value="VO">Oral</option>
+                                        </select>
+                                    </div>
+                                </div> -->
+
+                                <div ng-if="indicacion.tipo.nombre == 'Solicitud prestaciones'">
+                                    <!-- <div class="col-md-2">
+                                        <div class="form-group">
+                                            <input type="text" label="Fecha pedido" ng-model="prestacionesEdit.fechaHora" plex="date">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <input type="text" label="Hora pedido" ng-model="prestacionesEdit.fechaHora" plex="time">
+                                        </div>
+                                    </div> -->
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <select label="Prioridad" ng-model="prestacionesEdit.prioridad" plex="(item.nombre) for item in prioridad"></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <select label="Tipo prestación" ng-model="prestacionesEdit.tipoPrestacion" min="3" plex="(item.nombre + ' (' + item.grupo + ')') for item in buscarTipoPrestacion($value)" required></select>
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="col-xs-2" ng-if="prestacionesEdit.id">
+                                        <div class="form-group">
+                                            <input type="text" label="Fecha turno" ng-model="prestacionesEdit.turnoFechaHora" plex="date" />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-2" ng-if="prestacionesEdit.id">
+                                        <div class="form-group">
+                                            <input type="text" label="Hora turno" ng-model="prestacionesEdit.turnoFechaHora" plex="time" />
+                                        </div>
+                                    </div> -->
+
+                                    <div class="col-xs-5">
+                                        <input type="text" label="Texto" ng-model="prestacionesEdit.texto" plex class="form-control" required/>
+                                    </div>
+                                </div>
+
+                                <div ng-if="indicacion.tipo.nombre == 'Dieta'">
+                                    <div class="col-lg-6">
+                                        <label>
+                                            Dieta
+                                        </label>
+
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <input type="checkbox" label="Ayuno" ng-model="tratamientosEdit.dietaAyuno" plex="checkbox">
+                                                <input type="checkbox" label="General" ng-model="tratamientosEdit.dietaGeneral" plex="checkbox">
+                                                <input type="checkbox" label="Diabético" ng-model="tratamientosEdit.dietaDiabetico" plex="checkbox">
+                                                <input type="checkbox" label="Insuficiencia renal" ng-model="tratamientosEdit.dietaInsuficienciaRenal" plex="checkbox">
+                                                <input type="checkbox" label="Hepato/Gastro protectora" ng-model="tratamientosEdit.dietaHepatoGastroProtectora" plex="checkbox">
+                                                <input type="checkbox" label="Líquido 01" ng-model="tratamientosEdit.liquido01" plex="checkbox">
+
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input type="checkbox" label="Blando sin carne 02" ng-model="tratamientosEdit.blandoSinCarne02" plex="checkbox">
+                                                <input type="checkbox" label="Blando con carne 03" ng-model="tratamientosEdit.blandoConCarne03" plex="checkbox">
+                                                <input type="checkbox" label="Individual" ng-model="tratamientosEdit.individual" plex="checkbox">
+                                                <input type="checkbox" label="Pediátrico 1-2" ng-model="tratamientosEdit.pediatrico1_2" plex="checkbox">
+                                                <input type="checkbox" label="Lactante 1-2" ng-model="tratamientosEdit.lactante1_2" plex="checkbox">
+                                                <input type="checkbox" label="Blando mecánico" ng-model="tratamientosEdit.dietaBlandoMecanico" plex="checkbox">
+                                            </div>
+                                            <div class="col-lg-3">
+
+                                                <input type="checkbox" label="Acompañante" ng-model="tratamientosEdit.dietaAcompanante" plex="checkbox">
+                                                <input type="checkbox" label="Licuado" ng-model="tratamientosEdit.dietaLicuado" plex="checkbox">
+                                                <input type="checkbox" label="Rico en residuo" ng-model="tratamientosEdit.dietaRicoEnResiduo" plex="checkbox">
+                                                <input type="checkbox" label="Astringente" ng-model="tratamientosEdit.dietaAstringente" plex="checkbox">
+                                                <input type="checkbox" label="Sin sal" ng-model="tratamientosEdit.sinSal" plex="checkbox">
+                                                <input type="checkbox" label="Sin gluten" ng-model="tratamientosEdit.sinGluten" plex="checkbox">
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input type="checkbox" label="Todo cocido" ng-model="tratamientosEdit.todoCocido" plex="checkbox">
+                                                <input type="checkbox" label="Hiper con colacion" ng-model="tratamientosEdit.hiperConColacion" plex="checkbox">
+                                                <input type="checkbox" label="Nada por boca" ng-model="tratamientosEdit.nadaPorBoca" plex="checkbox">
+                                                <input type="checkbox" label="Hipocalórico" ng-model="tratamientosEdit.hipocalorico" plex="checkbox">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="col-lg-1">
@@ -237,13 +414,93 @@
                 <div class="row"  ng-if="tratamientosEdit.indicaciones.length > 0 && !editandoIndicacion">
                     <div class="col-lg-12">
                         <legend>Indicaciones</legend>
-                        <table class="table table-bordered">
+                        <table class="table table-bordered highlight">
                             <thead>
-                                <th>#</th>
-                                <th>Medicación / Hidratación / Alimentación parenteral</th>
-                                <th>Vía</th>
-                                <th>Frec.</th>
-                                <th></th>
+                                <tr>
+                                    <th rowspan="2" class="text-center">#</th>
+                                    <th rowspan="2" class="text-center vert-align">Medicación / Hidratación / Alimentación parenteral</th>
+                                    <th rowspan="2" class="text-center">Vía</th>
+                                    <th rowspan="2" class="text-center">Frec.</th>
+                                    <th colspan="6" class="text-center">Turno mañana</th>
+                                    <th colspan="6" class="text-center">Turno tarde</th>
+                                    <th colspan="6" class="text-center">Turno noche</th>
+                                    <th colspan="6" class="text-center">Turno madrugada</th>
+                                    <th rowspan="2" class="text-center">Acciones</th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        07
+                                    </th>
+                                    <th>
+                                        08
+                                    </th>
+                                    <th>
+                                        09
+                                    </th>
+                                    <th>
+                                        10
+                                    </th>
+                                    <th>
+                                        11
+                                    </th>
+                                    <th>
+                                        12
+                                    </th>
+                                    <th>
+                                        13
+                                    </th>
+                                    <th>
+                                        14
+                                    </th>
+                                    <th>
+                                        15
+                                    </th>
+                                    <th>
+                                        16
+                                    </th>
+                                    <th>
+                                        17
+                                    </th>
+                                    <th>
+                                        18
+                                    </th>
+                                    <th>
+                                        19
+                                    </th>
+                                    <th>
+                                        20
+                                    </th>
+                                    <th>
+                                        21
+                                    </th>
+                                    <th>
+                                        22
+                                    </th>
+                                    <th>
+                                        23
+                                    </th>
+                                    <th>
+                                        24
+                                    </th>
+                                    <th>
+                                        01
+                                    </th>
+                                    <th>
+                                        02
+                                    </th>
+                                    <th>
+                                        03
+                                    </th>
+                                    <th>
+                                        04
+                                    </th>
+                                    <th>
+                                        05
+                                    </th>
+                                    <th>
+                                        06
+                                    </th>
+                                </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="indicacion in tratamientosEdit.indicaciones">
@@ -263,6 +520,14 @@
                                                 +  {{agregado.tipoAgregado.nombre ? agregado.tipoAgregado.nombre : agregado.tipoAgregado}} {{agregado.descripcion}}
                                             </div>
                                         </div>
+
+                                        <div ng-if="indicacion.tipo.nombre == 'Heparina o profilaxis' || indicacion.tipo == 'Heparina o profilaxis'
+                                            || indicacion.tipo.nombre == 'Protección gástrica' || indicacion.tipo == 'Protección gástrica'
+                                            || indicacion.tipo.nombre == 'Otra medicación' || indicacion.tipo == 'Otra medicación'">
+                                            {{indicacion.medicamento.descripcion}}
+                                        </div>
+
+
                                     </td>
                                     <td>{{indicacion.via}}</td>
                                     <td>
@@ -274,7 +539,12 @@
                                         </span>
 
                                     </td>
-                                    <td>
+
+                                    <td class="text-center" ng-repeat="hora in horarios">
+                                        {{ indicacion.horarios[hora] }}
+                                    </td>
+
+                                    <td class="exclude">
                                         <button class="btn btn-default btn-flat tips" title="Editar indicacion" ng-click="editarIndicacion(indicacion, $index);" >
                                             <i class="mdi mdi-pencil"></i>
                                         </button>

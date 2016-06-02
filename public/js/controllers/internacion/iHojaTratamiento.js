@@ -2,13 +2,24 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
     'use strict';
 
     angular.extend($scope, {
+        // hover tabla
+        hoveredRow : null,
+        mouseOverTd : function (row, cell) {
+            $scope.hoveredRow = row;
+            $scope.hoveredCol = cell;
+        },
+
         ultimo: 0, // para armar el listado de indicaciones
         show_toolbar_tratamientos: true,
         loading: true,
         internacion: undefined,
         tratamientosEdit: undefined, // Item actual que se está editando
 
+        horarios: ['7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '1', '2', '3', '4', '5', '6'],
+
         tiposIndicaciones: [],
+        tiposControles: [],
+        tiposCuidadosGenerales: [],
         tiposSoluciones: [{
             id: 'Solución fisiológica',
             nombre: 'Solución fisiológica'
@@ -120,15 +131,42 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
             });
         },
 
+        // TRATAMIENTOS
         // Inicia la edición de una evolución
         editarTratamiento: function(tratamiento) {
             $scope.show_toolbar_tratamientos = false;
 
-            $scope.tiposIndicaciones = [];
+            $scope.tiposIndicaciones = [{
+                id: '',
+                nombre: 'Seleccione indicación'
+            }];
+
             // buscamos los tipos de indicaciones disponibles
             Server.get("/api/internacion/internacion/tratamiento/tipos/tipo").then(function(tiposIndicaciones) {
                 angular.forEach(tiposIndicaciones, function(indicacion) {
                     $scope.tiposIndicaciones.push({
+                        id: indicacion,
+                        nombre: indicacion
+                    });
+                });
+            });
+
+            $scope.tiposControles = [];
+            // buscamos los tipos de indicaciones disponibles
+            Server.get("/api/internacion/internacion/tratamiento/tipos/controles.tipo").then(function(tiposControles) {
+                angular.forEach(tiposControles, function(indicacion) {
+                    $scope.tiposControles.push({
+                        id: indicacion,
+                        nombre: indicacion
+                    });
+                });
+            });
+
+            $scope.tiposCuidadosGenerales = [];
+            // buscamos los tipos de indicaciones disponibles
+            Server.get("/api/internacion/internacion/tratamiento/tipos/cuidadosGenerales.tipo").then(function(tiposCuidadosGenerales) {
+                angular.forEach(tiposCuidadosGenerales, function(indicacion) {
+                    $scope.tiposCuidadosGenerales.push({
                         id: indicacion,
                         nombre: indicacion
                     });
@@ -142,6 +180,9 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
                 angular.copy(tratamiento, $scope.tratamientosEdit);
 
                 if ($scope.tratamientosEdit.indicaciones.length) {
+
+                    // marcamos las frecuencias en la tabla
+                    $scope.marcarFrecuencias();
 
                     // angular.forEach($scope.tratamientosEdit.indicaciones, function(indicacion) {
                     //     if (indicacion.tipo == 'Plan Hidratación' ||
@@ -204,6 +245,7 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
             });
         },
 
+        // actulizar la lista de tratamientos con los datos del ultimo guardado
         actualizartratamientos: function(data) {
             var found = false;
             $scope.loading = true;
@@ -227,6 +269,7 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
             $scope.loading = false;
         },
 
+        // borrar
         getOpcionesIndicacion: function() {
             // console.log($scope.indicacion.tipoIndicacion);
 
@@ -268,7 +311,7 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
             //     });
             // }
         },
-
+        // borrar
         setDescripcionIndicacion: function(tipo) {
             // $scope.indicacion.tipo = tipo;
             //
@@ -301,6 +344,7 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
             // }
         },
 
+        // FUNCIONALIDAD INDICACIONES
         // buscamos la ultima posicion en el array de indicaciones segun
         // el tipo de indicacion que vamos a agregar
         getLastPositionOf: function(key) {
@@ -313,7 +357,7 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
                 }
             }
 
-            return last_position;
+            return (last_position > 0) ? last_position : -1;
         },
 
         agregarIndicacion: function() {
@@ -336,18 +380,28 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
                     var last_position = $scope.getLastPositionOf('Heparina o profilaxis');
                     // si no encontramos heparina o profilaxis, entonces
                     // lo colocamos debajo del plan de hidratacion
-                    if (last_position == 0) {
+                    if (last_position == -1) {
                         var last_position = $scope.getLastPositionOf('Plan Hidratación');
+
+                        // si encontramos plan de hidratacion, entonces lo ponemos debajo
+                        // si no, lo ponemos al principio
+                        last_position = (last_position == -1) ? 0 : last_position;
                     }
                 }
             }
-            console.log(last_position);
+
+            // agregamos la fecha y hora de la indicacion
+            $scope.indicacion.fechaHora = new Date();
+
+            // seteamos el valor activo
+            $scope.indicacion.activo = true;
+
             // si es un plan de hidratacion, los enviamos al principio
             if ($scope.indicacion.tipo.nombre == 'Plan Hidratación') {
                 $scope.tratamientosEdit.indicaciones.unshift($scope.indicacion);
             } else {
                 // guardamos en una posicion determinada
-                if (last_position) {
+                if (last_position >= 0) {
                     $scope.tratamientosEdit.indicaciones.splice(last_position+1, 0, $scope.indicacion);
                 } else {
                     // o si no hay posicion, lo mandamos al final del array
@@ -356,6 +410,9 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
             }
 
             $scope.indicacion = {};
+
+            // marcamos las frecuencias en la tabla
+            $scope.marcarFrecuencias();
         },
 
         editarIndicacion: function(indicacion, index) {
@@ -378,10 +435,9 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
                     $scope.tratamientosEdit.indicaciones = [];
                 }
 
-                $scope.setDescripcionIndicacion($scope.indicacion.tipoIndicacion.id);
+                // $scope.setDescripcionIndicacion($scope.indicacion.tipoIndicacion.id);
 
                 $scope.tratamientosEdit.indicaciones.push($scope.indicacion);
-                // console.log($scope.tratamientosEdit.indicaciones);
 
                 $scope.indicacion = {};
             }
@@ -392,11 +448,14 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
             $scope.indexIndicacion = undefined;
             $scope.editandoIndicacion = false;
             $scope.indicacion = {};
+
         },
         cancelarEditarIndicacion: function() {
             $scope.editandoIndicacion = false;
             $scope.indicacion = {};
         },
+
+        // AGREAGADOS
         editarAgregado: function(agregado) {
             if (agregado) {
                 $scope.editandoAgregado = true;
@@ -413,6 +472,7 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
                 $scope.indicacion.planHidratacion.agregados.push($scope.agregado);
                 $scope.agregado = {};
             }
+
         },
         guardarAgregado: function() {
             var encontrado = false;
@@ -432,8 +492,36 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
         cancelarEditarAgregado: function() {
             $scope.editandoAgregado = false;
             $scope.agregado = {};
-        }
+        },
 
+        // marcar la frecuencias de las indicaciones con X en la tabla
+        marcarFrecuencias: function(){
+            angular.forEach($scope.tratamientosEdit.indicaciones, function(indicacion) {
+                // agregamos el array de horarios a marcar
+                indicacion.horarios = [];
+
+                // determinamos en que momento comienza
+                var fecha = new Date(indicacion.fechaHora);
+                var proximo = parseInt(fecha.getHours());
+
+                angular.forEach($scope.horarios, function(hora) {
+                    // si la hora es igual al horario de la proxima indicacion
+                    // entonces marcamos el horario en la tabla
+                    if (hora == proximo) {
+                        indicacion.horarios[hora] = "X";
+
+                        if (indicacion.frecuencia != 'unica' || indicacion.frecuencia != '24'){
+                            // sumamos a la hora marcada la frecuencia
+                            proximo = parseInt(hora) + parseInt(indicacion.frecuencia);
+
+                            if (proximo > 24) {
+                                proximo = proximo - 24;
+                            }
+                        }
+                    }
+                });
+            });
+        }
         // remove: function(item) {
         //     $scope.internacion.tratamientos.splice($scope.internacion.tratamientos.indexOf(item), 1);
         // },
