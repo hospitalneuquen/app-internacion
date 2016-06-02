@@ -31,6 +31,28 @@ angular.module('app').controller('internacion/iAntecedentes', ["$scope", "Server
 
             $scope.antecedenteFamiliar = {};
         },
+
+        agregarAlergia: function(){
+            // console.log($scope.indicacion);
+            if (typeof $scope.internacion.ingreso.antecedentes.alergias == "undefined"){
+                $scope.internacion.ingreso.antecedentes.alergias = [];
+            }
+
+            $scope.internacion.ingreso.antecedentes.alergias.push($scope.antecedenteAlergia);
+
+            $scope.antecedenteAlergia = {};
+        },
+
+        agregarVacuna: function(){
+            // console.log($scope.indicacion);
+            if (typeof $scope.internacion.ingreso.antecedentes.vacunas == "undefined"){
+                $scope.internacion.ingreso.antecedentes.vacunas = [];
+            }
+
+            $scope.internacion.ingreso.antecedentes.vacunas.push($scope.antecedenteVacuna);
+
+            $scope.antecedenteVacuna = {};
+        },
     });
 
     // Watches
@@ -68,7 +90,7 @@ angular.module('app').controller('internacion/iAntecedentes', ["$scope", "Server
 
                 if (!$scope.internacion.ingreso.antecedentes.binarios.length) {
                     $scope.antecedentesBinarios.forEach(function(i) {
-                        if (i.frecuente)
+                        if (i.frecuente && i.grupo != "Estilo de vida" && i.grupo != "Alergias" )
                             $scope.internacion.ingreso.antecedentes.binarios.push({
                                 antecedente: i
                             });
