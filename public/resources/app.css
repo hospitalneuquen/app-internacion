@@ -2,7 +2,19 @@
 @import 'timeline.css';
 @import 'header_paciente.css';
 
-fieldset{margin: 0 0 40px 0;}
+/* form */
+
+label {
+    font-weight: bold;
+}
+fieldset {
+    margin: 0 0 40px 0;
+}
+legend {
+    /*border-bottom: 2px solid #BA68C8;*/
+    border-bottom-width: 2px;
+}
+
 /* Niveles */
 
 .nivel-verde {
@@ -56,7 +68,9 @@ fieldset{margin: 0 0 40px 0;}
 .plex-affix.affix + .plex-affix-spacer {
     display: block;
 }
-.clickable {cursor: pointer;}
+.clickable {
+    cursor: pointer;
+}
 
 /* dashboard cards */
 
@@ -98,27 +112,93 @@ fieldset{margin: 0 0 40px 0;}
     background-color: #FBC02D;
 }
 
-.bl {border-left: 1px solid #ccc;}
-.br {border-right: 1px solid #ccc;}
-.evolucion-anterior {min-height: 80px;}
+/* varios */
 
-label{font-weight: bold;}
-
+.bl {
+    border-left: 1px solid #ccc;
+}
+.br {
+    border-right: 1px solid #ccc;
+}
+.tachado {
+    text-decoration: line-through;
+}
+.evolucion-anterior {
+    min-height: 80px;
+}
 
 /* tabs */
-.nav-tabs{ background: #fefefe; border-bottom: 1px solid #ddd;}
-.nav-tabs > li > a{border-radius: 0; text-transform: uppercase;}
-.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus{color: white; background-color: #2196F3;}
-.nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{color: white; background-color: #247DC3;}
+
+.nav-tabs {
+    background: #fefefe;
+    border-bottom: 1px solid #ddd;
+}
+.nav-tabs > li > a {
+    border-radius: 0;
+    text-transform: uppercase;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus {
+    color: white;
+    background-color: #2196F3;
+}
+.nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    color: white;
+    background-color: #247DC3;
+}
 
 /* tabla problemas */
-.table.tabla-problemas{border-top: 0; border-left: 0; border-right: 0;}
-.table.tabla-problemas tbody tr td{ border-bottom: 1px solid transparent; padding: 0;}
-.table.tabla-problemas tbody tr td div.problemas { padding: 10px;}
+
+.table.tabla-problemas {
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+}
+.table.tabla-problemas tbody tr td {
+    border-bottom: 1px solid transparent;
+    padding: 0;
+}
+.table.tabla-problemas tbody tr td div.problemas {
+    padding: 10px;
+}
 .table.tabla-problemas tbody tr td div.problemas:nth-child(odd) {
     background: #f9f9f9;
 }
+
 /*.table.tabla-problemas tbody tr td div.problema:first-child  {border-top: 0 none;}
 .table.tabla-problemas tbody tr td div.problema {border-top: 1px solid #ccc;}*/
+
+
 /*.table.tabla-problemas thead tr th:first-child{border-left: 0;}
 .table.tabla-problemas thead tr th:last-child{border-right: 0;}*/
+
+table.highlight  {
+    border-spacing: 0;
+    border-collapse: collapse;
+    overflow: hidden;
+    z-index: 1;
+}
+
+table.highlight tr:hover{
+    background-color: rgba(128, 128, 128, 0.14);
+}
+
+table.highlight td, table.highlight th{
+    cursor: pointer;
+    padding: 10px;
+    position: relative;
+}
+
+table.highlight tr td:hover::after {
+    background-color: rgba(128, 128, 128, 0.14);
+    content: '\00a0';
+    height: 10000px;
+    left: 0;
+    position: absolute;
+    top: -5000px;
+    width: 100%;
+    /* z-index: 100; */
+}
+
+table.highlight td.exclude:hover::after{
+    background-color: transparent;
+}

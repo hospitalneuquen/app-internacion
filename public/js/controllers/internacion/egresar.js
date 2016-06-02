@@ -43,7 +43,7 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
                 };
             }
 
-            Shared.internacion.post(plexParams.idInternacion, {
+            Shared.internacion.post(plexParams.idInternacion, data, {
                 minify: true
             }).then(function(internacion) {
                 // TODO: Definir que hacer en caso de que sea defuncion o alta,

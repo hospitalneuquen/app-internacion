@@ -6,20 +6,119 @@
             <legend>Indicaciones</legend>
             <table class="table table-bordered" ng-if="tratamiento.indicaciones.length > 0">
                 <thead>
-                    <th></th>
-                    <th>Medicación / Hidratación / Alimentación parenteral</th>
-                    <th>Vía</th>
-                    <th>Frec.</th>
-                    <th ng-repeat="hora in horarios">
-                        {{hora}}
-                    </th>
+                    <tr>
+                        <th rowspan="2" class="text-center"></th>
+                        <th rowspan="2" class="text-center vert-align">Medicación / Hidratación / Alimentación parenteral</th>
+                        <th rowspan="2" class="text-center">Vía</th>
+                        <th rowspan="2" class="text-center">Frec.</th>
+                        <th colspan="6" class="text-center">Turno mañana</th>
+                        <th colspan="6" class="text-center">Turno tarde</th>
+                        <th colspan="6" class="text-center">Turno noche</th>
+                        <th colspan="6" class="text-center">Turno madrugada</th>
+                        <th rowspan="2" class="text-center">Acciones</th>
+                    </tr>
+                    <tr>
+                        <th>
+                            07
+                        </th>
+                        <th>
+                            08
+                        </th>
+                        <th>
+                            09
+                        </th>
+                        <th>
+                            10
+                        </th>
+                        <th>
+                            11
+                        </th>
+                        <th>
+                            12
+                        </th>
+                        <th>
+                            13
+                        </th>
+                        <th>
+                            14
+                        </th>
+                        <th>
+                            15
+                        </th>
+                        <th>
+                            16
+                        </th>
+                        <th>
+                            17
+                        </th>
+                        <th>
+                            18
+                        </th>
+                        <th>
+                            19
+                        </th>
+                        <th>
+                            20
+                        </th>
+                        <th>
+                            21
+                        </th>
+                        <th>
+                            22
+                        </th>
+                        <th>
+                            23
+                        </th>
+                        <th>
+                            24
+                        </th>
+                        <th>
+                            01
+                        </th>
+                        <th>
+                            02
+                        </th>
+                        <th>
+                            03
+                        </th>
+                        <th>
+                            04
+                        </th>
+                        <th>
+                            05
+                        </th>
+                        <th>
+                            06
+                        </th>
+                    </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="indicacion in tratamiento.indicaciones">
-                        <td>{{$index+1}}</td>
-                        <td>{{indicacion.$descripcion}}</td>
-                        <td>{{indicacion.via}}</td>
+                    <tr ng-repeat="indicacion in tratamiento.indicaciones" ng-class="{'tachado': !indicacion.activo}">
+                        <td class="text-center">{{$index+1}}</td>
                         <td>
+                            <span>
+                                {{indicacion.tipo.nombre ? indicacion.tipo.nombre : indicacion.tipo }}
+                            </span>
+                            <span ng-if="indicacion.tipo.nombre == 'Plan Hidratación' || indicacion.tipo == 'Plan Hidratación'">
+                                {{indicacion.planHidratacion.tipoPlan.nombre ? indicacion.planHidratacion.tipoPlan.nombre : indicacion.planHidratacion.tipoPlan }}
+                                {{indicacion.planHidratacion.cantidad}} ml
+                                {{indicacion.planHidratacion.tipoSolucion.nombre ? indicacion.planHidratacion.tipoSolucion.nombre : indicacion.planHidratacion.tipoSolucion }}
+                            </span>
+
+                            <div ng-if="indicacion.planHidratacion.agregados.length" >
+                                <div ng-repeat="agregado in indicacion.planHidratacion.agregados">
+                                    +  {{agregado.tipoAgregado.nombre ? agregado.tipoAgregado.nombre : agregado.tipoAgregado}} {{agregado.descripcion}}
+                                </div>
+                            </div>
+
+                            <div ng-if="indicacion.tipo.nombre == 'Heparina o profilaxis' || indicacion.tipo == 'Heparina o profilaxis'
+                                || indicacion.tipo.nombre == 'Protección gástrica' || indicacion.tipo == 'Protección gástrica'
+                                || indicacion.tipo.nombre == 'Otra medicación' || indicacion.tipo == 'Otra medicación'">
+                                {{indicacion.medicamento.descripcion}}
+                            </div>
+                        </td>
+                        <td class="text-center">{{indicacion.via}}</td>
+                        <td class="text-center">
                             <span ng-if="indicacion.frecuencia == 'unica'">UD</span>
                             <span ng-if="indicacion.frecuencia == '24'">Día</span>
                             <span ng-if="indicacion.frecuencia == '12' || indicacion.frecuencia == '8' || indicacion.frecuencia == '6' || indicacion.frecuencia == '4'">
@@ -35,16 +134,16 @@
                             </span> -->
                         </td>
 
-                        <!-- <td class="text-center" ng-repeat="hora in horarios" ng-init="anterior = 0">
-                            <span ng-if="(indicacion.frecuencia == 'unica' || indicacion.frecuencia == '24' ) && hora == '8'">
-                                X
-                            </span>
-                            {{hora}} - {{anterior}}
-                            <span ng-if="(indicacion.frecuencia == '12' ) && (hora == '8' || hora % anterior == 0)">
-                                <span ng-init="anterior = hora"></span>
-                                X
-                            </span>
-                        </td> -->
+                        <td>
+                            <div ng-show="indicacion.activo">
+                                <button class="btn btn-default btn-flat tips" title="Editar indicación" ng-click="editarIndicacion(item);">
+                                    <i class="mdi mdi-pencil"></i>
+                                </button>
+                                <button class="btn btn-default btn-flat tips" title="Anular indicación" ng-click="cancelarIndicacion(item);" >
+                                    <i class="mdi mdi-delete"></i>
+                                </button>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
