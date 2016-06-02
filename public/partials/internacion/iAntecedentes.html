@@ -33,20 +33,128 @@
             </tr>
         </tbody>
     </table>
+    <!-- Alergias -->
+    <h5>Alergias</h5>
+    <div class="row">
+        <div class="col-lg-1">
+            <select label="Tipo de alergia" ng-model="antecedenteAlergia.tipoAlergia" plex>
+                <option value="Alimentos">Alimentos</option>
+                <option value="Insectos">Insectos</option>
+                <option value="Medicamentos">Medicamentos</option>
+                <option value="Otras">Otras</option>
+            </select>
+        </div>
+        <div class="col-lg-2">
+            <input type="text" label="Alérgeno" hint="Especifique el causante de la alergia" ng-model="antecedenteAlergia.alergeno" plex />
+        </div>
+        <div class="col-lg-1">
+            <select label="Severidad" ng-model="antecedenteAlergia.severidad" plex>
+                <option value="Leve">Leve</option>
+                <option value="Moderada">Moderada</option>
+                <option value="Severa">Severa</option>
+            </select>
+        </div>
+        <div class="col-lg-2">
+            <input type="text" label="Reacción" hint="Especifique la reacción alérgica" ng-model="antecedenteAlergia.reaccion" plex />
+        </div>
+        <div class="col-lg-1">
+            <button type="button" class="btn btn-success btn-flat tips" title="Agregar alergia" ng-click="agregarAlergia()">
+                <i class="mdi mdi-plus"></i>
+            </button>
+        </div>
+        <div class="col-lg-5" ng-if="internacion.ingreso.antecedentes.alergias.length > 0">
+            <legend>Alergias</legend>
+            <table class="table table-bordered" ng-if="internacion.ingreso.antecedentes.alergias.length > 0">
+                <thead>
+                    <th>Tipo</th>
+                    <th>Alérgeno</th>
+                    <th>Severidad</th>
+                    <th>Reacción</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="antecedenteAlergia in internacion.ingreso.antecedentes.alergias">
+                        <td>{{antecedenteAlergia.tipoAlergia}}</td>
+                        <td>{{antecedenteAlergia.alergeno}}</td>
+                        <td>{{antecedenteAlergia.severidad}}</td>
+                        <td>{{antecedenteAlergia.reaccion}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Vacunas -->
+    <h5>Vacunas</h5>
+    <div class="row">
+        <div class="col-lg-2">
+            <select label="Vacuna" ng-model="antecedenteVacuna.nombre" plex>
+                <option value="Antihaemophilus">Antihaemophilus</option>
+                <option value="Doble bacteriana (dT)">Doble bacteriana (dT)</option>
+                <option value="Gripe">Gripe</option>
+                <option value="Hepatitis B">Hepatitis B</option>
+                <option value="Neumococo">Neumococo</option>
+                <option value="VPH">VPH</option>
+            </select>
+        </div>
+        <div class="col-lg-2">
+            <select label="Aplicación" ng-model="antecedenteVacuna.aplicacion" plex>
+                <option value="Aplicada">Aplicada</option>
+                <option value="Parcial">Aplicación parcial</option>
+                <option value="No aplicada">No aplicada</option>
+            </select>
+        </div>
+        <div class="col-lg-1">
+            <input type="text" label="Año" ng-model="antecedenteVacuna.anio" ng-show="antecedenteVacuna.aplicacion == 'Aplicada' || antecedenteVacuna.aplicacion == 'Parcial'" plex />
+        </div>
 
+        <div class="col-lg-1">
+            <input type="text" label="Observaciones" ng-model="antecedenteVacuna.observaciones" ng-show="antecedenteVacuna.aplicacion == 'Aplicada' || antecedenteVacuna.aplicacion == 'Parcial'" plex />
+        </div>
+        <div class="col-lg-1">
+            <button type="button" class="btn btn-success btn-flat tips" title="Agregar vacuna" ng-click="agregarVacuna()">
+                <i class="mdi mdi-plus"></i>
+            </button>
+        </div>
+        <div class="col-lg-5" ng-if="internacion.ingreso.antecedentes.vacunas.length > 0">
+            <legend>Vacunas</legend>
+            <table class="table table-bordered" ng-if="internacion.ingreso.antecedentes.vacunas.length > 0">
+                <thead>
+                    <th>Nombre</th>
+                    <th>Aplicación</th>
+                    <th>Año</th>
+                    <th>Observaciones</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="antecedenteVacuna in internacion.ingreso.antecedentes.vacunas">
+                        <td>{{antecedenteVacuna.nombre}}</td>
+                        <td>{{antecedenteVacuna.aplicacion}}</td>
+                        <td>{{antecedenteVacuna.anio}}</td>
+                        <td>{{antecedenteVacuna.observaciones}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
     <!-- Antecedentes gineco-obstétricos -->
     <h5>Antecedentes gineco-obstétricos</h5>
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-lg-2">
+            <select label="Anticoncepción" ng-model="internacion.ingreso.antecedentes.ginecoobstetricos.anticoncepcion" plex>
+                <option value="ACO">ACO</option>
+                <option value="Barrera">Barrera</option>
+                <option value="DIU">DIU</option>
+                <option value="Ninguna">Ninguna</option>
+            </select>
+        </div>
+        <div class="col-sm-2">
             <input type="text" label="Gestas" ng-model="internacion.ingreso.antecedentes.ginecoobstetricos.gestas" plex-min="0" plex="int">
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <input type="text" label="Partos" ng-model="internacion.ingreso.antecedentes.ginecoobstetricos.partos" plex-min="0" plex="int">
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <input type="text" label="Cesáreas" ng-model="internacion.ingreso.antecedentes.ginecoobstetricos.cesareas" plex-min="0" plex="int">
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <input type="text" label="Abortos" ng-model="internacion.ingreso.antecedentes.ginecoobstetricos.abortos" plex-min="0" plex="int">
         </div>
     </div>
@@ -54,6 +162,27 @@
     <!-- Antecedentes varios -->
     <h5>Antecedentes quirúrgicos</h5>
     <input type="text" label="Indicar antecedentes quirúrgicos" ng-model="internacion.ingreso.antecedentes.quirurgicos" plex />
+    <!-- Centro de salud -->
+    <h5>Centro de salud/Hospital de referencia</h5>
+    <input type="text" label="Indicar Centro de salud/Hospital de referencia" ng-model="internacion.ingreso.antecedentes.centroSalud" plex />
+    <!-- Centro de salud -->
+    <h5>Internaciones</h5>
+    <input type="text" label="Indicar fecha y diagnóstico de las internaciones" ng-model="internacion.ingreso.antecedentes.internaciones" plex />
+    <!-- Catarsis  y diuresis-->
+    <h5>Diuresis y catarsis</h5>
+    <div class="row">
+        <div class="col-lg-6">
+            <input type="text" label="Diuresis" ng-model="internacion.ingreso.antecedentes.diuresis" plex />
+        </div>
+        <div class="col-lg-6">
+            <input type="text" label="Catarsis" ng-model="internacion.ingreso.antecedentes.catarsis" plex />
+        </div>
+    </div>
+    <!-- Antecedentes patológicos -->
+    <h5>Antecedentes patológicos</h5>
+    <input type="text" label="Indicar antecedentes patológicos" ng-model="internacion.ingreso.antecedentes.patologicos" plex />
+    <h5>Medicación</h5>
+    <input type="text" label="Medicación habitual" ng-model="internacion.ingreso.antecedentes.medicacion" plex />
     <h5>Antecedentes familiares</h5>
     <div class="row">
         <div class="col-lg-3">
@@ -93,8 +222,6 @@
             </table>
         </div>
     </div>
-    <h5>Medicación</h5>
-    <input type="text" label="Medicación habitual" ng-model="internacion.ingreso.antecedentes.medicacion" plex />
     <h5>Sociales</h5>
     <div class="row">
         <div class="col-lg-2">
@@ -165,36 +292,45 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="row">
-                <div class="col-lg-1">
+                <div class="col-lg-2">
                     <input type="checkbox" label="Tabaco" ng-model="internacion.ingreso.antecedentes.estiloVida.tabaco" plex="checkbox">
+                    <input type="text" label="Cigarrillos/día" ng-model="internacion.ingreso.antecedentes.estiloVida.cigarrillosXdia" ng-show="internacion.ingreso.antecedentes.estiloVida.tabaco" plex />
+                    <input type="text" label="Tiempo" ng-model="internacion.ingreso.antecedentes.estiloVida.fumaTiempo" ng-show="internacion.ingreso.antecedentes.estiloVida.tabaco" plex />
                 </div>
-                <div class="col-lg-4">
-                    <input type="text" label="Cigarrillos/día" ng-model="internacion.ingreso.antecedentes.estiloVida.cigarrillosXdia" plex />
-                </div>
-                <div class="col-lg-4">
-                    <input type="text" label="Tiempo" ng-model="internacion.ingreso.antecedentes.estiloVida.fumaTiempo" plex />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-1">
+                <div class="col-lg-2">
                     <input type="checkbox" label="Alcohol" ng-model="internacion.ingreso.antecedentes.estiloVida.alcohol" plex="checkbox">
+                    <input type="text" label="Consumo/día" ng-model="internacion.ingreso.antecedentes.estiloVida.consumoXdia" ng-show="internacion.ingreso.antecedentes.estiloVida.alcohol" plex />
+                    <input type="text" label="Tiempo" ng-model="internacion.ingreso.antecedentes.estiloVida.bebeTiempo" ng-show="internacion.ingreso.antecedentes.estiloVida.alcohol" plex />
                 </div>
-                <div class="col-lg-4">
-                    <input type="text" label="Consumo/día" ng-model="internacion.ingreso.antecedentes.estiloVida.consumoXdia" plex />
+                <div class="col-lg-2">
+                    <input type="checkbox" label="Drogas" ng-model="internacion.ingreso.antecedentes.estiloVida.drogas" plex="checkbox">
+                    <input type="text" label="¿Cuál/Cuáles?" ng-model="internacion.ingreso.antecedentes.estiloVida.cualesDrogas" ng-show="internacion.ingreso.antecedentes.estiloVida.drogas" plex />
+                    <input type="text" label="Tiempo" ng-model="internacion.ingreso.antecedentes.estiloVida.drogaTiempo" ng-show="internacion.ingreso.antecedentes.estiloVida.drogas" plex />
                 </div>
-                <div class="col-lg-4">
-                    <input type="text" label="Tiempo" ng-model="internacion.ingreso.antecedentes.estiloVida.bebeTiempo" plex />
+                <div class="col-lg-2">
+                    <input type="checkbox" label="Fármacos" ng-model="internacion.ingreso.antecedentes.estiloVida.farmacos" plex="checkbox">
+                    <input type="text" label="¿Cuál/Cuáles?" ng-model="internacion.ingreso.antecedentes.estiloVida.cualesFarmacos" ng-show="internacion.ingreso.antecedentes.estiloVida.farmacos" plex />
+                    <input type="text" label="Tiempo" ng-model="internacion.ingreso.antecedentes.estiloVida.farmacosTiempo" ng-show="internacion.ingreso.antecedentes.estiloVida.farmacos" plex />
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-1">
-                    <input type="checkbox" label="Drogas" ng-model="internacion.ingreso.antecedentes.estiloVida.drogas" plex="checkbox">
+                <div class="col-lg-2">
+                    <input type="checkbox" label="Actividad física" ng-model="internacion.ingreso.antecedentes.estiloVida.actividadFisica" plex="checkbox">
+                    <input type="text" label="¿Cuál/Cuáles?" ng-model="internacion.ingreso.antecedentes.estiloVida.cualActividadFisica" ng-show="internacion.ingreso.antecedentes.estiloVida.actividadFisica" plex />
                 </div>
-                <div class="col-lg-4">
-                    <input type="text" label="¿Cuál/Cuáles?" ng-model="internacion.ingreso.antecedentes.estiloVida.cualesDrogas" plex />
+                <div class="col-lg-2">
+                    <input type="checkbox" label="Alimentación saludable" ng-model="internacion.ingreso.antecedentes.estiloVida.alimentacionSaludable" plex="checkbox">
                 </div>
-                <div class="col-lg-4">
-                    <input type="text" label="Tiempo" ng-model="internacion.ingreso.antecedentes.estiloVida.drogaTiempo" plex />
+                <div class="col-lg-2">
+                    <input type="checkbox" label="Dieta específica" ng-model="internacion.ingreso.antecedentes.estiloVida.dietaEspecifica" plex="checkbox">
+                    <input type="text" label="¿Cuál?" ng-model="internacion.ingreso.antecedentes.estiloVida.cualDietaEspecifica" ng-show="internacion.ingreso.antecedentes.estiloVida.dietaEspecifica" plex />
+                </div>
+                <div class="col-lg-2">
+                    <input type="checkbox" label="Pareja estable" ng-model="internacion.ingreso.antecedentes.estiloVida.parejaEstable" plex="checkbox">
+                </div>
+                <div class="col-lg-2">
+                    <input type="checkbox" label="Viajes recientes" ng-model="internacion.ingreso.antecedentes.estiloVida.viajesRecientes" plex="checkbox">
+                    <input type="text" label="¿Lugar?" ng-model="internacion.ingreso.antecedentes.estiloVida.viajeDonde" ng-show="internacion.ingreso.antecedentes.estiloVida.viajesRecientes" plex />
                 </div>
             </div>
         </div>

@@ -454,58 +454,119 @@
                 </ng-form>
             </div>
             <div ng-if="!antecedentesEdit">
-                <div ng-if="internacion.ingreso.antecedentes.binarios">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Antecedente</th>
+                <div class="row">
+                    <div class="col-lg-6" ng-if="internacion.ingreso.antecedentes.binarios.length > 0">
+                        <h5>Antecedentes binarios</h5>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Antecedente</th>
+                                    <th>Observaciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in internacion.ingreso.antecedentes.binarios">
+                                    <td ng-if="item.activo">
+                                        <span class="text-muted">{{item.antecedente.grupo + " / "}}</span><span>{{item.antecedente.nombre}}</span>
+                                    </td>
+                                    <td ng-if="item.activo">
+                                        {{item.observaciones}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Antecedentes familiares -->
+                    <div class="col-lg-6" ng-if="internacion.ingreso.antecedentes.familiares.length > 0">
+                            <h5>Antecedentes familiares</h5>
+                            <table class="table table-striped" ng-if="internacion.ingreso.antecedentes.familiares.length > 0">
+                            <thead>
+                                <th>Familiar</th>
                                 <th>Observaciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="item in internacion.ingreso.antecedentes.binarios">
-                                <td ng-if="item.activo">
-                                    <span class="text-muted">{{item.antecedente.grupo + " / "}}</span><span>{{item.antecedente.nombre}}</span>
-                                </td>
-                                <td ng-if="item.activo">
-                                    {{item.observaciones}}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="antecedenteFamiliar in internacion.ingreso.antecedentes.familiares">
+                                    <td>{{antecedenteFamiliar.familiar}}</td>
+                                    <td>{{antecedenteFamiliar.observaciones}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Alergias -->
+                    <div class="col-lg-6" ng-if="internacion.ingreso.antecedentes.alergias.length > 0">
+                        <h5>Alergias</h5>
+                        <table class="table table-striped" ng-if="internacion.ingreso.antecedentes.alergias.length > 0">
+                            <thead>
+                                <th>Tipo</th>
+                                <th>Alérgeno</th>
+                                <th>Severidad</th>
+                                <th>Reacción</th>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="antecedenteAlergia in internacion.ingreso.antecedentes.alergias">
+                                    <td>{{antecedenteAlergia.tipoAlergia}}</td>
+                                    <td>{{antecedenteAlergia.alergeno}}</td>
+                                    <td>{{antecedenteAlergia.severidad}}</td>
+                                    <td>{{antecedenteAlergia.reaccion}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Vacunas -->
+                    <div class="col-lg-6" ng-if="internacion.ingreso.antecedentes.vacunas.length > 0">
+                        <h5>Vacunas</h5>
+                        <table class="table table-striped" ng-if="internacion.ingreso.antecedentes.vacunas.length > 0">
+                            <thead>
+                                <th>Nombre</th>
+                                <th>Aplicación</th>
+                                <th>Año</th>
+                                <th>Observaciones</th>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="antecedenteVacuna in internacion.ingreso.antecedentes.vacunas">
+                                    <td>{{antecedenteVacuna.nombre}}</td>
+                                    <td>{{antecedenteVacuna.aplicacion}}</td>
+                                    <td>{{antecedenteVacuna.anio}}</td>
+                                    <td>{{antecedenteVacuna.observaciones}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 <!-- Antecedentes gineco-obstétricos -->
-                <div ng-if="internacion.ingreso.antecedentes.ginecoobstetricos">
+                <div class="col-lg-4" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos">
                     <h5>Antecedentes gineco-obstétricos</h5>
                     <div class="row">
-                        <div class="col-sm-3" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.gestas">
+                        <div class="col-sm-2" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.anticoncepcion">
+                            Anticoncepción: {{internacion.ingreso.antecedentes.ginecoobstetricos.anticoncepcion}}
+                        </div>
+                        <div class="col-sm-2" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.gestas">
                             Gestas: {{internacion.ingreso.antecedentes.ginecoobstetricos.gestas}}
                         </div>
-                        <div class="col-sm-3" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.partos">
+                        <div class="col-sm-2" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.partos">
                             Partos: {{internacion.ingreso.antecedentes.ginecoobstetricos.partos}}
                         </div>
-                        <div class="col-sm-3" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.cesareas">
+                        <div class="col-sm-2" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.cesareas">
                             Cesáreas: {{internacion.ingreso.antecedentes.ginecoobstetricos.cesareas}}
                         </div>
-                        <div class="col-sm-3" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.abortos">
+                        <div class="col-sm-2" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.abortos">
                             Abortos: {{internacion.ingreso.antecedentes.ginecoobstetricos.abortos}}
                         </div>
                     </div>
                 </div>
 
                 <!-- Antecedentes varios -->
-                <div ng-if="internacion.ingreso.antecedentes.quirurgicos">
+                <div class="col-lg-3" ng-if="internacion.ingreso.antecedentes.quirurgicos">
                     <h5>Antecedentes quirúrgicos</h5>
                     {{internacion.ingreso.antecedentes.quirurgicos}}
                 </div>
 
-                <div ng-if="internacion.ingreso.antecedentes.familiares">
-                    <h5>Antecedentes familiares</h5>
-                    {{internacion.ingreso.antecedentes.familiares}}
-                </div>
-
-                <div ng-if="internacion.ingreso.antecedentes.medicacion">
+                <div class="col-lg-3" ng-if="internacion.ingreso.antecedentes.medicacion">
                     <h5>Medicación habitual</h5>
                     {{internacion.ingreso.antecedentes.medicacion}}
                 </div>
