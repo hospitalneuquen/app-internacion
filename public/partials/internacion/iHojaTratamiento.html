@@ -21,7 +21,7 @@
 
             <div class="col-xs-2 text-right" ng-show="show_toolbar_tratamientos">
                 <br/>
-                <button class="btn btn-primary form-control" ng-click="editarTratamiento();">
+                <button class="btn btn-primary form-control" ng-click="tratamientos.editar();">
                     Nuevo tratamiento
                 </button>
             </div>
@@ -53,10 +53,10 @@
                         {{item.servicio.nombreCorto}}
                     </td>
                     <td >
-                        <button class="btn btn-default btn-flat tips" title="Editar tratamiento" ng-click="editarTratamiento(item);" ng-disabled="Session.user.id != item.createdBy.id">
+                        <button class="btn btn-default btn-flat tips" title="Editar tratamiento" ng-click="tratamientos.editar(item);" ng-disabled="Session.user.id != item.createdBy.id">
                             <i class="mdi mdi-pencil"></i>
                         </button>
-                        <button class="btn btn-default btn-flat tips" title="Ver tratamiento" ng-click="verTratamiento(item);" >
+                        <button class="btn btn-default btn-flat tips" title="Ver tratamiento" ng-click="tratamientos.ver(item);" >
                             <i class="mdi mdi-eye"></i>
                         </button>
                     </td>
@@ -282,36 +282,36 @@
 
                                         <div class="row">
                                             <div class="col-lg-3">
-                                                <input type="checkbox" label="Ayuno" ng-model="tratamientosEdit.dietaAyuno" plex="checkbox">
-                                                <input type="checkbox" label="General" ng-model="tratamientosEdit.dietaGeneral" plex="checkbox">
-                                                <input type="checkbox" label="Diabético" ng-model="tratamientosEdit.dietaDiabetico" plex="checkbox">
-                                                <input type="checkbox" label="Insuficiencia renal" ng-model="tratamientosEdit.dietaInsuficienciaRenal" plex="checkbox">
-                                                <input type="checkbox" label="Hepato/Gastro protectora" ng-model="tratamientosEdit.dietaHepatoGastroProtectora" plex="checkbox">
-                                                <input type="checkbox" label="Líquido 01" ng-model="tratamientosEdit.liquido01" plex="checkbox">
+                                                <input type="checkbox" label="Ayuno" ng-model="indicacion.dieta.tipo.ayuno" plex="checkbox">
+                                                <input type="checkbox" label="General" ng-model="indicacion.dieta.tipo.general" plex="checkbox">
+                                                <input type="checkbox" label="Diabético" ng-model="indicacion.dieta.tipo.diabetico" plex="checkbox">
+                                                <input type="checkbox" label="Insuficiencia renal" ng-model="indicacion.dieta.tipo.insuficienciaRenal" plex="checkbox">
+                                                <input type="checkbox" label="Hepato/Gastro protectora" ng-model="indicacion.dieta.tipo.hepatoGastroProtectora" plex="checkbox">
+                                                <input type="checkbox" label="Líquido 01" ng-model="indicacion.dieta.tipo.liquido01" plex="checkbox">
 
                                             </div>
                                             <div class="col-lg-3">
-                                                <input type="checkbox" label="Blando sin carne 02" ng-model="tratamientosEdit.blandoSinCarne02" plex="checkbox">
-                                                <input type="checkbox" label="Blando con carne 03" ng-model="tratamientosEdit.blandoConCarne03" plex="checkbox">
-                                                <input type="checkbox" label="Individual" ng-model="tratamientosEdit.individual" plex="checkbox">
-                                                <input type="checkbox" label="Pediátrico 1-2" ng-model="tratamientosEdit.pediatrico1_2" plex="checkbox">
-                                                <input type="checkbox" label="Lactante 1-2" ng-model="tratamientosEdit.lactante1_2" plex="checkbox">
-                                                <input type="checkbox" label="Blando mecánico" ng-model="tratamientosEdit.dietaBlandoMecanico" plex="checkbox">
+                                                <input type="checkbox" label="Blando sin carne 02" ng-model="indicacion.dieta.tipo.blandoSinCarne02" plex="checkbox">
+                                                <input type="checkbox" label="Blando con carne 03" ng-model="indicacion.dieta.tipo.blandoConCarne03" plex="checkbox">
+                                                <input type="checkbox" label="Individual" ng-model="indicacion.dieta.tipo.individual" plex="checkbox">
+                                                <input type="checkbox" label="Pediátrico 1-2" ng-model="indicacion.dieta.tipo.pediatrico1_2" plex="checkbox">
+                                                <input type="checkbox" label="Lactante 1-2" ng-model="indicacion.dieta.tipo.lactante1_2" plex="checkbox">
+                                                <input type="checkbox" label="Blando mecánico" ng-model="indicacion.dieta.tipo.blandoMecanico" plex="checkbox">
                                             </div>
                                             <div class="col-lg-3">
 
-                                                <input type="checkbox" label="Acompañante" ng-model="tratamientosEdit.dietaAcompanante" plex="checkbox">
-                                                <input type="checkbox" label="Licuado" ng-model="tratamientosEdit.dietaLicuado" plex="checkbox">
-                                                <input type="checkbox" label="Rico en residuo" ng-model="tratamientosEdit.dietaRicoEnResiduo" plex="checkbox">
-                                                <input type="checkbox" label="Astringente" ng-model="tratamientosEdit.dietaAstringente" plex="checkbox">
-                                                <input type="checkbox" label="Sin sal" ng-model="tratamientosEdit.sinSal" plex="checkbox">
-                                                <input type="checkbox" label="Sin gluten" ng-model="tratamientosEdit.sinGluten" plex="checkbox">
+                                                <input type="checkbox" label="Acompañante" ng-model="indicacion.dieta.tipo.acompanante" plex="checkbox">
+                                                <input type="checkbox" label="Licuado" ng-model="indicacion.dieta.tipo.licuado" plex="checkbox">
+                                                <input type="checkbox" label="Rico en residuo" ng-model="indicacion.dieta.tipo.ricoEnResiduo" plex="checkbox">
+                                                <input type="checkbox" label="Astringente" ng-model="indicacion.dieta.tipo.astringente" plex="checkbox">
+                                                <input type="checkbox" label="Sin sal" ng-model="indicacion.dieta.tipo.sinSal" plex="checkbox">
+                                                <input type="checkbox" label="Sin gluten" ng-model="indicacion.dieta.tipo.sinGluten" plex="checkbox">
                                             </div>
                                             <div class="col-lg-3">
-                                                <input type="checkbox" label="Todo cocido" ng-model="tratamientosEdit.todoCocido" plex="checkbox">
-                                                <input type="checkbox" label="Hiper con colacion" ng-model="tratamientosEdit.hiperConColacion" plex="checkbox">
-                                                <input type="checkbox" label="Nada por boca" ng-model="tratamientosEdit.nadaPorBoca" plex="checkbox">
-                                                <input type="checkbox" label="Hipocalórico" ng-model="tratamientosEdit.hipocalorico" plex="checkbox">
+                                                <input type="checkbox" label="Todo cocido" ng-model="indicacion.dieta.tipo.todoCocido" plex="checkbox">
+                                                <input type="checkbox" label="Hiper con colacion" ng-model="indicacion.dieta.tipo.hiperConColacion" plex="checkbox">
+                                                <input type="checkbox" label="Nada por boca" ng-model="indicacion.dieta.tipo.nadaPorBoca" plex="checkbox">
+                                                <input type="checkbox" label="Hipocalórico" ng-model="indicacion.dieta.tipo.hipocalorico" plex="checkbox">
                                             </div>
                                         </div>
                                     </div>
@@ -320,15 +320,15 @@
                                 <div class="col-lg-1">
                                     <br/>
                                     <div ng-show="editandoIndicacion">
-                                        <button type="button" class="btn btn-default tips" title="Cancelar edición de la indicación" ng-click="cancelarEditarIndicacion()">
+                                        <button type="button" class="btn btn-default tips" title="Cancelar edición de la indicación" ng-click="indicaciones.cancelar()">
                                             <i class="mdi mdi-block-helper"></i>
                                         </button>
-                                        <button type="button" class="btn btn-success btn-flat tips" title="Guardar indicación" ng-click="guardarIndicacion()">
+                                        <button type="button" class="btn btn-success btn-flat tips" title="Guardar indicación" ng-click="indicaciones.guardar()">
                                             <i class="mdi mdi-content-save"></i>
                                         </button>
                                     </div>
                                     <div ng-show="!editandoIndicacion">
-                                        <button type="button" class="btn btn-success btn-flat tips" title="Agregar la indicación" ng-click="agregarIndicacion()">
+                                        <button type="button" class="btn btn-success btn-flat tips" title="Agregar la indicación" ng-click="indicaciones.agregar()">
                                             <!-- <i class="mdi mdi-plus"></i> -->
                                             Agregar
                                         </button>
@@ -360,15 +360,15 @@
                                         </button> -->
 
                                         <div ng-show="editandoAgregado">
-                                            <button type="button" class="btn btn-default tips" title="Cancelar edición del agregado" ng-click="cancelarEditarAgregado()">
+                                            <button type="button" class="btn btn-default tips" title="Cancelar edición del agregado" ng-click="agregados.cancelar()">
                                                 <i class="mdi mdi-block-helper"></i>
                                             </button>
-                                            <button type="button" class="btn btn-success btn-flat tips" title="Guardar agregado" ng-click="guardarAgregado()">
+                                            <button type="button" class="btn btn-success btn-flat tips" title="Guardar agregado" ng-click="agregados.guardar()">
                                                 <i class="mdi mdi-content-save"></i>
                                             </button>
                                         </div>
                                         <div ng-show="!editandoAgregado">
-                                            <button class="btn btn-default btn-flat tips" title="Agregar" ng-click="editarAgregado()" >
+                                            <button class="btn btn-default btn-flat tips" title="Agregar" ng-click="agregados.editar()" >
                                                 <i class="mdi mdi-plus"></i>
                                             </button>
                                         </div>
@@ -395,7 +395,7 @@
                                                     </td>
                                                     <td>{{agregado.descripcion}} </td>
                                                     <td>
-                                                        <button class="btn btn-default btn-flat tips" title="Editar agregado" ng-click="editarAgregado(agregado)" >
+                                                        <button class="btn btn-default btn-flat tips" title="Editar agregado" ng-click="agregados.editar(agregado)" >
                                                             <i class="mdi mdi-pencil"></i>
                                                         </button>
                                                     </td>
@@ -503,7 +503,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="indicacion in tratamientosEdit.indicaciones">
+                                <tr ng-repeat="indicacion in tratamientosEdit.indicaciones track by $index">
                                     <td>{{$index+1}}</td>
                                     <td>
                                         <span>
@@ -527,7 +527,87 @@
                                             {{indicacion.medicamento.descripcion}}
                                         </div>
 
+                                        <div ng-if="indicacion.tipo.nombre == 'Controles' || indicacion.tipo == 'Controles'">
+                                            {{indicacion.controles.tipo}}
+                                        </div>
 
+                                        <div ng-if="indicacion.tipo.nombre == 'Cuidados generales' || indicacion.tipo == 'Cuidados generales'">
+                                            {{indicacion.cuidadosGenerales.tipo}}
+                                        </div>
+
+                                        <div ng-if="indicacion.tipo.nombre == 'Cuidados especiales' || indicacion.tipo == 'Cuidados especiales'">
+                                            {{indicacion.cuidadosEspeciales.tipo}}
+                                        </div>
+
+                                        <div ng-if="indicacion.tipo.nombre == 'Dieta' || indicacion.tipo == 'Dieta'">
+                                            <span ng-show="indicacion.dieta.tipo.ayuno">
+                                                Ayuno /
+                                            </span>
+                                            <span ng-show="indicacion.dieta.tipo.blandoMecanico">
+                                                Blando mecánico /
+                                            </span>
+                                            <span ng-show="indicacion.dieta.tipo.general">
+                                                General /
+                                            </span>
+                                            <span ng-show="indicacion.dieta.tipo.acompanante">
+                                                Acompañante /
+                                            </span>
+                                            <span ng-show="indicacion.dieta.tipo.diabetico">
+                                                Diabético /
+                                            </span>
+                                            <span ng-show="indicacion.dieta.tipo.licuado">
+                                                Licuado /
+                                            </span>
+                                            <span ng-show="indicacion.dieta.tipo.insuficienciaRenal">
+                                                Insuficencia renal /
+                                            </span>
+                                            <span ng-show="indicacion.dieta.tipo.ricoEnResiduo">
+                                                Rico en residuo /
+                                            </span>
+                                            <span ng-show="indicacion.dieta.tipo.hepatoGastroProtectora">
+                                                Hepato/Gastro protectora /
+                                            </span>
+                                            <span ng-show="indicacion.dieta.tipo.astringente">
+                                                Astringente /
+                                            </span>
+                                            <span ng-show="indicacion.dieta.tipo.liquido01">
+                                                Líquido 01 /
+                                            </span>
+                                            <span ng-show="indicacion.dieta.tipo.sinSal">
+                                                Sin sal /
+                                            </span>
+                                            <span ng-show="indicacion.dieta.tipo.blandoSinCarne02">
+                                                Blando sin carne 02 /
+                                            </span>
+                                            <span ng-show="indicacion.dieta.tipo.blandoConCarne03">
+                                                Blando sin carne 03 /
+                                            </span>
+                                            <span ng-show="indicacion.dieta.tipo.sinGluten">
+                                                Sin Gluten /
+                                            </span>
+                                            <span ng-show="indicacion.dieta.tipo.todoCocido">
+                                                Todo cocido /
+                                            </span>
+                                            <span ng-show="indicacion.dieta.tipo.individual">
+                                                Individual /
+                                            </span>
+                                            <span ng-show="indicacion.dieta.tipo.hiperConColacion">
+                                                Hiper c/colocación /
+                                            </span>
+                                            <span ng-show="indicacion.dieta.tipo.pediatrico1_2">
+                                                Pediátrico 1 - 2 /
+                                            </span>
+                                            <span ng-show="indicacion.dieta.tipo.nadaPorBoca">
+                                                Nada por boca /
+                                            </span>
+                                            <span ng-show="indicacion.dieta.tipo.lactante1_2">
+                                                Lactante 1 - 2 /
+                                            </span>
+                                            <span ng-show="indicacion.dieta.tipo.hipocalorico">
+                                                Hipocalórico /
+                                            </span>
+
+                                        </div>
                                     </td>
                                     <td>{{indicacion.via}}</td>
                                     <td>
@@ -544,8 +624,8 @@
                                         {{ indicacion.horarios[hora] }}
                                     </td>
 
-                                    <td class="exclude">
-                                        <button class="btn btn-default btn-flat tips" title="Editar indicacion" ng-click="editarIndicacion(indicacion, $index);" >
+                                    <td>
+                                        <button class="btn btn-default btn-flat tips" title="Editar indicacion" ng-click="indicaciones.editar(indicacion, $index)" >
                                             <i class="mdi mdi-pencil"></i>
                                         </button>
                                     </td>
@@ -743,8 +823,8 @@
                 <div class="row" ng-show="!editandoIndicacion">
                     <div class="col-lg-12">
                         <div class="card-block margin-top text-right">
-                            <button type="button" class="btn btn-default btn-flat" ng-click="cancelarEdicion();">Cancelar</button>
-                            <button class="btn btn-primary" plex-submit="guardarTratamiento(tratamientosEdit)" ng-disabled="formEditarTratamiento.$invalid">
+                            <button type="button" class="btn btn-default btn-flat" ng-click="tratamientos.cancelar();">Cancelar</button>
+                            <button class="btn btn-primary" plex-submit="tratamientos.guardar(tratamientosEdit)" ng-disabled="formEditarTratamiento.$invalid">
                                 <i class="mdi mdi-content-save"></i>
                                 Guardar</button>
                         </div>
