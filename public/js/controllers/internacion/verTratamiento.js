@@ -21,6 +21,7 @@ angular.module('app').controller('internacion/verTratamiento', ['$scope', 'Plex'
                     $scope.tratamiento = internacion.tratamientos[internacion.tratamientos.length - 1];
                 }
 
+
                 angular.forEach($scope.tratamiento.indicaciones, function(indicacion) {
 
                     // agregamos el array de horarios a marcar
@@ -49,7 +50,8 @@ angular.module('app').controller('internacion/verTratamiento', ['$scope', 'Plex'
                 });
             });
 
-        }
+        },
+
     });
 
 

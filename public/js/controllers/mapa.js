@@ -57,7 +57,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 $scope.listaDeProblemas(scope.cama.idInternacion);
             }
         }, {
-            text: 'Ver tratamiento',
+            text: 'Ver tratamientos',
             handler: function(scope) {
                 $scope.verTratamiento(scope.cama.idInternacion);
             }
@@ -231,7 +231,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             });
         },
         verTratamiento: function(idInternacion) {
-            Plex.openView('internacion/verTratamiento/' + idInternacion).then(function(internacion) {
+            Plex.openView('internacion/ver/' + idInternacion + '/9').then(function(internacion) {
 
             });
         },
