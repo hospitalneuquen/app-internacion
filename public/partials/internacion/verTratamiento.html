@@ -117,6 +117,87 @@
                                 {{indicacion.medicamento.descripcion}}
                             </div>
 
+                            <div ng-if="indicacion.tipo.nombre == 'Controles' || indicacion.tipo == 'Controles'">
+                                {{indicacion.controles.tipo}}
+                            </div>
+
+                            <div ng-if="indicacion.tipo.nombre == 'Cuidados generales' || indicacion.tipo == 'Cuidados generales'">
+                                {{indicacion.cuidadosGenerales.tipo}}
+                            </div>
+
+                            <div ng-if="indicacion.tipo.nombre == 'Cuidados especiales' || indicacion.tipo == 'Cuidados especiales'">
+                                {{indicacion.cuidadosEspeciales.tipo}}
+                            </div>
+
+                            <div ng-if="indicacion.tipo.nombre == 'Dieta' || indicacion.tipo == 'Dieta'">
+                                <span ng-show="indicacion.dieta.tipo.ayuno">
+                                    Ayuno /
+                                </span>
+                                <span ng-show="indicacion.dieta.tipo.blandoMecanico">
+                                    Blando mecánico /
+                                </span>
+                                <span ng-show="indicacion.dieta.tipo.general">
+                                    General /
+                                </span>
+                                <span ng-show="indicacion.dieta.tipo.acompanante">
+                                    Acompañante /
+                                </span>
+                                <span ng-show="indicacion.dieta.tipo.diabetico">
+                                    Diabético /
+                                </span>
+                                <span ng-show="indicacion.dieta.tipo.licuado">
+                                    Licuado /
+                                </span>
+                                <span ng-show="indicacion.dieta.tipo.insuficienciaRenal">
+                                    Insuficencia renal /
+                                </span>
+                                <span ng-show="indicacion.dieta.tipo.ricoEnResiduo">
+                                    Rico en residuo /
+                                </span>
+                                <span ng-show="indicacion.dieta.tipo.hepatoGastroProtectora">
+                                    Hepato/Gastro protectora /
+                                </span>
+                                <span ng-show="indicacion.dieta.tipo.astringente">
+                                    Astringente /
+                                </span>
+                                <span ng-show="indicacion.dieta.tipo.liquido01">
+                                    Líquido 01 /
+                                </span>
+                                <span ng-show="indicacion.dieta.tipo.sinSal">
+                                    Sin sal /
+                                </span>
+                                <span ng-show="indicacion.dieta.tipo.blandoSinCarne02">
+                                    Blando sin carne 02 /
+                                </span>
+                                <span ng-show="indicacion.dieta.tipo.blandoConCarne03">
+                                    Blando sin carne 03 /
+                                </span>
+                                <span ng-show="indicacion.dieta.tipo.sinGluten">
+                                    Sin Gluten /
+                                </span>
+                                <span ng-show="indicacion.dieta.tipo.todoCocido">
+                                    Todo cocido /
+                                </span>
+                                <span ng-show="indicacion.dieta.tipo.individual">
+                                    Individual /
+                                </span>
+                                <span ng-show="indicacion.dieta.tipo.hiperConColacion">
+                                    Hiper c/colocación /
+                                </span>
+                                <span ng-show="indicacion.dieta.tipo.pediatrico1_2">
+                                    Pediátrico 1 - 2 /
+                                </span>
+                                <span ng-show="indicacion.dieta.tipo.nadaPorBoca">
+                                    Nada por boca /
+                                </span>
+                                <span ng-show="indicacion.dieta.tipo.lactante1_2">
+                                    Lactante 1 - 2 /
+                                </span>
+                                <span ng-show="indicacion.dieta.tipo.hipocalorico">
+                                    Hipocalórico /
+                                </span>
+
+                            </div>
 
                         </td>
                         <td>{{indicacion.via}}</td>
