@@ -2,13 +2,7 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
     'use strict';
 
     angular.extend($scope, {
-        // hover tabla
-        hoveredRow : null,
-        mouseOverTd : function (row, cell) {
-            $scope.hoveredRow = row;
-            $scope.hoveredCol = cell;
-        },
-
+        accion: null,
         ultimo: 0, // para armar el listado de indicaciones
         show_toolbar_tratamientos: true,
         loading: true,

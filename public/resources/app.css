@@ -182,7 +182,7 @@ table.highlight tr:hover{
     background-color: rgba(128, 128, 128, 0.14);
 }
 
-table.highlight td, table.highlight th{
+table.highlight td{
     cursor: pointer;
     padding: 10px;
     position: relative;
@@ -199,6 +199,9 @@ table.highlight tr td:hover::after {
     /* z-index: 100; */
 }
 
+table.highlight tr.exclude:hover{
+    background-color: transparent;
+}
 table.highlight td.exclude:hover::after{
     background-color: transparent;
 }

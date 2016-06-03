@@ -4,10 +4,10 @@
     <div class="row">
         <div class="col-lg-12">
             <legend>Indicaciones</legend>
-            <table class="table table-bordered" ng-if="tratamiento.indicaciones.length > 0">
+            <table class="table table-bordered highlight">
                 <thead>
-                    <tr>
-                        <th rowspan="2" class="text-center"></th>
+                    <tr class="exclude">
+                        <th rowspan="2" class="text-center">#</th>
                         <th rowspan="2" class="text-center vert-align">Medicación / Hidratación / Alimentación parenteral</th>
                         <th rowspan="2" class="text-center">Vía</th>
                         <th rowspan="2" class="text-center">Frec.</th>
@@ -15,9 +15,9 @@
                         <th colspan="6" class="text-center">Turno tarde</th>
                         <th colspan="6" class="text-center">Turno noche</th>
                         <th colspan="6" class="text-center">Turno madrugada</th>
-                        <th rowspan="2" class="text-center">Acciones</th>
+                        <!-- <th rowspan="2" class="text-center">Acciones</th> -->
                     </tr>
-                    <tr>
+                    <tr class="exclude">
                         <th>
                             07
                         </th>
@@ -93,8 +93,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="indicacion in tratamiento.indicaciones" ng-class="{'tachado': !indicacion.activo}">
-                        <td class="text-center">{{$index+1}}</td>
+                    <tr ng-repeat="indicacion in tratamiento.indicaciones">
+                        <td>{{$index+1}}</td>
                         <td>
                             <span>
                                 {{indicacion.tipo.nombre ? indicacion.tipo.nombre : indicacion.tipo }}
@@ -116,34 +116,29 @@
                                 || indicacion.tipo.nombre == 'Otra medicación' || indicacion.tipo == 'Otra medicación'">
                                 {{indicacion.medicamento.descripcion}}
                             </div>
+
+
                         </td>
-                        <td class="text-center">{{indicacion.via}}</td>
-                        <td class="text-center">
+                        <td>{{indicacion.via}}</td>
+                        <td>
                             <span ng-if="indicacion.frecuencia == 'unica'">UD</span>
                             <span ng-if="indicacion.frecuencia == '24'">Día</span>
                             <span ng-if="indicacion.frecuencia == '12' || indicacion.frecuencia == '8' || indicacion.frecuencia == '6' || indicacion.frecuencia == '4'">
                                 c/{{indicacion.frecuencia}}
                                 hs
                             </span>
+
                         </td>
 
                         <td class="text-center" ng-repeat="hora in horarios">
                             {{ indicacion.horarios[hora] }}
-                            <!-- <span ng-if="{{ indicacion.horarios[hora] }}">
-                                X
-                            </span> -->
                         </td>
 
-                        <td>
-                            <div ng-show="indicacion.activo">
-                                <button class="btn btn-default btn-flat tips" title="Editar indicación" ng-click="editarIndicacion(item);">
-                                    <i class="mdi mdi-pencil"></i>
-                                </button>
-                                <button class="btn btn-default btn-flat tips" title="Anular indicación" ng-click="cancelarIndicacion(item);" >
-                                    <i class="mdi mdi-delete"></i>
-                                </button>
-                            </div>
-                        </td>
+                        <!-- <td class="exclude">
+                            <button class="btn btn-default btn-flat tips" title="Editar indicacion" ng-click="editarIndicacion(indicacion, $index);" >
+                                <i class="mdi mdi-pencil"></i>
+                            </button>
+                        </td> -->
                     </tr>
                 </tbody>
             </table>
