@@ -73,16 +73,14 @@
             <!-- <legend>{{tituloFormulario}}</legend> -->
             <div class="card-block">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-2">
                         <fieldset>
                             <legend>Tratamiento</legend>
                             <input type="text" label="Fecha" ng-model="tratamientosEdit.fecha" plex="date">
                         </fieldset>
                     </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-10">
                         <fieldset>
                             <legend>Cargar nueva indicacion</legend>
                             <div class="row">
@@ -92,7 +90,7 @@
 
                                 <!-- Otra indicacion -->
                                 <div ng-if="!indicacion.tipo || indicacion.tipo.nombre == 'Otra indicación'">
-                                    <div class="col-lg-7">
+                                    <div class="col-lg-6">
                                         <input type="text" label="Descripción" ng-model="indicacion.descripcion" plex />
                                     </div>
 
@@ -119,7 +117,7 @@
                                 <!-- Heparina o Profilaxis / Proteccion gastrica / Otar medicacion -->
                                 <div ng-if="indicacion.tipo.nombre == 'Heparina o profilaxis' ||
                                     indicacion.tipo.nombre == 'Protección gástrica' || indicacion.tipo.nombre == 'Otra medicación'">
-                                    <div class="col-lg-7">
+                                    <div class="col-lg-6">
                                         <input type="text" label="Descripción" ng-model="indicacion.medicamento.descripcion" plex />
                                     </div>
 
@@ -151,7 +149,7 @@
                                             <option value="Enteral">Enteral</option>
                                         </select>
                                     </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-2">
                                         <input type="text" label="Cantidad" ng-model="indicacion.planHidratacion.cantidad" suffix="ml" plex ng-required="true" />
                                     </div>
                                     <div class="col-lg-2">
@@ -182,7 +180,7 @@
 
                                 <!-- Controles -->
                                 <div ng-if="indicacion.tipo.nombre == 'Controles'">
-                                    <div class="col-lg-7">
+                                    <div class="col-lg-6">
                                         <select label="Tipo de control" ng-model="indicacion.controles.tipo" plex="(opcion.nombre) for opcion in tiposControles" ></select>
                                     </div>
 
@@ -200,7 +198,7 @@
 
                                 <!-- Controles generales -->
                                 <div ng-if="indicacion.tipo.nombre == 'Cuidados generales'">
-                                    <div class="col-lg-7">
+                                    <div class="col-lg-6">
                                         <select label="Tipo de control" ng-model="indicacion.cuidadosGenerales.tipo" plex="(opcion.nombre) for opcion in tiposCuidadosGenerales" ></select>
                                     </div>
 
@@ -247,13 +245,13 @@
 
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <select label="Prioridad" ng-model="prestacionesEdit.prioridad" plex="(item.nombre) for item in prioridad"></select>
+                                            <select label="Prioridad" ng-model="indicacion.prestaciones.prioridad" plex="(item.nombre) for item in prestaciones.prioridad"></select>
                                         </div>
                                     </div>
 
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <select label="Tipo prestación" ng-model="prestacionesEdit.tipoPrestacion" min="3" plex="(item.nombre + ' (' + item.grupo + ')') for item in buscarTipoPrestacion($value)" required></select>
+                                            <select label="Tipo prestación" ng-model="indicacion.prestaciones.tipoPrestacion" min="3" plex="(item.nombre + ' (' + item.grupo + ')') for item in prestaciones.buscarTipoPrestacion($value)" required></select>
                                         </div>
                                     </div>
 
@@ -269,8 +267,8 @@
                                         </div>
                                     </div> -->
 
-                                    <div class="col-xs-5">
-                                        <input type="text" label="Texto" ng-model="prestacionesEdit.texto" plex class="form-control" required/>
+                                    <div class="col-xs-4">
+                                        <input type="text" label="Texto" ng-model="indicacion.prestaciones.texto" plex class="form-control" required/>
                                     </div>
                                 </div>
 
@@ -317,7 +315,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-1">
+                                <div class="col-lg-2">
                                     <br/>
                                     <div ng-show="editandoIndicacion">
                                         <button type="button" class="btn btn-default tips" title="Cancelar edición de la indicación" ng-click="indicaciones.cancelar()">
@@ -528,15 +526,27 @@
                                         </div>
 
                                         <div ng-if="indicacion.tipo.nombre == 'Controles' || indicacion.tipo == 'Controles'">
-                                            {{indicacion.controles.tipo}}
+                                            {{indicacion.controles.tipo.nombre ? indicacion.controles.tipo.nombre : indicacion.controles.tipo}}
                                         </div>
 
                                         <div ng-if="indicacion.tipo.nombre == 'Cuidados generales' || indicacion.tipo == 'Cuidados generales'">
-                                            {{indicacion.cuidadosGenerales.tipo}}
+                                            {{indicacion.cuidadosGenerales.tipo.nombre ? indicacion.cuidadosGenerales.tipo.nombre : indicacion.cuidadosGenerales.tipo}}
                                         </div>
 
                                         <div ng-if="indicacion.tipo.nombre == 'Cuidados especiales' || indicacion.tipo == 'Cuidados especiales'">
                                             {{indicacion.cuidadosEspeciales.tipo}}
+                                        </div>
+
+                                        <div ng-if="indicacion.tipo.nombre == 'Solicitud prestaciones' || indicacion.tipo == 'Solicitud prestaciones'">
+
+                                            <span class="label label-default" ng-show="indicacion.prestaciones.prioridad == 'No prioritario' || indicacion.prestaciones.prioridad.nombre == 'No prioritario'">No prioritario</span>
+                                            <span class="label label-warning" ng-show="indicacion.prestaciones.prioridad == 'Urgente' || indicacion.prestaciones.prioridad.nombre == 'Urgente'">Urgente</span>
+                                            <span class="label label-danger" ng-show="indicacion.prestaciones.prioridad == 'Emergencia' || indicacion.prestaciones.prioridad.nombre == 'Emergencia'">Emergencia</span>
+                                            {{indicacion.prestaciones.tipoPrestacion.nombre}}
+                                            {{indicacion.prestaciones.tipoPrestacion.texto}}
+                                            <!--
+                                            turnoFechaHora -->
+                                            <!-- {{indicacion.prestaciones}} -->
                                         </div>
 
                                         <div ng-if="indicacion.tipo.nombre == 'Dieta' || indicacion.tipo == 'Dieta'">
