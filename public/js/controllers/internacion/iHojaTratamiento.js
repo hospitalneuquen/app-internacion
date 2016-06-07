@@ -259,23 +259,31 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
                     $scope.tratamientosEdit.indicaciones = [];
                 }
 
+                // agregamos la fecha y hora de la indicacion
+                $scope.indicacion.fechaHora = new Date();
+
+                // seteamos el valor activo
+                $scope.indicacion.activo = true;
+
                 var length = $scope.tratamientosEdit.indicaciones.length;
 
                 if (length > 0) {
 
                     // si es heparina o profilaxis los enviamos debajo del Plan de hidratacion
                     if ($scope.indicacion.tipo.nombre == 'Heparina o profilaxis') {
-                        var last_position = $scope.getLastPositionOf('Plan Hidratación');
+                        var last_position = $scope.indicaciones.getLastPositionOf('Plan Hidratación');
+
+                        last_position = (last_position == -1) ? 0 : last_position;
                     }
 
                     // si es proteccion gastrica los enviamos debajo de heparina
                     // o profilaxis en caso que existan, y si no debajo del Plan de hidratacion
                     if ($scope.indicacion.tipo.nombre == 'Protección gástrica') {
-                        var last_position = $scope.getLastPositionOf('Heparina o profilaxis');
+                        var last_position = $scope.indicaciones.getLastPositionOf('Heparina o profilaxis');
                         // si no encontramos heparina o profilaxis, entonces
                         // lo colocamos debajo del plan de hidratacion
                         if (last_position == -1) {
-                            var last_position = $scope.getLastPositionOf('Plan Hidratación');
+                            var last_position = $scope.indicaciones.getLastPositionOf('Plan Hidratación');
 
                             // si encontramos plan de hidratacion, entonces lo ponemos debajo
                             // si no, lo ponemos al principio
@@ -283,12 +291,6 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
                         }
                     }
                 }
-
-                // agregamos la fecha y hora de la indicacion
-                $scope.indicacion.fechaHora = new Date();
-
-                // seteamos el valor activo
-                $scope.indicacion.activo = true;
 
                 // si es un plan de hidratacion, los enviamos al principio
                 if ($scope.indicacion.tipo.nombre == 'Plan Hidratación') {
@@ -316,11 +318,16 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
                 if (indicacion) {
                     angular.copy(indicacion, $scope.indicacion);
 
-                    // $scope.setDescripcionIndicacion($scope.indicacion.tipo);
-                    $scope.indicacion.tipo = Global.getById($scope.tiposIndicaciones, $scope.indicacion.tipo);
+                    $scope.indicacion.tipo = Global.getById($scope.tiposIndicaciones, indicacion.tipo.id || indicacion.tipo);
 
-                    if ($scope.indicacion.tipo.nombre == 'Plan Hidratación') {
+                    if ($scope.indicacion.tipo == 'Plan Hidratación' ||
+                        (typeof $scope.indicacion.tipo.nombre != undefined && $scope.indicacion.tipo.nombre == 'Plan Hidratación')) {
                         $scope.indicacion.planHidratacion.tipoSolucion = Global.getById($scope.tiposSoluciones, $scope.indicacion.planHidratacion.tipoSolucion);
+                    }
+                    if ($scope.indicacion.tipo == 'Solicitud prestaciones' ||
+                        (typeof $scope.indicacion.tipo.nombre != "undefined" && $scope.indicacion.tipo.nombre == 'Solicitud prestaciones')){
+
+                        $scope.indicacion.prestaciones.prioridad = Global.getById($scope.prestaciones.prioridad, ($scope.indicacion.prestaciones.prioridad.id || $scope.indicacion.prestaciones.prioridad));
                     }
                 } else {
 
@@ -351,7 +358,7 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
 
         // AGREAGADOS
         agregados: {
-            editarAgregado: function(agregado) {
+            editar: function(agregado) {
                 if (agregado) {
                     $scope.editandoAgregado = true;
                     $scope.agregado = agregado;
@@ -369,7 +376,7 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
                 }
 
             },
-            guardarAgregado: function() {
+            guardar: function() {
                 var encontrado = false;
                 angular.forEach($scope.indicacion.planHidratacion.agregados, function(agregado) {
 
@@ -384,10 +391,30 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
                 $scope.editandoAgregado = false;
                 $scope.agregado = {};
             },
-            cancelarEditarAgregado: function() {
+            cancelar: function() {
                 $scope.editandoAgregado = false;
                 $scope.agregado = {};
             }
+        },
+        prestaciones: {
+            prioridad: [{
+                id: 'No prioritario',
+                nombre: 'No prioritario'
+            }, {
+                id: 'Urgente',
+                nombre: 'Urgente'
+            }, {
+                id: 'Emergencia',
+                nombre: 'Emergencia'
+            }],
+            buscarTipoPrestacion: function(query){
+                // buscamos todos las prestaciones para cargar el select con las opciones
+                var buscar = {
+                    nombre: query
+                }
+
+                return Shared.tipoPrestaciones.get(buscar);
+            },
         },
 
         // marcar la frecuencias de las indicaciones con X en la tabla

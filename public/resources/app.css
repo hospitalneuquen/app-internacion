@@ -14,6 +14,14 @@ legend {
     /*border-bottom: 2px solid #BA68C8;*/
     border-bottom-width: 2px;
 }
+textarea, textarea.form-control, input.form-control, input[type=text], input[type=password], input[type=email], input[type=number], [type=text].form-control, [type=password].form-control, [type=email].form-control, [type=tel].form-control, [contenteditable].form-control,
+.select2-container--bootstrap{
+    background-color: #fafafa;
+}
+
+
+/* tablas */
+.table thead {background: #f1f1f1;}
 
 /* Niveles */
 
@@ -113,7 +121,6 @@ legend {
 }
 
 /* varios */
-
 .bl {
     border-left: 1px solid #ccc;
 }

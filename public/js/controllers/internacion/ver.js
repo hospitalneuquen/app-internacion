@@ -265,18 +265,18 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
             }
 
             // agregamos prestaciones
-            if ($scope.internacion.prestaciones.length) {
-                angular.forEach($scope.internacion.prestaciones, function(prestacion, key) {
-                    $scope.ordenCronologico.push({
-                        fecha: prestacion.fechaHora,
-                        tipo: "Solicitud de prestación",
-                        _tipo: "prestacion",
-                        data: prestacion,
-                        cama: ''
-                        // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
-                    });
-                });
-            }
+            // if ($scope.internacion.prestaciones.length) {
+            //     angular.forEach($scope.internacion.prestaciones, function(prestacion, key) {
+            //         $scope.ordenCronologico.push({
+            //             fecha: prestacion.fechaHora,
+            //             tipo: "Solicitud de prestación",
+            //             _tipo: "prestacion",
+            //             data: prestacion,
+            //             cama: ''
+            //             // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
+            //         });
+            //     });
+            // }
 
             // // agregamos problemas
             // if ($scope.internacion.problemas.length) {
