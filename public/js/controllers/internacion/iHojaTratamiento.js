@@ -200,7 +200,7 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
 
             // Guarda el tratamiento
             guardar: function(tratamiento) {
-                // if (typeof tratamiento.indicaciones != "undefined" && tratamiento.indicaciones.length){
+                if (typeof tratamiento.indicaciones != "undefined" && tratamiento.indicaciones.length){
 
                     return Shared.tratamientos.post($scope.internacion.id, tratamiento.id || null, $scope.tratamientosEdit, {
                         minify: true
@@ -212,9 +212,9 @@ angular.module('app').controller('internacion/iHojaTratamiento', ['$scope', 'Ple
 
                         $scope.tratamientos.cancelar();
                     });
-                // }else{
-                //     Plex.alert("Debe cargar al menos una indicación.");
-                // }
+                }else{
+                    Plex.alert("Debe cargar al menos una indicación.");
+                }
             },
 
             // actulizar la lista de tratamientos con los datos del ultimo guardado
