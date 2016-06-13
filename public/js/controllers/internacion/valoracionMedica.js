@@ -1,10 +1,29 @@
 angular.module('app').controller('internacion/valoracionMedica', ['$scope', 'Plex', 'plexParams', 'Shared', function($scope, Plex, plexParams, Shared) {
     angular.extend($scope, {
         internacion: null,
+
         init: function() {
+            // $scope.tab = plexParams.tab || 0;
             Shared.internacion.get(plexParams.idInternacion).then(function(data) {
                 $scope.internacion = data;
             });
+
+        },
+
+        agregarHipotesis: function(){
+                    if (typeof $scope.internacion.ingreso.medico == "undefined"){
+                        $scope.internacion.ingreso.medico = {};
+                    }
+                    if (typeof $scope.internacion.ingreso.medico.impresionDiagnostica == "undefined"){
+                        $scope.internacion.ingreso.medico.impresionDiagnostica = {};
+                    }
+                    if (typeof $scope.internacion.ingreso.medico.impresionDiagnostica.listaHipotesis == "undefined"){
+                        $scope.internacion.ingreso.medico.impresionDiagnostica.listaHipotesis = [];
+                    }
+
+                    $scope.internacion.ingreso.medico.impresionDiagnostica.listaHipotesis.push($scope.hipotesis);
+
+                    $scope.hipotesis = {};
         },
 
         checkIfEnterKeyWasPressed: function($event, input){
@@ -42,22 +61,6 @@ angular.module('app').controller('internacion/valoracionMedica', ['$scope', 'Ple
                     $scope.internacion.ingreso.medico.impresionDiagnostica.listaSindromes.push($scope.sindrome);
 
                     $scope.sindrome = "";
-                }
-                if (input == 3 && $scope.hipotesis !== "") {
-                    // Do that thing you finally wanted to do
-                    if (typeof $scope.internacion.ingreso.medico == "undefined"){
-                        $scope.internacion.ingreso.medico = {};
-                    }
-                    if (typeof $scope.internacion.ingreso.medico.impresionDiagnostica == "undefined"){
-                        $scope.internacion.ingreso.medico.impresionDiagnostica = {};
-                    }
-                    if (typeof $scope.internacion.ingreso.medico.impresionDiagnostica.listaHipotesis == "undefined"){
-                        $scope.internacion.ingreso.medico.impresionDiagnostica.listaHipotesis = [];
-                    }
-
-                    $scope.internacion.ingreso.medico.impresionDiagnostica.listaHipotesis.push($scope.hipotesis);
-
-                    $scope.hipotesis = "";
                 }
             }
 
