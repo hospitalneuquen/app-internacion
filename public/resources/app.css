@@ -18,6 +18,34 @@ textarea, textarea.form-control, input.form-control, input[type=text], input[typ
 .select2-container--bootstrap{
     background-color: #fafafa;
 }
+.input-group-addon{
+    background: #f2f2f2;
+    border-bottom: 1px solid #ddd;
+}
+
+/* componentes form */
+input[type="radio"].without-radio  {
+    display:none;
+    /*visibility: hidden;*/
+}
+
+label.without-radio {
+    cursor: pointer;
+    font-weight: normal;
+    font-size: 15px;
+    /*min-width: 35px;*/
+}
+
+input[type="radio"].without-radio:checked + label {
+    font-weight: bold;
+    color: #009688;
+    text-shadow: 1px 1px 1px #eee;
+}
+.separador{
+    margin: 0 1px;
+    font-size: 20px;
+    font-weight: bold;
+}
 
 
 /* tablas */

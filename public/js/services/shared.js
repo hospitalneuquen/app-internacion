@@ -238,18 +238,18 @@ angular.module('app').factory('Shared', ["Global", "Server", "Session", function
                 return Server.post('/api/internacion/internacion/' + idInternacion + '/problema/' + (idProblema || ''), data, options);
             },
         },
-        tratamientos: {
+        indicaciones: {
             /**
              * @ngdoc method
-             * @name Shared#tratamiento.post
-             * @description Crea o modifica un tratamiento
+             * @name Shared#indicaciones.post
+             * @description Crea o modifica una indicacion
              * @param {String} idInternacion Id de la internación a modificar
-             * @param {String} idTratamiento Id del tratamiento (enviar ```null``` para crear una nueva)
+             * @param {String} idIndicacion Id de la indicacion (enviar ```null``` para crear una nueva)
              * @param {Object} data Datos
              * @param {Object} options Opciones
              **/
-            post: function(idInternacion, idTratamiento, data, options) {
-                return Server.post('/api/internacion/internacion/' + idInternacion + '/tratamiento/' + (idTratamiento || ''), data, options);
+            post: function(idInternacion, idIndicacion, data, options) {
+                return Server.post('/api/internacion/internacion/' + idInternacion + '/indicacion/' + (idIndicacion || ''), data, options);
             },
         }
     };

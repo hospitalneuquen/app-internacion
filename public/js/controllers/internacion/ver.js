@@ -3,6 +3,22 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
 
     angular.extend($scope, {
         tab: 0,
+        // tabs:{
+        //     setActive(index){
+        //         tabs.active : (index) ? index : 0
+        //     },
+        //     [{
+        //         "title": "Resumen internación",
+        //         "content": "asdf"
+        //     }, {
+        //         "title": "Gráficos"
+        //     }, {
+        //         "title": "Ingrseo de internación"
+        //     }, {
+        //         "title": "Egreso",
+        //         "disabled": true
+        //     }],
+        // },
         show_toolbar_drenajes: true,
         show_toolbar_antecedentes: true,
         show_toolbar_pases: true,
@@ -115,28 +131,28 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
             }
 
         },
-        editarAntecedentes: function(){
+        editarAntecedentes: function() {
             $scope.antecedentesEdit = true;
         },
-        cancelarEdicionAntecedentes: function(){
+        cancelarEdicionAntecedentes: function() {
             $scope.antecedentesEdit = false;
         },
-        guardarAntecedentes: function(){
+        guardarAntecedentes: function() {
             var data = {
                 ingreso: $scope.internacion.ingreso
             };
 
-            Shared.internacion.post(plexParams.idInternacion, data).then(function(internacion){
+            Shared.internacion.post(plexParams.idInternacion, data).then(function(internacion) {
                 if (internacion)
                     $scope.antecedentesEdit = false;
             });
 
         },
-        getCamas: function(){
+        getCamas: function() {
             var idServicio = $scope.pasesEdit.servicio.id;
 
             // obtenemos el listadod de camas
-            Shared.Mapa.get(idServicio).then(function(camas){
+            Shared.Mapa.get(idServicio).then(function(camas) {
                 $scope.camas = camas;
             });
         },
@@ -192,7 +208,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
             }
 
         },
-        buscarUbicacion: function(query, tipo){
+        buscarUbicacion: function(query, tipo) {
             // buscamos todos los servicios para en caso de ser un pase
             // cargar el select con las opciones
             var buscar = {
@@ -202,25 +218,25 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
 
             return Shared.ubicaciones.get(buscar);
         },
-        hayEvoluciones : function(tipo){
+        hayEvoluciones: function(tipo) {
             var total = 0;
 
-            if ($scope.internacion && $scope.internacion.evoluciones && $scope.internacion.evoluciones.length > 0){
-                angular.forEach($scope.internacion.evoluciones, function(evolucion){
-                    if (tipo == 'temperatura'){
-                        if (evolucion.temperatura && evolucion.temperatura > 0){
+            if ($scope.internacion && $scope.internacion.evoluciones && $scope.internacion.evoluciones.length > 0) {
+                angular.forEach($scope.internacion.evoluciones, function(evolucion) {
+                    if (tipo == 'temperatura') {
+                        if (evolucion.temperatura && evolucion.temperatura > 0) {
                             total += evolucion.temperatura;
                         }
-                    }else if (tipo == 'tension') {
-                        if (evolucion.tensionSistolica && evolucion.tensionSistolica > 0){
+                    } else if (tipo == 'tension') {
+                        if (evolucion.tensionSistolica && evolucion.tensionSistolica > 0) {
                             total += evolucion.tensionSistolica;
                         }
-                        if (evolucion.tensionDiastolica && evolucion.tensionDiastolica > 0){
+                        if (evolucion.tensionDiastolica && evolucion.tensionDiastolica > 0) {
                             total += evolucion.tensionDiastolica;
                         }
 
-                    }else if (tipo == 'saturacion') {
-                        if (evolucion.spo2 && evolucion.spo2 > 0){
+                    } else if (tipo == 'saturacion') {
+                        if (evolucion.spo2 && evolucion.spo2 > 0) {
                             total += evolucion.spo2;
                         }
                     }
@@ -237,7 +253,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                 _tipo: "ingreso",
                 data: $scope.internacion.ingreso,
                 cama: ''
-                // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
+                    // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
             });
 
             // agregamos la valoracion inicial
@@ -247,7 +263,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                 _tipo: "valoracion-inicial",
                 data: $scope.internacion.ingreso.enfermeria,
                 cama: ''
-                // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
+                    // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
             });
 
             // agregamos evoluciones
@@ -259,7 +275,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                         _tipo: "evolucion",
                         data: evolucion,
                         cama: ''
-                        // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
+                            // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
                     });
                 });
             }
@@ -304,7 +320,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                             _tipo: "pase",
                             data: pase,
                             cama: ''
-                            // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
+                                // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
                         });
 
                     }
@@ -326,7 +342,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                     _tipo: "egreso",
                     data: $scope.internacion.egreso,
                     cama: ''
-                    // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
+                        // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
                 });
             }
 
@@ -339,7 +355,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                         _tipo: "drenaje",
                         data: drenaje,
                         cama: ''
-                        // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
+                            // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
                     });
 
                     if (drenaje.fechaHasta) {
@@ -354,7 +370,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                             data: drenaje,
                             duracion: duracion,
                             cama: ''
-                            // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
+                                // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
                         });
                     }
                 });
@@ -375,21 +391,21 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
 
                 angular.forEach($scope.ordenCronologico, function(elemento, index) {
 
-                    if ($scope.internacion.pases.length > 1){
+                    if ($scope.internacion.pases.length > 1) {
 
                         var cantidadPases = ($scope.internacion.pases.length - 1);
 
-                        for (var i = 0; i <= cantidadPases; i++){
+                        for (var i = 0; i <= cantidadPases; i++) {
                             var pase = $scope.internacion.pases[i];
 
                             // si la fecha del elemento, es menor o igual a la del pase
                             // entonces le asignamos esa cama (nro habitacion y nro cama)
-                            if (Global.compareDateTime(new Date(elemento.fecha), new Date(pase.fechaHora)) >= 0){
+                            if (Global.compareDateTime(new Date(elemento.fecha), new Date(pase.fechaHora)) >= 0) {
                                 $scope.ordenCronologico[index].cama = pase.cama;
                             }
 
                         }
-                    }else{
+                    } else {
                         $scope.ordenCronologico[index].cama = $scope.internacion.pases[0].cama;
                     }
 
