@@ -293,33 +293,6 @@
                                 <div class="col-lg-12">
                                         <fieldset>
                                             <legend>Glasgow</legend>
-                                            <!-- <div class="col-lg-4">
-                                                <select hint="Ocular" ng-model="evolucionesEdit.glasgowOcular" plex>
-                                                    <option ng-value="1">1 - Ausencia de respuesta</option>
-                                                    <option ng-value="2">2 - Al dolor</option>
-                                                    <option ng-value="3">3 - A estímulos verbales</option>
-                                                    <option ng-value="4">4 - Espontánea</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <select hint="Verbal" ng-model="evolucionesEdit.glasgowVerbal" plex>
-                                                    <option ng-value="1">1 - Ausencia de respuesta</option>
-                                                    <option ng-value="2">2 - Sonidos incomprensibles</option>
-                                                    <option ng-value="3">3 - Incoherente</option>
-                                                    <option ng-value="4">4 - Desorientado/confuso</option>
-                                                    <option ng-value="5">5 - Orientado</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <select hint="Motor" ng-model="evolucionesEdit.glasgowMotor" plex>
-                                                    <option ng-value="1">1 - Ausencia de respuesta</option>
-                                                    <option ng-value="2">2 - Extensión anormal</option>
-                                                    <option ng-value="3">3 - Flexión anormal</option>
-                                                    <option ng-value="4">4 - Retirada al dolor</option>
-                                                    <option ng-value="5">5 - Localiza el dolor</option>
-                                                    <option ng-value="6">6 - Obedece ordenes</option>
-                                                </select>
-                                            </div> -->
                                             <div class="col-lg-2">
                                                 <label>
                                                     <b>Ocular</b>
@@ -355,6 +328,9 @@
                                                     <b>Total</b>
                                                 </label>
                                                 <h4>{{evolucionesEdit.glasgowMotor + evolucionesEdit.glasgowVerbal + evolucionesEdit.glasgowOcular}}</h4>
+                                                <span ng-if="evolucionesEdit.glasgowMotor + evolucionesEdit.glasgowVerbal + evolucionesEdit.glasgowOcular >= 14" class="small padding-left padding-right margin-left nivel-verde">Leve</span>
+                                                <span ng-if="evolucionesEdit.glasgowMotor + evolucionesEdit.glasgowVerbal + evolucionesEdit.glasgowOcular >= 9 && evolucionesEdit.glasgowMotor + evolucionesEdit.glasgowVerbal + evolucionesEdit.glasgowOcular <= 13" class="small padding-left padding-right margin-left nivel-amarillo">Moderado</span>
+                                                <span ng-if="evolucionesEdit.glasgowMotor + evolucionesEdit.glasgowVerbal + evolucionesEdit.glasgowOcular >= 3 && evolucionesEdit.glasgowMotor + evolucionesEdit.glasgowVerbal + evolucionesEdit.glasgowOcular <= 8" class="small padding-left padding-right margin-left nivel-rojo">Grave</span>
                                             </div>
                                         </fieldset>
                                 </div>
@@ -517,8 +493,10 @@
                         </div>
                         <!-- Riesgo de caídas -->
                         <div class="card card-block">
+
                             <fieldset>
                                 <legend>Valoración de riesgo de caídas</legend>
+                                <pre>{{evolucionesEdit.riesgoCaida.total}}</pre>
                                 <div class="row">
                                     <div class="col-lg-2" style="width: 14%">
                                         <label>
@@ -589,8 +567,10 @@
                         </div>
                         <!-- Riesgo de UPP -->
                         <div class="card card-block">
+
                             <h4 class="card-title">Valoración del riesgo de desarrollar una úlcera por presión</h4>
                             <br />
+                            <pre>{{evolucionesEdit.riesgoUPP.total}}</pre>
                             <div class="col-lg-2" style="width: 14%">
                                 <label><b>Estado físico general</b></label>
                                 <input type="radio" label="Muy malo" ng-value="1" ng-model="evolucionesEdit.riesgoUPP.estadoFisico" plex="radio">
