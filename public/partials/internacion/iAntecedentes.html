@@ -70,6 +70,7 @@
                     <th>Alérgeno</th>
                     <th>Severidad</th>
                     <th>Reacción</th>
+                    <th>Borrar</th>
                 </thead>
                 <tbody>
                     <tr ng-repeat="antecedenteAlergia in internacion.ingreso.antecedentes.alergias">
@@ -77,6 +78,11 @@
                         <td>{{antecedenteAlergia.alergeno}}</td>
                         <td>{{antecedenteAlergia.severidad}}</td>
                         <td>{{antecedenteAlergia.reaccion}}</td>
+                        <td class="col-lg-1">
+                            <button class="btn btn-default btn-flat" ng-click="removeAlergia(antecedenteAlergia)">
+                                <i class="mdi mdi-delete"></i>
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -122,6 +128,7 @@
                     <th>Aplicación</th>
                     <th>Año</th>
                     <th>Observaciones</th>
+                    <th>Borrar</th>
                 </thead>
                 <tbody>
                     <tr ng-repeat="antecedenteVacuna in internacion.ingreso.antecedentes.vacunas">
@@ -129,6 +136,11 @@
                         <td>{{antecedenteVacuna.aplicacion}}</td>
                         <td>{{antecedenteVacuna.anio}}</td>
                         <td>{{antecedenteVacuna.observaciones}}</td>
+                        <td class="col-lg-1">
+                            <button class="btn btn-default btn-flat" ng-click="removeVacuna(antecedenteVacuna)">
+                                <i class="mdi mdi-delete"></i>
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -212,11 +224,17 @@
                 <thead>
                     <th>Familiar</th>
                     <th>Observaciones</th>
+                    <th>Borrar</th>
                 </thead>
                 <tbody>
                     <tr ng-repeat="antecedenteFamiliar in internacion.ingreso.antecedentes.familiares">
                         <td>{{antecedenteFamiliar.familiar}}</td>
                         <td>{{antecedenteFamiliar.observaciones}}</td>
+                        <td class="col-lg-1">
+                            <button class="btn btn-default btn-flat" ng-click="removeAntecedenteFamiliar(antecedenteFamiliar)">
+                                <i class="mdi mdi-delete"></i>
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
