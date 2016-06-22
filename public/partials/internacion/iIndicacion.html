@@ -4,26 +4,27 @@
 </pre> -->
     <div class="card-block">
         <div class="row">
-            <div class="col-xs-4">
+            <div class="col-xs-4 col-lg-4">
                 <h3>Indicaciones de la internación</h3>
             </div>
 
             <div ng-show="show_toolbar_indicaciones">
-                <div class="col-xs-4">
-                    <div class="form-group"></div>
-                </div>
-                <div class="col-xs-2">
+                <div class="col-xs-2 col-lg-2">
                     <div class="form-group"></div>
                 </div>
 
-                <!-- <div class="col-xs-6 col-lg-2 text-right">
-                    <div class="form-group">
-                        <select class="form-control" label="Servicio" ng-model="filtros.servicio" ng-change="filtros.filtrar()" plex="(servicio.nombreCorto) for servicio in servicios"></select>
-                    </div>
-                </div> -->
+
+                <div class="col-md-4 col-lg-2">
+                    <select class="form-control" label="Servicio" ng-model="filtros.servicio" ng-change="filtros.filtrar()" plex="(servicio.nombreCorto) for servicio in servicios"  ng-show="servicios.length > 1"></select>
+                </div>
+
+                <div class="col-xs-4 col-lg-2">
+                    <!-- <select label="Tipo de indicación" ng-model="indicacion.tipo" plex="(tipo.nombre) for tipo in tiposIndicaciones" ></select> -->
+                    <select class="form-control" label="Estado" ng-model="filtros.estado" ng-change="filtros.filtrar()" plex="(estado.nombre) for estado in estados"></select>
+                </div>
                 <!-- <div class="col-xs-2 text-right" ng-if="!show_comenzar_tratamiento"> -->
 
-                <div class="col-xs-2 text-right" ng-if="internacion.indicaciones.length">
+                <div class="col-xs-2 col-lg-2 text-right" ng-if="internacion.indicaciones.length">
                     <br/>
                     <button class="btn btn-primary form-control" ng-click="indicaciones.editar()">
                         Nueva indicacion
@@ -759,7 +760,7 @@
                 <table class="table table-hover table-bordered highlight">
                     <thead>
                         <tr class="exclude">
-                            <th rowspan="2" class="text-center">#</th>
+                            <!-- <th rowspan="2" class="text-center">#</th> -->
                             <th rowspan="2" class="text-center vert-align">Medicación / Hidratación / Alimentación parenteral</th>
                             <th rowspan="2" class="text-center">Vía</th>
                             <th rowspan="2" class="text-center">Frec.</th>
@@ -767,6 +768,13 @@
                             <th colspan="6" class="text-center">Turno tarde</th>
                             <th colspan="6" class="text-center">Turno noche</th>
                             <th colspan="6" class="text-center">Turno madrugada</th> -->
+
+                            <th rowspan="2" class="text-center">
+                                Usuario / Servicio
+                            </th>
+                            <th rowspan="2" class="text-center">
+                                Fecha
+                            </th>
                             <th rowspan="2" class="text-center">Acciones</th>
                         </tr>
                         <!-- <tr class="exclude">
@@ -845,9 +853,11 @@
                         </tr> -->
                     </thead>
                     <tbody>
-                        <tr ng-repeat="indicacion in filtros.indicaciones track by $index">
-                            <td ng-if="indicacion.activo">{{$index+1}}</td>
-                            <td ng-if="indicacion.activo">
+                        <tr ng-repeat="indicacion in filtros.indicaciones track by $index" >
+                            <!-- <td >
+                                {{$index}}
+                            </td> -->
+                            <td >
                                 <span>
                                     <i>{{indicacion.tipo.nombre ? indicacion.tipo.nombre : indicacion.tipo }}</i>
                                 </span>
@@ -973,8 +983,8 @@
 
                                 </div>
                             </td>
-                            <td ng-if="indicacion.activo">{{indicacion.via}}</td>
-                            <td ng-if="indicacion.activo">
+                            <td >{{indicacion.via}}</td>
+                            <td >
                                 <span ng-if="indicacion.frecuencia == 'unica'">UD</span>
                                 <span ng-if="indicacion.frecuencia == '24'">Día</span>
                                 <span ng-if="indicacion.frecuencia == '12' || indicacion.frecuencia == '8' || indicacion.frecuencia == '6' || indicacion.frecuencia == '4'">
@@ -988,28 +998,43 @@
                                 {{ indicacion.horarios[hora] }}
                             </td> -->
 
-                            <td class="text-center" ng-if="indicacion.activo">
-                                <div ng-show="!indicaciones.borrar">
-                                    <button class="btn btn-default btn-flat tips" title="Editar indicacion" ng-click="indicaciones.editar(indicacion)">
-                                        <i class="mdi mdi-pencil"></i>
-                                    </button>
-                                    <!-- <button class="btn btn-default btn-flat tips" title="Suspender indicacion" ng-click="indicaciones.suspender(indicacion)"> -->
-                                    <button class="btn btn-danger btn-flat tips" title="Suspender indicacion" ng-click="indicaciones.suspender(indicacion)">
-                                        <i class="mdi mdi-delete"></i>
-                                    </button>
+                            <td class="text-center" >
+                                {{indicacion.createdBy.name}}
+                                <br/>
+                                {{indicacion.servicio.nombreCorto}}
+                            </td>
+
+                            <td class="text-center" >
+                                {{indicacion.createdAt | fromNow }}<br/>
+                                <div class="text-muted small">
+                                    {{indicacion.createdAt | date: "dd/MM/yyyy HH:mm"}}
                                 </div>
+                            </td>
 
-                                <div ng-show="indicaciones.borrar && indicacion.id == indicacionBorrar.id">
-                                    <p>¿Suspender indicación?</p>
+                            <td class="text-center" >
+                                <div ng-if="indicacion.activo">
+                                    <div ng-show="!indicaciones.borrar">
+                                        <button class="btn btn-default btn-flat tips" title="Editar indicacion" ng-click="indicaciones.editar(indicacion)">
+                                            <i class="mdi mdi-pencil"></i>
+                                        </button>
+                                        <!-- <button class="btn btn-default btn-flat tips" title="Suspender indicacion" ng-click="indicaciones.suspender(indicacion)"> -->
+                                        <button class="btn btn-danger btn-flat tips" title="Suspender indicacion" ng-click="indicaciones.suspender(indicacion)">
+                                            <i class="mdi mdi-delete"></i>
+                                        </button>
+                                    </div>
 
-                                    <button class="btn btn-default tips" ng-click="indicaciones.cancelarSuspender()" title="No">
-                                        <i class="mdi mdi-close"></i>
-                                    </button>
+                                    <div ng-show="indicaciones.borrar && indicacion.id == indicacionBorrar.id">
+                                        <p>¿Suspender indicación?</p>
 
-                                    <button class="btn btn-success tips" title="Si" ng-click="indicaciones.confirmarBorrado(indicacion)">
-                                        <i class="mdi mdi-check"></i>
-                                    </button>
+                                        <button class="btn btn-default tips" ng-click="indicaciones.cancelarSuspender()" title="No">
+                                            <i class="mdi mdi-close"></i>
+                                        </button>
 
+                                        <button class="btn btn-success tips" title="Si" ng-click="indicaciones.confirmarBorrado(indicacion)">
+                                            <i class="mdi mdi-check"></i>
+                                        </button>
+
+                                    </div>
                                 </div>
                             </td>
                         </tr>

@@ -4,7 +4,9 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
     angular.extend($scope, {
         tab: 0,
 
-        status : {
+        numero_indicacion: parseInt(0),
+
+        status: {
             activo: true
         },
 
@@ -60,6 +62,24 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
             id: 'Otra indicación',
             nombre: 'Otra indicación'
         }],
+
+        // array de estados para filtrar en la vista
+        estados: [{
+            id: true,
+            nombre: 'Activas'
+        }, {
+            id: false,
+            nombre: 'Suspendidas'
+        }, {
+            id: 'Todas',
+            nombre: 'Todas'
+        }],
+        // array de servicios para filtrar en la vista
+        servicios: [{
+            id: '',
+            nombreCorto: 'Todos'
+        }],
+
         tiposControles: [],
         tiposCuidadosGenerales: [],
         // tiposSoluciones: [{
@@ -113,22 +133,62 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
         filtros: {
             indicaciones: [],
             servicio: null,
+            activo: true,
+            estado: null,
+            servicio: null,
             filtrar: function() {
                 var self = this;
 
                 $scope.show_comenzar_tratamiento = ($scope.internacion.indicaciones.length) ? false : true;
-            }
+
+                if (!self.estado) {
+                    self.estado = $scope.estados[0];
+                }
+
+                if (!self.servicio) {
+                    self.servicio = $scope.servicios[0];
+                }
+
+                // console.log(self.servicio);
+                self.indicaciones = $scope.internacion.indicaciones.filter(function(indicacion) {
+                    return (
+                        (self.estado.id == 'Todas' || (indicacion.activo === self.estado.id) ) &&
+                        (!self.servicio.id || (self.servicio && indicacion.servicio && indicacion.servicio.id == self.servicio.id))
+                    )
+                });
+            },
 
         },
 
         init: function(internacion) {
             // buscamos la internacion
             if (internacion !== null) {
+                // asignamos la internacion
                 $scope.internacion = internacion;
 
-                // asignamos las indicaciones y luego las filtramos
+                // asignamos las indicaciones
                 $scope.filtros.indicaciones = $scope.internacion.indicaciones;
+
+                // ordenamos
+                $scope.indicaciones.ordenar();
+
+                // luego las filtramos
                 $scope.filtros.filtrar();
+
+                if ($scope.internacion.indicaciones.length) {
+                    var services_found = [];
+
+                    angular.forEach($scope.internacion.indicaciones, function(indicacion) {
+
+                        // buscamos los servicios para el filtro de problemas
+                        if (indicacion.servicio && indicacion.servicio.id) {
+                            if (!services_found.inArray(indicacion.servicio.id)) {
+                                $scope.servicios.push(indicacion.servicio);
+                                services_found.push(indicacion.servicio.id);
+                            }
+                        }
+                    });
+                }
 
                 // $scope.show_comenzar_tratamiento = ($scope.internacion.indicaciones.length) ? true : false;
 
@@ -181,6 +241,18 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
             }
         },
 
+        // actualizamos toda la lista de indicaciones de una internacion
+        reload: function() {
+            // buscamos la internacion
+            Shared.internacion.get($scope.internacion.id).then(function(internacion) {
+                // asignamos la lista de indicaciones
+                $scope.filtros.indicaciones = internacion.indicaciones;
+
+                // filtramos las indicaciones
+                $scope.filtros.filtrar();
+            });
+        },
+
         tratamiento: {
             // comenzamos un tratamiento o lo editamos
             comenzar: function(tratamiento) {
@@ -192,6 +264,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
         indicaciones: {
             borrar: false,
+
             editar: function(indicacion) {
                 accion: null,
 
@@ -206,10 +279,31 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
                     angular.copy(indicacion, $scope.indicacion);
 
-                    if (!$scope.indicacion.servicio) {
-                        // $scope.indicacion.servicio = Session.variables.servicioActual
+                    // si es una edicion y ya ha sido guardado, entonces
+                    // deberemos crear el historial, por lo tanto seteamos
+                    // a null el id y mantenemos el id padre en idIndicacion
+                    if ($scope.indicacion.id) {
+
+                        // guardamos la referencia de que indicacion es modificada
+                        $scope.indicacion.idIndicacion = $scope.indicacion.id;
+
+                        // limpiamos los ids
+                        $scope.indicacion.id = null;
+                        $scope.indicacion._id = null;
+
+                        // como estamos copiando de un elemento existente
+                        // tambien nos viene los datos de auditoria
+                        // asique los limpiamos para poder cargarlos nuevamente
+                        $scope.indicacion.createdAt = null;
+                        $scope.indicacion.createdBy = null;
+                        $scope.indicacion.updatedAt = null;
+                        $scope.indicacion.updatedBy = null;
+
+                        // seteamos el servicio actual
+                        $scope.indicacion.servicio = Session.variables.servicioActual
                     }
 
+                    //
                     $scope.indicacion.tipo = Global.getById($scope.tiposIndicaciones, indicacion.tipo);
 
                     // cargamos el valor de tipo de solucion en caso de ser un plan de hidratacion
@@ -248,7 +342,8 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     Plex.alert('Indicacion ' + accion);
 
                     // actualizamos el listado de indicaciones
-                    $scope.indicaciones.actualizar(data);
+                    // $scope.indicaciones.actualizar(data);
+                    $scope.reload();
 
                     // vaciamos el formulario
                     $scope.indicacion = {};
@@ -258,11 +353,19 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 });
 
             },
+
             // suspender una indicacion
             suspender: function(indicacion) {
                 $scope.indicaciones.borrar = true;
                 $scope.indicacionBorrar = indicacion;
             },
+
+            // cancelar la suspension de una indicacion
+            cancelarSuspender: function() {
+                $scope.indicaciones.borrar = false;
+            },
+
+            // confirmar borrado y actualizar indicacion
             confirmarBorrado: function(indicacion) {
                 // seteamos el valor activo en false
                 indicacion.activo = false;
@@ -271,8 +374,68 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 $scope.indicaciones.guardar(indicacion, 'suspendida');
                 $scope.indicaciones.borrar = false;
             },
-            cancelarSuspender: function() {
-                $scope.indicaciones.borrar = false;
+            // buscamos la ultima posicion en el array de indicaciones segun
+            // el tipo de indicacion que vamos a agregar
+            getLastPositionOf: function(key) {
+                var last_position = 0;
+                var length = $scope.filtros.indicaciones.length;
+
+                for (var i = 0; i < length; i++) {
+                    if ($scope.filtros.indicaciones[i].tipo.nombre == key || $scope.filtros.indicaciones[i].tipo == key) {
+                        last_position = i;
+                    }
+                }
+                // console.log("Last: " + last_position);
+                return (last_position > 0) ? last_position : -1;
+            },
+            ordenar: function() {
+                var length = $scope.indicaciones.length;
+
+                var indicacionesOrdenadas = [];
+
+                angular.forEach($scope.filtros.indicaciones, function(_indicacion) {
+                    // console.log(_indicacion);
+                    var nombre = (typeof _indicacion.tipo.nombre != "undefined") ? _indicacion.tipo.nombre : _indicacion.tipo;
+
+                    // si es heparina o profilaxis los enviamos debajo del Plan de hidratacion
+                    if (nombre == 'Heparina o profilaxis') {
+
+                        var last_position = $scope.indicaciones.getLastPositionOf('Plan Hidratación Parenteral');
+                        last_position = (last_position == -1) ? 0 : last_position;
+                    }
+
+                    // si es proteccion gastrica los enviamos debajo de heparina
+                    // o profilaxis en caso que existan, y si no debajo del Plan de hidratacion
+                    if (nombre == 'Protección gástrica') {
+                        var last_position = $scope.indicaciones.getLastPositionOf('Heparina o profilaxis');
+                        // si no encontramos heparina o profilaxis, entonces
+                        // lo colocamos debajo del plan de hidratacion
+                        if (last_position == -1) {
+                            var last_position = $scope.indicaciones.getLastPositionOf('Plan Hidratación Parenteral');
+
+                            // si encontramos plan de hidratacion, entonces lo ponemos debajo
+                            // si no, lo ponemos al principio
+                            last_position = (last_position == -1) ? 0 : last_position;
+                        }
+                    }
+
+                    // si es un plan de hidratacion, los enviamos al principio
+                    if (nombre == 'Plan Hidratación Parenteral') {
+                        indicacionesOrdenadas.unshift(_indicacion);
+                    } else {
+                        // guardamos en una posicion determinada
+                        if (last_position >= 0) {
+                            indicacionesOrdenadas.splice(last_position + 1, 0, _indicacion);
+                        } else {
+                            // o si no hay posicion, lo mandamos al final del array
+                            indicacionesOrdenadas.push(_indicacion);
+                        }
+                    }
+
+                });
+
+                // asignamos las indicaciones ordenadas al listado
+                $scope.filtros.indicaciones = indicacionesOrdenadas;
             },
             actualizar: function(indicacion) {
                 var found = false;
@@ -389,6 +552,8 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     $scope.agregado = {};
                 }
             },
+
+            //
             prestaciones: {
                 prioridad: [{
                     id: 'No prioritario',
