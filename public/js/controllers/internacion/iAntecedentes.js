@@ -21,6 +21,19 @@ angular.module('app').controller('internacion/iAntecedentes', ["$scope", "Server
             $scope.internacion.ingreso.antecedentes.binarios.splice($scope.internacion.ingreso.antecedentes.binarios.indexOf(item), 1);
         },
 
+        removeAlergia: function(antecedenteAlergia) {
+            $scope.internacion.ingreso.antecedentes.alergias.splice($scope.internacion.ingreso.antecedentes.alergias.indexOf(antecedenteAlergia), 1);
+        },
+
+        removeVacuna: function(antecedenteVacuna) {
+            $scope.internacion.ingreso.antecedentes.vacunas.splice($scope.internacion.ingreso.antecedentes.vacunas.indexOf(antecedenteVacuna), 1);
+        },
+
+        removeAntecedenteFamiliar: function(antecedenteFamiliar) {
+            $scope.internacion.ingreso.antecedentes.familiares.splice($scope.internacion.ingreso.antecedentes.familiares.indexOf(antecedenteFamiliar), 1);
+        },
+
+
         agregarAntecedenteFamiliar: function(){
             // console.log($scope.indicacion);
             if (typeof $scope.internacion.ingreso.antecedentes.familiares == "undefined"){

@@ -182,17 +182,23 @@
 
                                 <div ng-if="internacion.ingreso.enfermeria.riesgoCaida.total > 0">
                                     Riesgo caidas:
-                                    {{internacion.ingreso.enfermeria.riesgoCaida.total}}
-                                    <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
-                                    <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total >= 25 && internacion.ingreso.enfermeria.riesgoCaida.total <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
-                                    <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
+                                    {{internacion.evoluciones[internacion.evoluciones.length-1].riesgoCaida.total}}
+                                    <span ng-if="internacion.evoluciones[internacion.evoluciones.length-1].riesgoCaida.total < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
+                                    <span ng-if="internacion.evoluciones[internacion.evoluciones.length-1].riesgoCaida.total >= 25 && internacion.evoluciones[internacion.evoluciones.length-1].riesgoCaida.total <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
+                                    <span ng-if="internacion.evoluciones[internacion.evoluciones.length-1].riesgoCaida.total > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
+                                </div>
+                            </p>
+                            <p class="card-text">
+                                <div ng-if="internacion.evoluciones.riesgoUPP.total > 0">
+                                    Riesgo de úlceras por presión:
+                                    {{"internacion.evoluciones[internacion.evoluciones.length-1].riesgoUPP.total}}
+                                    <span ng-if="internacion.evoluciones[internacion.evoluciones.length-1].riesgoUPP.total >= 13 && internacion.evoluciones[internacion.evoluciones.length-1].riesgoUPP.total <= 16" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
+                                    <span ng-if="internacion.evoluciones[internacion.evoluciones.length-1].riesgoUPP.total >= 10 && internacion.evoluciones[internacion.evoluciones.length-1].riesgoUPP.total <= 12" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
+                                    <span ng-if="internacion.evoluciones[internacion.evoluciones.length-1].riesgoUPP.total >= 5 && internacion.evoluciones[internacion.evoluciones.length-1].riesgoUPP.total <= 9" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
                                 </div>
                             </p>
                             <p class="card-text">
                                 Valoración del dolor
-                            </p>
-                            <p class="card-text">
-                                Ulceras por presión
                             </p>
                             <p class="card-text" ng-if="internacion.drenajes.length">
                                 <div ng-repeat="drenaje in internacion.drenajes">
@@ -543,10 +549,10 @@
                 </div>
 
                 <!-- Antecedentes gineco-obstétricos -->
-                <div class="col-lg-4" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos">
+                <div class="col-lg-6" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos">
                     <h5>Antecedentes gineco-obstétricos</h5>
                     <div class="row">
-                        <div class="col-sm-2" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.anticoncepcion">
+                        <div class="col-sm-3" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.anticoncepcion">
                             Anticoncepción: {{internacion.ingreso.antecedentes.ginecoobstetricos.anticoncepcion}}
                         </div>
                         <div class="col-sm-2" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.gestas">
@@ -555,7 +561,7 @@
                         <div class="col-sm-2" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.partos">
                             Partos: {{internacion.ingreso.antecedentes.ginecoobstetricos.partos}}
                         </div>
-                        <div class="col-sm-2" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.cesareas">
+                        <div class="col-sm-3" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.cesareas">
                             Cesáreas: {{internacion.ingreso.antecedentes.ginecoobstetricos.cesareas}}
                         </div>
                         <div class="col-sm-2" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.abortos">
