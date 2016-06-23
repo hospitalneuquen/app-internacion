@@ -307,6 +307,7 @@
                                             <select label="Tipo de cuidado" ng-model="indicacion.cuidadosEspeciales.tipo" plex >
                                                 <option value="Sonda">Sonda</option>
                                                 <option value="Aislamiento">Aislamiento</option>
+                                                <option value="Drenajes">Drenajes</option>
                                             </select>
                                         </div>
 
@@ -322,6 +323,35 @@
                                             <div class="col-lg-2">
                                                 <select label="¿Qué hacer?" ng-model="indicacion.cuidadosEspeciales.sonda.accion" plex >
                                                     <option value="Colocación">Colocación</option>
+                                                    <option value="Limpieza">Limpieza</option>
+                                                    <option value="Extracción">Extracción</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div ng-if="indicacion.cuidadosEspeciales.tipo == 'Aislamiento'">
+                                            <div class="col-lg-2">
+                                                <select label="Tipo de aislamiento" ng-model="indicacion.cuidadosEspeciales.aislamiento.tipo" plex >
+                                                    <option value="Neutropénico">Neutropénico</option>
+                                                    <option value="Contacto">Contacto</option>
+                                                    <option value="Respiratorio">Respiratorio</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <select label="¿Qué hacer?" ng-model="indicacion.cuidadosEspeciales.aislamiento.accion" plex >
+                                                    <option value="Aislar">Aislar</option>
+                                                    <option value="Quitar aislamiento">Quitar aislamiento</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div ng-if="indicacion.cuidadosEspeciales.tipo == 'Drenajes'">
+                                            <div class="col-lg-2">
+                                                <select class="form-control" label="Drenaje" ng-model="indicacion.cuidadosEspeciales.drenajes.idDrenaje" plex="(drenaje.tipo + ' ' + drenaje.lado) for drenaje in drenajes"></select>
+                                            </div>
+
+                                            <div class="col-lg-2">
+                                                <select label="¿Qué hacer?" ng-model="indicacion.cuidadosEspeciales.drenajes.accion" plex >
                                                     <option value="Limpieza">Limpieza</option>
                                                     <option value="Extracción">Extracción</option>
                                                 </select>
@@ -760,7 +790,7 @@
                 <table class="table table-hover table-bordered highlight">
                     <thead>
                         <tr class="exclude">
-                            <!-- <th rowspan="2" class="text-center">#</th> -->
+                            <th rowspan="2" class="text-center"></th>
                             <th rowspan="2" class="text-center vert-align">Medicación / Hidratación / Alimentación parenteral</th>
                             <th rowspan="2" class="text-center">Vía</th>
                             <th rowspan="2" class="text-center">Frec.</th>
@@ -854,12 +884,14 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="indicacion in filtros.indicaciones track by $index" >
-                            <!-- <td >
-                                {{$index}}
-                            </td> -->
+                            <td width="20">
+                                <input type="checkbox" />
+                            </td>
                             <td >
                                 <span>
-                                    <i>{{indicacion.tipo.nombre ? indicacion.tipo.nombre : indicacion.tipo }}</i>
+                                    <b>
+                                        <i>{{indicacion.tipo.nombre ? indicacion.tipo.nombre : indicacion.tipo }}</i>
+                                    </b>
                                 </span>
                                 <span ng-if="indicacion.tipo.nombre == 'Plan Hidratación Parenteral' || indicacion.tipo == 'Plan Hidratación Parenteral'">
                                     {{indicacion.planHidratacion.tipoPlan.nombre ? indicacion.planHidratacion.tipoPlan.nombre : indicacion.planHidratacion.tipoPlan }}
@@ -899,6 +931,20 @@
 
                                 <div ng-if="indicacion.tipo.nombre == 'Cuidados especiales' || indicacion.tipo == 'Cuidados especiales'">
                                     {{indicacion.cuidadosEspeciales.tipo}}
+
+                                    <span ng-if="indicacion.cuidadosEspeciales.tipo == 'Sonda'">
+                                        {{indicacion.cuidadosEspeciales.sonda.tipo}}
+                                        <span class="label label-default ">
+                                            {{indicacion.cuidadosEspeciales.sonda.accion}}
+                                        </span>
+                                    <span>
+
+                                    <span ng-if="indicacion.cuidadosEspeciales.tipo == 'Aislamiento'">
+                                        {{indicacion.cuidadosEspeciales.aislamiento.tipo}}
+                                        <span class="label label-default ">
+                                            {{indicacion.cuidadosEspeciales.aislamiento.accion}}
+                                        </span>
+                                    <span>
                                 </div>
 
                                 <div ng-if="indicacion.tipo.nombre == 'Solicitud prestaciones' || indicacion.tipo == 'Solicitud prestaciones'">
@@ -913,7 +959,7 @@
                                     <!-- {{indicacion.prestaciones}} -->
                                 </div>
 
-                                <div ng-if="indicacion.tipo.nombre == 'Dieta' || indicacion.tipo == 'Dieta'">
+                                <div ng-if="indicacion.tipo.nombre == 'Nutrición' || indicacion.tipo == 'Nutrición'">
                                     <span ng-show="indicacion.nutricion.tipo.ayuno">
                                         Ayuno /
                                     </span>
@@ -979,6 +1025,9 @@
                                     </span>
                                     <span ng-show="indicacion.nutricion.tipo.hipocalorico">
                                         Hipocalórico /
+                                    </span>
+                                    <span ng-show="indicacion.nutricion.tipo.preparadoOral">
+                                        Preparado oral {{indicacion.nutricion.cantidadPreparadoOral}} ml
                                     </span>
 
                                 </div>
