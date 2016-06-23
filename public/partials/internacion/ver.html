@@ -2,82 +2,86 @@
 
 <div class="row">
     <div class="col-lg-12" plex-tabs ng-model="tab">
-        <ul class="nav nav-tabs">
-            <li>
-                <a>
-                    Resumen internación
-                </a>
-            </li>
-            <li>
-                <a>
-                    <i class="mdi mdi-chart-bar"></i>
-                    Gráficos
-                </a>
-            </li>
-            <li>
-                <a>
-                    <i class="fa fa-bed"></i>
-                    Ingreso de internación
-                </a>
-            </li>
-            <li>
-                <a>
-                    <i class="mdi mdi-clipboard-outline"></i>
-                    Evoluciones
-                </a>
-            </li>
-            <li>
-                <!-- <li ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
-                <a>
-                    <i class="mdi mdi-steam"></i>
-                    Drenajes
-                </a>
-            </li>
-            <li>
-                <a>
-                    <i class="mdi mdi-format-float-left"></i>
-                    Antecedentes
-                </a>
-            </li>
-            <li>
-                <a>
-                    <i class="mdi mdi-walk"></i>
-                    Pases
-                </a>
-            </li>
-            <li>
-                <a>
-                    <i class="mdi mdi-television-guide"></i>
-                    Solicitud de prestaciones
-                </a>
-            </li>
-            <li>
-                <a>
-                    <i class="mdi mdi-account-card-details"></i>
-                    Lista de problemas
-                </a>
-            </li>
-            <li>
-                <a>
-                    <i class="mdi mdi-book-open"></i>
-                    Hoja de tratamiento
-                </a>
-            </li>
-            <li ng-disabled="internacion.egreso === null">
-                <a>
-                    <i class="mdi mdi-exit-to-app"></i>
-                    Egreso
-                </a>
-            </li>
-            <li>
-                <a>
-                    <i class="mdi mdi-history"></i>
-                    Historial
-                </a>
-            </li>
-        </ul>
+        <div class="row">
+            <div class="col-lg-2">
+                <ul class="nav nav-tabs nav-stacked">
+                    <li>
+                        <a>
+                            Resumen internación
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="mdi mdi-chart-bar"></i>
+                            Gráficos
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="fa fa-bed"></i>
+                            Ingreso de internación
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="mdi mdi-clipboard-outline"></i>
+                            Evoluciones
+                        </a>
+                    </li>
+                    <li>
+                        <!-- <li ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
+                        <a>
+                            <i class="mdi mdi-steam"></i>
+                            Drenajes
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="mdi mdi-format-float-left"></i>
+                            Antecedentes
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="mdi mdi-walk"></i>
+                            Pases
+                        </a>
+                    </li>
+                    <!-- <li>
+                        <a>
+                            <i class="mdi mdi-television-guide"></i>
+                            Prestaciones
+                        </a>
+                    </li> -->
+                    <li>
+                        <a>
+                            <i class="mdi mdi-account-card-details"></i>
+                            Problemas
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="mdi mdi-book-open"></i>
+                            Indicaciones
+                        </a>
+                    </li>
+                    <li ng-disabled="internacion.egreso === null">
+                        <a>
+                            <i class="mdi mdi-exit-to-app"></i>
+                            Egreso
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <i class="mdi mdi-history"></i>
+                            Historial
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-10">
 
-        <div class="card card-block">
+        <div class="card card-block tab-content">
 
             <div class="card-deck-wrapper">
                 <div class="card-deck">
@@ -253,7 +257,7 @@
 
         </div>
 
-        <div class="card card-block">
+        <div class="card card-block tab-content">
             <h3>Gráficos</h3>
             <div class="row" ng-if="internacion.evoluciones.length > 0">
                 <div class="col-lg-4" ng-if="hayEvoluciones('temperatura')">
@@ -277,7 +281,7 @@
             <p ng-if="!hayEvoluciones('temperatura') && !hayEvoluciones('tension') && !hayEvoluciones('saturacion')">No se han cargado evoluciones aún para poder generar gráficos</p>
         </div>
 
-        <div class="card card-block">
+        <div class="card card-block tab-content">
             <h3 >Datos de ingreso</h3>
             <br/>
             <form>
@@ -313,12 +317,12 @@
             </form>
         </div>
 
-        <div>
+        <div class=" tab-content">
             <div plex-include="'partials/internacion/iEvolucionar.html'" plex-include-internacion="internacion"></div>
         </div>
 
         <!-- <div ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
-        <div>
+        <div class=" tab-content">
             <div class="card card-block">
 
                 <div class="row" ng-show="show_toolbar_drenajes">
@@ -433,7 +437,7 @@
             </div>
         </div>
 
-        <div class="card card-block">
+        <div class="card card-block tab-content">
 
             <div class="row" ng-show="show_toolbar_antecedentes">
                 <div class="col-md-8 col-lg-10">
@@ -580,7 +584,7 @@
             <!-- <p ng-if="!internacion.ingreso.antecedentes.binarios && !internacion.ingreso.antecedentes.ginecoobstetricos && !internacion.ingreso.antecedentes.quirurgicos && !internacion.ingreso.antecedentes.familiares && !internacion.ingreso.antecedentes.medicacion">El paciente no posee antecedentes</p> -->
         </div>
 
-        <div class="card card-block">
+        <div class="card card-block tab-content">
             <div class="row" ng-show="show_toolbar_pases">
                 <div class="col-md-8 col-lg-10">
                     <h3>Pases</h3>
@@ -673,19 +677,19 @@
 
         </div>
 
-        <div class="card card-block">
+        <!-- <div class="card card-block tab-content">
             <div plex-include="'partials/internacion/iPrestaciones.html'" plex-include-internacion="internacion"></div>
-        </div>
+        </div> -->
 
-        <div class="card card-block">
+        <div class="card card-block tab-content">
             <div plex-include="'partials/internacion/iListaProblemas.html'" plex-include-internacion="internacion"></div>
         </div>
 
-        <div class="card card-block">
-            <div plex-include="'partials/internacion/iHojaTratamiento.html'" plex-include-internacion="internacion"></div>
+        <div class="card card-block tab-content">
+            <div plex-include="'partials/internacion/iIndicacion.html'" plex-include-internacion="internacion"></div>
         </div>
 
-        <div class="card card-block">
+        <div class="card card-block tab-content">
             <div ng-if="internacion.egreso">
                 <h3 >Egreso</h3>
                 <div ng-if="internacion.egreso">
@@ -730,7 +734,7 @@
                 </div>
             </div>
         </div>
-        <div class="card card-block container-timeline">
+        <div class="card card-block container-timeline tab-content">
 
             <div class="row">
                 <div class="col-md-offset-2 col-md-9">
@@ -908,4 +912,6 @@
 
         </div>
 
+        </div>
     </div>
+</div>
