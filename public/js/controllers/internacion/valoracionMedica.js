@@ -10,6 +10,18 @@ angular.module('app').controller('internacion/valoracionMedica', ['$scope', 'Ple
 
         },
 
+        removeHipotesis: function(hipotesis) {
+            $scope.internacion.ingreso.medico.impresionDiagnostica.listaHipotesis.splice($scope.internacion.ingreso.medico.impresionDiagnostica.listaHipotesis.indexOf(hipotesis), 1);
+        },
+
+        removeSindrome: function(sindrome) {
+            $scope.internacion.ingreso.medico.impresionDiagnostica.listaSindromes.splice($scope.internacion.ingreso.medico.impresionDiagnostica.listaSindromes.indexOf(sindrome), 1);
+        },
+
+        removeSignoGuia: function(positivo) {
+            $scope.internacion.ingreso.medico.impresionDiagnostica.listaPositivos.splice($scope.internacion.ingreso.medico.impresionDiagnostica.listaPositivos.indexOf(positivo), 1);
+        },
+
         agregarHipotesis: function(){
                     if (typeof $scope.internacion.ingreso.medico == "undefined"){
                         $scope.internacion.ingreso.medico = {};
