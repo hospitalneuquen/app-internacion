@@ -156,6 +156,9 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                         (!self.servicio.id || (self.servicio && indicacion.servicio && indicacion.servicio.id == self.servicio.id))
                     )
                 });
+
+                // ordenamos
+                $scope.indicaciones.ordenar();
             },
 
         },
@@ -169,10 +172,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 // asignamos las indicaciones
                 $scope.filtros.indicaciones = $scope.internacion.indicaciones;
 
-                // ordenamos
-                $scope.indicaciones.ordenar();
-
-                // luego las filtramos
+                // filtramos
                 $scope.filtros.filtrar();
 
                 if ($scope.internacion.indicaciones.length) {
@@ -389,8 +389,6 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 return (last_position > 0) ? last_position : -1;
             },
             ordenar: function() {
-                var length = $scope.indicaciones.length;
-
                 var indicacionesOrdenadas = [];
 
                 angular.forEach($scope.filtros.indicaciones, function(_indicacion) {
