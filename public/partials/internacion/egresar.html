@@ -19,9 +19,9 @@
                 </select>
             </div>
             <div class="col-lg-3" ng-show="egreso.tipo == 'alta'">
-                    <input type="radio" name="group1" label="Alta médica" value="medica" ng-model="egreso.tipoAlta" plex="radio">
-                    <input type="radio" name="group1" label="Derivación" value="derivacion" ng-model="egreso.tipoAlta" plex="radio">
-                    <input type="radio" name="group1" label="Voluntaria" value="voluntaria" ng-model="egreso.tipoAlta" plex="radio">
+                <input type="radio" name="group1" label="Alta médica" value="medica" ng-model="egreso.tipoAlta" plex="radio">
+                <input type="radio" name="group1" label="Derivación" value="derivacion" ng-model="egreso.tipoAlta" plex="radio">
+                <input type="radio" name="group1" label="Voluntaria" value="voluntaria" ng-model="egreso.tipoAlta" plex="radio">
             </div>
             <div class="col-lg-2" ng-show="egreso.tipo == 'pase'">
                 <select label="Servicio sugerido" ng-model="servicioSugerido" min="3" plex="(item.nombre) for item in buscarUbicacion($value, 'servicio')"></select>
@@ -75,31 +75,31 @@
         <div class="row" ng-show="egreso.tipo == 'alta'">
             <div class="col-lg-6">
                 <input type="text" label="Pautas de alarma" ng-model="egreso.pautasAlarma" plex="text"></textarea>
+        </div>
+        <div class="col-lg-6">
+            <div class="row">
+                <div class="col-lg-2">
+                    <label>Dieta al alta</label>
+                </div>
             </div>
-            <div class="col-lg-6">
-                <div class="row">
-                    <div class="col-lg-2">
-                        <label>Dieta al alta</label>
-                    </div>
-                </div>
-                <div class="col-lg-2">
-                    <input type="checkbox" label="General" ng-model="egreso.dietaGeneral" plex="checkbox">
-                </div>
-                <div class="col-lg-2">
-                    <input type="checkbox" label="Hepatoprotectora" ng-model="egreso.dietaHepatoprotectora" plex="checkbox">
-                </div>
-                <div class="col-lg-2">
-                    <input type="checkbox" label="Especial" ng-model="egreso.dietaEspecial" plex="checkbox">
-                </div>
-                <div class="col-lg-2">
-                    <input type="checkbox" label="Soporte nutricional" ng-model="egreso.dietaSoporteNutricional" plex="checkbox">
-                </div>
+            <div class="col-lg-2">
+                <input type="checkbox" label="General" ng-model="egreso.dietaGeneral" plex="checkbox">
+            </div>
+            <div class="col-lg-2">
+                <input type="checkbox" label="Hepatoprotectora" ng-model="egreso.dietaHepatoprotectora" plex="checkbox">
+            </div>
+            <div class="col-lg-2">
+                <input type="checkbox" label="Especial" ng-model="egreso.dietaEspecial" plex="checkbox">
+            </div>
+            <div class="col-lg-2">
+                <input type="checkbox" label="Soporte nutricional" ng-model="egreso.dietaSoporteNutricional" plex="checkbox">
             </div>
         </div>
     </div>
-    <div class="card card-block margin-top text-right">
-        <a class="btn btn-default btn-flat" ng-click="cancelarEgreso()">Cancelar</a>
-        <a class="btn btn-primary" plex-submit="egresar()" ng-disabled="formEgreso.$invalid">Guardar</a>
-    </div>
+</div>
+<div class="card card-block margin-top text-right">
+    <a class="btn btn-default btn-flat" ng-click="cancelarEgreso()">Cancelar</a>
+    <a class="btn btn-primary" plex-submit="egresar()" ng-disabled="formEgreso.$invalid">Guardar</a>
+</div>
 </ng-form>
 </div>

@@ -101,13 +101,16 @@
                             </span>
                             <span ng-if="indicacion.tipo.nombre == 'Plan Hidratación' || indicacion.tipo == 'Plan Hidratación'">
                                 {{indicacion.planHidratacion.tipoPlan.nombre ? indicacion.planHidratacion.tipoPlan.nombre : indicacion.planHidratacion.tipoPlan }}
-                                {{indicacion.planHidratacion.cantidad}} ml
+                                {{indicacion.planHidratacion.cantidad}}
+                                ml
                                 {{indicacion.planHidratacion.tipoSolucion.nombre ? indicacion.planHidratacion.tipoSolucion.nombre : indicacion.planHidratacion.tipoSolucion }}
                             </span>
 
-                            <div ng-if="indicacion.planHidratacion.agregados.length" >
+                            <div ng-if="indicacion.planHidratacion.agregados.length">
                                 <div ng-repeat="agregado in indicacion.planHidratacion.agregados">
-                                    +  {{agregado.tipoAgregado.nombre ? agregado.tipoAgregado.nombre : agregado.tipoAgregado}} {{agregado.descripcion}}
+                                    +
+                                    {{agregado.tipoAgregado.nombre ? agregado.tipoAgregado.nombre : agregado.tipoAgregado}}
+                                    {{agregado.descripcion}}
                                 </div>
                             </div>
 

@@ -51,7 +51,8 @@
                     <td >
                         {{item.fechaHora | fromNow }}<br/>
                         <div class="text-muted small">
-                            {{item.fechaHora | date: "dd/MM/yyyy HH:mm"}} hs
+                            {{item.fechaHora | date: "dd/MM/yyyy HH:mm"}}
+                            hs
                         </div>
                     </td>
                     <td >
@@ -64,7 +65,8 @@
                         {{item.prioridad}}
                     </td>
                     <td >
-                        {{item.turnoFechaHora | date: "dd/MM/yyyy HH:mm"}} hs
+                        {{item.turnoFechaHora | date: "dd/MM/yyyy HH:mm"}}
+                        hs
                     </td>
                     <td >
                         {{item.createdBy.name}}
@@ -123,13 +125,13 @@
 
                                 <div class="col-xs-2" ng-if="prestacionesEdit.id">
                                     <div class="form-group">
-                                        <input type="text" label="Fecha turno" ng-model="prestacionesEdit.turnoFechaHora" plex="date" />
+                                        <input type="text" label="Fecha turno" ng-model="prestacionesEdit.turnoFechaHora" plex="date"/>
                                     </div>
                                 </div>
 
                                 <div class="col-xs-2" ng-if="prestacionesEdit.id">
                                     <div class="form-group">
-                                        <input type="text" label="Hora turno" ng-model="prestacionesEdit.turnoFechaHora" plex="time" />
+                                        <input type="text" label="Hora turno" ng-model="prestacionesEdit.turnoFechaHora" plex="time"/>
                                     </div>
                                 </div>
                             </div>

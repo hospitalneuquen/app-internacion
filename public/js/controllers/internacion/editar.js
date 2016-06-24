@@ -157,7 +157,7 @@ angular.module('app').controller('internacion/editar', ['$scope', 'Plex', 'plexP
 
     // Inicializa watches
     $scope.$watch('personas.query', function(current, old) {
-        if (current != old){
+        if (current != old) {
             $scope.personas.actualizar();
             $scope.datosDisabled = true;
         }

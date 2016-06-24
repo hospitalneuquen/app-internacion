@@ -6,7 +6,7 @@
                 <h3>Lista de problemas</h3>
             </div>
 
-            <div class="col-md-4 col-lg-2" >
+            <div class="col-md-4 col-lg-2">
                 <select class="form-control" label="Estado" ng-model="filtros.estado" ng-change="filtros.filtrar()" ng-show="layout == 'grid'" plex="(estado.nombre) for estado in estados"></select>
             </div>
 
@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        <table class="table table-hover table-striped" ng-if="internacion.problemas && internacion.problemas.length > 0" ng-if="!problemasEdit"  ng-show="layout == 'grid'">
+        <table class="table table-hover table-striped" ng-if="internacion.problemas && internacion.problemas.length > 0" ng-if="!problemasEdit" ng-show="layout == 'grid'">
             <thead >
                 <tr>
                     <th>
@@ -98,7 +98,7 @@
             </tbody>
         </table>
 
-        <table class="table table-bordered tabla-problemas" ng-if="internacion.problemas && internacion.problemas.length > 0" ng-if="!problemasEdit"  ng-show="layout == 'table'">
+        <table class="table table-bordered tabla-problemas" ng-if="internacion.problemas && internacion.problemas.length > 0" ng-if="!problemasEdit" ng-show="layout == 'table'">
             <thead >
                 <tr>
                     <th>
@@ -115,7 +115,7 @@
                         <div class="problemas" ng-repeat="item in filtros.activos | orderBy: '-fechaDesde'">
 
                             <div class="row">
-                                <div  class="col-lg-10">
+                                <div class="col-lg-10">
                                     <h5>
                                         <span ng-if="item.diagnostico.nombre">
                                             {{item.diagnostico.nombre}}
@@ -134,16 +134,17 @@
                             </div>
 
                             <div class="row">
-                                <div  class="col-lg-6">
-                                    {{item.fechaDesde | date: "dd/MM/yyyy HH:mm"}} hs
+                                <div class="col-lg-6">
+                                    {{item.fechaDesde | date: "dd/MM/yyyy HH:mm"}}
+                                    hs
                                 </div>
-                                <div  class="col-lg-6 text-right">
+                                <div class="col-lg-6 text-right">
                                     {{item.fechaDesde | fromNow }}
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div  class="col-lg-12">
+                                <div class="col-lg-12">
                                     <p>
                                         {{item.descripcion}}
                                     </p>
@@ -151,21 +152,22 @@
                             </div>
 
                             <div class="row">
-                                <div  class="col-lg-10">
+                                <div class="col-lg-10">
                                     <p>
                                         <b>
-                                            {{item.createdBy.name}} / AGREGAR FUNCION / {{item.servicio.nombreCorto}}
+                                            {{item.createdBy.name}}
+                                            / AGREGAR FUNCION /
+                                            {{item.servicio.nombreCorto}}
                                         </b>
 
                                     </p>
                                 </div>
-                                <div  class="col-lg-2 text-right">
+                                <div class="col-lg-2 text-right">
                                     <button class="btn btn-sm btn-primary btn-flat tips" title="Editar problema" ng-click="editarProblema(item);" ng-disabled="Session.user.id != item.createdBy.id">
                                         <i class="mdi mdi-pencil"></i>
                                     </button>
                                 </div>
                             </div>
-
 
                         </div>
                     </td>
@@ -173,7 +175,7 @@
                         <div class="problemas" ng-repeat="item in filtros.inactivos | orderBy: '-fechaDesde'">
 
                             <div class="row">
-                                <div  class="col-lg-10">
+                                <div class="col-lg-10">
                                     <h5>
                                         <span ng-if="item.diagnostico.nombre">
                                             {{item.diagnostico.nombre}}
@@ -192,16 +194,17 @@
                             </div>
 
                             <div class="row">
-                                <div  class="col-lg-6">
-                                    {{item.fechaDesde | date: "dd/MM/yyyy HH:mm"}} hs
+                                <div class="col-lg-6">
+                                    {{item.fechaDesde | date: "dd/MM/yyyy HH:mm"}}
+                                    hs
                                 </div>
-                                <div  class="col-lg-6 text-right">
+                                <div class="col-lg-6 text-right">
                                     {{item.fechaDesde | fromNow }}
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div  class="col-lg-12">
+                                <div class="col-lg-12">
                                     <p>
                                         {{item.descripcion}}
                                     </p>
@@ -209,15 +212,17 @@
                             </div>
 
                             <div class="row">
-                                <div  class="col-lg-10">
+                                <div class="col-lg-10">
                                     <p>
                                         <b>
-                                            {{item.createdBy.name}} / AGREGAR FUNCION / {{item.servicio.nombreCorto}}
+                                            {{item.createdBy.name}}
+                                            / AGREGAR FUNCION /
+                                            {{item.servicio.nombreCorto}}
                                         </b>
 
                                     </p>
                                 </div>
-                                <div  class="col-lg-2 text-right">
+                                <div class="col-lg-2 text-right">
                                     <button class="btn btn-sm btn-primary btn-flat tips" title="Editar problema" ng-click="editarProblema(item);" ng-disabled="Session.user.id != item.createdBy.id">
                                         <i class="mdi mdi-pencil"></i>
                                     </button>
@@ -255,7 +260,7 @@
 
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="text" label="Escriba el diagnóstico" ng-model="problemasEdit.diagnosticoTexto" plex class="form-control" ng-show="showDiagnosticoTexto" />
+                                    <input type="text" label="Escriba el diagnóstico" ng-model="problemasEdit.diagnosticoTexto" plex class="form-control" ng-show="showDiagnosticoTexto"/>
                                 </div>
                             </div>
 
@@ -268,7 +273,7 @@
                             <div class="row">
                                 <div class="col-sm-3">
                                     <label>Inicio estimado</label>
-                                    <paciente-selector-fecha fecha="problemasEdit.fechaDesde" ></paciente-selector-fecha>
+                                    <paciente-selector-fecha fecha="problemasEdit.fechaDesde"></paciente-selector-fecha>
                                 </div>
 
                                 <div class="col-xs-3">

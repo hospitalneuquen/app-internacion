@@ -89,9 +89,11 @@
                         <tbody>
                             <tr ng-repeat="internacion in internaciones | orderBy: '-ingreso.fechaHora'" ng-click="ver(internacion.id)" class="clickable">
                                 <td>
-                                    <b>Desde:</b> {{internacion.ingreso.fechaHora | date : 'dd/MM/yyyy HH:mm'}}
+                                    <b>Desde:</b>
+                                    {{internacion.ingreso.fechaHora | date : 'dd/MM/yyyy HH:mm'}}
                                     <div ng-if="internacion.egreso.fechaHora">
-                                        <b>Hasta:</b> {{internacion.egreso.fechaHora | date : 'dd/MM/yyyy HH:mm'}}
+                                        <b>Hasta:</b>
+                                        {{internacion.egreso.fechaHora | date : 'dd/MM/yyyy HH:mm'}}
                                     </div>
                                 </td>
                                 <td>
@@ -114,7 +116,7 @@
                 </div>
 
                 <div class="col-lg-12" ng-if="!internaciones">
-                    <div class="alert alert-danger" >
+                    <div class="alert alert-danger">
                         <p>No se han encontrado internaciones</p>
                     </div>
                 </div>

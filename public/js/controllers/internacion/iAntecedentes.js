@@ -34,9 +34,9 @@ angular.module('app').controller('internacion/iAntecedentes', ["$scope", "Server
         },
 
 
-        agregarAntecedenteFamiliar: function(){
+        agregarAntecedenteFamiliar: function() {
             // console.log($scope.indicacion);
-            if (typeof $scope.internacion.ingreso.antecedentes.familiares == "undefined"){
+            if (typeof $scope.internacion.ingreso.antecedentes.familiares == "undefined") {
                 $scope.internacion.ingreso.antecedentes.familiares = [];
             }
 
@@ -45,9 +45,9 @@ angular.module('app').controller('internacion/iAntecedentes', ["$scope", "Server
             $scope.antecedenteFamiliar = {};
         },
 
-        agregarAlergia: function(){
+        agregarAlergia: function() {
             // console.log($scope.indicacion);
-            if (typeof $scope.internacion.ingreso.antecedentes.alergias == "undefined"){
+            if (typeof $scope.internacion.ingreso.antecedentes.alergias == "undefined") {
                 $scope.internacion.ingreso.antecedentes.alergias = [];
             }
 
@@ -56,9 +56,9 @@ angular.module('app').controller('internacion/iAntecedentes', ["$scope", "Server
             $scope.antecedenteAlergia = {};
         },
 
-        agregarVacuna: function(){
+        agregarVacuna: function() {
             // console.log($scope.indicacion);
-            if (typeof $scope.internacion.ingreso.antecedentes.vacunas == "undefined"){
+            if (typeof $scope.internacion.ingreso.antecedentes.vacunas == "undefined") {
                 $scope.internacion.ingreso.antecedentes.vacunas = [];
             }
 
@@ -103,7 +103,7 @@ angular.module('app').controller('internacion/iAntecedentes', ["$scope", "Server
 
                 if (!$scope.internacion.ingreso.antecedentes.binarios.length) {
                     $scope.antecedentesBinarios.forEach(function(i) {
-                        if (i.frecuente && i.grupo != "Estilo de vida" && i.grupo != "Alergias" )
+                        if (i.frecuente && i.grupo != "Estilo de vida" && i.grupo != "Alergias")
                             $scope.internacion.ingreso.antecedentes.binarios.push({
                                 antecedente: i
                             });

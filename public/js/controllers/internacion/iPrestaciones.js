@@ -20,7 +20,7 @@ angular.module('app').controller('internacion/iPrestaciones', ['$scope', 'Plex',
         filtros: {
             prestaciones: [],
             servicio: null,
-            filtrar: function(){
+            filtrar: function() {
                 var self = this;
                 $scope.filtros.prestaciones = $scope.internacion.prestaciones;
                 // if (!self.servicio) {
@@ -45,7 +45,7 @@ angular.module('app').controller('internacion/iPrestaciones', ['$scope', 'Plex',
             }
         },
 
-        buscarTipoPrestacion: function(query){
+        buscarTipoPrestacion: function(query) {
             // buscamos todos las prestaciones para cargar el select con las opciones
             var buscar = {
                 nombre: query

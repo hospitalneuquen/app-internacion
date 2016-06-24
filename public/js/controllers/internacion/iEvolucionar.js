@@ -41,7 +41,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                 }
 
                 self.evoluciones = $scope.internacion.evoluciones.filter(function(evolucion) {
-                    return (!self.servicio.id || (self.servicio && evolucion.servicio && (evolucion.servicio.id == self.servicio.id  || (self.servicio.id == 'mis-evoluciones' && evolucion.createdBy.id === Session.user.id) ))) &&
+                    return (!self.servicio.id || (self.servicio && evolucion.servicio && (evolucion.servicio.id == self.servicio.id || (self.servicio.id == 'mis-evoluciones' && evolucion.createdBy.id === Session.user.id)))) &&
                         // (!self.servicio.id || (self.servicio.id == 'mis-evoluciones' && evolucion.createdBy.id === Session.user.id )) &&
                         (!self.profesional.id || (self.profesional && evolucion.tipo && evolucion.tipo == self.profesional.id))
                 });
@@ -65,11 +65,11 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                 //         });
                 //     }
 
-                    // angular.forEach($scope.filtros.evoluciones, function(evolucion) {
-                    //     if (self.profesional == "" || self.profesional.id == evolucion.tipo) {
-                    //         $scope.filtros.evoluciones.push(evolucion);
-                    //     }
-                    // });
+                // angular.forEach($scope.filtros.evoluciones, function(evolucion) {
+                //     if (self.profesional == "" || self.profesional.id == evolucion.tipo) {
+                //         $scope.filtros.evoluciones.push(evolucion);
+                //     }
+                // });
                 // }
             }
         },

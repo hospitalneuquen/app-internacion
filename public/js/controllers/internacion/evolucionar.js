@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('internacion/evolucionar', ["$scope", "Plex", "plexParams", "Shared", function ($scope, Plex, plexParams, Shared) {
+angular.module('app').controller('internacion/evolucionar', ["$scope", "Plex", "plexParams", "Shared", function($scope, Plex, plexParams, Shared) {
     /*
     Este (sub)controlador espera los siguientes parametros (plex-include):
         - internacion: id          | id de internación

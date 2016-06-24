@@ -11,8 +11,7 @@ angular.module('app').controller('internacion/iListaProblemas', ['$scope', 'Plex
         showDiagnosticoTexto: false,
 
         // array de estados para filtrar en la vista
-        estados: [
-        {
+        estados: [{
             id: 'ActivoInactivo',
             nombre: 'Activos + Inactivos'
         }, {
@@ -27,7 +26,7 @@ angular.module('app').controller('internacion/iListaProblemas', ['$scope', 'Plex
         }, {
             id: 'Transformado',
             nombre: 'Transformado'
-        },{
+        }, {
             id: '',
             nombre: 'Todos'
         }],
@@ -57,7 +56,7 @@ angular.module('app').controller('internacion/iListaProblemas', ['$scope', 'Plex
                 }
 
                 self.problemas = $scope.internacion.problemas.filter(function(problema) {
-                    return (!self.estado.id || (self.estado.id && problema.estado == self.estado.id) || (self.estado.id == 'ActivoInactivo' && (problema.estado == 'Activo' || problema.estado == 'Inactivo')) ) &&
+                    return (!self.estado.id || (self.estado.id && problema.estado == self.estado.id) || (self.estado.id == 'ActivoInactivo' && (problema.estado == 'Activo' || problema.estado == 'Inactivo'))) &&
                         (!self.servicio.id || (self.servicio && problema.servicio && problema.servicio.id == self.servicio.id))
                 });
 
