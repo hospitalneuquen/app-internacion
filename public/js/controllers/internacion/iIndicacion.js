@@ -158,7 +158,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
                 self.indicaciones = $scope.internacion.indicaciones.filter(function(indicacion) {
                     return (
-                        (self.estado.id == 'Todas' || (indicacion.activo === self.estado.id) ) &&
+                        (self.estado.id == 'Todas' || (indicacion.activo === self.estado.id)) &&
                         (!self.servicio.id || (self.servicio && indicacion.servicio && indicacion.servicio.id == self.servicio.id)) &&
                         (!self.tipoIndicacion.id || (self.tipoIndicacion && indicacion.tipo && indicacion.tipo == self.tipoIndicacion.id))
                     )
@@ -197,7 +197,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     });
                 }
 
-                if ($scope.internacion.drenajes.length > 0){
+                if ($scope.internacion.drenajes.length > 0) {
                     // cargamos los drenajes al array
                     angular.forEach($scope.internacion.drenajes, function(drenaje) {
                         if (!drenaje.fechaHasta) {
@@ -257,19 +257,19 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
         },
 
         table: {
-            selected : [],
-            updateSelected : function (action, id) {
+            selected: [],
+            updateSelected: function(action, id) {
                 if (action == 'add' & $scope.table.selected.indexOf(id) == -1) $scope.table.selected.push(id);
                 if (action == 'remove' && $scope.table.selected.indexOf(id) != -1) $scope.table.selected.splice($scope.table.selected.indexOf(id), 1);
             },
 
-            updateSelection : function ($event, id) {
+            updateSelection: function($event, id) {
                 var checkbox = $event.target;
                 var action = (checkbox.checked ? 'add' : 'remove');
                 $scope.table.updateSelected(action, id);
             },
 
-            selectAll : function ($event) {
+            selectAll: function($event) {
                 var checkbox = $event.target;
                 var action = (checkbox.checked ? 'add' : 'remove');
                 for (var i = 0; i < $scope.filtros.indicaciones.length; i++) {
@@ -278,15 +278,15 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 }
             },
 
-            getSelectedClass : function (data) {
+            getSelectedClass: function(data) {
                 return $scope.table.isSelected(data.id) ? 'selected' : '';
             },
 
-            isSelected : function (id) {
+            isSelected: function(id) {
                 return $scope.table.selected.indexOf(id) >= 0;
             },
 
-            isSelectedAll : function () {
+            isSelectedAll: function() {
                 return $scope.table.selected.length === $scope.filtros.indicaciones.length;
             }
         },

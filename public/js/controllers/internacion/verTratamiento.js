@@ -37,7 +37,7 @@ angular.module('app').controller('internacion/verTratamiento', ['$scope', 'Plex'
                         if (hora == proximo) {
                             indicacion.horarios[hora] = "X";
 
-                            if (indicacion.frecuencia != 'unica' || indicacion.frecuencia != '24'){
+                            if (indicacion.frecuencia != 'unica' || indicacion.frecuencia != '24') {
                                 // sumamos a la hora marcada la frecuencia
                                 proximo = parseInt(hora) + parseInt(indicacion.frecuencia);
 

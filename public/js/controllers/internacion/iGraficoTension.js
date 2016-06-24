@@ -60,8 +60,7 @@ angular.module('app').controller('internacion/iGraficoTension', ['$scope', 'Plex
                         enabled: true,
                         format: '{y} mmHG'
                     },
-                }
-                ],
+                }],
                 xAxis: {
                     type: 'datetime',
                     labels: {

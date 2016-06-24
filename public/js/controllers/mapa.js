@@ -44,13 +44,13 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
         }, {
             text: 'Valoración inicial médica',
             handler: function(scope) {
-                $scope.verValoracionMedica(scope.cama.idInternacion);
-            }
-        // }, {
-        //     text: 'Solicitar prestaciones',
-        //     handler: function(scope) {
-        //         $scope.solicitarPrestaciones(scope.cama.idInternacion);
-        //     }
+                    $scope.verValoracionMedica(scope.cama.idInternacion);
+                }
+                // }, {
+                //     text: 'Solicitar prestaciones',
+                //     handler: function(scope) {
+                //         $scope.solicitarPrestaciones(scope.cama.idInternacion);
+                //     }
         }, {
             text: 'Lista de problemas',
             handler: function(scope) {
@@ -120,7 +120,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 return false;
             }
             Plex.openView('internacion/editar/cama/' + cama.id).then(function(internacion) {
-                if (internacion){
+                if (internacion) {
                     // si la internacion no se le ha cargado el ingreso a enfermeria
                     $scope.ingresoEnfermeria = (typeof internacion.ingreso !== "undefined" && typeof internacion.ingreso.enfermeria === 'undefined') ? true : false;
                     // $scope.ingresoEnfermeria = (typeof internacion.ingreso && typeof internacion.ingreso.enfermeria === 'undefined') ? true : false;
@@ -289,7 +289,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
 
                     if (cama.idInternacion) {
                         Shared.internacion.get(cama.idInternacion).then(function(internacion) {
-                            if (internacion){
+                            if (internacion) {
                                 cama.$internacion = internacion;
                             }
                         });
@@ -341,11 +341,11 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
 
             angular.forEach($scope.camas, function(cama, key) {
                 //asignamos las habitaciones segun el servicio
-                if (current.id == "" && current.nombre == "Todos"){
+                if (current.id == "" && current.nombre == "Todos") {
                     if (!$scope.habitaciones.inArray(cama.habitacion)) {
                         $scope.habitaciones.push(cama.habitacion);
                     }
-                }else if (current.id && current.id == cama.servicio.id){
+                } else if (current.id && current.id == cama.servicio.id) {
                     if (!$scope.habitaciones.inArray(cama.habitacion)) {
                         $scope.habitaciones.push(cama.habitacion);
                     }

@@ -22,35 +22,35 @@ angular.module('app').controller('internacion/valoracionMedica', ['$scope', 'Ple
             $scope.internacion.ingreso.medico.impresionDiagnostica.listaPositivos.splice($scope.internacion.ingreso.medico.impresionDiagnostica.listaPositivos.indexOf(positivo), 1);
         },
 
-        agregarHipotesis: function(){
-                    if (typeof $scope.internacion.ingreso.medico == "undefined"){
-                        $scope.internacion.ingreso.medico = {};
-                    }
-                    if (typeof $scope.internacion.ingreso.medico.impresionDiagnostica == "undefined"){
-                        $scope.internacion.ingreso.medico.impresionDiagnostica = {};
-                    }
-                    if (typeof $scope.internacion.ingreso.medico.impresionDiagnostica.listaHipotesis == "undefined"){
-                        $scope.internacion.ingreso.medico.impresionDiagnostica.listaHipotesis = [];
-                    }
+        agregarHipotesis: function() {
+            if (typeof $scope.internacion.ingreso.medico == "undefined") {
+                $scope.internacion.ingreso.medico = {};
+            }
+            if (typeof $scope.internacion.ingreso.medico.impresionDiagnostica == "undefined") {
+                $scope.internacion.ingreso.medico.impresionDiagnostica = {};
+            }
+            if (typeof $scope.internacion.ingreso.medico.impresionDiagnostica.listaHipotesis == "undefined") {
+                $scope.internacion.ingreso.medico.impresionDiagnostica.listaHipotesis = [];
+            }
 
-                    $scope.internacion.ingreso.medico.impresionDiagnostica.listaHipotesis.push($scope.hipotesis);
+            $scope.internacion.ingreso.medico.impresionDiagnostica.listaHipotesis.push($scope.hipotesis);
 
-                    $scope.hipotesis = {};
+            $scope.hipotesis = {};
         },
 
-        checkIfEnterKeyWasPressed: function($event, input){
+        checkIfEnterKeyWasPressed: function($event, input) {
             // console.log($event.which);
             var keyCode = $event.which || $event.keyCode;
             if (keyCode === 13) {
                 if (input == 1 && $scope.positivo !== "") {
                     // Do that thing you finally wanted to do
-                    if (typeof $scope.internacion.ingreso.medico == "undefined"){
+                    if (typeof $scope.internacion.ingreso.medico == "undefined") {
                         $scope.internacion.ingreso.medico = {};
                     }
-                    if (typeof $scope.internacion.ingreso.medico.impresionDiagnostica == "undefined"){
+                    if (typeof $scope.internacion.ingreso.medico.impresionDiagnostica == "undefined") {
                         $scope.internacion.ingreso.medico.impresionDiagnostica = {};
                     }
-                    if (typeof $scope.internacion.ingreso.medico.impresionDiagnostica.listaPositivos == "undefined"){
+                    if (typeof $scope.internacion.ingreso.medico.impresionDiagnostica.listaPositivos == "undefined") {
                         $scope.internacion.ingreso.medico.impresionDiagnostica.listaPositivos = [];
                     }
 
@@ -60,13 +60,13 @@ angular.module('app').controller('internacion/valoracionMedica', ['$scope', 'Ple
                 }
                 if (input == 2 && $scope.sindrome !== "") {
                     // Do that thing you finally wanted to do
-                    if (typeof $scope.internacion.ingreso.medico == "undefined"){
+                    if (typeof $scope.internacion.ingreso.medico == "undefined") {
                         $scope.internacion.ingreso.medico = {};
                     }
-                    if (typeof $scope.internacion.ingreso.medico.impresionDiagnostica == "undefined"){
+                    if (typeof $scope.internacion.ingreso.medico.impresionDiagnostica == "undefined") {
                         $scope.internacion.ingreso.medico.impresionDiagnostica = {};
                     }
-                    if (typeof $scope.internacion.ingreso.medico.impresionDiagnostica.listaSindromes == "undefined"){
+                    if (typeof $scope.internacion.ingreso.medico.impresionDiagnostica.listaSindromes == "undefined") {
                         $scope.internacion.ingreso.medico.impresionDiagnostica.listaSindromes = [];
                     }
 
@@ -83,8 +83,8 @@ angular.module('app').controller('internacion/valoracionMedica', ['$scope', 'Ple
                 ingreso: $scope.internacion.ingreso
             };
 
-            return Shared.internacion.post(plexParams.idInternacion, data).then(function(internacion){
-                if (internacion){
+            return Shared.internacion.post(plexParams.idInternacion, data).then(function(internacion) {
+                if (internacion) {
                     Plex.alert("Valoración médica guardada");
                 }
                 Plex.closeView(internacion);

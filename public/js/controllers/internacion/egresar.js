@@ -31,7 +31,7 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
                     };
 
                     data.egreso.derivadoHacia = $scope.derivadoHacia.id || null;
-                }else {
+                } else {
                     var data = {
                         estado: 'egresado',
                         egreso: $scope.egreso
@@ -48,28 +48,30 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
             }).then(function(internacion) {
                 // TODO: Definir que hacer en caso de que sea defuncion o alta,
                 // si hay que llenar algun otro formulario
-                if (internacion){
+                if (internacion) {
                     // si es un pase entonces actualizamos los valores del pase
                     if ($scope.egreso.tipo == 'pase') {
-                        var pase = $scope.internacion.pases[$scope.internacion.pases.length-1];
+                        var pase = $scope.internacion.pases[$scope.internacion.pases.length - 1];
 
                         pase.servicioSugerido = $scope.servicioSugerido.id;
                         pase.resumenInternacion = $scope.egreso.resumenInternacion;
 
-                        Shared.pase.post(plexParams.idInternacion, pase.id, pase, {minify: true}).then(function(pase){
+                        Shared.pase.post(plexParams.idInternacion, pase.id, pase, {
+                            minify: true
+                        }).then(function(pase) {
 
                             Plex.closeView(internacion);
                         });
-                    }else{
+                    } else {
                         Plex.closeView(internacion);
                     }
-                }else{
+                } else {
                     Plex.closeView(internacion);
                 }
             });
         },
 
-        buscarUbicacion: function(query, tipo){
+        buscarUbicacion: function(query, tipo) {
             // buscamos todos los servicios para en caso de ser un pase
             // cargar el select con las opciones
             var buscar = {
@@ -79,7 +81,7 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
 
             return Shared.ubicaciones.get(buscar);
         },
-        buscarDiagnostico: function(query){
+        buscarDiagnostico: function(query) {
             // buscamos todos los diagnosticos
             var buscar = {
                 nombre: query
