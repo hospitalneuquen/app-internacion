@@ -135,6 +135,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
         filtros: {
             indicaciones: [],
             servicio: null,
+            tipoIndicacion: null,
             activo: true,
             estado: null,
             servicio: null,
@@ -147,15 +148,19 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     self.estado = $scope.estados[0];
                 }
 
+                if (!self.tipoIndicacion) {
+                    self.tipoIndicacion = $scope.tiposIndicaciones[0];
+                }
+
                 if (!self.servicio) {
                     self.servicio = $scope.servicios[0];
                 }
 
-                // console.log(self.servicio);
                 self.indicaciones = $scope.internacion.indicaciones.filter(function(indicacion) {
                     return (
                         (self.estado.id == 'Todas' || (indicacion.activo === self.estado.id) ) &&
-                        (!self.servicio.id || (self.servicio && indicacion.servicio && indicacion.servicio.id == self.servicio.id))
+                        (!self.servicio.id || (self.servicio && indicacion.servicio && indicacion.servicio.id == self.servicio.id)) &&
+                        (!self.tipoIndicacion.id || (self.tipoIndicacion && indicacion.tipo && indicacion.tipo == self.tipoIndicacion.id))
                     )
                 });
 
@@ -248,6 +253,41 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                         });
                     });
                 }
+            }
+        },
+
+        table: {
+            selected : [],
+            updateSelected : function (action, id) {
+                if (action == 'add' & $scope.table.selected.indexOf(id) == -1) $scope.table.selected.push(id);
+                if (action == 'remove' && $scope.table.selected.indexOf(id) != -1) $scope.table.selected.splice($scope.table.selected.indexOf(id), 1);
+            },
+
+            updateSelection : function ($event, id) {
+                var checkbox = $event.target;
+                var action = (checkbox.checked ? 'add' : 'remove');
+                $scope.table.updateSelected(action, id);
+            },
+
+            selectAll : function ($event) {
+                var checkbox = $event.target;
+                var action = (checkbox.checked ? 'add' : 'remove');
+                for (var i = 0; i < $scope.filtros.indicaciones.length; i++) {
+                    var entity = $scope.filtros.indicaciones[i];
+                    $scope.table.updateSelected(action, entity.id);
+                }
+            },
+
+            getSelectedClass : function (data) {
+                return $scope.table.isSelected(data.id) ? 'selected' : '';
+            },
+
+            isSelected : function (id) {
+                return $scope.table.selected.indexOf(id) >= 0;
+            },
+
+            isSelectedAll : function () {
+                return $scope.table.selected.length === $scope.filtros.indicaciones.length;
             }
         },
 
