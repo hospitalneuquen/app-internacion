@@ -46,11 +46,11 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             handler: function(scope) {
                 $scope.verValoracionMedica(scope.cama.idInternacion);
             }
-        }, {
-            text: 'Solicitar prestaciones',
-            handler: function(scope) {
-                $scope.solicitarPrestaciones(scope.cama.idInternacion);
-            }
+        // }, {
+        //     text: 'Solicitar prestaciones',
+        //     handler: function(scope) {
+        //         $scope.solicitarPrestaciones(scope.cama.idInternacion);
+        //     }
         }, {
             text: 'Lista de problemas',
             handler: function(scope) {
@@ -59,7 +59,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
         }, {
             text: 'Ver tratamientos',
             handler: function(scope) {
-                $scope.verTratamiento(scope.cama.idInternacion);
+                $scope.verIndicaciones(scope.cama.idInternacion);
             }
         }, {
             text: 'Desocupar cama',
@@ -226,24 +226,24 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             });
         },
         listaDeProblemas: function(idInternacion) {
+            Plex.openView('internacion/ver/' + idInternacion + '/7').then(function(internacion) {
+
+            });
+        },
+        verIndicaciones: function(idInternacion) {
             Plex.openView('internacion/ver/' + idInternacion + '/8').then(function(internacion) {
 
             });
         },
-        verTratamiento: function(idInternacion) {
-            Plex.openView('internacion/ver/' + idInternacion + '/9').then(function(internacion) {
-
-            });
-        },
-        solicitarPrestaciones: function(idInternacion){
-            // buscamos la internacion y generamos el egreso
-            // Plex.openView("internacion/prestaciones/" + cama.idInternacion).then(function(internacion) {
-            Plex.openView('internacion/ver/' + idInternacion + "/7").then(function(internacion) {
-                if (internacion) {
-
-                }
-            });
-        },
+        // solicitarPrestaciones: function(idInternacion){
+        //     // buscamos la internacion y generamos el egreso
+        //     // Plex.openView("internacion/prestaciones/" + cama.idInternacion).then(function(internacion) {
+        //     Plex.openView('internacion/ver/' + idInternacion + "/7").then(function(internacion) {
+        //         if (internacion) {
+        //
+        //         }
+        //     });
+        // },
         egresarPaciente: function(cama) {
             // buscamos la internacion y generamos el egreso
             Plex.openView("internacion/egresar/" + cama.idInternacion + "/" + cama.id).then(function(internacion) {

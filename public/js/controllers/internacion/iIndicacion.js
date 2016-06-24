@@ -22,6 +22,8 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
         agregado: {}, // cuando voy cargando agregados en plan de hidratacion
         // indicacionEdit: undefined, // Item actual que se está editando
 
+        drenajes: [],
+
         horarios: ['7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '1', '2', '3', '4', '5', '6'],
         // horarios: ['7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '1', '2', '3', '4', '5', '6'],
 
@@ -190,6 +192,14 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     });
                 }
 
+                if ($scope.internacion.drenajes.length > 0){
+                    // cargamos los drenajes al array
+                    angular.forEach($scope.internacion.drenajes, function(drenaje) {
+                        if (!drenaje.fechaHasta) {
+                            $scope.drenajes.push(drenaje);
+                        }
+                    });
+                }
                 // $scope.show_comenzar_tratamiento = ($scope.internacion.indicaciones.length) ? true : false;
 
                 // cargamos los valores permitidos para los tipos de indicaciones
@@ -341,7 +351,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 }).then(function(data) {
                     Plex.alert('Indicacion ' + accion);
 
-                    // actualizamos el listado de indicaciones
+                    // actualizamos el listado de indicaciones completo
                     // $scope.indicaciones.actualizar(data);
                     $scope.reload();
 
@@ -350,6 +360,9 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
                     // ocultamos el formulario
                     $scope.showForm = false;
+
+                    // mostramos toolbar
+                    $scope.show_toolbar_indicaciones = false;
                 });
 
             },
@@ -389,6 +402,15 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 return (last_position > 0) ? last_position : -1;
             },
             ordenar: function() {
+                // el orden pedido para las indicaciones es el que vienen
+                // usando hace años ya medicos y enfermeros y debera seguir
+                // apareciendo en el siguiente orden:
+                // 1. Plan de Hidratacion Parenteral
+                // 2. Heparina o profilaxis
+                // 3. Proteccion gastrica
+                // 4. Otra medicacion
+                // 5. De aca en adelante cualquier tipo de indicacion
+
                 var indicacionesOrdenadas = [];
 
                 angular.forEach($scope.filtros.indicaciones, function(_indicacion) {
