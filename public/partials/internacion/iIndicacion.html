@@ -763,10 +763,10 @@
                             <th rowspan="2" class="text-center vert-align">Medicación / Hidratación / Alimentación parenteral</th>
                             <th rowspan="2" class="text-center">Vía</th>
                             <th rowspan="2" class="text-center">Frec.</th>
-                            <!-- <th colspan="6" class="text-center">Turno mañana</th>
+                            <th colspan="6" class="text-center">Turno mañana</th>
                             <th colspan="6" class="text-center">Turno tarde</th>
                             <th colspan="6" class="text-center">Turno noche</th>
-                            <th colspan="6" class="text-center">Turno madrugada</th> -->
+                            <th colspan="6" class="text-center">Turno madrugada</th>
 
                             <th rowspan="2" class="text-center">
                                 Usuario / Servicio
@@ -776,7 +776,7 @@
                             </th>
                             <th rowspan="2" class="text-center">Acciones</th>
                         </tr>
-                        <!-- <tr class="exclude">
+                        <tr class="exclude">
                             <th>
                                 07
                             </th>
@@ -849,7 +849,7 @@
                             <th>
                                 06
                             </th>
-                        </tr> -->
+                        </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="indicacion in filtros.indicaciones track by $index">
@@ -1115,9 +1115,9 @@
 
                             </td>
 
-                            <!-- <td class="text-center" ng-repeat="hora in horarios">
+                            <td class="text-center" ng-repeat="hora in horarios">
                                 {{ indicacion.horarios[hora] }}
-                            </td> -->
+                            </td>
 
                             <td class="text-center">
                                 {{indicacion.createdBy.name}}
