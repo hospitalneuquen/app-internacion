@@ -103,7 +103,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col-lg-2">
+                <!-- <div class="col-lg-2">
                     <input type="text" label="Ingrese sindrome" ng-keypress="checkIfEnterKeyWasPressed($event, 2)" ng-model="sindrome" plex/>
                     <table class="table table-bordered" ng-if="internacion.ingreso.medico.impresionDiagnostica.listaSindromes.length > 0">
                         <thead>
@@ -115,6 +115,46 @@
                                 <td>{{sindrome}}</td>
                                 <td class="col-lg-1">
                                     <button class="btn btn-default btn-flat" ng-click="removeSindrome(sindrome)">
+                                        <i class="mdi mdi-delete"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> -->
+                <div class="col-lg-4">
+                    <div class="col-lg-4">
+                        <input type="text" label="Ingrese sindrome" ng-model="sindrome.nombreSindrome" plex/>
+                    </div>
+                    <div class="col-lg-7">
+                        <!-- <select label="Signos asociados" ng-model="sindrome.listaSignos" plex="(item) for item in internacion.ingreso.medico.impresionDiagnostica.listaPositivos" multiple></select> -->
+                        <select label="Signos asociados" ng-model="sindrome.listaSignos" multiple plex>
+                            <option ng-repeat="item in internacion.ingreso.medico.impresionDiagnostica.listaPositivos" ng-value="item">{{item}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-1">
+                        <button type="button" class="btn btn-success btn-flat tips" title="Agregar sindrome" ng-click="agregarSindromeSignos()">
+                            <i class="mdi mdi-plus"></i>
+                        </button>
+                    </div>
+                    <table class="table table-bordered" ng-if="internacion.ingreso.medico.impresionDiagnostica.listaSindromesSignos.length > 0">
+                        <thead>
+                            <th>Sindromes</th>
+                            <th>Borrar</th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="sindrome in internacion.ingreso.medico.impresionDiagnostica.listaSindromesSignos track by $index">
+                                <td>
+                                <ul>
+                            	    <li>{{sindrome.nombreSindrome}}
+                            		    <ul ng-repeat="signo in internacion.ingreso.medico.impresionDiagnostica.listaSindromesSignos[$index].listaSignos">
+                            			    <li>{{signo}}</li>
+                            		    </ul>
+                            	    </li>
+                                </ul>
+                                </td>
+                                <td class="col-lg-1">
+                                    <button class="btn btn-default btn-flat" ng-click="removeSindromeSignos(sindrome)">
                                         <i class="mdi mdi-delete"></i>
                                     </button>
                                 </td>
@@ -139,20 +179,108 @@
                             <th>Hipótesis</th>
                             <th>Porcentaje</th>
                             <th>Borrar</th>
+                            <th>Confirmar</th>
                         </thead>
                         <tbody>
                             <tr ng-repeat="hipotesis in internacion.ingreso.medico.impresionDiagnostica.listaHipotesis">
-                                <td>{{hipotesis.nombre}}</td>
-                                <td>{{hipotesis.porcentaje}}%</td>
+                                <td ng-model="problema.descripcion">{{hipotesis.nombre}}</td>
+                                <td class="col-lg-1 text-center">{{hipotesis.porcentaje}}%</td>
                                 <td class="col-lg-1">
                                     <button class="btn btn-default btn-flat" ng-click="removeHipotesis(hipotesis)">
                                         <i class="mdi mdi-delete"></i>
                                     </button>
                                 </td>
+                                <td class="col-lg-1 text-center">
+                                    <div ng-if="!hipotesis.confirmada">
+                                        <button class="btn btn-success tips" title="Confirmar hipótesis" ng-click="confirmarHipotesis(hipotesis)">
+                                            <i class="mdi mdi-check"></i>
+                                        </button>
+                                    </div>
+                                    <div ng-if="hipotesis.confirmada">
+                                        <span class="label label-success">Confirmada</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <span ng-if="hipotesis.confirmada">Lista de problemas</span>
+                    <table class="table table-hover table-striped" ng-if="internacion.problemas && internacion.problemas.length > 0 && hipotesis.confirmada">
+                        <thead >
+                            <tr>
+                                <th>
+                                    Problema
+                                </th>
+                                <th >
+                                    Estado
+                                </th>
+                                <th >
+                                    Desde
+                                </th>
+                                <th >
+                                    Usuario / Servicio
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="item in internacion.problemas | orderBy: '-fechaDesde'">
+                                <td >
+                                    <span ng-if="item.diagnostico.nombre">
+                                        {{item.diagnostico.nombre}}
+                                    </span>
+                                    <span ng-if="!item.diagnostico.nombre">
+                                        {{item.diagnosticoTexto}}
+                                    </span>
+                                </td>
+                                <td >{{item.estado}}</td>
+                                <td >
+                                    {{item.fechaDesde | fromNow }}<br/>
+                                    <div class="text-muted small">
+                                        {{item.fechaDesde | date: "dd/MM/yyyy HH:mm"}}
+                                    </div>
+                                </td>
+                                <td >
+                                    {{item.createdBy.name}}
+                                    <br/>
+                                    {{item.servicio.nombreCorto}}
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+                <!-- <div class="col-lg-2" ng-if="hipotesis.confirmada">
+                    <span>Lista de problemas</span>
+                    <table class="table table-hover table-striped" ng-if="internacion.problemas && internacion.problemas.length > 0" >
+                        <thead >
+                            <tr>
+                                <th>
+                                    Problema
+                                </th>
+                                <th >
+                                    Usuario / Servicio
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="item in internacion.problemas | orderBy: '-fechaDesde'">
+                                <td >
+                                    <span ng-if="item.diagnostico.nombre">
+                                        {{item.diagnostico.nombre}}
+                                    </span>
+                                    <span ng-if="!item.diagnostico.nombre">
+                                        {{item.diagnosticoTexto}}
+                                    </span>
+                                </td>
+                                <td >
+                                    {{item.createdBy.name}}
+                                    <br/>
+                                    {{item.servicio.nombreCorto}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> -->
                 <!-- <div class="col-lg-2">
                     <button type="button" class="btn btn-link" ng-click="verTratamiento()">
                         <span>Cargar hoja de tratamiento</span>
