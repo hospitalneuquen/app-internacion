@@ -780,6 +780,37 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
                 // asignamos las indicaciones ordenadas al listado
                 $scope.filtros.indicaciones = indicacionesOrdenadas;
+
+                angular.forEach($scope.filtros.indicaciones, function(indicacion) {
+
+                   // agregamos el array de horarios a marcar
+                   indicacion.horarios = [];
+
+                   // determinamos en que momento comienza
+                   var fecha = new Date(indicacion.fechaHora || indicacion.createdAt);
+
+                   var proximo = parseInt(fecha.getHours());
+
+                   angular.forEach($scope.horarios, function(hora) {
+
+                       // si la hora es igual al horario de la proxima indicacion
+                       // entonces marcamos el horario en la tabla
+                       if (hora == proximo) {
+                           indicacion.horarios[hora] = "X";
+
+                           if (indicacion.frecuencia != 'unica' || indicacion.frecuencia != '24') {
+                               // sumamos a la hora marcada la frecuencia
+                               proximo = parseInt(hora) + parseInt(indicacion.frecuencia);
+
+                               if (proximo > 24) {
+                                   proximo = proximo - 24;
+                               }
+                           }
+                       }
+                   });
+
+                });
+                console.log(indicacionesOrdenadas);
             },
 
             // actualizamos el listado de evolucione
