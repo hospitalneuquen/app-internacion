@@ -1,0 +1,64 @@
+<div class="card card-block">
+    <fieldset>
+        <legend>Valoración del dolor</legend>
+
+        <div class="row">
+            <div class="col-lg-2" style="width: 14%">
+                <label>
+                    <b>Analgesia previa</b>
+                </label>
+                <input type="radio" label="Indicada por médico" ng-value="false" ng-model="evolucionesEdit.dolorValoracion.analgesiaAutomedicacion" plex="radio">
+                <input type="radio" label="Automedicación" ng-value="true" ng-model="evolucionesEdita.dolorValoracion.analgesiaAutomedicacion" plex="radio">
+            </div>
+            <div class="col-lg-2" style="width: 14%">
+                <label>
+                    <b>Ansiolíticos previos</b>
+                </label>
+                <input type="radio" label="Indicados por médico" ng-value="false" ng-model="evolucionesEdit.dolorValoracion.ansioliticosAutomedicacion" plex="radio">
+                <input type="radio" label="Automedicación" ng-value="true" ng-model="evolucionesEdit.dolorValoracion.ansioliticosAutomedicacion" plex="radio">
+            </div>
+            <div class="col-lg-2" style="width: 14%">
+                <label>
+                    <b>Intensidad</b>
+                </label>
+                <select ng-model="evolucionesEdit.dolorValoracion.intensidad" plex>
+                    <option value="0">0 (sin dolor)</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10 (máximo dolor)</option>
+                </select>
+            </div>
+            <div class="col-lg-6" style="width: 30%">
+                <label>
+                    <b>Características del dolor</b>
+                </label>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <input type="checkbox" label="Punzante" ng-model="evolucionesEdit.dolorValoracion.punzante" plex="checkbox">
+                        <input type="checkbox" label="Tipo cólico" ng-model="evolucionesEdit.dolorValoracion.tipoColico" plex="checkbox">
+                    </div>
+                    <div class="col-lg-4">
+                        <input type="checkbox" label="Pesadez" ng-model="evolucionesEdit.dolorValoracion.pesadez" plex="checkbox">
+                        <input type="checkbox" label="Pulsante" ng-model="evolucionesEdit.dolorValoracion.pulsante" plex="checkbox">
+                    </div>
+                    <div class="col-lg-4">
+                        <input type="checkbox" label="Caliente" ng-model="evolucionesEdit.dolorValoracion.caliente" plex="checkbox">
+                        <input type="checkbox" label="Adormecimiento/Hormigueo" ng-model="evolucionesEdit.dolorValoracion.hormigueo" plex="checkbox">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesDolor" plex="text">
+            </div>
+        </div>
+    </fieldset>
+</div>
