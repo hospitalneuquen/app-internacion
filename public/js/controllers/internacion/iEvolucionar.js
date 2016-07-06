@@ -241,6 +241,14 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                 });
                 // angular.copy($scope.drenajes, $scope.evolucionesEdit.egresos.drenajes);
             }
+
+            $scope.evolucionesEdit.glasgowTotal = $scope.evolucionesEdit.glasgowMotor + $scope.evolucionesEdit.glasgowVerbal + $scope.evolucionesEdit.glasgowOcular;
+            if ($scope.evolucionesEdit.riesgoCaida){
+                $scope.evolucionesEdit.riesgoCaida.total = $scope.evolucionesEdit.riesgoCaida.caidasPrevias + $scope.evolucionesEdit.riesgoCaida.marcha + $scope.evolucionesEdit.riesgoCaida.ayudaDeambular + $scope.evolucionesEdit.riesgoCaida.venoclisis + $scope.evolucionesEdit.riesgoCaida.comorbilidad + $scope.evolucionesEdit.riesgoCaida.estadoMental;
+            }
+            if ($scope.evolucionesEdit.riesgoUPP){
+                $scope.evolucionesEdit.riesgoUPP.total = $scope.evolucionesEdit.riesgoUPP.estadoFisico + $scope.evolucionesEdit.riesgoUPP.estadoMental + $scope.evolucionesEdit.riesgoUPP.actividad + $scope.evolucionesEdit.riesgoUPP.movilidad + $scope.evolucionesEdit.riesgoUPP.incontinencia;
+            }
             
             Shared.evolucion.post($scope.internacion.id, evolucion.id || null, $scope.evolucionesEdit, {
                 minify: true
