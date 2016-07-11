@@ -204,6 +204,10 @@ input[type="radio"].without-radio:checked + label {
     background: #f9f9f9;
 }
 
+.table-hover > tbody > tr.no-hover:hover{
+    background: transparent;
+}
+
 /*.table.tabla-problemas tbody tr td div.problema:first-child  {border-top: 0 none;}
 .table.tabla-problemas tbody tr td div.problema {border-top: 1px solid #ccc;}*/
 

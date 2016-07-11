@@ -23,8 +23,12 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
         agregado: {}, // cuando voy cargando agregados en plan de hidratacion
         // indicacionEdit: undefined, // Item actual que se está editando
 
-        indicacionesEvolucionar: [],
+        // indicacionesEvolucionar: [],
         evolucionesEdit: undefined, // Item actual que se está editando
+        evolucionarIndicacion: undefined,
+        // // lo uso para el plan de hidratacion, ya que puedo evolucionar
+        // // PHP, PHE, PHOral, Antibioticos EV, Nutricion enteral
+        // arrayEvoluciones: [],
 
         drenajes: [],
 
@@ -431,40 +435,40 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
             }
         },
 
-        table: {
-            selected: [],
-            updateSelected: function(action, id) {
-                if (action == 'add' & $scope.table.selected.indexOf(id) == -1) $scope.table.selected.push(id);
-                if (action == 'remove' && $scope.table.selected.indexOf(id) != -1) $scope.table.selected.splice($scope.table.selected.indexOf(id), 1);
-            },
-
-            updateSelection: function($event, id) {
-                var checkbox = $event.target;
-                var action = (checkbox.checked ? 'add' : 'remove');
-                $scope.table.updateSelected(action, id);
-            },
-
-            selectAll: function($event) {
-                var checkbox = $event.target;
-                var action = (checkbox.checked ? 'add' : 'remove');
-                for (var i = 0; i < $scope.filtros.indicaciones.length; i++) {
-                    var entity = $scope.filtros.indicaciones[i];
-                    $scope.table.updateSelected(action, entity.id);
-                }
-            },
-
-            getSelectedClass: function(data) {
-                return $scope.table.isSelected(data.id) ? 'selected' : '';
-            },
-
-            isSelected: function(id) {
-                return $scope.table.selected.indexOf(id) >= 0;
-            },
-
-            isSelectedAll: function() {
-                return $scope.table.selected.length === $scope.filtros.indicaciones.length;
-            }
-        },
+        // table: {
+        //     selected: [],
+        //     updateSelected: function(action, id) {
+        //         if (action == 'add' & $scope.table.selected.indexOf(id) == -1) $scope.table.selected.push(id);
+        //         if (action == 'remove' && $scope.table.selected.indexOf(id) != -1) $scope.table.selected.splice($scope.table.selected.indexOf(id), 1);
+        //     },
+        //
+        //     updateSelection: function($event, id) {
+        //         var checkbox = $event.target;
+        //         var action = (checkbox.checked ? 'add' : 'remove');
+        //         $scope.table.updateSelected(action, id);
+        //     },
+        //
+        //     selectAll: function($event) {
+        //         var checkbox = $event.target;
+        //         var action = (checkbox.checked ? 'add' : 'remove');
+        //         for (var i = 0; i < $scope.filtros.indicaciones.length; i++) {
+        //             var entity = $scope.filtros.indicaciones[i];
+        //             $scope.table.updateSelected(action, entity.id);
+        //         }
+        //     },
+        //
+        //     getSelectedClass: function(data) {
+        //         return $scope.table.isSelected(data.id) ? 'selected' : '';
+        //     },
+        //
+        //     isSelected: function(id) {
+        //         return $scope.table.selected.indexOf(id) >= 0;
+        //     },
+        //
+        //     isSelectedAll: function() {
+        //         return $scope.table.selected.length === $scope.filtros.indicaciones.length;
+        //     }
+        // },
 
         // actualizamos toda la lista de indicaciones de una internacion
         reload: function() {
@@ -810,7 +814,6 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                    });
 
                 });
-                console.log(indicacionesOrdenadas);
             },
 
             // actualizamos el listado de evolucione
@@ -860,12 +863,17 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
             evolucion: {
                 // Cancelar la edición
                 cancelar: function() {
+                    // seteamos a null las variables para la edicion
                     $scope.evolucionesEdit = null;
-                    $scope.show_toolbar = true;
+                    $scope.evolucionarIndicacion = null;
+
+                    // ocultamos formulario de indicaciones y ocultamos toolbar
+                    $scope.showForm = false;
+                    $scope.show_toolbar_indicaciones = true;
                 },
 
                 // Guarda la evolución
-                guardar: function(evolucion) {
+                guardar: function() {
                     // si se han evolucionado los drenajes entonces los cargamos
                     if ($scope.drenajes.length > 0) {
                         $scope.evolucionesEdit.egresos.drenajes = [];
@@ -881,49 +889,77 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                         // angular.copy($scope.drenajes, $scope.evolucionesEdit.egresos.drenajes);
                     }
 
-                    // $scope.evolucionesEdit.glasgowTotal = $scope.evolucionesEdit.glasgowMotor + $scope.evolucionesEdit.glasgowVerbal + $scope.evolucionesEdit.glasgowOcular;
-                    // $scope.evolucionesEdit.riesgoCaida.total = $scope.evolucionesEdit.riesgoCaida.caidasPrevias + $scope.evolucionesEdit.riesgoCaida.marcha + $scope.evolucionesEdit.riesgoCaida.ayudaDeambular + $scope.evolucionesEdit.riesgoCaida.venoclisis + $scope.evolucionesEdit.riesgoCaida.comorbilidad + $scope.evolucionesEdit.riesgoCaida.estadoMental;
-                    // $scope.evolucionesEdit.riesgoUPP.total = $scope.evolucionesEdit.riesgoUPP.estadoFisico + $scope.evolucionesEdit.riesgoUPP.estadoMental + $scope.evolucionesEdit.riesgoUPP.actividad + $scope.evolucionesEdit.riesgoUPP.movilidad + $scope.evolucionesEdit.riesgoUPP.incontinencia;
+                    if ($scope.evolucionesEdit.glasgow) {
+                        $scope.evolucionesEdit.glasgowTotal = $scope.evolucionesEdit.glasgow.glasgowMotor + $scope.evolucionesEdit.glasgowVerbal + $scope.evolucionesEdit.glasgowOcular;
+                    }
+                    if ($scope.evolucionesEdit.riesgoCaida) {
+                        $scope.evolucionesEdit.riesgoCaida.total = $scope.evolucionesEdit.riesgoCaida.caidasPrevias + $scope.evolucionesEdit.riesgoCaida.marcha + $scope.evolucionesEdit.riesgoCaida.ayudaDeambular + $scope.evolucionesEdit.riesgoCaida.venoclisis + $scope.evolucionesEdit.riesgoCaida.comorbilidad + $scope.evolucionesEdit.riesgoCaida.estadoMental;
+                    }
+                    if ($scope.evolucionesEdit.riesgoUPP) {
+                        $scope.evolucionesEdit.riesgoUPP.total = $scope.evolucionesEdit.riesgoUPP.estadoFisico + $scope.evolucionesEdit.riesgoUPP.estadoMental + $scope.evolucionesEdit.riesgoUPP.actividad + $scope.evolucionesEdit.riesgoUPP.movilidad + $scope.evolucionesEdit.riesgoUPP.incontinencia;
+                    }
 
-                    console.log($scope.evolucionesEdit);
+                    if ($scope.evolucionesEdit.hemoterapia){
+                        var hemoterapia = {
+                            hemoterapia: $scope.evolucionesEdit.hemoterapia
+                        };
+                        $scope.evolucionesEdit.balance.ingresos.push(hemoterapia);
+                    }
 
-                    // Shared.evolucion.post($scope.internacion.id, evolucion.id || null, $scope.evolucionesEdit, {
-                    //     minify: true
-                    // }).then(function(data) {
-                    //     Plex.alert('Evolución guardada');
-                    //
-                    //     // actualizamos el listado de evoluciones
-                    //     // $scope.actualizarEvoluciones(data);
-                    //     $scope.cancelarEdicion();
-                    //
-                    //     //if ($scope.volverAlMapa) {
-                    //     //    Plex.closeView($scope.cama);
-                    // });
+                    Shared.evolucion.post($scope.internacion.id, $scope.evolucionesEdit.id || null, $scope.evolucionesEdit, {
+                        minify: true
+                    }).then(function(data) {
+                        Plex.alert('Evolución guardada');
+
+                        // actualizamos el listado de evoluciones
+                        // $scope.actualizarEvoluciones(data);
+                        $scope.indicaciones.evolucion.cancelar();
+
+                        //if ($scope.volverAlMapa) {
+                        //    Plex.closeView($scope.cama);
+                    });
                 },
             },
-            evolucionar: function() {
+            evolucionar: function(indicacion) {
                 // cambiamos el titulo
                 $scope.titulo = "Evolucionar indicaciones";
 
                 // mostramos el formulario de evoluciones
-                $scope.showFormEvolucion = true;
-
+                // $scope.showFormEvolucion = true; // borrar
+                //
                 // ocultamos formulario de indicaciones y ocultamos toolbar
                 $scope.showForm = false;
                 $scope.show_toolbar_indicaciones = false;
 
+                // angular.copy(indicacion, $scope.evolucionarIndicacion);
+                $scope.evolucionarIndicacion = indicacion;
+
+                $scope.evolucionesEdit = {
+                    idIndicacion : indicacion.id,
+                    fechaHora: new Date(),
+                    tipo: Session.variables.prestaciones_workflow,
+                    servicio: Session.variables.servicioActual,
+                };
+
+                if (indicacion.tipo == 'Controles' && indicacion.controles.tipo == 'Balance'){
+                    $scope.evolucionesEdit.balance = {
+                        ingresos : []
+                    };
+                }
+
+                console.log($scope.evolucionarIndicacion);
                 // // array de indicaciones donde almacenamos el tipo
                 // var indicaciones = [];
                 // //
-                if ($scope.table.selected.length) {
-                    angular.forEach($scope.table.selected, function(idIndicacion) {
-                        angular.forEach($scope.filtros.indicaciones, function(indicacion) {
-                            if (indicacion.id == idIndicacion) {
-                                $scope.indicacionesEvolucionar.push(indicacion);
-                            }
-                        });
-                    });
-                }
+                // if ($scope.table.selected.length) {
+                //     angular.forEach($scope.table.selected, function(idIndicacion) {
+                //         angular.forEach($scope.filtros.indicaciones, function(indicacion) {
+                //             if (indicacion.id == idIndicacion) {
+                //                 $scope.indicacionesEvolucionar.push(indicacion);
+                //             }
+                //         });
+                //     });
+                // }
 
             },
 
@@ -1034,8 +1070,8 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
         calcularInformacionNutricion: function(tipo) {
             if (tipo == 'nutricion-enteral') {
 
-                var tipoPreparado = $scope.indicacion.nutricion.nutricionEnteral.tipoPreparado.descripcion != "undefined" ? $scope.indicacion.nutricion.nutricionEnteral.tipoPreparado.descripcion : null;
-                var cantidad = $scope.indicacion.nutricion.nutricionEnteral.cantidad != "undefined" ? $scope.indicacion.nutricion.nutricionEnteral.cantidad : null;
+                var tipoPreparado = $scope.indicacion.nutricion.enteral.tipoPreparado.descripcion != "undefined" ? $scope.indicacion.nutricion.enteral.tipoPreparado.descripcion : null;
+                var cantidad = $scope.indicacion.nutricion.enteral.cantidad != "undefined" ? $scope.indicacion.nutricion.enteral.cantidad : null;
 
                 if (tipoPreparado && cantidad) {
                     // los calculos estan basados siempre sobre 1000ml de preparado

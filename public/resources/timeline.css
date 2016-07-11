@@ -135,11 +135,15 @@
     background-color: #5bc0de;
     color: #fff;
 }
-.timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-valoracion-inicial {
+.timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-valoracion-inicial-enfermeria {
     background-color: #f0ad4e;
     color: #fff;
 }
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-evolucion {
+    background-color: #4caf50;
+    color: #fff;
+}
+.timeline-centered .timeline-entry .timeline-entry-inner .timeline-icon.bg-indicacion {
     background-color: #4caf50;
     color: #fff;
 }
@@ -162,6 +166,9 @@
     color: #f0ad4e;
 }
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label .timeline-title.evolucion {
+    color: #4caf50;
+}
+.timeline-centered .timeline-entry .timeline-entry-inner .timeline-label .timeline-title.indicacion {
     color: #4caf50;
 }
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label .timeline-title.pase {

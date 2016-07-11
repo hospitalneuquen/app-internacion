@@ -1,6 +1,7 @@
 <!-- Tabla de evoluciones -->
 <div ng-controller="internacion/iEvolucionar">
 
+
     <div class="card card-block" ng-show="show_toolbar">
         <div class="row">
             <div class="col-xs-4 col-lg-6">
@@ -80,24 +81,24 @@
                         {{item.texto}}
                     </td>
                     <td >
-                        <span ng-if="item.pulso">{{item.pulso}}
+                        <span ng-if="item.signosVitales.pulso">{{item.signosVitales.pulso}}
                             PPM</span>
                     </td>
                     <td >
-                        <span ng-if="item.tensionDiastolica && item.tensionSistolica">{{item.tensionDiastolica + "/" + item.tensionSistolica}}</span>
+                        <span ng-if="item.signosVitales.tensionDiastolica && item.signosVitales.tensionSistolica">{{item.signosVitales.tensionDiastolica + "/" + item.signosVitales.tensionSistolica}}</span>
                     </td>
                     <td >
-                        <span ng-if="item.temperatura">{{item.temperatura}}º</span>
+                        <span ng-if="item.signosVitales.temperatura">{{item.signosVitales.temperatura}}º</span>
                     </td>
                     <td >
-                        <span ng-if="item.respiracion">{{item.respiracion}}
+                        <span ng-if="item.signosVitales.respiracion">{{item.signosVitales.respiracion}}
                             RPM</span>
                     </td>
                     <td >
-                        <span ng-if="item.spo2">{{item.spo2}}%</span>
+                        <span ng-if="item.signosVitales.spo2">{{item.signosVitales.spo2}}%</span>
                     </td>
                     <td >
-                        <span ng-if="item.peso">{{item.peso}}
+                        <span ng-if="item.signosVitales.peso">{{item.signosVitales.peso}}
                             Kg</span>
                     </td>
                     <td >
@@ -107,10 +108,10 @@
                             <tr>
                                 <td>
                                     I =
-                                    {{item.$total_ingresos}}
+                                    {{item.balance.$total_ingresos}}
                                     <br/>
                                     E =
-                                    {{item.$total_egresos}}
+                                    {{item.balance.$total_egresos}}
                                 </td>
                                 <td style="text-align: center; vertical-align: middle;">
                                     <i class="verde mdi mdi-trending-up" ng-if="item.$balance < 0"></i>
@@ -136,13 +137,15 @@
             </tbody>
         </table>
         <p ng-if="!internacion.evoluciones.length">No se han cargado evoluciones</p>
+
+
     </div>
 
     <div ng-if="evolucionesEdit">
         <ng-form name="formEditarEvolucion" ng-show="!loading">
             <fieldset>
                 <!-- <legend>{{tituloFormulario}}</legend> -->
-
+                <!-- <li ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
                 <div class="row">
                     <div class="col-lg-12" plex-tabs ng-model="tab">
                         <ul class="nav nav-tabs">
@@ -151,20 +154,17 @@
                                     Fecha y hora
                                 </a>
                             </li>
-                            <li>
-                                <!-- <li ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
+                            <!-- <li>
                                 <a>
                                     Signos vitales
                                 </a>
                             </li>
                             <li>
-                                <!-- <li ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
                                 <a>
                                     Ingresos líquidos
                                 </a>
                             </li>
                             <li>
-                                <!-- <li ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
                                 <a>
                                     Egresos líquidos
                                 </a>
@@ -183,7 +183,7 @@
                                 <a>
                                     Dolor
                                 </a>
-                            </li>
+                            </li> -->
                             <li>
                                 <a>
                                     Texto evolución
@@ -211,7 +211,7 @@
                         </div>
 
                         <!-- <div ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
-                        <div class="card card-block">
+                        <!-- <div class="card card-block">
                             <div class="row">
                                 <div class="col-md-6">
                                     <fieldset>
@@ -335,9 +335,9 @@
                                     </fieldset>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- <div ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
-                        <div class="card card-block">
+                        <!-- <div class="card card-block">
                             <fieldset>
                                 <legend>Ingresos líquidos</legend>
                                 <div class="row">
@@ -384,9 +384,9 @@
                                     </div>
                                 </div>
                             </fieldset>
-                        </div>
+                        </div> -->
                         <!-- <div ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
-                        <div class="card card-block">
+                        <!-- <div class="card card-block">
                             <fieldset>
                                 <legend>Egresos</legend>
                                 <div class="row">
@@ -490,9 +490,9 @@
                                     </div>
                                 </div>
                             </fieldset>
-                        </div>
+                        </div> -->
                         <!-- Riesgo de caídas -->
-                        <div class="card card-block">
+                        <!-- <div class="card card-block">
 
                             <fieldset>
                                 <legend>Valoración de riesgo de caídas</legend>
@@ -563,9 +563,9 @@
                                     </div>
                                 </div>
                             </fielset>
-                        </div>
+                        </div> -->
                         <!-- Riesgo de UPP -->
-                        <div class="card card-block">
+                        <!-- <div class="card card-block">
 
                             <h4 class="card-title">Valoración del riesgo de desarrollar una úlcera por presión</h4>
                             <br/>
@@ -623,9 +623,9 @@
                                 <span ng-if="evolucionesEdit.riesgoUPP.estadoFisico + evolucionesEdit.riesgoUPP.estadoMental + evolucionesEdit.riesgoUPP.actividad + evolucionesEdit.riesgoUPP.movilidad + evolucionesEdit.riesgoUPP.incontinencia >= 10 && evolucionesEdit.riesgoUPP.estadoFisico + evolucionesEdit.riesgoUPP.estadoMental + evolucionesEdit.riesgoUPP.actividad + evolucionesEdit.riesgoUPP.movilidad + evolucionesEdit.riesgoUPP.incontinencia <= 12" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
                                 <span ng-if="evolucionesEdit.riesgoUPP.estadoFisico + evolucionesEdit.riesgoUPP.estadoMental + evolucionesEdit.riesgoUPP.actividad + evolucionesEdit.riesgoUPP.movilidad + evolucionesEdit.riesgoUPP.incontinencia >= 5 && evolucionesEdit.riesgoUPP.estadoFisico + evolucionesEdit.riesgoUPP.estadoMental + evolucionesEdit.riesgoUPP.actividad + evolucionesEdit.riesgoUPP.movilidad + evolucionesEdit.riesgoUPP.incontinencia <= 9" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- Dolor -->
-                        <div class="card card-block">
+                        <!-- <div class="card card-block">
                             <fieldset>
                                 <legend>Valoración del dolor</legend>
 
@@ -688,7 +688,7 @@
                                     </div>
                                 </div>
                             </fieldset>
-                        </div>
+                        </div> -->
 
                         <div class="card card-block">
                             <fieldset>
@@ -711,72 +711,126 @@
                                     <div class="col-lg-2 evolucion-anterior">
                                         <span class="text-uppercase">Signos vitales</span>
                                         <br/>
-                                        <div ng-show="ultimaEvolucion.pulso">
+                                        <div ng-show="ultimaEvolucion.signosVitales.pulso">
                                             <strong>Frecuencia cardíaca:</strong>
-                                            {{ultimaEvolucion.pulso}}
+                                            {{ultimaEvolucion.signosVitales.pulso}}
                                             PPM
                                         </div>
-                                        <div ng-show="ultimaEvolucion.respiracion">
+                                        <div ng-show="ultimaEvolucion.signosVitales.respiracion">
                                             <strong>Frecuencia respiratoria:</strong>
-                                            {{ultimaEvolucion.respiracion}}
+                                            {{ultimaEvolucion.signosVitales.respiracion}}
                                             PPM
                                         </div>
-                                        <div ng-show="ultimaEvolucion.tensionDiastolica">
+                                        <div ng-show="ultimaEvolucion.signosVitales.tensionDiastolica">
                                             <strong>Tensión diastólica:</strong>
-                                            {{ultimaEvolucion.tensionDiastolica}}
+                                            {{ultimaEvolucion.signosVitales.tensionDiastolica}}
                                             mmHG
                                         </div>
-                                        <div ng-show="ultimaEvolucion.tensionSistolica">
+                                        <div ng-show="ultimaEvolucion.signosVitales.tensionSistolica">
                                             <strong>Tensión sistólica:</strong>
-                                            {{ultimaEvolucion.tensionSistolica}}
+                                            {{ultimaEvolucion.signosVitales.tensionSistolica}}
                                             mmHG
                                         </div>
                                     </div>
                                     <div class="col-lg-2 br evolucion-anterior">
                                         <br/>
-                                        <div ng-show="ultimaEvolucion.temperatura">
+                                        <div ng-show="ultimaEvolucion.signosVitales.temperatura">
                                             <strong>Temperatura:</strong>
-                                            {{ultimaEvolucion.temperatura}}
+                                            {{ultimaEvolucion.signosVitales.temperatura}}
                                             ºC
                                         </div>
-                                        <div ng-show="ultimaEvolucion.spo2">
+                                        <div ng-show="ultimaEvolucion.signosVitales.spo2">
                                             <strong>Saturación O
                                                 <sub>2</sub>:</strong>
-                                            {{ultimaEvolucion.spo2}}
+                                            {{ultimaEvolucion.signosVitales.spo2}}
                                             %
                                         </div>
-                                        <div ng-show="ultimaEvolucion.peso">
+                                        <div ng-show="ultimaEvolucion.signosVitales.peso">
                                             <strong>Peso:</strong>
-                                            {{ultimaEvolucion.peso}}
+                                            {{ultimaEvolucion.signosVitales.peso}}
                                             kgs
                                         </div>
                                         <br/>
                                     </div>
-                                    <div class="col-lg-2 evolucion-anterior">
+                                    <div class="col-lg-3 br evolucion-anterior">
                                         <span class="text-uppercase">Ingresos</span>
                                         <br/>
-                                        <div ng-show="ultimaEvolucion.ingresos.atb">
-                                            <strong>ATB:</strong>
-                                            {{ultimaEvolucion.ingresos.atb}}
-                                            ml
-                                        </div>
-                                        <div ng-show="ultimaEvolucion.ingresos.hemo">
-                                            <strong>HEMO.:</strong>
-                                            {{ultimaEvolucion.ingresos.hemo}}
-                                            ml
-                                        </div>
-                                        <div ng-show="ultimaEvolucion.ingresos.np">
-                                            <strong>NP:</strong>
-                                            {{ultimaEvolucion.ingresos.np}}
-                                            ml
-                                        </div>
-                                        <div ng-show="ultimaEvolucion.ingresos.prep">
-                                            <strong>Prep.:</strong>
-                                            {{ultimaEvolucion.ingresos.prep}}
-                                            ml
+
+                                        <div class="row">
+                                            <div ng-repeat="ingreso in ultimaEvolucion.balance.ingresos" class="col-lg-6">
+
+                                                <span ng-if="ingreso.hidratacion.oral.cantidad > 0">
+                                                    <strong>Plan hidratación oral:</strong>
+                                                    <br />
+                                                    {{ingreso.hidratacion.oral.cantidad}} ml
+                                                    <br />
+                                                </span>
+
+                                                <span ng-if="ingreso.medicamentos.cantidad > 0">
+                                                    <strong>Antibióticos:</strong>
+                                                    {{ingreso.medicamentos.cantidad}} ml
+                                                    <br />
+                                                </span>
+
+                                                <span ng-if="ingreso.hidratacion.enteral.solucionFisiologica > 0 || ingreso.hidratacion.enteral.ringerLactato > 0 || ingreso.hidratacion.enteral.dextrosa > 0">
+                                                    <strong>Plan hidratación enteral:</strong>
+                                                    <br />
+                                                    <span ng-if="ingreso.hidratacion.enteral.solucionFisiologica > 0">
+                                                        Solucion fisiológica: {{ingreso.hidratacion.enteral.solucionFisiologica}} ml
+                                                        <br />
+                                                    </span>
+                                                    <span ng-if="ingreso.hidratacion.enteral.ringerLactato > 0">
+                                                        Ringer-Lactato: {{ingreso.hidratacion.enteral.ringerLactato}} ml
+                                                        <br />
+                                                    </span>
+                                                    <span ng-if="ingreso.hidratacion.enteral.dextrosa > 0">
+                                                        Dextrosa: {{ingreso.hidratacion.enteral.dextrosa}} ml
+                                                        <br />
+                                                    </span>
+                                                </span>
+
+                                                <span ng-if="ingreso.hidratacion.parenteral.solucionFisiologica > 0 || ingreso.hidratacion.parenteral.ringerLactato > 0 || ingreso.hidratacion.parenteral.dextrosa > 0">
+                                                    <strong>Plan hidratación parenteral:</strong>
+                                                    <br />
+                                                    <span ng-if="ingreso.hidratacion.parenteral.solucionFisiologica > 0">
+                                                        Solucion fisiológica: {{ingreso.hidratacion.parenteral.solucionFisiologica}} ml
+                                                        <br />
+                                                    </span>
+                                                    <span ng-if="ingreso.hidratacion.parenteral.ringerLactato > 0">
+                                                        Ringer-Lactato: {{ingreso.hidratacion.parenteral.ringerLactato}} ml
+                                                        <br />
+                                                    </span>
+                                                    <span ng-if="ingreso.hidratacion.parenteral.dextrosa > 0">
+                                                        Dextrosa: {{ingreso.hidratacion.parenteral.dextrosa}} ml
+                                                        <br />
+                                                    </span>
+                                                </span>
+
+
+                                                <span ng-if="ingreso.nutricion.enteral.cantidad > 0 || ingreso.nutricion.soporteOral.cantidad > 0">
+                                                    <strong>Nutrición:</strong>
+                                                    <br />
+                                                    <span ng-if="ingreso.nutricion.enteral.cantidad > 0">
+                                                        Enteral: {{ingreso.nutricion.enteral.cantidad}} ml
+                                                        <br />
+                                                    </span>
+                                                    <span ng-if="ingreso.nutricion.soporteOral.cantidad > 0">
+                                                        Soporte Oral: {{ingreso.nutricion.soporteOral.cantidad}} ml
+                                                        <br />
+                                                    </span>
+                                                </span>
+
+                                                <span ng-if="ingreso.hemoterapia.cantidad > 0">
+                                                    <strong>Transfusiones de sangre:</strong>
+                                                    <br />
+                                                    {{ingreso.hemoterapia.cantidad}} ml
+                                                    <br />
+                                                </span>
+                                            </div>
+
                                         </div>
                                     </div>
-                                    <div class="col-lg-1 br evolucion-anterior">
+                                    <!-- <div class="col-lg-1 br evolucion-anterior">
                                         <br/>
                                         <div ng-show="ultimaEvolucion.ingresos.h2o">
                                             <strong>H
@@ -785,52 +839,52 @@
                                             ml
                                         </div>
 
-                                    </div>
+                                    </div> -->
 
                                     <div class="col-lg-2 evolucion-anterior">
                                         <span class="text-uppercase">Egresos</span>
                                         <br/>
-                                        <div ng-show="ultimaEvolucion.egresos.lavadoVesicalI">
+                                        <div ng-show="ultimaEvolucion.balance.egresos.lavadoVesicalI">
                                             <strong>Lavado Vesical I:</strong>
-                                            {{ultimaEvolucion.egresos.lavadoVesicalI}}
+                                            {{ultimaEvolucion.balance.egresos.lavadoVesicalI}}
                                             ml
                                         </div>
-                                        <div ng-show="ultimaEvolucion.egresos.lavadoVesicalE">
+                                        <div ng-show="ultimaEvolucion.balance.egresos.lavadoVesicalE">
                                             <strong>Lavado Vesical II:</strong>
-                                            {{ultimaEvolucion.egresos.lavadoVesicalE}}
+                                            {{ultimaEvolucion.balance.egresos.lavadoVesicalE}}
                                             ml
                                         </div>
-                                        <div ng-show="ultimaEvolucion.egresos.diuresis">
+                                        <div ng-show="ultimaEvolucion.balance.egresos.diuresis">
                                             <strong>Diuresis:</strong>
-                                            {{ultimaEvolucion.egresos.diuresis}}
+                                            {{ultimaEvolucion.balance.egresos.diuresis}}
                                             ml
                                         </div>
-                                        <div ng-show="ultimaEvolucion.egresos.catarsis">
+                                        <div ng-show="ultimaEvolucion.balance.egresos.catarsis">
                                             <strong>Catarsis:</strong>
-                                            {{ultimaEvolucion.egresos.catarsis}}
+                                            {{ultimaEvolucion.balance.egresos.catarsis}}
                                             ml
                                         </div>
                                     </div>
                                     <div class="col-lg-2 br evolucion-anterior">
                                         <br/>
-                                        <div ng-show="ultimaEvolucion.egresos.sng">
+                                        <div ng-show="ultimaEvolucion.balance.egresos.sng">
                                             <strong>S.N.G:</strong>
-                                            {{ultimaEvolucion.egresos.sng}}
+                                            {{ultimaEvolucion.balance.egresos.sng}}
                                             ml
                                         </div>
-                                        <div ng-show="ultimaEvolucion.egresos.sny">
+                                        <div ng-show="ultimaEvolucion.balance.egresos.sny">
                                             <strong>S.N.Y:</strong>
-                                            {{ultimaEvolucion.sny}}
+                                            {{ultimaEvolucion.balance.egresos.sny}}
                                             ml
                                         </div>
-                                        <div ng-show="ultimaEvolucion.egresos.ostomias">
+                                        <div ng-show="ultimaEvolucion.balance.egresos.ostomias">
                                             <strong>Ostomias I:</strong>
-                                            {{ultimaEvolucion.egresos.ostomias}}
+                                            {{ultimaEvolucion.balance.egresos.ostomias}}
                                             ml
                                         </div>
-                                        <div ng-show="ultimaEvolucion.egresos.ostomias2">
+                                        <div ng-show="ultimaEvolucion.balance.egresos.ostomias2">
                                             <strong>Ostomias II:</strong>
-                                            {{ultimaEvolucion.egresos.ostomias2}}
+                                            {{ultimaEvolucion.balance.egresos.ostomias2}}
                                             ml
                                         </div>
 
@@ -846,22 +900,70 @@
                                     <div class="col-lg-1 evolucion-anterior">
                                         <span class="text-uppercase">
                                             Balance</span>
-                                        <i class="verde mdi mdi-trending-up" ng-if="ultimaEvolucion.$balance < 0"></i>
-                                        <i class="celeste mdi mdi-trending-flat" ng-if="ultimaEvolucion.$balance == 0"></i>
-                                        <i class="rojo mdi mdi-trending-down" ng-if="ultimaEvolucion.$balance > 0"></i>
-                                    </span>
+                                        <i class="verde mdi mdi-trending-up" ng-if="ultimaEvolucion.balance.$balance < 0"></i>
+                                        <i class="celeste mdi mdi-trending-flat" ng-if="ultimaEvolucion.balance.$balance == 0"></i>
+                                        <i class="rojo mdi mdi-trending-down" ng-if="ultimaEvolucion.balance.$balance > 0"></i>
+                                    <!-- </span> -->
 
                                     <br/>
                                     <span>
                                         <strong>I =</strong>
-                                        {{ultimaEvolucion.$total_ingresos}}
+                                        {{ultimaEvolucion.balance.$total_ingresos}}
                                         <br/>
                                         <strong>E =</strong>
-                                        {{ultimaEvolucion.$total_egresos}}
+                                        {{ultimaEvolucion.balance.$total_egresos}}
                                     </span>
 
+                                    </div>
                                 </div>
-                            </div>
+
+                            </fieldset>
+
+                            <fieldset>
+                                <div class="row"  ng-if="internacion.ingreso.medico.impresionDiagnostica.listaPositivos.length > 0 ||
+                                    internacion.ingreso.medico.impresionDiagnostica.listaSindromesSignos.length > 0 ||
+                                    internacion.ingreso.medico.impresionDiagnostica.listaHipotesis.length > 0
+                                    ">
+                                    <div class="col-xs-4 col-lg-4">
+                                        Signos guías
+                                        <div ng-if="internacion.ingreso.medico.impresionDiagnostica.listaPositivos.length > 0">
+                                            <ul>
+                                                <li ng-repeat="positivo in internacion.ingreso.medico.impresionDiagnostica.listaPositivos">
+                                                    {{positivo}}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-4 col-lg-4">
+                                        Sindromes
+                                        <div ng-if="internacion.ingreso.medico.impresionDiagnostica.listaSindromesSignos.length > 0">
+                                            <ul ng-repeat="sindrome in internacion.ingreso.medico.impresionDiagnostica.listaSindromesSignos track by $index">
+                                                <li>{{sindrome.nombreSindrome}}
+                                                    <ul ng-repeat="signo in internacion.ingreso.medico.impresionDiagnostica.listaSindromesSignos[$index].listaSignos">
+                                                        <li>{{signo}}</li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-4 col-lg-4">
+                                        Hipótesis
+                                        <div ng-if="internacion.ingreso.medico.impresionDiagnostica.listaHipotesis.length > 0">
+                                            <ul>
+                                                <li ng-repeat="hipotesis in internacion.ingreso.medico.impresionDiagnostica.listaHipotesis">
+                                                    {{hipotesis.nombre}} {{hipotesis.porcentaje}}%
+
+                                                    <div ng-if="hipotesis.confirmada">
+                                                        <span class="label label-success">Confirmada</span>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
                             <hr/>
                             <div class="row">
                                 <div class="col-xs-12">
