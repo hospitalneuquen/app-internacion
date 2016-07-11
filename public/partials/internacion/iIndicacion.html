@@ -1,7 +1,5 @@
 <div ng-controller="internacion/iIndicacion">
-    <!-- <pre>
-    {{indicacion | json}}
-</pre> -->
+
     <div class="card-block">
         <div class="row">
             <div class="col-xs-4 col-lg-4">
@@ -44,7 +42,7 @@
             </div>
         </div>
 
-        <div ng-if="showFormEvolucion">
+        <!-- <div ng-if="showFormEvolucion">
             <ng-form name="formEvoluciones">
                 <pre>
                     {{formEvoluciones.evolucionesEdit}}
@@ -80,20 +78,8 @@
                     </div>
                 </div>
 
-                <!-- <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card-block margin-top text-right">
-
-                            <button type="button" class="btn btn-default btn-flat" ng-click="indicaciones.cancelar();">Cancelar</button>
-                            <button type="button" class="btn btn-success btn-flat tips" title="Agregar indicación" ng-click="indicaciones.guardar(indicacion)">
-                                <span ng-if="indicacion.id">Guardar</span>
-                                <span ng-if="!indicacion.id">Agregar</span>
-                            </button>
-                        </div>
-                    </div>
-                </div> -->
             </ng-form>
-        </div>
+        </div> -->
 
         <div ng-if="showForm">
             <ng-form name="formEditarIndicaciones">
@@ -172,6 +158,7 @@
                                             </select>
                                         </div>
                                     </div>
+
                                     <!-- enteralParenteral -->
                                     <!-- Plan de Hidratacion -->
                                     <div ng-if="indicacion.tipo.nombre == 'Plan hidratación oral'">
@@ -182,9 +169,11 @@
                                             <input type="text" suffix="ml" label="Volumen" placeholder="Volumen ml" ng-model="indicacion.planHidratacion.oral.cantidad" plex/>
                                         </div>
                                     </div>
+                                    <div ng-if="indicacion.tipo == 'Plan hidratación parenteral' || indicacion.tipo.nombre == 'Plan hidratación parenteral'
+                                        || indicacion.tipo == 'Plan hidratación enteral' || indicacion.tipo.nombre == 'Plan hidratación enteral'">
 
-                                    <div ng-if="indicacion.tipo.nombre == 'Plan hidratación parenteral' || indicacion.tipo.nombre == 'Plan hidratación enteral'
-                                        || indicacion.tipo.nombre == 'Plan hidratación enteral' || indicacion.tipo.nombre == 'Plan hidratación enteral'">
+                                        <input type="hidden" value="Enteral" ng-model="indicacion.planHidratacion.enteralParenteral.tipo" ng-init="indicacion.planHidratacion.enteralParenteral.tipo = 'Enteral'" ng-if="indicacion.tipo == 'Plan hidratación enteral' || indicacion.tipo.nombre == 'Plan hidratación enteral'"/>
+                                        <input type="hidden" value="Parenteral" ng-model="indicacion.planHidratacion.enteralParenteral.tipo" ng-init="indicacion.planHidratacion.enteralParenteral.tipo = 'Parenteral'" ng-if="indicacion.tipo == 'Plan hidratación parenteral' || indicacion.tipo.nombre == 'Plan hidratación parenteral'"/>
 
                                         <div class="col-lg-12">
                                             <div class="row">
@@ -591,8 +580,8 @@
                                                     <input type="checkbox" label="Hiper con colacion" ng-model="indicacion.nutricion.tipo.hiperConColacion" plex="checkbox">
                                                     <input type="checkbox" label="Nada por boca" ng-model="indicacion.nutricion.tipo.nadaPorBoca" plex="checkbox">
                                                     <input type="checkbox" label="Hipocalórico" ng-model="indicacion.nutricion.tipo.hipocalorico" plex="checkbox">
-                                                    <input type="checkbox" label="Soporte oral" ng-model="indicacion.nutricion.tipo.soporteOral" plex="checkbox">
-                                                    <input type="text" ng-disabled="!indicacion.nutricion.tipo.soporteOral" suffix="ml" placeholder="Cant. preparado oral" ng-model="indicacion.nutricion.cantidadSoporteOral" plex/>
+                                                    <!-- <input type="checkbox" label="Soporte oral" ng-model="indicacion.nutricion.tipo.soporteOral" plex="checkbox">
+                                                    <input type="text" ng-disabled="!indicacion.nutricion.tipo.soporteOral" suffix="ml" placeholder="Cant. preparado oral" ng-model="indicacion.nutricion.cantidadSoporteOral" plex/> -->
                                                 </div>
                                             </div>
 
@@ -602,21 +591,21 @@
 
                                                     <div class="row">
                                                         <div class="col-lg-3">
-                                                            <select class="form-control" label="Tipo de preparado" ng-model="indicacion.nutricion.nutricionEnteral.tipoPreparado.descripcion" plex="(tipo.value) for tipo in tipoNutricionEnteral" ng-change="calcularInformacionNutricion('nutricion-enteral')"></select>
+                                                            <select class="form-control" label="Tipo de preparado" ng-model="indicacion.nutricion.enteral.tipoPreparado.descripcion" plex="(tipo.value) for tipo in tipoNutricionEnteral" ng-change="calcularInformacionNutricion('nutricion-enteral')"></select>
                                                         </div>
 
                                                         <div class="col-lg-2">
-                                                            <input type="text" label="Cantidad" ng-model="indicacion.nutricion.nutricionEnteral.cantidad" ng-change="calcularInformacionNutricion('nutricion-enteral')" plex/>
+                                                            <input type="text" label="Cantidad" ng-model="indicacion.nutricion.enteral.cantidad" ng-change="calcularInformacionNutricion('nutricion-enteral')" plex/>
                                                         </div>
 
                                                         <div class="col-lg-4">
                                                             <label for="">Velocidad de infusión</label>
                                                             <div class="row">
                                                                 <div class="col-lg-5">
-                                                                    <input type="text" ng-model="indicacion.nutricion.nutricionEnteral.velocidadInfunsion.velocidad" plex/>
+                                                                    <input type="text" ng-model="indicacion.nutricion.enteral.velocidadInfunsion.velocidad" plex/>
                                                                 </div>
                                                                 <div class="col-lg-7">
-                                                                    <select ng-model="indicacion.nutricion.nutricionEnteral.velocidadInfunsion.unidad" plex>
+                                                                    <select ng-model="indicacion.nutricion.enteral.velocidadInfunsion.unidad" plex>
                                                                         <option value="">Seleccione</option>
                                                                         <option value="ml/hora">ml/hora</option>
                                                                         <option value="gotas x minuto">gotas x minuto</option>
@@ -626,7 +615,7 @@
                                                         </div>
 
                                                         <div class="col-lg-3">
-                                                            <select label="Tipo de sonda" ng-model="indicacion.nutricion.nutricionEnteral.sonda" plex>
+                                                            <select label="Tipo de sonda" ng-model="indicacion.nutricion.enteral.sonda" plex>
                                                                 <option value="SNG">SNG</option>
                                                                 <option value="SNY">SNY</option>
                                                                 <option value="Gastrostomías">Gastrostomías</option>
@@ -739,7 +728,7 @@
 
         <div class="row" ng-if="filtros.indicaciones.length > 0 && !showForm && !showFormEvolucion">
             <div class="col-lg-12">
-                <legend>
+                <!-- <legend>
                     <div class="row">
                         <div class="col-lg-6">
                             Indicaciones
@@ -752,31 +741,24 @@
                             </span>
                         </div>
                     </div>
-                </legend>
+                </legend> -->
 
                 <table class="table table-hover table-bordered highlight">
                     <thead>
                         <tr class="exclude">
-                            <th rowspan="2" class="text-center">
+                            <!-- <th rowspan="1" class="text-center">
                                 <input type="checkbox" ng-click="table.selectAll($event)" ng-checked="table.isSelectedAll()" class="tips" title="Seleccionar todas"/>
-                            </th>
-                            <th rowspan="2" class="text-center vert-align">Medicación / Hidratación / Alimentación parenteral</th>
-                            <th rowspan="2" class="text-center">Vía</th>
-                            <th rowspan="2" class="text-center">Frec.</th>
-                            <th colspan="6" class="text-center">Turno mañana</th>
+                            </th> -->
+                            <th rowspan="1" class="text-center vert-align">Medicación / Hidratación / Alimentación parenteral</th>
+                            <th rowspan="1" class="text-center">Vía</th>
+                            <th rowspan="1" class="text-center">Frec.</th>
+                            <!-- <th colspan="6" class="text-center">Turno mañana</th>
                             <th colspan="6" class="text-center">Turno tarde</th>
                             <th colspan="6" class="text-center">Turno noche</th>
-                            <th colspan="6" class="text-center">Turno madrugada</th>
+                            <th colspan="6" class="text-center">Turno madrugada</th> -->
 
-                            <th rowspan="2" class="text-center">
-                                Usuario / Servicio
-                            </th>
-                            <th rowspan="2" class="text-center">
-                                Fecha
-                            </th>
-                            <th rowspan="2" class="text-center">Acciones</th>
-                        </tr>
-                        <tr class="exclude">
+                        <!-- </tr>
+                        <tr class="exclude"> -->
                             <th>
                                 07
                             </th>
@@ -849,263 +831,270 @@
                             <th>
                                 06
                             </th>
+                            <th rowspan="1" class="text-center">
+                                Usuario / Servicio
+                            </th>
+                            <th rowspan="1" class="text-center">
+                                Fecha
+                            </th>
+                            <th rowspan="1" class="text-center">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="indicacion in filtros.indicaciones track by $index">
-                            <td width="20">
+
+                    <tr ng-repeat="indicacion in filtros.indicaciones track by $index">
+                            <!-- <td width="20">
                                 <input type="checkbox" name="selected" ng-checked="table.isSelected(indicacion.id)" ng-click="table.updateSelection($event, indicacion.id)"/>
-                            </td>
-                            <td ng-click="table.updateSelection($event, indicacion.id)">
-                                <span>
-                                    <b>
-                                        <i>{{indicacion.tipo.nombre ? indicacion.tipo.nombre : indicacion.tipo }}</i>
-                                    </b>
-                                </span>
-
-                                <span ng-if="indicacion.tipo.nombre == 'Plan hidratación oral' || indicacion.tipo == 'Plan hidratación oral'">
-                                    <br/>
-                                    {{indicacion.planHidratacion.oral.descripcion}}
-                                    {{indicacion.planHidratacion.oral.cantidad}}
-                                    ml
-                                </span>
-
-                                <span ng-if="indicacion.tipo.nombre == 'Plan hidratación enteral' || indicacion.tipo == 'Plan hidratación enteral'">
-                                    <b>
-                                        {{indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad+indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad+indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad}}
-                                        ml por
-                                        {{indicacion.planHidratacion.enteralParenteral.sonda}}
-                                    </b>
-
-                                    <br />
-
-                                    <span ng-show="indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad > 0">
-                                        Solución fisiológica {{indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad}} ml
+                            </td> -->
+                            <td ng-hide="evolucionarIndicacion && indicacion.id != evolucionarIndicacion.id">
+                                    <span>
+                                        <b>
+                                            <i>{{indicacion.tipo.nombre ? indicacion.tipo.nombre : indicacion.tipo }}</i>
+                                        </b>
                                     </span>
 
-                                    <br />
-
-                                    <span ng-show="indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad > 0">
-                                        Dextrosa {{indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad}} ml
-                                    </span>
-
-                                    <br />
-
-                                    <span ng-show="indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad > 0">
-                                        Ringer-Lactato {{indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad}} ml
-                                    </span>
-                                </span>
-
-                                <span ng-if="indicacion.tipo.nombre == 'Plan hidratación parenteral' || indicacion.tipo == 'Plan hidratación parenteral'">
-                                    <!-- {{indicacion.planHidratacion.tipoPlan.nombre ? indicacion.planHidratacion.tipoPlan.nombre : indicacion.planHidratacion.tipoPlan }} -->
-                                    <b>
-                                        {{indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad+indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad+indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad}}
+                                    <span ng-if="indicacion.tipo.nombre == 'Plan hidratación oral' || indicacion.tipo == 'Plan hidratación oral'">
+                                        <br/>
+                                        {{indicacion.planHidratacion.oral.descripcion}}
+                                        {{indicacion.planHidratacion.oral.cantidad}}
                                         ml
-                                    </b>
+                                    </span>
 
-                                    <br />
+                                    <span ng-if="indicacion.tipo.nombre == 'Plan hidratación enteral' || indicacion.tipo == 'Plan hidratación enteral'">
+                                        <b>
+                                            {{indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad+indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad+indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad}}
+                                            ml por
+                                            {{indicacion.planHidratacion.enteralParenteral.sonda}}
+                                        </b>
 
-                                    <span ng-show="indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad > 0">
-                                        Solución fisiológica {{indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad}} ml
-                                        -
-                                        <span ng-if="indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos.length">
-                                        Frascos <span class="mr label label-primary" ng-repeat="frasco in indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos">{{frasco}}</span>
+                                        <br />
+
+                                        <span ng-show="indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad > 0">
+                                            Solución fisiológica {{indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad}} ml
+                                        </span>
+
+                                        <br />
+
+                                        <span ng-show="indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad > 0">
+                                            Dextrosa {{indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad}} ml
+                                        </span>
+
+                                        <br />
+
+                                        <span ng-show="indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad > 0">
+                                            Ringer-Lactato {{indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad}} ml
                                         </span>
                                     </span>
 
-                                    <br />
+                                    <span ng-if="indicacion.tipo.nombre == 'Plan hidratación parenteral' || indicacion.tipo == 'Plan hidratación parenteral'">
+                                        <!-- {{indicacion.planHidratacion.tipoPlan.nombre ? indicacion.planHidratacion.tipoPlan.nombre : indicacion.planHidratacion.tipoPlan }} -->
+                                        <b>
+                                            {{indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad+indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad+indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad}}
+                                            ml
+                                        </b>
 
-                                    <span ng-show="indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad > 0">
-                                        Dextrosa {{indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad}} ml
-                                        -
-                                        <span ng-if="indicacion.planHidratacion.enteralParenteral.dextrosa.frascos.length">
-                                        Frascos <span class="mr label label-primary" ng-repeat="frasco in indicacion.planHidratacion.enteralParenteral.dextrosa.frascos">{{frasco}}</span>
+                                        <br />
+
+                                        <span ng-show="indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad > 0">
+                                            Solución fisiológica {{indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad}} ml
+                                            -
+                                            <span ng-if="indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos.length">
+                                            Frascos <span class="mr label label-primary" ng-repeat="frasco in indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos">{{frasco}}</span>
+                                            </span>
                                         </span>
-                                    </span>
 
-                                    <br />
+                                        <br />
 
-                                    <span ng-show="indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad > 0">
-                                        Ringer-Lactato {{indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad}} ml
-                                        -
-                                        <span ng-if="indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos.length">
-                                        Frascos <span class="mr label label-primary" ng-repeat="frasco in indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos">{{frasco}}</span>
+                                        <span ng-show="indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad > 0">
+                                            Dextrosa {{indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad}} ml
+                                            -
+                                            <span ng-if="indicacion.planHidratacion.enteralParenteral.dextrosa.frascos.length">
+                                            Frascos <span class="mr label label-primary" ng-repeat="frasco in indicacion.planHidratacion.enteralParenteral.dextrosa.frascos">{{frasco}}</span>
+                                            </span>
                                         </span>
-                                    </span>
 
-                                    <div ng-if="indicacion.planHidratacion.enteralParenteral.agregados.length">
+                                        <br />
 
-                                        <b>Agregados</b>
-                                        <div ng-repeat="agregado in indicacion.planHidratacion.enteralParenteral.agregados">
-                                            +
-                                            {{agregado.tipoAgregado.nombre ? agregado.tipoAgregado.nombre : agregado.tipoAgregado}}
-                                            {{agregado.descripcion}}
+                                        <span ng-show="indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad > 0">
+                                            Ringer-Lactato {{indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad}} ml
+                                            -
+                                            <span ng-if="indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos.length">
+                                            Frascos <span class="mr label label-primary" ng-repeat="frasco in indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos">{{frasco}}</span>
+                                            </span>
+                                        </span>
 
-                                            <span class="mr label label-primary" ng-if="agregado.frascos.length == indicacion.planHidratacion.$frascos">Todos</span>
-                                            <span class="mr label label-primary" ng-if="agregado.frascos.length != indicacion.planHidratacion.$frascos" ng-repeat="frasco in agregado.frascos">{{frasco}}</span>
+                                        <div ng-if="indicacion.planHidratacion.enteralParenteral.agregados.length">
+
+                                            <b>Agregados</b>
+                                            <div ng-repeat="agregado in indicacion.planHidratacion.enteralParenteral.agregados">
+                                                +
+                                                {{agregado.tipoAgregado.nombre ? agregado.tipoAgregado.nombre : agregado.tipoAgregado}}
+                                                {{agregado.descripcion}}
+
+                                                <span class="mr label label-primary" ng-if="agregado.frascos.length == indicacion.planHidratacion.$frascos">Todos</span>
+                                                <span class="mr label label-primary" ng-if="agregado.frascos.length != indicacion.planHidratacion.$frascos" ng-repeat="frasco in agregado.frascos">{{frasco}}</span>
+                                            </div>
                                         </div>
+
+                                    </span>
+
+                                    <span ng-if="indicacion.tipo.nombre == 'Otra indicación' || indicacion.tipo == 'Otra indicación'">
+                                        <br/>
+                                        {{indicacion.descripcion}}
+                                    </span>
+
+                                    <div ng-if="indicacion.tipo.nombre == 'Heparina o profilaxis' || indicacion.tipo == 'Heparina o profilaxis'
+                                        || indicacion.tipo.nombre == 'Protección gástrica' || indicacion.tipo == 'Protección gástrica'
+                                        || indicacion.tipo.nombre == 'Antibióticos' || indicacion.tipo == 'Antibióticos'
+                                        || indicacion.tipo.nombre == 'Otra medicación' || indicacion.tipo == 'Otra medicación'
+                                        ">
+                                        {{indicacion.medicamento.descripcion}}
                                     </div>
 
-                                </span>
+                                    <div ng-if="indicacion.tipo.nombre == 'Controles' || indicacion.tipo == 'Controles'">
+                                        {{indicacion.controles.tipo.nombre ? indicacion.controles.tipo.nombre : indicacion.controles.tipo}}
+                                    </div>
 
-                                <span ng-if="indicacion.tipo.nombre == 'Otra indicación' || indicacion.tipo == 'Otra indicación'">
-                                    <br/>
-                                    {{indicacion.descripcion}}
-                                </span>
+                                    <div ng-if="indicacion.tipo.nombre == 'Cuidados generales' || indicacion.tipo == 'Cuidados generales'">
+                                        {{indicacion.cuidadosGenerales.tipo.nombre ? indicacion.cuidadosGenerales.tipo.nombre : indicacion.cuidadosGenerales.tipo}}
+                                        <span ng-show="indicacion.cuidadosGenerales.tipo == 'Oxígeno'">
+                                            {{indicacion.cuidadosGenerales.oxigeno.respiracion}}
 
-                                <div ng-if="indicacion.tipo.nombre == 'Heparina o profilaxis' || indicacion.tipo == 'Heparina o profilaxis'
-                                    || indicacion.tipo.nombre == 'Protección gástrica' || indicacion.tipo == 'Protección gástrica'
-                                    || indicacion.tipo.nombre == 'Antibióticos' || indicacion.tipo == 'Antibióticos'
-                                    || indicacion.tipo.nombre == 'Otra medicación' || indicacion.tipo == 'Otra medicación'
-                                    ">
-                                    {{indicacion.medicamento.descripcion}}
-                                </div>
-
-                                <div ng-if="indicacion.tipo.nombre == 'Controles' || indicacion.tipo == 'Controles'">
-                                    {{indicacion.controles.tipo.nombre ? indicacion.controles.tipo.nombre : indicacion.controles.tipo}}
-                                </div>
-
-                                <div ng-if="indicacion.tipo.nombre == 'Cuidados generales' || indicacion.tipo == 'Cuidados generales'">
-                                    {{indicacion.cuidadosGenerales.tipo.nombre ? indicacion.cuidadosGenerales.tipo.nombre : indicacion.cuidadosGenerales.tipo}}
-                                    <span ng-show="indicacion.cuidadosGenerales.tipo == 'Oxígeno'">
-                                        {{indicacion.cuidadosGenerales.oxigeno.respiracion}}
-
-                                        <span ng-show="indicacion.cuidadosGenerales.oxigeno.respiracion == 'Mascara'">
-                                            al {{indicacion.cuidadosGenerales.oxigeno.cantidad}} %
-                                        <span>
-                                        <span ng-show="indicacion.cuidadosGenerales.oxigeno.respiracion == 'Bigotera'">
-                                            a {{indicacion.cuidadosGenerales.oxigeno.cantidad}} lt/min
-                                        <span>
-                                    </span>
-                                </div>
-
-                                <div ng-if="indicacion.tipo.nombre == 'Cuidados especiales' || indicacion.tipo == 'Cuidados especiales'">
-                                    {{indicacion.cuidadosEspeciales.tipo}}
-
-                                    <span ng-if="indicacion.cuidadosEspeciales.tipo == 'Sonda'">
-                                        {{indicacion.cuidadosEspeciales.sonda.tipo}}
-                                        <span class="label label-default ">
-                                            {{indicacion.cuidadosEspeciales.sonda.accion}}
+                                            <span ng-show="indicacion.cuidadosGenerales.oxigeno.respiracion == 'Mascara'">
+                                                al {{indicacion.cuidadosGenerales.oxigeno.cantidad}} %
+                                            <span>
+                                            <span ng-show="indicacion.cuidadosGenerales.oxigeno.respiracion == 'Bigotera'">
+                                                a {{indicacion.cuidadosGenerales.oxigeno.cantidad}} lt/min
+                                            <span>
                                         </span>
-                                    </span>
+                                    </div>
 
-                                    <span ng-if="indicacion.cuidadosEspeciales.tipo == 'Aislamiento'">
-                                        {{indicacion.cuidadosEspeciales.aislamiento.tipo}}
-                                        <span class="label label-default ">
-                                            {{indicacion.cuidadosEspeciales.aislamiento.accion}}
+                                    <div ng-if="indicacion.tipo.nombre == 'Cuidados especiales' || indicacion.tipo == 'Cuidados especiales'">
+                                        {{indicacion.cuidadosEspeciales.tipo}}
+
+                                        <span ng-if="indicacion.cuidadosEspeciales.tipo == 'Sonda'">
+                                            {{indicacion.cuidadosEspeciales.sonda.tipo}}
+                                            <span class="label label-default ">
+                                                {{indicacion.cuidadosEspeciales.sonda.accion}}
+                                            </span>
                                         </span>
-                                    </span>
-                                </div>
 
-                                <div ng-if="indicacion.tipo.nombre == 'Solicitud prestaciones' || indicacion.tipo == 'Solicitud prestaciones'">
+                                        <span ng-if="indicacion.cuidadosEspeciales.tipo == 'Aislamiento'">
+                                            {{indicacion.cuidadosEspeciales.aislamiento.tipo}}
+                                            <span class="label label-default ">
+                                                {{indicacion.cuidadosEspeciales.aislamiento.accion}}
+                                            </span>
+                                        </span>
+                                    </div>
 
-                                    <span class="label label-default" ng-show="indicacion.prestaciones.prioridad == 'No prioritario' || indicacion.prestaciones.prioridad.nombre == 'No prioritario'">No prioritario</span>
-                                    <span class="label label-warning" ng-show="indicacion.prestaciones.prioridad == 'Urgente' || indicacion.prestaciones.prioridad.nombre == 'Urgente'">Urgente</span>
-                                    <span class="label label-danger" ng-show="indicacion.prestaciones.prioridad == 'Emergencia' || indicacion.prestaciones.prioridad.nombre == 'Emergencia'">Emergencia</span>
-                                    {{indicacion.prestaciones.tipoPrestacion.nombre}}
-                                    {{indicacion.prestaciones.tipoPrestacion.texto}}
-                                    <!--
-                    turnoFechaHora -->
-                                    <!-- {{indicacion.prestaciones}} -->
-                                </div>
+                                    <div ng-if="indicacion.tipo.nombre == 'Solicitud prestaciones' || indicacion.tipo == 'Solicitud prestaciones'">
 
-                                <div ng-if="indicacion.tipo.nombre == 'Nutrición' || indicacion.tipo == 'Nutrición'">
-                                    <span ng-show="indicacion.nutricion.tipo.ayuno">
-                                        Ayuno /
-                                    </span>
-                                    <span ng-show="indicacion.nutricion.tipo.blandoMecanico">
-                                        Blando mecánico /
-                                    </span>
-                                    <span ng-show="indicacion.nutricion.tipo.general">
-                                        General /
-                                    </span>
-                                    <span ng-show="indicacion.nutricion.tipo.acompanante">
-                                        Acompañante /
-                                    </span>
-                                    <span ng-show="indicacion.nutricion.tipo.diabetico">
-                                        Diabético /
-                                    </span>
-                                    <span ng-show="indicacion.nutricion.tipo.licuado">
-                                        Licuado /
-                                    </span>
-                                    <span ng-show="indicacion.nutricion.tipo.insuficienciaRenal">
-                                        Insuficencia renal /
-                                    </span>
-                                    <span ng-show="indicacion.nutricion.tipo.ricoEnResiduo">
-                                        Rico en residuo /
-                                    </span>
-                                    <span ng-show="indicacion.nutricion.tipo.hepatoGastroProtectora">
-                                        Hepato/Gastro protectora /
-                                    </span>
-                                    <span ng-show="indicacion.nutricion.tipo.astringente">
-                                        Astringente /
-                                    </span>
-                                    <span ng-show="indicacion.nutricion.tipo.liquido01">
-                                        Líquido 01 /
-                                    </span>
-                                    <span ng-show="indicacion.nutricion.tipo.sinSal">
-                                        Sin sal /
-                                    </span>
-                                    <span ng-show="indicacion.nutricion.tipo.blandoSinCarne02">
-                                        Blando sin carne 02 /
-                                    </span>
-                                    <span ng-show="indicacion.nutricion.tipo.blandoConCarne03">
-                                        Blando sin carne 03 /
-                                    </span>
-                                    <span ng-show="indicacion.nutricion.tipo.sinGluten">
-                                        Sin Gluten /
-                                    </span>
-                                    <span ng-show="indicacion.nutricion.tipo.todoCocido">
-                                        Todo cocido /
-                                    </span>
-                                    <span ng-show="indicacion.nutricion.tipo.individual">
-                                        Individual /
-                                    </span>
-                                    <span ng-show="indicacion.nutricion.tipo.hiperConColacion">
-                                        Hiper c/colocación /
-                                    </span>
-                                    <span ng-show="indicacion.nutricion.tipo.pediatrico1_2">
-                                        Pediátrico 1 - 2 /
-                                    </span>
-                                    <span ng-show="indicacion.nutricion.tipo.nadaPorBoca">
-                                        Nada por boca /
-                                    </span>
-                                    <span ng-show="indicacion.nutricion.tipo.lactante1_2">
-                                        Lactante 1 - 2 /
-                                    </span>
-                                    <span ng-show="indicacion.nutricion.tipo.hipocalorico">
-                                        Hipocalórico /
-                                    </span>
-                                    <span ng-show="indicacion.nutricion.tipo.soporteOral">
-                                        Preparado oral
-                                        {{indicacion.nutricion.cantidadSoporteOral}}
-                                        ml
-                                    </span>
+                                        <span class="label label-default" ng-show="indicacion.prestaciones.prioridad == 'No prioritario' || indicacion.prestaciones.prioridad.nombre == 'No prioritario'">No prioritario</span>
+                                        <span class="label label-warning" ng-show="indicacion.prestaciones.prioridad == 'Urgente' || indicacion.prestaciones.prioridad.nombre == 'Urgente'">Urgente</span>
+                                        <span class="label label-danger" ng-show="indicacion.prestaciones.prioridad == 'Emergencia' || indicacion.prestaciones.prioridad.nombre == 'Emergencia'">Emergencia</span>
+                                        {{indicacion.prestaciones.tipoPrestacion.nombre}}
+                                        {{indicacion.prestaciones.tipoPrestacion.texto}}
 
-                                    <span ng-show="indicacion.nutricion.nutricionEnteral">
-                                        <br />
-                                        Nutrición enteral:
-                                        <br />
-                                        {{indicacion.nutricion.nutricionEnteral.tipoPreparado.descripcion}}
-                                        {{indicacion.nutricion.nutricionEnteral.cantidad}} ml
-                                        por {{indicacion.nutricion.nutricionEnteral.sonda}}
-                                        a {{indicacion.nutricion.nutricionEnteral.velocidadInfunsion.velocidad}} {{indicacion.nutricion.nutricionEnteral.velocidadInfunsion.unidad}}
+                                    </div>
 
-                                    </span>
+                                    <div ng-if="indicacion.tipo.nombre == 'Nutrición' || indicacion.tipo == 'Nutrición'">
+                                        <span ng-show="indicacion.nutricion.tipo.ayuno">
+                                            Ayuno /
+                                        </span>
+                                        <span ng-show="indicacion.nutricion.tipo.blandoMecanico">
+                                            Blando mecánico /
+                                        </span>
+                                        <span ng-show="indicacion.nutricion.tipo.general">
+                                            General /
+                                        </span>
+                                        <span ng-show="indicacion.nutricion.tipo.acompanante">
+                                            Acompañante /
+                                        </span>
+                                        <span ng-show="indicacion.nutricion.tipo.diabetico">
+                                            Diabético /
+                                        </span>
+                                        <span ng-show="indicacion.nutricion.tipo.licuado">
+                                            Licuado /
+                                        </span>
+                                        <span ng-show="indicacion.nutricion.tipo.insuficienciaRenal">
+                                            Insuficencia renal /
+                                        </span>
+                                        <span ng-show="indicacion.nutricion.tipo.ricoEnResiduo">
+                                            Rico en residuo /
+                                        </span>
+                                        <span ng-show="indicacion.nutricion.tipo.hepatoGastroProtectora">
+                                            Hepato/Gastro protectora /
+                                        </span>
+                                        <span ng-show="indicacion.nutricion.tipo.astringente">
+                                            Astringente /
+                                        </span>
+                                        <span ng-show="indicacion.nutricion.tipo.liquido01">
+                                            Líquido 01 /
+                                        </span>
+                                        <span ng-show="indicacion.nutricion.tipo.sinSal">
+                                            Sin sal /
+                                        </span>
+                                        <span ng-show="indicacion.nutricion.tipo.blandoSinCarne02">
+                                            Blando sin carne 02 /
+                                        </span>
+                                        <span ng-show="indicacion.nutricion.tipo.blandoConCarne03">
+                                            Blando sin carne 03 /
+                                        </span>
+                                        <span ng-show="indicacion.nutricion.tipo.sinGluten">
+                                            Sin Gluten /
+                                        </span>
+                                        <span ng-show="indicacion.nutricion.tipo.todoCocido">
+                                            Todo cocido /
+                                        </span>
+                                        <span ng-show="indicacion.nutricion.tipo.individual">
+                                            Individual /
+                                        </span>
+                                        <span ng-show="indicacion.nutricion.tipo.hiperConColacion">
+                                            Hiper c/colocación /
+                                        </span>
+                                        <span ng-show="indicacion.nutricion.tipo.pediatrico1_2">
+                                            Pediátrico 1 - 2 /
+                                        </span>
+                                        <span ng-show="indicacion.nutricion.tipo.nadaPorBoca">
+                                            Nada por boca /
+                                        </span>
+                                        <span ng-show="indicacion.nutricion.tipo.lactante1_2">
+                                            Lactante 1 - 2 /
+                                        </span>
+                                        <span ng-show="indicacion.nutricion.tipo.hipocalorico">
+                                            Hipocalórico /
+                                        </span>
+                                        <span ng-show="indicacion.nutricion.tipo.soporteOral">
+                                            Preparado oral
+                                            {{indicacion.nutricion.cantidadSoporteOral}}
+                                            ml
+                                        </span>
 
-                                    <span ng-show="indicacion.nutricion.soporteOral">
-                                        <br />
-                                        Soporte oral:
-                                        <br />
-                                        {{indicacion.nutricion.soporteOral.tipoPreparado.descripcion}}
-                                        {{indicacion.nutricion.soporteOral.cantidad}} ml
-                                    </span>
+                                        <span ng-show="indicacion.nutricion.nutricionEnteral">
+                                            <br />
+                                            Nutrición enteral:
+                                            <br />
+                                            {{indicacion.nutricion.nutricionEnteral.tipoPreparado.descripcion}}
+                                            {{indicacion.nutricion.nutricionEnteral.cantidad}} ml
+                                            por {{indicacion.nutricion.nutricionEnteral.sonda}}
+                                            a {{indicacion.nutricion.nutricionEnteral.velocidadInfunsion.velocidad}} {{indicacion.nutricion.nutricionEnteral.velocidadInfunsion.unidad}}
+
+                                        </span>
+
+                                        <span ng-show="indicacion.nutricion.soporteOral">
+                                            <br />
+                                            Soporte oral:
+                                            <br />
+                                            {{indicacion.nutricion.soporteOral.tipoPreparado.descripcion}}
+                                            {{indicacion.nutricion.soporteOral.cantidad}} ml
+                                        </span>
 
 
-                                </div>
+                                    </div>
+
                             </td>
-                            <td >{{indicacion.via}}</td>
-                            <td >
+                            <td  ng-hide="evolucionarIndicacion && indicacion.id != evolucionarIndicacion.id">{{indicacion.via}}</td>
+                            <td  ng-hide="evolucionarIndicacion && indicacion.id != evolucionarIndicacion.id">
                                 <span ng-if="indicacion.frecuencia == 'unica'">UD</span>
                                 <span ng-if="indicacion.frecuencia == '24'">Día</span>
                                 <span ng-if="indicacion.frecuencia == '12' || indicacion.frecuencia == '8' || indicacion.frecuencia == '6' || indicacion.frecuencia == '4'">
@@ -1115,29 +1104,35 @@
 
                             </td>
 
-                            <td class="text-center" ng-repeat="hora in horarios">
+                            <td class="text-center" ng-repeat="hora in horarios" ng-hide="evolucionarIndicacion && indicacion.id != evolucionarIndicacion.id">
                                 {{ indicacion.horarios[hora] }}
                             </td>
 
-                            <td class="text-center">
+                            <td class="text-center" ng-hide="evolucionarIndicacion && indicacion.id != evolucionarIndicacion.id">
                                 {{indicacion.createdBy.name}}
                                 <br/>
                                 {{indicacion.servicio.nombreCorto}}
                             </td>
 
-                            <td class="text-center">
+                            <td class="text-center" ng-hide="evolucionarIndicacion && indicacion.id != evolucionarIndicacion.id">
                                 {{indicacion.createdAt | fromNow }}<br/>
                                 <div class="text-muted small">
                                     {{indicacion.createdAt | date: "dd/MM/yyyy HH:mm"}}
                                 </div>
                             </td>
 
-                            <td class="text-center">
-                                <div ng-if="indicacion.activo">
-                                    <div ng-show="!indicaciones.borrar">
+                            <td class="text-center" ng-hide="!indicacion.activo || (evolucionarIndicacion && indicacion.id != evolucionarIndicacion.id)">
+
+
+                                    <div ng-show="!indicaciones.borrar && !evolucionarIndicacion">
+                                        <button class="btn btn-success btn-flat tips" title="Evolucionar" ng-click="indicaciones.evolucionar(indicacion)">
+                                            <i class="mdi mdi-chart-line"></i>
+                                        </button>
+
                                         <button class="btn btn-default btn-flat tips" title="Editar indicacion" ng-click="indicaciones.editar(indicacion)">
                                             <i class="mdi mdi-pencil"></i>
                                         </button>
+
                                         <!-- <button class="btn btn-default btn-flat tips" title="Suspender indicacion" ng-click="indicaciones.suspender(indicacion)"> -->
                                         <button class="btn btn-danger btn-flat tips" title="Suspender indicacion" ng-click="indicaciones.suspender(indicacion)">
                                             <i class="mdi mdi-delete"></i>
@@ -1156,9 +1151,600 @@
                                         </button>
 
                                     </div>
+
+                            </td>
+
+                        </tr>
+
+                        <tr ng-show="evolucionarIndicacion" class="no-hover">
+                            <td colspan="30">
+
+                                <div ng-if="evolucionarIndicacion.tipo == 'Controles' && evolucionarIndicacion.controles.tipo == 'Balance'">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <fieldset>
+                                                <legend>Ingresos</legend>
+
+                                                <div ng-repeat="_indicacion in internacion.indicaciones track by $index" ng-init="contador = 0">
+                                                    <div ng-if="_indicacion.activo">
+
+                                                        <div class="row" ng-if="_indicacion.tipo == 'Plan hidratación oral' || _indicacion.tipo == 'Plan hidratación parenteral' || _indicacion.tipo == 'Plan hidratación enteral' ">
+                                                            <input type="hidden" value="'{{_indicacion.id}}'" ng-model="evolucionesEdit.balance.ingresos[$index].idIndicacion" ng-init="evolucionesEdit.balance.ingresos[$index].idIndicacion = _indicacion.id"/>
+                                                            <div class="col-lg-12">
+
+                                                                <div ng-if="_indicacion.tipo.nombre == 'Plan hidratación oral' || _indicacion.tipo == 'Plan hidratación oral'">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-12">
+                                                                            <b>
+                                                                                <i>{{_indicacion.tipo.nombre ? _indicacion.tipo.nombre : _indicacion.tipo }}</i>
+                                                                            </b>
+
+                                                                            {{_indicacion.planHidratacion.oral.descripcion}}
+                                                                            {{_indicacion.planHidratacion.oral.cantidad}}
+                                                                            ml
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-lg-4">
+                                                                            <input type="text" ng-model="evolucionesEdit.balance.ingresos[$index].hidratacion.oral.cantidad" label="Cantidad" suffix="ml" plex/>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row" ng-if="_indicacion.tipo.nombre == 'Plan hidratación enteral' || _indicacion.tipo == 'Plan hidratación enteral'
+                                                                    || _indicacion.tipo.nombre == 'Plan hidratación parenteral' || _indicacion.tipo == 'Plan hidratación parenteral'">
+                                                                    <div class="col-lg-8">
+                                                                        <b>
+                                                                            <i>{{_indicacion.tipo.nombre ? _indicacion.tipo.nombre : _indicacion.tipo }}</i>
+
+                                                                            {{_indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad+_indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad+_indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad}}
+                                                                            ml
+                                                                        </b>
+                                                                        <span  ng-if="_indicacion.tipo.nombre == 'Plan hidratación parenteral' || _indicacion.tipo == 'Plan hidratación parenteral'">
+                                                                            por
+                                                                            {{_indicacion.planHidratacion.enteralParenteral.sonda}}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- <div class="row" ng-if="_indicacion.tipo.nombre == 'Plan hidratación parenteral' || _indicacion.tipo == 'Plan hidratación parenteral'">
+                                                                    <div class="col-lg-8">
+                                                                        <b>
+                                                                            <i>{{_indicacion.tipo.nombre ? _indicacion.tipo.nombre : _indicacion.tipo }}</i>
+                                                                            {{_indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad+_indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad+_indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad}}
+                                                                            ml
+                                                                        </b>
+                                                                    </div>
+                                                                </div> -->
+                                                                <div class="row" >
+                                                                    <div class="col-lg-4" ng-if="_indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad > 0">
+                                                                        <input type="text" ng-model="evolucionesEdit.balance.ingresos[$index].hidratacion.enteral.solucionFisiologica" label="Solución fisiológica ({{_indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad}} ml)" suffix="ml" plex ng-if="_indicacion.planHidratacion.enteralParenteral.tipo == 'Enteral'"/>
+                                                                        <input type="text" ng-model="evolucionesEdit.balance.ingresos[$index].hidratacion.parenteral.solucionFisiologica" label="Solución fisiológica ({{_indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad}} ml)" suffix="ml" plex ng-if="_indicacion.planHidratacion.enteralParenteral.tipo == 'Parenteral'"/>
+                                                                    </div>
+
+                                                                    <div class="col-lg-4" ng-if="_indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad > 0">
+                                                                        <input type="text" ng-model="evolucionesEdit.balance.ingresos[$index].hidratacion.enteral.dextrosa" label="Dextrosa ({{_indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad}} ml)" suffix="ml" plex ng-if="_indicacion.planHidratacion.enteralParenteral.tipo == 'Enteral'"/>
+                                                                        <input type="text" ng-model="evolucionesEdit.balance.ingresos[$index].hidratacion.parenteral.dextrosa" label="Dextrosa ({{_indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad}} ml)" suffix="ml" plex ng-if="_indicacion.planHidratacion.enteralParenteral.tipo == 'Parenteral'"/>
+                                                                    </div>
+
+                                                                    <div class="col-lg-4" ng-if="_indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad > 0">
+                                                                        <input type="text" ng-model="evolucionesEdit.balance.ingresos[$index].hidratacion.enteral.ringerLactato" label="Ringer-Lactato ({{_indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad}} ml)" suffix="ml" plex  ng-if="_indicacion.planHidratacion.enteralParenteral.tipo == 'Enteral'"/>
+                                                                        <input type="text" ng-model="evolucionesEdit.balance.ingresos[$index].hidratacion.parenteral.ringerLactato" label="Ringer-Lactato ({{_indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad}} ml)" suffix="ml" plex  ng-if="_indicacion.planHidratacion.enteralParenteral.tipo == 'Parenteral'"/>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <!-- ooooooooooooooooooo -->
+                                                                <br />
+
+                                                                <!-- <span ng-show="_indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad > 0">
+                                                                    Solución fisiológica {{_indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad}} ml
+                                                                    -
+                                                                    <span ng-if="_indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos.length">
+                                                                    Frascos <span class="mr label label-primary" ng-repeat="frasco in _indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos">{{frasco}}</span>
+                                                                    </span>
+                                                                </span>
+
+                                                                <br />
+
+                                                                <span ng-show="_indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad > 0">
+                                                                    Dextrosa {{_indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad}} ml
+                                                                    -
+                                                                    <span ng-if="_indicacion.planHidratacion.enteralParenteral.dextrosa.frascos.length">
+                                                                    Frascos <span class="mr label label-primary" ng-repeat="frasco in _indicacion.planHidratacion.enteralParenteral.dextrosa.frascos">{{frasco}}</span>
+                                                                    </span>
+                                                                </span>
+
+                                                                <br />
+
+                                                                <span ng-show="_indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad > 0">
+                                                                    Ringer-Lactato {{_indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad}} ml
+                                                                    -
+                                                                    <span ng-if="_indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos.length">
+                                                                    Frascos <span class="mr label label-primary" ng-repeat="frasco in _indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos">{{frasco}}</span>
+                                                                    </span>
+                                                                </span> -->
+
+                                                                <!-- <div ng-if="_indicacion.planHidratacion.enteralParenteral.agregados.length">
+
+                                                                    <b>Agregados</b>
+                                                                    <div ng-repeat="agregado in _indicacion.planHidratacion.enteralParenteral.agregados">
+                                                                        +
+                                                                        {{agregado.tipoAgregado.nombre ? agregado.tipoAgregado.nombre : agregado.tipoAgregado}}
+                                                                        {{agregado.descripcion}}
+
+                                                                        <span class="mr label label-primary" ng-if="agregado.frascos.length == _indicacion.planHidratacion.$frascos">Todos</span>
+                                                                        <span class="mr label label-primary" ng-if="agregado.frascos.length != _indicacion.planHidratacion.$frascos" ng-repeat="frasco in agregado.frascos">{{frasco}}</span>
+                                                                    </div>
+                                                                </div> -->
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row"  ng-if="_indicacion.tipo.nombre == 'Nutrición' || _indicacion.tipo == 'Nutrición'">
+                                                            <input type="hidden" value="'{{_indicacion.id}}'" ng-model="evolucionesEdit.balance.ingresos[$index].idIndicacion" ng-init="evolucionesEdit.balance.ingresos[$index].idIndicacion = _indicacion.id"/>
+                                                            <div class="col-lg-12">
+                                                                <b>
+                                                                    <i>{{_indicacion.tipo.nombre ? _indicacion.tipo.nombre : _indicacion.tipo }}</i>
+                                                                </b>
+
+                                                                <div ng-show="_indicacion.nutricion.enteral">
+                                                                    <div class="row" ng-show="_indicacion.nutricion.enteral">
+                                                                        <div class="col-lg-4">
+                                                                            <b>
+                                                                                Nutrición enteral
+                                                                            </b>
+
+                                                                            <br  />
+                                                                            {{_indicacion.nutricion.enteral.tipoPreparado.descripcion}}
+                                                                            {{_indicacion.nutricion.enteral.cantidad}} ml
+                                                                            por {{_indicacion.nutricion.enteral.sonda}}
+                                                                            a {{_indicacion.nutricion.enteral.velocidadInfunsion.velocidad}} {{_indicacion.nutricion.enteral.velocidadInfunsion.unidad}}
+
+                                                                            <br />
+                                                                            <input type="text" ng-model="evolucionesEdit.balance.ingresos[$index].nutricion.enteral.cantidad" label="" suffix="ml" plex/>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div ng-show="_indicacion.nutricion.soporteOral">
+                                                                    <div class="row">
+                                                                        <div class="col-lg-4">
+                                                                            <b>
+                                                                                Soporte oral
+                                                                            </b>
+
+                                                                            <br />
+                                                                            {{_indicacion.nutricion.soporteOral.tipoPreparado.descripcion}}
+                                                                            {{_indicacion.nutricion.soporteOral.cantidad}} ml
+
+                                                                            <br />
+                                                                            <input type="text" ng-model="evolucionesEdit.balance.ingresos[$index].nutricion.soporteOral.cantidad" label="" suffix="ml" plex/>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div ng-if="_indicacion.tipo.nombre == 'Antibióticos' || _indicacion.tipo == 'Antibióticos' && _indicacion.via == 'EV'">
+                                                            <input type="hidden" value="'{{_indicacion.id}}'" ng-model="evolucionesEdit.balance.ingresos[$index].idIndicacion" ng-init="evolucionesEdit.balance.ingresos[$index].idIndicacion = _indicacion.id"/>
+                                                            <div class="row">
+                                                                <div class="col-lg-12">
+                                                                    <b>
+                                                                        <i><i>Antibióticos</i></i>
+                                                                    </b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-lg-12">
+                                                                    <i>{{_indicacion.medicamento.descripcion}}</i>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-lg-4">
+                                                                    <input type="text" ng-model="evolucionesEdit.balance.ingresos[$index].medicamentos.cantidad" label="Cantidad" suffix="ml" plex/>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <input type="text" ng-model="evolucionesEdit.balance.ingresos[$index].medicamentos.descripcion" label="Descripción" suffix="ml" plex/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div >
+                                                    <b>Transfusiones de sangre</b>
+                                                    <div class="row">
+                                                        <div class="col-lg-4">
+                                                            <input type="text" ng-model="evolucionesEdit.hemoterapia.cantidad" label="Cantidad" suffix="ml" plex/>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <input type="text" ng-model="evolucionesEdit.hemoterapia.descripcion" label="Descripción" suffix="ml" plex/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <fieldset>
+                                                <legend>Egresos</legend>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <input type="text" ng-model="evolucionesEdit.balance.egresos.lavadoVesicalI" label="Lavado vesical I" suffix="ml" plex/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <input type="text" ng-model="evolucionesEdit.balance.egresos.diuresis" label="Diuresis" suffix="ml" plex/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <input type="text" ng-model="evolucionesEdit.balance.egresos.catarsis" label="Catarsis" suffix="ml" plex/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <input type="text" ng-model="evolucionesEdit.balance.egresos.sng" label="S.N.G" suffix="ml" plex/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <input type="text" ng-model="evolucionesEdit.balance.egresos.sny" label="S.N.Y" suffix="ml" plex/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <input type="text" ng-model="evolucionesEdit.balance.egresos.ostomias" label="Ostomias I" suffix="ml" plex/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <input type="text" ng-model="evolucionesEdit.balance.egresos.ostomias2" label="Ostomias II" suffix="ml" plex/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row" ng-if="drenajes.length">
+                                                    <div class="col-md-12">
+                                                        <fieldset>
+                                                            <legend>Drenajes</legend>
+                                                            <div class="row" ng-repeat="drenaje in drenajes track by $index">
+                                                                <div>
+
+                                                                    <input type="hidden" value="'{{drenaje.id}}'" ng-model="drenajes[$index].idDrenaje" ng-init="drenajes[$index].idDrenaje = drenaje.id"/>
+                                                                    <div class="col-md-2">
+                                                                        <div class="form-group">
+                                                                            <label>Lado</label>
+                                                                            <p>{{drenaje.lado}}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <div class="form-group">
+                                                                            <label>Tipo</label>
+                                                                            <p>{{drenaje.tipo}}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <div class="form-group" ng-if="!drenaje.$activo">
+                                                                            <label>Características del líquido</label>
+                                                                            <br/>
+                                                                            <span>{{drenajes[$index].caracteristicaLiquido}}</span>
+                                                                        </div>
+
+                                                                        <select label="Características del líquido" ng-model="drenajes[$index].caracteristicaLiquido" plex ng-if="drenaje.$activo">
+                                                                            <option value="Hemático"></option>
+                                                                            <option value="Seroso">Seroso</option>
+                                                                            <option value="Serohemático">Serohemático</option>
+                                                                            <option value="Purulento">Purulento</option>
+                                                                        </select>
+
+                                                                    </div>
+                                                                    <div class="col-md-1">
+                                                                        <div class="form-group" ng-if="!drenaje.$activo">
+                                                                            <label>Cantidad</label>
+                                                                            <br/>
+                                                                            <span ng-if="!drenaje.$activo">{{drenajes[$index].cantidad}}</span>
+                                                                        </div>
+
+                                                                        <input type="text" label="Cantidad" suffix="ml" ng-model="drenajes[$index].cantidad" plex ng-if="drenaje.$activo">
+                                                                    </div>
+                                                                    <div class="col-md-5">
+                                                                        <div class="form-group" ng-if="!drenaje.$activo">
+                                                                            <label>Cantidad</label>
+                                                                            <br/>
+                                                                            <span ng-if="!drenaje.$activo">{{drenajes[$index].observaciones}}</span>
+                                                                        </div>
+                                                                        <input type="text" label="Observaciones" ng-model="drenajes[$index].observaciones" plex="text" ng-if="drenaje.$activo">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </fieldset >
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
                                 </div>
+                                <div ng-if="evolucionarIndicacion.tipo == 'Controles' && evolucionarIndicacion.controles.tipo == 'Signos vitales'">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <fieldset>
+                                                <legend>Signos vitales</legend>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <input type="text" ng-model="evolucionesEdit.signosVitales.pulso" label="Frecuencia cardíaca" suffix="PPM" plex="int" plex/>
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                        <input type="text" ng-model="evolucionesEdit.signosVitales.respiracion" label="Frecuencia respiratoria" suffix="RPM" plex="int" plex/>
+                                                    </div>
+
+                                                    <div class="col-md-2">
+                                                        <input type="text" ng-model="evolucionesEdit.signosVitales.temperatura" label="Temperatura" suffix="º C" plex="float" plex/>
+                                                    </div>
+
+                                                    <div class="col-md-2">
+                                                        <input type="text" ng-model="evolucionesEdit.signosVitales.spo2" label="Saturación O&#178;" suffix="%" plex="int" plex-min="0" plex-max="100" plex/>
+                                                    </div>
+
+                                                    <div class="col-md-2">
+                                                        <input type="text" ng-model="evolucionesEdit.signosVitales.peso" label="Peso" suffix="Kgs" plex="float" plex/>
+                                                    </div>
+                                                </div>
+
+                                            </fieldset>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <fieldset>
+                                                <legend>Circulación</legend>
+                                                <div class="row">
+
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <input type="text" ng-model="evolucionesEdit.signosVitales.circulacion.tensionDiastolica" label="Tensión diastólica" suffix="mmHG" plex="int" plex/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <input type="text" ng-model="evolucionesEdit.signosVitales.circulacion.tensionSistolica" label="Tensión sistólica" suffix="mmHG" plex="int" plex/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-3">
+                                                        <input type="text" label="Pulso carotídeo" ng-model="evolucionesEdit.signosVitales.circulacion.carotideo" suffix="PPM" plex="int">
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <input type="text" label="Pulso radial" ng-model="evolucionesEdit.signosVitales.circulacion.radial" suffix="PPM" plex="int">
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <input type="text" label="Pulso poplíteo" ng-model="evolucionesEdit.signosVitales.circulacion.popliteo" suffix="PPM" plex="int">
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <input type="text" label="Pulso pedio" ng-model="evolucionesEdit.signosVitales.circulacion.pedio" suffix="PPM" plex="int">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.signosVitales.circulacion.observacionesCirculacion" plex="text">
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-if="evolucionarIndicacion.tipo == 'Controles' && evolucionarIndicacion.controles.tipo == 'Glasgow'">
+
+                                    <fieldset>
+                                        <legend>Glasgow</legend>
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <label>
+                                                    <b>Ocular</b>
+                                                </label>
+                                                <input type="radio" label="1 - Ausencia de respuesta" ng-value="1" ng-model="evolucionesEdit.glasgow.glasgowOcular" plex="radio">
+                                                <input type="radio" label="2 - Al dolor" ng-value="2" ng-model="evolucionesEdit.glasgow.glasgowOcular" plex="radio">
+                                                <input type="radio" label="3 - A estímulos verbales" ng-value="3" ng-model="evolucionesEdit.glasgow.glasgowOcular" plex="radio">
+                                                <input type="radio" label="4 - Espontánea" ng-value="4" ng-model="evolucionesEdit.glasgow.glasgowOcular" plex="radio">
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <label>
+                                                    <b>Verbal</b>
+                                                </label>
+                                                <input type="radio" label="1 - Ausencia de respuesta" ng-value="1" ng-model="evolucionesEdit.glasgow.glasgowVerbal" plex="radio">
+                                                <input type="radio" label="2 - Sonidos incomprensibles" ng-value="2" ng-model="evolucionesEdit.glasgow.glasgowVerbal" plex="radio">
+                                                <input type="radio" label="3 - Incoherente" ng-value="3" ng-model="evolucionesEdit.glasgow.glasgowVerbal" plex="radio">
+                                                <input type="radio" label="4 - Desorientado/confuso" ng-value="4" ng-model="evolucionesEdit.glasgow.glasgowVerbal" plex="radio">
+                                                <input type="radio" label="5 - Orientado" ng-value="5" ng-model="evolucionesEdit.glasgow.glasgowVerbal" plex="radio">
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <label>
+                                                    <b>Motor</b>
+                                                </label>
+                                                <input type="radio" label="1 - Ausencia de respuesta" ng-value="1" ng-model="evolucionesEdit.glasgow.glasgowMotor" plex="radio">
+                                                <input type="radio" label="2 - Extensión anormal" ng-value="2" ng-model="evolucionesEdit.glasgow.glasgowMotor" plex="radio">
+                                                <input type="radio" label="3 - Flexión anormal" ng-value="3" ng-model="evolucionesEdit.glasgow.glasgowMotor" plex="radio">
+                                                <input type="radio" label="4 - Retirada al dolor" ng-value="4" ng-model="evolucionesEdit.glasgow.glasgowMotor" plex="radio">
+                                                <input type="radio" label="5 - Localiza el dolor" ng-value="5" ng-model="evolucionesEdit.glasgow.glasgowMotor" plex="radio">
+                                                <input type="radio" label="6 - Obedece ordenes" ng-value="6" ng-model="evolucionesEdit.glasgow.glasgowMotor" plex="radio">
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <label>
+                                                    <b>Total</b>
+                                                </label>
+                                                <h4>{{evolucionesEdit.glasgow.glasgowMotor + evolucionesEdit.glasgow.glasgowVerbal + evolucionesEdit.glasgow.glasgowOcular}}</h4>
+                                                <span ng-if="evolucionesEdit.glasgow.glasgowMotor + evolucionesEdit.glasgow.glasgowVerbal + evolucionesEdit.glasgow.glasgowOcular >= 14" class="small padding-left padding-right margin-left nivel-verde">Leve</span>
+                                                <span ng-if="evolucionesEdit.glasgow.glasgowMotor + evolucionesEdit.glasgow.glasgowVerbal + evolucionesEdit.glasgow.glasgowOcular >= 9 && evolucionesEdit.glasgow.glasgowMotor + evolucionesEdit.glasgow.glasgowVerbal + evolucionesEdit.glasgow.glasgowOcular <= 13" class="small padding-left padding-right margin-left nivel-amarillo">Moderado</span>
+                                                <span ng-if="evolucionesEdit.glasgow.glasgowMotor + evolucionesEdit.glasgow.glasgowVerbal + evolucionesEdit.glasgow.glasgowOcular >= 3 && evolucionesEdit.glasgow.glasgowMotor + evolucionesEdit.glasgow.glasgowVerbal + evolucionesEdit.glasgow.glasgowOcular <= 8" class="small padding-left padding-right margin-left nivel-rojo">Grave</span>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+                                </div>
+                                <div ng-if="evolucionarIndicacion.tipo == 'Controles' && evolucionarIndicacion.controles.tipo == 'Riesgo caídas'">
+                                    <fieldset>
+                                        <legend>Valoración de riesgo de caídas</legend>
+                                        <div class="row">
+                                            <div class="col-lg-2" style="width: 14%">
+                                                <label>
+                                                    <b>Caídas previas</b>
+                                                </label>
+                                                <input type="radio" label="No" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.caidasPrevias" plex="radio">
+                                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.caidasPrevias==0">El paciente no se ha caído.</span>
+                                                <input type="radio" label="Si" ng-value="25" ng-model="evolucionesEdit.riesgoCaida.caidasPrevias" plex="radio">
+                                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.caidasPrevias==25">El paciente se ha caído durante la presente internación o tiene antecedentes dentro de los últimos 3 meses de caídas por convulsiones o trastornos de la marcha.</span>
+                                            </div>
+                                            <div class="col-lg-2" style="width: 14%">
+                                                <label>
+                                                    <b>Marcha</b>
+                                                </label>
+                                                <input type="radio" label="Normal" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.marcha" plex="radio">
+                                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.marcha==0">El paciente camina con la cabeza erecta, los brazos balanceándose libremente a los costados y con pasos seguros.</span>
+                                                <input type="radio" label="Débil" ng-value="10" ng-model="evolucionesEdit.riesgoCaida.marcha" plex="radio">
+                                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.marcha==10">El paciente camina encorvado pero es capaz de levantar la cabeza mientras camina sin perder equilibrio. Los pasos son cortos y puede arrastrar los pies.</span>
+                                                <input type="radio" label="Limitada" ng-value="20" ng-model="evolucionesEdit.riesgoCaida.marcha" plex="radio">
+                                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.marcha==20">El paciente puede tener dificultades para levantarse de la silla, pudiendo realizar varios intentos apoyando sus brazos en los brazos de la silla o tomando impulso. La cabeza del paciente está baja, mirando al piso.</span>
+                                            </div>
+                                            <div class="col-lg-2" style="width: 14%">
+                                                <label>
+                                                    <b>Ayuda para deambular</b>
+                                                </label>
+                                                <input type="radio" label="Ninguna" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.ayudaDeambular" plex="radio">
+                                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.ayudaDeambular==0">El paciente camina sin ningún dispositivo de ayuda, se encuentra en silla de ruedas o está en reposo y no se levanta de la cama para nada.</span>
+                                                <input type="radio" label="Necesita ayuda" ng-value="15" ng-model="evolucionesEdit.riesgoCaida.ayudaDeambular" plex="radio">
+                                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.ayudaDeambular==15">El paciente utiliza muletas, bastón o andador.</span>
+                                                <input type="radio" label="Se apoya en los muebles" ng-value="30" ng-model="evolucionesEdit.riesgoCaida.ayudaDeambular" plex="radio">
+                                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.ayudaDeambular==30">El paciente sólo camina apoyándose en los muebles.</span>
+                                            </div>
+                                            <div class="col-lg-2" style="width: 14%">
+                                                <label>
+                                                    <b>Venoclisis</b>
+                                                </label>
+                                                <input type="radio" label="No" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.venoclisis" plex="radio">
+                                                <input type="radio" label="Si" ng-value="20" ng-model="evolucionesEdit.riesgoCaida.venoclisis" plex="radio">
+                                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.venoclisis==20">El paciente tiene una vía IV.</span>
+                                            </div>
+                                            <div class="col-lg-2" style="width: 14%">
+                                                <label>
+                                                    <b>Comorbilidad</b>
+                                                </label>
+                                                <input type="radio" label="No" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.comorbilidad" plex="radio">
+                                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.comorbilidad==0">El paciente tiene un solo diagnóstico.</span>
+                                                <input type="radio" label="Si" ng-value="15" ng-model="evolucionesEdit.riesgoCaida.comorbilidad" plex="radio">
+                                                <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.comorbilidad==15">El paciente presenta múltiples diagnósticos.</span>
+                                            </div>
+                                            <div class="col-lg-2" style="width: 18%">
+                                                <label>
+                                                    <b>Estado mental</b>
+                                                </label>
+                                                <input type="radio" label="Reconoce sus limitaciones" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.estadoMental" plex="radio">
+                                                <input type="radio" label="Sobreestima u olvida sus limitaciones" ng-value="15" ng-model="evolucionesEdit.riesgoCaida.estadoMental" plex="radio">
+                                            </div>
+                                            <div class="col-lg-2" style="width: 10%">
+                                                <label>
+                                                    <b>Total</b>
+                                                </label>
+                                                <h4>{{evolucionesEdit.riesgoCaida.caidasPrevias + evolucionesEdit.riesgoCaida.marcha + evolucionesEdit.riesgoCaida.ayudaDeambular + evolucionesEdit.riesgoCaida.venoclisis + evolucionesEdit.riesgoCaida.comorbilidad + evolucionesEdit.riesgoCaida.estadoMental}}</h4>
+                                                <span ng-if="evolucionesEdit.riesgoCaida.caidasPrevias + evolucionesEdit.riesgoCaida.marcha + evolucionesEdit.riesgoCaida.ayudaDeambular + evolucionesEdit.riesgoCaida.venoclisis + evolucionesEdit.riesgoCaida.comorbilidad + evolucionesEdit.riesgoCaida.estadoMental < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
+                                                <span ng-if="evolucionesEdit.riesgoCaida.caidasPrevias + evolucionesEdit.riesgoCaida.marcha + evolucionesEdit.riesgoCaida.ayudaDeambular + evolucionesEdit.riesgoCaida.venoclisis + evolucionesEdit.riesgoCaida.comorbilidad + evolucionesEdit.riesgoCaida.estadoMental >= 25 && evolucionesEdit.riesgoCaida.caidasPrevias + evolucionesEdit.riesgoCaida.marcha + evolucionesEdit.riesgoCaida.ayudaDeambular + evolucionesEdit.riesgoCaida.venoclisis + evolucionesEdit.riesgoCaida.comorbilidad + evolucionesEdit.riesgoCaida.estadoMental <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
+                                                <span ng-if="evolucionesEdit.riesgoCaida.caidasPrevias + evolucionesEdit.riesgoCaida.marcha + evolucionesEdit.riesgoCaida.ayudaDeambular + evolucionesEdit.riesgoCaida.venoclisis + evolucionesEdit.riesgoCaida.comorbilidad + evolucionesEdit.riesgoCaida.estadoMental > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
+                                            </div>
+                                        </div>
+                                    </fielset>
+                                </div>
+                                <div ng-if="evolucionarIndicacion.tipo == 'Controles' && evolucionarIndicacion.controles.tipo == 'Ulceras por presión'">
+                                    <fieldset>
+                                        <legend>Valoración del riesgo de desarrollar una úlcera por presión</legend>
+                                        <div class="row">
+                                            <div class="col-lg-2">
+                                                <label>
+                                                    <b>Estado físico general</b>
+                                                </label>
+                                                <input type="radio" label="Muy malo" ng-value="1" ng-model="evolucionesEdit.riesgoUPP.estadoFisico" plex="radio">
+                                                <input type="radio" label="Regular" ng-value="2" ng-model="evolucionesEdit.riesgoUPP.estadoFisico" plex="radio">
+                                                <input type="radio" label="Mediano" ng-value="3" ng-model="evolucionesEdit.riesgoUPP.estadoFisico" plex="radio">
+                                                <input type="radio" label="Bueno" ng-value="4" ng-model="evolucionesEdit.riesgoUPP.estadoFisico" plex="radio">
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <label>
+                                                    <b>Estado mental</b>
+                                                </label>
+                                                <input type="radio" label="Estuporoso/Comatoso" ng-value="1" ng-model="evolucionesEdit.riesgoUPP.estadoMental" plex="radio">
+                                                <input type="radio" label="Confuso" ng-value="2" ng-model="evolucionesEdit.riesgoUPP.estadoMental" plex="radio">
+                                                <input type="radio" label="Apático" ng-value="3" ng-model="evolucionesEdit.riesgoUPP.estadoMental" plex="radio">
+                                                <input type="radio" label="Alerta" ng-value="4" ng-model="evolucionesEdit.riesgoUPP.estadoMental" plex="radio">
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <label>
+                                                    <b>Actividad</b>
+                                                </label>
+                                                <input type="radio" label="Inmóvil" ng-value="1" ng-model="evolucionesEdit.riesgoUPP.actividad" plex="radio">
+                                                <input type="radio" label="Muy limitada" ng-value="2" ng-model="evolucionesEdit.riesgoUPP.actividad" plex="radio">
+                                                <input type="radio" label="Disminuida" ng-value="3" ng-model="evolucionesEdit.riesgoUPP.actividad" plex="radio">
+                                                <input type="radio" label="Total" ng-value="4" ng-model="evolucionesEdit.riesgoUPP.actividad" plex="radio">
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <label>
+                                                    <b>Movilidad</b>
+                                                </label>
+                                                <input type="radio" label="Encamado" ng-value="1" ng-model="evolucionesEdit.riesgoUPP.movilidad" plex="radio">
+                                                <input type="radio" label="Sentado" ng-value="2" ng-model="evolucionesEdit.riesgoUPP.movilidad" plex="radio">
+                                                <input type="radio" label="Camina con ayuda" ng-value="3" ng-model="evolucionesEdit.riesgoUPP.movilidad" plex="radio">
+                                                <input type="radio" label="Deambula" ng-value="4" ng-model="evolucionesEdit.riesgoUPP.movilidad" plex="radio">
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <label>
+                                                    <b>Incontinencia</b>
+                                                </label>
+                                                <input type="radio" label="Urinaria y fecal" ng-value="1" ng-model="evolucionesEdit.riesgoUPP.incontinencia" plex="radio">
+                                                <input type="radio" label="Urinaria o fecal" ng-value="2" ng-model="evolucionesEdit.riesgoUPP.incontinencia" plex="radio">
+                                                <input type="radio" label="Ocasional" ng-value="3" ng-model="evolucionesEdit.riesgoUPP.incontinencia" plex="radio">
+                                                <input type="radio" label="Ninguna" ng-value="4" ng-model="evolucionesEdit.riesgoUPP.incontinencia" plex="radio">
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <label>
+                                                    <b>Total</b>
+                                                </label>
+                                                <h4>{{evolucionesEdit.riesgoUPP.estadoFisico + evolucionesEdit.riesgoUPP.estadoMental + evolucionesEdit.riesgoUPP.actividad + evolucionesEdit.riesgoUPP.movilidad + evolucionesEdit.riesgoUPP.incontinencia}}</h4>
+                                                <span ng-if="evolucionesEdit.riesgoUPP.estadoFisico + evolucionesEdit.riesgoUPP.estadoMental + evolucionesEdit.riesgoUPP.actividad + evolucionesEdit.riesgoUPP.movilidad + evolucionesEdit.riesgoUPP.incontinencia >= 13 && evolucionesEdit.riesgoUPP.estadoFisico + evolucionesEdit.riesgoUPP.estadoMental + evolucionesEdit.riesgoUPP.actividad + evolucionesEdit.riesgoUPP.movilidad + evolucionesEdit.riesgoUPP.incontinencia <= 16" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
+                                                <span ng-if="evolucionesEdit.riesgoUPP.estadoFisico + evolucionesEdit.riesgoUPP.estadoMental + evolucionesEdit.riesgoUPP.actividad + evolucionesEdit.riesgoUPP.movilidad + evolucionesEdit.riesgoUPP.incontinencia >= 10 && evolucionesEdit.riesgoUPP.estadoFisico + evolucionesEdit.riesgoUPP.estadoMental + evolucionesEdit.riesgoUPP.actividad + evolucionesEdit.riesgoUPP.movilidad + evolucionesEdit.riesgoUPP.incontinencia <= 12" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
+                                                <span ng-if="evolucionesEdit.riesgoUPP.estadoFisico + evolucionesEdit.riesgoUPP.estadoMental + evolucionesEdit.riesgoUPP.actividad + evolucionesEdit.riesgoUPP.movilidad + evolucionesEdit.riesgoUPP.incontinencia >= 5 && evolucionesEdit.riesgoUPP.estadoFisico + evolucionesEdit.riesgoUPP.estadoMental + evolucionesEdit.riesgoUPP.actividad + evolucionesEdit.riesgoUPP.movilidad + evolucionesEdit.riesgoUPP.incontinencia <= 9" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12 text-right">
+                                        <button class="btn btn-default tips" ng-click="indicaciones.evolucion.cancelar()" title="No">
+                                            Cancelar
+                                        </button>
+
+                                        <button class="btn btn-primary btn-flat tips" title="Guardar evolución" ng-click="indicaciones.evolucion.guardar()">
+                                            Evolucionar
+                                        </button>
+
+                                    </div>
+                                </div>
+
                             </td>
                         </tr>
+
                     </tbody>
                 </table>
 

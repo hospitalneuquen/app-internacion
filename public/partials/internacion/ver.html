@@ -28,13 +28,14 @@
                             Evoluciones
                         </a>
                     </li>
-                    <li>
-                        <!-- <li ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
+                    <!-- <li ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
+                    <!-- <li>
+
                         <a>
                             <i class="mdi mdi-steam"></i>
                             Drenajes
                         </a>
-                    </li>
+                    </li> -->
                     <li>
                         <a>
                             <i class="mdi mdi-format-float-left"></i>
@@ -75,7 +76,7 @@
                     <li>
                         <a>
                             <i class="mdi mdi-history"></i>
-                            Historial
+                            Historial internación
                         </a>
                     </li>
                 </ul>
@@ -321,7 +322,7 @@
                 </div>
 
                 <!-- <div ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
-                <div class=" tab-content">
+                <!-- <div class=" tab-content">
                     <div class="card card-block">
 
                         <div class="row" ng-show="show_toolbar_drenajes">
@@ -357,8 +358,6 @@
                                     <td>
                                         {{drenaje.fechaDesde | date: "dd/MM/yyyy  'a las' HH:mm "}}
                                         hs
-                                        <!-- <br />
-                                {{drenaje.fechaDesde | fromNow}} -->
                                     </td>
                                     <td>
                                         <span ng-if="drenaje.fechaHasta">
@@ -419,11 +418,11 @@
                                     <div class="row">
                                         <div class="col-md-12 text-right">
                                             <br/>
-                                            <!-- <button type="button" class="btn btn-primary tips form-control" plex-submit="guardarDrenaje()" title="Agregar drenaje a internación">
-                                        <span>
-                                            <i class="mdi mdi-plus"></i> Agregar
-                                        </span>
-                                    </button> -->
+                                            <button type="button" class="btn btn-primary tips form-control" plex-submit="guardarDrenaje()" title="Agregar drenaje a internación">
+                                                <span>
+                                                    <i class="mdi mdi-plus"></i> Agregar
+                                                </span>
+                                            </button>
                                             <button type="button" class="btn btn-default btn-flat" ng-click="cancelarEdicion();">Cancelar</button>
                                             <button class="btn btn-primary" plex-submit="guardarDrenaje(drenajesEdit)" ng-disabled="formEditarDrenaje.$invalid">
                                                 <i class="mdi mdi-content-save"></i>
@@ -434,7 +433,7 @@
                             </ng-form>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="card card-block tab-content">
 
@@ -760,7 +759,7 @@
                                             <i class="fa fa-bed"></i>
                                         </div>
 
-                                        <div class="timeline-icon bg-valoracion-inicial" ng-if="elemento.tipo == 'Valoración inicial'">
+                                        <div class="timeline-icon bg-valoracion-inicial-enfermeria" ng-if="elemento.tipo == 'Valoración inicial enfermería'">
                                             <i class="mdi mdi-receipt"></i>
                                         </div>
 
@@ -778,6 +777,10 @@
 
                                         <div class="timeline-icon bg-evolucion" ng-if="elemento.tipo == 'Evolución'">
                                             <i class="mdi mdi-clipboard-outline"></i>
+                                        </div>
+
+                                        <div class="timeline-icon bg-indicacion" ng-if="elemento.tipo == 'Indicación'">
+                                            <i class="mdi mdi-file-check"></i>
                                         </div>
 
                                         <div class="timeline-icon bg-egreso" ng-if="elemento.tipo == 'Egreso'">
@@ -822,6 +825,29 @@
                                                 <p>
                                                     <b>Servicio:</b>
                                                     {{elemento.data.servicio.nombreCorto}}
+                                                    <br/>
+                                                    <i class="fa fa-user-md"></i>
+                                                    {{elemento.data.createdBy.name}}
+                                                </p>
+                                            </div>
+
+                                            <div ng-if="elemento.tipo == 'Indicación'">
+                                                <p>
+                                                    <b>Indicación:</b>
+                                                    {{elemento.data.tipo}}
+
+                                                    <span ng-if="elemento.data.tipo == 'Controles'">
+                                                        / {{elemento.data.controles.tipo}}
+                                                    </span>
+
+                                                    <span ng-if="elemento.data.tipo == 'Cuidados generales'">
+                                                        / {{elemento.data.cuidadosGenerales.tipo}}
+                                                    </span>
+
+                                                    <span ng-if="elemento.data.tipo == 'Cuidados especiales'">
+                                                        / {{elemento.data.cuidadosGenerales.tipo}}
+                                                    </span>
+
                                                     <br/>
                                                     <i class="fa fa-user-md"></i>
                                                     {{elemento.data.createdBy.name}}

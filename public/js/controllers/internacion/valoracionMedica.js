@@ -127,7 +127,6 @@ angular.module('app').controller('internacion/valoracionMedica', ['$scope', 'Ple
                 Plex.closeView(internacion);
             });
         },
-        
         cancelar: function() {
             Plex.closeView();
         },

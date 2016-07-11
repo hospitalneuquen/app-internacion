@@ -11,7 +11,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
         drenajesInternacion: [],
         evolucionesEdit: undefined, // Item actual que se está editando
         balanceTotal: 0,
-        ultimaEvolucion: null,
+        ultimaEvolucion: {},
         // evoluciones: {},
         // array de servicios para filtrar en la vista
         profesionales: [{
@@ -92,7 +92,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                         // calculamos balance de liquidos
                         $scope.calcularBalance(evolucion);
 
-                        $scope.balanceTotal += evolucion.$balance;
+                        $scope.balanceTotal += evolucion.balance.$balance;
 
                         // buscamos los servicios para el filtro de evoluciones
                         if (evolucion.servicio && evolucion.servicio.id) {
@@ -135,15 +135,65 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
             $scope.show_toolbar = false;
             $scope.drenajes = [];
 
+            // buscamos los datos de la ultima evolucion para poder mostrar
+            // el resumen cuando el medico escribe el texto de la evolucion
+            if ($scope.internacion.evoluciones.length) {
+
+                // ordenamos cronologicamente
+                var ordenCronologico = $scope.internacion.evoluciones;
+                // ordenamos cronolicamente las evoluciones en forma descendiente
+                ordenCronologico.sort(function(a, b) {
+                    return new Date(b.fechaHora).getTime() - new Date(a.fechaHora).getTime()
+                });
+
+
+                // guardamos fecha y hora de la ultima evolucion
+                $scope.ultimaEvolucion.fechaHora = ordenCronologico[0].fechaHora;
+
+                // buscamos el balance
+                angular.forEach(ordenCronologico, function(evolucion) {
+                    // if (typeof evolucion.balance != "undefined"){
+                    //     angular.copy($scope.internacion.evoluciones[last].balance, $scope.ultimaEvolucion.balance);
+                    // }
+
+                    if (!$scope.ultimaEvolucion.balance && typeof evolucion.balance != "undefined") {
+                        if (evolucion.balance.$total_ingresos > 0 || evolucion.balance.$total_egresos > 0) {
+                            $scope.ultimaEvolucion.balance = evolucion.balance;
+                        }
+                    }
+
+                    if (!$scope.ultimaEvolucion.signosVitales && typeof evolucion.signosVitales != "undefined") {
+                        $scope.ultimaEvolucion.signosVitales = evolucion.signosVitales;
+                    }
+                });
+
+                // angular.forEach($scope.internacion.evoluciones, function(evolucion){
+                // for (last ; last > 0; last --){
+                //     var evolucion= $scope.internacion.evoluciones[last];
+                //     console.log(evolucion);
+                // if (!$scope.ultimaEvolucion.signosVitales && typeof evolucion.signosVitales != "undefined"){
+                //     angular.copy(evolucion.signosVitales, $scope.ultimaEvolucion.signosVitales);
+                // }
+                // }
+                // });
+
+                // do {
+                //     if (typeof $scope.internacion.evoluciones[last].balance != "undefined"){
+                //         angular.copy($scope.internacion.evoluciones[last].balance, $scope.ultimaEvolucion.balance);
+                //     }
+                //
+                //     last--;
+                // } while(!$scope.ultimaEvolucion.balance || last == 0);
+
+
+                // $scope.ultimaEvolucion = $scope.internacion.evoluciones[$scope.internacion.evoluciones.length - 2];
+            }
+
+            console.log($scope.ultimaEvolucion);
+
             if (evolucion) { // Modificación
                 $scope.tituloFormulario = "Editar evolución";
                 $scope.evolucionesEdit = {};
-
-                // buscamos los datos de la ultima evolucion para poder mostrar
-                // el resumen cuando el medico escribe el texto de la evolucion
-                if ($scope.internacion.evoluciones[$scope.internacion.evoluciones.length - 2]) {
-                    $scope.ultimaEvolucion = $scope.internacion.evoluciones[$scope.internacion.evoluciones.length - 2];
-                }
 
                 angular.copy(evolucion, $scope.evolucionesEdit);
 
@@ -186,11 +236,11 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                 $scope.tab = 1;
                 $scope.tituloFormulario = "Agregar evolución";
 
-                // buscamos los datos de la ultima evolucion para poder mostrar
-                // el resumen cuando el medico escribe el texto de la evolucion
-                if ($scope.internacion.evoluciones[$scope.internacion.evoluciones.length - 1]) {
-                    $scope.ultimaEvolucion = $scope.internacion.evoluciones[$scope.internacion.evoluciones.length - 1];
-                }
+                // // buscamos los datos de la ultima evolucion para poder mostrar
+                // // el resumen cuando el medico escribe el texto de la evolucion
+                // if ($scope.internacion.evoluciones[$scope.internacion.evoluciones.length - 1]) {
+                //     $scope.ultimaEvolucion = $scope.internacion.evoluciones[$scope.internacion.evoluciones.length - 1];
+                // }
 
                 // Valores por defecto
                 $scope.evolucionesEdit = {
@@ -241,7 +291,6 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                 });
                 // angular.copy($scope.drenajes, $scope.evolucionesEdit.egresos.drenajes);
             }
-
             $scope.evolucionesEdit.glasgowTotal = $scope.evolucionesEdit.glasgowMotor + $scope.evolucionesEdit.glasgowVerbal + $scope.evolucionesEdit.glasgowOcular;
             if ($scope.evolucionesEdit.riesgoCaida){
                 $scope.evolucionesEdit.riesgoCaida.total = $scope.evolucionesEdit.riesgoCaida.caidasPrevias + $scope.evolucionesEdit.riesgoCaida.marcha + $scope.evolucionesEdit.riesgoCaida.ayudaDeambular + $scope.evolucionesEdit.riesgoCaida.venoclisis + $scope.evolucionesEdit.riesgoCaida.comorbilidad + $scope.evolucionesEdit.riesgoCaida.estadoMental;
@@ -249,7 +298,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
             if ($scope.evolucionesEdit.riesgoUPP){
                 $scope.evolucionesEdit.riesgoUPP.total = $scope.evolucionesEdit.riesgoUPP.estadoFisico + $scope.evolucionesEdit.riesgoUPP.estadoMental + $scope.evolucionesEdit.riesgoUPP.actividad + $scope.evolucionesEdit.riesgoUPP.movilidad + $scope.evolucionesEdit.riesgoUPP.incontinencia;
             }
-            
+
             Shared.evolucion.post($scope.internacion.id, evolucion.id || null, $scope.evolucionesEdit, {
                 minify: true
             }).then(function(data) {
@@ -285,7 +334,6 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
             // si no lo encontro, entonces es porque acaba de cargarla
             // se la asignamos al resto de las evoluciones
             if (!found) {
-                console.log("nueva");
                 $scope.internacion.evoluciones.push(data);
             }
 
@@ -297,12 +345,50 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
         },
         // calcula los balances de liquidos que ha tenido una evoluciones
         calcularBalance: function(evolucion) {
+            evolucion.balance.$total_ingresos = 0;
             // sumamos los totales por evolucion
-            evolucion.$total_ingresos = $scope.sumar(evolucion.ingresos);
-            evolucion.$total_egresos = $scope.sumar(evolucion.egresos);
+            if (evolucion.balance.ingresos.length) {
+                angular.forEach(evolucion.balance.ingresos, function(ingreso) {
+                    if (typeof ingreso.hidratacion != "undefined") {
+
+                        if (typeof ingreso.hidratacion.enteral != "undefined") {
+                            evolucion.balance.$total_ingresos += $scope.sumar(ingreso.hidratacion.enteral);
+                        }
+
+                        if (typeof ingreso.hidratacion.parenteral != "undefined") {
+                            evolucion.balance.$total_ingresos += $scope.sumar(ingreso.hidratacion.parenteral);
+                        }
+
+                        if (typeof ingreso.hidratacion.oral != "undefined") {
+                            evolucion.balance.$total_ingresos += $scope.sumar(ingreso.hidratacion.oral);
+                        }
+                    }
+
+                    if (typeof ingreso.medicamentos != "undefined") {
+                        evolucion.balance.$total_ingresos += $scope.sumar(ingreso.medicamentos);
+                    }
+
+                    if (typeof ingreso.hemoterapia != "undefined") {
+                        evolucion.balance.$total_ingresos += $scope.sumar(ingreso.hemoterapia);
+                    }
+
+                    if (typeof ingreso.nutricion != "undefined") {
+
+                        if (typeof ingreso.nutricion.enteral != "undefined") {
+                            evolucion.balance.$total_ingresos += $scope.sumar(ingreso.nutricion.enteral);
+                        }
+
+                        if (typeof ingreso.nutricion.soporteOral != "undefined") {
+                            evolucion.balance.$total_ingresos += $scope.sumar(ingreso.nutricion.soporteOral);
+                        }
+                    }
+                });
+                // evolucion.balance.$total_ingresos = $scope.sumar(evolucion.balance.ingresos);
+            }
+            evolucion.balance.$total_egresos = $scope.sumar(evolucion.balance.egresos);
 
             // calculamos el balance entre el ingreso y egreso
-            evolucion.$balance = parseFloat(evolucion.$total_ingresos) - parseFloat(evolucion.$total_egresos);
+            evolucion.$balance = parseFloat(evolucion.balance.$total_ingresos) - parseFloat(evolucion.balance.$total_egresos);
 
             // devolvemos la evolucion con los balances y los totales
             return evolucion;

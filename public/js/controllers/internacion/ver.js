@@ -1,4 +1,4 @@
-angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexParams', 'Server', '$timeout', 'Personas', 'Global', 'Shared', '$alert', function($scope, Plex, plexParams, Server, $timeout, Personas, Global, Shared, $alert) {
+angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexParams', 'Server', '$timeout', 'Personas', 'Global', 'Shared', '$alert', 'Session', function($scope, Plex, plexParams, Server, $timeout, Personas, Global, Shared, $alert,Session) {
     'use strict';
 
     angular.extend($scope, {
@@ -168,6 +168,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                 // Valores por defecto
                 $scope.pasesEdit = {
                     fechaDesde: new Date()
+                    // servicio: Session.variables.servicioActual
                 };
             }
         },
@@ -259,8 +260,8 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
             // agregamos la valoracion inicial
             $scope.ordenCronologico.push({
                 fecha: $scope.internacion.ingreso.fechaHora,
-                tipo: "Valoración inicial",
-                _tipo: "valoracion-inicial",
+                tipo: "Valoración inicial enfermería",
+                _tipo: "valoracion-inicial-enfermeria",
                 data: $scope.internacion.ingreso.enfermeria,
                 cama: ''
                     // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
@@ -276,6 +277,19 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                         data: evolucion,
                         cama: ''
                             // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
+                    });
+                });
+            }
+
+            // agregamos indicaciones
+            if ($scope.internacion.indicaciones.length) {
+                angular.forEach($scope.internacion.indicaciones, function(indicacion, key) {
+                    $scope.ordenCronologico.push({
+                        fecha: indicacion.createdAt,
+                        tipo: "Indicación",
+                        _tipo: "indicacion",
+                        data: indicacion,
+                        cama: ''
                     });
                 });
             }
@@ -342,7 +356,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                     _tipo: "egreso",
                     data: $scope.internacion.egreso,
                     cama: ''
-                        // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
+                    // cama: $scope.internacion.pases[$scope.internacion.pases.length - 1].cama
                 });
             }
 
