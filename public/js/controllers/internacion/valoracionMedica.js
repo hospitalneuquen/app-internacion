@@ -111,40 +111,21 @@ angular.module('app').controller('internacion/valoracionMedica', ['$scope', 'Ple
                 ingreso: $scope.internacion.ingreso
             };
 
-console.log(data);
-            // return Shared.internacion.post(plexParams.idInternacion, data).then(function(internacion) {
-            //
-            //     if ($scope.problema){
-            //         Shared.problemas.post($scope.internacion.id, $scope.problema.id || null, $scope.problema, {
-            //             minify: true
-            //         }).then(function(){
-            //             Plex.alert("Valoración médica guardada. Recuerde editar la lista de problemas si desea agregar la codificación CIE-10 de la hipótesis confirmada (problema activo).");
-            //             Plex.closeView();
-            //         });
-            //     }else{
-            //         if (internacion) {
-            //             Plex.alert("Valoración médica guardada");
-            //         }
-            //
-            //     }
-            //
-            //     Plex.closeView(internacion);
-            // });
-
-
-            // Shared.internacion.post(plexParams.idInternacion, data).then(function(internacion) {
-            //     if (internacion) {
-            //         Plex.alert("Valoración médica guardada");
-            //     }
-            //     Plex.closeView(internacion);
-            // });
-
-            // return Shared.internacion.post(plexParams.idInternacion, data).then(function(internacion) {
-            //     if (internacion) {
-            //         Plex.alert("Valoración médica guardada");
-            //     }
-            //     Plex.closeView(internacion);
-            // });
+            return Shared.internacion.post(plexParams.idInternacion, data).then(function(internacion) {
+                if ($scope.problema){
+                    Shared.problemas.post($scope.internacion.id, $scope.problema.id || null, $scope.problema, {
+                        minify: true
+                    }).then(function(){
+                        Plex.alert("Valoración médica guardada. Recuerde editar la lista de problemas si desea agregar la codificación CIE-10 de la hipótesis confirmada (problema activo).");
+                        Plex.closeView();
+                        });
+                }else{
+                    if (internacion) {
+                        Plex.alert("Valoración médica guardada");
+                    }
+                }
+                Plex.closeView(internacion);
+            });
         },
         cancelar: function() {
             Plex.closeView();
