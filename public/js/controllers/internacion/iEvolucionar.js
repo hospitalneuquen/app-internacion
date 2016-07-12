@@ -189,8 +189,6 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                 // $scope.ultimaEvolucion = $scope.internacion.evoluciones[$scope.internacion.evoluciones.length - 2];
             }
 
-            console.log($scope.ultimaEvolucion);
-
             if (evolucion) { // Modificación
                 $scope.tituloFormulario = "Editar evolución";
                 $scope.evolucionesEdit = {};
@@ -388,7 +386,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
             evolucion.balance.$total_egresos = $scope.sumar(evolucion.balance.egresos);
 
             // calculamos el balance entre el ingreso y egreso
-            evolucion.$balance = parseFloat(evolucion.balance.$total_ingresos) - parseFloat(evolucion.balance.$total_egresos);
+            evolucion.balance.$balance = parseFloat(evolucion.balance.$total_ingresos) - parseFloat(evolucion.balance.$total_egresos);
 
             // devolvemos la evolucion con los balances y los totales
             return evolucion;

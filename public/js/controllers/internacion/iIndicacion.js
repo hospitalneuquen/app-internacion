@@ -479,6 +479,14 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 // asignamos la lista de indicaciones
                 $scope.filtros.indicaciones = internacion.indicaciones;
 
+                if ($scope.filtros.indicaciones.length){
+                    // ocultamos el boton de comenzar tratamiento
+                    $scope.show_comenzar_tratamiento = false;
+                }else{
+                    // mostramos el boton de comenzar tratamiento
+                    $scope.show_comenzar_tratamiento = true;
+                }
+
                 // filtramos las indicaciones
                 $scope.filtros.filtrar();
             });
@@ -653,6 +661,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
                     // mostramos toolbar
                     $scope.show_toolbar_indicaciones = true;
+
                 });
 
             },
@@ -911,12 +920,11 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     }).then(function(data) {
                         Plex.alert('Evolución guardada');
 
-                        // actualizamos el listado de evoluciones
-                        // $scope.actualizarEvoluciones(data);
-                        $scope.indicaciones.evolucion.cancelar();
+                        // agregamos la evolucion a la internacion
+                        // $scope.include.internacion.evoluciones.push(data);
 
-                        //if ($scope.volverAlMapa) {
-                        //    Plex.closeView($scope.cama);
+                        // actualizamos el listado de evoluciones
+                        $scope.indicaciones.evolucion.cancelar();
                     });
                 },
             },
@@ -947,7 +955,6 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     };
                 }
 
-                console.log($scope.evolucionarIndicacion);
                 // // array de indicaciones donde almacenamos el tipo
                 // var indicaciones = [];
                 // //
