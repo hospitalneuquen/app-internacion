@@ -6,7 +6,7 @@
                 <h3>{{titulo}}</h3>
             </div>
 
-            <div ng-show="show_toolbar_indicaciones">
+            <div ng-show="show_toolbar_indicaciones && !show_comenzar_tratamiento">
                 <!-- <div class="col-xs-2 text-right" ng-if="!show_comenzar_tratamiento"> -->
 
                 <div class="col-md-4 col-lg-2">
@@ -1064,25 +1064,23 @@
                                         <span ng-show="indicacion.nutricion.tipo.hipocalorico">
                                             Hipocalórico /
                                         </span>
-                                        <span ng-show="indicacion.nutricion.tipo.soporteOral">
+                                        <!-- <span ng-show="indicacion.nutricion.tipo.soporteOral">
                                             Preparado oral
                                             {{indicacion.nutricion.cantidadSoporteOral}}
                                             ml
-                                        </span>
+                                        </span> -->
 
-                                        <span ng-show="indicacion.nutricion.nutricionEnteral">
-                                            <br />
+                                        <span ng-show="indicacion.nutricion.enteral">
                                             Nutrición enteral:
                                             <br />
-                                            {{indicacion.nutricion.nutricionEnteral.tipoPreparado.descripcion}}
-                                            {{indicacion.nutricion.nutricionEnteral.cantidad}} ml
-                                            por {{indicacion.nutricion.nutricionEnteral.sonda}}
-                                            a {{indicacion.nutricion.nutricionEnteral.velocidadInfunsion.velocidad}} {{indicacion.nutricion.nutricionEnteral.velocidadInfunsion.unidad}}
+                                            {{indicacion.nutricion.enteral.tipoPreparado.descripcion}}
+                                            {{indicacion.nutricion.enteral.cantidad}} ml
+                                            por {{indicacion.nutricion.enteral.sonda}}
+                                            a {{indicacion.nutricion.enteral.velocidadInfunsion.velocidad}} {{indicacion.nutricion.enteral.velocidadInfunsion.unidad}}
 
                                         </span>
 
                                         <span ng-show="indicacion.nutricion.soporteOral">
-                                            <br />
                                             Soporte oral:
                                             <br />
                                             {{indicacion.nutricion.soporteOral.tipoPreparado.descripcion}}
