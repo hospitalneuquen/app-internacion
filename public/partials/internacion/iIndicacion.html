@@ -899,7 +899,13 @@
                                             Solución fisiológica {{indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad}} ml
                                             -
                                             <span ng-if="indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos.length">
-                                            Frascos <span class="mr label label-primary" ng-repeat="frasco in indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos">{{frasco}}</span>
+                                                Frascos
+                                                <span class="fa-stack fa-lg frascos"  ng-repeat="frasco in indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos">
+                                                    <i class=" mdi mdi-cup"></i>
+                                                    <i class="fa  fa-stack-1x numero">
+                                                        {{frasco}}
+                                                    </i>
+                                                </span>
                                             </span>
                                         </span>
 
@@ -909,7 +915,13 @@
                                             Dextrosa {{indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad}} ml
                                             -
                                             <span ng-if="indicacion.planHidratacion.enteralParenteral.dextrosa.frascos.length">
-                                            Frascos <span class="mr label label-primary" ng-repeat="frasco in indicacion.planHidratacion.enteralParenteral.dextrosa.frascos">{{frasco}}</span>
+                                                Frascos
+                                                <span class="fa-stack fa-lg frascos"  ng-repeat="frasco in indicacion.planHidratacion.enteralParenteral.dextrosa.frascos">
+                                                    <i class=" mdi mdi-cup"></i>
+                                                    <i class="fa  fa-stack-1x numero">
+                                                        {{frasco}}
+                                                    </i>
+                                                </span>
                                             </span>
                                         </span>
 
@@ -919,7 +931,13 @@
                                             Ringer-Lactato {{indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad}} ml
                                             -
                                             <span ng-if="indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos.length">
-                                            Frascos <span class="mr label label-primary" ng-repeat="frasco in indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos">{{frasco}}</span>
+                                            Frascos
+                                                <span class="fa-stack fa-lg frascos"  ng-repeat="frasco in indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos">
+                                                    <i class=" mdi mdi-cup"></i>
+                                                    <i class="fa  fa-stack-1x numero">
+                                                        {{frasco}}
+                                                    </i>
+                                                </span>
                                             </span>
                                         </span>
 
@@ -932,7 +950,13 @@
                                                 {{agregado.descripcion}}
 
                                                 <span class="mr label label-primary" ng-if="agregado.frascos.length == indicacion.planHidratacion.$frascos">Todos</span>
-                                                <span class="mr label label-primary" ng-if="agregado.frascos.length != indicacion.planHidratacion.$frascos" ng-repeat="frasco in agregado.frascos">{{frasco}}</span>
+
+                                                <span class="fa-stack fa-lg frascos" ng-if="agregado.frascos.length != indicacion.planHidratacion.$frascos" ng-repeat="frasco in agregado.frascos">
+                                                    <i class=" mdi mdi-cup"></i>
+                                                    <i class="fa  fa-stack-1x numero">
+                                                        {{frasco}}
+                                                    </i>
+                                                </span>
                                             </div>
                                         </div>
 
@@ -1103,7 +1127,33 @@
                             </td>
 
                             <td class="text-center" ng-repeat="hora in horarios" ng-hide="evolucionarIndicacion && indicacion.id != evolucionarIndicacion.id">
-                                {{ indicacion.horarios[hora] }}
+                                <style>
+                                .indicacion-text{color: green;}
+                                </style>
+                                <!-- <span class="fa-stack fa-lg tips" title="{{indicacion.horarios[hora].title}}" ng-if="indicacion.horarios[hora].text">
+                                    <i class="fa fa-circle-thin fa-stack-2x"></i>
+                                    <strong class="fa-stack-1x indicacion-text">
+                                        {{indicacion.horarios[hora].text}}
+                                    </strong>
+                                </span> -->
+                                <span class="indicacion-tabla i tips" title="{{indicacion.horarios[hora].title}}" ng-if="indicacion.horarios[hora].text">
+                                    {{indicacion.horarios[hora].text}}
+                                </span>
+
+                                <span class="indicacion-tabla r tips" title="{{indicacion.evoluciones[hora].title}}" ng-if="indicacion.evoluciones[hora].text">
+                                    {{indicacion.evoluciones[hora].text}}
+                                </span>
+
+                                <!-- <span class="fa-stack fa-lg tips" title="{{indicacion.evoluciones[hora].title}}" ng-if="indicacion.evoluciones[hora].text">
+                                    <i class="fa fa-circle-thin fa-stack-2x"></i>
+                                    <strong class="fa-stack-1x indicacion-text">
+                                        {{indicacion.evoluciones[hora].text}}
+                                    </strong>
+                                </span> -->
+
+                                <!-- <span class="tips" title="{{indicacion.horarios[hora].title}}">
+                                    {{indicacion.horarios[hora].text}}
+                                </span> -->
                             </td>
 
                             <td class="text-center" ng-hide="evolucionarIndicacion && indicacion.id != evolucionarIndicacion.id">
@@ -1123,16 +1173,16 @@
 
 
                                     <div ng-show="!indicaciones.borrar && !evolucionarIndicacion">
-                                        <button class="btn btn-success btn-flat tips" title="Evolucionar" ng-click="indicaciones.evolucionar(indicacion)">
+                                        <button class="btn btn-sm btn-success btn-flat tips" title="Evolucionar" ng-click="indicaciones.evolucionar(indicacion)">
                                             <i class="mdi mdi-chart-line"></i>
                                         </button>
 
-                                        <button class="btn btn-default btn-flat tips" title="Editar indicacion" ng-click="indicaciones.editar(indicacion)">
+                                        <button class="btn btn-sm btn-default btn-flat tips" title="Editar indicacion" ng-click="indicaciones.editar(indicacion)">
                                             <i class="mdi mdi-pencil"></i>
                                         </button>
 
                                         <!-- <button class="btn btn-default btn-flat tips" title="Suspender indicacion" ng-click="indicaciones.suspender(indicacion)"> -->
-                                        <button class="btn btn-danger btn-flat tips" title="Suspender indicacion" ng-click="indicaciones.suspender(indicacion)">
+                                        <button class="btn btn-sm btn-danger btn-flat tips" title="Suspender indicacion" ng-click="indicaciones.suspender(indicacion)">
                                             <i class="mdi mdi-delete"></i>
                                         </button>
                                     </div>
@@ -1140,11 +1190,11 @@
                                     <div ng-show="indicaciones.borrar && indicacion.id == indicacionBorrar.id">
                                         <p>¿Suspender indicación?</p>
 
-                                        <button class="btn btn-default tips" ng-click="indicaciones.cancelarSuspender()" title="No">
+                                        <button class="btn btn-sm btn-default tips" ng-click="indicaciones.cancelarSuspender()" title="No">
                                             <i class="mdi mdi-close"></i>
                                         </button>
 
-                                        <button class="btn btn-success tips" title="Si" ng-click="indicaciones.confirmarBorrado(indicacion)">
+                                        <button class="btn btn-sm btn-success tips" title="Si" ng-click="indicaciones.confirmarBorrado(indicacion)">
                                             <i class="mdi mdi-check"></i>
                                         </button>
 
@@ -1484,15 +1534,15 @@
                                                 <legend>Signos vitales</legend>
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <input type="text" ng-model="evolucionesEdit.signosVitales.pulso" label="Frecuencia cardíaca" suffix="PPM" plex="int" plex/>
+                                                        <input type="text" ng-model="evolucionesEdit.signosVitales.pulso" label="Frecuencia cardíaca" suffix="PPM" plex="int" plex-min="60" plex-max="140" plex/>
                                                     </div>
 
                                                     <div class="col-md-3">
-                                                        <input type="text" ng-model="evolucionesEdit.signosVitales.respiracion" label="Frecuencia respiratoria" suffix="RPM" plex="int" plex/>
+                                                        <input type="text" ng-model="evolucionesEdit.signosVitales.respiracion" label="Frecuencia respiratoria" suffix="RPM" plex="int" plex-min="5" plex-max="50" plex/>
                                                     </div>
 
                                                     <div class="col-md-2">
-                                                        <input type="text" ng-model="evolucionesEdit.signosVitales.temperatura" label="Temperatura" suffix="º C" plex="float" plex/>
+                                                        <input type="text" ng-model="evolucionesEdit.signosVitales.temperatura" label="Temperatura" suffix="º C" plex="float"  plex-min="35" plex-max="40" plex/>
                                                     </div>
 
                                                     <div class="col-md-2">
@@ -1513,13 +1563,13 @@
 
                                                     <div class="col-md-3">
                                                         <div class="form-group">
-                                                            <input type="text" ng-model="evolucionesEdit.signosVitales.circulacion.tensionDiastolica" label="Tensión diastólica" suffix="mmHG" plex="int" plex/>
+                                                            <input type="text" ng-model="evolucionesEdit.signosVitales.circulacion.tensionDiastolica" label="Tensión diastólica" suffix="mmHG" plex="int"  plex-min="20" plex-max="270" plex/>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-md-3">
                                                         <div class="form-group">
-                                                            <input type="text" ng-model="evolucionesEdit.signosVitales.circulacion.tensionSistolica" label="Tensión sistólica" suffix="mmHG" plex="int" plex/>
+                                                            <input type="text" ng-model="evolucionesEdit.signosVitales.circulacion.tensionSistolica" label="Tensión sistólica" suffix="mmHG" plex="int"  plex-min="20" plex-max="270" plex/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1592,8 +1642,8 @@
                                             </div>
                                         </div>
                                     </fieldset>
-
                                 </div>
+
                                 <div ng-if="evolucionarIndicacion.tipo == 'Controles' && evolucionarIndicacion.controles.tipo == 'Riesgo caídas'">
                                     <fieldset>
                                         <legend>Valoración de riesgo de caídas</legend>

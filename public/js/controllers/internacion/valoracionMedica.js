@@ -116,7 +116,7 @@ angular.module('app').controller('internacion/valoracionMedica', ['$scope', 'Ple
                     Shared.problemas.post($scope.internacion.id, $scope.problema.id || null, $scope.problema, {
                         minify: true
                     }).then(function(){
-                        Plex.alert("Valoración médica guardada. Recuerde editar la lista de problemas si desea agregar la codificación CIE-10 de la hipótesis confirmada (problema activo).");
+                        Plex.alert("Valoración médica guardada. Recuerde editar la lista de problemas si desea agregar la codificación CIE-10 de la hipótesis confirmada (problema activo).", "info", 7000);
                         Plex.closeView();
                         });
                 }else{

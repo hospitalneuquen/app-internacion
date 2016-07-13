@@ -1,4 +1,4 @@
-angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', 'Shared', 'Server', 'Session', 'Global', function($scope, Plex, Shared, Server, Session, Global) {
+angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', 'Shared', 'Server', 'Session', 'Global', '$filter', function($scope, Plex, Shared, Server, Session, Global, $filter) {
     'use strict';
 
     angular.extend($scope, {
@@ -479,10 +479,10 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 // asignamos la lista de indicaciones
                 $scope.filtros.indicaciones = internacion.indicaciones;
 
-                if ($scope.filtros.indicaciones.length){
+                if ($scope.filtros.indicaciones.length) {
                     // ocultamos el boton de comenzar tratamiento
                     $scope.show_comenzar_tratamiento = false;
-                }else{
+                } else {
                     // mostramos el boton de comenzar tratamiento
                     $scope.show_comenzar_tratamiento = true;
                 }
@@ -774,6 +774,16 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                             // si no, lo ponemos al principio
                             last_position = (last_position == -1) ? 0 : last_position;
                         }
+
+                        if (last_position == -1) {
+                            var last_position = $scope.indicaciones.getLastPositionOf('Plan hidratación enteral');
+                            last_position = (last_position == -1) ? 0 : last_position;
+                        }
+
+                        if (last_position == -1) {
+                            var last_position = $scope.indicaciones.getLastPositionOf('Plan hidratación oral');
+                            last_position = (last_position == -1) ? 0 : last_position;
+                        }
                     }
 
                     // si es un plan de hidratacion, los enviamos al principio
@@ -796,31 +806,52 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
                 angular.forEach($scope.filtros.indicaciones, function(indicacion) {
 
-                   // agregamos el array de horarios a marcar
-                   indicacion.horarios = [];
+                    // agregamos el array de horarios a marcar
+                    indicacion.horarios = [];
 
-                   // determinamos en que momento comienza
-                   var fecha = new Date(indicacion.fechaHora || indicacion.createdAt);
+                    // determinamos en que momento comienza
+                    var fecha = new Date(indicacion.fechaHora || indicacion.createdAt);
+                    var proximo = parseInt(fecha.getHours());
 
-                   var proximo = parseInt(fecha.getHours());
+                    angular.forEach($scope.horarios, function(hora) {
 
-                   angular.forEach($scope.horarios, function(hora) {
+                        // si la hora es igual al horario de la proxima indicacion
+                        // entonces marcamos el horario en la tabla
+                        if (hora == proximo) {
+                            //    indicacion.horarios[hora] = '<span class="tips" title="bla bla bal" >I</span>';
+                            indicacion.horarios[hora] = {
+                                text: 'i',
+                                title: 'Indicación pedida por ' + indicacion.createdBy.name + ' a las ' + $filter('date')(indicacion.createdAt, "dd/MM/yyyy HH:mm") + ' hs'
+                            }
 
-                       // si la hora es igual al horario de la proxima indicacion
-                       // entonces marcamos el horario en la tabla
-                       if (hora == proximo) {
-                           indicacion.horarios[hora] = "X";
+                            // if (indicacion.frecuencia != 'unica' || indicacion.frecuencia != '24') {
+                            //     // sumamos a la hora marcada la frecuencia
+                            //     proximo = parseInt(hora) + parseInt(indicacion.frecuencia);
+                            //
+                            //     if (proximo > 24) {
+                            //         proximo = proximo - 24;
+                            //     }
+                            // }
+                        }
+                    });
 
-                           if (indicacion.frecuencia != 'unica' || indicacion.frecuencia != '24') {
-                               // sumamos a la hora marcada la frecuencia
-                               proximo = parseInt(hora) + parseInt(indicacion.frecuencia);
+                    // agregamos el array de horarios de voluciones a marcar
+                    indicacion.evoluciones = [];
 
-                               if (proximo > 24) {
-                                   proximo = proximo - 24;
-                               }
-                           }
-                       }
-                   });
+                    // recorremos el listado de evoluciones para saber si
+                    // esta indicacion fue evolucionada y en que horarios
+                    angular.forEach($scope.internacion.evoluciones, function(evolucion){
+                        if (evolucion.idIndicacion == indicacion.id){
+                            // determinamos en que momento comienza
+                            var fecha = new Date(evolucion.fechaHora || evolucion.createdAt);
+                            var hora = parseInt(fecha.getHours());
+
+                            indicacion.evoluciones[hora] = {
+                                text: 'r',
+                                title: 'Realizada por ' + evolucion.createdBy.name + ' a las ' + $filter('date')(evolucion.createdAt, "dd/MM/yyyy HH:mm") + ' hs'
+                            }
+                        }
+                    });
 
                 });
             },
@@ -908,7 +939,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                         $scope.evolucionesEdit.riesgoUPP.total = $scope.evolucionesEdit.riesgoUPP.estadoFisico + $scope.evolucionesEdit.riesgoUPP.estadoMental + $scope.evolucionesEdit.riesgoUPP.actividad + $scope.evolucionesEdit.riesgoUPP.movilidad + $scope.evolucionesEdit.riesgoUPP.incontinencia;
                     }
 
-                    if ($scope.evolucionesEdit.hemoterapia){
+                    if ($scope.evolucionesEdit.hemoterapia) {
                         var hemoterapia = {
                             hemoterapia: $scope.evolucionesEdit.hemoterapia
                         };
@@ -943,15 +974,15 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 $scope.evolucionarIndicacion = indicacion;
 
                 $scope.evolucionesEdit = {
-                    idIndicacion : indicacion.id,
+                    idIndicacion: indicacion.id,
                     fechaHora: new Date(),
                     tipo: Session.variables.prestaciones_workflow,
                     servicio: Session.variables.servicioActual,
                 };
 
-                if (indicacion.tipo == 'Controles' && indicacion.controles.tipo == 'Balance'){
+                if (indicacion.tipo == 'Controles' && indicacion.controles.tipo == 'Balance') {
                     $scope.evolucionesEdit.balance = {
-                        ingresos : []
+                        ingresos: []
                     };
                 }
 
