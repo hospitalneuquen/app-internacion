@@ -3,326 +3,302 @@
 <div class="row">
     <div class="col-lg-12" plex-tabs ng-model="tab">
 
-                <!-- <ul class="nav nav-tabs nav-stacked"> -->
-                <ul class="nav nav-tabs ">
-                    <li>
-                        <a>
-                            Resumen internación
-                        </a>
-                    </li>
-                    <li>
-                        <a>
-                            <i class="mdi mdi-chart-bar"></i>
-                            Gráficos
-                        </a>
-                    </li>
-                    <li>
-                        <a>
-                            <i class="fa fa-bed"></i>
-                            Ingreso de internación
-                        </a>
-                    </li>
-                    <li>
-                        <a>
-                            <i class="mdi mdi-clipboard-outline"></i>
-                            Evoluciones
-                        </a>
-                    </li>
-                    <!-- <li ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
-                    <!-- <li>
+        <!-- <ul class="nav nav-tabs nav-stacked"> -->
+        <ul class="nav nav-tabs ">
+            <li>
+                <a>
+                    Resumen internación
+                </a>
+            </li>
+            <li>
+                <a>
+                    <i class="fa fa-bed"></i>
+                    Ingreso de internación
+                </a>
+            </li>
+            <li>
+                <a>
+                    <i class="mdi mdi-format-float-left"></i>
+                    Antecedentes
+                </a>
+            </li>
+            <li>
+                <a>
+                    <i class="mdi mdi-account-card-details"></i>
+                    Problemas
+                </a>
+            </li>
+            <li>
+                <a>
+                    <i class="mdi mdi-clipboard-outline"></i>
+                    Evoluciones
+                </a>
+            </li>
+            <li>
+                <a>
+                    <i class="mdi mdi-book-open"></i>
+                    Indicaciones
+                </a>
+            </li>
+            <li>
+                <a>
+                    <i class="mdi mdi-walk"></i>
+                    Pases
+                </a>
+            </li>
+            <li>
+                <a>
+                    <i class="mdi mdi-chart-bar"></i>
+                    Gráficos
+                </a>
+            </li>
 
-                        <a>
-                            <i class="mdi mdi-steam"></i>
-                            Drenajes
-                        </a>
-                    </li> -->
-                    <li>
-                        <a>
-                            <i class="mdi mdi-format-float-left"></i>
-                            Antecedentes
-                        </a>
-                    </li>
-                    <li>
-                        <a>
-                            <i class="mdi mdi-walk"></i>
-                            Pases
-                        </a>
-                    </li>
-                    <!-- <li>
-                        <a>
-                            <i class="mdi mdi-television-guide"></i>
-                            Prestaciones
-                        </a>
-                    </li> -->
-                    <li>
-                        <a>
-                            <i class="mdi mdi-account-card-details"></i>
-                            Problemas
-                        </a>
-                    </li>
-                    <li>
-                        <a>
-                            <i class="mdi mdi-book-open"></i>
-                            Indicaciones
-                        </a>
-                    </li>
-                    <!-- <li ng-disabled="internacion.egreso === null"> -->
-                    <li ng-show="internacion.egreso !== null">
-                        <a>
-                            <i class="mdi mdi-exit-to-app"></i>
-                            Egreso
-                        </a>
-                    </li>
-                    <li>
-                        <a>
-                            <i class="mdi mdi-history"></i>
-                            Historial internación
-                        </a>
-                    </li>
-                </ul>
+            <li>
+                <a>
+                    <i class="mdi mdi-history"></i>
+                    Historial internación
+                </a>
+            </li>
+            <!-- <li ng-disabled="internacion.egreso === null"> -->
+            <li ng-show="internacion.egreso !== null">
+                <a>
+                    <i class="mdi mdi-exit-to-app"></i>
+                    Egreso
+                </a>
+            </li>
+            <!-- <li ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
+            <!-- <li>
+                <a>
+                    <i class="mdi mdi-steam"></i>
+                    Drenajes
+                </a>
+            </li> -->
 
+            <!-- <li>
+                <a>
+                    <i class="mdi mdi-television-guide"></i>
+                    Prestaciones
+                </a>
+            </li> -->
+        </ul>
 
-                <div class="card card-block tab-content">
+        <div class="card card-block tab-content">
 
-                    <div class="card-deck-wrapper">
-                        <div class="card-deck">
-                            <div class="card dashboard-card">
-                                <div class="card-header card-blue">
-                                    <div class="card-header-icon">
-                                        <i class="mdi mdi-chart-bar"></i>
-                                    </div>
-                                    <div class="card-header-title">
-
-                                        <div class="title">Gráficos</div>
-                                        <div class="subtitle">Gráficos de internacion de las evoluciones del paciente.</div>
-                                    </div>
-                                </div>
-                                <div class="card-block">
-                                    <p class="card-text">
-                                        Puede ver gráficas de
-                                        <ul>
-                                            <li>
-                                                Balance de líquidos
-                                            </li>
-                                            <li>
-                                                Temperatura
-                                            </li>
-                                        </ul>
-                                    </p>
-
-                                    <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 1">
-                                        Ver los gráficos
-                                    </button>
-                                </div>
+            <div class="card-deck-wrapper">
+                <div class="card-deck">
+                    <div class="card dashboard-card">
+                        <div class="card-header card-blue">
+                            <div class="card-header-icon">
+                                <i class="mdi mdi-chart-bar"></i>
                             </div>
+                            <div class="card-header-title">
 
-                            <div class="card dashboard-card">
-                                <div class="card-header card-green">
-                                    <div class="card-header-icon">
-                                        <i class="mdi mdi-clipboard-outline"></i>
-                                    </div>
-                                    <div class="card-header-title">
-
-                                        <div class="title">Ultima evolución</div>
-                                        <div class="subtitle"></div>
-                                    </div>
-                                </div>
-                                <div class="card-block">
-                                    <p class="card-text">
-                                        {{internacion.evoluciones[internacion.evoluciones.length-1].texto}}
-                                    </p>
-                                    <p class="card-text">
-                                        <i class="fa fa-user-md"></i>
-                                        {{internacion.evoluciones[internacion.evoluciones.length-1].createdBy.name}}
-                                        {{internacion.evoluciones[internacion.evoluciones.length-1].createdAt | fromNow}}
-                                        <br/>
-                                        {{internacion.evoluciones[internacion.evoluciones.length-1].createdAt | date: "dd/MM/yyyy  'a las' HH:mm "}}
-                                        hs
-                                    </p>
-                                    <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 3">
-                                        Ir a las evoluciones
-                                    </button>
-                                </div>
+                                <div class="title">Gráficos</div>
+                                <div class="subtitle">Gráficos de internacion de las evoluciones del paciente.</div>
                             </div>
+                        </div>
+                        <div class="card-block">
+                            <p class="card-text">
+                                Puede ver gráficas de
+                                <ul>
+                                    <li>
+                                        Balance de líquidos
+                                    </li>
+                                    <li>
+                                        Temperatura
+                                    </li>
+                                </ul>
+                            </p>
 
-                            <div class="card dashboard-card">
-                                <div class="card-header card-purple">
-                                    <div class="card-header-icon">
-                                        <i class="mdi mdi-format-float-left"></i>
-                                    </div>
-                                    <div class="card-header-title">
+                            <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 1">
+                                Ver los gráficos
+                            </button>
+                        </div>
+                    </div>
 
-                                        <div class="title">Antecedentes</div>
-                                        <div class="subtitle"></div>
-                                    </div>
-                                </div>
-                                <div class="card-block">
-                                    <p class="card-text">
-                                        Antecedentes del paciente
-                                    </p>
-
-                                    <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 5">
-                                        Ir a los antecedentes
-                                    </button>
-                                </div>
+                    <div class="card dashboard-card">
+                        <div class="card-header card-green">
+                            <div class="card-header-icon">
+                                <i class="mdi mdi-clipboard-outline"></i>
                             </div>
+                            <div class="card-header-title">
 
-                            <div class="card dashboard-card">
-                                <div class="card-header card-yellow">
-                                    <div class="card-header-icon">
-                                        <i class="mdi mdi-chart-line"></i>
-                                    </div>
-                                    <div class="card-header-title">
+                                <div class="title">Ultima evolución</div>
+                                <div class="subtitle"></div>
+                            </div>
+                        </div>
+                        <div class="card-block">
+                            <p class="card-text">
+                                {{internacion.evoluciones[internacion.evoluciones.length-1].texto}}
+                            </p>
+                            <p class="card-text">
+                                <i class="fa fa-user-md"></i>
+                                {{internacion.evoluciones[internacion.evoluciones.length-1].createdBy.name}}
+                                {{internacion.evoluciones[internacion.evoluciones.length-1].createdAt | fromNow}}
+                                <br/>
+                                {{internacion.evoluciones[internacion.evoluciones.length-1].createdAt | date: "dd/MM/yyyy  'a las' HH:mm "}}
+                                hs
+                            </p>
+                            <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 3">
+                                Ir a las evoluciones
+                            </button>
+                        </div>
+                    </div>
 
-                                        <div class="title">Indicadores</div>
-                                        <div class="subtitle"></div>
+                    <div class="card dashboard-card">
+                        <div class="card-header card-purple">
+                            <div class="card-header-icon">
+                                <i class="mdi mdi-format-float-left"></i>
+                            </div>
+                            <div class="card-header-title">
+
+                                <div class="title">Antecedentes</div>
+                                <div class="subtitle"></div>
+                            </div>
+                        </div>
+                        <div class="card-block">
+                            <p class="card-text">
+                                Antecedentes del paciente
+                            </p>
+
+                            <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 5">
+                                Ir a los antecedentes
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card dashboard-card">
+                        <div class="card-header card-yellow">
+                            <div class="card-header-icon">
+                                <i class="mdi mdi-chart-line"></i>
+                            </div>
+                            <div class="card-header-title">
+
+                                <div class="title">Indicadores</div>
+                                <div class="subtitle"></div>
+                            </div>
+                        </div>
+                        <div class="card-block">
+                            <p class="card-text">
+
+                                <div ng-if="internacion.ingreso.enfermeria.riesgoCaida.total > 0">
+                                    Riesgo caidas:
+                                    {{internacion.evoluciones[internacion.evoluciones.length-1].riesgoCaida.total}}
+                                    <span ng-if="internacion.evoluciones[internacion.evoluciones.length-1].riesgoCaida.total < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
+                                    <span ng-if="internacion.evoluciones[internacion.evoluciones.length-1].riesgoCaida.total >= 25 && internacion.evoluciones[internacion.evoluciones.length-1].riesgoCaida.total <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
+                                    <span ng-if="internacion.evoluciones[internacion.evoluciones.length-1].riesgoCaida.total > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
+                                </div>
+                            </p>
+                            <p class="card-text">
+                                <div ng-if="internacion.evoluciones.riesgoUPP.total > 0">
+                                    Riesgo de úlceras por presión:
+                                    {{internacion.evoluciones[internacion.evoluciones.length-1].riesgoUPP.total}}
+                                    <span ng-if="internacion.evoluciones[internacion.evoluciones.length-1].riesgoUPP.total >= 13 && internacion.evoluciones[internacion.evoluciones.length-1].riesgoUPP.total <= 16" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
+                                    <span ng-if="internacion.evoluciones[internacion.evoluciones.length-1].riesgoUPP.total >= 10 && internacion.evoluciones[internacion.evoluciones.length-1].riesgoUPP.total <= 12" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
+                                    <span ng-if="internacion.evoluciones[internacion.evoluciones.length-1].riesgoUPP.total >= 5 && internacion.evoluciones[internacion.evoluciones.length-1].riesgoUPP.total <= 9" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
+                                </div>
+                            </p>
+                            <p class="card-text">
+                                Valoración del dolor
+                            </p>
+                            <p class="card-text" ng-if="internacion.drenajes.length">
+                                <div ng-repeat="drenaje in internacion.drenajes">
+                                    <div ng-if="drenaje.fechaHasta">
+                                        <i class="mdi mdi-steam" title="Drenaje {{drenaje.tipo}} {{drenaje.lado}} colocado hace {{diasColocacionDrenaje(drenaje.fechaDesde)}} días" ng-class="{'rojo': diasColocacionDrenaje(drenaje.fechaDesde) >= 5}"></i>
+                                        Drenaje
+                                        {{drenaje.tipo}}
+                                        {{drenaje.lado}}
+                                        colocado hace
+                                        {{diasColocacionDrenaje(drenaje.fechaDesde)}}
+                                        días
                                     </div>
                                 </div>
-                                <div class="card-block">
-                                    <p class="card-text">
+                            </p>
 
-                                        <div ng-if="internacion.ingreso.enfermeria.riesgoCaida.total > 0">
-                                            Riesgo caidas:
-                                            {{internacion.evoluciones[internacion.evoluciones.length-1].riesgoCaida.total}}
-                                            <span ng-if="internacion.evoluciones[internacion.evoluciones.length-1].riesgoCaida.total < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
-                                            <span ng-if="internacion.evoluciones[internacion.evoluciones.length-1].riesgoCaida.total >= 25 && internacion.evoluciones[internacion.evoluciones.length-1].riesgoCaida.total <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
-                                            <span ng-if="internacion.evoluciones[internacion.evoluciones.length-1].riesgoCaida.total > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
-                                        </div>
-                                    </p>
-                                    <p class="card-text">
-                                        <div ng-if="internacion.evoluciones.riesgoUPP.total > 0">
-                                            Riesgo de úlceras por presión:
-                                            {{internacion.evoluciones[internacion.evoluciones.length-1].riesgoUPP.total}}
-                                            <span ng-if="internacion.evoluciones[internacion.evoluciones.length-1].riesgoUPP.total >= 13 && internacion.evoluciones[internacion.evoluciones.length-1].riesgoUPP.total <= 16" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
-                                            <span ng-if="internacion.evoluciones[internacion.evoluciones.length-1].riesgoUPP.total >= 10 && internacion.evoluciones[internacion.evoluciones.length-1].riesgoUPP.total <= 12" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
-                                            <span ng-if="internacion.evoluciones[internacion.evoluciones.length-1].riesgoUPP.total >= 5 && internacion.evoluciones[internacion.evoluciones.length-1].riesgoUPP.total <= 9" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
-                                        </div>
-                                    </p>
-                                    <p class="card-text">
-                                        Valoración del dolor
-                                    </p>
-                                    <p class="card-text" ng-if="internacion.drenajes.length">
-                                        <div ng-repeat="drenaje in internacion.drenajes">
-                                            <div ng-if="drenaje.fechaHasta">
-                                                <i class="mdi mdi-steam" title="Drenaje {{drenaje.tipo}} {{drenaje.lado}} colocado hace {{diasColocacionDrenaje(drenaje.fechaDesde)}} días" ng-class="{'rojo': diasColocacionDrenaje(drenaje.fechaDesde) >= 5}"></i>
-                                                Drenaje
-                                                {{drenaje.tipo}}
-                                                {{drenaje.lado}}
-                                                colocado hace
-                                                {{diasColocacionDrenaje(drenaje.fechaDesde)}}
-                                                días
-                                            </div>
-                                        </div>
-                                    </p>
-
-                                    <!-- <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 4">
+                            <!-- <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 4">
                                 Ir a los antecedetnes
                             </button> -->
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="card-deck-wrapper">
-                        <div class="card-deck ">
-                            <div class="card dashboard-card">
-                                <div class="card-header card-purple">
-                                    <div class="card-header-icon">
-                                        <i class="mdi mdi-format-float-left"></i>
-                                    </div>
-                                    <div class="card-header-title">
-
-                                        <div class="title">Listado de problemas</div>
-                                        <div class="subtitle">Problemas activos o transformados</div>
-                                    </div>
-                                </div>
-                                <div class="card-block">
-                                    <p class="card-text" ng-if="internacion.problemas.length">
-
-                                        <div ng-repeat="problema in internacion.problemas">
-                                            <span ng-if="problema.estado == 'Activo' || problema.estado == 'Transformado'">
-                                                {{problema.descripcion}}
-                                            </span>
-                                        </div>
-                                    </p>
-
-                                    <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 8">
-                                        Ir al listado de problemas
-                                    </button>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
                 </div>
+            </div>
 
-                <div class="card card-block tab-content">
-                    <h3>Gráficos</h3>
-                    <div class="row" ng-if="internacion.evoluciones.length > 0">
-                        <div class="col-lg-4" ng-if="hayEvoluciones('temperatura')">
-                            <!-- <div plex-include="'partials/internacion/iGraficoLiquidos.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0"></div> -->
-                            <div>
-                                <div plex-include="'partials/internacion/iGraficoTemperatura.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
+            <div class="card-deck-wrapper">
+                <div class="card-deck ">
+                    <div class="card dashboard-card">
+                        <div class="card-header card-purple">
+                            <div class="card-header-icon">
+                                <i class="mdi mdi-format-float-left"></i>
+                            </div>
+                            <div class="card-header-title">
+
+                                <div class="title">Listado de problemas</div>
+                                <div class="subtitle">Problemas activos o transformados</div>
                             </div>
                         </div>
-                        <div class="col-lg-4" ng-if="hayEvoluciones('tension')">
+                        <div class="card-block">
+                            <p class="card-text" ng-if="internacion.problemas.length">
 
-                            <div plex-include="'partials/internacion/iGraficoTension.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
+                                <div ng-repeat="problema in internacion.problemas">
+                                    <span ng-if="problema.estado == 'Activo' || problema.estado == 'Transformado'">
+                                        {{problema.descripcion}}
+                                    </span>
+                                </div>
+                            </p>
 
+                            <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 8">
+                                Ir al listado de problemas
+                            </button>
                         </div>
-                        <div class="col-lg-4" ng-if="hayEvoluciones('saturacion')">
-
-                            <div plex-include="'partials/internacion/iGraficoSaturacion.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
-
-                        </div>
-
                     </div>
-                    <p ng-if="!hayEvoluciones('temperatura') && !hayEvoluciones('tension') && !hayEvoluciones('saturacion')">No se han cargado evoluciones aún para poder generar gráficos</p>
                 </div>
+            </div>
 
-                <div class="card card-block tab-content">
-                    <h3 >Datos de ingreso</h3>
-                    <br/>
-                    <form>
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <!-- <input class="form-control" type="text" label="Fecha de internación" ng-model="internacion.ingreso.fechaHora" plex="date" ng-required="true"> -->
-                                    <label>Fecha de internación</label>
-                                    <p>{{internacion.ingreso.fechaHora | date: 'dd/MM/yyyy H:mm'}}
-                                        hs</p>
-                                </div>
-                            </div>
+        </div>
 
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label>Tipo de ingreso</label>
-                                    <p>{{tipoInternacionSeleccionada.nombre}}</p>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Motivo de la internación</label>
-                                    <p>{{internacion.ingreso.motivo}}</p>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Diagnóstico presuntivo</label>
-                                    <p>{{internacion.ingreso.diagnosticoPresuntivo}}</p>
-                                </div>
-                            </div>
+
+
+        <div class="card card-block tab-content">
+            <h3 >Datos de ingreso</h3>
+            <br/>
+            <form>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <!-- <input class="form-control" type="text" label="Fecha de internación" ng-model="internacion.ingreso.fechaHora" plex="date" ng-required="true"> -->
+                            <label>Fecha de internación</label>
+                            <p>{{internacion.ingreso.fechaHora | date: 'dd/MM/yyyy H:mm'}}
+                                hs</p>
                         </div>
-                    </form>
-                </div>
+                    </div>
 
-                <div class=" tab-content">
-                    <div plex-include="'partials/internacion/iEvolucionar.html'" plex-include-internacion="internacion"></div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Tipo de ingreso</label>
+                            <p>{{tipoInternacionSeleccionada.nombre}}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Motivo de la internación</label>
+                            <p>{{internacion.ingreso.motivo}}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Diagnóstico presuntivo</label>
+                            <p>{{internacion.ingreso.diagnosticoPresuntivo}}</p>
+                        </div>
+                    </div>
                 </div>
+            </form>
+        </div>
 
-                <!-- <div ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
-                <!-- <div class=" tab-content">
+
+
+        <!-- <div ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
+        <!-- <div class=" tab-content">
                     <div class="card card-block">
 
                         <div class="row" ng-show="show_toolbar_drenajes">
@@ -435,517 +411,550 @@
                     </div>
                 </div> -->
 
-                <div class="card card-block tab-content">
+        <div class="card card-block tab-content">
 
-                    <div class="row" ng-show="show_toolbar_antecedentes">
-                        <div class="col-md-8 col-lg-10">
-                            <h3>Antecedentes</h3>
-                        </div>
-                        <div class="col-md-4 col-lg-2 text-right">
-                            <br/>
-                            <button class="btn btn-primary form-control" ng-click="editarAntecedentes();" ng-if="!antecedentesEdit">
-                                Editar antecedentes
-                            </button>
-                        </div>
-                    </div>
-
-                    <div ng-if="antecedentesEdit">
-                        <ng-form>
-                            <div plex-include="'partials/internacion/iAntecedentes.html'" plex-include-internacion="internacion"></div>
-                            <div class="card card-block margin-top text-right">
-                                <a class="btn btn-default btn-flat" ng-click="cancelarEdicionAntecedentes()">Cancelar</a>
-                                <button class="btn btn-primary" plex-submit="guardarAntecedentes()">
-                                    <i class="mdi mdi-content-save"></i>
-                                    <span>Guardar</span>
-                                </button>
-                            </div>
-                        </ng-form>
-                    </div>
-                    <div ng-if="!antecedentesEdit">
-                        <div class="row">
-                            <div class="col-lg-6" ng-if="internacion.ingreso.antecedentes.binarios.length > 0">
-                                <h5>Antecedentes binarios</h5>
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Antecedente</th>
-                                            <th>Observaciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="item in internacion.ingreso.antecedentes.binarios">
-                                            <td ng-if="item.activo">
-                                                <span class="text-muted">{{item.antecedente.grupo + " / "}}</span>
-                                                <span>{{item.antecedente.nombre}}</span>
-                                            </td>
-                                            <td ng-if="item.activo">
-                                                {{item.observaciones}}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- Antecedentes familiares -->
-                            <div class="col-lg-6" ng-if="internacion.ingreso.antecedentes.familiares.length > 0">
-                                <h5>Antecedentes familiares</h5>
-                                <table class="table table-striped" ng-if="internacion.ingreso.antecedentes.familiares.length > 0">
-                                    <thead>
-                                        <th>Familiar</th>
-                                        <th>Observaciones</th>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="antecedenteFamiliar in internacion.ingreso.antecedentes.familiares">
-                                            <td>{{antecedenteFamiliar.familiar}}</td>
-                                            <td>{{antecedenteFamiliar.observaciones}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <!-- Alergias -->
-                            <div class="col-lg-6" ng-if="internacion.ingreso.antecedentes.alergias.length > 0">
-                                <h5>Alergias</h5>
-                                <table class="table table-striped" ng-if="internacion.ingreso.antecedentes.alergias.length > 0">
-                                    <thead>
-                                        <th>Tipo</th>
-                                        <th>Alérgeno</th>
-                                        <th>Severidad</th>
-                                        <th>Reacción</th>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="antecedenteAlergia in internacion.ingreso.antecedentes.alergias">
-                                            <td>{{antecedenteAlergia.tipoAlergia}}</td>
-                                            <td>{{antecedenteAlergia.alergeno}}</td>
-                                            <td>{{antecedenteAlergia.severidad}}</td>
-                                            <td>{{antecedenteAlergia.reaccion}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <!-- Vacunas -->
-                            <div class="col-lg-6" ng-if="internacion.ingreso.antecedentes.vacunas.length > 0">
-                                <h5>Vacunas</h5>
-                                <table class="table table-striped" ng-if="internacion.ingreso.antecedentes.vacunas.length > 0">
-                                    <thead>
-                                        <th>Nombre</th>
-                                        <th>Aplicación</th>
-                                        <th>Año</th>
-                                        <th>Observaciones</th>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="antecedenteVacuna in internacion.ingreso.antecedentes.vacunas">
-                                            <td>{{antecedenteVacuna.nombre}}</td>
-                                            <td>{{antecedenteVacuna.aplicacion}}</td>
-                                            <td>{{antecedenteVacuna.anio}}</td>
-                                            <td>{{antecedenteVacuna.observaciones}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <!-- Antecedentes gineco-obstétricos -->
-                        <div class="col-lg-6" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos">
-                            <h5>Antecedentes gineco-obstétricos</h5>
-                            <div class="row">
-                                <div class="col-sm-3" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.anticoncepcion">
-                                    Anticoncepción:
-                                    {{internacion.ingreso.antecedentes.ginecoobstetricos.anticoncepcion}}
-                                </div>
-                                <div class="col-sm-2" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.gestas">
-                                    Gestas:
-                                    {{internacion.ingreso.antecedentes.ginecoobstetricos.gestas}}
-                                </div>
-                                <div class="col-sm-2" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.partos">
-                                    Partos:
-                                    {{internacion.ingreso.antecedentes.ginecoobstetricos.partos}}
-                                </div>
-                                <div class="col-sm-3" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.cesareas">
-                                    Cesáreas:
-                                    {{internacion.ingreso.antecedentes.ginecoobstetricos.cesareas}}
-                                </div>
-                                <div class="col-sm-2" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.abortos">
-                                    Abortos:
-                                    {{internacion.ingreso.antecedentes.ginecoobstetricos.abortos}}
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Antecedentes varios -->
-                        <div class="col-lg-3" ng-if="internacion.ingreso.antecedentes.quirurgicos">
-                            <h5>Antecedentes quirúrgicos</h5>
-                            {{internacion.ingreso.antecedentes.quirurgicos}}
-                        </div>
-
-                        <div class="col-lg-3" ng-if="internacion.ingreso.antecedentes.medicacion">
-                            <h5>Medicación habitual</h5>
-                            {{internacion.ingreso.antecedentes.medicacion}}
-                        </div>
-                    </div>
-                    <!-- <p ng-if="!internacion.ingreso.antecedentes.binarios && !internacion.ingreso.antecedentes.ginecoobstetricos && !internacion.ingreso.antecedentes.quirurgicos && !internacion.ingreso.antecedentes.familiares && !internacion.ingreso.antecedentes.medicacion">El paciente no posee antecedentes</p> -->
+            <div class="row" ng-show="show_toolbar_antecedentes">
+                <div class="col-md-8 col-lg-10">
+                    <h3>Antecedentes</h3>
                 </div>
+                <div class="col-md-4 col-lg-2 text-right">
+                    <br/>
+                    <button class="btn btn-primary form-control" ng-click="editarAntecedentes();" ng-if="!antecedentesEdit">
+                        Editar antecedentes
+                    </button>
+                </div>
+            </div>
 
-                <div class="card card-block tab-content">
-                    <div class="row" ng-show="show_toolbar_pases">
-                        <div class="col-md-8 col-lg-10">
-                            <h3>Pases</h3>
-                        </div>
-                        <div class="col-md-4 col-lg-2 text-right">
-                            <br/>
-                            <button class="btn btn-primary form-control" ng-click="editarPase();" ng-if="!pasesEdit">
-                                Nuevo pase
-                            </button>
-                        </div>
+            <div ng-if="antecedentesEdit">
+                <ng-form>
+                    <div plex-include="'partials/internacion/iAntecedentes.html'" plex-include-internacion="internacion"></div>
+                    <div class="card card-block margin-top text-right">
+                        <a class="btn btn-default btn-flat" ng-click="cancelarEdicionAntecedentes()">Cancelar</a>
+                        <button class="btn btn-primary" plex-submit="guardarAntecedentes()">
+                            <i class="mdi mdi-content-save"></i>
+                            <span>Guardar</span>
+                        </button>
                     </div>
-                    <div ng-if="internacion.pases && internacion.pases.length > 0">
-                        <table class="table table-hover table-striped">
-                            <thead >
-                                <tr >
-                                    <th >Fecha</th>
-                                    <th >Cama</th>
-                                    <th >Servicio</th>
-                                    <th >Resumen internación</th>
-                                    <th ></th>
+                </ng-form>
+            </div>
+            <div ng-if="!antecedentesEdit">
+                <div class="row">
+                    <div class="col-lg-6" ng-if="internacion.ingreso.antecedentes.binarios.length > 0">
+                        <h5>Antecedentes binarios</h5>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Antecedente</th>
+                                    <th>Observaciones</th>
                                 </tr>
                             </thead>
-                            <tbody >
-                                <tr ng-repeat="item in internacion.pases | orderBy: '-fechaHora'">
-                                    <td >
-                                        {{item.fechaHora | fromNow }}<br/>
-                                        <div class="text-muted small">
-                                            {{item.fechaHora | date: "dd/MM/yyyy HH:mm"}}
-                                        </div>
+                            <tbody>
+                                <tr ng-repeat="item in internacion.ingreso.antecedentes.binarios">
+                                    <td ng-if="item.activo">
+                                        <span class="text-muted">{{item.antecedente.grupo + " / "}}</span>
+                                        <span>{{item.antecedente.nombre}}</span>
                                     </td>
-                                    <td >
-                                        {{item.cama.habitacion}}/{{item.cama.numero}}
-                                    </td>
-                                    <td >
-                                        {{item.servicio.nombreCorto}}
-                                    </td>
-                                    <td >
-                                        {{item.resumenInternacion}}
-                                    </td>
-
-                                    <td >
-                                        <button class="btn btn-default btn-flat tips" title="Editar pase" ng-click="editarPase(item)">
-                                            <i class="mdi mdi-pencil"></i>
-                                        </button>
+                                    <td ng-if="item.activo">
+                                        {{item.observaciones}}
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-
-                    <div ng-if="pasesEdit">
-                        <ng-form name="formEditarPase">
-                            <fieldset>
-                                <legend>{{tituloFormulario}}</legend>
-                                <div class="row">
-                                    <div class="col-lg-2">
-                                        <input type=text label="Fecha" ng-model="pasesEdit.fechaHora" plex="date">
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <input type=text label="Hora" ng-model="pasesEdit.fechaHora" plex="time">
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <select label="Servicio actual" ng-model="pasesEdit.servicio" min="3" plex="(item.nombre) for item in buscarUbicacion($value, 'servicio')" ng-change="getCamas(item.id)"></select>
-                                    </div>
-                                    <div class="col-lg-1">
-                                        <select label="Cama" ng-model="pasesEdit.cama" plex="(item.habitacion + ' / ' + item.numero) for item in camas"></select>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <select label="Servicio sugerido" ng-model="pasesEdit.servicioSugerido" min="3" plex="(item.nombre) for item in buscarUbicacion($value, 'servicio')"></select>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <textarea label="Resumen de la internación" ng-model="pasesEdit.resumenInternacion" plex rows="5" class="form-control"></textarea>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12 text-right">
-                                        <br/>
-                                        <button type="button" class="btn btn-default btn-flat" ng-click="cancelarEdicionPase();">Cancelar</button>
-                                        <button class="btn btn-primary" plex-submit="guardarPase(pasesEdit)" ng-disabled="formEditarPase.$invalid">
-                                            <i class="mdi mdi-content-save"></i>
-                                            Guardar</button>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </ng-form>
+                    <!-- Antecedentes familiares -->
+                    <div class="col-lg-6" ng-if="internacion.ingreso.antecedentes.familiares.length > 0">
+                        <h5>Antecedentes familiares</h5>
+                        <table class="table table-striped" ng-if="internacion.ingreso.antecedentes.familiares.length > 0">
+                            <thead>
+                                <th>Familiar</th>
+                                <th>Observaciones</th>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="antecedenteFamiliar in internacion.ingreso.antecedentes.familiares">
+                                    <td>{{antecedenteFamiliar.familiar}}</td>
+                                    <td>{{antecedenteFamiliar.observaciones}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-
                 </div>
 
-                <!-- <div class="card card-block tab-content">
+                <div class="row">
+                    <!-- Alergias -->
+                    <div class="col-lg-6" ng-if="internacion.ingreso.antecedentes.alergias.length > 0">
+                        <h5>Alergias</h5>
+                        <table class="table table-striped" ng-if="internacion.ingreso.antecedentes.alergias.length > 0">
+                            <thead>
+                                <th>Tipo</th>
+                                <th>Alérgeno</th>
+                                <th>Severidad</th>
+                                <th>Reacción</th>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="antecedenteAlergia in internacion.ingreso.antecedentes.alergias">
+                                    <td>{{antecedenteAlergia.tipoAlergia}}</td>
+                                    <td>{{antecedenteAlergia.alergeno}}</td>
+                                    <td>{{antecedenteAlergia.severidad}}</td>
+                                    <td>{{antecedenteAlergia.reaccion}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Vacunas -->
+                    <div class="col-lg-6" ng-if="internacion.ingreso.antecedentes.vacunas.length > 0">
+                        <h5>Vacunas</h5>
+                        <table class="table table-striped" ng-if="internacion.ingreso.antecedentes.vacunas.length > 0">
+                            <thead>
+                                <th>Nombre</th>
+                                <th>Aplicación</th>
+                                <th>Año</th>
+                                <th>Observaciones</th>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="antecedenteVacuna in internacion.ingreso.antecedentes.vacunas">
+                                    <td>{{antecedenteVacuna.nombre}}</td>
+                                    <td>{{antecedenteVacuna.aplicacion}}</td>
+                                    <td>{{antecedenteVacuna.anio}}</td>
+                                    <td>{{antecedenteVacuna.observaciones}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Antecedentes gineco-obstétricos -->
+                <div class="col-lg-6" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos">
+                    <h5>Antecedentes gineco-obstétricos</h5>
+                    <div class="row">
+                        <div class="col-sm-3" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.anticoncepcion">
+                            Anticoncepción:
+                            {{internacion.ingreso.antecedentes.ginecoobstetricos.anticoncepcion}}
+                        </div>
+                        <div class="col-sm-2" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.gestas">
+                            Gestas:
+                            {{internacion.ingreso.antecedentes.ginecoobstetricos.gestas}}
+                        </div>
+                        <div class="col-sm-2" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.partos">
+                            Partos:
+                            {{internacion.ingreso.antecedentes.ginecoobstetricos.partos}}
+                        </div>
+                        <div class="col-sm-3" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.cesareas">
+                            Cesáreas:
+                            {{internacion.ingreso.antecedentes.ginecoobstetricos.cesareas}}
+                        </div>
+                        <div class="col-sm-2" ng-if="internacion.ingreso.antecedentes.ginecoobstetricos.abortos">
+                            Abortos:
+                            {{internacion.ingreso.antecedentes.ginecoobstetricos.abortos}}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Antecedentes varios -->
+                <div class="col-lg-3" ng-if="internacion.ingreso.antecedentes.quirurgicos">
+                    <h5>Antecedentes quirúrgicos</h5>
+                    {{internacion.ingreso.antecedentes.quirurgicos}}
+                </div>
+
+                <div class="col-lg-3" ng-if="internacion.ingreso.antecedentes.medicacion">
+                    <h5>Medicación habitual</h5>
+                    {{internacion.ingreso.antecedentes.medicacion}}
+                </div>
+            </div>
+            <!-- <p ng-if="!internacion.ingreso.antecedentes.binarios && !internacion.ingreso.antecedentes.ginecoobstetricos && !internacion.ingreso.antecedentes.quirurgicos && !internacion.ingreso.antecedentes.familiares && !internacion.ingreso.antecedentes.medicacion">El paciente no posee antecedentes</p> -->
+        </div>
+
+
+
+        <!-- <div class="card card-block tab-content">
             <div plex-include="'partials/internacion/iPrestaciones.html'" plex-include-internacion="internacion"></div>
         </div> -->
 
-                <div class="card card-block tab-content">
-                    <div plex-include="'partials/internacion/iListaProblemas.html'" plex-include-internacion="internacion"></div>
+        <div class="card card-block tab-content">
+            <div plex-include="'partials/internacion/iListaProblemas.html'" plex-include-internacion="internacion"></div>
+        </div>
+
+        <div class=" tab-content">
+            <div plex-include="'partials/internacion/iEvolucionar.html'" plex-include-internacion="internacion"></div>
+        </div>
+
+        <div class="card card-block tab-content">
+            <div plex-include="'partials/internacion/iIndicacion.html'" plex-include-internacion="internacion"></div>
+        </div>
+
+        <div class="card card-block tab-content">
+            <div class="row" ng-show="show_toolbar_pases">
+                <div class="col-md-8 col-lg-10">
+                    <h3>Pases</h3>
                 </div>
-
-                <div class="card card-block tab-content">
-                    <div plex-include="'partials/internacion/iIndicacion.html'" plex-include-internacion="internacion"></div>
+                <div class="col-md-4 col-lg-2 text-right">
+                    <br/>
+                    <button class="btn btn-primary form-control" ng-click="editarPase();" ng-if="!pasesEdit">
+                        Nuevo pase
+                    </button>
                 </div>
+            </div>
+            <div ng-if="internacion.pases && internacion.pases.length > 0">
+                <table class="table table-hover table-striped">
+                    <thead >
+                        <tr >
+                            <th >Fecha</th>
+                            <th >Cama</th>
+                            <th >Servicio</th>
+                            <th >Resumen internación</th>
+                            <th ></th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <tr ng-repeat="item in internacion.pases | orderBy: '-fechaHora'">
+                            <td >
+                                {{item.fechaHora | fromNow }}<br/>
+                                <div class="text-muted small">
+                                    {{item.fechaHora | date: "dd/MM/yyyy HH:mm"}}
+                                </div>
+                            </td>
+                            <td >
+                                {{item.cama.habitacion}}/{{item.cama.numero}}
+                            </td>
+                            <td >
+                                {{item.servicio.nombreCorto}}
+                            </td>
+                            <td >
+                                {{item.resumenInternacion}}
+                            </td>
 
-                <div class="card card-block tab-content" ng-show="internacion.egreso !== null">
-                    <div ng-if="internacion.egreso">
-                        <h3 >Egreso</h3>
-                        <div ng-if="internacion.egreso">
-                            <table class="table table-hover table-striped">
-                                <thead >
-                                    <tr >
-                                        <th >Fecha</th>
-                                        <th >Cama</th>
-                                        <th >Servicio</th>
-                                        <th >Tipo</th>
-                                        <th >Resumen</th>
-                                    </tr>
-                                </thead>
-                                <tbody >
-                                    <tr >
-                                        <td >
-                                            {{internacion.egreso.fechaHora | fromNow }}<br/>
-                                            <div class="text-muted small">
-                                                {{internacion.egreso.fechaHora | date: "dd/MM/yyyy HH:mm"}}
-                                            </div>
-                                        </td>
-                                        <td >
-                                            {{internacion.pases[internacion.pases.length-1].cama.habitacion}}/{{internacion.pases[internacion.pases.length-1].cama.numero}}
-                                        </td>
-                                        <td >
-                                            {{internacion.pases[internacion.pases.length-1].servicio.nombreCorto}}
-                                        </td>
-                                        <td >
-                                            {{internacion.egreso.tipo}}
-                                            <div ng-if="tipo == 'alta'">
-                                                ({{internacion.egreso.tipoAlta}})
-                                                <div ng-if="tipoAlta == 'derivacion'">
-                                                    Derivado hacia:
-                                                    {{internacion.egreso.derivadoHacia.nombre}}
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td ></td>
+                            <td >
+                                <button class="btn btn-default btn-flat tips" title="Editar pase" ng-click="editarPase(item)">
+                                    <i class="mdi mdi-pencil"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="card card-block container-timeline tab-content">
-
-                    <div class="row">
-                        <div class="col-md-offset-2 col-md-9">
-                            <div class="timeline-centered timeline-sm">
-                                <article class="timeline-entry" ng-repeat="elemento in ordenCronologico" ng-class="{'left-aligned': $even}">
-                                    <div class="timeline-entry-inner">
-                                        <time datetime="{{elemento.fecha}}" class="timeline-time">
-                                            <span>{{elemento.fecha | date: "HH:mm"}}
-                                                hs</span>
-                                            <span>{{elemento.fecha | date: "dd 'de' MMMM 'de' yyyy"}}</span>
-
-                                            {{elemento.fecha | fromNow}}
-
-                                        </time>
-
-                                        <div class="timeline-icon bg-ingreso" ng-if="elemento.tipo == 'Ingreso'">
-                                            <i class="fa fa-bed"></i>
-                                        </div>
-
-                                        <div class="timeline-icon bg-valoracion-inicial-enfermeria" ng-if="elemento.tipo == 'Valoración inicial enfermería'">
-                                            <i class="mdi mdi-receipt"></i>
-                                        </div>
-
-                                        <div class="timeline-icon bg-prestacion" ng-if="elemento._tipo == 'prestacion'">
-                                            <i class="mdi mdi-television-guide"></i>
-                                        </div>
-
-                                        <div class="timeline-icon bg-pase" ng-if="elemento.tipo == 'Pase'">
-                                            <i class="mdi mdi-walk"></i>
-                                        </div>
-
-                                        <div class="timeline-icon bg-pase" ng-if="elemento.tipo == 'Colocación de drenaje' || elemento.tipo == 'Extracción de drenaje'">
-                                            <i class="mdi mdi-steam"></i>
-                                        </div>
-
-                                        <div class="timeline-icon bg-evolucion" ng-if="elemento.tipo == 'Evolución'">
-                                            <i class="mdi mdi-clipboard-outline"></i>
-                                        </div>
-
-                                        <div class="timeline-icon bg-indicacion" ng-if="elemento.tipo == 'Indicación'">
-                                            <i class="mdi mdi-file-check"></i>
-                                        </div>
-
-                                        <div class="timeline-icon bg-egreso" ng-if="elemento.tipo == 'Egreso'">
-                                            <i class="mdi mdi-exit-to-app"></i>
-                                        </div>
-
-                                        <div class="timeline-label">
-                                            <h4 class="timeline-title {{elemento._tipo}}">
-                                                {{elemento.tipo}}
-                                                <div class="numero-habitacion pull-right">
-                                                    {{elemento.cama.habitacion}}
-                                                    /
-                                                    {{elemento.cama.numero}}
-                                                </div>
-                                            </h4>
-
-                                            <div ng-if="elemento.tipo == 'Ingreso'">
-                                                <p>
-                                                    <b>Tipo de ingreso:</b>
-                                                    {{elemento.data.tipo}}
-
-                                                    <span ng-if="elemento.data.tipo == 'derivacion'">Derivado desde:
-                                                        {{elemento.data.derivadoDesde.nombreCorto}}
-                                                    </span>
-                                                    <br/>
-                                                    <b>Motivo:</b>
-                                                    {{elemento.data.motivo}}
-                                                    <br/>
-                                                    <b>Diagnóstico presuntivo:</b>
-                                                    {{elemento.data.diagnosticoPresuntivo}}
-                                                </p>
-                                            </div>
-
-                                            <div ng-if="elemento.tipo == 'Valoración inicial'">
-                                                <p>
-                                                    <i class="fa fa-user-md"></i>
-                                                    {{internacion.createdBy.name}}
-                                                </p>
-                                            </div>
-
-                                            <div ng-if="elemento.tipo == 'Evolución'">
-                                                <p>
-                                                    <b>Servicio:</b>
-                                                    {{elemento.data.servicio.nombreCorto}}
-                                                    <br/>
-                                                    <i class="fa fa-user-md"></i>
-                                                    {{elemento.data.createdBy.name}}
-                                                </p>
-                                            </div>
-
-                                            <div ng-if="elemento.tipo == 'Indicación'">
-                                                <p>
-                                                    <b>Indicación:</b>
-                                                    {{elemento.data.tipo}}
-
-                                                    <span ng-if="elemento.data.tipo == 'Controles'">
-                                                        / {{elemento.data.controles.tipo}}
-                                                    </span>
-
-                                                    <span ng-if="elemento.data.tipo == 'Cuidados generales'">
-                                                        / {{elemento.data.cuidadosGenerales.tipo}}
-                                                    </span>
-
-                                                    <span ng-if="elemento.data.tipo == 'Cuidados especiales'">
-                                                        / {{elemento.data.cuidadosGenerales.tipo}}
-                                                    </span>
-
-                                                    <br/>
-                                                    <i class="fa fa-user-md"></i>
-                                                    {{elemento.data.createdBy.name}}
-                                                </p>
-                                            </div>
-
-                                            <div ng-if="elemento.tipo == 'Pase'">
-                                                <p>
-                                                    Pase hacia
-                                                    {{elemento.data.servicio.nombreCorto}}
-                                                    <br/>
-                                                    <b>Cama:</b>
-                                                    {{elemento.data.cama.habitacion}}
-                                                    /
-                                                    {{elemento.data.cama.numero}}
-                                                </p>
-                                            </div>
-
-                                            <div ng-if="elemento._tipo == 'prestacion'">
-                                                <p>
-                                                    {{elemento.data.tipoPrestacion.nombre}}
-                                                    <br/>
-                                                    <b>Prioridad:
-                                                    </b>
-                                                    {{elemento.data.prioridad}}
-                                                    <br/>
-                                                    <i class="fa fa-user-md"></i>
-                                                    {{elemento.data.createdBy.name}}
-                                                    <br/>
-                                                    {{elemento.data.servicio.nombreCorto}}
-                                                </td>
-                                            </div>
-
-                                            <div ng-if="elemento.tipo == 'Colocación de drenaje'">
-                                                <p>
-                                                    Colocación de drenaje
-                                                    {{elemento.data.tipo}}
-                                                    en el lado
-                                                    {{elemento.data.lado}}
-
-                                                </p>
-                                            </div>
-
-                                            <div ng-if="elemento.tipo == 'Extracción de drenaje'">
-                                                <p>
-                                                    Extracción de drenaje
-                                                    {{elemento.data.tipo}}
-                                                    colocado en el lado
-                                                    {{elemento.data.lado}}
-                                                    <b>Tiempo colocado:</b>
-                                                    {{elemento.duracion}}
-                                                </p>
-                                            </div>
-
-                                            <div ng-if="elemento.tipo == 'Egreso'">
-                                                <p>
-                                                    <b>Tiempo internado:</b>
-                                                    {{elemento.duracion}}
-                                                    <br/>
-
-                                                    <b>Cama:</b>
-                                                    {{internacion.pases[internacion.pases.length-1].cama.habitacion}}
-                                                    /
-                                                    {{internacion.pases[internacion.pases.length-1].cama.numero}}
-                                                    <br/>
-
-                                                    <b>Servicio:</b>
-                                                    {{internacion.pases[internacion.pases.length-1].servicio.nombreCorto}}
-                                                </p>
-                                                <p>
-                                                    <b>Tipo de alta:</b>
-                                                    {{elemento.data.tipoAlta}}
-                                                    <br/>
-                                                    <span ng-if="elemento.data.diagnosticoAlta">
-                                                        <b>Diagnóstico de alta:</b>
-                                                        <span ng-repeat="diagnostico in elemento.data.diagnosticoAlta track by $index">
-                                                            {{diagnostico.nombre}}
-                                                            <span ng-if="elemento.data.diagnosticoAlta.length-1 != $index">
-                                                                /
-                                                            </span>
-                                                        </span>
-                                                    </span>
-                                                    <br/>
-                                                    <span ng-if="elemento.data.derivadoHacia">
-                                                        <b>Derivado hacia:</b>
-                                                        {{elemento.data.derivadoHacia.nombreCorto}}
-                                                    </span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </article>
+            <div ng-if="pasesEdit">
+                <ng-form name="formEditarPase">
+                    <fieldset>
+                        <legend>{{tituloFormulario}}</legend>
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <input type=text label="Fecha" ng-model="pasesEdit.fechaHora" plex="date">
+                            </div>
+                            <div class="col-lg-2">
+                                <input type=text label="Hora" ng-model="pasesEdit.fechaHora" plex="time">
+                            </div>
+                            <div class="col-lg-2">
+                                <select label="Servicio actual" ng-model="pasesEdit.servicio" min="3" plex="(item.nombre) for item in buscarUbicacion($value, 'servicio')" ng-change="getCamas(item.id)"></select>
+                            </div>
+                            <div class="col-lg-1">
+                                <select label="Cama" ng-model="pasesEdit.cama" plex="(item.habitacion + ' / ' + item.numero) for item in camas"></select>
+                            </div>
+                            <div class="col-lg-2">
+                                <select label="Servicio sugerido" ng-model="pasesEdit.servicioSugerido" min="3" plex="(item.nombre) for item in buscarUbicacion($value, 'servicio')"></select>
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <textarea label="Resumen de la internación" ng-model="pasesEdit.resumenInternacion" plex rows="5" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <br/>
+                                <button type="button" class="btn btn-default btn-flat" ng-click="cancelarEdicionPase();">Cancelar</button>
+                                <button class="btn btn-primary" plex-submit="guardarPase(pasesEdit)" ng-disabled="formEditarPase.$invalid">
+                                    <i class="mdi mdi-content-save"></i>
+                                    Guardar</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </ng-form>
+            </div>
+
+        </div>
+
+        <div class="card card-block tab-content">
+            <h3>Gráficos</h3>
+            <div class="row" ng-if="internacion.evoluciones.length > 0">
+                <div class="col-lg-4" ng-if="hayEvoluciones('temperatura')">
+                    <!-- <div plex-include="'partials/internacion/iGraficoLiquidos.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0"></div> -->
+                    <div>
+                        <div plex-include="'partials/internacion/iGraficoTemperatura.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="col-lg-4" ng-if="hayEvoluciones('tension')">
+
+                    <div plex-include="'partials/internacion/iGraficoTension.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
+
+                </div>
+                <div class="col-lg-4" ng-if="hayEvoluciones('saturacion')">
+
+                    <div plex-include="'partials/internacion/iGraficoSaturacion.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
+
+                </div>
+
+            </div>
+            <p ng-if="!hayEvoluciones('temperatura') && !hayEvoluciones('tension') && !hayEvoluciones('saturacion')">No se han cargado evoluciones aún para poder generar gráficos</p>
+        </div>
+
+        <div class="card card-block container-timeline tab-content">
+
+            <div class="row">
+                <div class="col-md-offset-2 col-md-9">
+                    <div class="timeline-centered timeline-sm">
+                        <article class="timeline-entry" ng-repeat="elemento in ordenCronologico" ng-class="{'left-aligned': $even}">
+                            <div class="timeline-entry-inner">
+                                <time datetime="{{elemento.fecha}}" class="timeline-time">
+                                    <span>{{elemento.fecha | date: "HH:mm"}}
+                                        hs</span>
+                                    <span>{{elemento.fecha | date: "dd 'de' MMMM 'de' yyyy"}}</span>
+
+                                    {{elemento.fecha | fromNow}}
+
+                                </time>
+
+                                <div class="timeline-icon bg-ingreso" ng-if="elemento.tipo == 'Ingreso'">
+                                    <i class="fa fa-bed"></i>
+                                </div>
+
+                                <div class="timeline-icon bg-valoracion-inicial-enfermeria" ng-if="elemento.tipo == 'Valoración inicial enfermería'">
+                                    <i class="mdi mdi-receipt"></i>
+                                </div>
+
+                                <div class="timeline-icon bg-prestacion" ng-if="elemento._tipo == 'prestacion'">
+                                    <i class="mdi mdi-television-guide"></i>
+                                </div>
+
+                                <div class="timeline-icon bg-pase" ng-if="elemento.tipo == 'Pase'">
+                                    <i class="mdi mdi-walk"></i>
+                                </div>
+
+                                <div class="timeline-icon bg-pase" ng-if="elemento.tipo == 'Colocación de drenaje' || elemento.tipo == 'Extracción de drenaje'">
+                                    <i class="mdi mdi-steam"></i>
+                                </div>
+
+                                <div class="timeline-icon bg-evolucion" ng-if="elemento.tipo == 'Evolución'">
+                                    <i class="mdi mdi-clipboard-outline"></i>
+                                </div>
+
+                                <div class="timeline-icon bg-indicacion" ng-if="elemento.tipo == 'Indicación'">
+                                    <i class="mdi mdi-file-check"></i>
+                                </div>
+
+                                <div class="timeline-icon bg-egreso" ng-if="elemento.tipo == 'Egreso'">
+                                    <i class="mdi mdi-exit-to-app"></i>
+                                </div>
+
+                                <div class="timeline-label">
+                                    <h4 class="timeline-title {{elemento._tipo}}">
+                                        {{elemento.tipo}}
+                                        <div class="numero-habitacion pull-right">
+                                            {{elemento.cama.habitacion}}
+                                            /
+                                            {{elemento.cama.numero}}
+                                        </div>
+                                    </h4>
+
+                                    <div ng-if="elemento.tipo == 'Ingreso'">
+                                        <p>
+                                            <b>Tipo de ingreso:</b>
+                                            {{elemento.data.tipo}}
+
+                                            <span ng-if="elemento.data.tipo == 'derivacion'">Derivado desde:
+                                                {{elemento.data.derivadoDesde.nombreCorto}}
+                                            </span>
+                                            <br/>
+                                            <b>Motivo:</b>
+                                            {{elemento.data.motivo}}
+                                            <br/>
+                                            <b>Diagnóstico presuntivo:</b>
+                                            {{elemento.data.diagnosticoPresuntivo}}
+                                        </p>
+                                    </div>
+
+                                    <div ng-if="elemento.tipo == 'Valoración inicial'">
+                                        <p>
+                                            <i class="fa fa-user-md"></i>
+                                            {{internacion.createdBy.name}}
+                                        </p>
+                                    </div>
+
+                                    <div ng-if="elemento.tipo == 'Evolución'">
+                                        <p>
+                                            <b>Servicio:</b>
+                                            {{elemento.data.servicio.nombreCorto}}
+                                            <br/>
+                                            <i class="fa fa-user-md"></i>
+                                            {{elemento.data.createdBy.name}}
+                                        </p>
+                                    </div>
+
+                                    <div ng-if="elemento.tipo == 'Indicación'">
+                                        <p>
+                                            <b>Indicación:</b>
+                                            {{elemento.data.tipo}}
+
+                                            <span ng-if="elemento.data.tipo == 'Controles'">
+                                                /
+                                                {{elemento.data.controles.tipo}}
+                                            </span>
+
+                                            <span ng-if="elemento.data.tipo == 'Cuidados generales'">
+                                                /
+                                                {{elemento.data.cuidadosGenerales.tipo}}
+                                            </span>
+
+                                            <span ng-if="elemento.data.tipo == 'Cuidados especiales'">
+                                                /
+                                                {{elemento.data.cuidadosGenerales.tipo}}
+                                            </span>
+
+                                            <br/>
+                                            <i class="fa fa-user-md"></i>
+                                            {{elemento.data.createdBy.name}}
+                                        </p>
+                                    </div>
+
+                                    <div ng-if="elemento.tipo == 'Pase'">
+                                        <p>
+                                            Pase hacia
+                                            {{elemento.data.servicio.nombreCorto}}
+                                            <br/>
+                                            <b>Cama:</b>
+                                            {{elemento.data.cama.habitacion}}
+                                            /
+                                            {{elemento.data.cama.numero}}
+                                        </p>
+                                    </div>
+
+                                    <div ng-if="elemento._tipo == 'prestacion'">
+                                        <p>
+                                            {{elemento.data.tipoPrestacion.nombre}}
+                                            <br/>
+                                            <b>Prioridad:
+                                            </b>
+                                            {{elemento.data.prioridad}}
+                                            <br/>
+                                            <i class="fa fa-user-md"></i>
+                                            {{elemento.data.createdBy.name}}
+                                            <br/>
+                                            {{elemento.data.servicio.nombreCorto}}
+                                        </td>
+                                    </div>
+
+                                    <div ng-if="elemento.tipo == 'Colocación de drenaje'">
+                                        <p>
+                                            Colocación de drenaje
+                                            {{elemento.data.tipo}}
+                                            en el lado
+                                            {{elemento.data.lado}}
+
+                                        </p>
+                                    </div>
+
+                                    <div ng-if="elemento.tipo == 'Extracción de drenaje'">
+                                        <p>
+                                            Extracción de drenaje
+                                            {{elemento.data.tipo}}
+                                            colocado en el lado
+                                            {{elemento.data.lado}}
+                                            <b>Tiempo colocado:</b>
+                                            {{elemento.duracion}}
+                                        </p>
+                                    </div>
+
+                                    <div ng-if="elemento.tipo == 'Egreso'">
+                                        <p>
+                                            <b>Tiempo internado:</b>
+                                            {{elemento.duracion}}
+                                            <br/>
+
+                                            <b>Cama:</b>
+                                            {{internacion.pases[internacion.pases.length-1].cama.habitacion}}
+                                            /
+                                            {{internacion.pases[internacion.pases.length-1].cama.numero}}
+                                            <br/>
+
+                                            <b>Servicio:</b>
+                                            {{internacion.pases[internacion.pases.length-1].servicio.nombreCorto}}
+                                        </p>
+                                        <p>
+                                            <b>Tipo de alta:</b>
+                                            {{elemento.data.tipoAlta}}
+                                            <br/>
+                                            <span ng-if="elemento.data.diagnosticoAlta">
+                                                <b>Diagnóstico de alta:</b>
+                                                <span ng-repeat="diagnostico in elemento.data.diagnosticoAlta track by $index">
+                                                    {{diagnostico.nombre}}
+                                                    <span ng-if="elemento.data.diagnosticoAlta.length-1 != $index">
+                                                        /
+                                                    </span>
+                                                </span>
+                                            </span>
+                                            <br/>
+                                            <span ng-if="elemento.data.derivadoHacia">
+                                                <b>Derivado hacia:</b>
+                                                {{elemento.data.derivadoHacia.nombreCorto}}
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
 
             </div>
 
+        </div>
+
+        <div class="card card-block tab-content" ng-show="internacion.egreso !== null">
+            <div ng-if="internacion.egreso">
+                <h3 >Egreso</h3>
+                <div ng-if="internacion.egreso">
+                    <table class="table table-hover table-striped">
+                        <thead >
+                            <tr >
+                                <th >Fecha</th>
+                                <th >Cama</th>
+                                <th >Servicio</th>
+                                <th >Tipo</th>
+                                <th >Resumen</th>
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <tr >
+                                <td >
+                                    {{internacion.egreso.fechaHora | fromNow }}<br/>
+                                    <div class="text-muted small">
+                                        {{internacion.egreso.fechaHora | date: "dd/MM/yyyy HH:mm"}}
+                                    </div>
+                                </td>
+                                <td >
+                                    {{internacion.pases[internacion.pases.length-1].cama.habitacion}}/{{internacion.pases[internacion.pases.length-1].cama.numero}}
+                                </td>
+                                <td >
+                                    {{internacion.pases[internacion.pases.length-1].servicio.nombreCorto}}
+                                </td>
+                                <td >
+                                    {{internacion.egreso.tipo}}
+                                    <div ng-if="tipo == 'alta'">
+                                        ({{internacion.egreso.tipoAlta}})
+                                        <div ng-if="tipoAlta == 'derivacion'">
+                                            Derivado hacia:
+                                            {{internacion.egreso.derivadoHacia.nombre}}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td ></td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>

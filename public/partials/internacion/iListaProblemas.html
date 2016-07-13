@@ -256,7 +256,7 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <!-- <input type="text" label="Descripción" ng-model="problemasEdit.descripcion" plex class="form-control" required/> -->
-                                    <select label="Diagnóstico" ng-model="problemasEdit.diagnostico" plex="(item.codigo + ' - ' + item.nombre) for item in buscarDiagnostico($value)"></select>
+                                    <select label="Diagnóstico" ng-model="problemasEdit.diagnostico" min="3" plex="(item.codigo + ' - ' + item.nombre) for item in buscarDiagnostico($value)"></select>
 
                                 </div>
                                 <div class="col-sm-6">
@@ -266,7 +266,7 @@
 
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <input type="text" label="Descripción (examen físico, intensidad, frecuencia, parte del cuerpo afectada, síntomas y otras observaciones)" hint="Escriba sólo detalles permanentes/semipermanentes del problema" ng-model="problemasEdit.descripcion" plex class="form-control" required/>
+                                    <input type="text" label="Descripción (examen físico, intensidad, frecuencia, parte del cuerpo afectada, síntomas y otras observaciones)" hint="Escriba sólo detalles permanentes/semipermanentes del problema" ng-model="problemasEdit.descripcion" plex class="form-control" />
                                 </div>
                             </div>
 

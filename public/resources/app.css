@@ -249,3 +249,40 @@ table.highlight td.exclude:hover::after{
     background-color: transparent;
 }
 */
+
+
+/* indicaciones */
+.frascos{}
+.frascos .mdi{color: #2196f3;}
+.frascos .numero{
+    color: white;
+    font-size: 10px;
+    padding-right: 8px;
+    padding-top: 3px;
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: bold;
+}
+
+.indicacion-tabla{
+    border: 1px solid #FFB300;
+    font-size: 14px;
+    padding: 0px 5px;
+    border-radius: 15px;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    box-shadow: 1px 1px 1px rgba(128, 128, 128, 0.54);
+    line-height: 17px;
+    background: #FFB300;
+    font-weight: bold;
+    color: white;
+}
+
+.indicacion-tabla.i{
+    border: 1px solid #FFB300;
+    background: #FFB300;
+}
+.indicacion-tabla.r{
+    border: 1px solid #66BB6A;
+    background: #66BB6A;
+}
