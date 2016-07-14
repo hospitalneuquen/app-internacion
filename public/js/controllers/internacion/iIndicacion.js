@@ -926,19 +926,44 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                             }
                             $scope.evolucionesEdit.egresos.drenajes.push(_drenaje);
                         });
-                        // angular.copy($scope.drenajes, $scope.evolucionesEdit.egresos.drenajes);
+
                     }
 
+                    // si no tenemos la descripcion cargada, le asignamos automaticamente
+                    // el tipo de indicacion que estamos evolucionesEdit
+                    if ($scope.evolucionesEdit.texto){
+                        var _indicacion = $scope.internacion.indicaciones.filter(function(i){
+                            return (i.id == $scope.evolucionesEdit.idIndicacion);
+                        });
+
+                        $scope.evolucionesEdit.texto = _indicacion[0].tipo;
+                        switch(_indicacion[0].tipo){
+                            case 'Controles':
+                                $scope.evolucionesEdit.texto += " - " + _indicacion[0].controles.tipo;
+                            break;
+                            case 'Cuidados generales':
+                                $scope.evolucionesEdit.texto += " - " +  _indicacion[0].cuidadosGenerales.tipo;
+                            break;
+                            case 'Cuidados especiales':
+                                $scope.evolucionesEdit.texto += " - " +  _indicacion[0].cuidadosEspeciales.tipo;
+                            break;
+                        }
+                    }
+
+                    // calculamos valores de glasgow
                     if ($scope.evolucionesEdit.glasgow) {
                         $scope.evolucionesEdit.glasgowTotal = $scope.evolucionesEdit.glasgow.glasgowMotor + $scope.evolucionesEdit.glasgowVerbal + $scope.evolucionesEdit.glasgowOcular;
                     }
+                    // calculamos valores de riesgo de caidas
                     if ($scope.evolucionesEdit.riesgoCaida) {
                         $scope.evolucionesEdit.riesgoCaida.total = $scope.evolucionesEdit.riesgoCaida.caidasPrevias + $scope.evolucionesEdit.riesgoCaida.marcha + $scope.evolucionesEdit.riesgoCaida.ayudaDeambular + $scope.evolucionesEdit.riesgoCaida.venoclisis + $scope.evolucionesEdit.riesgoCaida.comorbilidad + $scope.evolucionesEdit.riesgoCaida.estadoMental;
                     }
+                    // calculamos valores de riesgo de ulceras por presion
                     if ($scope.evolucionesEdit.riesgoUPP) {
                         $scope.evolucionesEdit.riesgoUPP.total = $scope.evolucionesEdit.riesgoUPP.estadoFisico + $scope.evolucionesEdit.riesgoUPP.estadoMental + $scope.evolucionesEdit.riesgoUPP.actividad + $scope.evolucionesEdit.riesgoUPP.movilidad + $scope.evolucionesEdit.riesgoUPP.incontinencia;
                     }
 
+                    // hemoterapia
                     if ($scope.evolucionesEdit.hemoterapia) {
                         var hemoterapia = {
                             hemoterapia: $scope.evolucionesEdit.hemoterapia

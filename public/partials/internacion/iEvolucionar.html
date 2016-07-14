@@ -27,10 +27,13 @@
                     <th >
                         Fecha
                     </th>
-                    <th style="width: 40%;">
+                    <th style="width: 20%;">
                         Detalle
                     </th>
-                    <th >
+                    <th>
+                        Valores evolución
+                    </th>
+                    <!-- <th >
                         FC
                     </th>
                     <th >
@@ -50,7 +53,7 @@
                     </th>
                     <th >
                         Balance líquidos
-                    </th>
+                    </th> -->
                     <th >
                         Usuario / Servicio
                     </th>
@@ -59,7 +62,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="8"></td>
+                    <td colspan="2"></td>
                     <td>
                         {{balanceTotal}}
                         ml
@@ -80,46 +83,268 @@
                         {{item.texto}}
                     </td>
                     <td >
-                        <span ng-if="item.signosVitales.pulso">{{item.signosVitales.pulso}}
-                            PPM</span>
-                    </td>
-                    <td >
-                        <span ng-if="item.signosVitales.tensionDiastolica && item.signosVitales.tensionSistolica">{{item.signosVitales.tensionDiastolica + "/" + item.signosVitales.tensionSistolica}}</span>
-                    </td>
-                    <td >
-                        <span ng-if="item.signosVitales.temperatura">{{item.signosVitales.temperatura}}º</span>
-                    </td>
-                    <td >
-                        <span ng-if="item.signosVitales.respiracion">{{item.signosVitales.respiracion}}
-                            RPM</span>
-                    </td>
-                    <td >
-                        <span ng-if="item.signosVitales.spo2">{{item.signosVitales.spo2}}%</span>
-                    </td>
-                    <td >
-                        <span ng-if="item.signosVitales.peso">{{item.signosVitales.peso}}
-                            Kg</span>
-                    </td>
-                    <td >
+                        <div ng-if="item.signosVitales">
+                            <table width="100%">
+                                <tr>
+                                    <td ng-if="item.signosVitales.pulso">
+                                        <b>
+                                            Frecuencia cardíaca
+                                        </b>
+                                        <br/>
+                                        {{item.signosVitales.pulso}}
+                                        PPM
+                                    </td>
+                                    <td ng-if="item.signosVitales.tensionDiastolica && item.signosVitales.tensionSistolica">
+                                        <b>
+                                            Tensión
+                                        </b>
+                                        <br/>
+                                        {{item.signosVitales.tensionDiastolica + "/" + item.signosVitales.tensionSistolica}}
+                                    </td>
+                                    <td ng-if="item.signosVitales.temperatura">
+                                        <b>Temperatura</b>
+                                        <br/>
+                                        {{item.signosVitales.temperatura}}ºC
+                                    </td>
+                                    <td ng-if="item.signosVitales.respiracion">
+                                        <b>Frecuencia respiratoria</b>
+                                        <br/>
+                                        {{item.signosVitales.respiracion}}
+                                        RPM
+                                    </td>
+                                    <td ng-if="item.signosVitales.spo2">
+                                        <b>Saturación O
+                                            <sup>2</sup>
+                                        </b>
+                                        <br/>
+                                        {{item.signosVitales.spo2}}%
+                                    </td>
+                                    <td ng-if="item.signosVitales.peso">
+                                        <b>Peso</b>
+                                        <br/>
+                                        {{item.signosVitales.peso}}
+                                        Kg
+                                    </td>
+                                </tr>
 
-                        <!-- <table ng-if="item.$total_ingresos || item.$total_ingresos > 0"> -->
-                        <table >
-                            <tr>
-                                <td>
-                                    I =
-                                    {{item.balance.$total_ingresos}}
-                                    <br/>
-                                    E =
-                                    {{item.balance.$total_egresos}}
-                                </td>
-                                <td style="text-align: center; vertical-align: middle;">
-                                    <i class="verde mdi mdi-trending-up" ng-if="item.$balance < 0"></i>
-                                    <i class="celeste mdi mdi-trending-flat" ng-if="item.$balance == 0"></i>
-                                    <i class="rojo mdi mdi-trending-down" ng-if="item.$balance > 0"></i>
-                                </td>
-                            </tr>
-                        </table>
+                            </table>
+                        </div>
 
+                        <div ng-if="item.balance.$balance">
+                            <!-- <table ng-if="item.$total_ingresos || item.$total_ingresos > 0"> -->
+                            <table width="100%">
+
+                                    <tr>
+                                        <th>Ingresos</th>
+                                        <th>Egresos</th>
+                                        <th>Balance</th>
+                                    </tr>
+
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            {{item.balance.$total_ingresos}}
+                                        </td>
+
+                                        <td>
+                                            {{item.balance.$total_egresos}}
+                                        </td>
+
+                                        <td>
+                                            {{item.balance.$balance}}
+                                            <i class="verde mdi mdi-trending-up" ng-if="item.balance.$balance < 0"></i>
+                                            <i class="celeste mdi mdi-trending-flat" ng-if="item.balance.$balance == 0"></i>
+                                            <i class="rojo mdi mdi-trending-down" ng-if="item.balance.$balance > 0"></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div ng-if="item.riesgoCaida.total">
+                            <!-- <table ng-if="item.$total_ingresos || item.$total_ingresos > 0"> -->
+                            <table width="100%">
+
+                                    <tr>
+                                        <th>Caídas previas</th>
+                                        <th>Marcha</th>
+                                        <th>Ayuda para deambular</th>
+                                        <th>Venoclisis</th>
+                                        <th>Comorbilidad</th>
+                                        <th>Estado metal</th>
+                                        <th class="text-center">Total</th>
+                                    </tr>
+
+                                <tbody>
+                                    <tr>
+
+                                        <td>
+                                            {{item.riesgoCaida.caidasPrevias}}
+                                        </td>
+                                        <td>
+                                            {{item.riesgoCaida.marcha}}
+                                        </td>
+                                        <td>
+                                            {{item.riesgoCaida.ayudaDeambular}}
+                                        </td>
+                                        <td>
+                                            {{item.riesgoCaida.venoclisis}}
+                                        </td>
+                                        <td>
+                                            {{item.riesgoCaida.comorbilidad}}
+                                        </td>
+                                        <td>
+                                            {{item.riesgoCaida.estadoMental}}
+                                        </td>
+
+                                        <td class="text-center">
+                                            {{item.riesgoCaida.total}}
+                                            <br />
+                                            <span ng-if="item.riesgoCaida.total < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
+                                            <span ng-if="item.riesgoCaida.total <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
+                                            <span ng-if="item.riesgoCaida.total > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div ng-if="item.glasgow.total">
+                            <!-- <table ng-if="item.$total_ingresos || item.$total_ingresos > 0"> -->
+                            <table width="100%">
+                                    <tr>
+                                        <th>Ocular</th>
+                                        <th>Verbal</th>
+                                        <th>Motor</th>
+                                        <th class="text-center">Total</th>
+                                    </tr>
+
+                                <tbody>
+                                    <tr>
+
+                                        <td>
+                                            {{item.glasgow.glasgowOcular}}
+                                        </td>
+                                        <td>
+                                            {{item.glasgow.glasgowVerbal}}
+                                        </td>
+                                        <td>
+                                            {{item.glasgow.glasgowMotor}}
+                                        </td>
+                                        <td>
+                                            {{item.glasgow.glasgowTotal}}
+                                        </td>
+
+                                        <td class="text-center">
+
+                                            {{item.glasgow.glasgowTotal}}
+
+                                            <br />
+                                            <span ng-if="item.glasgow.glasgowTotal < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
+                                            <span ng-if="item.glasgow.glasgowTotal <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
+                                            <span ng-if="item.glasgow.glasgowTotal > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div ng-if="item.riesgoUPP.total">
+                            <table width="100%">
+                                    <tr>
+                                        <th>Estado físico</th>
+                                        <th>Estado mental</th>
+                                        <th>Actividad</th>
+                                        <th>Movilidad</th>
+                                        <th>Incontinencia</th>
+                                        <th class="text-center">Total</th>
+                                    </tr>
+
+                                <tbody>
+                                    <tr>
+
+                                        <td>
+                                            {{item.riesgoUPP.estadoFisico}}
+                                        </td>
+                                        <td>
+                                            {{item.riesgoUPP.estadoMental}}
+                                        </td>
+                                        <td>
+                                            {{item.riesgoUPP.actividad}}
+                                        </td>
+                                        <td>
+                                            {{item.riesgoUPP.movilidad}}
+                                        </td>
+                                        <td>
+                                            {{item.riesgoUPP.incontinencia}}
+                                        </td>
+
+                                        <td class="text-center">
+                                            {{item.riesgoUPP.total}}
+
+                                            <br />
+                                            <span ng-if="item.riesgoUPP.total > 16" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
+                                            <span ng-if="item.riesgoUPP.total <= 16" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
+                                            <span ng-if="item.riesgoUPP.total <= 12" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
+                                            <span ng-if="item.riesgoUPP.total <= 9" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div ng-if="item.dolorValoracion.intensidad">
+                            <table width="100%">
+                                    <tr>
+                                        <th>Analgesia previa</th>
+                                        <th>Ansiolíticos previos</th>
+                                        <th>Intensidad</th>
+                                        <th>Características del dolor</th>
+                                        <th>Observaciones</th>
+                                </tr>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span ng-if="item.dolorValoracion.analgesiaAutomedicacion">Automedicación</span>
+                                            <span ng-if="!item.dolorValoracion.analgesiaAutomedicacion">Indicada por médico</span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="item.dolorValoracion.ansioliticosAutomedicacion">Automedicación</span>
+                                            <span ng-if="!item.dolorValoracion.ansioliticosAutomedicacion">Indicada por médico</span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="item.dolorValoracion.intensidad == 0">Sin dolor</span>
+                                            <span ng-if="item.dolorValoracion.intensidad == 10">Máximo dolor</span>
+                                            <span ng-if="item.dolorValoracion.intensidad > 0 && item.dolorValoracion.intensidad < 10">{{item.dolorValoracion.intensidad}}</span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="item.dolorValoracion.punzante">Punzante</span>
+                                            <span ng-if="item.dolorValoracion.tipoColico">Tipo cólico</span>
+                                            <span ng-if="item.dolorValoracion.pesadez">Pesadez</span>
+                                            <span ng-if="item.dolorValoracion.pulsante">Pulsante</span>
+                                            <span ng-if="item.dolorValoracion.hormigueo">Hormigueo</span>
+
+                                        </td>
+                                        <td>
+                                            <div ng-if="item.dolorValoracion.descripcion">
+                                                <b>Descripcion:</b>
+                                                {{item.dolorValoracion.descripcion}}
+                                                <br />
+                                            </div>
+                                            <div ng-if="item.dolorValoracion.dolorLocalizacion">
+                                                <b>Localización dolor:</b>
+                                                {{item.dolorValoracion.dolorLocalizacion}}
+                                                <br />
+                                            </div>
+                                            <div ng-if="item.dolorValoracion.observacionesDolor">
+                                                <b>Observaciones:</b>
+                                                {{item.dolorValoracion.observacionesDolor}}
+                                                <br />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </td>
                     <td >
                         {{item.createdBy.name}}
@@ -128,9 +353,9 @@
                     </td>
                     <td >
                         <!-- ng-if='item.tipo == Session.variables.prestaciones_workflow' -->
-                        <button class="btn btn-default btn-flat tips" title="Editar evolución" ng-click="editarEvolucion(item);" ng-disabled="Session.user.id != item.createdBy.id">
+                        <!-- <button class="btn btn-default btn-flat tips" title="Editar evolución" ng-click="editarEvolucion(item);" ng-disabled="Session.user.id != item.createdBy.id">
                             <i class="mdi mdi-pencil"></i>
-                        </button>
+                        </button> -->
                     </td>
                 </tr>
             </tbody>
