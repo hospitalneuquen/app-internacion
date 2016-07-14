@@ -749,6 +749,9 @@
                             <!-- <th rowspan="1" class="text-center">
                                 <input type="checkbox" ng-click="table.selectAll($event)" ng-checked="table.isSelectedAll()" class="tips" title="Seleccionar todas"/>
                             </th> -->
+                            <th rowspan="1" class="">
+                                Fecha
+                            </th>
                             <th rowspan="1" class="text-center vert-align">Medicación / Hidratación / Alimentación parenteral</th>
                             <th rowspan="1" class="text-center">Vía</th>
                             <th rowspan="1" class="text-center">Frec.</th>
@@ -834,10 +837,8 @@
                             <th rowspan="1" class="text-center">
                                 Usuario / Servicio
                             </th>
-                            <th rowspan="1" class="text-center">
-                                Fecha
-                            </th>
-                            <th rowspan="1" class="text-center">Acciones</th>
+
+                            <th rowspan="1" class="text-center" >Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -846,6 +847,14 @@
                             <!-- <td width="20">
                                 <input type="checkbox" name="selected" ng-checked="table.isSelected(indicacion.id)" ng-click="table.updateSelection($event, indicacion.id)"/>
                             </td> -->
+
+                            <td class="text-center" ng-hide="evolucionarIndicacion && indicacion.id != evolucionarIndicacion.id">
+                                {{indicacion.createdAt | fromNow }}<br/>
+                                <div class="text-muted small">
+                                    {{indicacion.createdAt | date: "dd/MM/yyyy HH:mm"}}
+                                </div>
+                            </td>
+
                             <td ng-hide="evolucionarIndicacion && indicacion.id != evolucionarIndicacion.id">
                                     <span>
                                         <b>
@@ -1093,7 +1102,7 @@
                                             {{indicacion.nutricion.cantidadSoporteOral}}
                                             ml
                                         </span> -->
-
+                                        <br />
                                         <span ng-show="indicacion.nutricion.enteral">
                                             Nutrición enteral:
                                             <br />
@@ -1101,7 +1110,7 @@
                                             {{indicacion.nutricion.enteral.cantidad}} ml
                                             por {{indicacion.nutricion.enteral.sonda}}
                                             a {{indicacion.nutricion.enteral.velocidadInfunsion.velocidad}} {{indicacion.nutricion.enteral.velocidadInfunsion.unidad}}
-
+                                            <br />
                                         </span>
 
                                         <span ng-show="indicacion.nutricion.soporteOral">
@@ -1162,18 +1171,13 @@
                                 {{indicacion.servicio.nombreCorto}}
                             </td>
 
-                            <td class="text-center" ng-hide="evolucionarIndicacion && indicacion.id != evolucionarIndicacion.id">
-                                {{indicacion.createdAt | fromNow }}<br/>
-                                <div class="text-muted small">
-                                    {{indicacion.createdAt | date: "dd/MM/yyyy HH:mm"}}
-                                </div>
-                            </td>
+
 
                             <td class="text-center" ng-hide="!indicacion.activo || (evolucionarIndicacion && indicacion.id != evolucionarIndicacion.id)">
 
 
                                     <div ng-show="!indicaciones.borrar && !evolucionarIndicacion">
-                                        <button class="btn btn-sm btn-success btn-flat tips" title="Evolucionar" ng-click="indicaciones.evolucionar(indicacion)">
+                                        <button class="btn btn-sm btn-success btn-flat tips" title="Evolucionar" ng-click="indicaciones.evolucionar(indicacion)" ng-show="indicacion.tipo == 'Controles'">
                                             <i class="mdi mdi-chart-line"></i>
                                         </button>
 
@@ -1715,6 +1719,72 @@
                                         </div>
                                     </fielset>
                                 </div>
+
+                                <div ng-show="evolucionarIndicacion.tipo == 'Controles' && evolucionarIndicacion.controles.tipo == 'Valoración del dolor">
+                                    <fieldset>
+                                        <legend>Valoración del dolor</legend>
+
+                                        <div class="row">
+                                            <div class="col-lg-2" >
+                                                <label>
+                                                    <b>Analgesia previa</b>
+                                                </label>
+                                                <input type="radio" label="Indicada por médico" ng-value="false" ng-model="evolucionesEdit.dolorValoracion.analgesiaAutomedicacion" plex="radio">
+                                                <input type="radio" label="Automedicación" ng-value="true" ng-model="evolucionesEdita.dolorValoracion.analgesiaAutomedicacion" plex="radio">
+                                            </div>
+                                            <div class="col-lg-2" >
+                                                <label>
+                                                    <b>Ansiolíticos previos</b>
+                                                </label>
+                                                <input type="radio" label="Indicados por médico" ng-value="false" ng-model="evolucionesEdit.dolorValoracion.ansioliticosAutomedicacion" plex="radio">
+                                                <input type="radio" label="Automedicación" ng-value="true" ng-model="evolucionesEdit.dolorValoracion.ansioliticosAutomedicacion" plex="radio">
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <label>
+                                                    <b>Intensidad</b>
+                                                </label>
+                                                <select ng-model="evolucionesEdit.dolorValoracion.intensidad" plex>
+                                                    <option value="0">0 (sin dolor)</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10 (máximo dolor)</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-6" >
+                                                <label>
+                                                    <b>Características del dolor</b>
+                                                </label>
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <input type="checkbox" label="Punzante" ng-model="evolucionesEdit.dolorValoracion.punzante" plex="checkbox">
+                                                        <input type="checkbox" label="Tipo cólico" ng-model="evolucionesEdit.dolorValoracion.tipoColico" plex="checkbox">
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <input type="checkbox" label="Pesadez" ng-model="evolucionesEdit.dolorValoracion.pesadez" plex="checkbox">
+                                                        <input type="checkbox" label="Pulsante" ng-model="evolucionesEdit.dolorValoracion.pulsante" plex="checkbox">
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <input type="checkbox" label="Caliente" ng-model="evolucionesEdit.dolorValoracion.caliente" plex="checkbox">
+                                                        <input type="checkbox" label="Adormecimiento/Hormigueo" ng-model="evolucionesEdit.dolorValoracion.hormigueo" plex="checkbox">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesDolor" plex="text">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+
                                 <div ng-if="evolucionarIndicacion.tipo == 'Controles' && evolucionarIndicacion.controles.tipo == 'Ulceras por presión'">
                                     <fieldset>
                                         <legend>Valoración del riesgo de desarrollar una úlcera por presión</legend>

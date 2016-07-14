@@ -170,8 +170,11 @@ input[type="radio"].without-radio:checked + label {
 /* tabs */
 
 .nav-tabs {
-    background: #fefefe;
     border-bottom: 1px solid #ddd;
+}
+.nav-tabs > li  {
+    background: #fefefe;
+    margin-right: 2px;
 }
 .nav-tabs > li > a {
     border-radius: 0;
