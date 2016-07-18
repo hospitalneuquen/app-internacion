@@ -195,7 +195,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
         },
 
         evolucionarPaciente: function(cama) {
-            Plex.openView('internacion/ver/' + cama.idInternacion + '/3').then(function(data) {
+            Plex.openView('internacion/ver/' + cama.idInternacion + '/4').then(function(data) {
                 if (data) {
                     // buscamos la cama y actualizamos el estado como "desocupada"
                     $scope.cambiarEstado(cama, 'desocupada', internacion.id);
@@ -226,12 +226,12 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             });
         },
         listaDeProblemas: function(idInternacion) {
-            Plex.openView('internacion/ver/' + idInternacion + '/6').then(function(internacion) {
+            Plex.openView('internacion/ver/' + idInternacion + '/3').then(function(internacion) {
 
             });
         },
         verIndicaciones: function(idInternacion) {
-            Plex.openView('internacion/ver/' + idInternacion + '/7').then(function(internacion) {
+            Plex.openView('internacion/ver/' + idInternacion + '/5').then(function(internacion) {
 
             });
         },
