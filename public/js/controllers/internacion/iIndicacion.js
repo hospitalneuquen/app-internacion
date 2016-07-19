@@ -107,10 +107,13 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
         }, {
             id: 'Nutrición',
             nombre: 'Nutrición'
-        }, {
-            id: 'Solicitud prestaciones',
-            nombre: 'Solicitud prestaciones'
-        }, {
+        },
+        //MANU, no está tomando bien el tipo de prestación y da error en el POST (ver línea 225 en adelante de internacion_indicacion.js).
+        //  {
+        //     id: 'Solicitud prestaciones',
+        //     nombre: 'Solicitud prestaciones'
+        // },
+        {
             id: 'Otra indicación',
             nombre: 'Otra indicación'
         }],
