@@ -109,10 +109,10 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
             nombre: 'Nutrición'
         },
         //MANU, no está tomando bien el tipo de prestación y da error en el POST (ver línea 225 en adelante de internacion_indicacion.js).
-        //  {
-        //     id: 'Solicitud prestaciones',
-        //     nombre: 'Solicitud prestaciones'
-        // },
+         {
+            id: 'Solicitud prestaciones',
+            nombre: 'Solicitud prestaciones'
+        },
         {
             id: 'Otra indicación',
             nombre: 'Otra indicación'
@@ -138,8 +138,8 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
         tiposControles: [],
 
         tiposCuidadosGenerales: [{
-            id: 'Rotar decubito',
-            nombre: 'Rotar decubito'
+            id: 'Rotar decúbito',
+            nombre: 'Rotar decúbito'
         }, {
             id: 'Aspirar secreciones',
             nombre: 'Aspirar secreciones'
@@ -820,7 +820,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
                         // si la hora es igual al horario de la proxima indicacion
                         // entonces marcamos el horario en la tabla
-                        if (hora == proximo) {
+                        if (hora == proximo ) {
                             //    indicacion.horarios[hora] = '<span class="tips" title="bla bla bal" >I</span>';
                             indicacion.horarios[hora] = {
                                 text: 'i',
@@ -844,14 +844,18 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     // recorremos el listado de evoluciones para saber si
                     // esta indicacion fue evolucionada y en que horarios
                     angular.forEach($scope.internacion.evoluciones, function(evolucion){
-                        if (evolucion.idIndicacion == indicacion.id){
-                            // determinamos en que momento comienza
-                            var fecha = new Date(evolucion.fechaHora || evolucion.createdAt);
-                            var hora = parseInt(fecha.getHours());
+                        // si la fecha es la del dia actual, entonces marcamos
+                        // el horario en que fue realizada
+                        if (moment(moment(new Date()).format('YYYY-MM-DD')).isSame(moment(new Date(evolucion.createdAt)).format('YYYY-MM-DD'))){
+                            if (evolucion.idIndicacion == indicacion.id){
+                                // determinamos en que momento comienza
+                                var fecha = new Date(evolucion.fechaHora || evolucion.createdAt);
+                                var hora = parseInt(fecha.getHours());
 
-                            indicacion.evoluciones[hora] = {
-                                text: 'r',
-                                title: 'Realizada por ' + evolucion.createdBy.name + ' a las ' + $filter('date')(evolucion.createdAt, "dd/MM/yyyy HH:mm") + ' hs'
+                                indicacion.evoluciones[hora] = {
+                                    text: 'r',
+                                    title: 'Realizada por ' + evolucion.createdBy.name + ' a las ' + $filter('date')(evolucion.createdAt, "dd/MM/yyyy HH:mm") + ' hs'
+                                }
                             }
                         }
                     });

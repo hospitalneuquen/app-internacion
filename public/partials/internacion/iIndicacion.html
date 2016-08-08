@@ -113,9 +113,13 @@
                                         <div class="col-lg-1">
                                             <select label="Vía" ng-model="indicacion.via" plex>
                                                 <option value="">Seleccione vía</option>
-                                                <option value="SC">SC</option>
-                                                <option value="EV">EV</option>
-                                                <option value="VO">VO</option>
+                                                <option value="SC">Subcutánea</option>
+                                                <option value="EV">Endovenosa</option>
+                                                <option value="VO">Vía oral</option>
+                                                <option value="IN">Inhalatoria</option>
+                                                <option value="SNG">Sonda nasogástrica</option>
+                                                <option value="IM">Intramuscular</option>
+                                                <option value="TD">Trandérmica</option>
                                             </select>
                                         </div>
 
@@ -123,10 +127,13 @@
                                             <select label="Frecuencia" ng-model="indicacion.frecuencia" plex>
                                                 <option value="unica">Única dosis</option>
                                                 <option value="24">Una vez al día</option>
+                                                <option value="rescates">Rescates</option>
                                                 <option value="12">Cada 12 hs.</option>
                                                 <option value="8">Cada 8 hs.</option>
                                                 <option value="6">Cada 6 hs.</option>
                                                 <option value="4">Cada 4 hs.</option>
+                                                <option value="2">Cada 2 hs.</option>
+                                                <option value="1">Cada 1 hs.</option>
                                             </select>
                                         </div>
                                     </div>
@@ -386,7 +393,7 @@
                                             <select label="Tipo de control" ng-model="indicacion.cuidadosGenerales.tipo" plex="(opcion.nombre) for opcion in tiposCuidadosGenerales"></select>
                                         </div>
 
-                                        <div  ng-if="indicacion.cuidadosGenerales.tipo == 'Oxígeno' || indicacion.cuidadosGenerales.tipo.nombre">
+                                        <div ng-if="indicacion.cuidadosGenerales.tipo == 'Oxígeno' || indicacion.cuidadosGenerales.tipo.nombre == 'Oxígeno'">
                                             <div class="col-lg-4">
                                                 <select label="Tipo respiración" ng-model="indicacion.cuidadosGenerales.oxigeno.respiracion" plex="(opcion.tipo) for opcion in tipoRespiracion"></select>
                                             </div>
@@ -405,15 +412,46 @@
 
                                         </div>
 
+                                        <div ng-if="indicacion.cuidadosGenerales.tipo == 'Rotar decúbito' || indicacion.cuidadosGenerales.tipo.nombre == 'Rotar decúbito'">
+                                            <div class="col-lg-4">
+                                                <select label="Posición" ng-model="indicacion.cuidadosGenerales.rotarDecubito.posiciones" plex>
+                                                    <option value="">Seleccione</option>
+                                                    <option value="Izquierda">Izquierda</option>
+                                                    <option value="Derecha">Derecha</option>
+                                                </select>
+                                            </div>
 
-                                        <!-- <div class="col-lg-2">
-                                            <select label="Vía" ng-model="indicacion.via" plex >
-                                                <option value="SC">SC</option>
-                                                <option value="EV">EV</option>
-                                                <option value="VO">VO</option>
-                                            </select>
-                                        </div> -->
+                                            <div class="col-lg-4">
+                                                <select label="Frecuencia" ng-model="indicacion.frecuencia" plex>
+                                                    <option value="unica">Única dosis</option>
+                                                    <option value="24">Una vez al día</option>
+                                                    <option value="12">Cada 12 hs.</option>
+                                                    <option value="8">Cada 8 hs.</option>
+                                                    <option value="6">Cada 6 hs.</option>
+                                                    <option value="4">Cada 4 hs.</option>
+                                                    <option value="2">Cada 2 hs.</option>
+                                                    <option value="1">Cada 1 hs.</option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
+
+                                    <div ng-if="indicacion.cuidadosGenerales.tipo == 'Aspirar secreciones' || indicacion.cuidadosGenerales.tipo.nombre == 'Aspirar secreciones'">
+
+                                        <div class="col-lg-4">
+                                            <select label="Frecuencia" ng-model="indicacion.frecuencia" plex>
+                                                <option value="unica">Única dosis</option>
+                                                <option value="24">Una vez al día</option>
+                                                <option value="12">Cada 12 hs.</option>
+                                                <option value="8">Cada 8 hs.</option>
+                                                <option value="6">Cada 6 hs.</option>
+                                                <option value="4">Cada 4 hs.</option>
+                                                <option value="2">Cada 2 hs.</option>
+                                                <option value="1">Cada 1 hs.</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
 
                                     <!-- Controles especiales -->
                                     <div ng-if="indicacion.tipo.nombre == 'Cuidados especiales'">
@@ -439,6 +477,7 @@
                                                     <option value="Colocación">Colocación</option>
                                                     <option value="Limpieza">Limpieza</option>
                                                     <option value="Extracción">Extracción</option>
+                                                    <option value="A débito" ng-if="indicacion.cuidadosEspeciales.sonda.tipo == 'SNG'">A débito</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -743,6 +782,45 @@
                     </div>
                 </legend> -->
 
+                <div class="well">
+
+                    <ul class="list list-inline">
+                        <li>
+                            <b>Referencias</b>:
+                        </li>
+                        <li>
+                            <span class="indicacion-tabla i">
+                                i
+                            </span>
+                            Indicación pedida
+                        </li>
+                        <li>
+                            <span class="indicacion-tabla r">
+                                r
+                            </span>
+                            Indicación realizada
+                        </li>
+                        <li>
+                            <span class="fa-stack fa-lg frascos ">
+                                <i class="dextrosa mdi mdi-cup"></i>
+                                <i class="fa  fa-stack-1x numero ng-binding">
+                                    1
+                                </i>
+                            </span>
+                            Frasco dextrosa
+                        </li>
+                        <li>
+                            <span class="fa-stack fa-lg frascos ">
+                                <i class="fisiologica mdi mdi-cup"></i>
+                                <i class="fa  fa-stack-1x numero ng-binding">
+                                    1
+                                </i>
+                            </span>
+                            Frasco fisiológica
+                        </li>
+                    </ul>
+                </div>
+
                 <table class="table table-hover table-bordered highlight">
                     <thead>
                         <tr class="exclude">
@@ -910,7 +988,7 @@
                                             <span ng-if="indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos.length">
                                                 Frascos
                                                 <span class="fa-stack fa-lg frascos"  ng-repeat="frasco in indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos">
-                                                    <i class=" mdi mdi-cup"></i>
+                                                    <i class="fisiologica mdi mdi-cup"></i>
                                                     <i class="fa  fa-stack-1x numero">
                                                         {{frasco}}
                                                     </i>
@@ -926,7 +1004,7 @@
                                             <span ng-if="indicacion.planHidratacion.enteralParenteral.dextrosa.frascos.length">
                                                 Frascos
                                                 <span class="fa-stack fa-lg frascos"  ng-repeat="frasco in indicacion.planHidratacion.enteralParenteral.dextrosa.frascos">
-                                                    <i class=" mdi mdi-cup"></i>
+                                                    <i class="dextrosa mdi mdi-cup"></i>
                                                     <i class="fa  fa-stack-1x numero">
                                                         {{frasco}}
                                                     </i>

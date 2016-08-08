@@ -256,7 +256,8 @@ table.highlight td.exclude:hover::after{
 
 /* indicaciones */
 .frascos{}
-.frascos .mdi{color: #2196f3;}
+.frascos .fisiologica{color: #2196f3;}
+.frascos .dextrosa{color: #f3ce2a;}
 .frascos .numero{
     color: white;
     font-size: 10px;

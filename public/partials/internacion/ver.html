@@ -129,7 +129,7 @@
                         </div>
                         <div class="card-block">
                             <p class="card-text">
-                                {{internacion.evoluciones[internacion.evoluciones.length-1].texto}}
+                                <div ng-bind-html="internacion.evoluciones[internacion.evoluciones.length-1].texto"></div>
                             </p>
                             <p class="card-text">
                                 <i class="fa fa-user-md"></i>
