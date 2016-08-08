@@ -25,6 +25,14 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
             id: 'mis-evoluciones',
             nombreCorto: "Mis evoluciones"
         }],
+
+        // tinymce
+        tinymceOptions : {
+            // plugins: 'link image code',
+            menubar: false,
+            toolbar: 'undo redo | bold italic'
+        },
+
         filtros: {
             evoluciones: [],
             servicio: null,
