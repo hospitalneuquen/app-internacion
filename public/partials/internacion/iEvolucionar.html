@@ -27,11 +27,8 @@
                     <th >
                         Fecha
                     </th>
-                    <th style="width: 20%;">
-                        Detalle
-                    </th>
-                    <th>
-                        Valores evolución
+                    <th style="width: 85%;">
+                        Detalle / Valores evolución
                     </th>
                     <!-- <th >
                         FC
@@ -62,8 +59,9 @@
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="2"></td>
+                    <td colspan="1"></td>
                     <td>
+                        <b>Balance global de líquidos:</b>
                         {{balanceTotal}}
                         ml
                         <i class="verde mdi mdi-trending-up" ng-if="balanceTotal < 0"></i>
@@ -80,10 +78,10 @@
                         </div>
                     </td>
                     <td >
-                        <div ng-bind-html="item.texto"></div>
-                        <!-- {{item.texto}} -->
-                    </td>
-                    <td >
+                        <div ng-bind-html="item.texto" ng-if="item.texto">
+                            <br />
+                        </div>
+
                         <div ng-if="item.signosVitales">
                             <table width="100%">
                                 <tr>
@@ -95,12 +93,12 @@
                                         {{item.signosVitales.pulso}}
                                         PPM
                                     </td>
-                                    <td ng-if="item.signosVitales.tensionDiastolica && item.signosVitales.tensionSistolica">
+                                    <td ng-if="item.signosVitales.circulacion.tensionDiastolica && item.signosVitales.circulacion.tensionSistolica">
                                         <b>
                                             Tensión
                                         </b>
                                         <br/>
-                                        {{item.signosVitales.tensionDiastolica + "/" + item.signosVitales.tensionSistolica}}
+                                        {{item.signosVitales.circulacion.tensionDiastolica + "/" + item.signosVitales.circulacion.tensionSistolica}}
                                     </td>
                                     <td ng-if="item.signosVitales.temperatura">
                                         <b>Temperatura</b>
@@ -210,7 +208,7 @@
                             </table>
                         </div>
 
-                        <div ng-if="item.glasgow.total">
+                        <div ng-if="item.glasgow">
                             <!-- <table ng-if="item.$total_ingresos || item.$total_ingresos > 0"> -->
                             <table width="100%">
                                     <tr>

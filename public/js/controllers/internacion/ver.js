@@ -229,21 +229,21 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
 
             if ($scope.internacion && $scope.internacion.evoluciones && $scope.internacion.evoluciones.length > 0) {
                 angular.forEach($scope.internacion.evoluciones, function(evolucion) {
-                    if (tipo == 'temperatura') {
-                        if (evolucion.temperatura && evolucion.temperatura > 0) {
-                            total += evolucion.temperatura;
+                    if (tipo == 'temperatura' && typeof evolucion.signosVitales != "undefined") {
+                        if (typeof evolucion.signosVitales.temperatura != "undefined" && evolucion.signosVitales.temperatura > 0) {
+                            total += evolucion.signosVitales.temperatura;
                         }
-                    } else if (tipo == 'tension') {
-                        if (evolucion.tensionSistolica && evolucion.tensionSistolica > 0) {
-                            total += evolucion.tensionSistolica;
+                    } else if (tipo == 'tension' && typeof evolucion.signosVitales != "undefined" && typeof evolucion.signosVitales.circulacion != "undefined") {
+                        if (typeof evolucion.signosVitales.circulacion.tensionSistolica  != "undefined" && evolucion.signosVitales.circulacion.tensionSistolica > 0) {
+                            total += evolucion.signosVitales.circulacion.tensionSistolica;
                         }
-                        if (evolucion.tensionDiastolica && evolucion.tensionDiastolica > 0) {
-                            total += evolucion.tensionDiastolica;
+                        if (typeof evolucion.signosVitales.circulacion.tensionDiastolica  != "undefined" && evolucion.signosVitales.circulacion.tensionDiastolica > 0) {
+                            total += evolucion.signosVitales.circulacion.tensionDiastolica;
                         }
 
-                    } else if (tipo == 'saturacion') {
-                        if (evolucion.spo2 && evolucion.spo2 > 0) {
-                            total += evolucion.spo2;
+                    } else if (tipo == 'saturacion' && typeof evolucion.signosVitales != "undefined") {
+                        if (typeof evolucion.signosVitales.spo2  != "undefined" && evolucion.signosVitales.spo2 > 0) {
+                            total += evolucion.signosVitales.spo2;
                         }
                     }
                 });
@@ -498,7 +498,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                         var isToday = updatedAt.isSame(new Date(), "day");
                         // console.log(isToday);
                         if(isToday && indicacion.activo == false) {
-                            $scope.indicacionesSuspendidas.push(indicacion);
+                            //$scope.indicacionesSuspendidas.push(indicacion);
                         }
                     });
                 }

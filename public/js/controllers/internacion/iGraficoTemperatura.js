@@ -4,20 +4,20 @@ angular.module('app').controller('internacion/iGraficoTemperatura', ['$scope', '
     angular.extend($scope, {
         internacion: undefined,
         init: function(internacion) {
+
             // buscamos la internacion
             if (internacion != null) {
                 $scope.internacion = internacion;
 
                 if ($scope.internacion.evoluciones.length) {
                     angular.forEach($scope.internacion.evoluciones, function(evolucion) {
-
-                        if (evolucion.temperatura) {
+                        if (typeof evolucion.signosVitales != "undefined" && typeof evolucion.signosVitales.temperatura != "undefined" && evolucion.signosVitales.temperatura > 0) {
                             var d = new Date(evolucion.fechaHora);
                             var date = Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds());
 
                             $scope.chart.options.series[0].data.push({
                                 x: date,
-                                y: evolucion.temperatura
+                                y: evolucion.signosVitales.temperatura
                             });
                         }
                     });

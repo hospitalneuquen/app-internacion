@@ -583,7 +583,7 @@
                                 </tbody>
                             </table>
 
-                            <!-- <h5 ng-if="indicacionesSuspendidas.length">Nuevas suspendidas</h5>
+                            <h5 ng-if="indicacionesSuspendidas.length">Nuevas suspendidas</h5>
 
                             <table class="table tabla-hover" ng-if="indicacionesSuspendidas.length">
                                 <thead>
@@ -894,7 +894,7 @@
 
                                     </tr>
                                 </tbody>
-                            </table> -->
+                            </table>
 
                             <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 5">
                                 Ir a las indicaciones
@@ -1912,24 +1912,29 @@
 
         <div class="card card-block tab-content">
             <h3>Gráficos</h3>
-            <div class="row" ng-if="internacion.evoluciones.length > 0">
-                <div class="col-lg-4" ng-if="hayEvoluciones('temperatura')">
-                    <!-- <div plex-include="'partials/internacion/iGraficoLiquidos.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0"></div> -->
-                    <div>
-                        <div plex-include="'partials/internacion/iGraficoTemperatura.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
+            <div ng-if="internacion.evoluciones.length > 0">
+                <div class="row">
+                    <div class="col-lg-4" ng-if="hayEvoluciones('temperatura')">
+                        <!-- <div plex-include="'partials/internacion/iGraficoLiquidos.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0"></div> -->
+                        <div>
+                            <div plex-include="'partials/internacion/iGraficoTemperatura.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" ng-if="hayEvoluciones('tension')">
+
+                        <div plex-include="'partials/internacion/iGraficoTension.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
+
+                    </div>
+                    <div class="col-lg-4" ng-if="hayEvoluciones('saturacion')">
+
+                        <div plex-include="'partials/internacion/iGraficoSaturacion.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
+
+                    </div>
+
+                    <div class="col-lg-4" >
+                        <div plex-include="'partials/internacion/iGraficoLiquidos.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
                     </div>
                 </div>
-                <div class="col-lg-4" ng-if="hayEvoluciones('tension')">
-
-                    <div plex-include="'partials/internacion/iGraficoTension.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
-
-                </div>
-                <div class="col-lg-4" ng-if="hayEvoluciones('saturacion')">
-
-                    <div plex-include="'partials/internacion/iGraficoSaturacion.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
-
-                </div>
-
             </div>
             <p ng-if="!hayEvoluciones('temperatura') && !hayEvoluciones('tension') && !hayEvoluciones('saturacion')">No se han cargado evoluciones aún para poder generar gráficos</p>
         </div>
