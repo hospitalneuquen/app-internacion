@@ -12,7 +12,6 @@ angular.module('app').controller('internacion/iGraficoLiquidos', ['$scope', 'Ple
                     angular.forEach($scope.internacion.evoluciones, function(evolucion) {
                         // calculamos balance de liquidos
                         $scope.calcularBalance(evolucion);
-
                     });
 
                     $scope.chart.update++;
@@ -21,41 +20,97 @@ angular.module('app').controller('internacion/iGraficoLiquidos', ['$scope', 'Ple
         },
         // calcula los balances de liquidos que ha tenido una evoluciones
         calcularBalance: function(evolucion) {
+            evolucion.$total_ingresos = 0;
             // sumamos los totales por evolucion
-            evolucion.$total_ingresos = $scope.sumar(evolucion.ingresos);
-            evolucion.$total_egresos = $scope.sumar(evolucion.egresos);
+            if (evolucion.balance.ingresos.length) {
+                angular.forEach(evolucion.balance.ingresos, function(ingreso) {
+                    if (typeof ingreso.hidratacion != "undefined") {
+
+                        if (typeof ingreso.hidratacion.enteral != "undefined") {
+                            evolucion.$total_ingresos += $scope.sumar(ingreso.hidratacion.enteral);
+                        }
+
+                        if (typeof ingreso.hidratacion.parenteral != "undefined") {
+                            evolucion.$total_ingresos += $scope.sumar(ingreso.hidratacion.parenteral);
+                        }
+
+                        if (typeof ingreso.hidratacion.oral != "undefined") {
+                            evolucion.$total_ingresos += $scope.sumar(ingreso.hidratacion.oral);
+                        }
+                    }
+
+                    if (typeof ingreso.medicamentos != "undefined") {
+                        evolucion.$total_ingresos += $scope.sumar(ingreso.medicamentos);
+                    }
+
+                    if (typeof ingreso.hemoterapia != "undefined") {
+                        evolucion.$total_ingresos += $scope.sumar(ingreso.hemoterapia);
+                    }
+
+                    if (typeof ingreso.nutricion != "undefined") {
+
+                        if (typeof ingreso.nutricion.enteral != "undefined") {
+                            evolucion.$total_ingresos += $scope.sumar(ingreso.nutricion.enteral);
+                        }
+
+                        if (typeof ingreso.nutricion.soporteOral != "undefined") {
+                            evolucion.$total_ingresos += $scope.sumar(ingreso.nutricion.soporteOral);
+                        }
+                    }
+                });
+                // evolucion.balance.$total_ingresos = $scope.sumar(evolucion.balance.ingresos);
+            }
+            evolucion.$total_egresos = $scope.sumar(evolucion.balance.egresos);
 
             // calculamos el balance entre el ingreso y egreso
-            evolucion.$balance = evolucion.$total_ingresos - evolucion.$total_egresos;
+            evolucion.$balance = parseFloat(evolucion.$total_ingresos) - parseFloat(evolucion.$total_egresos);
 
             var d = new Date(evolucion.createdAt);
             var date = Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds());
 
             // var date = moment(evolucion.createdAt).format('MMMM Do YYYY, h:mm:ss a');
 
-            // guardamos el balance en el array de series para mostrar la grafica
-            $scope.chart.options.series[0].data.push({
-                x: date,
-                y: evolucion.$total_ingresos
-            });
-            $scope.chart.options.series[1].data.push({
-                x: date,
-                y: evolucion.$total_egresos
-            });
-            $scope.chart.options.series[2].data.push({
-                x: date,
-                y: evolucion.$balance
-            });
+            if (evolucion.$total_ingresos){
 
-            // devolvemos la evolucion con los balances y los totales
-            return evolucion;
+                // guardamos el balance en el array de series para mostrar la grafica
+                $scope.chart.options.series[0].data.push({
+                    x: date,
+                    y: evolucion.$total_ingresos
+                });
+                $scope.chart.options.series[1].data.push({
+                    x: date,
+                    y: evolucion.$total_egresos
+                });
+                $scope.chart.options.series[2].data.push({
+                    x: date,
+                    y: evolucion.$balance
+                });
+
+                // devolvemos la evolucion con los balances y los totales
+                return evolucion;
+            }
+
         },
         // realizamos al suma de los valores para ingresos o egresos
         sumar: function(valores) {
             var total = 0;
 
             angular.forEach(valores, function(value, key) {
-                total += value;
+                // verificamos si es un drenaje y entonces recorremos
+                // para sumar los valores
+                if (key === 'drenajes') {
+                    if (value.length > 0) {
+                        angular.forEach(value, function(drenaje, k) {
+                            if (drenaje.cantidad) {
+                                total += drenaje.cantidad;
+                            }
+                        });
+                    }
+
+                } else {
+                    total += value;
+                }
+
             });
 
             return total;
