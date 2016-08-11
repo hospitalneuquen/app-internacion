@@ -297,7 +297,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                 });
                 // angular.copy($scope.drenajes, $scope.evolucionesEdit.egresos.drenajes);
             }
-            $scope.evolucionesEdit.glasgowTotal = $scope.evolucionesEdit.glasgowMotor + $scope.evolucionesEdit.glasgowVerbal + $scope.evolucionesEdit.glasgowOcular;
+            $scope.evolucionesEdit.glasgow.glasgowTotal = $scope.evolucionesEdit.glasgow.glasgowMotor + $scope.evolucionesEdit.glasgow.glasgowVerbal + $scope.evolucionesEdit.glasgow.glasgowOcular;
             if ($scope.evolucionesEdit.riesgoCaida){
                 $scope.evolucionesEdit.riesgoCaida.total = $scope.evolucionesEdit.riesgoCaida.caidasPrevias + $scope.evolucionesEdit.riesgoCaida.marcha + $scope.evolucionesEdit.riesgoCaida.ayudaDeambular + $scope.evolucionesEdit.riesgoCaida.venoclisis + $scope.evolucionesEdit.riesgoCaida.comorbilidad + $scope.evolucionesEdit.riesgoCaida.estadoMental;
             }
