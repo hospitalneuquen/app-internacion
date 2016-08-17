@@ -31,6 +31,11 @@
                     </li>
                     <li>
                         <a>
+                            <span>Circulación</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
                             <span>Nutrición</span>
                         </a>
                     </li>
@@ -125,6 +130,28 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <input type="text" label="Observaciones" ng-model="internacion.ingreso.enfermeria.observacionesOxigenacion" plex="text">
+                        </div>
+                    </div>
+                </div>
+                <!-- Circulación -->
+                <div class="card card-block">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <input type="text" label="Pulso carotídeo" ng-model="internacion.ingreso.enfermeria.carotideo" plex="text">
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="text" label="Pulso radial" ng-model="internacion.ingreso.enfermeria.radial" plex="text">
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="text" label="Pulso poplíteo" ng-model="internacion.ingreso.enfermeria.popliteo" plex="text">
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="text" label="Pulso pedio" ng-model="internacion.ingreso.enfermeria.pedio" plex="text">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <input type="text" label="Observaciones" ng-model="internacion.ingreso.enfermeria.observacionesCirculacion" plex="text">
                         </div>
                     </div>
                 </div>
@@ -296,6 +323,16 @@
                             <input type="checkbox" label="Edemas" ng-model="internacion.ingreso.enfermeria.edemas" plex="checkbox">
                             <input type="text" hint="Ingrese localización de los edemas" ng-model="internacion.ingreso.enfermeria.edemasLocalizacion" ng-show="internacion.ingreso.enfermeria.edemas" plex="text"/>
                         </div>
+                        <div class="col-lg-2" style="width: 20%">
+                            <input type="checkbox" label="Flebitis" ng-model="internacion.ingreso.enfermeria.flebitis" plex="checkbox">
+                            <select hint="Ingrese grado de flebitis" ng-model="internacion.ingreso.enfermeria.valoracionFlebitis.grado" ng-show="internacion.ingreso.enfermeria.flebitis" plex>
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                            <input type="text" hint="Ingrese observaciones relacionadas a la flebitis" ng-model="internacion.ingreso.enfermeria.valoracionFlebitis.observaciones" ng-show="internacion.ingreso.enfermeria.flebitis" plex="text"/>
+                        </div>
                     </div>
                     <br /><br />
                     <div class="row">
@@ -331,17 +368,6 @@
                         </div>
                         <div class="col-lg-2" style="width: 20%">
                             <input type="checkbox" label="Genitales deshidratados" ng-model="internacion.ingreso.enfermeria.genitalesDeshidratados" plex="checkbox">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <!-- <div class="col-lg-2">
-                            <input type="checkbox" label="¿Flebitis?" ng-model="internacion.ingreso.enfermeria.flebitis" plex="checkbox"/>
-                        </div> -->
-                        <div class="col-lg-2">
-                            <input type="text" label="Grado de flebitis" ng-model="internacion.ingreso.enfermeria.flebitis.grado" plex plex-min="0" />
-                        </div>
-                        <div class="col-lg-10">
-                            <input type="text" label="Observaciones flebitis" ng-model="internacion.ingreso.enfermeria.flebitis.observacionesFlebitis" plex class="form-control" ng-disabled="!evolucionesEdit.flebitis"/>
                         </div>
                     </div>
                     <br /><br />
@@ -427,6 +453,155 @@
                             <input type="text" hint="Describa" ng-model="internacion.ingreso.enfermeria.otrosDescriba" plex="text">
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-lg-2" style="width: 20%">
+                            <input type="checkbox" label="Riesgo de Caídas" ng-model="internacion.ingreso.enfermeria.riesgoCaidas" plex="checkbox">
+                        </div>
+                        <div class="col-lg-2" style="width: 20%">
+                            <input type="text" hint="Describa" ng-model="internacion.ingreso.enfermeria.riesgoCaidasDescriba" plex="text">
+                        </div>
+                        <div class="col-lg-8" style="width: 100%" ng-if="internacion.ingreso.enfermeria.riesgoCaidas">
+                            <fieldset>
+                                <legend>Valoración de riesgo de caídas</legend>
+                                <div class="row">
+                                    <div class="col-lg-2" style="width: 14%">
+                                        <label>
+                                            <b>Caídas previas</b>
+                                        </label>
+                                        <input type="radio" label="No" ng-value="0" ng-model="internacion.ingreso.enfermeria.riesgoCaida.caidasPrevias" plex="radio">
+                                        <span class="help-block" ng-if="internacion.ingreso.enfermeria.riesgoCaida.caidasPrevias==0">El paciente no se ha caído.</span>
+                                        <input type="radio" label="Si" ng-value="25" ng-model="internacion.ingreso.enfermeria.riesgoCaida.caidasPrevias" plex="radio">
+                                        <span class="help-block" ng-if="internacion.ingreso.enfermeria.riesgoCaida.caidasPrevias==25">El paciente se ha caído durante la presente internación o tiene antecedentes dentro de los últimos 3 meses de caídas por convulsiones o trastornos de la marcha.</span>
+                                    </div>
+                                    <div class="col-lg-2" style="width: 14%">
+                                        <label>
+                                            <b>Marcha</b>
+                                        </label>
+                                        <input type="radio" label="Normal" ng-value="0" ng-model="internacion.ingreso.enfermeria.riesgoCaida.marcha" plex="radio">
+                                        <span class="help-block" ng-if="internacion.ingreso.enfermeria.riesgoCaida.marcha==0">El paciente camina con la cabeza erecta, los brazos balanceándose libremente a los costados y con pasos seguros.</span>
+                                        <input type="radio" label="Débil" ng-value="10" ng-model="internacion.ingreso.enfermeria.riesgoCaida.marcha" plex="radio">
+                                        <span class="help-block" ng-if="internacion.ingreso.enfermeria.riesgoCaida.marcha==10">El paciente camina encorvado pero es capaz de levantar la cabeza mientras camina sin perder equilibrio. Los pasos son cortos y puede arrastrar los pies.</span>
+                                        <input type="radio" label="Limitada" ng-value="20" ng-model="internacion.ingreso.enfermeria.riesgoCaida.marcha" plex="radio">
+                                        <span class="help-block" ng-if="internacion.ingreso.enfermeria.riesgoCaida.marcha==20">El paciente puede tener dificultades para levantarse de la silla, pudiendo realizar varios intentos apoyando sus brazos en los brazos de la silla o tomando impulso. La cabeza del paciente está baja, mirando al piso.</span>
+                                    </div>
+                                    <div class="col-lg-2" style="width: 14%">
+                                        <label>
+                                            <b>Ayuda para deambular</b>
+                                        </label>
+                                        <input type="radio" label="Ninguna" ng-value="0" ng-model="internacion.ingreso.enfermeria.riesgoCaida.ayudaDeambular" plex="radio">
+                                        <span class="help-block" ng-if="internacion.ingreso.enfermeria.riesgoCaida.ayudaDeambular==0">El paciente camina sin ningún dispositivo de ayuda, se encuentra en silla de ruedas o está en reposo y no se levanta de la cama para nada.</span>
+                                        <input type="radio" label="Necesita ayuda" ng-value="15" ng-model="internacion.ingreso.enfermeria.riesgoCaida.ayudaDeambular" plex="radio">
+                                        <span class="help-block" ng-if="internacion.ingreso.enfermeria.riesgoCaida.ayudaDeambular==15">El paciente utiliza muletas, bastón o andador.</span>
+                                        <input type="radio" label="Se apoya en los muebles" ng-value="30" ng-model="internacion.ingreso.enfermeria.riesgoCaida.ayudaDeambular" plex="radio">
+                                        <span class="help-block" ng-if="internacion.ingreso.enfermeria.riesgoCaida.ayudaDeambular==30">El paciente sólo camina apoyándose en los muebles.</span>
+                                    </div>
+                                    <div class="col-lg-2" style="width: 14%">
+                                        <label>
+                                            <b>Venoclisis</b>
+                                        </label>
+                                        <input type="radio" label="No" ng-value="0" ng-model="internacion.ingreso.enfermeria.riesgoCaida.venoclisis" plex="radio">
+                                        <input type="radio" label="Si" ng-value="20" ng-model="internacion.ingreso.enfermeria.riesgoCaida.venoclisis" plex="radio">
+                                        <span class="help-block" ng-if="internacion.ingreso.enfermeria.riesgoCaida.venoclisis==20">El paciente tiene una vía IV.</span>
+                                    </div>
+                                    <div class="col-lg-2" style="width: 14%">
+                                        <label>
+                                            <b>Comorbilidad</b>
+                                        </label>
+                                        <input type="radio" label="No" ng-value="0" ng-model="internacion.ingreso.enfermeria.riesgoCaida.comorbilidad" plex="radio">
+                                        <span class="help-block" ng-if="internacion.ingreso.enfermeria.riesgoCaida.comorbilidad==0">El paciente tiene un solo diagnóstico.</span>
+                                        <input type="radio" label="Si" ng-value="15" ng-model="internacion.ingreso.enfermeria.riesgoCaida.comorbilidad" plex="radio">
+                                        <span class="help-block" ng-if="internacion.ingreso.enfermeria.riesgoCaida.comorbilidad==15">El paciente presenta múltiples diagnósticos.</span>
+                                    </div>
+                                    <div class="col-lg-2" style="width: 18%">
+                                        <label>
+                                            <b>Estado mental</b>
+                                        </label>
+                                        <input type="radio" label="Reconoce sus limitaciones" ng-value="0" ng-model="internacion.ingreso.enfermeria.riesgoCaida.estadoMental" plex="radio">
+                                        <input type="radio" label="Sobreestima u olvida sus limitaciones" ng-value="15" ng-model="internacion.ingreso.enfermeria.riesgoCaida.estadoMental" plex="radio">
+                                    </div>
+                                    <div class="col-lg-2" style="width: 10%">
+                                        <label>
+                                            <b>Total</b>
+                                        </label>
+                                        <h4>{{internacion.ingreso.enfermeria.riesgoCaida.caidasPrevias + internacion.ingreso.enfermeria.riesgoCaida.marcha + internacion.ingreso.enfermeria.riesgoCaida.ayudaDeambular + internacion.ingreso.enfermeria.riesgoCaida.venoclisis + internacion.ingreso.enfermeria.riesgoCaida.comorbilidad + internacion.ingreso.enfermeria.riesgoCaida.estadoMental}}</h4>
+                                        <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.caidasPrevias + internacion.ingreso.enfermeria.riesgoCaida.marcha + internacion.ingreso.enfermeria.riesgoCaida.ayudaDeambular + internacion.ingreso.enfermeria.riesgoCaida.venoclisis + internacion.ingreso.enfermeria.riesgoCaida.comorbilidad + internacion.ingreso.enfermeria.riesgoCaida.estadoMental < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
+                                        <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.caidasPrevias + internacion.ingreso.enfermeria.riesgoCaida.marcha + internacion.ingreso.enfermeria.riesgoCaida.ayudaDeambular + internacion.ingreso.enfermeria.riesgoCaida.venoclisis + internacion.ingreso.enfermeria.riesgoCaida.comorbilidad + internacion.ingreso.enfermeria.riesgoCaida.estadoMental >= 25 && internacion.ingreso.enfermeria.riesgoCaida.caidasPrevias + internacion.ingreso.enfermeria.riesgoCaida.marcha + internacion.ingreso.enfermeria.riesgoCaida.ayudaDeambular + internacion.ingreso.enfermeria.riesgoCaida.venoclisis + internacion.ingreso.enfermeria.riesgoCaida.comorbilidad + internacion.ingreso.enfermeria.riesgoCaida.estadoMental <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
+                                        <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.caidasPrevias + internacion.ingreso.enfermeria.riesgoCaida.marcha + internacion.ingreso.enfermeria.riesgoCaida.ayudaDeambular + internacion.ingreso.enfermeria.riesgoCaida.venoclisis + internacion.ingreso.enfermeria.riesgoCaida.comorbilidad + internacion.ingreso.enfermeria.riesgoCaida.estadoMental > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
+                                    </div>
+                                </div>
+                            </fielset>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-2" style="width: 20%">
+                            <input type="checkbox" label="Riesgo de UPP" ng-model="internacion.ingreso.enfermeria.riesgoUPP" plex="checkbox">
+                        </div>
+                        <div class="col-lg-2" style="width: 20%">
+                            <input type="text" hint="Describa" ng-model="internacion.ingreso.enfermeria.riesgoUPPDescriba" plex="text">
+                        </div>
+                    </div>
+                    <div class="col-lg-8" style="width: 100%" ng-if="internacion.ingreso.enfermeria.riesgoUPP">
+                        <fieldset>
+                            <legend>Valoración del riesgo de desarrollar una úlcera por presión</legend>
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <label>
+                                        <b>Estado físico general</b>
+                                    </label>
+                                    <input type="radio" label="Muy malo" ng-value="1" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.estadoFisico" plex="radio">
+                                    <input type="radio" label="Regular" ng-value="2" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.estadoFisico" plex="radio">
+                                    <input type="radio" label="Mediano" ng-value="3" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.estadoFisico" plex="radio">
+                                    <input type="radio" label="Bueno" ng-value="4" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.estadoFisico" plex="radio">
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>
+                                        <b>Estado mental</b>
+                                    </label>
+                                    <input type="radio" label="Estuporoso/Comatoso" ng-value="1" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.estadoMental" plex="radio">
+                                    <input type="radio" label="Confuso" ng-value="2" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.estadoMental" plex="radio">
+                                    <input type="radio" label="Apático" ng-value="3" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.estadoMental" plex="radio">
+                                    <input type="radio" label="Alerta" ng-value="4" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.estadoMental" plex="radio">
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>
+                                        <b>Actividad</b>
+                                    </label>
+                                    <input type="radio" label="Inmóvil" ng-value="1" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.actividad" plex="radio">
+                                    <input type="radio" label="Muy limitada" ng-value="2" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.actividad" plex="radio">
+                                    <input type="radio" label="Disminuida" ng-value="3" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.actividad" plex="radio">
+                                    <input type="radio" label="Total" ng-value="4" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.actividad" plex="radio">
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>
+                                        <b>Movilidad</b>
+                                    </label>
+                                    <input type="radio" label="Encamado" ng-value="1" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.movilidad" plex="radio">
+                                    <input type="radio" label="Sentado" ng-value="2" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.movilidad" plex="radio">
+                                    <input type="radio" label="Camina con ayuda" ng-value="3" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.movilidad" plex="radio">
+                                    <input type="radio" label="Deambula" ng-value="4" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.movilidad" plex="radio">
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>
+                                        <b>Incontinencia</b>
+                                    </label>
+                                    <input type="radio" label="Urinaria y fecal" ng-value="1" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.incontinencia" plex="radio">
+                                    <input type="radio" label="Urinaria o fecal" ng-value="2" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.incontinencia" plex="radio">
+                                    <input type="radio" label="Ocasional" ng-value="3" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.incontinencia" plex="radio">
+                                    <input type="radio" label="Ninguna" ng-value="4" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.incontinencia" plex="radio">
+                                </div>
+                                <div class="col-lg-2">
+                                    <label>
+                                        <b>Total</b>
+                                    </label>
+                                    <h4>{{internacion.ingreso.enfermeria.valoracionRiesgoUPP.estadoFisico + internacion.ingreso.enfermeria.valoracionRiesgoUPP.estadoMental + internacion.ingreso.enfermeria.valoracionRiesgoUPP.actividad + internacion.ingreso.enfermeria.valoracionRiesgoUPP.movilidad + internacion.ingreso.enfermeria.valoracionRiesgoUPP.incontinencia}}</h4>
+                                    <span ng-if="internacion.ingreso.enfermeria.valoracionRiesgoUPP.estadoFisico + internacion.ingreso.enfermeria.valoracionRiesgoUPP.estadoMental + internacion.ingreso.enfermeria.valoracionRiesgoUPP.actividad + internacion.ingreso.enfermeria.valoracionRiesgoUPP.movilidad + internacion.ingreso.enfermeria.valoracionRiesgoUPP.incontinencia >= 13 && internacion.ingreso.enfermeria.valoracionRiesgoUPP.estadoFisico + internacion.ingreso.enfermeria.valoracionRiesgoUPP.estadoMental + internacion.ingreso.enfermeria.valoracionRiesgoUPP.actividad + internacion.ingreso.enfermeria.valoracionRiesgoUPP.movilidad + internacion.ingreso.enfermeria.valoracionRiesgoUPP.incontinencia <= 16" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
+                                    <span ng-if="internacion.ingreso.enfermeria.valoracionRiesgoUPP.estadoFisico + internacion.ingreso.enfermeria.valoracionRiesgoUPP.estadoMental + internacion.ingreso.enfermeria.valoracionRiesgoUPP.actividad + internacion.ingreso.enfermeria.valoracionRiesgoUPP.movilidad + internacion.ingreso.enfermeria.valoracionRiesgoUPP.incontinencia >= 10 && internacion.ingreso.enfermeria.valoracionRiesgoUPP.estadoFisico + internacion.ingreso.enfermeria.valoracionRiesgoUPP.estadoMental + internacion.ingreso.enfermeria.valoracionRiesgoUPP.actividad + internacion.ingreso.enfermeria.valoracionRiesgoUPP.movilidad + internacion.ingreso.enfermeria.valoracionRiesgoUPP.incontinencia <= 12" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
+                                    <span ng-if="internacion.ingreso.enfermeria.valoracionRiesgoUPP.estadoFisico + internacion.ingreso.enfermeria.valoracionRiesgoUPP.estadoMental + internacion.ingreso.enfermeria.valoracionRiesgoUPP.actividad + internacion.ingreso.enfermeria.valoracionRiesgoUPP.movilidad + internacion.ingreso.enfermeria.valoracionRiesgoUPP.incontinencia >= 5 && internacion.ingreso.enfermeria.valoracionRiesgoUPP.estadoFisico + internacion.ingreso.enfermeria.valoracionRiesgoUPP.estadoMental + internacion.ingreso.enfermeria.valoracionRiesgoUPP.actividad + internacion.ingreso.enfermeria.valoracionRiesgoUPP.movilidad + internacion.ingreso.enfermeria.valoracionRiesgoUPP.incontinencia <= 9" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
                     <br />
                     <div class="row">
                         <div class="col-lg-12">
@@ -463,6 +638,128 @@
                         </div>
                         <div class="col-lg-2" style="width: 20%">
                             <input type="text" label="Describa" ng-model="internacion.ingreso.enfermeria.describaSensopercepcion" plex="text">
+                        </div>
+                    </div>
+                    <br /><br />
+                    <div class="row">
+                        <div class="col-lg-2" style="width: 14%">
+                            <input type="checkbox" label="Dolor" ng-model="internacion.ingreso.enfermeria.dolor" plex="checkbox">
+                        </div>
+                        <div class="col-lg-10" style="width: 80%" ng-show="internacion.ingreso.enfermeria.dolor">
+                            <fieldset>
+                                <legend>Valoración del dolor</legend>
+
+                                <div class="row">
+                                    <div class="col-lg-2" >
+                                        <label>
+                                            <b>Analgesia previa</b>
+                                        </label>
+                                        <input type="radio" label="Indicada por médico" ng-value="false" ng-model="internacion.ingreso.enfermeria.dolorValoracion.analgesiaAutomedicacion" plex="radio">
+                                        <input type="radio" label="Automedicación" ng-value="true" ng-model="internacion.ingreso.enfermeria.dolorValoracion.analgesiaAutomedicacion" plex="radio">
+                                    </div>
+                                    <div class="col-lg-2" >
+                                        <label>
+                                            <b>Ansiolíticos previos</b>
+                                        </label>
+                                        <input type="radio" label="Indicados por médico" ng-value="false" ng-model="internacion.ingreso.enfermeria.dolorValoracion.ansioliticosAutomedicacion" plex="radio">
+                                        <input type="radio" label="Automedicación" ng-value="true" ng-model="internacion.ingreso.enfermeria.dolorValoracion.ansioliticosAutomedicacion" plex="radio">
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <label>
+                                            <b>Intensidad</b>
+                                        </label>
+                                        <select ng-model="internacion.ingreso.enfermeria.dolorValoracion.intensidad" plex>
+                                            <option value="0">0 (sin dolor)</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10 (máximo dolor)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-6" >
+                                        <label>
+                                            <b>Características del dolor</b>
+                                        </label>
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <input type="checkbox" label="Punzante" ng-model="internacion.ingreso.enfermeria.dolorValoracion.punzante" plex="checkbox">
+                                                <input type="checkbox" label="Tipo cólico" ng-model="internacion.ingreso.enfermeria.dolorValoracion.tipoColico" plex="checkbox">
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <input type="checkbox" label="Pesadez" ng-model="internacion.ingreso.enfermeria.dolorValoracion.pesadez" plex="checkbox">
+                                                <input type="checkbox" label="Pulsante" ng-model="internacion.ingreso.enfermeria.dolorValoracion.pulsante" plex="checkbox">
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <input type="checkbox" label="Caliente" ng-model="internacion.ingreso.enfermeria.dolorValoracion.caliente" plex="checkbox">
+                                                <input type="checkbox" label="Adormecimiento/Hormigueo" ng-model="internacion.ingreso.enfermeria.dolorValoracion.hormigueo" plex="checkbox">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <input type="text" label="Observaciones" ng-model="internacion.ingreso.enfermeria.dolorValoracion.observacionesDolor" plex="text">
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-2" style="width: 14%">
+                            <input type="checkbox" label="Glasgow" ng-model="internacion.ingreso.enfermeria.glasgow" plex="checkbox">
+                        </div>
+                        <div class="col-lg-10" style="width: 80%" ng-if="internacion.ingreso.enfermeria.glasgow">
+                            <fieldset>
+                                <legend>Glasgow</legend>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <label>
+                                            <b>Ocular</b>
+                                        </label>
+                                        <input type="radio" label="1 - Ausencia de respuesta" ng-value="1" ng-model="internacion.ingreso.enfermeria.glasgowValoracion.glasgowOcular" plex="radio">
+                                        <input type="radio" label="2 - Al dolor" ng-value="2" ng-model="internacion.ingreso.enfermeria.glasgowValoracion.glasgowOcular" plex="radio">
+                                        <input type="radio" label="3 - A estímulos verbales" ng-value="3" ng-model="internacion.ingreso.enfermeria.glasgowValoracion.glasgowOcular" plex="radio">
+                                        <input type="radio" label="4 - Espontánea" ng-value="4" ng-model="internacion.ingreso.enfermeria.glasgowValoracion.glasgowOcular" plex="radio">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>
+                                            <b>Verbal</b>
+                                        </label>
+                                        <input type="radio" label="1 - Ausencia de respuesta" ng-value="1" ng-model="internacion.ingreso.enfermeria.glasgowValoracion.glasgowVerbal" plex="radio">
+                                        <input type="radio" label="2 - Sonidos incomprensibles" ng-value="2" ng-model="internacion.ingreso.enfermeria.glasgowValoracion.glasgowVerbal" plex="radio">
+                                        <input type="radio" label="3 - Incoherente" ng-value="3" ng-model="internacion.ingreso.enfermeria.glasgowValoracion.glasgowVerbal" plex="radio">
+                                        <input type="radio" label="4 - Desorientado/confuso" ng-value="4" ng-model="internacion.ingreso.enfermeria.glasgowValoracion.glasgowVerbal" plex="radio">
+                                        <input type="radio" label="5 - Orientado" ng-value="5" ng-model="internacion.ingreso.enfermeria.glasgowValoracion.glasgowVerbal" plex="radio">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>
+                                            <b>Motor</b>
+                                        </label>
+                                        <input type="radio" label="1 - Ausencia de respuesta" ng-value="1" ng-model="internacion.ingreso.enfermeria.glasgowValoracion.glasgowMotor" plex="radio">
+                                        <input type="radio" label="2 - Extensión anormal" ng-value="2" ng-model="internacion.ingreso.enfermeria.glasgowValoracion.glasgowMotor" plex="radio">
+                                        <input type="radio" label="3 - Flexión anormal" ng-value="3" ng-model="internacion.ingreso.enfermeria.glasgowValoracion.glasgowMotor" plex="radio">
+                                        <input type="radio" label="4 - Retirada al dolor" ng-value="4" ng-model="internacion.ingreso.enfermeria.glasgowValoracion.glasgowMotor" plex="radio">
+                                        <input type="radio" label="5 - Localiza el dolor" ng-value="5" ng-model="internacion.ingreso.enfermeria.glasgowValoracion.glasgowMotor" plex="radio">
+                                        <input type="radio" label="6 - Obedece ordenes" ng-value="6" ng-model="internacion.ingreso.enfermeria.glasgowValoracion.glasgowMotor" plex="radio">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <label>
+                                            <b>Total</b>
+                                        </label>
+                                        <h4>{{internacion.ingreso.enfermeria.glasgowValoracion.glasgowMotor + internacion.ingreso.enfermeria.glasgowValoracion.glasgowVerbal + internacion.ingreso.enfermeria.glasgowValoracion.glasgowOcular}}</h4>
+                                        <span ng-if="internacion.ingreso.enfermeria.glasgowValoracion.glasgowMotor + internacion.ingreso.enfermeria.glasgowValoracion.glasgowVerbal + internacion.ingreso.enfermeria.glasgowValoracion.glasgowOcular >= 14" class="small padding-left padding-right margin-left nivel-verde">Leve</span>
+                                        <span ng-if="internacion.ingreso.enfermeria.glasgowValoracion.glasgowMotor + internacion.ingreso.enfermeria.glasgowValoracion.glasgowVerbal + internacion.ingreso.enfermeria.glasgowValoracion.glasgowOcular >= 9 && internacion.ingreso.enfermeria.glasgowValoracion.glasgowMotor + internacion.ingreso.enfermeria.glasgowValoracion.glasgowVerbal + internacion.ingreso.enfermeria.glasgowValoracion.glasgowOcular <= 13" class="small padding-left padding-right margin-left nivel-amarillo">Moderado</span>
+                                        <span ng-if="internacion.ingreso.enfermeria.glasgowValoracion.glasgowMotor + internacion.ingreso.enfermeria.glasgowValoracion.glasgowVerbal + internacion.ingreso.enfermeria.glasgowValoracion.glasgowOcular >= 3 && internacion.ingreso.enfermeria.glasgowValoracion.glasgowMotor + internacion.ingreso.enfermeria.glasgowValoracion.glasgowVerbal + internacion.ingreso.enfermeria.glasgowValoracion.glasgowOcular <= 8" class="small padding-left padding-right margin-left nivel-rojo">Grave</span>
+                                    </div>
+                                </div>
+                            </fieldset>
                         </div>
                     </div>
                     <br />
