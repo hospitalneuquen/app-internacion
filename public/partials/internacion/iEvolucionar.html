@@ -170,7 +170,7 @@
                                         <th>Ayuda para deambular</th>
                                         <th>Venoclisis</th>
                                         <th>Comorbilidad</th>
-                                        <th>Estado metal</th>
+                                        <th>Estado mental</th>
                                         <th class="text-center">Total</th>
                                     </tr>
 
@@ -240,7 +240,7 @@
 
                                             <br />
                                             <span ng-if="item.glasgow.glasgowTotal < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
-                                            <span ng-if="item.glasgow.glasgowTotal <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
+                                            <span ng-if="item.glasgow.glasgowTotal >= 25 && item.glasgow.glasgowTotal <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
                                             <span ng-if="item.glasgow.glasgowTotal > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
                                         </td>
                                     </tr>
@@ -281,10 +281,9 @@
                                             {{item.riesgoUPP.total}}
 
                                             <br />
-                                            <span ng-if="item.riesgoUPP.total > 16" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
-                                            <span ng-if="item.riesgoUPP.total <= 16" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
-                                            <span ng-if="item.riesgoUPP.total <= 12" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
-                                            <span ng-if="item.riesgoUPP.total <= 9" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
+                                            <span ng-if="item.riesgoUPP.total >= 13 && item.riesgoUPP.total <= 16" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
+                                            <span ng-if="item.riesgoUPP.total >= 10 && item.riesgoUPP.total <= 12" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
+                                            <span ng-if="item.riesgoUPP.total >= 5 && item.riesgoUPP.total <= 9" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
                                         </td>
                                     </tr>
                                 </tbody>
