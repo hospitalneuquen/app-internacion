@@ -959,7 +959,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
                     // calculamos valores de glasgow
                     if ($scope.evolucionesEdit.glasgow) {
-                        $scope.evolucionesEdit.glasgowTotal = $scope.evolucionesEdit.glasgow.glasgowMotor + $scope.evolucionesEdit.glasgowVerbal + $scope.evolucionesEdit.glasgowOcular;
+                        $scope.evolucionesEdit.glasgow.glasgowTotal = $scope.evolucionesEdit.glasgow.glasgowMotor + $scope.evolucionesEdit.glasgow.glasgowVerbal + $scope.evolucionesEdit.glasgow.glasgowOcular;
                     }
                     // calculamos valores de riesgo de caidas
                     if ($scope.evolucionesEdit.riesgoCaida) {
@@ -1005,11 +1005,14 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 // angular.copy(indicacion, $scope.evolucionarIndicacion);
                 $scope.evolucionarIndicacion = indicacion;
 
+                var texto = indicacion.controles.tipo;
+
                 $scope.evolucionesEdit = {
                     idIndicacion: indicacion.id,
                     fechaHora: new Date(),
                     tipo: Session.variables.prestaciones_workflow,
                     servicio: Session.variables.servicioActual,
+                    texto: texto
                 };
 
                 if (indicacion.tipo == 'Controles' && indicacion.controles.tipo == 'Balance') {

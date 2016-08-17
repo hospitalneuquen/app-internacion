@@ -27,7 +27,12 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
         riesgoCaidas: 0,
         selectedTabIndex: 0,
         internacion: null,
+        internacionesAnteriores: [],
         pases: null,
+
+        // indicaciones para el dashboard
+        indicacionesNuevas : [],
+        indicacionesSuspendidas : [],
 
         tiposDrenajes: [{
             id: 'pleural',
@@ -224,21 +229,21 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
 
             if ($scope.internacion && $scope.internacion.evoluciones && $scope.internacion.evoluciones.length > 0) {
                 angular.forEach($scope.internacion.evoluciones, function(evolucion) {
-                    if (tipo == 'temperatura') {
-                        if (evolucion.temperatura && evolucion.temperatura > 0) {
-                            total += evolucion.temperatura;
+                    if (tipo == 'temperatura' && typeof evolucion.signosVitales != "undefined") {
+                        if (typeof evolucion.signosVitales.temperatura != "undefined" && evolucion.signosVitales.temperatura > 0) {
+                            total += evolucion.signosVitales.temperatura;
                         }
-                    } else if (tipo == 'tension') {
-                        if (evolucion.tensionSistolica && evolucion.tensionSistolica > 0) {
-                            total += evolucion.tensionSistolica;
+                    } else if (tipo == 'tension' && typeof evolucion.signosVitales != "undefined" && typeof evolucion.signosVitales.circulacion != "undefined") {
+                        if (typeof evolucion.signosVitales.circulacion.tensionSistolica  != "undefined" && evolucion.signosVitales.circulacion.tensionSistolica > 0) {
+                            total += evolucion.signosVitales.circulacion.tensionSistolica;
                         }
-                        if (evolucion.tensionDiastolica && evolucion.tensionDiastolica > 0) {
-                            total += evolucion.tensionDiastolica;
+                        if (typeof evolucion.signosVitales.circulacion.tensionDiastolica  != "undefined" && evolucion.signosVitales.circulacion.tensionDiastolica > 0) {
+                            total += evolucion.signosVitales.circulacion.tensionDiastolica;
                         }
 
-                    } else if (tipo == 'saturacion') {
-                        if (evolucion.spo2 && evolucion.spo2 > 0) {
-                            total += evolucion.spo2;
+                    } else if (tipo == 'saturacion' && typeof evolucion.signosVitales != "undefined") {
+                        if (typeof evolucion.signosVitales.spo2  != "undefined" && evolucion.signosVitales.spo2 > 0) {
+                            total += evolucion.signosVitales.spo2;
                         }
                     }
                 });
@@ -400,7 +405,10 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
             if ($scope.ordenCronologico.length) {
                 // ordenamos cronolicamente todo el array
                 $scope.ordenCronologico.sort(function(a, b) {
-                    return new Date(a.fecha).getTime() - new Date(b.fecha).getTime()
+                    // descendente
+                    return new Date(b.fecha).getTime() - new Date(a.fecha).getTime()
+                    // ascendente
+                    // return new Date(a.fecha).getTime() - new Date(b.fecha).getTime()
                 });
 
                 angular.forEach($scope.ordenCronologico, function(elemento, index) {
@@ -462,10 +470,42 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
 
                 // ordenamos cronologicamente
                 $scope.ordenarCronologicamente();
+
+
+                // buscamos internaciones anteriores
+                Shared.internacion.get({
+                    paciente: internacion.paciente.id
+                }).then(function(data) {
+                    if (data.length) {
+                        $scope.internacionesAnteriores = data;
+                    }
+                });
+
+                // revisamos las indicaciones que son del dìa de hoy
+                if ($scope.internacion.indicaciones.length) {
+                    angular.forEach($scope.internacion.indicaciones, function(indicacion, index) {
+                        // si la fecha de creacion es el dia de hoy
+                        // entonces la agregamos a las nuevas indicaciones
+                        var createdAt = moment(indicacion.createdAt);
+                        var esHoy = createdAt.isSame(new Date(), "day");
+                        if(esHoy) {
+                            $scope.indicacionesNuevas.push(indicacion);
+                        }
+
+                        // si la fecha de desactivacion es el dia de hoy
+                        // entonces la agregamos a las indicaciones suspendidas
+                        var updatedAt = moment(indicacion.updatedAt);
+                        var isToday = updatedAt.isSame(new Date(), "day");
+                        // console.log(isToday);
+                        if(isToday && indicacion.activo == false) {
+                            //$scope.indicacionesSuspendidas.push(indicacion);
+                        }
+                    });
+                }
             });
 
+        },
 
-        }
     });
 
     $scope.getDuration = function(start, end) {

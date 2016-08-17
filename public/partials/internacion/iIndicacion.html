@@ -1206,7 +1206,8 @@
                             <td  ng-hide="evolucionarIndicacion && indicacion.id != evolucionarIndicacion.id">
                                 <span ng-if="indicacion.frecuencia == 'unica'">UD</span>
                                 <span ng-if="indicacion.frecuencia == '24'">Día</span>
-                                <span ng-if="indicacion.frecuencia == '12' || indicacion.frecuencia == '8' || indicacion.frecuencia == '6' || indicacion.frecuencia == '4'">
+                                <span ng-if="indicacion.frecuencia == 'rescates'">Rescates</span>
+                                <span ng-if="indicacion.frecuencia == '12' || indicacion.frecuencia == '8' || indicacion.frecuencia == '6' || indicacion.frecuencia == '4' || indicacion.frecuencia == '2' || indicacion.frecuencia == '1'">
                                     c/{{indicacion.frecuencia}}
                                     hs
                                 </span>

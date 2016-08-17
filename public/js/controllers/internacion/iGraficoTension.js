@@ -8,22 +8,27 @@ angular.module('app').controller('internacion/iGraficoTension', ['$scope', 'Plex
             if (internacion != null) {
                 $scope.internacion = internacion;
 
-                angular.forEach($scope.internacion.evoluciones, function(evolucion) {
+                if ($scope.internacion.evoluciones.length) {
+                    angular.forEach($scope.internacion.evoluciones, function(evolucion) {
+                        if (typeof evolucion.signosVitales != "undefined" && typeof evolucion.signosVitales.circulacion != "undefined" && typeof evolucion.signosVitales.circulacion.tensionSistolica != "undefined"
+                            && typeof evolucion.signosVitales.circulacion.tensionDiastolica != "undefined"
+                            && evolucion.signosVitales.circulacion.tensionSistolica && evolucion.signosVitales.circulacion.tensionDiastolica) {
 
-                    if (evolucion.tensionSistolica && evolucion.tensionDiastolica) {
-                        var d = new Date(evolucion.fechaHora);
-                        var date = Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds());
 
-                        $scope.chart.options.series[0].data.push({
-                            x: date,
-                            y: evolucion.tensionSistolica
-                        });
-                        $scope.chart.options.series[1].data.push({
-                            x: date,
-                            y: evolucion.tensionDiastolica
-                        });
-                    }
-                });
+                            var d = new Date(evolucion.fechaHora);
+                            var date = Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds());
+
+                            $scope.chart.options.series[0].data.push({
+                                x: date,
+                                y: evolucion.signosVitales.circulacion.tensionSistolica
+                            });
+                            $scope.chart.options.series[1].data.push({
+                                x: date,
+                                y: evolucion.signosVitales.circulacion.tensionDiastolica
+                            });
+                        }
+                    });
+                }
 
                 $scope.chart.update++;
             }

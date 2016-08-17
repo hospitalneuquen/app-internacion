@@ -11,13 +11,13 @@ angular.module('app').controller('internacion/iGraficoSaturacion', ['$scope', 'P
                 if ($scope.internacion.evoluciones.length) {
                     angular.forEach($scope.internacion.evoluciones, function(evolucion) {
 
-                        if (evolucion.spo2) {
+                        if (typeof evolucion.signosVitales != "undefined" && typeof evolucion.signosVitales.spo2 != "undefined" && evolucion.signosVitales.spo2 > 0) {
                             var d = new Date(evolucion.fechaHora);
                             var date = Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds());
 
                             $scope.chart.options.series[0].data.push({
                                 x: date,
-                                y: evolucion.spo2
+                                y: evolucion.signosVitales.spo2
                             });
                         }
                     });

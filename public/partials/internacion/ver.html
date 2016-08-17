@@ -110,7 +110,7 @@
                                 </ul>
                             </p>
 
-                            <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 1">
+                            <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 7">
                                 Ver los gráficos
                             </button>
                         </div>
@@ -139,7 +139,7 @@
                                 {{internacion.evoluciones[internacion.evoluciones.length-1].createdAt | date: "dd/MM/yyyy  'a las' HH:mm "}}
                                 hs
                             </p>
-                            <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 3">
+                            <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 4">
                                 Ir a las evoluciones
                             </button>
                         </div>
@@ -161,7 +161,7 @@
                                 Antecedentes del paciente
                             </p>
 
-                            <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 5">
+                            <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 2">
                                 Ir a los antecedentes
                             </button>
                         </div>
@@ -241,14 +241,663 @@
                             <p class="card-text" ng-if="internacion.problemas.length">
 
                                 <div ng-repeat="problema in internacion.problemas">
-                                    <span ng-if="problema.estado == 'Activo' || problema.estado == 'Transformado'">
-                                        {{problema.descripcion}}
-                                    </span>
+                                    <div ng-if="problema.estado == 'Activo' || problema.estado == 'Transformado'">
+                                        <span ng-show="problema.diagnostico.nombre">
+                                            {{problema.diagnostico.nombre}}
+                                        </span>
+                                        <span ng-show="problema.descripcion">
+                                            {{problema.descripcion}}
+                                        </span>
+                                    </div>
                                 </div>
                             </p>
 
-                            <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 8">
+                            <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 3">
                                 Ir al listado de problemas
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card dashboard-card">
+                        <div class="card-header card-blue ">
+                            <div class="card-header-icon">
+                                <i class="mdi mdi-file-check"></i>
+                            </div>
+                            <div class="card-header-title">
+
+                                <div class="title">Indicaciones</div>
+                                <div class="subtitle">Vea las indicaciones suspendidas y agregadas del día</div>
+                            </div>
+                        </div>
+                        <div class="card-block">
+                            <h5 ng-if="indicacionesNuevas.length > 0">Nuevas indicaciones</h5>
+
+                            <table class="table tabla-hover" ng-if="indicacionesNuevas.length > 0">
+                                <thead>
+                                    <tr>
+                                        <th>Hora pedido</th>
+                                        <th>Indicación</th>
+                                        <th>Vía</th>
+                                        <th>Frecuencia</th>
+                                        <th>Usuario / Servicio</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="indicacion in indicacionesNuevas">
+
+                                        <td class="text-center">
+                                            {{indicacion.createdAt | fromNow }}<br/>
+                                            <div class="text-muted small">
+                                                {{indicacion.createdAt | date: "dd/MM/yyyy HH:mm"}}
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <span>
+                                                <b>
+                                                    <i>{{indicacion.tipo.nombre ? indicacion.tipo.nombre : indicacion.tipo }}</i>
+                                                </b>
+                                            </span>
+
+                                            <span ng-if="indicacion.tipo.nombre == 'Plan hidratación oral' || indicacion.tipo == 'Plan hidratación oral'">
+                                                <br/>
+                                                {{indicacion.planHidratacion.oral.descripcion}}
+                                                {{indicacion.planHidratacion.oral.cantidad}}
+                                                ml
+                                            </span>
+
+                                            <span ng-if="indicacion.tipo.nombre == 'Plan hidratación enteral' || indicacion.tipo == 'Plan hidratación enteral'">
+                                                <b>
+                                                    {{indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad+indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad+indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad}}
+                                                    ml por
+                                                    {{indicacion.planHidratacion.enteralParenteral.sonda}}
+                                                </b>
+
+                                                <br />
+
+                                                <span ng-show="indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad > 0">
+                                                    Solución fisiológica {{indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad}} ml
+                                                </span>
+
+                                                <br />
+
+                                                <span ng-show="indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad > 0">
+                                                    Dextrosa {{indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad}} ml
+                                                </span>
+
+                                                <br />
+
+                                                <span ng-show="indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad > 0">
+                                                    Ringer-Lactato {{indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad}} ml
+                                                </span>
+                                            </span>
+
+                                            <span ng-if="indicacion.tipo.nombre == 'Plan hidratación parenteral' || indicacion.tipo == 'Plan hidratación parenteral'">
+                                                <!-- {{indicacion.planHidratacion.tipoPlan.nombre ? indicacion.planHidratacion.tipoPlan.nombre : indicacion.planHidratacion.tipoPlan }} -->
+                                                <b>
+                                                    {{indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad+indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad+indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad}}
+                                                    ml
+                                                </b>
+
+                                                <br />
+
+                                                <span ng-show="indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad > 0">
+                                                    Solución fisiológica {{indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad}} ml
+                                                    -
+                                                    <span ng-if="indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos.length">
+                                                        Frascos
+                                                        <span class="fa-stack fa-lg frascos"  ng-repeat="frasco in indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos">
+                                                            <i class="fisiologica mdi mdi-cup"></i>
+                                                            <i class="fa  fa-stack-1x numero">
+                                                                {{frasco}}
+                                                            </i>
+                                                        </span>
+                                                    </span>
+                                                </span>
+
+                                                <br />
+
+                                                <span ng-show="indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad > 0">
+                                                    Dextrosa {{indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad}} ml
+                                                    -
+                                                    <span ng-if="indicacion.planHidratacion.enteralParenteral.dextrosa.frascos.length">
+                                                        Frascos
+                                                        <span class="fa-stack fa-lg frascos"  ng-repeat="frasco in indicacion.planHidratacion.enteralParenteral.dextrosa.frascos">
+                                                            <i class="dextrosa mdi mdi-cup"></i>
+                                                            <i class="fa  fa-stack-1x numero">
+                                                                {{frasco}}
+                                                            </i>
+                                                        </span>
+                                                    </span>
+                                                </span>
+
+                                                <br />
+
+                                                <span ng-show="indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad > 0">
+                                                    Ringer-Lactato {{indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad}} ml
+                                                    -
+                                                    <span ng-if="indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos.length">
+                                                    Frascos
+                                                        <span class="fa-stack fa-lg frascos"  ng-repeat="frasco in indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos">
+                                                            <i class=" mdi mdi-cup"></i>
+                                                            <i class="fa  fa-stack-1x numero">
+                                                                {{frasco}}
+                                                            </i>
+                                                        </span>
+                                                    </span>
+                                                </span>
+
+                                                <div ng-if="indicacion.planHidratacion.enteralParenteral.agregados.length">
+
+                                                    <b>Agregados</b>
+                                                    <div ng-repeat="agregado in indicacion.planHidratacion.enteralParenteral.agregados">
+                                                        +
+                                                        {{agregado.tipoAgregado.nombre ? agregado.tipoAgregado.nombre : agregado.tipoAgregado}}
+                                                        {{agregado.descripcion}}
+
+                                                        <span class="mr label label-primary" ng-if="agregado.frascos.length == indicacion.planHidratacion.$frascos">Todos</span>
+
+                                                        <span class="fa-stack fa-lg frascos" ng-if="agregado.frascos.length != indicacion.planHidratacion.$frascos" ng-repeat="frasco in agregado.frascos">
+                                                            <i class=" mdi mdi-cup"></i>
+                                                            <i class="fa  fa-stack-1x numero">
+                                                                {{frasco}}
+                                                            </i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                            </span>
+
+                                            <span ng-if="indicacion.tipo.nombre == 'Otra indicación' || indicacion.tipo == 'Otra indicación'">
+                                                <br/>
+                                                {{indicacion.descripcion}}
+                                            </span>
+
+                                            <div ng-if="indicacion.tipo.nombre == 'Heparina o profilaxis' || indicacion.tipo == 'Heparina o profilaxis'
+                                                || indicacion.tipo.nombre == 'Protección gástrica' || indicacion.tipo == 'Protección gástrica'
+                                                || indicacion.tipo.nombre == 'Antibióticos' || indicacion.tipo == 'Antibióticos'
+                                                || indicacion.tipo.nombre == 'Otra medicación' || indicacion.tipo == 'Otra medicación'
+                                                ">
+                                                {{indicacion.medicamento.descripcion}}
+                                            </div>
+
+                                            <div ng-if="indicacion.tipo.nombre == 'Controles' || indicacion.tipo == 'Controles'">
+                                                {{indicacion.controles.tipo.nombre ? indicacion.controles.tipo.nombre : indicacion.controles.tipo}}
+                                            </div>
+
+                                            <div ng-if="indicacion.tipo.nombre == 'Cuidados generales' || indicacion.tipo == 'Cuidados generales'">
+                                                {{indicacion.cuidadosGenerales.tipo.nombre ? indicacion.cuidadosGenerales.tipo.nombre : indicacion.cuidadosGenerales.tipo}}
+                                                <span ng-show="indicacion.cuidadosGenerales.tipo == 'Oxígeno'">
+                                                    {{indicacion.cuidadosGenerales.oxigeno.respiracion}}
+
+                                                    <span ng-show="indicacion.cuidadosGenerales.oxigeno.respiracion == 'Mascara'">
+                                                        al {{indicacion.cuidadosGenerales.oxigeno.cantidad}} %
+                                                    <span>
+                                                    <span ng-show="indicacion.cuidadosGenerales.oxigeno.respiracion == 'Bigotera'">
+                                                        a {{indicacion.cuidadosGenerales.oxigeno.cantidad}} lt/min
+                                                    <span>
+                                                </span>
+                                            </div>
+
+                                            <div ng-if="indicacion.tipo.nombre == 'Cuidados especiales' || indicacion.tipo == 'Cuidados especiales'">
+                                                {{indicacion.cuidadosEspeciales.tipo}}
+
+                                                <span ng-if="indicacion.cuidadosEspeciales.tipo == 'Sonda'">
+                                                    {{indicacion.cuidadosEspeciales.sonda.tipo}}
+                                                    <span class="label label-default ">
+                                                        {{indicacion.cuidadosEspeciales.sonda.accion}}
+                                                    </span>
+                                                </span>
+
+                                                <span ng-if="indicacion.cuidadosEspeciales.tipo == 'Aislamiento'">
+                                                    {{indicacion.cuidadosEspeciales.aislamiento.tipo}}
+                                                    <span class="label label-default ">
+                                                        {{indicacion.cuidadosEspeciales.aislamiento.accion}}
+                                                    </span>
+                                                </span>
+                                            </div>
+
+                                            <div ng-if="indicacion.tipo.nombre == 'Solicitud prestaciones' || indicacion.tipo == 'Solicitud prestaciones'">
+
+                                                <span class="label label-default" ng-show="indicacion.prestaciones.prioridad == 'No prioritario' || indicacion.prestaciones.prioridad.nombre == 'No prioritario'">No prioritario</span>
+                                                <span class="label label-warning" ng-show="indicacion.prestaciones.prioridad == 'Urgente' || indicacion.prestaciones.prioridad.nombre == 'Urgente'">Urgente</span>
+                                                <span class="label label-danger" ng-show="indicacion.prestaciones.prioridad == 'Emergencia' || indicacion.prestaciones.prioridad.nombre == 'Emergencia'">Emergencia</span>
+                                                {{indicacion.prestaciones.tipoPrestacion.nombre}}
+                                                {{indicacion.prestaciones.tipoPrestacion.texto}}
+
+                                            </div>
+
+                                            <div ng-if="indicacion.tipo.nombre == 'Nutrición' || indicacion.tipo == 'Nutrición'">
+                                                <span ng-show="indicacion.nutricion.tipo.ayuno">
+                                                    Ayuno /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.blandoMecanico">
+                                                    Blando mecánico /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.general">
+                                                    General /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.acompanante">
+                                                    Acompañante /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.diabetico">
+                                                    Diabético /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.licuado">
+                                                    Licuado /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.insuficienciaRenal">
+                                                    Insuficencia renal /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.ricoEnResiduo">
+                                                    Rico en residuo /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.hepatoGastroProtectora">
+                                                    Hepato/Gastro protectora /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.astringente">
+                                                    Astringente /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.liquido01">
+                                                    Líquido 01 /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.sinSal">
+                                                    Sin sal /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.blandoSinCarne02">
+                                                    Blando sin carne 02 /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.blandoConCarne03">
+                                                    Blando sin carne 03 /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.sinGluten">
+                                                    Sin Gluten /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.todoCocido">
+                                                    Todo cocido /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.individual">
+                                                    Individual /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.hiperConColacion">
+                                                    Hiper c/colocación /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.pediatrico1_2">
+                                                    Pediátrico 1 - 2 /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.nadaPorBoca">
+                                                    Nada por boca /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.lactante1_2">
+                                                    Lactante 1 - 2 /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.hipocalorico">
+                                                    Hipocalórico /
+                                                </span>
+                                                <!-- <span ng-show="indicacion.nutricion.tipo.soporteOral">
+                                                    Preparado oral
+                                                    {{indicacion.nutricion.cantidadSoporteOral}}
+                                                    ml
+                                                </span> -->
+                                                <br />
+                                                <span ng-show="indicacion.nutricion.enteral">
+                                                    Nutrición enteral:
+                                                    <br />
+                                                    {{indicacion.nutricion.enteral.tipoPreparado.descripcion}}
+                                                    {{indicacion.nutricion.enteral.cantidad}} ml
+                                                    por {{indicacion.nutricion.enteral.sonda}}
+                                                    a {{indicacion.nutricion.enteral.velocidadInfunsion.velocidad}} {{indicacion.nutricion.enteral.velocidadInfunsion.unidad}}
+                                                    <br />
+                                                </span>
+
+                                                <span ng-show="indicacion.nutricion.soporteOral">
+                                                    Soporte oral:
+                                                    <br />
+                                                    {{indicacion.nutricion.soporteOral.tipoPreparado.descripcion}}
+                                                    {{indicacion.nutricion.soporteOral.cantidad}} ml
+                                                </span>
+
+
+                                            </div>
+
+                                        </td>
+                                        <td >{{indicacion.via}}</td>
+                                        <td >
+                                            <span ng-if="indicacion.frecuencia == 'unica'">UD</span>
+                                            <span ng-if="indicacion.frecuencia == '24'">Día</span>
+                                            <span ng-if="indicacion.frecuencia == 'rescates'">Rescates</span>
+                                            <span ng-if="indicacion.frecuencia == '12' || indicacion.frecuencia == '8' || indicacion.frecuencia == '6' || indicacion.frecuencia == '4' || indicacion.frecuencia == '2' || indicacion.frecuencia == '1'">
+                                                c/{{indicacion.frecuencia}}
+                                                hs
+                                            </span>
+
+                                        </td>
+
+                                        <td class="text-center" ng-hide="evolucionarIndicacion && indicacion.id != evolucionarIndicacion.id">
+                                            {{indicacion.createdBy.name}}
+                                            <br/>
+                                            {{indicacion.servicio.nombreCorto}}
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h5 ng-if="indicacionesSuspendidas.length">Nuevas suspendidas</h5>
+
+                            <table class="table tabla-hover" ng-if="indicacionesSuspendidas.length">
+                                <thead>
+                                    <tr>
+                                        <th>Hora cancelada</th>
+                                        <th>Indicación</th>
+                                        <th>Vía</th>
+                                        <th>Frecuencia</th>
+                                        <th>Usuario / Servicio</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="indicacion in indicacionesSuspendidas">
+
+                                        <td class="text-center">
+                                            {{indicacion.createdAt | fromNow }}<br/>
+                                            <div class="text-muted small">
+                                                {{indicacion.createdAt | date: "dd/MM/yyyy HH:mm"}}
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <span>
+                                                <b>
+                                                    <i>{{indicacion.tipo.nombre ? indicacion.tipo.nombre : indicacion.tipo }}</i>
+                                                </b>
+                                            </span>
+
+                                            <span ng-if="indicacion.tipo.nombre == 'Plan hidratación oral' || indicacion.tipo == 'Plan hidratación oral'">
+                                                <br/>
+                                                {{indicacion.planHidratacion.oral.descripcion}}
+                                                {{indicacion.planHidratacion.oral.cantidad}}
+                                                ml
+                                            </span>
+
+                                            <span ng-if="indicacion.tipo.nombre == 'Plan hidratación enteral' || indicacion.tipo == 'Plan hidratación enteral'">
+                                                <b>
+                                                    {{indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad+indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad+indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad}}
+                                                    ml por
+                                                    {{indicacion.planHidratacion.enteralParenteral.sonda}}
+                                                </b>
+
+                                                <br />
+
+                                                <span ng-show="indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad > 0">
+                                                    Solución fisiológica {{indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad}} ml
+                                                </span>
+
+                                                <br />
+
+                                                <span ng-show="indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad > 0">
+                                                    Dextrosa {{indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad}} ml
+                                                </span>
+
+                                                <br />
+
+                                                <span ng-show="indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad > 0">
+                                                    Ringer-Lactato {{indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad}} ml
+                                                </span>
+                                            </span>
+
+                                            <span ng-if="indicacion.tipo.nombre == 'Plan hidratación parenteral' || indicacion.tipo == 'Plan hidratación parenteral'">
+                                                <!-- {{indicacion.planHidratacion.tipoPlan.nombre ? indicacion.planHidratacion.tipoPlan.nombre : indicacion.planHidratacion.tipoPlan }} -->
+                                                <b>
+                                                    {{indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad+indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad+indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad}}
+                                                    ml
+                                                </b>
+
+                                                <br />
+
+                                                <span ng-show="indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad > 0">
+                                                    Solución fisiológica {{indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad}} ml
+                                                    -
+                                                    <span ng-if="indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos.length">
+                                                        Frascos
+                                                        <span class="fa-stack fa-lg frascos"  ng-repeat="frasco in indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos">
+                                                            <i class="fisiologica mdi mdi-cup"></i>
+                                                            <i class="fa  fa-stack-1x numero">
+                                                                {{frasco}}
+                                                            </i>
+                                                        </span>
+                                                    </span>
+                                                </span>
+
+                                                <br />
+
+                                                <span ng-show="indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad > 0">
+                                                    Dextrosa {{indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad}} ml
+                                                    -
+                                                    <span ng-if="indicacion.planHidratacion.enteralParenteral.dextrosa.frascos.length">
+                                                        Frascos
+                                                        <span class="fa-stack fa-lg frascos"  ng-repeat="frasco in indicacion.planHidratacion.enteralParenteral.dextrosa.frascos">
+                                                            <i class="dextrosa mdi mdi-cup"></i>
+                                                            <i class="fa  fa-stack-1x numero">
+                                                                {{frasco}}
+                                                            </i>
+                                                        </span>
+                                                    </span>
+                                                </span>
+
+                                                <br />
+
+                                                <span ng-show="indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad > 0">
+                                                    Ringer-Lactato {{indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad}} ml
+                                                    -
+                                                    <span ng-if="indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos.length">
+                                                    Frascos
+                                                        <span class="fa-stack fa-lg frascos"  ng-repeat="frasco in indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos">
+                                                            <i class=" mdi mdi-cup"></i>
+                                                            <i class="fa  fa-stack-1x numero">
+                                                                {{frasco}}
+                                                            </i>
+                                                        </span>
+                                                    </span>
+                                                </span>
+
+                                                <div ng-if="indicacion.planHidratacion.enteralParenteral.agregados.length">
+
+                                                    <b>Agregados</b>
+                                                    <div ng-repeat="agregado in indicacion.planHidratacion.enteralParenteral.agregados">
+                                                        +
+                                                        {{agregado.tipoAgregado.nombre ? agregado.tipoAgregado.nombre : agregado.tipoAgregado}}
+                                                        {{agregado.descripcion}}
+
+                                                        <span class="mr label label-primary" ng-if="agregado.frascos.length == indicacion.planHidratacion.$frascos">Todos</span>
+
+                                                        <span class="fa-stack fa-lg frascos" ng-if="agregado.frascos.length != indicacion.planHidratacion.$frascos" ng-repeat="frasco in agregado.frascos">
+                                                            <i class=" mdi mdi-cup"></i>
+                                                            <i class="fa  fa-stack-1x numero">
+                                                                {{frasco}}
+                                                            </i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                            </span>
+
+                                            <span ng-if="indicacion.tipo.nombre == 'Otra indicación' || indicacion.tipo == 'Otra indicación'">
+                                                <br/>
+                                                {{indicacion.descripcion}}
+                                            </span>
+
+                                            <div ng-if="indicacion.tipo.nombre == 'Heparina o profilaxis' || indicacion.tipo == 'Heparina o profilaxis'
+                                                || indicacion.tipo.nombre == 'Protección gástrica' || indicacion.tipo == 'Protección gástrica'
+                                                || indicacion.tipo.nombre == 'Antibióticos' || indicacion.tipo == 'Antibióticos'
+                                                || indicacion.tipo.nombre == 'Otra medicación' || indicacion.tipo == 'Otra medicación'
+                                                ">
+                                                {{indicacion.medicamento.descripcion}}
+                                            </div>
+
+                                            <div ng-if="indicacion.tipo.nombre == 'Controles' || indicacion.tipo == 'Controles'">
+                                                {{indicacion.controles.tipo.nombre ? indicacion.controles.tipo.nombre : indicacion.controles.tipo}}
+                                            </div>
+
+                                            <div ng-if="indicacion.tipo.nombre == 'Cuidados generales' || indicacion.tipo == 'Cuidados generales'">
+                                                {{indicacion.cuidadosGenerales.tipo.nombre ? indicacion.cuidadosGenerales.tipo.nombre : indicacion.cuidadosGenerales.tipo}}
+                                                <span ng-show="indicacion.cuidadosGenerales.tipo == 'Oxígeno'">
+                                                    {{indicacion.cuidadosGenerales.oxigeno.respiracion}}
+
+                                                    <span ng-show="indicacion.cuidadosGenerales.oxigeno.respiracion == 'Mascara'">
+                                                        al {{indicacion.cuidadosGenerales.oxigeno.cantidad}} %
+                                                    <span>
+                                                    <span ng-show="indicacion.cuidadosGenerales.oxigeno.respiracion == 'Bigotera'">
+                                                        a {{indicacion.cuidadosGenerales.oxigeno.cantidad}} lt/min
+                                                    <span>
+                                                </span>
+                                            </div>
+
+                                            <div ng-if="indicacion.tipo.nombre == 'Cuidados especiales' || indicacion.tipo == 'Cuidados especiales'">
+                                                {{indicacion.cuidadosEspeciales.tipo}}
+
+                                                <span ng-if="indicacion.cuidadosEspeciales.tipo == 'Sonda'">
+                                                    {{indicacion.cuidadosEspeciales.sonda.tipo}}
+                                                    <span class="label label-default ">
+                                                        {{indicacion.cuidadosEspeciales.sonda.accion}}
+                                                    </span>
+                                                </span>
+
+                                                <span ng-if="indicacion.cuidadosEspeciales.tipo == 'Aislamiento'">
+                                                    {{indicacion.cuidadosEspeciales.aislamiento.tipo}}
+                                                    <span class="label label-default ">
+                                                        {{indicacion.cuidadosEspeciales.aislamiento.accion}}
+                                                    </span>
+                                                </span>
+                                            </div>
+
+                                            <div ng-if="indicacion.tipo.nombre == 'Solicitud prestaciones' || indicacion.tipo == 'Solicitud prestaciones'">
+
+                                                <span class="label label-default" ng-show="indicacion.prestaciones.prioridad == 'No prioritario' || indicacion.prestaciones.prioridad.nombre == 'No prioritario'">No prioritario</span>
+                                                <span class="label label-warning" ng-show="indicacion.prestaciones.prioridad == 'Urgente' || indicacion.prestaciones.prioridad.nombre == 'Urgente'">Urgente</span>
+                                                <span class="label label-danger" ng-show="indicacion.prestaciones.prioridad == 'Emergencia' || indicacion.prestaciones.prioridad.nombre == 'Emergencia'">Emergencia</span>
+                                                {{indicacion.prestaciones.tipoPrestacion.nombre}}
+                                                {{indicacion.prestaciones.tipoPrestacion.texto}}
+
+                                            </div>
+
+                                            <div ng-if="indicacion.tipo.nombre == 'Nutrición' || indicacion.tipo == 'Nutrición'">
+                                                <span ng-show="indicacion.nutricion.tipo.ayuno">
+                                                    Ayuno /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.blandoMecanico">
+                                                    Blando mecánico /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.general">
+                                                    General /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.acompanante">
+                                                    Acompañante /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.diabetico">
+                                                    Diabético /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.licuado">
+                                                    Licuado /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.insuficienciaRenal">
+                                                    Insuficencia renal /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.ricoEnResiduo">
+                                                    Rico en residuo /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.hepatoGastroProtectora">
+                                                    Hepato/Gastro protectora /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.astringente">
+                                                    Astringente /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.liquido01">
+                                                    Líquido 01 /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.sinSal">
+                                                    Sin sal /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.blandoSinCarne02">
+                                                    Blando sin carne 02 /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.blandoConCarne03">
+                                                    Blando sin carne 03 /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.sinGluten">
+                                                    Sin Gluten /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.todoCocido">
+                                                    Todo cocido /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.individual">
+                                                    Individual /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.hiperConColacion">
+                                                    Hiper c/colocación /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.pediatrico1_2">
+                                                    Pediátrico 1 - 2 /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.nadaPorBoca">
+                                                    Nada por boca /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.lactante1_2">
+                                                    Lactante 1 - 2 /
+                                                </span>
+                                                <span ng-show="indicacion.nutricion.tipo.hipocalorico">
+                                                    Hipocalórico /
+                                                </span>
+                                                <!-- <span ng-show="indicacion.nutricion.tipo.soporteOral">
+                                                    Preparado oral
+                                                    {{indicacion.nutricion.cantidadSoporteOral}}
+                                                    ml
+                                                </span> -->
+                                                <br />
+                                                <span ng-show="indicacion.nutricion.enteral">
+                                                    Nutrición enteral:
+                                                    <br />
+                                                    {{indicacion.nutricion.enteral.tipoPreparado.descripcion}}
+                                                    {{indicacion.nutricion.enteral.cantidad}} ml
+                                                    por {{indicacion.nutricion.enteral.sonda}}
+                                                    a {{indicacion.nutricion.enteral.velocidadInfunsion.velocidad}} {{indicacion.nutricion.enteral.velocidadInfunsion.unidad}}
+                                                    <br />
+                                                </span>
+
+                                                <span ng-show="indicacion.nutricion.soporteOral">
+                                                    Soporte oral:
+                                                    <br />
+                                                    {{indicacion.nutricion.soporteOral.tipoPreparado.descripcion}}
+                                                    {{indicacion.nutricion.soporteOral.cantidad}} ml
+                                                </span>
+
+
+                                            </div>
+
+                                        </td>
+                                        <td >{{indicacion.via}}</td>
+                                        <td >
+                                            <span ng-if="indicacion.frecuencia == 'unica'">UD</span>
+                                            <span ng-if="indicacion.frecuencia == '24'">Día</span>
+                                            <span ng-if="indicacion.frecuencia == 'rescates'">Rescates</span>
+                                            <span ng-if="indicacion.frecuencia == '12' || indicacion.frecuencia == '8' || indicacion.frecuencia == '6' || indicacion.frecuencia == '4' || indicacion.frecuencia == '2' || indicacion.frecuencia == '1'">
+                                                c/{{indicacion.frecuencia}}
+                                                hs
+                                            </span>
+
+                                        </td>
+
+                                        <td class="text-center" ng-hide="evolucionarIndicacion && indicacion.id != evolucionarIndicacion.id">
+                                            {{indicacion.createdBy.name}}
+                                            <br/>
+                                            {{indicacion.servicio.nombreCorto}}
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <button type="button" class="btn btn-default col-lg-12" ng-click="tab = 5">
+                                Ir a las indicaciones
                             </button>
                         </div>
                     </div>
@@ -257,8 +906,6 @@
 
         </div>
 
-
-
         <div class="card card-block tab-content">
             <h3 >Datos de ingreso</h3>
             <br/>
@@ -266,7 +913,7 @@
                 <div class="row">
                     <div class="col-md-2">
                         <div class="form-group">
-                            <!-- <input class="form-control" type="text" label="Fecha de internación" ng-model="internacion.ingreso.fechaHora" plex="date" ng-required="true"> -->
+                            <!-- <input class="form-control" type="text" label="Fecha de internación</b> {{internacion.ingreso.fechaHora" plex="date" ng-required="true"> -->
                             <label>Fecha de internación</label>
                             <p>{{internacion.ingreso.fechaHora | date: 'dd/MM/yyyy H:mm'}}
                                 hs</p>
@@ -293,6 +940,443 @@
                     </div>
                 </div>
             </form>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <h4>Valoración médica
+                        <a href="internacion/{{internacion.id}}/valoracionMedica" class="btn btn-sm btn-primary btn-flat tips" title="Editar valoración inicial médica">
+                            <i class="mdi mdi-pencil"></i>
+                            Editar
+                        </a>
+                    </h4>
+
+                    <h5>Enfermedad actual</h5>
+                    <p ng-show="internacion.ingreso.medico.enfermedadActual">
+                        <b>Enfermedad actual</b>
+                        {{internacion.ingreso.medico.enfermedadActual}}
+                    </p>
+
+                    <h5>Estudios previos</h5>
+                    <p ng-show="internacion.ingreso.estudiosPrevios.pap">
+                        <b>PAP/HPV</b> {{internacion.ingreso.estudiosPrevios.pap}}
+                    </p>
+                    <p ng-show="internacion.ingreso.estudiosPrevios.mamografia">
+                        <b>Mamografía</b> {{internacion.ingreso.estudiosPrevios.mamografia}}
+                    </p>
+                    <p ng-show="internacion.ingreso.estudiosPrevios.otros">
+                        <b>Otros</b> {{internacion.ingreso.estudiosPrevios.otros}}
+                    </p>
+                    <p ng-show="internacion.ingreso.estudiosPrevios.fechaSerologiaPrevia">
+                        <b>Fecha Serología previa (HIV, Hepatitis B, C, VDRL)</b> {{internacion.ingreso.estudiosPrevios.fechaSerologiaPrevia}}
+                    </p>
+
+                    <h5>Exámen físico</h5>
+                    <p ng-show="internacion.ingreso.medico.examenFisico.piel">
+                        <b>Piel</b> {{internacion.ingreso.medico.examenFisico.piel}}
+                    </p>
+                    <p ng-show="internacion.ingreso.medico.examenFisico.cabezaCuello">
+                        <b>Cabeza y cuello</b> {{internacion.ingreso.medico.examenFisico.cabezaCuello}}
+                    </p>
+                    <p ng-show="internacion.ingreso.medico.examenFisico.torax">
+                        <b>Tórax / Mamas</b> {{internacion.ingreso.medico.examenFisico.torax}}
+                    </p>
+                    <p ng-show="internacion.ingreso.medico.examenFisico.cardiovascular">
+                        <b>Cardiovascular</b> {{internacion.ingreso.medico.examenFisico.cardiovascular}}
+                    </p>
+                    <p ng-show="internacion.ingreso.medico.examenFisico.respiratorio">
+                        <b>Respiratorio</b> {{internacion.ingreso.medico.examenFisico.respiratorio}}
+                    </p>
+                    <p ng-show="internacion.ingreso.medico.examenFisico.abdomen">
+                        <b>Abdomen</b> {{internacion.ingreso.medico.examenFisico.abdomen}}
+                    </p>
+                    <p ng-show="internacion.ingreso.medico.examenFisico.genitales">
+                        <b>Genitales</b> {{internacion.ingreso.medico.examenFisico.genitales}}
+                    </p>
+                    <p ng-show="internacion.ingreso.medico.examenFisico.recto">
+                        <b>Tacto rectal</b> {{internacion.ingreso.medico.examenFisico.recto}}
+                    </p>
+                    <p ng-show="internacion.ingreso.medico.examenFisico.osteoartromuscular">
+                        <b>Osteo Artro Muscular</b> {{internacion.ingreso.medico.examenFisico.osteoartromuscular}}
+                    </p>
+                    <p ng-show="internacion.ingreso.medico.examenFisico.neurologico">
+                        <b>Neurológico y psiquismo</b> {{internacion.ingreso.medico.examenFisico.neurologico}}
+                    </p>
+                    <p ng-show="internacion.ingreso.medico.examenFisico.fondoOjo">
+                        <b>Fondo de ojo</b> {{internacion.ingreso.medico.examenFisico.fondoOjo}}
+                    </p>
+
+                    <h5>Exámenes complementarios</h5>
+                    <p ng-show="internacion.ingreso.medico.estudios.ecg">
+                        <b>ECG</b> {{internacion.ingreso.medico.estudios.ecg}}
+                    </p>
+                    <p ng-show="internacion.ingreso.medico.estudios.rx">
+                        <b>RX</b> {{internacion.ingreso.medico.estudios.rx}}
+                    </p>
+                    <p ng-show="internacion.ingreso.medico.estudios.otros">
+                        <b>Otros estudios</b> {{internacion.ingreso.medico.estudios.otros}}
+                    </p>
+
+                </div>
+                <div class="col-lg-6">
+                    <h4>Valoración enfermería
+                        <a href="valoracionEnfermeria/{{internacion.id}}" class="btn btn-sm btn-primary btn-flat tips" title="Editar valoración inicial médica">
+                            <i class="mdi mdi-pencil"></i>
+                            Editar
+                        </a>
+                    </h4>
+
+                    <div>
+                        <h5>
+                            Oxigenación
+                        </h5>
+                        <p ng-show="internacion.ingreso.enfermeria.disneaEsfuerzo">
+                            <b>Disnea esfuerzo</b>
+                            <!-- {{internacion.ingreso.enfermeria.disneaEsfuerzo}} -->
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.disneaReposo">
+                            <b>Disnea reposo</b>
+                            <!-- {{internacion.ingreso.enfermeria.disneaReposo}} -->
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.tos">
+                            <b>Tos</b>
+                            <!-- {{internacion.ingreso.enfermeria.tos}} -->
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.secreciones">
+                            <b>Secreciones</b>
+                            <br />
+                            <b>Características</b>
+                            {{internacion.ingreso.enfermeria.secrecionesCaracteristicas}}
+                            <br />
+                            <b>Color</b>
+                            {{internacion.ingreso.enfermeria.secrecionesColor}}
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.usoMusculos">
+                            <b>Uso de músculos accesorios</b>
+                            {{internacion.ingreso.enfermeria.musculosCuales}}
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.observacionesOxigenacion">
+                            <b>Observaciones</b>
+                            {{internacion.ingreso.enfermeria.observacionesOxigenacion}}
+                        </p>
+                    </div>
+
+                    <div>
+                        <h5>Nutrición</h5>
+                        <p ng-show="internacion.ingreso.enfermeria.nauseas">
+                            <b>Nauseas</b>
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.vomitos">
+                            <b>Vómitos</b>
+                            {{internacion.ingreso.enfermeria.vomitosCaracteristicas}}
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.habitosAlimentarios">
+                            <b>Hábitos alimentarios</b>
+                            {{internacion.ingreso.enfermeria.habitosAlimentarios}}
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.otrosNutricion">
+                            <b>Otros</b>
+                            {{internacion.ingreso.enfermeria.otrosNutricion}}
+                        </p>
+
+                        <p ng-show="internacion.ingreso.enfermeria.piezasDentarias">
+                            <b>Piezas dentarias incompletas</b>
+                        </p>
+
+                        <p ng-show="internacion.ingreso.enfermeria.protesis">
+                            <b ng-show="internacion.ingreso.enfermeria.protesisSuperior.activo">Protesis superior
+
+                                <span ng-show="!internacion.ingreso.enfermeria.protesisSuperior.completa">parcial</span>
+                                <span ng-show="internacion.ingreso.enfermeria.protesisSuperior.completa">completa</span>
+
+                                <span ng-show="!internacion.ingreso.enfermeria.protesisSuperior.fija">removible</span>
+                                <span ng-show="internacion.ingreso.enfermeria.protesisSuperior.fija">fija</span>
+                            </b>
+                            <br />
+                            <b ng-show="internacion.ingreso.enfermeria.protesisInferior.activo">Protesis inferior
+
+                                <span ng-show="!internacion.ingreso.enfermeria.protesisInferior.completa">parcial</span>
+                                <span ng-show="internacion.ingreso.enfermeria.protesisInferior.completa">completa</span>
+
+                                <span ng-show="!internacion.ingreso.enfermeria.protesisInferior.fija">removible</span>
+                                <span ng-show="internacion.ingreso.enfermeria.protesisInferior.fija">fija</span>
+                            </b>
+                        </p>
+
+                        <p ng-show="internacion.ingreso.enfermeria.dificultadesDeglutir">
+                            <b>Dificultades para deglutir</b>
+                        </p>
+
+                        <p ng-show="internacion.ingreso.enfermeria.dificultadesMasticar">
+                            <b>Dificultades para masticar</b>
+                        </p>
+
+                        <p ng-show="internacion.ingreso.enfermeria.lactanciaMaterna">
+                            <b>Lactancia materna</b>
+                            {{internacion.ingreso.enfermeria.observacionesLactancia}}
+                        </p>
+
+                        <p ng-show="internacion.ingreso.enfermeria.observacionesNutricion">
+                            <b>Observaciones</b>
+                            {{internacion.ingreso.enfermeria.observacionesNutricion}}
+                        </p>
+                    </div>
+
+                    <div>
+                        <h5>Eliminación vesical</h5>
+                        <p ng-show="internacion.ingreso.enfermeria.espontaneaVesical">
+                            <b>Espontánea</b> {{internacion.ingreso.enfermeria.espontaneaVesicalCaracteristica}}
+                            {{internacion.ingreso.enfermeria.espontaneaVesicalTipo}}
+                        </p>
+
+                        <p ng-show="internacion.ingreso.enfermeria.incontinenciaVesical">
+                            <b>Incontinencia</b>
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.urostomiaVesical">
+                            <b>Urostomía</b>
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.incontinenciaVesical">
+                            <b>Sonda vesical</b>
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.tallaVesical">
+                            <b>Talla vesical</b>
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.otrosVesical">
+                            <b>Otros</b> {{internacion.ingreso.enfermeria.caracteristicaVesical}}
+                        </p>
+
+                        Eliminación intestinal
+                        <p ng-show="internacion.ingreso.enfermeria.espontaneaIntestinal">
+                            <b>Espontánea</b> {{internacion.ingreso.enfermeria.espontaneaIntestinal}}
+                        </p>
+
+                        <p ng-show="internacion.ingreso.enfermeria.ostomiaIntestinal">
+                            <b>Ostomía</b>
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.urostomiaIntestinal">
+                            <b>Urostomía</b>
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.diarreaIntestinal">
+                            <b>Diarrea</b>
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.incontinenciaIntestinal">
+                            <b>Incontinencia</b>
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.constipacionIntestinal">
+                            <b>Constipación</b>
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.rectorragiaIntestinal">
+                            <b>Rectorragia</b>
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.melenaIntestinal">
+                            <b>Melena</b>
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.otrosIntestinal">
+                            <b>Otros</b> {{internacion.ingreso.enfermeria.caracteristicaIntestinal}}
+                        </p>
+
+                        <p ng-show="internacion.ingreso.enfermeria.observacionesEliminacion">
+                            <b>Observaciones</b>
+                            {{internacion.ingreso.enfermeria.observacionesEliminacion}}
+                        </p>
+                    </div>
+
+                    <div>
+                        <h5>Proteger los tegumentos</h5>
+                        <p ng-show="internacion.ingreso.enfermeria.color">
+                            <b>Color</b> {{internacion.ingreso.enfermeria.color}}
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.higiene">
+                            <b>Higiene</b> {{internacion.ingreso.enfermeria.higiene}}
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.higieneAyuda">
+                            <b>Con ayuda</b>
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.edemas">
+                            <b>Edemas</b> {{internacion.ingreso.enfermeria.edemasLocalizacion}}
+                        </p>
+
+                        <p ng-show="internacion.ingreso.enfermeria.mucosasLesiones || internacion.ingreso.enfermeria.mucosasDeshidratadas">
+                            <b>Mucosas</b>
+                            {{internacion.ingreso.enfermeria.mucosasLesiones}} {{internacion.ingreso.enfermeria.mucosasDeshidratadas}}
+                        </p>
+
+                        <p ng-show="internacion.ingreso.enfermeria.pielLesiones || internacion.ingreso.enfermeria.pielDeshidratada">
+                            <b>Piel</b>
+                            {{internacion.ingreso.enfermeria.pielLesiones}} {{internacion.ingreso.enfermeria.pielDeshidratada}}
+                        </p>
+
+                        <p ng-show="internacion.ingreso.enfermeria.piesLesiones || internacion.ingreso.enfermeria.piesDeshidratados">
+                            <b>Pies</b>
+                            {{internacion.ingreso.enfermeria.piesLesiones}} {{internacion.ingreso.enfermeria.piesDeshidratados}}
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.bocaLesiones || internacion.ingreso.enfermeria.bocaDeshidratada">
+                            <b>Boca</b>
+                            {{internacion.ingreso.enfermeria.bocaLesiones}} {{internacion.ingreso.enfermeria.bocaDeshidratada}}
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.genitalesLesiones || internacion.ingreso.enfermeria.genitalesDeshidratados">
+                            <b>Genitales</b>
+                            {{internacion.ingreso.enfermeria.genitalesLesiones}} {{internacion.ingreso.enfermeria.genitalesDeshidratados}}
+                        </p>
+
+                        <p ng-show="internacion.ingreso.enfermeria.flebitis">
+                            <b>Flebitis</b>
+                            {{internacion.ingreso.enfermeria.flebitis.grado}} {{internacion.ingreso.enfermeria.flebitis.observacionesFlebitis}}
+                        </p>
+
+                        <p ng-show="internacion.ingreso.enfermeria.observacionesTegumentos">
+                            <b>Observaciones</b>
+                            {{internacion.ingreso.enfermeria.observacionesOxigenacion}}
+                        </p>
+                    </div>
+
+                    <div>
+                        <h5>Movilizarse y vestirse</h5>
+                        <p ng-show="internacion.ingreso.enfermeria.ayudaVestirse">
+                            <b>Necesita ayuda para vestirse</b>
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.dificultadesCaminar">
+                            <b>Presenta dificultades para caminar</b> {{internacion.ingreso.enfermeria.dificultadesCaminar}}
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.dispositivosMovilizacion">
+                            <b>Uso de dispositivos de movilización</b> {{internacion.ingreso.enfermeria.dispositivosCuales}}
+                        </p>
+
+                        <p ng-show="internacion.ingreso.enfermeria.observacionesMovilizarse">
+                            <b>Observaciones</b>
+                            {{internacion.ingreso.enfermeria.observacionesMovilizarse}}
+                        </p>
+                    </div>
+
+                    <div>
+                        <h5>Dormir y reposar</h5>
+                        <p ng-show="internacion.ingreso.enfermeria.dormirContinuo">
+                            <b>Sueño contínuo</b>
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.dormirDiscontinuo">
+                            <b>Sueño discontínuo</b>
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.dormirInsomnio">
+                            <b>Insomnio</b>
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.dormirSomnolencia">
+                            <b>Somnolencia</b>
+                        </p>
+
+                        <p ng-show="internacion.ingreso.enfermeria.observacionesDormir">
+                            <b>Observaciones</b>
+                            {{internacion.ingreso.enfermeria.observacionesDormir}}
+                        </p>
+                    </div>
+                    <div>
+                        <h5>Seguridad</h5>
+                        <p ng-show="internacion.ingreso.enfermeria.riesgosFisicos || internacion.ingreso.enfermeria.riesgosQuimicos">
+                            <b>
+                                <span ng-show="internacion.ingreso.enfermeria.riesgosFisicos">
+                                    Riesgos físicos
+                                </span>
+                                <span ng-show="internacion.ingreso.enfermeria.riesgosQuimicos">
+                                    Riesgos químicos
+                                </span>
+                                {{internacion.ingreso.enfermeria.riesgosCuales}}
+                            </b>
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.riesgoCardiovascular">
+                            <b>Riesgo cardiovascular</b>
+                            {{internacion.ingreso.enfermeria.otrosDescriba}}
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.observacionesSeguridad">
+                            <b>Observaciones</b>
+                            {{internacion.ingreso.enfermeria.observacionesSeguridad}}
+                        </p>
+                    </div>
+                    <div>
+                        <h5>Comunicación y sensopercepción</h5>
+                        <p>
+                            <b>
+                                Orientación
+                            </b>
+                            <span ng-show="internacion.ingreso.enfermeria.orientado">Orientado</span>
+                            <span ng-show="!internacion.ingreso.enfermeria.orientado">Desorientado</span>
+                        </p>
+                        <p>
+                            <b>
+                                Visión
+                            </b>
+                            {{internacion.ingreso.enfermeria.vision}}
+                        </p>
+                        <p>
+                            <b>
+                                Audición
+                            </b>
+                            {{internacion.ingreso.enfermeria.audicion}}
+                        </p>
+                        <p>
+                            <b>
+                                Lenguaje
+                            </b>
+                            {{internacion.ingreso.enfermeria.lenguaje}}
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.describaSensopercepcion">
+                            <b>
+                                Descripción
+                            </b>
+                            {{internacion.ingreso.enfermeria.describaSensopercepcion}}
+                        </p>
+
+                        <p ng-show="internacion.ingreso.enfermeria.observacionesComunicacion">
+                            <b>Observaciones</b>
+                            {{internacion.ingreso.enfermeria.observacionesComunicacion}}
+                        </p>
+                    </div>
+
+                    <div>
+                        <h5>Espiritualidad</h5>
+                        <p ng-show="internacion.ingreso.enfermeria.creenciasReligiosas">
+                            <b>Creencias religiosas</b>
+                            {{internacion.ingreso.enfermeria.creenciasReligiosas}}
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.frecuenciaIglesia">
+                            <b>Frecuencia con la que asiste a la iglesia</b>
+                            {{internacion.ingreso.enfermeria.frecuenciaIglesia}}
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.visitaReligioso">
+                            <b>Desea visita de religioso (internación)</b>
+                            {{internacion.ingreso.enfermeria.visitaReligioso}}
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.observacionesEspiritualidad">
+                            <b>Observaciones</b>
+                            {{internacion.ingreso.enfermeria.observacionesEspiritualidad}}
+                        </p>
+                    </div>
+
+                    <div>
+                        <h5>Aprender/Autorealizarse/Recrearse</h5>
+                        <p ng-show="internacion.ingreso.enfermeria.comprendeSituacion">
+                            <b>Comprende su situación de salud</b>
+                            {{internacion.ingreso.enfermeria.sentimientosSituacion}}
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.dudasExpresadas">
+                            <b>Dudas expresadas</b>
+                            {{internacion.ingreso.enfermeria.dudasExpresadas}}
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.actividadesHabituales">
+                            <b>Actividades recreativas habituales</b>
+                            {{internacion.ingreso.enfermeria.actividadesHabituales}}
+                        </p>
+                        <p ng-show="internacion.ingreso.enfermeria.observacionesAprender">
+                            <b>Observaciones</b>
+                            {{internacion.ingreso.enfermeria.observacionesAprender}}
+                        </p>
+                    </div>
+                    <div>
+                        Observaciones generales
+                        <p ng-show="internacion.ingreso.enfermeria.observacionesGenerales">
+                            <b>Observaciones generales de la valoración</b>
+                            {{internacion.ingreso.enfermeria.observacionesGenerales}}
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
 
 
@@ -364,7 +1448,7 @@
                                     <div class="row">
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <select class="form-control" label="Tipo" ng-model="drenajesEdit.tipo" plex>
+                                                <select class="form-control" label="Tipo</b> {{drenajesEdit.tipo}} </p>
                                                     <option value="pleural">Pleural</option>
                                                     <option value="percutaneo">Percutáneo</option>
                                                 </select>
@@ -372,7 +1456,7 @@
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <select class="form-control" label="Lado" ng-model="drenajesEdit.lado" plex>
+                                                <select class="form-control" label="Lado</b> {{drenajesEdit.lado}} </p>
                                                     <option value="izquierdo">Izquierdo</option>
                                                     <option value="derecho">Derecho</option>
                                                 </select>
@@ -380,13 +1464,13 @@
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <input class="form-control" type="text" label="Fecha desde" ng-model="drenajesEdit.fechaDesde" plex="datetime">
+                                                <input class="form-control" type="text" label="Fecha desde</b> {{drenajesEdit.fechaDesde" plex="datetime">
                                             </div>
                                         </div>
 
                                         <div class="col-xs-2" ng-if="drenajesEdit.id">
                                             <div class="form-group">
-                                                <input class="form-control" type="text" label="Fecha hasta" ng-model="drenajesEdit.fechaHasta" plex="datetime">
+                                                <input class="form-control" type="text" label="Fecha hasta</b> {{drenajesEdit.fechaHasta" plex="datetime">
                                             </div>
                                         </div>
 
@@ -560,6 +1644,157 @@
                     <h5>Medicación habitual</h5>
                     {{internacion.ingreso.antecedentes.medicacion}}
                 </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h5>Internaciones</h5>
+                        <table class="table table-hover table-striped" ng-if="internacionesAnteriores && internacionesAnteriores.length > 0">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Fecha
+                                    </th>
+                                    <th>
+                                        Motivo
+                                    </th>
+                                    <th>
+                                        Diagnóstico presuntivo
+                                    </th>
+                                    <th>
+                                        Estado
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="internacionAnterior in internacionesAnteriores | orderBy: '-ingreso.fechaHora'">
+                                    <td>
+                                        <b>Desde:</b>
+                                        {{internacionAnterior.ingreso.fechaHora | date : 'dd/MM/yyyy HH:mm'}} hs
+                                        <div ng-if="internacion.egreso.fechaHora">
+                                            <b>Hasta:</b>
+                                            {{internacionAnterior.egreso.fechaHora | date : 'dd/MM/yyyy HH:mm'}} hs
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {{internacionAnterior.ingreso.motivo}}
+                                    </td>
+                                    <td>
+                                        {{internacionAnterior.ingreso.diagnosticoPresuntivo}}
+                                    </td>
+                                    <td>
+                                        {{internacionAnterior.estado}}
+                                        <span ng-if="internacionAnterior.egreso.tipoAlta">
+                                            <br/>
+                                            {{internacionAnterior.egreso.tipoAlta}}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-3" ng-if="internacion.ingreso.antecedentes.patologicos">
+                        <h5>Antecedentes patológicos</h5>
+                        {{internacion.ingreso.antecedentes.patologicos}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <h5>Antecedentes sociales</h5>
+                        <p>
+                            <b>Estudios</b>
+                            <span ng-if="internacion.ingreso.antecedentes.sociales.universitarioCompleto">Universitario completo</span>
+                            <span ng-if="!internacion.ingreso.antecedentes.sociales.universitarioCompleto && internacion.ingreso.antecedentes.sociales.terciarioCompleto">Terciario completo</span>
+                            <span ng-if="!internacion.ingreso.antecedentes.sociales.terciarioCompleto && internacion.ingreso.antecedentes.sociales.secundarioCompleto">Secundario completo</span>
+                            <span ng-if="!internacion.ingreso.antecedentes.sociales.secundarioCompleto && internacion.ingreso.antecedentes.sociales.primarioCompleto">Primario completo</span>
+                        </p>
+                        <p ng-if="internacion.ingreso.antecedentes.sociales.ocupacion">
+                            <b>Profesión / ocupación</b>
+                            <span ng-if="internacion.ingreso.antecedentes.sociales.ocupacion">{{internacion.ingreso.antecedentes.sociales.ocupacion}}</span>
+                        </p>
+                        <p ng-if="internacion.ingreso.antecedentes.sociales.obraSocial">
+                            <b>Obra social</b>
+                            <span ng-if="internacion.ingreso.antecedentes.sociales.obraSocial">{{internacion.ingreso.antecedentes.sociales.obraSocial}}</span>
+                        </p>
+                        <p ng-if="internacion.ingreso.antecedentes.sociales.trabaja">
+                            <b>Trabaja</b>
+                            <span ng-if="internacion.ingreso.antecedentes.sociales.dondeTrabaja">en {{internacion.ingreso.antecedentes.sociales.dondeTrabaja}}</span>
+                        </p>
+                    </div>
+                    <div class="col-lg-3">
+                        <h5>Condiciones habitacionales</h5>
+                        <p ng-if="internacion.ingreso.antecedentes.condicionesHabitacionales.domicilio">
+                            <b>Domicilio</b>
+                            <span ng-if="internacion.ingreso.antecedentes.condicionesHabitacionales.domicilio">{{internacion.ingreso.antecedentes.condicionesHabitacionales.domicilio}}</span>
+                            <span ng-if="internacion.ingreso.antecedentes.condicionesHabitacionales.barrio">, Bº {{internacion.ingreso.antecedentes.condicionesHabitacionales.barrio}}</span>
+                        </p>
+                        <p ng-if="internacion.ingreso.antecedentes.condicionesHabitacionales.tipoVivienda">
+                            <b>Tipo vivienda</b>
+                            <span ng-if="internacion.ingreso.antecedentes.condicionesHabitacionales.tipoVivienda">{{internacion.ingreso.antecedentes.condicionesHabitacionales.tipoVivienda}}</span>
+                            <span ng-if="internacion.ingreso.antecedentes.condicionesHabitacionales.asentamientoToma">(es asentamiento/toma)</span>
+                        </p>
+                        <p>
+                            <b>Servicios</b>
+                            <span ng-if="internacion.ingreso.antecedentes.condicionesHabitacionales.aguaPotable">Agua potable</span>
+                            /
+                            <span ng-if="internacion.ingreso.antecedentes.condicionesHabitacionales.cloacas">Cloacas</span>
+                            /
+                            <span ng-if="internacion.ingreso.antecedentes.condicionesHabitacionales.gas">Gas</span>
+                            /
+                            <span ng-if="internacion.ingreso.antecedentes.condicionesHabitacionales.electricidad">Electricidad</span>
+                            /
+                            <span ng-if="internacion.ingreso.antecedentes.condicionesHabitacionales.calefaccionLenia">Calefacción a leña</span>
+                        </p>
+                    </div>
+                    <div class="col-lg-3" ng-if="internacion.ingreso.antecedentes.condicionesHabitacionales.conQuienConvive">
+                        <h5>Grupo familiar conviviente</h5>
+                        <p>
+                            <b>Vive acompañado</b>
+                            <span ng-if="internacion.ingreso.antecedentes.condicionesHabitacionales.conQuienConvive"> con {{internacion.ingreso.antecedentes.condicionesHabitacionales.conQuienConvive}}</span>
+                        </p>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <h5>Estilo de vida</h5>
+                        <p ng-if="internacion.ingreso.antecedentes.estiloVida.tabaco">
+                            <b>Tabaco</b>
+                            <span ng-if="internacion.ingreso.antecedentes.estiloVida.cigarrillosXdia">{{internacion.ingreso.antecedentes.estiloVida.cigarrillosXdia}} cigarrillos por día</span>
+                            <span ng-if="internacion.ingreso.antecedentes.estiloVida.fumaTiempo">hace {{internacion.ingreso.antecedentes.estiloVida.fumaTiempo}}</span>
+                        </p>
+                        <p ng-if="internacion.ingreso.antecedentes.estiloVida.alcohol">
+                            <b>Alcohol</b>
+                            <span ng-if="internacion.ingreso.antecedentes.estiloVida.consumoXdia">{{internacion.ingreso.antecedentes.estiloVida.consumoXdia}} consumo por día</span>
+                            <span ng-if="internacion.ingreso.antecedentes.estiloVida.bebeTiempo">hace {{internacion.ingreso.antecedentes.estiloVida.bebeTiempo}}</span>
+                        </p>
+                        <p ng-if="internacion.ingreso.antecedentes.estiloVida.drogas">
+                            <b>Drogas</b>
+                            <span ng-if="internacion.ingreso.antecedentes.estiloVida.cualesDrogas">{{internacion.ingreso.antecedentes.estiloVida.cualesDrogas}}</span>
+                            <span ng-if="internacion.ingreso.antecedentes.estiloVida.drogaTiempo">hace {{internacion.ingreso.antecedentes.estiloVida.drogaTiempo}}</span>
+                        </p>
+                        <p ng-if="internacion.ingreso.antecedentes.estiloVida.farmacos">
+                            <b>Fármacos</b>
+                            <span ng-if="internacion.ingreso.antecedentes.estiloVida.cualesFarmacos">{{internacion.ingreso.antecedentes.estiloVida.cualesFarmacos}}</span>
+                            <span ng-if="internacion.ingreso.antecedentes.estiloVida.farmacosTiempo">hace {{internacion.ingreso.antecedentes.estiloVida.farmacosTiempo}}</span>
+                        </p>
+                        <p ng-if="internacion.ingreso.antecedentes.estiloVida.actividadFisica">
+                            <b>Actividad física</b>
+                            <span ng-if="internacion.ingreso.antecedentes.estiloVida.cualActividadFisica">{{internacion.ingreso.antecedentes.estiloVida.cualActividadFisica}}</span>
+                        </p>
+                        <p ng-if="internacion.ingreso.antecedentes.estiloVida.alimentacionSaludable">
+                            <b>Alimentación saludable</b>
+                        </p>
+                        <p ng-if="internacion.ingreso.antecedentes.estiloVida.dietaEspecifica">
+                            <b>Dieta específica</b>
+                            <span ng-if="internacion.ingreso.antecedentes.estiloVida.cualDietaEspecifica">{{internacion.ingreso.antecedentes.estiloVida.cualDietaEspecifica}}</span>
+                        </p>
+                        <p ng-if="internacion.ingreso.antecedentes.estiloVida.parejaEstable">
+                            <b>Pareja estable</b>
+                        </p>
+                        <p ng-if="internacion.ingreso.antecedentes.estiloVida.viajesRecientes">
+                            <b>Viajes recientes</b>
+                            <span ng-if="internacion.ingreso.antecedentes.estiloVida.viajeDonde">a {{internacion.ingreso.antecedentes.estiloVida.viajeDonde}}</span>
+                        </p>
+                    </div>
+                </div>
             </div>
             <!-- <p ng-if="!internacion.ingreso.antecedentes.binarios && !internacion.ingreso.antecedentes.ginecoobstetricos && !internacion.ingreso.antecedentes.quirurgicos && !internacion.ingreso.antecedentes.familiares && !internacion.ingreso.antecedentes.medicacion">El paciente no posee antecedentes</p> -->
         </div>
@@ -639,25 +1874,25 @@
                         <legend>{{tituloFormulario}}</legend>
                         <div class="row">
                             <div class="col-lg-2">
-                                <input type=text label="Fecha" ng-model="pasesEdit.fechaHora" plex="date">
+                                <input type=text label="Fecha</b> {{pasesEdit.fechaHora" plex="date">
                             </div>
                             <div class="col-lg-2">
-                                <input type=text label="Hora" ng-model="pasesEdit.fechaHora" plex="time">
+                                <input type=text label="Hora</b> {{pasesEdit.fechaHora" plex="time">
                             </div>
                             <div class="col-lg-2">
-                                <select label="Servicio actual" ng-model="pasesEdit.servicio" min="3" plex="(item.nombre) for item in buscarUbicacion($value, 'servicio')" ng-change="getCamas(item.id)"></select>
+                                <select label="Servicio actual</b> {{pasesEdit.servicio" min="3" plex="(item.nombre) for item in buscarUbicacion($value, 'servicio')" ng-change="getCamas(item.id)"></select>
                             </div>
                             <div class="col-lg-1">
-                                <select label="Cama" ng-model="pasesEdit.cama" plex="(item.habitacion + ' / ' + item.numero) for item in camas"></select>
+                                <select label="Cama</b> {{pasesEdit.cama" plex="(item.habitacion + ' / ' + item.numero) for item in camas"></select>
                             </div>
                             <div class="col-lg-2">
-                                <select label="Servicio sugerido" ng-model="pasesEdit.servicioSugerido" min="3" plex="(item.nombre) for item in buscarUbicacion($value, 'servicio')"></select>
+                                <select label="Servicio sugerido</b> {{pasesEdit.servicioSugerido" min="3" plex="(item.nombre) for item in buscarUbicacion($value, 'servicio')"></select>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-lg-12">
-                                <textarea label="Resumen de la internación" ng-model="pasesEdit.resumenInternacion" plex rows="5" class="form-control"></textarea>
+                                <textarea label="Resumen de la internación</b> {{pasesEdit.resumenInternacion" plex rows="5" class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="row">
@@ -677,24 +1912,29 @@
 
         <div class="card card-block tab-content">
             <h3>Gráficos</h3>
-            <div class="row" ng-if="internacion.evoluciones.length > 0">
-                <div class="col-lg-4" ng-if="hayEvoluciones('temperatura')">
-                    <!-- <div plex-include="'partials/internacion/iGraficoLiquidos.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0"></div> -->
-                    <div>
-                        <div plex-include="'partials/internacion/iGraficoTemperatura.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
+            <div ng-if="internacion.evoluciones.length > 0">
+                <div class="row">
+                    <div class="col-lg-4" ng-if="hayEvoluciones('temperatura')">
+                        <!-- <div plex-include="'partials/internacion/iGraficoLiquidos.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0"></div> -->
+                        <div>
+                            <div plex-include="'partials/internacion/iGraficoTemperatura.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" ng-if="hayEvoluciones('tension')">
+
+                        <div plex-include="'partials/internacion/iGraficoTension.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
+
+                    </div>
+                    <div class="col-lg-4" ng-if="hayEvoluciones('saturacion')">
+
+                        <div plex-include="'partials/internacion/iGraficoSaturacion.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
+
+                    </div>
+
+                    <div class="col-lg-4" >
+                        <div plex-include="'partials/internacion/iGraficoLiquidos.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
                     </div>
                 </div>
-                <div class="col-lg-4" ng-if="hayEvoluciones('tension')">
-
-                    <div plex-include="'partials/internacion/iGraficoTension.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
-
-                </div>
-                <div class="col-lg-4" ng-if="hayEvoluciones('saturacion')">
-
-                    <div plex-include="'partials/internacion/iGraficoSaturacion.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
-
-                </div>
-
             </div>
             <p ng-if="!hayEvoluciones('temperatura') && !hayEvoluciones('tension') && !hayEvoluciones('saturacion')">No se han cargado evoluciones aún para poder generar gráficos</p>
         </div>
@@ -900,6 +2140,13 @@
                                             </span>
                                         </p>
                                     </div>
+
+                                    <p class="leer-mas text-right">
+                                        <a href="" title="Leer más" class="tips ">
+                                            Leer más
+                                            <!-- <i class="mdi mdi-arrow-down-drop-circle-outline"></i> -->
+                                        </a>
+                                    </p>
                                 </div>
                             </div>
                         </article>
