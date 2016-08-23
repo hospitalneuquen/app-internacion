@@ -1,10 +1,92 @@
 <div class="jumbotron">
-    <h1><i class="fa fa-bed"></i><span>Sistema de Internación</span></h1>
+    <h1>
+        Punto de inicio
+    </h1>
     <h3>Hola {{Session.user.givenName}}</h3>
-    <h4>Tu perfil es <strong>{{Session.variables.prestaciones_workflow}}</strong></h4>    
+    <h4>Tu perfil es <strong>{{Session.variables.prestaciones_workflow}}</strong></h4>
 </div>
-<p>
+
+<!-- <p>
     <a href="mapa"><i class="fa fa-bed"></i><span>Mapa de Camas</span></a>
     <br />
     <a href="sandbox/personas"><i class="fa fa-user"></i><span>Personas</span></a>
-</p>
+</p> -->
+
+<div class="row">
+    <div class="col-lg-4">
+        <h3>
+            {{Session.variables.servicioActual.nombre}}
+        </h3>
+
+        <h3>
+            Estado del servicio
+        </h3>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-1 col-md-3 col-sm-6 col-xs-12">
+        <div class="mini-box">
+            <div class="mini-box-content">
+                <span class="mini-box-text">Total de camas</span>
+                <span class="mini-box-number">{{camas.length}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-1 col-md-3 col-sm-6 col-xs-12">
+        <div class="mini-box">
+            <div class="mini-box-content">
+                <span class="mini-box-text">Ocupación</span>
+                <span class="mini-box-number">{{camasOcupadas.length}}</span>
+            </div>
+        </div>
+
+        <!-- <div class="mini-box">
+            <div class="mini-box-content">
+                <span class="mini-box-text">Total de camas</span>
+                <span class="mini-box-number">{{camas.length}}</span>
+            </div>
+        </div> -->
+    </div>
+
+    <div class="col-lg-1 col-md-3 col-sm-6 col-xs-12">
+        <div class="mini-box">
+            <div class="mini-box-content">
+                <span class="mini-box-text">Bloqueadas</span>
+                <span class="mini-box-number">{{camasBloqueadas.length}}</span>
+            </div>
+        </div>
+
+        <div class="mini-box">
+            <div class="mini-box-content">
+                <span class="mini-box-text">Reparación</span>
+                <span class="mini-box-number">{{camasReparacion.length}}</span>
+            </div>
+        </div>
+
+        <div class="mini-box">
+            <div class="mini-box-content">
+                <span class="mini-box-text">Descontaminac.</span>
+                <span class="mini-box-number">{{camasDescontaminacion.length}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-1 col-md-3 col-sm-6 col-xs-12">
+        <div class="mini-box">
+            <div class="mini-box-content">
+                <span class="mini-box-text">Desocupadas</span>
+                <span class="mini-box-number">{{camasDesocupadas.length}}</span>
+            </div>
+        </div>
+
+        <div class="mini-box">
+            <div class="mini-box-content">
+                <span class="mini-box-text">Con oxígeno</span>
+                <span class="mini-box-number">{{camasDesocupadasOxigeno.length}}</span>
+            </div>
+        </div>
+    </div>
+</div>

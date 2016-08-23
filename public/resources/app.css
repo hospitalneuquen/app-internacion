@@ -290,3 +290,26 @@ table.highlight td.exclude:hover::after{
     border: 1px solid #66BB6A;
     background: #66BB6A;
 }
+
+/* punto inicio */
+.mini-box{
+    display: block;
+    min-height: 90px;
+    background: #fff;
+    width: 100%;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    border-radius: 2px;
+    margin-bottom: 15px;
+}
+.mini-box-content{
+    padding: 5px 10px;
+}
+.mini-box-text{
+    text-transform: uppercase;
+}
+.mini-box-number{
+    display: block;
+    font-weight: bold;
+    font-size: 40px;
+    text-align: center;
+}
