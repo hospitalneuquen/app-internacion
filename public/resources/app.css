@@ -2,6 +2,20 @@
 @import 'timeline.css';
 @import 'header_paciente.css';
 
+.jumbotron.inicio{
+    /*background: #616161;*/
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#959595+0,1b1b1b+100 */
+background: #959595; /* Old browsers */
+background: -moz-linear-gradient(-45deg,  #959595 0%, #1b1b1b 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(-45deg,  #959595 0%,#1b1b1b 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(135deg,  #959595 0%,#1b1b1b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#959595', endColorstr='#1b1b1b',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+.jumbotron.inicio h1, .jumbotron.inicio h3{
+    color: white;
+}
+
 /* form */
 
 label {

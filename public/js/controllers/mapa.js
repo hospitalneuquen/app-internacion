@@ -1,4 +1,4 @@
-angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 'Server', '$timeout', 'Session', '$alert', function($scope, Plex, Shared, Server, $timeout, Session, $alert) {
+angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 'Server', '$timeout', 'Session', '$alert', 'plexParams', function($scope, Plex, Shared, Server, $timeout, Session, $alert, plexParams) {
     'use strict';
 
     // Session.servicioActual = {
@@ -107,8 +107,9 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             }
         },
 
-        verInternacion: function(idInternacion) {
-            Plex.openView('internacion/ver/' + idInternacion).then(function() {
+        verInternacion: function(idInternacion, tab) {
+            var tab = (tab) ? tab : 0;
+            Plex.openView('internacion/ver/' + idInternacion + "/" + tab).then(function() {
 
             });
         },
@@ -278,6 +279,36 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             });
         },
         init: function() {
+            if (plexParams.opcion){
+                switch (plexParams.opcion) {
+                    case 'ocupadas':
+                        $scope.filter.estado = 'ocupada';
+                        break;
+                    case 'desocupadas':
+                        $scope.filter.estado = 'desocupada';
+                        break;
+                    case 'bloqueadas':
+                        $scope.filter.estado = 'bloqueada';
+                        break;
+                    case 'reparacion':
+                        $scope.filter.estado = 'reparacion';
+                        break;
+                    case 'descontaminacion':
+                        // $scope.filter = {
+                        //     desinfectada : true,
+                        //     estado : 'desocupada'
+                        // };
+                        $scope.filter.desinfectada = true;
+                        $scope.filter.estado = 'desocupada';
+                        break;
+                    case 'oxigeno':
+                        $scope.filter.oxigeno = true;
+                        $scope.filter.estado = 'desocupada';
+                        break;
+                    default:
+
+                }
+            }
             // obtenemos las camas para armar el mapa
             Shared.Mapa.get().then(function(data) {
                 $scope.camas = data;

@@ -12,7 +12,7 @@ angular.module('app')
 
         PlexResolverProvider
              .when('/inicio', { templateUrl: 'partials/inicio.html', controller: 'InicioController' })
-             .when('/mapa', { templateUrl: 'partials/mapa.html', controller: 'MapaController' })
+             .when('/mapa/:opcion?', { templateUrl: 'partials/mapa.html', controller: 'MapaController' })
              // Internaciones
              .when('/internacion/buscar', { templateUrl: 'partials/internacion/buscar.html', controller: 'internacion/buscar' })
              .when('/internacion/editar/:idInternacion', { templateUrl: 'partials/internacion/editar.html', controller: 'internacion/editar' })

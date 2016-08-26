@@ -276,8 +276,13 @@
                             </div>
 
                             <div class="col-xs-6 col-right text-right">
-                                <button class="btn btn-default btn-flat" ng-if="cama.paciente.id">
+                                <!-- <button class="btn btn-default btn-flat" ng-if="cama.paciente.id">
                                     <i plex-actions="actions"></i>
+                                </button> -->
+
+
+                                <button class="btn btn-default btn-flat" title="Ver indicaciones" ng-click="verInternacion(cama.idInternacion, 5)" ng-if="cama.idInternacion">
+                                    <i class="mdi mdi-book-open"></i>
                                 </button>
 
                                 <button class="btn btn-default btn-flat tips" title="Ver internación" ng-click="verInternacion(cama.idInternacion)" ng-if="cama.idInternacion">
