@@ -1,10 +1,218 @@
-<div class="jumbotron">
-    <h1><i class="fa fa-bed"></i><span>Sistema de Internación</span></h1>
-    <h3>Hola {{Session.user.givenName}}</h3>
-    <h4>Tu perfil es <strong>{{Session.variables.prestaciones_workflow}}</strong></h4>    
+<div class="jumbotron inicio">
+    <div class="row">
+        <div class="col-lg-6">
+            <h1>
+                Punto de inicio
+            </h1>
+
+            <div class="row">
+                <div class="col-lg-2">
+                    <img src="perfil3.jpg" width="120"/>
+                </div>
+                <div class="col-lg-6">
+                    <h3>Hola
+                        {{Session.user.givenName}}</h3>
+                </div>
+            </div>
+
+            <!-- <h4>Tu perfil es <strong>{{Session.variables.prestaciones_workflow}}</strong></h4> -->
+            <h3>
+                {{Session.variables.servicioActual.nombre}}
+            </h3>
+
+        </div>
+        <div class="col-lg-6 text-right">
+            <img src="calendar.png"/>
+        </div>
+    </div>
 </div>
-<p>
+
+<!-- <p>
     <a href="mapa"><i class="fa fa-bed"></i><span>Mapa de Camas</span></a>
     <br />
     <a href="sandbox/personas"><i class="fa fa-user"></i><span>Personas</span></a>
-</p>
+</p> -->
+
+<div class="row">
+    <div class="col-lg-4"></div>
+</div>
+
+<div class="row">
+    <div class="col-lg-4">
+        <h3>
+            Estado del servicio
+        </h3>
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                <div class="mini-box">
+                    <div class="mini-box-content">
+                        <span class="mini-box-text">Total de camas</span>
+                        <span class="mini-box-number">
+                            <a ng-href="javascript:void(0)" title="Ver todas las camas" ng-click="goTo()">
+                                {{camas.length}}
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                <div class="mini-box">
+                    <div class="mini-box-content">
+                        <span class="mini-box-text">Ocupación</span>
+                        <a ng-href="javascript:void(0)" title="Ver todas las camas ocupadas" ng-click="goTo('ocupadas')">
+                            <span class="mini-box-number">{{camasOcupadas.length}}</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- <div class="mini-box">
+                    <div class="mini-box-content">
+                        <span class="mini-box-text">Total de camas</span>
+                        <span class="mini-box-number">{{camas.length}}</span>
+                    </div>
+                </div> -->
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                <div class="mini-box">
+                    <div class="mini-box-content">
+                        <span class="mini-box-text">Bloqueadas</span>
+                        <a ng-href="javascript:void(0)" title="Ver todas las camas bloqueadas" ng-click="goTo('bloqueadas')">
+                            <span class="mini-box-number">{{camasBloqueadas.length}}</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="mini-box">
+                    <div class="mini-box-content">
+                        <span class="mini-box-text">Reparación</span>
+                        <a ng-href="javascript:void(0)" title="Ver todas las camas en reparación" ng-click="goTo('reparacion')">
+                            <span class="mini-box-number">{{camasReparacion.length}}</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="mini-box">
+                    <div class="mini-box-content">
+                        <span class="mini-box-text">Descontaminac.</span>
+                        <a ng-href="javascript:void(0)" title="Ver todas las camas en descontaminación" ng-click="goTo('descontaminacion')">
+                            <span class="mini-box-number">{{camasDescontaminacion.length}}</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
+                <div class="mini-box">
+                    <div class="mini-box-content">
+                        <span class="mini-box-text">Desocupadas</span>
+                        <a ng-href="javascript:void(0)" title="Ver todas las camas desocupadas" ng-click="goTo('desocupadas')">
+                            <span class="mini-box-number">{{camasDesocupadas.length}}</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="mini-box">
+                    <div class="mini-box-content">
+                        <span class="mini-box-text">Con oxígeno</span>
+                        <a ng-href="javascript:void(0)" title="Ver todas las camas con oxígeno" ng-click="goTo('oxigeno')">
+                            <span class="mini-box-number">{{camasDesocupadasOxigeno.length}}</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+
+        <h3>
+            Pase de guardia
+        </h3>
+        <div class="well">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Cama</th>
+                        <th>Texto</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="paseServicios in pasesSerivicio">
+                        <td>
+                            {{paseServicios.habitacion}}
+                            /
+                            {{paseServicios.cama}}
+                        </td>
+                        <td width="60%">
+                            {{paseServicios.descripcion}}
+                        </td>
+                        <td>
+                            {{paseServicios.algo}}
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+
+        <div class="row">
+            <div class="col-lg-12 ">
+                <h3>
+                    Mis pacientes
+                </h3>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Diagnóstico</th>
+                            <th>Días de internación</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="paciente in pacientes">
+                            <td>
+                                {{paciente.nombre}}
+                            </td>
+                            <td>
+                                {{paciente.diagnostico}}
+                            </td>
+                            <td>
+                                {{paciente.dias}}
+                            </td>
+                            <td>
+                                <button class="btn btn-default btn-flat tips" title="Ver internación" ng-click="verInternacion(cama.idInternacion)">
+                                    <i class="mdi mdi-eye "></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="well">
+                    <span class="label label-success">2</span>
+                    Nuevas internaciones en este turno
+                </div>
+                <div class="well">
+                    <span class="label label-danger">3</span>
+                    Pacientes egresados en el día
+                </div>
+                <div class="well">
+                    <span class="label label-warning">1</span>
+                    Pases a Servicio de cirugía
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
