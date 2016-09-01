@@ -98,7 +98,7 @@
                                             Tensión
                                         </b>
                                         <br/>
-                                        {{item.signosVitales.circulacion.tensionDiastolica + "/" + item.signosVitales.circulacion.tensionSistolica}}
+                                        {{item.signosVitales.circulacion.tensionSistolica + "/" + item.signosVitales.circulacion.tensionDiastolica}}
                                     </td>
                                     <td ng-if="item.signosVitales.temperatura">
                                         <b>Temperatura</b>
@@ -943,14 +943,14 @@
                                             {{ultimaEvolucion.signosVitales.respiracion}}
                                             PPM
                                         </div>
-                                        <div ng-show="ultimaEvolucion.signosVitales.tensionDiastolica">
-                                            <strong>Tensión diastólica:</strong>
-                                            {{ultimaEvolucion.signosVitales.tensionDiastolica}}
-                                            mmHG
-                                        </div>
                                         <div ng-show="ultimaEvolucion.signosVitales.tensionSistolica">
                                             <strong>Tensión sistólica:</strong>
                                             {{ultimaEvolucion.signosVitales.tensionSistolica}}
+                                            mmHG
+                                        </div>
+                                        <div ng-show="ultimaEvolucion.signosVitales.tensionDiastolica">
+                                            <strong>Tensión diastólica:</strong>
+                                            {{ultimaEvolucion.signosVitales.tensionDiastolica}}
                                             mmHG
                                         </div>
                                     </div>
