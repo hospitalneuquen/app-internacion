@@ -44,7 +44,7 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
             }
 
             Shared.internacion.post(plexParams.idInternacion, data, {
-                minify: true
+                minify: false
             }).then(function(internacion) {
                 // TODO: Definir que hacer en caso de que sea defuncion o alta,
                 // si hay que llenar algun otro formulario
@@ -84,7 +84,8 @@ angular.module('app').controller('internacion/egresar', ['$scope', 'Plex', 'plex
         buscarDiagnostico: function(query) {
             // buscamos todos los diagnosticos
             var buscar = {
-                nombre: query
+                nombre: query,
+                idPadre: 1 // harcodeamos el idPadre = 1 para que traiga solo CIE10
             };
 
             return Shared.diagnosticos.get(buscar);

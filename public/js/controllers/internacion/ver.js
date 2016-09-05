@@ -19,7 +19,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
         //         "disabled": true
         //     }],
         // },
-        show_toolbar_drenajes: true,
+        showToolbarDrenajes: true,
         show_toolbar_antecedentes: true,
         show_toolbar_pases: true,
         drenajesEdit: undefined, // Item actual que se está editando de los drenajes
@@ -48,6 +48,7 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
             id: 'derecho',
             nombre: 'Derecho'
         }],
+
         tiposInternacion: [{ // opciones para el select del tipo de internacion
             id: 'ambulatorio',
             nombre: 'Ambulatorio'
@@ -84,58 +85,68 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
 
             });
         },
-        editarDrenaje: function(drenaje) {
-            $scope.show_toolbar_drenajes = false;
-            if (drenaje) { // Modificación
-                $scope.tituloFormulario = "Editar drenaje";
-                $scope.drenajesEdit = {};
-                angular.copy(drenaje, $scope.drenajesEdit);
-            } else { // Alta
-                $scope.tituloFormulario = "Agregar drenaje";
-                // Valores por defecto
-                $scope.drenajesEdit = {
-                    fechaDesde: new Date()
-                };
-            }
-        },
-        guardarDrenaje: function() {
-            Shared.drenaje.post($scope.internacion.id, $scope.drenajesEdit.id || null, $scope.drenajesEdit, {
-                minify: true
-            }).then(function(data) {
-                Plex.alert('Drenaje guardado');
 
-                $scope.internacion.drenajes.push(data);
-                // actualizamos el listado de evoluciones
-                $scope.actualizarDrenajes(data);
-                $scope.cancelarEdicion();
-            });
-        },
-        // Cancelar la edición
-        cancelarEdicion: function() {
-            $scope.drenajesEdit = null;
-            $scope.show_toolbar_drenajes = true;
-        },
-        actualizarDrenajes: function(data) {
-            var found = false;
-
-            var length = $scope.internacion.drenajes.length;
-            // buscamos el drenaje y actualizamos el valor con los datos
-            for (var i = 0; i < length; i++) {
-                if (!found && $scope.internacion.drenajes[i].id === data.id) {
-                    // drenaje encontrado, actualizamos datos
-                    $scope.internacion.drenajes[i] = data;
-
-                    found = true;
-                    break;
+        drenajes: {
+            editar: function(drenaje) {
+                $scope.showToolbarDrenajes = false;
+                if (drenaje) { // Modificación
+                    $scope.tituloFormulario = "Editar drenaje";
+                    $scope.drenajesEdit = {};
+                    angular.copy(drenaje, $scope.drenajesEdit);
+                } else { // Alta
+                    $scope.tituloFormulario = "Agregar drenaje";
+                    // Valores por defecto
+                    $scope.drenajesEdit = {
+                        fechaDesde: new Date()
+                    };
                 }
-            }
+            },
+            guardar: function() {
+                Shared.drenaje.post($scope.internacion.id, $scope.drenajesEdit.id || null, $scope.drenajesEdit, {
+                    minify: true
+                }).then(function(data) {
+                    Plex.alert('Drenaje guardado');
 
-            // si no lo encontro, entonces es porque acaba de cargarlo
-            if (!found) {
-                $scope.internacion.drenajes.push(data);
-            }
+                    // agregamos el drenaje
+                    $scope.internacion.drenajes.push(data);
 
+                    // actualizamos el listado de evoluciones
+                    $scope.drenajes.actualizar(data);
+
+                    // ocultamos el formulario
+                    $scope.drenajes.cancelar();
+                });
+            },
+
+            // Cancelar la edición
+            cancelar: function() {
+                $scope.drenajesEdit = null;
+                $scope.showToolbarDrenajes = true;
+            },
+
+            actualizar: function(data) {
+                var found = false;
+
+                var length = $scope.internacion.drenajes.length;
+                // buscamos el drenaje y actualizamos el valor con los datos
+                for (var i = 0; i < length; i++) {
+                    if (!found && $scope.internacion.drenajes[i].id === data.id) {
+                        // drenaje encontrado, actualizamos datos
+                        $scope.internacion.drenajes[i] = data;
+
+                        found = true;
+                        break;
+                    }
+                }
+
+                // si no lo encontro, entonces es porque acaba de cargarlo
+                if (!found) {
+                    $scope.internacion.drenajes.push(data);
+                }
+
+            },
         },
+
         editarAntecedentes: function() {
             $scope.antecedentesEdit = true;
         },
