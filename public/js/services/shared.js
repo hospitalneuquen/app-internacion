@@ -251,7 +251,20 @@ angular.module('app').factory('Shared', ["Global", "Server", "Session", function
             post: function(idInternacion, idIndicacion, data, options) {
                 return Server.post('/api/internacion/internacion/' + idInternacion + '/indicacion/' + (idIndicacion || ''), data, options);
             },
-        }
+        },
+        cama: {
+            /**
+             * @ngdoc method
+             * @name Shared#cama.post
+             * @description Crea o modifica una cama
+             * @param {String} idCama Id de la cama (enviar ```null``` para crear una nueva)
+             * @param {Object} data Datos
+             * @param {Object} options Opciones
+             **/
+            post: function(idCama, data, options) {
+                return Server.post('/api/internacion/cama/' + (idCama || ''), data, options);
+            },
+        },
     };
     return self;
 }]);

@@ -1,0 +1,205 @@
+
+<div>
+    <div class="card card-block" ng-show="showToolbar">
+        <div class="row">
+            <div class="col-xs-4 col-lg-3">
+                <h3>Camas</h3>
+            </div>
+<!--
+            <div class="col-xs-4 col-lg-2">
+
+            </div>
+
+            <div class="col-xs-6 col-lg-2">
+                <select class="form-control" label="Servicio" ng-model="filtros.servicio" ng-change="filtros.filtrar()" plex="(servicio.nombreCorto) for servicio in servicios"></select>
+            </div> -->
+
+
+            <div class="col-sm-3 col-lg-2">
+                <div class="form-group">
+                    <select label="Servicio" ng-model="cama.filter.servicio" plex="(item.nombre) for item in servicios"></select>
+                </div>
+            </div>
+
+            <div class="col-sm-2 col-lg-1">
+                <div class="form-group">
+                    <select ng-model="cama.filter.habitacion" label="Habitación" class="form-control" plex>
+                        <option value="">Todas</option>
+                        <option ng-repeat="habitacion in habitaciones" value="{{habitacion}}">{{habitacion}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-sm-2 col-lg-1">
+                <div class="form-group">
+                    <select ng-model="cama.filter.sector" label="Sector" class="form-control" plex >
+                        <option value="">Todas</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-sm-2 col-lg-1">
+                <div class="form-group">
+                    <select ng-model="cama.filter.tipoCama" id="filter-tipo-cama" class="form-control" label="Tipo de cama" plex>
+                        <option value="">Todas</option>
+                        <option ng-repeat="tipoCama in tipoCamas" value="{{tipoCama}}">{{tipoCama}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-sm-2 col-lg-1">
+                <div class="form-group">
+                    <select ng-model="cama.filter.estado" id="filter-estado" class="form-control" label="Estado" plex>
+                        <option value="">Todas</option>
+                        <option value="bloqueada">Bloqueadas</option>
+                        <option value="desocupada">Desocupadas</option>
+                        <option value="reparacion">En reparación</option>
+                        <option value="ocupada">Ocupadas</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-sm-3 col-lg-1">
+                <div class="form-group">
+                    <br/>
+                    <button class="btn btn-default" ng-click="cama.filter.limpiarFiltros()">
+                        Limpiar filtros
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-xs-2 col-lg-2 text-right" ng-show="showToolbar">
+                <br/>
+                <button class="btn btn-primary form-control" ng-click="cama.editar();">
+                    Nueva cama
+                </button>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-hover" ng-if="!camasEdit">
+            <thead>
+                <tr>
+                    <th>
+                        Habitación / Número
+                    </th>
+                    <th>
+                        Sector
+                    </th>
+                    <th>
+                        Servicio
+                    </th>
+                    <th>
+                        Tipo cama
+                    </th>
+                    <th>
+                        Oxígeno
+                    </th>
+                    <th>
+                        Estado
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="$cama in cama.filter.camas" ng-click="cama.editar($cama)" class="clickable">
+                    <td>
+                        {{$cama.habitacion}}
+                        /
+                        {{$cama.numero}}
+                    </td>
+                    <td>
+                        {{$cama.sector}}
+                    </td>
+                    <td>
+                        {{$cama.servicio.nombre}}
+                    </td>
+                    <td>
+                        {{$cama.tipoCama}}
+                    </td>
+                    <td>
+                        <span ng-if="$cama.oxigeno">Si</span>
+                        <span ng-if="!$cama.oxigeno">No</span>
+                    </td>
+                    <td>
+                        {{cama.estado}}
+                    </td>
+
+                    <td>
+                        <button type="button" class="btn btn-sm btn-primary tips" ng-click="cama.editar($cama)" title="Editar cama">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p ng-if="!cama.filter.camas.length">No se han encontrado camas</p>
+    </div>
+
+</div>
+
+<div class="row" ng-show="camasEdit">
+    <div class="col-lg-12">
+        <div class="box box-success">
+            <div class="box-header">
+                <h3 class="box-title">Cama</h3>
+            </div>
+            <div class="box-body">
+                <form name="formCama">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <input type="text" label="Habitación" ng-model="camasEdit.habitacion" plex="int" />
+                        </div>
+                        <div class="col-md-1">
+                            <input type="text" label="Número cama" ng-model="camasEdit.numero" plex="int"  />
+                        </div>
+                        <div class="col-md-1">
+                            <input type="text" label="Sector" ng-model="camasEdit.sector" plex="int" />
+                        </div>
+
+                        <div class="col-md-2">
+                            <select class="form-control" label="Servicio" min="3" plex="(item.nombre) for item in buscarUbicacion($value, 'servicio')" ng-model="camasEdit.servicio"></select>
+                        </div>
+
+                        <div class="col-md-1">
+                            <select label="Tipo de cama" ng-model="camasEdit.tipoCama" plex>
+                                <option value="">Seleccione tipo</option>
+                                <option value="cama">Cama</option>
+                                <option value="sillon">Sillón</option>
+                                <option value="cuna">Cuna</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-1">
+                            <input type="checkbox" label="Oxígeno" ng-model="camasEdit.oxigeno" plex="switch">
+                        </div>
+
+                        <div class="col-md-1">
+                            <input type="checkbox" label="¿Desinfectada?" ng-model="camasEdit.desinfectada" plex="switch">
+                        </div>
+
+                        <div class="col-md-1">
+                            <select label="Estado" ng-model="camasEdit.estado" plex>
+                                <option value="">Seleccione estado</option>
+                                <option value="ocupada">Cama</option>
+                                <option value="desocupada">Desocupada</option>
+                                <option value="reparacion">Reparacion</option>
+                                <option value="bloqueada">Bloqueada</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 text-right">
+                            <button type="button" class="btn btn-default" plex-submit="cama.cancelar()">
+                                Cancelar
+                            </button>
+                            <button type="submit" class="btn btn-success " plex-submit="cama.guardar()">
+                                Guardar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

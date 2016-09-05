@@ -25,6 +25,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
         ingresoEnfermeria: false,
         habitaciones: [],
         tipoCamas: [],
+        sectores: [],
         camas: null,
         actions: [{
             text: 'Internación',
@@ -76,6 +77,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             nombre: null,
             estado: null,
             servicio: null,
+            sector: null,
             filtrar: function() {
                 var self = this;
                 var regex_nombre = new RegExp(".*" + self.nombre + ".*", "ig");
@@ -91,6 +93,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                         (!self.tipoCama || (self.tipoCama && i.tipoCama == self.tipoCama)) &&
                         (!self.habitacion || (self.habitacion && i.habitacion == self.habitacion)) &&
                         (!self.estado || (self.estado && i.estado == self.estado)) &&
+                        (!self.sector || (self.sector && i.sector == self.sector)) &&
                         (!self.servicio || !self.servicio.id || (self.servicio && i.servicio && i.servicio.id == self.servicio.id)) &&
                         (!self.nombre || (self.nombre && i.paciente && (regex_nombre.test(i.paciente.nombre) || (regex_nombre.test(i.paciente.apellido)) || (regex_nombre.test(i.paciente.documento)))));
                 });
@@ -104,6 +107,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 self.nombre = null;
                 self.estado = null;
                 self.servicio = null;
+                self.sector = null;
             }
         },
 
@@ -331,6 +335,12 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                         $scope.tipoCamas.push(cama.tipoCama);
                     }
 
+                    // asignamos los sectores
+                    if (cama.sector && !$scope.sectores.inArray(cama.sector)) {
+                        $scope.sectores.push(cama.sector);
+                    }
+
+
                     // asignamos los servicios en base a los servicios
                     // que tiene cada cama
                     if (cama.servicio && typeof cama.servicio.id !== "undefined") {
@@ -350,6 +360,11 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 // ordenamos las habitaciones
                 if ($scope.habitaciones.length > 0) {
                     $scope.habitaciones.sort();
+                }
+
+                // ordenamos las sectores
+                if ($scope.sectores.length > 0) {
+                    $scope.sectores.sort();
                 }
             });
 
@@ -388,7 +403,7 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
         }
     });
 
-    $scope.$watch('filter.nombre + filter.oxigeno + filter.desinfectada + filter.tipoCama + filter.habitacion + filter.estado', function(current, old) {
+    $scope.$watch('filter.nombre + filter.oxigeno + filter.desinfectada + filter.tipoCama + filter.habitacion + filter.estado + filter.sector', function(current, old) {
         if (current != old) {
             $scope.filter.filtrar();
         }

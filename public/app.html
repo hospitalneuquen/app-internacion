@@ -29,6 +29,7 @@
         <script src="js/controllers/riesgoCaidas.js"></script>
         <script src="js/controllers/valoracionEnfermeria.js"></script>
         <script src="js/controllers/mapa.js"></script>
+        <script src="js/controllers/camas.js"></script>
 
         <!-- Internación -->
         <script src="js/controllers/internacion/buscar.js"></script>
@@ -66,35 +67,5 @@
     <body>
         <div ng-if="!Session.isActive()" ng-include="'/lib/html/dist/session.html'"></div>
         <div ng-if="Session.isActive()" ng-include="'/lib/html/dist/main.html'"></div>
-
-        <!-- Piwik -->
-        <!-- <script type="text/javascript">
-            var _paq = _paq || [];
-            _paq.push([
-                "setDomains",
-                ["*.desarrollo/app/internacion", "*.wwwdev.hospitalneuquen.org.ar/app/internacion"]
-            ]);
-            _paq.push(['trackPageView']);
-            _paq.push(['enableLinkTracking']);
-            (function() {
-                var u = "//172.16.1.62/";
-                _paq.push([
-                    'setTrackerUrl', u + 'piwik.php'
-                ]);
-                _paq.push(['setSiteId', 1]);
-                var d = document,
-                    g = d.createElement('script'),
-                    s = d.getElementsByTagName('script')[0];
-                g.type = 'text/javascript';
-                g.async = true;
-                g.defer = true;
-                g.src = u + 'piwik.js';
-                s.parentNode.insertBefore(g, s);
-            })();
-        </script>
-        <noscript>
-            <p><img src="//172.16.1.62/piwik.php?idsite=1" style="border:0;" alt=""/></p>
-        </noscript> -->
-        <!-- End Piwik Code -->
     </body>
 </html>

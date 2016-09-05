@@ -1,9 +1,18 @@
 <div class="row " plex-affix>
     <div class="card card-block ">
 
-        <div class="col-sm-3 col-lg-3">
+        <div class="col-sm-3 col-lg-2">
             <div class="form-group">
                 <input type="text" ng-model="filter.nombre" id="filter-nombre" plex label="Nombre paciente / Número de documento"/>
+            </div>
+        </div>
+
+        <div class="col-sm-2 col-lg-1">
+            <div class="form-group">
+                <select ng-model="filter.sector" id="filter-sector" class="form-control" label="Sector" plex>
+                    <option value="">Todos</option>
+                    <option ng-repeat="sector in sectores" value="{{sector}}">{{sector}}</option>
+                </select>
             </div>
         </div>
 
