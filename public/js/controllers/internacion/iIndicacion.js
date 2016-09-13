@@ -863,7 +863,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 });
             },
 
-            // actualizamos el listado de evolucione
+            // actualizamos el listado de evoluciones
             actualizar: function(indicacion) {
                 var found = false;
                 $scope.loading = true;
@@ -922,22 +922,45 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 // Guarda la evolución
                 guardar: function() {
                     // si se han evolucionado los drenajes entonces los cargamos
-                    if ($scope.drenajes.length > 0) {
-                        $scope.evolucionesEdit.egresos.drenajes = [];
-                        angular.forEach($scope.drenajes, function(drenaje) {
-                            var _drenaje = {
-                                idDrenaje: drenaje.idDrenaje,
-                                caracteristicaLiquido: drenaje.caracteristicaLiquido,
-                                cantidad: drenaje.cantidad,
-                                observaciones: drenaje.observaciones,
-                            }
-                            $scope.evolucionesEdit.egresos.drenajes.push(_drenaje);
-                        });
-
-                    }
+                    // if ($scope.drenajes.length > 0) {
+                    //     $scope.evolucionesEdit.egresos = {
+                    //         drenajes: []
+                    //     };
+                    //
+                    //     angular.forEach($scope.drenajes, function(drenaje) {
+                    //         var _drenaje = {
+                    //             idDrenaje: drenaje.idDrenaje,
+                    //             caracteristicaLiquido: drenaje.caracteristicaLiquido,
+                    //             cantidad: drenaje.cantidad,
+                    //             observaciones: drenaje.observaciones,
+                    //         }
+                    //         $scope.evolucionesEdit.egresos.drenajes.push(_drenaje);
+                    //     });
+                    //
+                    // }
 
                     // si no tenemos la descripcion cargada, le asignamos automaticamente
                     // el tipo de indicacion que estamos evolucionesEdit
+                    // if ($scope.evolucionesEdit.texto){
+                    //     var _indicacion = $scope.internacion.indicaciones.filter(function(i){
+                    //         return (i.id == $scope.evolucionesEdit.idIndicacion);
+                    //     });
+                    //
+                    //     $scope.evolucionesEdit.texto = _indicacion[0].tipo;
+                    //     console.log(_indicacion[0]);
+                    //     switch(_indicacion[0].tipo){
+                    //         case 'Controles':
+                    //             $scope.evolucionesEdit.texto += " - " + _indicacion[0].controles.tipo;
+                    //         break;
+                    //         case 'Cuidados generales':
+                    //             $scope.evolucionesEdit.texto += " - " +  _indicacion[0].cuidadosGenerales.tipo;
+                    //         break;
+                    //         case 'Cuidados especiales':
+                    //             $scope.evolucionesEdit.texto += " - " +  _indicacion[0].cuidadosEspeciales.tipo;
+                    //         break;
+                    //     }
+                    // }
+
                     if ($scope.evolucionesEdit.texto){
                         var _indicacion = $scope.internacion.indicaciones.filter(function(i){
                             return (i.id == $scope.evolucionesEdit.idIndicacion);
@@ -948,11 +971,20 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                             case 'Controles':
                                 $scope.evolucionesEdit.texto += " - " + _indicacion[0].controles.tipo;
                             break;
+
                             case 'Cuidados generales':
-                                $scope.evolucionesEdit.texto += " - " +  _indicacion[0].cuidadosGenerales.tipo;
+                                $scope.evolucionesEdit.texto += " - " + _indicacion[0].cuidadosGenerales.tipo;
                             break;
+
                             case 'Cuidados especiales':
-                                $scope.evolucionesEdit.texto += " - " +  _indicacion[0].cuidadosEspeciales.tipo;
+                                $scope.evolucionesEdit.texto += " - " + _indicacion[0].cuidadosEspeciales.tipo;
+                            break;
+
+                            case 'Antibióticos':
+                            case 'Heparina o profilaxis':
+                            case 'Protección gástrica':
+                            case 'Otra medicación':
+                                $scope.evolucionesEdit.texto += " - " + $scope.evolucionesEdit.medicamento.descripcion;
                             break;
                         }
                     }
@@ -977,6 +1009,8 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                         };
                         $scope.evolucionesEdit.balance.ingresos.push(hemoterapia);
                     }
+
+                    console.log($scope.evolucionesEdit);
 
                     Shared.evolucion.post($scope.internacion.id, $scope.evolucionesEdit.id || null, $scope.evolucionesEdit, {
                         minify: true
@@ -1005,20 +1039,24 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 // angular.copy(indicacion, $scope.evolucionarIndicacion);
                 $scope.evolucionarIndicacion = indicacion;
 
-                var texto = indicacion.controles.tipo;
-
                 $scope.evolucionesEdit = {
                     idIndicacion: indicacion.id,
                     fechaHora: new Date(),
                     tipo: Session.variables.prestaciones_workflow,
                     servicio: Session.variables.servicioActual,
-                    texto: texto
+                    texto: indicacion.tipo
                 };
 
                 if (indicacion.tipo == 'Controles' && indicacion.controles.tipo == 'Balance') {
                     $scope.evolucionesEdit.balance = {
                         ingresos: []
                     };
+                }else if (indicacion.tipo == 'Antibióticos' || indicacion.tipo == 'Heparina o profilaxis' ||
+                    indicacion.tipo == 'Protección gástrica' || indicacion.tipo == 'Otra medicación'){
+                        $scope.evolucionesEdit.medicamento = {
+                            suministrado: true,
+                            descripcion: indicacion.medicamento.descripcion
+                        }
                 }
 
                 // // array de indicaciones donde almacenamos el tipo

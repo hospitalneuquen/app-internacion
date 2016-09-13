@@ -1254,9 +1254,13 @@
 
                             <td class="text-center" ng-hide="!indicacion.activo || (evolucionarIndicacion && indicacion.id != evolucionarIndicacion.id)">
 
-
+                                <div class="acciones">
                                     <div ng-show="!indicaciones.borrar && !evolucionarIndicacion">
-                                        <button class="btn btn-sm btn-success btn-flat tips" title="Evolucionar" ng-click="indicaciones.evolucionar(indicacion)" ng-show="indicacion.tipo == 'Controles'">
+
+                                        <button class="btn btn-sm btn-success btn-flat tips" title="Evolucionar" ng-click="indicaciones.evolucionar(indicacion)"
+                                            ng-show="indicacion.tipo == 'Controles' || indicacion.tipo == 'Antibióticos' || indicacion.tipo == 'Heparina o profilaxis'
+                                                || indicacion.tipo == 'Protección gástrica' || indicacion.tipo == 'Otra medicación'
+                                        ">
                                             <i class="mdi mdi-chart-line"></i>
                                         </button>
 
@@ -1282,6 +1286,7 @@
                                         </button>
 
                                     </div>
+                                </div>
 
                             </td>
 
@@ -1926,6 +1931,23 @@
                                     </fieldset>
                                 </div>
 
+                                <div ng-if="evolucionarIndicacion.tipo == 'Antibióticos' || evolucionarIndicacion.tipo == 'Heparina o profilaxis'
+                                    || evolucionarIndicacion.tipo == 'Protección gástrica' || evolucionarIndicacion.tipo == 'Otra medicación'" >
+                                    <fieldset>
+                                        <legend>Confirmar suministro de {{evolucionarIndicacion.tipo}}</legend>
+                                        <div class="row">
+                                            <div class="col-lg-2">
+                                                ¿Ha suministrado <b>{{evolucionarIndicacion.medicamento.descripcion}}</b>?
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <input type="text" ng-model="evolucionesEdit.medicamento.descripcion" label="Descripción" plex/>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+
                                 <div class="row">
                                     <div class="col-lg-12 text-right">
                                         <button class="btn btn-default tips" ng-click="indicaciones.evolucion.cancelar()" title="No">
@@ -1933,7 +1955,14 @@
                                         </button>
 
                                         <button class="btn btn-primary btn-flat tips" title="Guardar evolución" ng-click="indicaciones.evolucion.guardar()">
-                                            Evolucionar
+                                            <span  ng-if="evolucionarIndicacion.tipo != 'Antibióticos' && evolucionarIndicacion.tipo != 'Heparina o profilaxis'
+                                                && evolucionarIndicacion.tipo != 'Protección gástrica' && evolucionarIndicacion.tipo != 'Otra medicación'">
+                                                Evolucionar
+                                            </span>
+                                            <span  ng-if="evolucionarIndicacion.tipo == 'Antibióticos' || evolucionarIndicacion.tipo == 'Heparina o profilaxis'
+                                                || evolucionarIndicacion.tipo == 'Protección gástrica' || evolucionarIndicacion.tipo == 'Otra medicación'">
+                                                Confirmar suministro
+                                            </span>
                                         </button>
 
                                     </div>
