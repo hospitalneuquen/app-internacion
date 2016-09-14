@@ -58,12 +58,28 @@
                     </div>
                     <div class="col-lg-2">
 
-                        <div ng-if="internacion.ingreso.enfermeria.riesgoCaida.total > 0">
+                        <!-- <div ng-if="internacion.ingreso.enfermeria.riesgoCaida.total > 0">
                             <b>Riesgo caidas:</b>
                             {{internacion.ingreso.enfermeria.riesgoCaida.total}}
                             <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
                             <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total >= 25 && internacion.ingreso.enfermeria.riesgoCaida.total <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
                             <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
+                        </div> -->
+
+                        <div ng-if="riesgoCaidas">
+                            <span class="tips label label-{{riesgoCaidas.clase}}" title="Riesgo de caídas {{riesgoCaidas.indicador}}">Riesgo caídas {{riesgoCaidas.indicador}}</span>
+                        </div>
+                        <div ng-if="valoracionDolor">
+                            <span class="tips label label-{{valoracionDolor.clase}}" title="Valoración del dolor {{riesgoCaidas.indicador}}">Valoración del dolor {{riesgoCaidas.indicador}}</span>
+                        </div>
+                        <div ng-if="fiebre">
+                            <span class="tips label label-{{fiebre.clase}}" title="Temperatura corporal de {{fiebre.indicador}}°">Temperatura {{fiebre.indicador}}°</span>
+                        </div>
+                        <div ng-if="glasgow">
+                            <span class="tips label label-{{glasgow.clase}}" title="Glasgow de {{fiebre.indicador}}°">Glasgow {{fiebre.indicador}}°</span>
+                        </div>
+                        <div ng-if="flebitis">
+                            <span class="tips label label-{{flebitis.clase}}" title="Flebitis {{flebitis.indicador}}+">Flebitis</span>
                         </div>
 
                     </div>

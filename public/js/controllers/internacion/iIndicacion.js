@@ -107,6 +107,9 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
         }, {
             id: 'Nutrición',
             nombre: 'Nutrición'
+        },{
+            id: 'Oxigenoterapia',
+            nombre: 'Oxigenoterapia'
         },
         //MANU, no está tomando bien el tipo de prestación y da error en el POST (ver línea 225 en adelante de internacion_indicacion.js).
          {
@@ -143,9 +146,6 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
         }, {
             id: 'Aspirar secreciones',
             nombre: 'Aspirar secreciones'
-        }, {
-            id: 'Oxígeno',
-            nombre: 'Oxígeno'
         }, {
             id: 'Cabecera 45º',
             nombre: 'Cabecera 45º'
@@ -204,9 +204,6 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
         }, {
             id: 'Bigotera',
             tipo: 'Bigotera'
-        }, {
-            id: 'Reservorio',
-            tipo: 'Reservorio'
         }],
         valoresOxigeno: [],
 
@@ -991,7 +988,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
                     // calculamos valores de glasgow
                     if ($scope.evolucionesEdit.glasgow) {
-                        $scope.evolucionesEdit.glasgow.glasgowTotal = $scope.evolucionesEdit.glasgow.glasgowMotor + $scope.evolucionesEdit.glasgow.glasgowVerbal + $scope.evolucionesEdit.glasgow.glasgowOcular;
+                        $scope.evolucionesEdit.glasgow.total = $scope.evolucionesEdit.glasgow.motor + $scope.evolucionesEdit.glasgow.verbal + $scope.evolucionesEdit.glasgow.ocular;
                     }
                     // calculamos valores de riesgo de caidas
                     if ($scope.evolucionesEdit.riesgoCaida) {
@@ -1009,8 +1006,6 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                         };
                         $scope.evolucionesEdit.balance.ingresos.push(hemoterapia);
                     }
-
-                    console.log($scope.evolucionesEdit);
 
                     Shared.evolucion.post($scope.internacion.id, $scope.evolucionesEdit.id || null, $scope.evolucionesEdit, {
                         minify: true
@@ -1042,7 +1037,8 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 $scope.evolucionesEdit = {
                     idIndicacion: indicacion.id,
                     fechaHora: new Date(),
-                    tipo: Session.variables.prestaciones_workflow,
+                    // tipo: Session.variables.prestaciones_workflow,
+                    tipo: indicacion.tipo,
                     servicio: Session.variables.servicioActual,
                     texto: indicacion.tipo
                 };
@@ -1204,11 +1200,12 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
     });
 
     // cargamos los valores para los cuidados de oxigenos dependiendo el tipo de mascara
-    $scope.$watch('indicacion.cuidadosGenerales.oxigeno.respiracion', function(current, old) {
-        var valoresMascara = [28, 30, 35, 40, 50, 60, 70, 80, 100];
+    $scope.$watch('indicacion.oxigeno.respiracion', function(current, old) {
+        var valoresMascara = [24, 28, 30, 35, 40, 50, 60, 70, 80, 98, 100];
         var valoresBigotera = [0.5, 1, 2, 3, 4];
-        if (current) {
 
+        if (current) {
+            $scope.indicacion.oxigeno.cantidad = "";
             $scope.valoresOxigeno = [];
 
             if (current.tipo == 'Máscara') {
@@ -1229,7 +1226,6 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
             }
 
         }
-
     });
 
     // creamos las opciones para los arrays de seleccion de frascos
