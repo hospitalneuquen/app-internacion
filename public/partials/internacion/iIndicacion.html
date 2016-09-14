@@ -387,29 +387,22 @@
                                         </div>
                                     </div>
 
+                                    <!-- Oxigenoterapia -->
+                                    <div ng-if="indicacion.tipo == 'Oxigenoterapia' || indicacion.tipo.nombre == 'Oxigenoterapia'">
+                                        <div class="col-lg-4">
+                                            <select label="Tipo respiración" ng-model="indicacion.oxigeno.respiracion" plex="(opcion.tipo) for opcion in tipoRespiracion" ng-change=""></select>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <select label="Cantidad" ng-model="indicacion.oxigeno.cantidad" plex="(opcion.value) for opcion in valoresOxigeno"></select>
+                                        </div>
+
+                                    </div>
+
                                     <!-- Controles generales -->
                                     <div ng-if="indicacion.tipo.nombre == 'Cuidados generales'">
                                         <div class="col-lg-4">
                                             <select label="Tipo de control" ng-model="indicacion.cuidadosGenerales.tipo" plex="(opcion.nombre) for opcion in tiposCuidadosGenerales"></select>
-                                        </div>
-
-                                        <div ng-if="indicacion.cuidadosGenerales.tipo == 'Oxígeno' || indicacion.cuidadosGenerales.tipo.nombre == 'Oxígeno'">
-                                            <div class="col-lg-4">
-                                                <select label="Tipo respiración" ng-model="indicacion.cuidadosGenerales.oxigeno.respiracion" plex="(opcion.tipo) for opcion in tipoRespiracion"></select>
-                                            </div>
-
-                                            <div class="col-lg-4" ng-if="indicacion.cuidadosGenerales.oxigeno.respiracion != 'Reservorio' && indicacion.cuidadosGenerales.oxigeno.respiracion.tipo != 'Reservorio'">
-                                                <select label="Cantidad" ng-model="indicacion.cuidadosGenerales.oxigeno.cantidad" plex="(opcion.value) for opcion in valoresOxigeno"></select>
-                                            </div>
-
-                                            <div class="col-lg-4" ng-if="indicacion.cuidadosGenerales.oxigeno.respiracion == 'Reservorio' || indicacion.cuidadosGenerales.oxigeno.respiracion.tipo == 'Reservorio'">
-                                                <select label="Tipo reservorio" ng-model="indicacion.cuidadosGenerales.oxigeno.respiracion.tipoReservorio" plex>
-                                                    <option value="">Seleccione</option>
-                                                    <option value="AGO">AGO</option>
-                                                    <option value="Venturi">Venturi</option>
-                                                </select>
-                                            </div>
-
                                         </div>
 
                                         <div ng-if="indicacion.cuidadosGenerales.tipo == 'Rotar decúbito' || indicacion.cuidadosGenerales.tipo.nombre == 'Rotar decúbito'">
@@ -1693,40 +1686,40 @@
                                                 <label>
                                                     <b>Ocular</b>
                                                 </label>
-                                                <input type="radio" label="1 - Ausencia de respuesta" ng-value="1" ng-model="evolucionesEdit.glasgow.glasgowOcular" plex="radio">
-                                                <input type="radio" label="2 - Al dolor" ng-value="2" ng-model="evolucionesEdit.glasgow.glasgowOcular" plex="radio">
-                                                <input type="radio" label="3 - A estímulos verbales" ng-value="3" ng-model="evolucionesEdit.glasgow.glasgowOcular" plex="radio">
-                                                <input type="radio" label="4 - Espontánea" ng-value="4" ng-model="evolucionesEdit.glasgow.glasgowOcular" plex="radio">
+                                                <input type="radio" label="1 - Ausencia de respuesta" ng-value="1" ng-model="evolucionesEdit.glasgow.ocular" plex="radio">
+                                                <input type="radio" label="2 - Al dolor" ng-value="2" ng-model="evolucionesEdit.glasgow.ocular" plex="radio">
+                                                <input type="radio" label="3 - A estímulos verbales" ng-value="3" ng-model="evolucionesEdit.glasgow.ocular" plex="radio">
+                                                <input type="radio" label="4 - Espontánea" ng-value="4" ng-model="evolucionesEdit.glasgow.ocular" plex="radio">
                                             </div>
                                             <div class="col-lg-3">
                                                 <label>
                                                     <b>Verbal</b>
                                                 </label>
-                                                <input type="radio" label="1 - Ausencia de respuesta" ng-value="1" ng-model="evolucionesEdit.glasgow.glasgowVerbal" plex="radio">
-                                                <input type="radio" label="2 - Sonidos incomprensibles" ng-value="2" ng-model="evolucionesEdit.glasgow.glasgowVerbal" plex="radio">
-                                                <input type="radio" label="3 - Incoherente" ng-value="3" ng-model="evolucionesEdit.glasgow.glasgowVerbal" plex="radio">
-                                                <input type="radio" label="4 - Desorientado/confuso" ng-value="4" ng-model="evolucionesEdit.glasgow.glasgowVerbal" plex="radio">
-                                                <input type="radio" label="5 - Orientado" ng-value="5" ng-model="evolucionesEdit.glasgow.glasgowVerbal" plex="radio">
+                                                <input type="radio" label="1 - Ausencia de respuesta" ng-value="1" ng-model="evolucionesEdit.glasgow.verbal" plex="radio">
+                                                <input type="radio" label="2 - Sonidos incomprensibles" ng-value="2" ng-model="evolucionesEdit.glasgow.verbal" plex="radio">
+                                                <input type="radio" label="3 - Incoherente" ng-value="3" ng-model="evolucionesEdit.glasgow.verbal" plex="radio">
+                                                <input type="radio" label="4 - Desorientado/confuso" ng-value="4" ng-model="evolucionesEdit.glasgow.verbal" plex="radio">
+                                                <input type="radio" label="5 - Orientado" ng-value="5" ng-model="evolucionesEdit.glasgow.verbal" plex="radio">
                                             </div>
                                             <div class="col-lg-3">
                                                 <label>
                                                     <b>Motor</b>
                                                 </label>
-                                                <input type="radio" label="1 - Ausencia de respuesta" ng-value="1" ng-model="evolucionesEdit.glasgow.glasgowMotor" plex="radio">
-                                                <input type="radio" label="2 - Extensión anormal" ng-value="2" ng-model="evolucionesEdit.glasgow.glasgowMotor" plex="radio">
-                                                <input type="radio" label="3 - Flexión anormal" ng-value="3" ng-model="evolucionesEdit.glasgow.glasgowMotor" plex="radio">
-                                                <input type="radio" label="4 - Retirada al dolor" ng-value="4" ng-model="evolucionesEdit.glasgow.glasgowMotor" plex="radio">
-                                                <input type="radio" label="5 - Localiza el dolor" ng-value="5" ng-model="evolucionesEdit.glasgow.glasgowMotor" plex="radio">
-                                                <input type="radio" label="6 - Obedece ordenes" ng-value="6" ng-model="evolucionesEdit.glasgow.glasgowMotor" plex="radio">
+                                                <input type="radio" label="1 - Ausencia de respuesta" ng-value="1" ng-model="evolucionesEdit.glasgow.motor" plex="radio">
+                                                <input type="radio" label="2 - Extensión anormal" ng-value="2" ng-model="evolucionesEdit.glasgow.motor" plex="radio">
+                                                <input type="radio" label="3 - Flexión anormal" ng-value="3" ng-model="evolucionesEdit.glasgow.motor" plex="radio">
+                                                <input type="radio" label="4 - Retirada al dolor" ng-value="4" ng-model="evolucionesEdit.glasgow.motor" plex="radio">
+                                                <input type="radio" label="5 - Localiza el dolor" ng-value="5" ng-model="evolucionesEdit.glasgow.motor" plex="radio">
+                                                <input type="radio" label="6 - Obedece ordenes" ng-value="6" ng-model="evolucionesEdit.glasgow.motor" plex="radio">
                                             </div>
                                             <div class="col-lg-3">
                                                 <label>
                                                     <b>Total</b>
                                                 </label>
-                                                <h4>{{evolucionesEdit.glasgow.glasgowMotor + evolucionesEdit.glasgow.glasgowVerbal + evolucionesEdit.glasgow.glasgowOcular}}</h4>
-                                                <span ng-if="evolucionesEdit.glasgow.glasgowMotor + evolucionesEdit.glasgow.glasgowVerbal + evolucionesEdit.glasgow.glasgowOcular >= 14" class="small padding-left padding-right margin-left nivel-verde">Leve</span>
-                                                <span ng-if="evolucionesEdit.glasgow.glasgowMotor + evolucionesEdit.glasgow.glasgowVerbal + evolucionesEdit.glasgow.glasgowOcular >= 9 && evolucionesEdit.glasgow.glasgowMotor + evolucionesEdit.glasgow.glasgowVerbal + evolucionesEdit.glasgow.glasgowOcular <= 13" class="small padding-left padding-right margin-left nivel-amarillo">Moderado</span>
-                                                <span ng-if="evolucionesEdit.glasgow.glasgowMotor + evolucionesEdit.glasgow.glasgowVerbal + evolucionesEdit.glasgow.glasgowOcular >= 3 && evolucionesEdit.glasgow.glasgowMotor + evolucionesEdit.glasgow.glasgowVerbal + evolucionesEdit.glasgow.glasgowOcular <= 8" class="small padding-left padding-right margin-left nivel-rojo">Grave</span>
+                                                <h4>{{evolucionesEdit.glasgow.motor + evolucionesEdit.glasgow.verbal + evolucionesEdit.glasgow.ocular}}</h4>
+                                                <span ng-if="evolucionesEdit.glasgow.motor + evolucionesEdit.glasgow.verbal + evolucionesEdit.glasgow.ocular >= 14" class="small padding-left padding-right margin-left nivel-verde">Leve</span>
+                                                <span ng-if="evolucionesEdit.glasgow.motor + evolucionesEdit.glasgow.verbal + evolucionesEdit.glasgow.ocular >= 9 && evolucionesEdit.glasgow.motor + evolucionesEdit.glasgow.verbal + evolucionesEdit.glasgow.ocular <= 13" class="small padding-left padding-right margin-left nivel-amarillo">Moderado</span>
+                                                <span ng-if="evolucionesEdit.glasgow.motor + evolucionesEdit.glasgow.verbal + evolucionesEdit.glasgow.ocular >= 3 && evolucionesEdit.glasgow.motor + evolucionesEdit.glasgow.verbal + evolucionesEdit.glasgow.ocular <= 8" class="small padding-left padding-right margin-left nivel-rojo">Grave</span>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -1736,16 +1729,16 @@
                                     <fieldset>
                                         <legend>Valoración de riesgo de caídas</legend>
                                         <div class="row">
-                                            <div class="col-lg-2" style="width: 14%">
+                                            <div class="col-lg-2" style="width: 14%" ng-init="evolucionesEdit.riesgoCaida.caidasPrevias = 0">
                                                 <label>
                                                     <b>Caídas previas</b>
                                                 </label>
-                                                <input type="radio" label="No" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.caidasPrevias" plex="radio">
+                                                <input type="radio" label="No" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.caidasPrevias" plex="radio" ng-init="0">
                                                 <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.caidasPrevias==0">El paciente no se ha caído.</span>
                                                 <input type="radio" label="Si" ng-value="25" ng-model="evolucionesEdit.riesgoCaida.caidasPrevias" plex="radio">
                                                 <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.caidasPrevias==25">El paciente se ha caído durante la presente internación o tiene antecedentes dentro de los últimos 3 meses de caídas por convulsiones o trastornos de la marcha.</span>
                                             </div>
-                                            <div class="col-lg-2" style="width: 14%">
+                                            <div class="col-lg-2" style="width: 14%" ng-init="evolucionesEdit.riesgoCaida.marcha = 0">
                                                 <label>
                                                     <b>Marcha</b>
                                                 </label>
@@ -1756,7 +1749,7 @@
                                                 <input type="radio" label="Limitada" ng-value="20" ng-model="evolucionesEdit.riesgoCaida.marcha" plex="radio">
                                                 <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.marcha==20">El paciente puede tener dificultades para levantarse de la silla, pudiendo realizar varios intentos apoyando sus brazos en los brazos de la silla o tomando impulso. La cabeza del paciente está baja, mirando al piso.</span>
                                             </div>
-                                            <div class="col-lg-2" style="width: 14%">
+                                            <div class="col-lg-2" style="width: 14%" ng-init="evolucionesEdit.riesgoCaida.ayudaDeambular = 0">
                                                 <label>
                                                     <b>Ayuda para deambular</b>
                                                 </label>
@@ -1767,7 +1760,7 @@
                                                 <input type="radio" label="Se apoya en los muebles" ng-value="30" ng-model="evolucionesEdit.riesgoCaida.ayudaDeambular" plex="radio">
                                                 <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.ayudaDeambular==30">El paciente sólo camina apoyándose en los muebles.</span>
                                             </div>
-                                            <div class="col-lg-2" style="width: 14%">
+                                            <div class="col-lg-2" style="width: 14%" ng-init="evolucionesEdit.riesgoCaida.venoclisis = 0">
                                                 <label>
                                                     <b>Venoclisis</b>
                                                 </label>
@@ -1775,7 +1768,7 @@
                                                 <input type="radio" label="Si" ng-value="20" ng-model="evolucionesEdit.riesgoCaida.venoclisis" plex="radio">
                                                 <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.venoclisis==20">El paciente tiene una vía IV.</span>
                                             </div>
-                                            <div class="col-lg-2" style="width: 14%">
+                                            <div class="col-lg-2" style="width: 14%" ng-init="evolucionesEdit.riesgoCaida.comorbilidad = 0">
                                                 <label>
                                                     <b>Comorbilidad</b>
                                                 </label>
@@ -1784,7 +1777,7 @@
                                                 <input type="radio" label="Si" ng-value="15" ng-model="evolucionesEdit.riesgoCaida.comorbilidad" plex="radio">
                                                 <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.comorbilidad==15">El paciente presenta múltiples diagnósticos.</span>
                                             </div>
-                                            <div class="col-lg-2" style="width: 18%">
+                                            <div class="col-lg-2" style="width: 18%" ng-init="evolucionesEdit.riesgoCaida.estadoMental = 0">
                                                 <label>
                                                     <b>Estado mental</b>
                                                 </label>
@@ -1946,6 +1939,36 @@
                                             </div>
                                         </div>
                                     </fieldset>
+                                </div>
+
+                                <div ng-if="evolucionarIndicacion.tipo == 'Controles' && evolucionarIndicacion.controles.tipo == 'Flebitis'">
+                                    <fieldset>
+                                        <legend>Valoración de flebitis</legend>
+                                        <div class="row">
+                                            <div class="col-lg-2" ng-init="evolucionesEdit.flebitis.grado = 0">
+                                                <input type="radio" label="Sin signos clínicos" ng-value="0" ng-model="evolucionesEdit.flebitis.grado" plex="radio" ng-init="0">
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <input type="radio" label="Eritema con o sin dolor, pueden ahber o no edema, no hay formación de líneas, no hay cordón palpable." ng-value="1" ng-model="evolucionesEdit.flebitis.grado" plex="radio" >
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <input type="radio" label="Eritema con o sin dolor, puede haber o no edema, formación de líneas, no hay cordón palpable." ng-value="2" ng-model="evolucionesEdit.flebitis.grado" plex="radio" >
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <input type="radio" label="Eritema con o sin dolor, puede haber o no edema, formación de líneas, cordón palpable." ng-value="3" ng-model="evolucionesEdit.flebitis.grado" plex="radio" >
+                                            </div>
+                                            <div class="col-lg-2 col-lg-offset-2 text-center">
+                                                <label>
+                                                    <b>Total</b>
+                                                </label>
+                                                <h4>{{evolucionesEdit.flebitis.grado}}</h4>
+                                                <span ng-if="evolucionesEdit.flebitis.grado == 0" class="small padding-left padding-right margin-left nivel-gris">No presenta</span>
+                                                <span ng-if="evolucionesEdit.flebitis.grado == 1" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
+                                                <span ng-if="evolucionesEdit.flebitis.grado == 2" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
+                                                <span ng-if="evolucionesEdit.flebitis.grado == 3" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
+                                            </div>
+                                        </div>
+                                    </fielset>
                                 </div>
 
                                 <div class="row">
