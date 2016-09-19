@@ -14,45 +14,49 @@ angular.module('app').controller('Pacientes/iHeaderController', ["$scope", funct
 
     angular.extend($scope, {
         internacion: null,
-        riesgoCaidas : {},
-        valoracionDolor : {},
-        fiebre : {},
-        glasgow : {},
-        flebitis : {},
+        riesgoCaidas: null,
+        valoracionDolor: null,
+        fiebre: null,
+        glasgow: null,
+        flebitis: null,
+        upp: null,
 
-        hayRiesgoCaidas: function(){
+        hayRiesgoCaidas: function() {
             var clase = "";
 
-            if ($scope.internacion.evoluciones && $scope.internacion.evoluciones.length){
+            if ($scope.internacion.evoluciones && $scope.internacion.evoluciones.length) {
 
                 // traemos todas las evoluciones que tengan riesgo de caida
                 var evoluciones = $scope.internacion.evoluciones.filter(function(evolucion) {
                     return (evolucion.tipo == "Controles" && evolucion.riesgoCaida && evolucion.riesgoCaida.total && evolucion.riesgoCaida.total > 0);
                 });
 
-                if (evoluciones){
+                if (evoluciones.length) {
 
                     // ordenamos
-                    evoluciones.sort(function(a, b){
+                    evoluciones.sort(function(a, b) {
                         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
                     });
 
                     // escala
                     if (evoluciones[0].riesgoCaida.total < 25) {
                         $scope.riesgoCaidas = {
-                            clase : "default",
-                            indicador : "bajo"
+                            clase: "default",
+                            indicador: "bajo",
+                            valor: evoluciones[0].riesgoCaida.total
                         }
 
-                    }else if (evoluciones[0].riesgoCaida.total >= 25 && evoluciones[0].riesgoCaida.total <= 50) {
+                    } else if (evoluciones[0].riesgoCaida.total >= 25 && evoluciones[0].riesgoCaida.total <= 50) {
                         $scope.riesgoCaidas = {
-                            clase : "warning",
-                            indicador : "medio"
+                            clase: "warning",
+                            indicador: "medio",
+                            valor: evoluciones[0].riesgoCaida.total
                         }
-                    }else if (evoluciones[0].riesgoCaida.total > 50) {
+                    } else if (evoluciones[0].riesgoCaida.total > 50) {
                         $scope.riesgoCaidas = {
-                            clase : "danger",
-                            indicador : "alto"
+                            clase: "danger",
+                            indicador: "alto",
+                            valor: evoluciones[0].riesgoCaida.total
                         }
                     }
 
@@ -65,46 +69,51 @@ angular.module('app').controller('Pacientes/iHeaderController', ["$scope", funct
             return null;
         },
 
-        hayValoracionDolor: function(){
+        hayValoracionDolor: function() {
             var clase = "";
 
-            if ($scope.internacion.evoluciones && $scope.internacion.evoluciones.length){
+            if ($scope.internacion.evoluciones && $scope.internacion.evoluciones.length) {
 
                 // traemos todas las evoluciones que tengan riesgo de caida
                 var evoluciones = $scope.internacion.evoluciones.filter(function(evolucion) {
                     return (evolucion.tipo == "Controles" && evolucion.dolorValoracion && evolucion.dolorValoracion.intensidad && evolucion.dolorValoracion.intensidad > 0);
                 });
 
-                if (evoluciones){
+                if (evoluciones.length) {
 
                     // ordenamos
-                    evoluciones.sort(function(a, b){
+                    evoluciones.sort(function(a, b) {
                         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
                     });
 
                     // escala
                     if (evoluciones[0].dolorValoracion.intensidad >= 1 && evoluciones[0].dolorValoracion.intensidad <= 3) {
                         $scope.valoracionDolor = {
-                            clase : "default",
-                            indicador : "leve"
+                            clase: "default",
+                            indicador: "leve",
+                            valor: evoluciones[0].dolorValoracion.intensidad
                         }
 
-                    }else if (evoluciones[0].dolorValoracion.intensidad >= 4 && evoluciones[0].dolorValoracion.intensidad <= 6) {
+                    } else if (evoluciones[0].dolorValoracion.intensidad >= 4 && evoluciones[0].dolorValoracion.intensidad <= 6) {
                         $scope.valoracionDolor = {
-                            clase : "default",
-                            indicador : "moderado"
+                            clase: "primary",
+                            indicador: "moderado",
+                            valor: evoluciones[0].dolorValoracion.intensidad
                         }
 
-                    }else if (evoluciones[0].dolorValoracion.intensidad >= 7 && evoluciones[0].dolorValoracion.intensidad <= 9) {
+                    } else if (evoluciones[0].dolorValoracion.intensidad >= 7 && evoluciones[0].dolorValoracion.intensidad <= 9) {
                         $scope.valoracionDolor = {
-                            clase : "default",
-                            indicador : "severo"
+                            clase: "warning",
+                            indicador: "severo",
+                            valor: evoluciones[0].dolorValoracion.intensidad
                         }
 
-                    }if (evoluciones[0].dolorValoracion.intensidad == 10) {
+                    }
+                    if (evoluciones[0].dolorValoracion.intensidad == 10) {
                         $scope.valoracionDolor = {
-                            clase : "default",
-                            indicador : "intolerable"
+                            clase: "danger",
+                            indicador: "intolerable",
+                            valor: evoluciones[0].dolorValoracion.intensidad
                         }
 
                     }
@@ -118,51 +127,56 @@ angular.module('app').controller('Pacientes/iHeaderController', ["$scope", funct
             return null;
         },
 
-        hayFiebre: function(){
+        hayFiebre: function() {
             var clase = "";
 
-            if ($scope.internacion.evoluciones && $scope.internacion.evoluciones.length){
+            if ($scope.internacion.evoluciones && $scope.internacion.evoluciones.length) {
 
                 // traemos todas las evoluciones que tengan riesgo de caida
                 var evoluciones = $scope.internacion.evoluciones.filter(function(evolucion) {
                     return (evolucion.tipo == "Controles" && evolucion.signosVitales && evolucion.signosVitales.temperatura && evolucion.signosVitales.temperatura > 0);
                 });
 
-                if (evoluciones){
+                if (evoluciones.length) {
 
                     // ordenamos
-                    evoluciones.sort(function(a, b){
+                    evoluciones.sort(function(a, b) {
                         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
                     });
 
                     // escala
                     if (evoluciones[0].signosVitales.temperatura <= 35) {
                         $scope.fiebre = {
-                            clase : "info",
-                            indicador : evoluciones[0].signosVitales.temperatura
+                            clase: "info",
+                            indicador: evoluciones[0].signosVitales.temperatura,
+                            valor: evoluciones[0].signosVitales.temperatura
                         }
 
-                    }else if (evoluciones[0].signosVitales.temperatura >= 35.1 && evoluciones[0].signosVitales.temperatura <= 36) {
+                    } else if (evoluciones[0].signosVitales.temperatura >= 35.1 && evoluciones[0].signosVitales.temperatura <= 36) {
                         $scope.fiebre = {
-                            clase : "success",
-                            indicador : evoluciones[0].signosVitales.temperatura
+                            clase: "success",
+                            indicador: evoluciones[0].signosVitales.temperatura,
+                            valor: evoluciones[0].signosVitales.temperatura
                         }
 
-                    }else if (evoluciones[0].signosVitales.temperatura >= 36.1 && evoluciones[0].signosVitales.temperatura <= 38) {
+                    } else if (evoluciones[0].signosVitales.temperatura >= 36.1 && evoluciones[0].signosVitales.temperatura <= 38) {
                         $scope.fiebre = {
-                            clase : "default",
-                            indicador : evoluciones[0].signosVitales.temperatura
+                            clase: "default",
+                            indicador: evoluciones[0].signosVitales.temperatura,
+                            valor: evoluciones[0].signosVitales.temperatura
                         }
 
-                    }else if (evoluciones[0].signosVitales.temperatura >= 38.1 && evoluciones[0].signosVitales.temperatura <= 39) {
+                    } else if (evoluciones[0].signosVitales.temperatura >= 38.1 && evoluciones[0].signosVitales.temperatura <= 39) {
                         $scope.fiebre = {
-                            clase : "success",
-                            indicador : evoluciones[0].signosVitales.temperatura
+                            clase: "success",
+                            indicador: evoluciones[0].signosVitales.temperatura,
+                            valor: evoluciones[0].signosVitales.temperatura
                         }
-                    }else if (evoluciones[0].signosVitales.temperatura >= 39.1) {
+                    } else if (evoluciones[0].signosVitales.temperatura >= 39.1) {
                         $scope.fiebre = {
-                            clase : "danger",
-                            indicador : evoluciones[0].signosVitales.temperatura
+                            clase: "danger",
+                            indicador: evoluciones[0].signosVitales.temperatura,
+                            valor: evoluciones[0].signosVitales.temperatura
                         }
                     }
 
@@ -175,54 +189,46 @@ angular.module('app').controller('Pacientes/iHeaderController', ["$scope", funct
             return null;
         },
 
-        hayGlasgow: function(){
+        hayGlasgow: function() {
             var clase = "";
 
-            if ($scope.internacion.evoluciones && $scope.internacion.evoluciones.length){
+            if ($scope.internacion.evoluciones && $scope.internacion.evoluciones.length) {
 
                 // traemos todas las evoluciones que tengan riesgo de caida
                 var evoluciones = $scope.internacion.evoluciones.filter(function(evolucion) {
-                    return (evolucion.tipo == "Controles" && evolucion.glasgow && evolucion.glasgow.total && evolucion.signosVitales.total > 0);
+                    return (evolucion.tipo == "Controles" && evolucion.glasgow && evolucion.glasgow.total && evolucion.glasgow.total > 0);
                 });
 
-                if (evoluciones){
+                if (evoluciones.length) {
 
                     // ordenamos
-                    evoluciones.sort(function(a, b){
+                    evoluciones.sort(function(a, b) {
                         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
                     });
 
                     // // escala
-                    // if (evoluciones[0].signosVitales.temperatura <= 35) {
-                    //     $scope.glasgow = {
-                    //         clase : "info",
-                    //         indicador : evoluciones[0].signosVitales.temperatura
-                    //     }
-                    //
-                    // }else if (evoluciones[0].signosVitales.temperatura >= 35.1 && evoluciones[0].signosVitales.temperatura <= 36) {
-                    //     $scope.glasgow = {
-                    //         clase : "success",
-                    //         indicador : evoluciones[0].signosVitales.temperatura
-                    //     }
-                    //
-                    // }else if (evoluciones[0].signosVitales.temperatura >= 36.1 && evoluciones[0].signosVitales.temperatura <= 38) {
-                    //     $scope.glasgow = {
-                    //         clase : "default",
-                    //         indicador : evoluciones[0].signosVitales.temperatura
-                    //     }
-                    //
-                    // }else if (evoluciones[0].signosVitales.temperatura >= 38.1 && evoluciones[0].signosVitales.temperatura <= 39) {
-                    //     $scope.glasgow = {
-                    //         clase : "success",
-                    //         indicador : evoluciones[0].signosVitales.temperatura
-                    //     }
-                    // }else if (evoluciones[0].signosVitales.temperatura >= 39.1) {
-                    //     $scope.glasgow = {
-                    //         clase : "danger",
-                    //         indicador : evoluciones[0].signosVitales.temperatura
-                    //     }
-                    // }
+                    if (evoluciones[0].glasgow.total > 3 && evoluciones[0].glasgow.total <= 8) {
+                        $scope.glasgow = {
+                            clase: "danger",
+                            indicador: 'grave',
+                            valor: evoluciones[0].glasgow.total
+                        }
 
+                    } else if (evoluciones[0].glasgow.total >= 9 && evoluciones[0].glasgow.total <= 13) {
+                        $scope.glasgow = {
+                            clase: "warning",
+                            indicador: "moderado",
+                            valor: evoluciones[0].glasgow.total
+                        }
+
+                    } else if (evoluciones[0].glasgow.total >= 14) {
+                        $scope.glasgow = {
+                            clase: "success",
+                            indicador: "leve",
+                            valor: evoluciones[0].glasgow.total
+                        }
+
+                    }
                     // var code = '<span class="tips label label-' + clase + '" title="Riesgo de caídas ' + indicador + '">Riesgo caídas</span>';
 
                     return $scope.glasgow;
@@ -232,46 +238,50 @@ angular.module('app').controller('Pacientes/iHeaderController', ["$scope", funct
             return null;
         },
 
-        hayFlebitis: function(){
+        hayFlebitis: function() {
             var clase = "";
 
-            if ($scope.internacion.evoluciones && $scope.internacion.evoluciones.length){
+            if ($scope.internacion.evoluciones && $scope.internacion.evoluciones.length) {
 
                 // traemos todas las evoluciones que tengan riesgo de caida
                 var evoluciones = $scope.internacion.evoluciones.filter(function(evolucion) {
                     return (evolucion.tipo == "Controles" && evolucion.flebitis && evolucion.flebitis.grado && evolucion.flebitis.grado > 0);
                 });
 
-                if (evoluciones){
+                if (evoluciones.length) {
 
                     // ordenamos
-                    evoluciones.sort(function(a, b){
+                    evoluciones.sort(function(a, b) {
                         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
                     });
 
                     // escala
                     if (evoluciones[0].flebitis.grado == 0) {
                         $scope.flebitis = {
-                            clase : "info",
-                            indicador : evoluciones[0].flebitis.grado
+                            clase: "info",
+                            indicador: evoluciones[0].flebitis.grado,
+                            valor: evoluciones[0].flebitis.grado
                         }
 
-                    }else if (evoluciones[0].flebitis.grado == 1) {
+                    } else if (evoluciones[0].flebitis.grado == 1) {
                         $scope.flebitis = {
-                            clase : "success",
-                            indicador : evoluciones[0].flebitis.grado
+                            clase: "success",
+                            indicador: evoluciones[0].flebitis.grado,
+                            valor: evoluciones[0].flebitis.grado
                         }
 
-                    }else if (evoluciones[0].flebitis.grado == 2) {
+                    } else if (evoluciones[0].flebitis.grado == 2) {
                         $scope.flebitis = {
-                            clase : "warning",
-                            indicador : evoluciones[0].flebitis.grado
+                            clase: "warning",
+                            indicador: evoluciones[0].flebitis.grado,
+                            valor: evoluciones[0].flebitis.grado
                         }
 
-                    }else if (evoluciones[0].flebitis.grado == 3) {
+                    } else if (evoluciones[0].flebitis.grado == 3) {
                         $scope.flebitis = {
-                            clase : "danger",
-                            indicador : evoluciones[0].flebitis.grado
+                            clase: "danger",
+                            indicador: evoluciones[0].flebitis.grado,
+                            valor: evoluciones[0].flebitis.grado
                         }
                     }
 
@@ -283,6 +293,54 @@ angular.module('app').controller('Pacientes/iHeaderController', ["$scope", funct
             return null;
         },
 
+        hayUlcerasPorPresion: function(){
+            var clase = "";
+
+            if ($scope.internacion.evoluciones && $scope.internacion.evoluciones.length) {
+
+                // traemos todas las evoluciones que tengan riesgo de caida
+                var evoluciones = $scope.internacion.evoluciones.filter(function(evolucion) {
+                    return (evolucion.tipo == "Controles" && evolucion.riesgoUPP && evolucion.riesgoUPP.total && evolucion.riesgoUPP.total > 0);
+                });
+
+                if (evoluciones.length) {
+
+                    // ordenamos
+                    evoluciones.sort(function(a, b) {
+                        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+                    });
+
+                    // escala
+                    if (evoluciones[0].riesgoUPP.total >= 13 && evoluciones[0].riesgoUPP.total <= 16) {
+                        $scope.upp = {
+                            clase: "default",
+                            indicador: "Riesgo bajo",
+                            valor: evoluciones[0].riesgoUPP.total
+                        }
+
+                    } else if (evoluciones[0].riesgoUPP.total >= 10 && evoluciones[0].riesgoUPP.total <= 12) {
+                        $scope.upp = {
+                            clase: "warning",
+                            indicador: "Riesgo medio",
+                            valor: evoluciones[0].riesgoUPP.total
+                        }
+
+                    } else if (evoluciones[0].riesgoUPP.total >= 5 && evoluciones[0].riesgoUPP.total <= 9) {
+                        $scope.upp = {
+                            clase: "danger",
+                            indicador: "Riesgo alto",
+                            valor: evoluciones[0].riesgoUPP.total
+                        }
+
+                    }
+
+                    // var code = '<span class="tips label label-' + clase + '" title="Riesgo de caídas ' + indicador + '">Riesgo caídas</span>';
+                    return $scope.upp;
+                }
+            }
+
+            return null;
+        }
     });
 
     $scope.$watch('include.internacion', function(current, old) {
@@ -292,5 +350,6 @@ angular.module('app').controller('Pacientes/iHeaderController', ["$scope", funct
         $scope.hayFiebre();
         $scope.hayGlasgow();
         $scope.hayFlebitis();
+        $scope.hayUlcerasPorPresion();
     });
 }]);

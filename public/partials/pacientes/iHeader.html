@@ -76,10 +76,13 @@
                             <span class="tips label label-{{fiebre.clase}}" title="Temperatura corporal de {{fiebre.indicador}}°">Temperatura {{fiebre.indicador}}°</span>
                         </div>
                         <div ng-if="glasgow">
-                            <span class="tips label label-{{glasgow.clase}}" title="Glasgow de {{fiebre.indicador}}°">Glasgow {{fiebre.indicador}}°</span>
+                            <span class="tips label label-{{glasgow.clase}}" title="Glasgow {{glasgow.indicador}} {{glasgow.valor}}">Glasgow {{glasgow.valor}}</span>
                         </div>
                         <div ng-if="flebitis">
                             <span class="tips label label-{{flebitis.clase}}" title="Flebitis {{flebitis.indicador}}+">Flebitis</span>
+                        </div>
+                        <div ng-if="upp">
+                            <span class="tips label label-{{upp.clase}}" title="UPP {{upp.indicador}}">UPP {{upp.valor}}</span>
                         </div>
 
                     </div>

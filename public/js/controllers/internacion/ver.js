@@ -235,6 +235,11 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
 
             return Shared.ubicaciones.get(buscar);
         },
+        verEvolucion:function(idInternacion, idEvolucion){
+            Plex.openView('internacion/verEvolucion/' + idInternacion + "/" + idEvolucion).then(function() {
+
+            });
+        },
         hayEvoluciones: function(tipo) {
             var total = 0;
 

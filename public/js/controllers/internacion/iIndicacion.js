@@ -531,105 +531,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 if (indicacion) {
                     $scope.accion = "editar";
 
-                    angular.copy(indicacion, $scope.indicacion);
-
-                    // si es una edicion y ya ha sido guardado, entonces
-                    // deberemos crear el historial, por lo tanto seteamos
-                    // a null el id y mantenemos el id padre en idIndicacion
-                    if ($scope.indicacion.id) {
-
-                        // guardamos la referencia de que indicacion es modificada
-                        $scope.indicacion.idIndicacion = $scope.indicacion.id;
-
-                        // limpiamos los ids
-                        $scope.indicacion.id = null;
-                        $scope.indicacion._id = null;
-
-                        // como estamos copiando de un elemento existente
-                        // tambien nos viene los datos de auditoria
-                        // asique los limpiamos para poder cargarlos nuevamente
-                        $scope.indicacion.createdAt = null;
-                        $scope.indicacion.createdBy = null;
-                        $scope.indicacion.updatedAt = null;
-                        $scope.indicacion.updatedBy = null;
-
-                        // seteamos el servicio actual
-                        $scope.indicacion.servicio = Session.variables.servicioActual
-                    }
-
-                    //
-                    $scope.indicacion.tipo = Global.getById($scope.tiposIndicaciones, indicacion.tipo);
-
-                    // cargamos el valor de tipo de solucion en caso de ser un plan de hidratacion
-                    if ($scope.indicacion.tipo == 'Plan hidratación parenteral' || $scope.indicacion.tipo.nombre == 'Plan hidratación parenteral') {
-
-                        if ($scope.indicacion.planHidratacion.enteralParenteral.agregados.length) {
-                            $scope.indicacion.planHidratacion.enteralParenteral.poseeAgregados = true;
-                        }
-
-                        // agregamos los frascos de solucion fisiologica
-                        if (typeof $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos != "undefined") {
-                            var frascos = $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos;
-                            $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos = [];
-                            // asignamos los frascos
-                            angular.forEach(frascos, function(frasco) {
-                                $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos.push({
-                                    id: frasco,
-                                    value: frasco
-                                });
-                            });
-                        }
-
-                        // agregamos los frascos de ringer-lactato
-                        if (typeof indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos != "undefined") {
-                            var frascos = $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos;
-                            $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos = [];
-                            // asignamos los frascos
-                            angular.forEach(frascos, function(frasco) {
-                                $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos.push({
-                                    id: frasco,
-                                    value: frasco
-                                });
-                            });
-                        }
-
-                        // agregamos los frascos de dextrosa
-                        if (typeof indicacion.planHidratacion.enteralParenteral.dextrosa.frascos != "undefined") {
-                            var frascos = $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.frascos;
-                            $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.frascos = [];
-                            // asignamos los frascos
-                            angular.forEach(frascos, function(frasco) {
-                                $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.frascos.push({
-                                    id: frasco,
-                                    value: frasco
-                                });
-                            });
-                        }
-                    }
-
-                    // plan de hidratacion enteral
-                    if ($scope.indicacion.tipo == 'Plan hidratación enteral' || $scope.indicacion.tipo.nombre == 'Plan hidratación enteral') {
-                        $scope.planHidratacion.enteralParenteral.pasarDurante = Global.getById($scope.pasarDurante, $scope.planHidratacion.enteralParenteral.pasarDurante);
-                    }
-
-                    // cargamos el valor de prioridad en caso de ser una solicitud de prestacion
-                    if ($scope.indicacion.tipo == 'Solicitud prestaciones') {
-                        $scope.indicacion.prestaciones.prioridad = Global.getById($scope.prestaciones.prioridad, ($scope.indicacion.prestaciones.prioridad.id || $scope.indicacion.prestaciones.prioridad));
-                    }
-
-                    if ($scope.indicacion.tipo == 'Cuidados generales') {
-                        // $scope.indicacion.cuidadosGenerales.tipo = Global.getById($scope.tiposCuidadosGenerales, ($scope.indicacion.cuidadosGenerales.tipo.id || $scope.indicacion.prestaciones.cuidadosGenerales.tipo));
-                        $scope.indicacion.cuidadosGenerales.tipo = Global.getById($scope.tiposCuidadosGenerales, ($scope.indicacion.prestaciones.cuidadosGenerales.tipo));
-                    }
-
-                    // cargamos el valor de tipo de preparados en caso de ser nutricion
-                    if ($scope.indicacion.tipo == 'Nutrición' || $scope.indicacion.tipo.nombre == 'Nutrición') {
-                        $scope.indicacion.nutricion.nutricionEnteral.tipoPreparado.descripcion = Global.getById($scope.tipoNutricionEnteral, ($scope.indicacion.nutricion.nutricionEnteral.tipoPreparado.descripcion.id || $scope.indicacion.nutricion.nutricionEnteral.tipoPreparado.descripcion));
-                        $scope.calcularInformacionNutricion('nutricion-enteral');
-
-                        $scope.indicacion.nutricion.soporteOral.tipoPreparado.descripcion = Global.getById($scope.tipoNutricionEnteral, ($scope.indicacion.nutricion.soporteOral.tipoPreparado.descripcion.id || $scope.indicacion.nutricion.soporteOral.tipoPreparado.descripcion));
-                        $scope.calcularInformacionNutricion('soporte-oral');
-                    }
+                    $scope.indicaciones.duplicar(indicacion);
                 } else {
                     $scope.accion = "agregar";
 
@@ -638,6 +540,108 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     // $scope.indicacion.via = 'EV';
                 }
 
+            },
+            // duplicar
+            duplicar: function (indicacion){
+                angular.copy(indicacion, $scope.indicacion);
+
+                // si es una edicion y ya ha sido guardado, entonces
+                // deberemos crear el historial, por lo tanto seteamos
+                // a null el id y mantenemos el id padre en idIndicacion
+                if ($scope.indicacion.id) {
+
+                    // guardamos la referencia de que indicacion es modificada
+                    $scope.indicacion.idIndicacion = $scope.indicacion.id;
+
+                    // limpiamos los ids
+                    $scope.indicacion.id = null;
+                    $scope.indicacion._id = null;
+
+                    // como estamos copiando de un elemento existente
+                    // tambien nos viene los datos de auditoria
+                    // asique los limpiamos para poder cargarlos nuevamente
+                    $scope.indicacion.createdAt = null;
+                    $scope.indicacion.createdBy = null;
+                    $scope.indicacion.updatedAt = null;
+                    $scope.indicacion.updatedBy = null;
+
+                    // seteamos el servicio actual
+                    $scope.indicacion.servicio = Session.variables.servicioActual
+                }
+
+                //
+                $scope.indicacion.tipo = Global.getById($scope.tiposIndicaciones, indicacion.tipo);
+
+                // cargamos el valor de tipo de solucion en caso de ser un plan de hidratacion
+                if ($scope.indicacion.tipo == 'Plan hidratación parenteral' || $scope.indicacion.tipo.nombre == 'Plan hidratación parenteral') {
+
+                    if ($scope.indicacion.planHidratacion.enteralParenteral.agregados.length) {
+                        $scope.indicacion.planHidratacion.enteralParenteral.poseeAgregados = true;
+                    }
+
+                    // agregamos los frascos de solucion fisiologica
+                    if (typeof $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos != "undefined") {
+                        var frascos = $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos;
+                        $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos = [];
+                        // asignamos los frascos
+                        angular.forEach(frascos, function(frasco) {
+                            $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos.push({
+                                id: frasco,
+                                value: frasco
+                            });
+                        });
+                    }
+
+                    // agregamos los frascos de ringer-lactato
+                    if (typeof indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos != "undefined") {
+                        var frascos = $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos;
+                        $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos = [];
+                        // asignamos los frascos
+                        angular.forEach(frascos, function(frasco) {
+                            $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos.push({
+                                id: frasco,
+                                value: frasco
+                            });
+                        });
+                    }
+
+                    // agregamos los frascos de dextrosa
+                    if (typeof indicacion.planHidratacion.enteralParenteral.dextrosa.frascos != "undefined") {
+                        var frascos = $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.frascos;
+                        $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.frascos = [];
+                        // asignamos los frascos
+                        angular.forEach(frascos, function(frasco) {
+                            $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.frascos.push({
+                                id: frasco,
+                                value: frasco
+                            });
+                        });
+                    }
+                }
+
+                // plan de hidratacion enteral
+                if ($scope.indicacion.tipo == 'Plan hidratación enteral' || $scope.indicacion.tipo.nombre == 'Plan hidratación enteral') {
+                    $scope.planHidratacion.enteralParenteral.pasarDurante = Global.getById($scope.pasarDurante, $scope.planHidratacion.enteralParenteral.pasarDurante);
+                }
+
+                // cargamos el valor de prioridad en caso de ser una solicitud de prestacion
+                if ($scope.indicacion.tipo == 'Solicitud prestaciones') {
+                    $scope.indicacion.prestaciones.prioridad = Global.getById($scope.prestaciones.prioridad, ($scope.indicacion.prestaciones.prioridad.id || $scope.indicacion.prestaciones.prioridad));
+                }
+
+                if ($scope.indicacion.tipo == 'Cuidados generales') {
+                    // $scope.indicacion.cuidadosGenerales.tipo = Global.getById($scope.tiposCuidadosGenerales, ($scope.indicacion.cuidadosGenerales.tipo.id || $scope.indicacion.prestaciones.cuidadosGenerales.tipo));
+                    $scope.indicacion.cuidadosGenerales.tipo = Global.getById($scope.tiposCuidadosGenerales, ($scope.indicacion.prestaciones.cuidadosGenerales.tipo));
+                }
+
+                // cargamos el valor de tipo de preparados en caso de ser nutricion
+                if ($scope.indicacion.tipo == 'Nutrición' || $scope.indicacion.tipo.nombre == 'Nutrición') {
+                    $scope.indicacion.nutricion.nutricionEnteral.tipoPreparado.descripcion = Global.getById($scope.tipoNutricionEnteral, ($scope.indicacion.nutricion.nutricionEnteral.tipoPreparado.descripcion.id || $scope.indicacion.nutricion.nutricionEnteral.tipoPreparado.descripcion));
+                    $scope.calcularInformacionNutricion('nutricion-enteral');
+
+                    $scope.indicacion.nutricion.soporteOral.tipoPreparado.descripcion = Global.getById($scope.tipoNutricionEnteral, ($scope.indicacion.nutricion.soporteOral.tipoPreparado.descripcion.id || $scope.indicacion.nutricion.soporteOral.tipoPreparado.descripcion));
+                    $scope.calcularInformacionNutricion('soporte-oral');
+                }
             },
             // Guardamos la indicacion
             guardar: function(indicacion, accion) {
@@ -665,7 +669,13 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 });
 
             },
-
+            // renovar indicacion
+            renovar: function (indicacion){
+                // console.log($scope.indicacion);
+                $scope.indicaciones.duplicar(indicacion);
+                // console.log($scope.indicacion);
+                $scope.indicaciones.guardar($scope.indicacion, 'renovada');
+            },
             // suspender una indicacion
             suspender: function(indicacion) {
                 $scope.indicaciones.borrar = true;

@@ -914,7 +914,7 @@
                     </thead>
                     <tbody>
 
-                    <tr ng-repeat="indicacion in filtros.indicaciones track by $index">
+                        <tr ng-repeat="indicacion in filtros.indicaciones track by $index">
                             <!-- <td width="20">
                                 <input type="checkbox" name="selected" ng-checked="table.isSelected(indicacion.id)" ng-click="table.updateSelection($event, indicacion.id)"/>
                             </td> -->
@@ -1243,12 +1243,14 @@
                                 {{indicacion.servicio.nombreCorto}}
                             </td>
 
-
-
                             <td class="text-center" ng-hide="!indicacion.activo || (evolucionarIndicacion && indicacion.id != evolucionarIndicacion.id)">
 
                                 <div class="acciones">
                                     <div ng-show="!indicaciones.borrar && !evolucionarIndicacion">
+
+                                        <button class="btn btn-sm btn-primary btn-flat tips" title="Renovar indicacion" ng-click="indicaciones.renovar(indicacion)">
+                                            <i class="mdi mdi-reload"></i>
+                                        </button>
 
                                         <button class="btn btn-sm btn-success btn-flat tips" title="Evolucionar" ng-click="indicaciones.evolucionar(indicacion)"
                                             ng-show="indicacion.tipo == 'Controles' || indicacion.tipo == 'Antibióticos' || indicacion.tipo == 'Heparina o profilaxis'
@@ -1866,7 +1868,7 @@
                                     <fieldset>
                                         <legend>Valoración del riesgo de desarrollar una úlcera por presión</legend>
                                         <div class="row">
-                                            <div class="col-lg-2">
+                                            <div class="col-lg-2" ng-init="evolucionesEdit.riesgoUPP.estadoFisico = 0">
                                                 <label>
                                                     <b>Estado físico general</b>
                                                 </label>
@@ -1875,7 +1877,7 @@
                                                 <input type="radio" label="Mediano" ng-value="3" ng-model="evolucionesEdit.riesgoUPP.estadoFisico" plex="radio">
                                                 <input type="radio" label="Bueno" ng-value="4" ng-model="evolucionesEdit.riesgoUPP.estadoFisico" plex="radio">
                                             </div>
-                                            <div class="col-lg-2">
+                                            <div class="col-lg-2" ng-init="evolucionesEdit.riesgoUPP.estadoMental = 0">
                                                 <label>
                                                     <b>Estado mental</b>
                                                 </label>
@@ -1884,7 +1886,7 @@
                                                 <input type="radio" label="Apático" ng-value="3" ng-model="evolucionesEdit.riesgoUPP.estadoMental" plex="radio">
                                                 <input type="radio" label="Alerta" ng-value="4" ng-model="evolucionesEdit.riesgoUPP.estadoMental" plex="radio">
                                             </div>
-                                            <div class="col-lg-2">
+                                            <div class="col-lg-2" ng-init="evolucionesEdit.riesgoUPP.actividad = 0">
                                                 <label>
                                                     <b>Actividad</b>
                                                 </label>
@@ -1893,7 +1895,7 @@
                                                 <input type="radio" label="Disminuida" ng-value="3" ng-model="evolucionesEdit.riesgoUPP.actividad" plex="radio">
                                                 <input type="radio" label="Total" ng-value="4" ng-model="evolucionesEdit.riesgoUPP.actividad" plex="radio">
                                             </div>
-                                            <div class="col-lg-2">
+                                            <div class="col-lg-2" ng-init="evolucionesEdit.riesgoUPP.movilidad = 0">
                                                 <label>
                                                     <b>Movilidad</b>
                                                 </label>
@@ -1902,7 +1904,7 @@
                                                 <input type="radio" label="Camina con ayuda" ng-value="3" ng-model="evolucionesEdit.riesgoUPP.movilidad" plex="radio">
                                                 <input type="radio" label="Deambula" ng-value="4" ng-model="evolucionesEdit.riesgoUPP.movilidad" plex="radio">
                                             </div>
-                                            <div class="col-lg-2">
+                                            <div class="col-lg-2" ng-init="evolucionesEdit.riesgoUPP.incontinencia = 0">
                                                 <label>
                                                     <b>Incontinencia</b>
                                                 </label>
