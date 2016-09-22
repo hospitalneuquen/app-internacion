@@ -545,7 +545,7 @@
                         <fieldset>
                             <legend>Valoración del riesgo de desarrollar una úlcera por presión</legend>
                             <div class="row">
-                                <div class="col-lg-2">
+                                <div class="col-lg-2" ng-init="evolucionesEdit.riesgoUPP.estadoFisico = 0">
                                     <label>
                                         <b>Estado físico general</b>
                                     </label>
@@ -554,7 +554,7 @@
                                     <input type="radio" label="Mediano" ng-value="3" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.estadoFisico" plex="radio">
                                     <input type="radio" label="Bueno" ng-value="4" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.estadoFisico" plex="radio">
                                 </div>
-                                <div class="col-lg-2">
+                                <div class="col-lg-2" ng-init="evolucionesEdit.riesgoUPP.estadoMental = 0">
                                     <label>
                                         <b>Estado mental</b>
                                     </label>
@@ -563,7 +563,7 @@
                                     <input type="radio" label="Apático" ng-value="3" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.estadoMental" plex="radio">
                                     <input type="radio" label="Alerta" ng-value="4" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.estadoMental" plex="radio">
                                 </div>
-                                <div class="col-lg-2">
+                                <div class="col-lg-2" ng-init="evolucionesEdit.riesgoUPP.actividad = 0">
                                     <label>
                                         <b>Actividad</b>
                                     </label>
@@ -572,7 +572,7 @@
                                     <input type="radio" label="Disminuida" ng-value="3" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.actividad" plex="radio">
                                     <input type="radio" label="Total" ng-value="4" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.actividad" plex="radio">
                                 </div>
-                                <div class="col-lg-2">
+                                <div class="col-lg-2" ng-init="evolucionesEdit.riesgoUPP.movilidad = 0">
                                     <label>
                                         <b>Movilidad</b>
                                     </label>
@@ -581,7 +581,7 @@
                                     <input type="radio" label="Camina con ayuda" ng-value="3" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.movilidad" plex="radio">
                                     <input type="radio" label="Deambula" ng-value="4" ng-model="internacion.ingreso.enfermeria.valoracionRiesgoUPP.movilidad" plex="radio">
                                 </div>
-                                <div class="col-lg-2">
+                                <div class="col-lg-2" ng-init="evolucionesEdit.riesgoUPP.incontinencia = 0">
                                     <label>
                                         <b>Incontinencia</b>
                                     </label>
@@ -607,6 +607,43 @@
                         <div class="col-lg-12">
                             <input type="text" label="Observaciones" ng-model="internacion.ingreso.enfermeria.observacionesSeguridad" plex="text">
                         </div>
+                    </div>
+
+                    <div ng-if="totalUPP > 0 && totalUPP <= 12">
+                        <!-- <div class="row">
+                            <div class="col-lg-12">
+                                <p>El valor de riesgo de úlceras por presión sugiere que se hagan controles de las úlceras y rotaciones de decúbito. A continuación puede indicar la frecuencia</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <input type="checkbox" ng-model="controles" plex="checkbox" label="Indicar controles de úlceras por presión" />
+
+                                <select label="Frecuencia" ng-model="indicacion.frecuencia" plex>
+                                    <option value="24">Una vez al día</option>
+                                    <option value="12">Cada 12 hs.</option>
+                                    <option value="8">Cada 8 hs.</option>
+                                    <option value="6">Cada 6 hs.</option>
+                                    <option value="4">Cada 4 hs.</option>
+                                    <option value="2">Cada 2 hs.</option>
+                                    <option value="1">Cada 1 hs.</option>
+                                </select>
+                            </div>
+
+                            <div class="col-lg-3">
+                                <input type="checkbox" ng-model="rotacion" plex="checkbox" label="Indicar rotación de decúbito" />
+
+                                <select label="Frecuencia" ng-model="indicacion.frecuencia" plex>
+                                    <option value="24">Una vez al día</option>
+                                    <option value="12">Cada 12 hs.</option>
+                                    <option value="8">Cada 8 hs.</option>
+                                    <option value="6">Cada 6 hs.</option>
+                                    <option value="4">Cada 4 hs.</option>
+                                    <option value="2">Cada 2 hs.</option>
+                                    <option value="1">Cada 1 hs.</option>
+                                </select>
+                            </div>
+                        </div> -->
                     </div>
                 </div>
                 <!-- Comunicación y Sensopercepción -->
@@ -829,7 +866,7 @@
         </div>
     </div>
     <div class="card card-block margin-top text-right">
-        <a class="btn btn-default btn-flat">Cancelar</a>
+        <a class="btn btn-default btn-flat" ng-click="cancelar()">Cancelar</a>
         <button class="btn btn-primary" plex-submit="guardar()">
             <i class="mdi mdi-content-save"></i>
             <span>Guardar</span>

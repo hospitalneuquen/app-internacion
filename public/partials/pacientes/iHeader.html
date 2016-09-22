@@ -56,7 +56,7 @@
                         </span>
                         <br/>
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-1">
 
                         <!-- <div ng-if="internacion.ingreso.enfermeria.riesgoCaida.total > 0">
                             <b>Riesgo caidas:</b>
@@ -76,13 +76,32 @@
                             <span class="tips label label-{{fiebre.clase}}" title="Temperatura corporal de {{fiebre.indicador}}°">Temperatura {{fiebre.indicador}}°</span>
                         </div>
                         <div ng-if="glasgow">
-                            <span class="tips label label-{{glasgow.clase}}" title="Glasgow de {{fiebre.indicador}}°">Glasgow {{fiebre.indicador}}°</span>
+                            <span class="tips label label-{{glasgow.clase}}" title="Glasgow {{glasgow.indicador}} {{glasgow.valor}}">Glasgow {{glasgow.valor}}</span>
                         </div>
-                        <div ng-if="flebitis">
-                            <span class="tips label label-{{flebitis.clase}}" title="Flebitis {{flebitis.indicador}}+">Flebitis</span>
+
+                        <div ng-if="aislamiento && aislamiento.length">
+                            <div ng-repeat="a in aislamiento">
+                                <span class="tips label label-{{a.clase}}" title="Aislamiento {{a.indicador}} desde {{a.fecha}}">{{a.indicador}}</span>
+                            </div>
                         </div>
 
                     </div>
+                    <div class="col-lg-1">
+                        <div ng-if="flebitis">
+                            <span class="tips label label-{{flebitis.clase}}" title="Flebitis {{flebitis.indicador}}+">Flebitis</span>
+                        </div>
+                        <div ng-if="upp">
+                            <span class="tips label label-{{upp.clase}}" title="UPP {{upp.indicador}}">UPP {{upp.valor}}</span>
+                        </div>
+                        <div ng-if="balanceTotalLiquidos">
+                            <!-- <span class="tips label label-{{upp.clase}}" title="UPP {{upp.indicador}}">UPP {{balanceTotalLiquidos.valor}}</span> -->
+                            {{balanceTotalLiquidos.total}} ml
+                            <i class="verde mdi mdi-minus-circle" ng-if="balanceTotalLiquidos.total < 0"></i>
+                            <i class="celeste mdi mdi-equal" ng-if="balanceTotalLiquidos.total == 0"></i>
+                            <i class="rojo mdi mdi-plus-circle" ng-if="balanceTotalLiquidos.total > 0"></i>
+                        </div>
+                    </div>
+
                     <div class="col-lg-1 text-right">
                         <div class="numero-habitacion">
                             {{internacion.pases[internacion.pases.length-1].cama.habitacion}}
