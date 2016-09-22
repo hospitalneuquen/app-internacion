@@ -317,7 +317,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
         informacionNutricionalSoporteProteinas: 0,
         informacionNutricionalSoporteKcal: 0,
 
-
+        // frascos
         cantidadFrascos: 0,
         _frascos: [],
         _frascosEdicion: [],
@@ -504,6 +504,10 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
         indicaciones: {
             borrar: false,
 
+            hayQueRenovar: function(indicacion){
+
+
+            },
             // setTipo: function(){
             //     var tipo = $scope.indicacion.$tipo.id;
             //     switch (tipo) {
@@ -541,7 +545,8 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 }
 
             },
-            // duplicar
+            // duplicamos la informacion de la indicacion para poder
+            // crear una nueva
             duplicar: function (indicacion){
                 angular.copy(indicacion, $scope.indicacion);
 
@@ -986,6 +991,18 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                             case 'Cuidados especiales':
                                 $scope.evolucionesEdit.texto += " - " + _indicacion[0].cuidadosEspeciales.tipo;
                             break;
+                            case 'Oxigenoterapia':
+                                if (_indicacion[0].oxigeno.accion == "Colocación"){
+                                    if (_indicacion[0].oxigeno.respiracion == 'Mascara'){
+                                        $scope.evolucionesEdit.texto += _indicacion[0].oxigeno.accion + " - " + "máscara al " + _indicacion[0].oxigeno.cantidad + "%";
+                                    }else if(_indicacion[0].oxigeno.respiracion == 'Bigotera'){
+                                        $scope.evolucionesEdit.texto += _indicacion[0].oxigeno.accion + " - " + "bigotera a " + _indicacion[0].oxigeno.cantidad + "lt/min";
+                                    }
+                                } else if (_indicacion[0].oxigeno.accion == "Extracción"){
+                                    $scope.evolucionesEdit.texto += "Extracción de suministro de oxígeno";
+                                }
+
+                            break;
 
                             case 'Antibióticos':
                             case 'Heparina o profilaxis':
@@ -1015,6 +1032,14 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                             hemoterapia: $scope.evolucionesEdit.hemoterapia
                         };
                         $scope.evolucionesEdit.balance.ingresos.push(hemoterapia);
+                    }
+
+                    // aislamiento
+                    if ($scope.evolucionesEdit.tipo == 'Cuidados especiales') {
+
+                        if (_indicacion[0].cuidadosEspeciales.tipo == 'Aislamiento') {
+                            $scope.evolucionesEdit.aislamiento['realizado'] = true;
+                        }
                     }
 
                     Shared.evolucion.post($scope.internacion.id, $scope.evolucionesEdit.id || null, $scope.evolucionesEdit, {
@@ -1063,6 +1088,22 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                             suministrado: true,
                             descripcion: indicacion.medicamento.descripcion
                         }
+                }else if (indicacion.tipo == 'Oxigenoterapia'){
+
+                    if (indicacion.oxigeno.accion == "Colocación"){
+                        if (indicacion.oxigeno.respiracion == 'Mascara'){
+                            var descripcion = indicacion.oxigeno.accion + " máscara al " + indicacion.oxigeno.cantidad + " %";
+                        }else if (indicacion.oxigeno.respiracion == 'Bigotera'){
+                            var descripcion = indicacion.oxigeno.accion + " bigotera a " + indicacion.oxigeno.cantidad + " lt/min";
+                        }
+                    } else if (indicacion.oxigeno.accion == "Extracción"){
+                        var descripcion = "Extracción de suministro de oxígeno";
+                    }
+
+                    $scope.evolucionesEdit.medicamento = {
+                        suministrado: true,
+                        descripcion: descripcion
+                    }
                 }
 
                 // // array de indicaciones donde almacenamos el tipo
@@ -1242,11 +1283,18 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
     $scope.$watch('cantidadFrascos', function(current, old) {
         if (current) {
             $scope._frascos = [];
-            for (var i = 1; i <= current; i++) {
-                $scope._frascos.push({
-                    id: i,
-                    value: i
-                });
+
+            if (current > 0){
+                for (var i = 1; i <= current; i++) {
+                    $scope._frascos.push({
+                        id: i,
+                        value: i
+                    });
+                }
+            }else{
+                $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.frascos = [];
+                $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos = [];
+                $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos = [];
             }
         }
 

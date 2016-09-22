@@ -300,13 +300,13 @@
                                                             <input type="text" label="Descripción" ng-model="agregado.descripcion" plex/>
                                                         </div>
 
-                                                        <div class="col-lg-3">
+                                                        <div class="col-lg-2">
                                                             <select label="Frasco" ng-model="agregado._frascos" plex="(frasco.value) for frasco in _frascos" multiple></select>
                                                             <!-- <select label="Frasco" ng-model="agregado._frascos" plex="(frasco.value) for frasco in _frascos" multiple ng-if="!editandoAgregado"></select> -->
                                                             <!-- <select label="Frasco" ng-model="agregado._frascos" plex="(frasco.value) for frasco in _frascosEdicion" multiple ng-if="editandoAgregado" ></select> -->
                                                         </div>
 
-                                                        <div class="col-lg-2 text-right">
+                                                        <div class="col-lg-3 text-right">
                                                             <br/>
                                                             <!-- <button type="button" class="btn btn-success btn-flat tips" title="Agregar preparado" ng-click="editarAgregado()">
                                                                 <i class="mdi mdi-plus"></i>
@@ -322,7 +322,7 @@
                                                             </div>
                                                             <div ng-show="!editandoAgregado">
                                                                 <button class="btn btn-default btn-flat tips" title="Agregar" ng-click="indicaciones.agregados.editar()">
-                                                                    <i class="mdi mdi-plus"></i>
+                                                                    <i class="mdi mdi-plus"></i> Confirmar agregado
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -389,11 +389,17 @@
 
                                     <!-- Oxigenoterapia -->
                                     <div ng-if="indicacion.tipo == 'Oxigenoterapia' || indicacion.tipo.nombre == 'Oxigenoterapia'">
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-2">
+                                            <select label="¿Qué hacer?" ng-model="indicacion.oxigeno.accion" plex>
+                                                <option value="Colocación">Colocación</option>
+                                                <option value="Extracción">Extracción</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-4" ng-if="indicacion.oxigeno.accion == 'Colocación'">
                                             <select label="Tipo respiración" ng-model="indicacion.oxigeno.respiracion" plex="(opcion.tipo) for opcion in tipoRespiracion" ng-change=""></select>
                                         </div>
 
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-4" ng-if="indicacion.oxigeno.accion == 'Colocación'">
                                             <select label="Cantidad" ng-model="indicacion.oxigeno.cantidad" plex="(opcion.value) for opcion in valoresOxigeno"></select>
                                         </div>
 
@@ -741,9 +747,9 @@
                                         <div class="card-block margin-top text-right">
 
                                             <button type="button" class="btn btn-default btn-flat" ng-click="indicaciones.cancelar();">Cancelar</button>
-                                            <button type="button" class="btn btn-success btn-flat tips" title="Agregar indicación" ng-click="indicaciones.guardar(indicacion)">
+                                            <button type="button" class="btn btn-success btn-flat tips" title="Guardar indicación" ng-click="indicaciones.guardar(indicacion)">
                                                 <span ng-if="indicacion.id">Guardar</span>
-                                                <span ng-if="!indicacion.id">Agregar</span>
+                                                <span ng-if="!indicacion.id">Guardar</span>
                                             </button>
                                         </div>
                                     </div>
@@ -1061,16 +1067,6 @@
 
                                     <div ng-if="indicacion.tipo.nombre == 'Cuidados generales' || indicacion.tipo == 'Cuidados generales'">
                                         {{indicacion.cuidadosGenerales.tipo.nombre ? indicacion.cuidadosGenerales.tipo.nombre : indicacion.cuidadosGenerales.tipo}}
-                                        <span ng-show="indicacion.cuidadosGenerales.tipo == 'Oxígeno'">
-                                            {{indicacion.cuidadosGenerales.oxigeno.respiracion}}
-
-                                            <span ng-show="indicacion.cuidadosGenerales.oxigeno.respiracion == 'Mascara'">
-                                                al {{indicacion.cuidadosGenerales.oxigeno.cantidad}} %
-                                            <span>
-                                            <span ng-show="indicacion.cuidadosGenerales.oxigeno.respiracion == 'Bigotera'">
-                                                a {{indicacion.cuidadosGenerales.oxigeno.cantidad}} lt/min
-                                            <span>
-                                        </span>
                                     </div>
 
                                     <div ng-if="indicacion.tipo.nombre == 'Cuidados especiales' || indicacion.tipo == 'Cuidados especiales'">
@@ -1194,6 +1190,23 @@
 
                                     </div>
 
+                                    <div ng-if="indicacion.tipo.nombre == 'Oxigenoterapia' || indicacion.tipo == 'Oxigenoterapia'">
+                                        {{indicacion.oxigeno.accion}}
+
+                                        <span ng-show="indicacion.oxigeno.respiracion == 'Mascara'">
+                                            / máscara al {{indicacion.oxigeno.cantidad}} %
+                                        <span>
+                                        <span ng-show="indicacion.oxigeno.respiracion == 'Bigotera'">
+                                            / bigotera a {{indicacion.oxigeno.cantidad}} lt/min
+                                        <span>
+
+
+                                        <!-- <span class="label label-default" ng-show="indicacion.prestaciones.prioridad == 'No prioritario' || indicacion.prestaciones.prioridad.nombre == 'No prioritario'">No prioritario</span>
+                                        <span class="label label-warning" ng-show="indicacion.prestaciones.prioridad == 'Urgente' || indicacion.prestaciones.prioridad.nombre == 'Urgente'">Urgente</span>
+                                        <span class="label label-danger" ng-show="indicacion.prestaciones.prioridad == 'Emergencia' || indicacion.prestaciones.prioridad.nombre == 'Emergencia'">Emergencia</span>
+                                        {{indicacion.prestaciones.tipoPrestacion.nombre}} -->
+
+                                    </div>
                             </td>
                             <td  ng-hide="evolucionarIndicacion && indicacion.id != evolucionarIndicacion.id">{{indicacion.via}}</td>
                             <td  ng-hide="evolucionarIndicacion && indicacion.id != evolucionarIndicacion.id">
@@ -1254,7 +1267,8 @@
 
                                         <button class="btn btn-sm btn-success btn-flat tips" title="Evolucionar" ng-click="indicaciones.evolucionar(indicacion)"
                                             ng-show="indicacion.tipo == 'Controles' || indicacion.tipo == 'Antibióticos' || indicacion.tipo == 'Heparina o profilaxis'
-                                                || indicacion.tipo == 'Protección gástrica' || indicacion.tipo == 'Otra medicación'
+                                                || indicacion.tipo == 'Protección gástrica' || indicacion.tipo == 'Otra medicación' || indicacion.tipo == 'Oxigenoterapia'
+                                                || indicacion.tipo == 'Cuidados especiales'
                                         ">
                                             <i class="mdi mdi-chart-line"></i>
                                         </button>
@@ -1545,6 +1559,19 @@
                                                     <div class="col-md-3">
                                                         <div class="form-group">
                                                             <input type="text" ng-model="evolucionesEdit.balance.egresos.ostomias2" label="Ostomias II" suffix="ml" plex/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <input type="text" ng-model="evolucionesEdit.balance.egresos.residuoGastrigo" label="Residuo gástrico" suffix="ml" plex/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <input type="text" ng-model="evolucionesEdit.balance.egresos.secrecionesAspiradas" label="Secreciones aspiradas" suffix="ml" plex/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1973,6 +2000,55 @@
                                     </fielset>
                                 </div>
 
+                                <div ng-if="evolucionarIndicacion.tipo == 'Oxigenoterapia'" >
+                                    <fieldset>
+                                        <legend>Confirmar suministro de {{evolucionarIndicacion.tipo}}</legend>
+                                        <div class="row">
+                                            <div class="col-lg-2">
+                                                <span ng-if="evolucionarIndicacion.oxigeno.accion == 'Colocación'">
+                                                ¿Ha suministrado <b>{{evolucionarIndicacion.oxigeno.respiracion}}</b>?
+                                                </span>
+                                                <span ng-if="evolucionarIndicacion.oxigeno.accion == 'Extracción'">
+                                                    ¿Ha extraído el oxígeno?
+                                                </span>
+
+                                                <span ng-show="evolucionarIndicacion.oxigeno.respiracion == 'Mascara'">
+                                                    máscara al {{evolucionarIndicacion.oxigeno.cantidad}} %
+                                                <span>
+                                                <span ng-show="evolucionarIndicacion.oxigeno.respiracion == 'Bigotera'">
+                                                    bigotera a {{evolucionarIndicacion.oxigeno.cantidad}} lt/min
+                                                <span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <input type="text" ng-model="evolucionesEdit.medicamento.descripcion" label="Descripción" plex/>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+
+                                <div ng-if="evolucionarIndicacion.tipo == 'Cuidados especiales'" >
+                                    <fieldset ng-if="evolucionarIndicacion.cuidadosEspeciales.tipo == 'Aislamiento'">
+                                        <legend>Aislamiento</legend>
+                                        <div class="row">
+                                            <div class="col-lg-2">
+                                                <span ng-if="evolucionarIndicacion.cuidadosEspeciales.aislamiento.accion == 'Aislar'">
+                                                ¿Ha realizado el aislamiento <b>{{evolucionarIndicacion.cuidadosEspeciales.aislamiento.tipo}}</b>?
+                                                </span>
+                                                <span ng-if="evolucionarIndicacion.cuidadosEspeciales.aislamiento.accion == 'Quitar aislamiento'">
+                                                    ¿Desea quitar el aislamiento?
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <input type="text" ng-model="evolucionesEdit.aislamiento.descripcion" label="Observaciones" plex/>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+
                                 <div class="row">
                                     <div class="col-lg-12 text-right">
                                         <button class="btn btn-default tips" ng-click="indicaciones.evolucion.cancelar()" title="No">
@@ -1980,14 +2056,18 @@
                                         </button>
 
                                         <button class="btn btn-primary btn-flat tips" title="Guardar evolución" ng-click="indicaciones.evolucion.guardar()">
-                                            <span  ng-if="evolucionarIndicacion.tipo != 'Antibióticos' && evolucionarIndicacion.tipo != 'Heparina o profilaxis'
-                                                && evolucionarIndicacion.tipo != 'Protección gástrica' && evolucionarIndicacion.tipo != 'Otra medicación'">
+                                            <!-- <span  ng-if="evolucionarIndicacion.tipo != 'Antibióticos' && evolucionarIndicacion.tipo != 'Heparina o profilaxis'
+                                                && evolucionarIndicacion.tipo != 'Protección gástrica' && evolucionarIndicacion.tipo != 'Otra medicación'
+                                                && evolucionarIndicacion.tipo != 'Oxigenoterapia'">
                                                 Evolucionar
                                             </span>
                                             <span  ng-if="evolucionarIndicacion.tipo == 'Antibióticos' || evolucionarIndicacion.tipo == 'Heparina o profilaxis'
-                                                || evolucionarIndicacion.tipo == 'Protección gástrica' || evolucionarIndicacion.tipo == 'Otra medicación'">
-                                                Confirmar suministro
-                                            </span>
+                                                || evolucionarIndicacion.tipo == 'Protección gástrica' || evolucionarIndicacion.tipo == 'Otra medicación'
+                                                || evolucionarIndicacion.tipo == 'Oxigenoterapia'
+                                                || (evolucionarIndicacion.tipo == 'Cuidados especiales' && evolucionarIndicacion.cuidadosEspeciales.tipo == 'Aislamiento')">
+                                                Confirmar
+                                            </span> -->
+                                            Confirmar
                                         </button>
 
                                     </div>
