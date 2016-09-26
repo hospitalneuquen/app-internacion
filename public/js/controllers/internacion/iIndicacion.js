@@ -1075,7 +1075,11 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     // tipo: Session.variables.prestaciones_workflow,
                     tipo: indicacion.tipo,
                     servicio: Session.variables.servicioActual,
-                    texto: indicacion.tipo
+                    texto: indicacion.tipo,
+                    rotarDecubito: {
+                        puntoApoyo: 'Izquierdo',
+                        posicion: 'Dorsal'
+                    }
                 };
 
                 if (indicacion.tipo == 'Controles' && indicacion.controles.tipo == 'Balance') {
