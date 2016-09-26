@@ -346,6 +346,11 @@
                         <div ng-if="item.aislamiento">
                             {{item.aislamiento.descripcion}}
                         </div>
+                        <div ng-if="item.rotarDecubito">
+                            Punto apoyo: {{item.rotarDecubito.puntoApoyo}}
+                            <br />
+                            Posición: {{item.rotarDecubito.posicion}}
+                        </div>
                     </td>
                     <td >
                         {{item.createdBy.name}}

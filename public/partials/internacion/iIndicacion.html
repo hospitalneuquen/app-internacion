@@ -413,14 +413,6 @@
 
                                         <div ng-if="indicacion.cuidadosGenerales.tipo == 'Rotar decúbito' || indicacion.cuidadosGenerales.tipo.nombre == 'Rotar decúbito'">
                                             <div class="col-lg-4">
-                                                <select label="Posición" ng-model="indicacion.cuidadosGenerales.rotarDecubito.posiciones" plex>
-                                                    <option value="">Seleccione</option>
-                                                    <option value="Izquierda">Izquierda</option>
-                                                    <option value="Derecha">Derecha</option>
-                                                </select>
-                                            </div>
-
-                                            <div class="col-lg-4">
                                                 <select label="Frecuencia" ng-model="indicacion.frecuencia" plex>
                                                     <option value="unica">Única dosis</option>
                                                     <option value="24">Una vez al día</option>
@@ -1268,7 +1260,7 @@
                                         <button class="btn btn-sm btn-success btn-flat tips" title="Evolucionar" ng-click="indicaciones.evolucionar(indicacion)"
                                             ng-show="indicacion.tipo == 'Controles' || indicacion.tipo == 'Antibióticos' || indicacion.tipo == 'Heparina o profilaxis'
                                                 || indicacion.tipo == 'Protección gástrica' || indicacion.tipo == 'Otra medicación' || indicacion.tipo == 'Oxigenoterapia'
-                                                || indicacion.tipo == 'Cuidados especiales'
+                                                || indicacion.tipo == 'Cuidados especiales' || indicacion.tipo == 'Cuidados generales'
                                         ">
                                             <i class="mdi mdi-chart-line"></i>
                                         </button>
@@ -2049,6 +2041,30 @@
                                     </fieldset>
                                 </div>
 
+                                <div ng-if="evolucionarIndicacion.tipo == 'Cuidados generales' && evolucionarIndicacion.cuidadosGenerales.tipo == 'Rotar decúbito'">
+<pre>
+{{evolucionesEdit | json}}
+</pre>
+                                    <fieldset>
+                                        <legend>Rotar decubito</legend>
+                                        <div class="row">
+                                            <div class="col-lg-3" ng-init="evolucionesEdit.rotarDecubito.puntoApoyo = 'Derecho'">
+                                                <label>
+                                                    <b>Punto de apoyo</b>
+                                                </label>
+                                                <input type="radio" name="rotarDecubito_puntoApoyo" label="Derecho" ng-value="'Derecho'" ng-model="evolucionesEdit.rotarDecubito.puntoApoyo" plex="radio">
+                                                <input type="radio" name="rotarDecubito_puntoApoyo" label="Izquierdo" ng-value="'Izquierdo'" ng-model="evolucionesEdit.rotarDecubito.puntoApoyo" plex="radio">
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <label>
+                                                    <b>Posición</b>
+                                                </label>
+                                                <input type="radio" name="rotarDecubito_posicion" label="Dorsal" ng-value="'Dorsal'" ng-model="evolucionesEdit.rotarDecubito.posicion" plex="radio">
+                                                <input type="radio" name="rotarDecubito_posicion" label="Prono" ng-value="'Prono'" ng-model="evolucionesEdit.rotarDecubito.posicion" plex="radio">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
                                 <div class="row">
                                     <div class="col-lg-12 text-right">
                                         <button class="btn btn-default tips" ng-click="indicaciones.evolucion.cancelar()" title="No">
