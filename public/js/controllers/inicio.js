@@ -53,6 +53,7 @@ angular.module('app').controller('InicioController', ['$scope', 'Plex', 'Shared'
             });
         },
         init: function() {
+            console.log(Session);
             // obtenemos las camas para armar el mapa
             Shared.Mapa.get(Session.variables.servicioActual.id).then(function(data) {
                 $scope.camas = data;

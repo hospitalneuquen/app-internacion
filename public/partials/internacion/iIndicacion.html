@@ -1576,19 +1576,19 @@
                                                                 <div>
 
                                                                     <input type="hidden" value="'{{drenaje.id}}'" ng-model="drenajes[$index].idDrenaje" ng-init="drenajes[$index].idDrenaje = drenaje.id"/>
-                                                                    <div class="col-md-2">
+                                                                    <div class="col-md-3">
                                                                         <div class="form-group">
                                                                             <label>Lado</label>
                                                                             <p>{{drenaje.lado}}</p>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-2">
+                                                                    <div class="col-md-3">
                                                                         <div class="form-group">
                                                                             <label>Tipo</label>
                                                                             <p>{{drenaje.tipo}}</p>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-2">
+                                                                    <div class="col-md-3">
                                                                         <div class="form-group" ng-if="!drenaje.$activo">
                                                                             <label>Características del líquido</label>
                                                                             <br/>
@@ -1603,7 +1603,7 @@
                                                                         </select>
 
                                                                     </div>
-                                                                    <div class="col-md-1">
+                                                                    <div class="col-md-3">
                                                                         <div class="form-group" ng-if="!drenaje.$activo">
                                                                             <label>Cantidad</label>
                                                                             <br/>
@@ -1612,7 +1612,9 @@
 
                                                                         <input type="text" label="Cantidad" suffix="ml" ng-model="drenajes[$index].cantidad" plex ng-if="drenaje.$activo">
                                                                     </div>
-                                                                    <div class="col-md-5">
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
                                                                         <div class="form-group" ng-if="!drenaje.$activo">
                                                                             <label>Cantidad</label>
                                                                             <br/>
