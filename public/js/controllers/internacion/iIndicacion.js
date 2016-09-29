@@ -934,22 +934,23 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 // Guarda la evolución
                 guardar: function() {
                     // si se han evolucionado los drenajes entonces los cargamos
-                    // if ($scope.drenajes.length > 0) {
-                    //     $scope.evolucionesEdit.egresos = {
-                    //         drenajes: []
-                    //     };
-                    //
-                    //     angular.forEach($scope.drenajes, function(drenaje) {
-                    //         var _drenaje = {
-                    //             idDrenaje: drenaje.idDrenaje,
-                    //             caracteristicaLiquido: drenaje.caracteristicaLiquido,
-                    //             cantidad: drenaje.cantidad,
-                    //             observaciones: drenaje.observaciones,
-                    //         }
-                    //         $scope.evolucionesEdit.egresos.drenajes.push(_drenaje);
-                    //     });
-                    //
-                    // }
+                    if ($scope.drenajes.length > 0) {
+                        // $scope.evolucionesEdit.balance.egresos = {
+                        //     drenajes: []
+                        // };
+                        $scope.evolucionesEdit.balance.egresos['drenajes'] = [];
+
+                        angular.forEach($scope.drenajes, function(drenaje) {
+                            var _drenaje = {
+                                idDrenaje: drenaje.idDrenaje,
+                                caracteristicaLiquido: drenaje.caracteristicaLiquido,
+                                cantidad: drenaje.cantidad,
+                                observaciones: drenaje.observaciones,
+                            }
+                            $scope.evolucionesEdit.balance.egresos.drenajes.push(_drenaje);
+                        });
+
+                    }
 
                     // si no tenemos la descripcion cargada, le asignamos automaticamente
                     // el tipo de indicacion que estamos evolucionesEdit

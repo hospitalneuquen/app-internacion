@@ -2023,8 +2023,8 @@
                                         </p>
                                     </div>
 
-                                    <p class="leer-mas text-right">
-                                        <a href="" title="Leer más" class="tips " ng-click="verEvolucion(internacion.id, elemento.id)">
+                                    <p class="leer-mas text-right" ng-if="elemento._tipo == 'evolucion'">
+                                        <a href="" title="Leer más" class="tips " ng-click="verEvolucion(internacion.id, elemento.data.id)">
                                             Leer más
                                             <!-- <i class="mdi mdi-arrow-down-drop-circle-outline"></i> -->
                                         </a>

@@ -7,7 +7,9 @@
 
             <div class="row">
                 <div class="col-lg-2">
-                    <img src="perfil3.jpg" width="120"/>
+                    <!-- <img src="perfil3.jpg" width="120"/> -->
+                    <img ng-src="data:image/jpeg;base64,{{Session.user.avatar}}" class="img-circle" width="120" alt="Imagen {{Session.user.givenName}}" ng-if="Session.user.avatar"/>
+                    <img ng-src="default-user-male.png" width="120" class="img-circle" alt="Imagen {{Session.user.givenName}}" ng-if="!Session.user.avatar"/>
                 </div>
                 <div class="col-lg-6">
                     <h3>Hola

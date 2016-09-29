@@ -404,6 +404,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
             var total = 0;
 
             angular.forEach(valores, function(value, key) {
+                console.log(key + " / " + value);
                 // verificamos si es un drenaje y entonces recorremos
                 // para sumar los valores
                 if (key === 'drenajes') {
@@ -416,7 +417,9 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                     }
 
                 } else {
-                    total += value;
+                    if (key != 'descripcion'){
+                        total += value;
+                    }
                 }
 
             });

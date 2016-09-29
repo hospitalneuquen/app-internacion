@@ -4,23 +4,31 @@ angular.module('app').controller('internacion/verEvolucion', ['$scope', 'Plex', 
     angular.extend($scope, {
         internacion: null,
         evolucion: null,
+        indicacion: null,
 
         init: function() {
-
             // buscamos la internacion
             Shared.internacion.get(plexParams.idInternacion).then(function(internacion) {
                 $scope.internacion = internacion;
 
-                // if (plexParams.idEvolucion) {
-                //     angular.forEach(internacion.tratamientos, function(tratamiento) {
-                //         if (tratamiento.id == plexParams.idTratamiento) {
-                //             $scope.tratamiento = tratamiento;
-                //         }
-                //     });
-                // } else {
-                //     $scope.tratamiento = internacion.tratamientos[internacion.tratamientos.length - 1];
-                // }
+                if (plexParams.idEvolucion) {
+                    angular.forEach(internacion.evoluciones, function(evolucion) {
+                        console.log(plexParams.idEvolucion);
+                        console.log(evolucion.id);
+                        if (evolucion.id == plexParams.idEvolucion) {
+                            $scope.evolucion = evolucion;
 
+                            angular.forEach(internacion.indicaciones, function(indicacion) {
+                                if (indicacion.id == evolucion.idIndicacion) {
+                                    $scope.indicacion = indicacion;
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    // $scope.tratamiento = internacion.tratamientos[internacion.tratamientos.length - 1];
+                }
+                // console.log($scope.evolucion);
             });
 
         },
@@ -32,7 +40,7 @@ angular.module('app').controller('internacion/verEvolucion', ['$scope', 'Plex', 
     $scope.init();
 
     Plex.initView({
-        title: "Ver evolución",
+        title: "Evolución",
         modal: true
     });
 }]);
