@@ -98,7 +98,11 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                     angular.forEach($scope.internacion.evoluciones, function(evolucion) {
 
                         // calculamos balance de liquidos
-                        $scope.calcularBalance(evolucion);
+                        if (typeof evolucion.balance != "undefined"){
+                            Shared.evolucion.calcularBalance(evolucion, function(data){
+                                evolucion = data;
+                            });
+                        }
 
                         $scope.balanceTotal += evolucion.balance.$balance;
 
@@ -297,11 +301,16 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                 });
                 // angular.copy($scope.drenajes, $scope.evolucionesEdit.egresos.drenajes);
             }
-            $scope.evolucionesEdit.glasgow.glasgowTotal = $scope.evolucionesEdit.glasgow.glasgowMotor + $scope.evolucionesEdit.glasgow.glasgowVerbal + $scope.evolucionesEdit.glasgow.glasgowOcular;
-            if ($scope.evolucionesEdit.riesgoCaida){
+            // calculamos valores de glasgow
+            if ($scope.evolucionesEdit.glasgow) {
+                $scope.evolucionesEdit.glasgow.total = $scope.evolucionesEdit.glasgow.motor + $scope.evolucionesEdit.glasgow.verbal + $scope.evolucionesEdit.glasgow.ocular;
+            }
+            // calculamos valores de riesgo de caidas
+            if ($scope.evolucionesEdit.riesgoCaida) {
                 $scope.evolucionesEdit.riesgoCaida.total = $scope.evolucionesEdit.riesgoCaida.caidasPrevias + $scope.evolucionesEdit.riesgoCaida.marcha + $scope.evolucionesEdit.riesgoCaida.ayudaDeambular + $scope.evolucionesEdit.riesgoCaida.venoclisis + $scope.evolucionesEdit.riesgoCaida.comorbilidad + $scope.evolucionesEdit.riesgoCaida.estadoMental;
             }
-            if ($scope.evolucionesEdit.riesgoUPP){
+            // calculamos valores de riesgo de ulceras por presion
+            if ($scope.evolucionesEdit.riesgoUPP) {
                 $scope.evolucionesEdit.riesgoUPP.total = $scope.evolucionesEdit.riesgoUPP.estadoFisico + $scope.evolucionesEdit.riesgoUPP.estadoMental + $scope.evolucionesEdit.riesgoUPP.actividad + $scope.evolucionesEdit.riesgoUPP.movilidad + $scope.evolucionesEdit.riesgoUPP.incontinencia;
             }
 
@@ -349,83 +358,11 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
             // actualizamos el grafico
             // $scope.chart.update++;
         },
-        // calcula los balances de liquidos que ha tenido una evolucion
-        calcularBalance: function(evolucion) {
-            evolucion.balance.$total_ingresos = 0;
-            // sumamos los totales por evolucion
-            if (evolucion.balance.ingresos.length) {
-                angular.forEach(evolucion.balance.ingresos, function(ingreso) {
-                    if (typeof ingreso.hidratacion != "undefined") {
-
-                        if (typeof ingreso.hidratacion.enteral != "undefined") {
-                            evolucion.balance.$total_ingresos += $scope.sumar(ingreso.hidratacion.enteral);
-                        }
-
-                        if (typeof ingreso.hidratacion.parenteral != "undefined") {
-                            evolucion.balance.$total_ingresos += $scope.sumar(ingreso.hidratacion.parenteral);
-                        }
-
-                        if (typeof ingreso.hidratacion.oral != "undefined") {
-                            evolucion.balance.$total_ingresos += $scope.sumar(ingreso.hidratacion.oral);
-                        }
-                    }
-
-                    if (typeof ingreso.medicamentos != "undefined") {
-                        evolucion.balance.$total_ingresos += $scope.sumar(ingreso.medicamentos);
-                    }
-
-                    if (typeof ingreso.hemoterapia != "undefined") {
-                        evolucion.balance.$total_ingresos += $scope.sumar(ingreso.hemoterapia);
-                    }
-
-                    if (typeof ingreso.nutricion != "undefined") {
-
-                        if (typeof ingreso.nutricion.enteral != "undefined") {
-                            evolucion.balance.$total_ingresos += $scope.sumar(ingreso.nutricion.enteral);
-                        }
-
-                        if (typeof ingreso.nutricion.soporteOral != "undefined") {
-                            evolucion.balance.$total_ingresos += $scope.sumar(ingreso.nutricion.soporteOral);
-                        }
-                    }
-                });
-                // evolucion.balance.$total_ingresos = $scope.sumar(evolucion.balance.ingresos);
-            }
-            evolucion.balance.$total_egresos = $scope.sumar(evolucion.balance.egresos);
-
-            // calculamos el balance entre el ingreso y egreso
-            evolucion.balance.$balance = parseFloat(evolucion.balance.$total_ingresos) - parseFloat(evolucion.balance.$total_egresos);
-
-            // devolvemos la evolucion con los balances y los totales
-            return evolucion;
-        },
-        // realizamos al suma de los valores para ingresos o egresos
-        sumar: function(valores) {
-            var total = 0;
-
-            angular.forEach(valores, function(value, key) {
-                console.log(key + " / " + value);
-                // verificamos si es un drenaje y entonces recorremos
-                // para sumar los valores
-                if (key === 'drenajes') {
-                    if (value.length > 0) {
-                        angular.forEach(value, function(drenaje, k) {
-                            if (drenaje.cantidad) {
-                                total += drenaje.cantidad;
-                            }
-                        });
-                    }
-
-                } else {
-                    if (key != 'descripcion'){
-                        total += value;
-                    }
-                }
+        verEvolucion:function(idEvolucion){
+            Plex.openView('internacion/verEvolucion/' + $scope.internacion.id + "/" + idEvolucion).then(function() {
 
             });
-
-            return total;
-        }
+        },
     });
 
     // inicializamos mediante el watch de la variable incluida

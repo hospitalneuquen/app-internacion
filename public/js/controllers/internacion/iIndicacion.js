@@ -1077,10 +1077,6 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     tipo: indicacion.tipo,
                     servicio: Session.variables.servicioActual,
                     texto: indicacion.tipo,
-                    rotarDecubito: {
-                        puntoApoyo: 'Izquierdo',
-                        posicion: 'Dorsal'
-                    }
                 };
 
                 if (indicacion.tipo == 'Controles' && indicacion.controles.tipo == 'Balance') {
@@ -1107,6 +1103,18 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
                     $scope.evolucionesEdit.medicamento = {
                         suministrado: true,
+                        descripcion: descripcion
+                    }
+                }else if (indicacion.tipo == 'Cuidados generales'){
+                    if (indicacion.cuidadosGenerales.tipo == 'Rotar decúbito'){
+                        $scope.evolucionesEdit.rotarDecubito = {
+                            puntoApoyo: 'Izquierdo',
+                            posicion: 'Dorsal'
+                        }
+                    }
+                }else if (indicacion.tipo == 'Otra indicación'){
+                    $scope.evolucionesEdit.otraIndicacion = {
+                        realizado: true,
                         descripcion: descripcion
                     }
                 }

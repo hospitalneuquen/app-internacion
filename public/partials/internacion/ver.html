@@ -1905,6 +1905,12 @@
 
                                     <div ng-if="elemento.tipo == 'Evolución'">
                                         <p>
+                                            <span ng-if="elemento.data.tipo == 'medico'">Médica</span>
+                                            <span ng-if="elemento.data.tipo == 'enfermero'">Enfermería</span>
+                                            <span ng-if="elemento.data.tipo != 'medico' && elemento.data.tipo != 'enfermero'">{{elemento.data.tipo}}</span>
+                                        </p>
+
+                                        <p>
                                             <b>Servicio:</b>
                                             {{elemento.data.servicio.nombreCorto}}
                                             <br/>
