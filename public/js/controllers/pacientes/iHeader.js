@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('Pacientes/iHeaderController', ["$scope", "$filter", function($scope, $filter) {
+angular.module('app').controller('Pacientes/iHeaderController', ["$scope", "$filter", "Shared", function($scope, $filter, Shared) {
     /*
     Este (sub)controlador espera los siguientes parametros (plex-include):
         - internacion: object          | Objeto de internación
@@ -370,14 +370,19 @@ angular.module('app').controller('Pacientes/iHeaderController', ["$scope", "$fil
         },
         // fecha: yyyy-mm-dd
         calcularBalanceLiquidos: function(fecha) {
-            if ($scope.internacion.evoluciones.length) {
+            if ($scope.internacion && $scope.internacion.evoluciones && $scope.internacion.evoluciones.length) {
 
                 angular.forEach($scope.internacion.evoluciones, function(evolucion) {
 
                     // solo calculo los elementos de la fecha que se ha pedido
                     if (fecha){
                         if (moment(moment(fecha).format('YYYY-MM-DD')).isSame(moment(new Date(evolucion.createdAt)).format('YYYY-MM-DD'))){
-                            evolucion = $scope.calcularValores(evolucion);
+                            // evolucion = $scope.calcularValores(evolucion);
+                            if (typeof evolucion.balance != "undefined"){
+                                Shared.evolucion.calcularBalance(evolucion, function(data){
+                                    evolucion = data;
+                                });
+                            }
 
                             // actualizamos valores
                             $scope.balanceTotalLiquidos.ingresos += evolucion.balance.$total_ingresos;
@@ -386,7 +391,12 @@ angular.module('app').controller('Pacientes/iHeaderController', ["$scope", "$fil
                         }
                     }else{
 
-                        evolucion = $scope.calcularValores(evolucion);
+                        // evolucion = $scope.calcularValores(evolucion);
+                        if (typeof evolucion.balance != "undefined"){
+                            Shared.evolucion.calcularBalance(evolucion, function(data){
+                                evolucion = data;
+                            });
+                        }
 
                         // actualizamos valores
                         $scope.balanceTotalLiquidos.ingresos += evolucion.balance.$total_ingresos;
@@ -398,80 +408,6 @@ angular.module('app').controller('Pacientes/iHeaderController', ["$scope", "$fil
             }
         },
 
-        //
-        calcularValores: function(evolucion){
-            evolucion.balance.$total_ingresos = 0;
-            // sumamos los totales por evolucion
-            if (evolucion.balance.ingresos.length) {
-                angular.forEach(evolucion.balance.ingresos, function(ingreso) {
-                    if (typeof ingreso.hidratacion != "undefined") {
-
-                        if (typeof ingreso.hidratacion.enteral != "undefined") {
-                            evolucion.balance.$total_ingresos += $scope.sumar(ingreso.hidratacion.enteral);
-                        }
-
-                        if (typeof ingreso.hidratacion.parenteral != "undefined") {
-                            evolucion.balance.$total_ingresos += $scope.sumar(ingreso.hidratacion.parenteral);
-                        }
-
-                        if (typeof ingreso.hidratacion.oral != "undefined") {
-                            evolucion.balance.$total_ingresos += $scope.sumar(ingreso.hidratacion.oral);
-                        }
-                    }
-
-                    if (typeof ingreso.medicamentos != "undefined") {
-                        evolucion.balance.$total_ingresos += $scope.sumar(ingreso.medicamentos);
-                    }
-
-                    if (typeof ingreso.hemoterapia != "undefined") {
-                        evolucion.balance.$total_ingresos += $scope.sumar(ingreso.hemoterapia);
-                    }
-
-                    if (typeof ingreso.nutricion != "undefined") {
-
-                        if (typeof ingreso.nutricion.enteral != "undefined") {
-                            evolucion.balance.$total_ingresos += $scope.sumar(ingreso.nutricion.enteral);
-                        }
-
-                        if (typeof ingreso.nutricion.soporteOral != "undefined") {
-                            evolucion.balance.$total_ingresos += $scope.sumar(ingreso.nutricion.soporteOral);
-                        }
-                    }
-                });
-                // evolucion.balance.$total_ingresos = $scope.sumar(evolucion.balance.ingresos);
-            }
-
-            evolucion.balance.$total_egresos = $scope.sumar(evolucion.balance.egresos);
-
-            // calculamos el balance entre el ingreso y egreso
-            evolucion.balance.$balance = parseFloat(evolucion.balance.$total_ingresos) - parseFloat(evolucion.balance.$total_egresos);
-
-            return evolucion;
-        },
-        // realizamos al suma de los valores para ingresos o egresos
-        sumar: function(valores) {
-                var total = 0;
-
-                angular.forEach(valores, function(value, key) {
-                    // verificamos si es un drenaje y entonces recorremos
-                    // para sumar los valores
-                    if (key === 'drenajes') {
-                        if (value.length > 0) {
-                            angular.forEach(value, function(drenaje, k) {
-                                if (drenaje.cantidad) {
-                                    total += drenaje.cantidad;
-                                }
-                            });
-                        }
-
-                    } else {
-                        total += value;
-                    }
-
-                });
-
-                return total;
-            }
     });
 
     $scope.$watch('include.internacion', function(current, old) {

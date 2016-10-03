@@ -77,6 +77,81 @@ angular.module('app').factory('Shared', ["Global", "Server", "Session", function
             post: function(idInternacion, idEvolucion, data, options) {
                 return Server.post('/api/internacion/internacion/' + idInternacion + '/evolucion/' + (idEvolucion || ''), data, options);
             },
+            calcularBalance: function (evolucion){
+                evolucion.balance.$total_ingresos = 0;
+                // sumamos los totales por evolucion
+                if (evolucion.balance.ingresos.length) {
+                    angular.forEach(evolucion.balance.ingresos, function(ingreso) {
+                        if (typeof ingreso.hidratacion != "undefined") {
+
+                            if (typeof ingreso.hidratacion.enteral != "undefined") {
+                                evolucion.balance.$total_ingresos += self.evolucion.sumar(ingreso.hidratacion.enteral);
+                            }
+
+                            if (typeof ingreso.hidratacion.parenteral != "undefined") {
+                                evolucion.balance.$total_ingresos += self.evolucion.sumar(ingreso.hidratacion.parenteral);
+                            }
+
+                            if (typeof ingreso.hidratacion.oral != "undefined") {
+                                evolucion.balance.$total_ingresos += self.evolucion.sumar(ingreso.hidratacion.oral);
+                            }
+                        }
+
+                        if (typeof ingreso.medicamentos != "undefined") {
+                            evolucion.balance.$total_ingresos += self.evolucion.sumar(ingreso.medicamentos);
+                        }
+
+                        if (typeof ingreso.hemoterapia != "undefined") {
+                            evolucion.balance.$total_ingresos += self.evolucion.sumar(ingreso.hemoterapia);
+                        }
+
+                        if (typeof ingreso.nutricion != "undefined") {
+
+                            if (typeof ingreso.nutricion.enteral != "undefined") {
+                                evolucion.balance.$total_ingresos += self.evolucion.sumar(ingreso.nutricion.enteral);
+                            }
+
+                            if (typeof ingreso.nutricion.soporteOral != "undefined") {
+                                evolucion.balance.$total_ingresos += self.evolucion.sumar(ingreso.nutricion.soporteOral);
+                            }
+                        }
+                    });
+                    // evolucion.balance.$total_ingresos = self.evolucion.sumar(evolucion.balance.ingresos);
+                }
+                evolucion.balance.$total_egresos = self.evolucion.sumar(evolucion.balance.egresos);
+
+                // calculamos el balance entre el ingreso y egreso
+                evolucion.balance.$balance = parseFloat(evolucion.balance.$total_ingresos) - parseFloat(evolucion.balance.$total_egresos);
+
+                // devolvemos la evolucion con los balances y los totales
+                return evolucion;
+            },
+            // realizamos al suma de los valores para ingresos o egresos
+            sumar: function(valores) {
+                var total = 0;
+
+                angular.forEach(valores, function(value, key) {
+                    // verificamos si es un drenaje y entonces recorremos
+                    // para sumar los valores
+                    if (key === 'drenajes') {
+                        if (value.length > 0) {
+                            angular.forEach(value, function(drenaje, k) {
+                                if (drenaje.cantidad) {
+                                    total += drenaje.cantidad;
+                                }
+                            });
+                        }
+
+                    } else {
+                        if (key != 'descripcion'){
+                            total += value;
+                        }
+                    }
+
+                });
+
+                return total;
+            }
         },
         drenaje: {
             /**

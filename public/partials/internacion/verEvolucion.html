@@ -96,126 +96,204 @@
 </div>
 
 <!-- completar -->
-<div ng-if="evolucion.balance">
+<div ng-if="evolucion.balance && (evolucion.balance.$total_ingresos || evolucion.balance.$total_egresos)">
     <div class="row">
-        <div class="col-md-4">
-            <h5>Ingresos</h5>
-
-            <br />
-            Total:
-            <b>
-                {{evolucion.balance.$total_ingresos}}
-            </b>
-        </div>
-        <div class="col-md-4">
-            <h5>Egresos</h5>
-            <p ng-if="evolucion.balance.egresos.lavadoVesicalI">
-                Lavado vesical:
-                <b>
-                    {{evolucion.balance.egresos.lavadoVesicalI}} ml
-                </b>
-            </p>
-            <p ng-if="evolucion.balance.egresos.diuresis">
-                Diuresis:
-                <b>
-                    {{evolucion.balance.egresos.diuresis}} ml
-                </b>
-            </p>
-            <p ng-if="evolucion.balance.egresos.catarsis">
-                Catarsis:
-                <b>
-                    {{evolucion.balance.egresos.catarsis}} ml
-                </b>
-            </p>
-            <p ng-if="evolucion.balance.egresos.sng">
-                SNG:
-                <b>
-                    {{evolucion.balance.egresos.sng}} ml
-                </b>
-            </p>
-            <p ng-if="evolucion.balance.egresos.sny">
-                SNY:
-                <b>
-                    {{evolucion.balance.egresos.sny}} ml
-                </b>
-            </p>
-            <p ng-if="evolucion.balance.egresos.ostomias">
-                Ostomías:
-                <b>
-                    {{evolucion.balance.egresos.ostomias}} ml
-                </b>
-            </p>
-            <p ng-if="evolucion.balance.egresos.ostomias2">
-                Ostomías 2:
-                <b>
-                    {{evolucion.balance.egresos.ostomias2}} ml
-                </b>
-            </p>
-            <p ng-if="evolucion.balance.egresos.residuoGastrico">
-                Residuo gástrico:
-                <b>
-                    {{evolucion.balance.egresos.residuoGastrico}} ml
-                </b>
-            </p>
-            <p ng-if="evolucion.balance.egresos.secrecionesApiradas">
-                Secreciones aspiradas:
-                <b>
-                    {{evolucion.balance.egresos.secrecionesApiradas}} ml
-                </b>
-            </p>
-            <p ng-repeat="drenaje in evolucion.balance.egresos.drenajes track by $index">
-                <div ng-show="drenajes[$index].cantidad">
-                    {{drenaje.tipo}}, lado
-                    {{drenaje.lado}}
-                    {{drenajes[$index].cantidad}}
-                    ml ({{drenajes[$index].caracteristicaLiquido}})
+        <div class="col-md-12">
+            <h5>Ingresos <span class="text-muted small">{{evolucion.balance.$total_ingresos}} ml</span></h5>
+            <div class="row">
+                <div ng-repeat="ingreso in evolucion.balance.ingresos">
+                    <div class="col-md-2" ng-if="ingreso.hidratacion.parenteral">
+                        Plan de hidratación parenteral
+                        <p ng-if="ingreso.hidratacion.parenteral.solucionFisiologica">
+                            Solución fisiológica:
+                            <b>
+                                {{ingreso.hidratacion.parenteral.solucionFisiologica}} ml
+                            </b>
+                        </p>
+                        <p ng-if="ingreso.hidratacion.parenteral.dextrosa">
+                            Dextrosa:
+                            <b>
+                                {{ingreso.hidratacion.parenteral.dextrosa}} ml
+                            </b>
+                        </p>
+                        <p ng-if="ingreso.hidratacion.parenteral.ringerLactato">
+                            Ringer-Lactato:
+                            <b>
+                                {{ingreso.hidratacion.parenteral.ringerLactato}} ml
+                            </b>
+                        </p>
+                    </div>
+                    <div class="col-md-2" ng-if="ingreso.hidratacion.enteral">
+                        Plan de hidratación enteral
+                        <p ng-if="ingreso.hidratacion.enteral.solucionFisiologica">
+                            Solución fisiológica:
+                            <b>
+                                {{ingreso.hidratacion.enteral.solucionFisiologica}} ml
+                            </b>
+                        </p>
+                        <p ng-if="ingreso.hidratacion.enteral.dextrosa">
+                            Dextrosa:
+                            <b>
+                                {{ingreso.hidratacion.enteral.dextrosa}} ml
+                            </b>
+                        </p>
+                        <p ng-if="ingreso.hidratacion.enteral.ringerLactato">
+                            Ringer-Lactato:
+                            <b>
+                                {{ingreso.hidratacion.enteral.ringerLactato}} ml
+                            </b>
+                        </p>
+                    </div>
+                    <div class="col-md-2" ng-if="ingreso.hidratacion.oral">
+                        <p ng-if="ingreso.hidratacion.oral.cantidad">
+                            Hidratación oral:
+                            <b>
+                                {{ingreso.hidratacion.oral.cantidad}} ml
+                            </b>
+                        </p>
+                    </div>
+                    <div class="col-md-2" ng-if="ingreso.medicamentos">
+                        <p ng-if="ingreso.medicamentos.cantidad">
+                            Medicamentos:
+                            <b>
+                                {{ingreso.medicamentos.cantidad}}: {{ingreso.medicamentos.cantidad}} ml
+                            </b>
+                        </p>
+                    </div>
+                    <div class="col-md-2" ng-if="ingreso.nutricion">
+                        Nutrición:
+                        <div ng-if="ingreso.nutricion.soporteOral">
+                            <p ng-if="ingreso.nutricion.soporteOral.cantidad">
+                                Soporte oral:
+                                <b>
+                                    {{ingreso.nutricion.soporteOral.cantidad}} ml
+                                </b>
+                            </p>
+                        </div>
+                        <div ng-if="ingreso.nutricion.enteral">
+                            Enteral:
+                            <p ng-if="ingreso.nutricion.enteral.cantidad">
+                                <b>
+                                    {{ingreso.nutricion.enteral.cantidad}} ml
+                                </b>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-2" ng-if="ingreso.hemoterapia">
+                        <p ng-if="ingreso.hemoterapia.cantidad">
+                            Hemoterapia:
+                            <b>
+                                {{ingreso.hemoterapia.cantidad}} ml
+                            </b>
+                            <br />
+                            {{ingreso.hemoterapia.descripcion}}
+                        </p>
+                    </div>
                 </div>
-            </p>
-            <p>
-                Total:
-                <b>
-                    {{evolucion.balance.$total_egresos}}
-                </b>
-            </p>
-
-        </div>
-        <div class="col-md-4">
-            <h5>Total</h5>
-            <div>
-                {{evolucion.balance.$balance}}
-                <i class="verde mdi mdi-trending-up" ng-if="evolucion.balance.$balance < 0"></i>
-                <i class="celeste mdi mdi-trending-flat" ng-if="evolucion.balance.$balance == 0"></i>
-                <i class="rojo mdi mdi-trending-down" ng-if="evolucion.balance.$balance > 0"></i>
             </div>
         </div>
     </div>
-    <!-- <table width="100%">
-
-            <tr>
-                Ingresos
-                Egresos
-                Balance
-            </tr>
-
-        <tbody>
-            <tr>
-                <td>
-                    {{evolucion.balance.$total_ingresos}}
-                </td>
-
-                <td>
-                    {{evolucion.balance.$total_egresos}}
-                </td>
-
-                <td>
-                    {{evolucion.balance.$balance}}
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Egresos <span class="text-muted small">{{evolucion.balance.$total_egresos}} ml</span></h5>
+            <div class="row">
+                <div class="col-md-2">
+                    <p ng-if="evolucion.balance.egresos.lavadoVesicalI">
+                        Lavado vesical:
+                        <b>
+                            {{evolucion.balance.egresos.lavadoVesicalI}} ml
+                        </b>
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <p ng-if="evolucion.balance.egresos.diuresis">
+                        Diuresis:
+                        <b>
+                            {{evolucion.balance.egresos.diuresis}} ml
+                        </b>
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <p ng-if="evolucion.balance.egresos.catarsis">
+                        Catarsis:
+                        <b>
+                            {{evolucion.balance.egresos.catarsis}} ml
+                        </b>
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <p ng-if="evolucion.balance.egresos.sng">
+                        SNG:
+                        <b>
+                            {{evolucion.balance.egresos.sng}} ml
+                        </b>
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <p ng-if="evolucion.balance.egresos.sny">
+                        SNY:
+                        <b>
+                            {{evolucion.balance.egresos.sny}} ml
+                        </b>
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <p ng-if="evolucion.balance.egresos.ostomias">
+                        Ostomías:
+                        <b>
+                            {{evolucion.balance.egresos.ostomias}} ml
+                        </b>
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <p ng-if="evolucion.balance.egresos.ostomias2">
+                        Ostomías 2:
+                        <b>
+                            {{evolucion.balance.egresos.ostomias2}} ml
+                        </b>
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <p ng-if="evolucion.balance.egresos.residuoGastrico">
+                        Residuo gástrico:
+                        <b>
+                            {{evolucion.balance.egresos.residuoGastrico}} ml
+                        </b>
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <p ng-if="evolucion.balance.egresos.secrecionesApiradas">
+                        Secreciones aspiradas:
+                        <b>
+                            {{evolucion.balance.egresos.secrecionesApiradas}} ml
+                        </b>
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <p ng-repeat="drenaje in evolucion.balance.egresos.drenajes track by $index">
+                        <div ng-show="drenajes[$index].cantidad">
+                            {{drenaje.tipo}}, lado
+                            {{drenaje.lado}}
+                            {{drenajes[$index].cantidad}}
+                            ml ({{drenajes[$index].caracteristicaLiquido}})
+                        </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h5>Total balance
+                <span class="text-muted small">
+                    {{evolucion.balance.$balance}} ml
                     <i class="verde mdi mdi-trending-up" ng-if="evolucion.balance.$balance < 0"></i>
                     <i class="celeste mdi mdi-trending-flat" ng-if="evolucion.balance.$balance == 0"></i>
                     <i class="rojo mdi mdi-trending-down" ng-if="evolucion.balance.$balance > 0"></i>
-                </td>
-            </tr>
-        </tbody>
-    </table> -->
+                </span>
+            </h5>
+        </div>
+    </div>
 </div>
 
 <div ng-if="evolucion.riesgoCaida.total">
@@ -411,6 +489,17 @@
         </div>
 
     </div>
+</div>
+
+<div ng-if="evolucion.otraIndicacion">
+    Indicacion:
+    <b>
+        {{evolucion.otraIndicacion.descripcion}}
+    </b>
+    <br />
+    Realizada:
+    <span ng-if="evolucion.otraIndicacion.realizado">Si</span>
+    <span ng-if="!evolucion.otraIndicacion.realizado">No</span>
 </div>
 
 <!-- <div class="card card-block">

@@ -13,10 +13,14 @@ angular.module('app').controller('internacion/verEvolucion', ['$scope', 'Plex', 
 
                 if (plexParams.idEvolucion) {
                     angular.forEach(internacion.evoluciones, function(evolucion) {
-                        console.log(plexParams.idEvolucion);
-                        console.log(evolucion.id);
                         if (evolucion.id == plexParams.idEvolucion) {
                             $scope.evolucion = evolucion;
+
+                            if (evolucion.balance){
+                                Shared.evolucion.calcularBalance($scope.evolucion, function(evolucion){
+                                    $scope.evolucion = evolucion;
+                                });
+                            }
 
                             angular.forEach(internacion.indicaciones, function(indicacion) {
                                 if (indicacion.id == evolucion.idIndicacion) {
