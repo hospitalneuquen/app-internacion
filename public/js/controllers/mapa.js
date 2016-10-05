@@ -1,4 +1,4 @@
-angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 'Server', '$timeout', 'Session', '$alert', 'plexParams', function($scope, Plex, Shared, Server, $timeout, Session, $alert, plexParams) {
+angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 'Server', '$timeout', 'Session', '$alert', 'plexParams', 'Indicadores', function($scope, Plex, Shared, Server, $timeout, Session, $alert, plexParams, Indicadores) {
     'use strict';
 
     // Session.servicioActual = {
@@ -326,6 +326,9 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                         Shared.internacion.get(cama.idInternacion).then(function(internacion) {
                             if (internacion) {
                                 cama.$internacion = internacion;
+                                if (internacion.evoluciones) {
+                                    cama.$news = Indicadores.getNews(cama.$internacion.evoluciones);
+                                }
                             }
                         });
                     }
@@ -339,7 +342,6 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                     if (cama.sector && !$scope.sectores.inArray(cama.sector)) {
                         $scope.sectores.push(cama.sector);
                     }
-
 
                     // asignamos los servicios en base a los servicios
                     // que tiene cada cama

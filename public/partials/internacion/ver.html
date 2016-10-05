@@ -1817,6 +1817,14 @@
                         <div plex-include="'partials/internacion/iGraficoLiquidos.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-lg-4" ng-if="hayEvoluciones('peso')">
+                        <!-- <div plex-include="'partials/internacion/iGraficoLiquidos.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0"></div> -->
+                        <div>
+                            <div plex-include="'partials/internacion/iGraficoPeso.html'" plex-include-internacion="internacion" ng-if="internacion.evoluciones.length > 0" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <p ng-if="!hayEvoluciones('temperatura') && !hayEvoluciones('tension') && !hayEvoluciones('saturacion')">No se han cargado evoluciones aún para poder generar gráficos</p>
         </div>

@@ -68,27 +68,39 @@ input[type="radio"].without-radio:checked + label {
 /* Niveles */
 
 .nivel-verde {
-    background: #b1c900;
+    background: #4CAF50;
     color: black;
 }
 .nivel-amarillo {
-    background: #ffeb34;
+    background: #ff9800;
     color: black;
 }
 .nivel-rojo {
-    background: #e50018;
+    background: #e51c23;
     color: white;
 }
 .verde {
-    color: #b1c900;
+    color: #4CAF50;
 }
 .amarillo {
-    color: #ffeb34;
+    color: #ff9800;
 }
 .rojo {
-    color: #e50018;
+    color: #e51c23;
 }
 .celeste {
+    color: #00ABFF;
+}
+.success {
+    color: #4CAF50;
+}
+.warning {
+    color: #ff9800;
+}
+.danger {
+    color: #e51c23;
+}
+.primary {
     color: #00ABFF;
 }
 
