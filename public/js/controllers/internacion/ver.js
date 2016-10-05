@@ -261,6 +261,10 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
                         if (typeof evolucion.signosVitales.spo2  != "undefined" && evolucion.signosVitales.spo2 > 0) {
                             total += evolucion.signosVitales.spo2;
                         }
+                    }else if (tipo == 'peso' && typeof evolucion.signosVitales != "undefined") {
+                        if (typeof evolucion.signosVitales.peso != "undefined" && evolucion.signosVitales.peso > 0) {
+                            total += evolucion.signosVitales.peso;
+                        }
                     }
                 });
             }

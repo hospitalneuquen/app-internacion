@@ -134,7 +134,7 @@
                                 <div>
                                     <div class="icon">
 
-                                        <i class="icono-paciente {{cama.paciente | persona: 'icon'}} " ng-if="cama.paciente.id" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'evolucion'"></i>
+                                        <i class="icono-paciente {{cama.paciente | persona: 'icon'}} {{cama.$news.clase}} tips" ng-if="cama.paciente.id" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'evolucion'" title="News score: {{cama.$news.valor}}"></i>
 
                                         <button type="button" class="btn btn-buscar-paciente btn-flat grow tips" title="Agregar paciente en cama" ng-click="buscarPaciente(cama); cama.$action = 'internacion'" ng-if="!cama.paciente.id && cama.estado == 'desocupada'">
                                             <i class="fa fa-bed agregar"></i>

@@ -65,7 +65,9 @@
                             <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total >= 25 && internacion.ingreso.enfermeria.riesgoCaida.total <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
                             <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
                         </div> -->
-
+                        <div ng-if="news">
+                            <span class="tips label label-{{news.clase}}" title="News score {{news.valor}}">News {{news.valor}}</span>
+                        </div>
                         <div ng-if="riesgoCaidas">
                             <span class="tips label label-{{riesgoCaidas.clase}}" title="Riesgo de caídas {{riesgoCaidas.indicador}}">Riesgo caídas {{riesgoCaidas.indicador}}</span>
                         </div>
@@ -79,11 +81,7 @@
                             <span class="tips label label-{{glasgow.clase}}" title="Glasgow {{glasgow.indicador}} {{glasgow.valor}}">Glasgow {{glasgow.valor}}</span>
                         </div>
 
-                        <div ng-if="aislamiento && aislamiento.length">
-                            <div ng-repeat="a in aislamiento">
-                                <span class="tips label label-{{a.clase}}" title="Aislamiento {{a.indicador}} desde {{a.fecha}}">{{a.indicador}}</span>
-                            </div>
-                        </div>
+
 
                     </div>
                     <div class="col-lg-1">
@@ -99,6 +97,11 @@
                             <i class="verde mdi mdi-minus-circle" ng-if="balanceTotalLiquidos.total < 0"></i>
                             <i class="celeste mdi mdi-equal" ng-if="balanceTotalLiquidos.total == 0"></i>
                             <i class="rojo mdi mdi-plus-circle" ng-if="balanceTotalLiquidos.total > 0"></i>
+                        </div>
+                        <div ng-if="aislamiento && aislamiento.length">
+                            <div ng-repeat="a in aislamiento">
+                                <span class="tips label label-{{a.clase}}" title="Aislamiento {{a.indicador}} desde {{a.fecha}}">{{a.indicador}}</span>
+                            </div>
                         </div>
                     </div>
 
