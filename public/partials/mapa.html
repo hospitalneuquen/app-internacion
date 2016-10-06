@@ -1,13 +1,13 @@
 <div class="row " plex-affix>
     <div class="card card-block ">
 
-        <div class="col-sm-3 col-lg-2">
+        <div class="col-sm-3 col-lg-3 col-xl-2">
             <div class="form-group">
-                <input type="text" ng-model="filter.nombre" id="filter-nombre" plex label="Nombre paciente / Número de documento"/>
+                <input type="text" ng-model="filter.nombre" id="filter-nombre" plex label="Nombre paciente / N. de documento"/>
             </div>
         </div>
 
-        <div class="col-sm-2 col-lg-1">
+        <div class="col-sm-2 col-lg-2 col-xl-1">
             <div class="form-group">
                 <select ng-model="filter.sector" id="filter-sector" class="form-control" label="Sector" plex>
                     <option value="">Todos</option>
@@ -16,13 +16,13 @@
             </div>
         </div>
 
-        <div class="col-sm-3 col-lg-2">
+        <div class="col-sm-3 col-lg-3 col-xl-2">
             <div class="form-group">
                 <select label="Servicio" ng-model="filter.servicio" plex="(item.nombre) for item in servicios"></select>
             </div>
         </div>
 
-        <div class="col-sm-2 col-lg-1">
+        <div class="col-sm-2 col-lg-2 col-xl-1">
             <div class="form-group">
                 <select ng-model="filter.habitacion" label="Habitación" class="form-control" plex>
                     <option value="">Todas</option>
@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        <div class="col-sm-2 col-lg-1">
+        <div class="col-sm-2 col-lg-2 col-xl-1">
             <div class="form-group">
                 <select ng-model="filter.tipoCama" id="filter-tipo-cama" class="form-control" label="Tipo de cama" plex>
                     <option value="">Todas</option>
@@ -40,7 +40,7 @@
             </div>
         </div>
 
-        <div class="col-sm-2 col-lg-1">
+        <div class="col-sm-2 col-lg-3 col-xl-1">
             <div class="form-group">
                 <select ng-model="filter.estado" id="filter-estado" class="form-control" label="Estado" plex>
                     <option value="">Todas</option>
@@ -52,32 +52,27 @@
             </div>
         </div>
 
-        <div class="col-sm-2 col-lg-1">
+        <div class="col-sm-2 col-lg-2 col-xl-1">
             <div class="form-group">
                 <br/>
                 <input type="checkbox" ng-model="filter.desinfectada" label="Sin desinfectar" plex="checkbox">
             </div>
         </div>
 
-        <div class="col-sm-2 col-lg-1">
+        <div class="col-sm-2 col-lg-2 col-xl-1">
             <div class="form-group">
                 <br/>
                 <input type="checkbox" ng-model="filter.oxigeno" label="Oxígeno" plex="checkbox">
             </div>
         </div>
 
-        <div class="col-sm-3 col-lg-1">
+        <div class="col-sm-3 col-lg-3 col-xl-2">
             <div class="form-group">
                 <br/>
                 <button class="btn btn-default" ng-click="filter.limpiarFiltros()">
                     Limpiar filtros
                 </button>
-            </div>
-        </div>
 
-        <div class="col-sm-4 col-lg-1">
-            <div class="form-group">
-                <br/>
                 <button class="btn btn-default layout-view tips" ng-click="layout = 'grid'" ng-class="{'active': layout == 'grid'}" title="Vista de grilla">
                     <i class="mdi mdi-grid"></i>
                 </button>
@@ -96,7 +91,7 @@
 </div>
 
 <div class="row" ng-show="layout == 'grid'">
-    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12" ng-repeat="cama in filter.camas">
+    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12 " ng-repeat="cama in filter.camas">
         <div class="cama-container manual-flip animate-repeat" ng-class="{'hover': cama.$rotar }" ng-model="cama_actual">
             <div class="cama">
                 <div class="front {{cama.estado}}">

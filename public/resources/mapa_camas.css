@@ -3,6 +3,14 @@
 ** MAPA DE CAMAS
 ******************************
 */
+/*@media (max-width: 1366px) {
+    .tarjeta{
+        width: 25%;
+    }
+    .filtros label{
+        font-size: 12px;
+    }
+}*/
 .filtros .layout-view.active {
     background-color: #0099ff;
 }
