@@ -2,6 +2,48 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
     'use strict';
 
     angular.extend($scope, {
+        graph : {'width': 360, 'height': 470},
+        elements : [],
+        tools : ['circle','line'],
+        currentTool : 0, // line
+        radius : 10,
+        x : 0,
+        y : 0,
+        sw : 55,
+        dibujarUlcera: true, // flag que determina si se puede dibujar o no
+        draw : function(e, lado) {
+            $scope.x = e.offsetX;
+            $scope.y = e.offsetY;
+
+            if(typeof $scope.evolucionesEdit.riesgoUPP[lado] == "undefined"){
+                $scope.evolucionesEdit.riesgoUPP[lado] = [];
+            }
+
+            // dibujamos en la imagen
+            if ($scope.dibujarUlcera) {
+                // $scope.elements.push({
+                $scope.evolucionesEdit.riesgoUPP[lado].push({
+                    "tipo": $scope.currentTool,
+                    "x": $scope.x,
+                    "y": $scope.y,
+                    "r": $scope.radius,
+                    "f":0,
+                    "sw": $scope.sw
+                });
+            }else{
+                // si estamos eliminando entonces permitimos
+                // nuevamente poder dibujar
+                $scope.dibujarUlcera = true;
+            }
+        },
+        delete: function(i, lado){
+            // borramos el elemento del dibujo
+            // $scope.elements.splice(i,1);
+            $scope.evolucionesEdit.riesgoUPP[lado].splice(i,1);
+            // seteamos flag en falso para que no dibuje
+            $scope.dibujarUlcera = false;
+        },
+
         tab: 0,
 
         numero_indicacion: parseInt(0),
@@ -542,6 +584,11 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     $scope.indicacion.fecha = new Date();
                     $scope.indicacion.servicio = Session.variables.servicioActual;
                     // $scope.indicacion.via = 'EV';
+
+                    // valores por defecto
+                    // if ($scope.indicacion.tipo.nombre == 'Nutrición'){
+                    //
+                    // }
                 }
 
             },
@@ -1025,6 +1072,9 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     // calculamos valores de riesgo de ulceras por presion
                     if ($scope.evolucionesEdit.riesgoUPP) {
                         $scope.evolucionesEdit.riesgoUPP.total = $scope.evolucionesEdit.riesgoUPP.estadoFisico + $scope.evolucionesEdit.riesgoUPP.estadoMental + $scope.evolucionesEdit.riesgoUPP.actividad + $scope.evolucionesEdit.riesgoUPP.movilidad + $scope.evolucionesEdit.riesgoUPP.incontinencia;
+                        // if ($scope.elements.length){
+                        //     $scope.evolucionesEdit.riesgoUPP.lesiones = $scope.elements;
+                        // }
                     }
 
                     // hemoterapia
@@ -1259,6 +1309,56 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     $scope.informacionNutricionalSoporteKcal = cantidad * tipoPreparado.kilocalorias / 1000;
                 }
             }
+        },
+        deshabilitarOpcion: function(current){
+            var opciones = ['nadaPorBoca', 'ayuno', 'general', 'sinSal',
+                'acompanante', 'pediatrico', 'licuado', 'blandoConCarne03',
+                'blandoSinCarne02', 'liquido01', 'individual',
+                'hepatoGastroProtectora', 'astringente', 'sinGluten',
+                'hipocalorico', 'insuficienciaRenal', 'todoCocido',
+                'hiperConColacion', 'blandoMecanico', 'ricoEnResiduo',
+                'diabetico'
+            ];
+
+            if (typeof $scope.indicacion.nutricion == "undefined"){
+                return false;
+            }
+
+            // console.log($scope.indicacion.nutricion.tipo);
+            // if (typeof $scope.indicacion.nutricion.tipo != "undefined"){
+            //     if ($scope.indicacion.nutricion.tipo == 'nadaPorBoca'){
+            //         return true;
+            //     }
+            // }
+
+            angular.forEach(opciones, function(opcion){
+                    if ($scope.indicacion.nutricion.tipo.nadaPorBoca){
+                        return true;
+                    }
+            });
+
+            // nadaPorBoca
+            // ayuno
+            // general
+            // sinSal
+            // acompanante
+            // pediatrico
+            // licuado
+            // blandoConCarne03
+            // blandoSinCarne02
+            // liquido01
+            // individual
+            // hepatoGastroProtectora
+            // astringente
+            // sinGluten
+            // hipocalorico
+            // insuficienciaRenal
+            // todoCocido
+            // hiperConColacion
+            // blandoMecanico
+            // ricoEnResiduo
+            // diabetico
+            return false;
         }
 
     });
@@ -1359,6 +1459,17 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
             //     default:
             //     $scope.indicacion.tipo = current.nombre;
             // }
+
+        }
+    });
+
+    $scope.$watch('indicacion.nutricion.tipo', function(current, old) {
+
+        if (typeof current != "undefined") {
+            $scope.deshabilitarOpcion();
+            if (current.nadaPorBoca){
+
+            }
 
         }
     });
