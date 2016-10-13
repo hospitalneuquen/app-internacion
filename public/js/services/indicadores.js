@@ -29,41 +29,44 @@ angular.module('app').factory('Indicadores', ["Global", "Server", "Session", "Sh
 
             if (evoluciones.length) {
 
-                // traemos todas las evoluciones que tengan riesgo de caida
-                var _evoluciones = evoluciones.filter(function(evolucion) {
-                    return (evolucion.tipo == "Controles" && evolucion.riesgoCaida && evolucion.riesgoCaida.total && evolucion.riesgoCaida.total > 0);
-                });
+                var found = false;
+                var i = evoluciones.length - 1;
+                var evolucion = null;
 
-                if (_evoluciones.length) {
+                while (i >= 0 && !found){
+                    if (evoluciones[i].tipo == 'Controles' && evoluciones[i].riesgoCaida &&
+                        evoluciones[i].riesgoCaida.total && evoluciones[i].riesgoCaida.total > 0){
 
-                    // ordenamos
-                    _evoluciones.sort(function(a, b) {
-                        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-                    });
+                        evolucion = evoluciones[i];
+                        found = true;
+                    }
+
+                    i--;
+                }
+
+                if (evolucion) {
 
                     // escala
-                    if (_evoluciones[0].riesgoCaida.total < 25) {
+                    if (evolucion.riesgoCaida.total < 25) {
                         riesgoCaidas = {
                             clase: "default",
                             indicador: "bajo",
-                            valor: _evoluciones[0].riesgoCaida.total
+                            valor: evolucion.riesgoCaida.total
                         }
 
-                    } else if (_evoluciones[0].riesgoCaida.total >= 25 && _evoluciones[0].riesgoCaida.total <= 50) {
+                    } else if (evolucion.riesgoCaida.total >= 25 && evolucion.riesgoCaida.total <= 50) {
                         riesgoCaidas = {
                             clase: "warning",
                             indicador: "medio",
-                            valor: _evoluciones[0].riesgoCaida.total
+                            valor: evolucion.riesgoCaida.total
                         }
-                    } else if (_evoluciones[0].riesgoCaida.total > 50) {
+                    } else if (evolucion.riesgoCaida.total > 50) {
                         riesgoCaidas = {
                             clase: "danger",
                             indicador: "alto",
-                            valor: _evoluciones[0].riesgoCaida.total
+                            valor: evolucion.riesgoCaida.total
                         }
                     }
-
-                    // var code = '<span class="tips label label-' + clase + '" title="Riesgo de caídas ' + indicador + '">Riesgo caídas</span>';
 
                     return riesgoCaidas;
                 }
@@ -78,46 +81,50 @@ angular.module('app').factory('Indicadores', ["Global", "Server", "Session", "Sh
 
             if (evoluciones && evoluciones.length) {
 
-                // traemos todas las evoluciones que tengan riesgo de caida
-                var _evoluciones = evoluciones.filter(function(evolucion) {
-                    return (evolucion.tipo == "Controles" && evolucion.dolorValoracion && evolucion.dolorValoracion.intensidad && evolucion.dolorValoracion.intensidad > 0);
-                });
+                var found = false;
+                var i = evoluciones.length - 1;
+                var evolucion = null;
 
-                if (_evoluciones.length) {
+                while (i >= 0 && !found){
+                    if (evoluciones[i].tipo == 'Controles' && evoluciones[i].dolorValoracion &&
+                        evoluciones[i].dolorValoracion.intensidad && evoluciones[i].dolorValoracion.intensidad > 0){
 
-                    // ordenamos
-                    _evoluciones.sort(function(a, b) {
-                        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-                    });
+                        evolucion = evoluciones[i];
+                        found = true;
+                    }
 
+                    i--;
+                }
+
+                if (evolucion) {
                     // escala
-                    if (_evoluciones[0].dolorValoracion.intensidad >= 1 && _evoluciones[0].dolorValoracion.intensidad <= 3) {
+                    if (evolucion.dolorValoracion.intensidad >= 1 && evolucion.dolorValoracion.intensidad <= 3) {
                         valoracionDolor = {
                             clase: "default",
                             indicador: "leve",
-                            valor: _evoluciones[0].dolorValoracion.intensidad
+                            valor: evolucion.dolorValoracion.intensidad
                         }
 
-                    } else if (_evoluciones[0].dolorValoracion.intensidad >= 4 && _evoluciones[0].dolorValoracion.intensidad <= 6) {
+                    } else if (evolucion.dolorValoracion.intensidad >= 4 && evolucion.dolorValoracion.intensidad <= 6) {
                         valoracionDolor = {
                             clase: "primary",
                             indicador: "moderado",
-                            valor: _evoluciones[0].dolorValoracion.intensidad
+                            valor: evolucion.dolorValoracion.intensidad
                         }
 
-                    } else if (_evoluciones[0].dolorValoracion.intensidad >= 7 && _evoluciones[0].dolorValoracion.intensidad <= 9) {
+                    } else if (evolucion.dolorValoracion.intensidad >= 7 && evolucion.dolorValoracion.intensidad <= 9) {
                         valoracionDolor = {
                             clase: "warning",
                             indicador: "severo",
-                            valor: _evoluciones[0].dolorValoracion.intensidad
+                            valor: evolucion.dolorValoracion.intensidad
                         }
 
                     }
-                    if (_evoluciones[0].dolorValoracion.intensidad == 10) {
+                    if (evolucion.dolorValoracion.intensidad == 10) {
                         valoracionDolor = {
                             clase: "danger",
                             indicador: "intolerable",
-                            valor: _evoluciones[0].dolorValoracion.intensidad
+                            valor: evolucion.dolorValoracion.intensidad
                         }
 
                     }
@@ -135,55 +142,58 @@ angular.module('app').factory('Indicadores', ["Global", "Server", "Session", "Sh
 
             if (evoluciones && evoluciones.length) {
 
-                // traemos todas las evoluciones que tengan riesgo de caida
-                var _evoluciones = evoluciones.filter(function(evolucion) {
-                    return (evolucion.tipo == "Controles" && evolucion.signosVitales && evolucion.signosVitales.temperatura && evolucion.signosVitales.temperatura > 0);
-                });
+                var found = false;
+                var i = evoluciones.length - 1;
+                var evolucion = null;
 
-                if (_evoluciones.length) {
+                while (i >= 0 && !found){
+                    if (evoluciones[i].tipo == 'Controles' && evoluciones[i].signosVitales &&
+                        evoluciones[i].signosVitales.temperatura && evoluciones[i].signosVitales.temperatura > 0){
 
-                    // ordenamos
-                    _evoluciones.sort(function(a, b) {
-                        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-                    });
-
-                    // escala
-                    if (_evoluciones[0].signosVitales.temperatura <= 35) {
-                        fiebre = {
-                            clase: "info",
-                            indicador: _evoluciones[0].signosVitales.temperatura,
-                            valor: _evoluciones[0].signosVitales.temperatura
-                        }
-
-                    } else if (_evoluciones[0].signosVitales.temperatura >= 35.1 && _evoluciones[0].signosVitales.temperatura <= 36) {
-                        fiebre = {
-                            clase: "success",
-                            indicador: _evoluciones[0].signosVitales.temperatura,
-                            valor: _evoluciones[0].signosVitales.temperatura
-                        }
-
-                    } else if (_evoluciones[0].signosVitales.temperatura >= 36.1 && _evoluciones[0].signosVitales.temperatura <= 38) {
-                        fiebre = {
-                            clase: "default",
-                            indicador: _evoluciones[0].signosVitales.temperatura,
-                            valor: _evoluciones[0].signosVitales.temperatura
-                        }
-
-                    } else if (_evoluciones[0].signosVitales.temperatura >= 38.1 && _evoluciones[0].signosVitales.temperatura <= 39) {
-                        fiebre = {
-                            clase: "success",
-                            indicador: _evoluciones[0].signosVitales.temperatura,
-                            valor: _evoluciones[0].signosVitales.temperatura
-                        }
-                    } else if (_evoluciones[0].signosVitales.temperatura >= 39.1) {
-                        fiebre = {
-                            clase: "danger",
-                            indicador: _evoluciones[0].signosVitales.temperatura,
-                            valor: _evoluciones[0].signosVitales.temperatura
-                        }
+                        evolucion = evoluciones[i];
+                        found = true;
                     }
 
-                    // var code = '<span class="tips label label-' + clase + '" title="Riesgo de caídas ' + indicador + '">Riesgo caídas</span>';
+                    i--;
+                }
+
+                if (evolucion) {
+
+                    // escala
+                    if (evolucion.signosVitales.temperatura <= 35) {
+                        fiebre = {
+                            clase: "info",
+                            indicador: evolucion.signosVitales.temperatura,
+                            valor: evolucion.signosVitales.temperatura
+                        }
+
+                    } else if (evolucion.signosVitales.temperatura >= 35.1 && evolucion.signosVitales.temperatura <= 36) {
+                        fiebre = {
+                            clase: "success",
+                            indicador: evolucion.signosVitales.temperatura,
+                            valor: evolucion.signosVitales.temperatura
+                        }
+
+                    } else if (evolucion.signosVitales.temperatura >= 36.1 && evolucion.signosVitales.temperatura <= 38) {
+                        fiebre = {
+                            clase: "default",
+                            indicador: evolucion.signosVitales.temperatura,
+                            valor: evolucion.signosVitales.temperatura
+                        }
+
+                    } else if (evolucion.signosVitales.temperatura >= 38.1 && evolucion.signosVitales.temperatura <= 39) {
+                        fiebre = {
+                            clase: "success",
+                            indicador: evolucion.signosVitales.temperatura,
+                            valor: evolucion.signosVitales.temperatura
+                        }
+                    } else if (evolucion.signosVitales.temperatura >= 39.1) {
+                        fiebre = {
+                            clase: "danger",
+                            indicador: evolucion.signosVitales.temperatura,
+                            valor: evolucion.signosVitales.temperatura
+                        }
+                    }
 
                     return fiebre;
                 }
@@ -198,38 +208,42 @@ angular.module('app').factory('Indicadores', ["Global", "Server", "Session", "Sh
 
             if (evoluciones && evoluciones.length) {
 
-                // traemos todas las evoluciones que tengan riesgo de caida
-                var _evoluciones = evoluciones.filter(function(evolucion) {
-                    return (evolucion.tipo == "Controles" && evolucion.glasgow && evolucion.glasgow.total && evolucion.glasgow.total > 0);
-                });
+                var found = false;
+                var i = evoluciones.length - 1;
+                var evolucion = null;
 
-                if (_evoluciones.length) {
+                while (i >= 0 && !found){
+                    if (evoluciones[i].tipo == 'Controles' && evoluciones[i].glasgow &&
+                        evoluciones[i].glasgow.total && evoluciones[i].glasgow.total > 0){
 
-                    // ordenamos
-                    _evoluciones.sort(function(a, b) {
-                        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-                    });
+                        evolucion = evoluciones[i];
+                        found = true;
+                    }
 
-                    // // escala
-                    if (_evoluciones[0].glasgow.total > 3 && _evoluciones[0].glasgow.total <= 8) {
+                    i--;
+                }
+
+                if (evolucion) {
+                    // escala
+                    if (evolucion.glasgow.total > 3 && evolucion.glasgow.total <= 8) {
                         glasgow = {
                             clase: "danger",
                             indicador: 'grave',
-                            valor: _evoluciones[0].glasgow.total
+                            valor: evolucion.glasgow.total
                         }
 
-                    } else if (_evoluciones[0].glasgow.total >= 9 && _evoluciones[0].glasgow.total <= 13) {
+                    } else if (evolucion.glasgow.total >= 9 && evolucion.glasgow.total <= 13) {
                         glasgow = {
                             clase: "warning",
                             indicador: "moderado",
-                            valor: _evoluciones[0].glasgow.total
+                            valor: evolucion.glasgow.total
                         }
 
-                    } else if (_evoluciones[0].glasgow.total >= 14) {
+                    } else if (evolucion.glasgow.total >= 14) {
                         glasgow = {
                             clase: "success",
                             indicador: "leve",
-                            valor: _evoluciones[0].glasgow.total
+                            valor: evolucion.glasgow.total
                         }
 
                     }
@@ -247,45 +261,49 @@ angular.module('app').factory('Indicadores', ["Global", "Server", "Session", "Sh
 
             if (evoluciones && evoluciones.length) {
 
-                // traemos todas las evoluciones que tengan riesgo de caida
-                var _evoluciones = evoluciones.filter(function(evolucion) {
-                    return (evolucion.tipo == "Controles" && evolucion.flebitis && evolucion.flebitis.grado && evolucion.flebitis.grado > 0);
-                });
+                var found = false;
+                var i = evoluciones.length - 1;
+                var evolucion = null;
 
-                if (_evoluciones.length) {
+                while (i >= 0 && !found){
+                    if (evoluciones[i].tipo == 'Controles' && evoluciones[i].flebitis &&
+                        evoluciones[i].flebitis.grado && evoluciones[i].flebitis.grado > 0){
 
-                    // ordenamos
-                    _evoluciones.sort(function(a, b) {
-                        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-                    });
+                        evolucion = evoluciones[i];
+                        found = true;
+                    }
 
+                    i--;
+                }
+
+                if (evolucion) {
                     // escala
-                    if (_evoluciones[0].flebitis.grado == 0) {
+                    if (evolucion.flebitis.grado == 0) {
                         flebitis = {
                             clase: "info",
-                            indicador: _evoluciones[0].flebitis.grado,
-                            valor: _evoluciones[0].flebitis.grado
+                            indicador: evolucion.flebitis.grado,
+                            valor: evolucion.flebitis.grado
                         }
 
-                    } else if (_evoluciones[0].flebitis.grado == 1) {
+                    } else if (evolucion.flebitis.grado == 1) {
                         flebitis = {
                             clase: "success",
-                            indicador: _evoluciones[0].flebitis.grado,
-                            valor: _evoluciones[0].flebitis.grado
+                            indicador: evolucion.flebitis.grado,
+                            valor: evolucion.flebitis.grado
                         }
 
-                    } else if (_evoluciones[0].flebitis.grado == 2) {
+                    } else if (evolucion.flebitis.grado == 2) {
                         flebitis = {
                             clase: "warning",
-                            indicador: _evoluciones[0].flebitis.grado,
-                            valor: _evoluciones[0].flebitis.grado
+                            indicador: evolucion.flebitis.grado,
+                            valor: evolucion.flebitis.grado
                         }
 
-                    } else if (_evoluciones[0].flebitis.grado == 3) {
+                    } else if (evolucion.flebitis.grado == 3) {
                         flebitis = {
                             clase: "danger",
-                            indicador: _evoluciones[0].flebitis.grado,
-                            valor: _evoluciones[0].flebitis.grado
+                            indicador: evolucion.flebitis.grado,
+                            valor: evolucion.flebitis.grado
                         }
                     }
 
@@ -302,38 +320,42 @@ angular.module('app').factory('Indicadores', ["Global", "Server", "Session", "Sh
 
             if (evoluciones && evoluciones.length) {
 
-                // traemos todas las evoluciones que tengan riesgo de caida
-                var _evoluciones = evoluciones.filter(function(evolucion) {
-                    return (evolucion.tipo == "Controles" && evolucion.riesgoUPP && evolucion.riesgoUPP.total && evolucion.riesgoUPP.total > 0);
-                });
+                var found = false;
+                var i = evoluciones.length - 1;
+                var evolucion = null;
 
-                if (_evoluciones.length) {
+                while (i >= 0 && !found){
+                    if (evoluciones[i].tipo == 'Controles' && evoluciones[i].riesgoUPP &&
+                        evoluciones[i].riesgoUPP.total && evoluciones[i].riesgoUPP.total > 0){
 
-                    // ordenamos
-                    _evoluciones.sort(function(a, b) {
-                        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-                    });
+                        evolucion = evoluciones[i];
+                        found = true;
+                    }
 
+                    i--;
+                }
+
+                if (evolucion) {
                     // escala
-                    if (_evoluciones[0].riesgoUPP.total >= 13 && _evoluciones[0].riesgoUPP.total <= 16) {
+                    if (evolucion.riesgoUPP.total >= 13 && evolucion.riesgoUPP.total <= 16) {
                         upp = {
                             clase: "default",
                             indicador: "Riesgo bajo",
-                            valor: _evoluciones[0].riesgoUPP.total
+                            valor: evolucion.riesgoUPP.total
                         }
 
-                    } else if (_evoluciones[0].riesgoUPP.total >= 10 && _evoluciones[0].riesgoUPP.total <= 12) {
+                    } else if (evolucion.riesgoUPP.total >= 10 && evolucion.riesgoUPP.total <= 12) {
                         upp = {
                             clase: "warning",
                             indicador: "Riesgo medio",
-                            valor: _evoluciones[0].riesgoUPP.total
+                            valor: evolucion.riesgoUPP.total
                         }
 
-                    } else if (_evoluciones[0].riesgoUPP.total >= 5 && _evoluciones[0].riesgoUPP.total <= 9) {
+                    } else if (evolucion.riesgoUPP.total >= 5 && evolucion.riesgoUPP.total <= 9) {
                         upp = {
                             clase: "danger",
                             indicador: "Riesgo alto",
-                            valor: _evoluciones[0].riesgoUPP.total
+                            valor: evolucion.riesgoUPP.total
                         }
 
                     }
@@ -416,53 +438,95 @@ angular.module('app').factory('Indicadores', ["Global", "Server", "Session", "Sh
         },
 
         getFrecunciaRespiratoria: function(evoluciones){
+            var respiracion = 0;
+
             if (evoluciones && evoluciones.length) {
+                var found = false;
+                var i = evoluciones.length - 1;
 
-                // traemos todas las evoluciones que tengan riesgo de caida
-                var _evoluciones = evoluciones.filter(function(evolucion) {
-                    return (evolucion.tipo == "Controles" && evolucion.signosVitales && evolucion.signosVitales.respiracion);
-                });
+                while (i >= 0 && !found){
+                    if (evoluciones[i].tipo == 'Controles' && evoluciones[i].signosVitales &&
+                        evoluciones[i].signosVitales.respiracion && evoluciones[i].signosVitales.respiracion > 0){
 
-                return (_evoluciones[0].signosVitales.respiracion) ? _evoluciones[0].signosVitales.respiracion : 0;
+                        respiracion = evoluciones[i].signosVitales.respiracion;
+                        found = true;
+                    }
+
+                    i--;
+                }
+
             }
+
+            return respiracion;
         },
         getSaturacionOxigeno: function(evoluciones){
+            var spo2 = 0;
+
             if (evoluciones && evoluciones.length) {
 
-                // traemos todas las evoluciones que tengan riesgo de caida
-                var _evoluciones = evoluciones.filter(function(evolucion) {
-                    return (evolucion.tipo == "Controles" && evolucion.signosVitales && evolucion.signosVitales.spo2);
-                });
+                var found = false;
+                var i = evoluciones.length - 1;
 
-                return (_evoluciones[0].signosVitales.spo2) ? _evoluciones[0].signosVitales.spo2 : 0;
+                while (i >= 0 && !found){
+                    if (evoluciones[i].tipo == 'Controles' && evoluciones[i].signosVitales && evoluciones[i].signosVitales.spo2){
+
+                        spo2 = evoluciones[i].signosVitales.spo2;
+                        found = true;
+                    }
+
+                    i--;
+                }
+
             }
+
+            return spo2;
         },
         // TODO: Ver como calcular
         getSumplementoOxigeno: function(evoluciones){
             return false;
         },
         getTensionSistolica: function(evoluciones){
+            var tensionSistolica = 0;
+
             if (evoluciones && evoluciones.length) {
+                var found = false;
+                var i = evoluciones.length - 1;
 
-                // traemos todas las evoluciones que tengan riesgo de caida
-                var _evoluciones = evoluciones.filter(function(evolucion) {
-                    return (evolucion.tipo == "Controles" && evolucion.signosVitales && evolucion.signosVitales.circulacion
-                        && evolucion.signosVitales.circulacion.tensionSistolica);
-                });
+                while (i >= 0 && !found){
+                    if (evoluciones[i].tipo == 'Controles' && evoluciones[i].signosVitales && evoluciones[i].signosVitales.circulacion
+                        && evoluciones[i].signosVitales.circulacion.tensionSistolica){
 
-                return (_evoluciones[0].signosVitales.circulacion.tensionSistolica) ? _evoluciones[0].signosVitales.circulacion.tensionSistolica : 0;
+                        tensionSistolica = evoluciones[i].signosVitales.circulacion.tensionSistolica;
+                        found = true;
+                    }
+
+                    i--;
+                }
+
             }
+
+            return tensionSistolica;
         },
         getFrecuenciaCardiaca: function(evoluciones){
+            var pulso = 0;
+
             if (evoluciones && evoluciones.length) {
+                var found = false;
+                var i = evoluciones.length - 1;
+                var evolucion = null;
 
-                // traemos todas las evoluciones que tengan riesgo de caida
-                var _evoluciones = evoluciones.filter(function(evolucion) {
-                    return (evolucion.tipo == "Controles" && evolucion.signosVitales && evolucion.signosVitales.pulso);
-                });
+                while (i >= 0 && !found){
+                    if (evoluciones[i].tipo == 'Controles' && evoluciones[i].signosVitales && evoluciones[i].signosVitales.pulso){
+                        pulso = evoluciones[i].signosVitales.pulso;
+                        found = true;
+                    }
 
-                return (_evoluciones[0].signosVitales.pulso) ? _evoluciones[0].signosVitales.pulso : 0;
+                    i--;
+                }
+
             }
+
+            return pulso;
         },
         getNews(evoluciones){
             // frecuencia respiratoria *
@@ -481,6 +545,7 @@ angular.module('app').factory('Indicadores', ["Global", "Server", "Session", "Sh
 
             // obtenemos valores para frecuencia respiratoria
             var frecuenciaRespiratoria = self.getFrecunciaRespiratoria(evoluciones);
+
             // calculamos valor news para frecuencia respiratoria
             if (frecuenciaRespiratoria > 0){
                 if (frecuenciaRespiratoria >= 12 && frecuenciaRespiratoria <= 20){
@@ -494,7 +559,6 @@ angular.module('app').factory('Indicadores', ["Global", "Server", "Session", "Sh
                     news.valor += 3;
                 }
             }
-
             // obtenemos valores para saturacion de oxigeno
             var saturacionOxigeno = self.getSaturacionOxigeno(evoluciones);
             // calculamos valor news para saturacion de oxigeno
@@ -591,6 +655,7 @@ angular.module('app').factory('Indicadores', ["Global", "Server", "Session", "Sh
                     news.clase = 'danger';
                 }
             }
+
             return news;
         }
     };

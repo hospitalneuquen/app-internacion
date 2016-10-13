@@ -5,7 +5,12 @@
             <span ng-if="indicacion.tipo == 'Controles'">
                 / {{indicacion.controles.tipo}}
             </span>
-
+            <span ng-if="evolucion.tipo == 'enfermero'">
+                Evolución enfermería
+            </span>
+            <span ng-if="evolucion.tipo == 'medico'">
+                Evolución médica
+            </span>
         </h4>
         <span class="text-muted small">
             {{evolucion.fechaHora | fromNow}}
@@ -371,7 +376,7 @@
     </div>
 </div>
 
-<div ng-if="evolucion.riesgoUPP.total">
+<div ng-if="evolucion.riesgoUPP">
     <div class="row">
         <div class="col-md-2">
             <b>Estado físico</b>
@@ -406,6 +411,80 @@
             <span ng-if="evolucion.riesgoUPP.total >= 13 && evolucion.riesgoUPP.total <= 16" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
             <span ng-if="evolucion.riesgoUPP.total >= 10 && evolucion.riesgoUPP.total <= 12" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
             <span ng-if="evolucion.riesgoUPP.total >= 5 && evolucion.riesgoUPP.total <= 9" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Ulceras en el cuerpo</h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3 text-center">
+
+            <svg ng-attr-height="{{graph.height}}" ng-attr-width="{{graph.width}}">
+                <image sketch:type="MSBitmapLayer" width="100%" height="100%" xlink:href="img/hombre-frente.jpg" ></image>
+
+                <g ng-repeat="ele in evolucion.riesgoUPP.lesionesFrente track by $index">
+                    <g ng-switch on="ele.tipo">
+                        <circle ng-switch-when="0" ng-attr-cx="{{ele.x}}" ng-attr-cy="{{ele.y}}" ng-attr-r="{{radius}}" stroke-width="{{sw}}" class="{'focus':ele.f===1} tips" title="{{$index}}">
+                            <text x="50%" y="50%" text-anchor="middle" stroke="#51c5cf" stroke-width="2px" dy=".3em">{{$index}}</text>
+                        </circle>
+                    </g>
+                </g>
+            </svg>
+            <p>
+                <b>Frente</b>
+            </p>
+        </div>
+        <div class="col-md-3 text-center">
+            <svg ng-attr-height="{{graph.height}}" ng-attr-width="{{graph.width}}">
+                <image sketch:type="MSBitmapLayer" width="100%" height="100%" xlink:href="img/hombre-espalda.jpg" ></image>
+
+                <g ng-repeat="ele in evolucion.riesgoUPP.lesionesEspalda track by $index">
+                    <g ng-switch on="ele.tipo">
+                        <circle ng-switch-when="0" ng-attr-cx="{{ele.x}}" ng-attr-cy="{{ele.y}}" ng-attr-r="{{radius}}" stroke-width="{{sw}}" class="{'focus':ele.f===1} tips" title="{{$index}}">
+                            <text x="50%" y="50%" text-anchor="middle" stroke="#51c5cf" stroke-width="2px" dy=".3em">{{$index}}</text>
+                        </circle>
+                    </g>
+                </g>
+            </svg>
+            <p>
+                <b>Espalda</b>
+            </p>
+        </div>
+        <div class="col-md-3 text-center">
+            <svg ng-attr-height="{{graph.height}}" ng-attr-width="{{graph.width}}">
+                <image sketch:type="MSBitmapLayer" width="100%" height="100%" xlink:href="img/hombre-izquierda.jpg" ></image>
+
+                <g ng-repeat="ele in evolucion.riesgoUPP.lesionesLadoIzquierdo track by $index">
+                    <g ng-switch on="ele.tipo">
+                        <circle ng-switch-when="0" ng-attr-cx="{{ele.x}}" ng-attr-cy="{{ele.y}}" ng-attr-r="{{radius}}" stroke-width="{{sw}}" class="{'focus':ele.f===1} tips" title="{{$index}}">
+                            <text x="50%" y="50%" text-anchor="middle" stroke="#51c5cf" stroke-width="2px" dy=".3em">{{$index}}</text>
+                        </circle>
+                    </g>
+                </g>
+            </svg>
+            <p>
+                <b>Lado izquierdo</b>
+            </p>
+        </div>
+        <div class="col-md-3 text-center">
+            <svg ng-attr-height="{{graph.height}}" ng-attr-width="{{graph.width}}">
+                <image sketch:type="MSBitmapLayer" width="100%" height="100%" xlink:href="img/hombre-derecha.jpg" ></image>
+
+
+                <g ng-repeat="ele in evolucion.riesgoUPP.lesionesLadoDerecho track by $index">
+                    <g ng-switch on="ele.tipo">
+                        <circle ng-switch-when="0" ng-attr-cx="{{ele.x}}" ng-attr-cy="{{ele.y}}" ng-attr-r="{{radius}}" stroke-width="{{sw}}" class="{'focus':ele.f===1} tips" title="{{$index}}">
+                            <text x="50%" y="50%" text-anchor="middle" stroke="#51c5cf" stroke-width="2px" dy=".3em">{{$index}}</text>
+                        </circle>
+                    </g>
+                </g>
+            </svg>
+            <p>
+                <b>Lado derecho</b>
+            </p>
         </div>
     </div>
 </div>
@@ -500,6 +579,11 @@
     Realizada:
     <span ng-if="evolucion.otraIndicacion.realizado">Si</span>
     <span ng-if="!evolucion.otraIndicacion.realizado">No</span>
+</div>
+
+<div ng-if="evolucion.tipo == 'enfermero' || evolucion.tipo == 'medico'">
+    Texto de la evolución:
+    <div ng-bind-html="evolucion.texto"></div>
 </div>
 
 <!-- <div class="card card-block">

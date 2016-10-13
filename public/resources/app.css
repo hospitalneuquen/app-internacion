@@ -339,3 +339,18 @@ table.highlight td.exclude:hover::after{
     font-size: 40px;
     text-align: center;
 }
+
+
+svg {
+    /*box-shadow: 0 0 10px 10px rgba(0,0,0,.14);*/
+}
+svg circle {
+    fill: rgba(229, 28, 35, 0.68);
+}
+svg image {
+    opacity: .6;
+}
+svg .focus {
+    stroke: rgba(178,145,56,.7);
+    fill: rgba(229,28,35,0.6);
+}

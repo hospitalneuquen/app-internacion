@@ -6,6 +6,11 @@ angular.module('app').controller('internacion/verEvolucion', ['$scope', 'Plex', 
         evolucion: null,
         indicacion: null,
 
+        // propiedades para el grafico de UPP
+        graph : {'width': 360, 'height': 470},
+        radius : 10,
+        sw : 55,
+
         init: function() {
             // buscamos la internacion
             Shared.internacion.get(plexParams.idInternacion).then(function(internacion) {

@@ -578,40 +578,33 @@
                                             </label>
 
                                             <div class="row">
-                                                <div class="col-lg-3">
+                                                <div class="col-lg-4">
+                                                    <input type="checkbox" label="Nada por boca" ng-model="indicacion.nutricion.tipo.nadaPorBoca" plex="checkbox" ng-disabled="deshabilitarOpcion()">
                                                     <input type="checkbox" label="Ayuno" ng-model="indicacion.nutricion.tipo.ayuno" plex="checkbox">
                                                     <input type="checkbox" label="General" ng-model="indicacion.nutricion.tipo.general" plex="checkbox">
+                                                    <input type="checkbox" label="Sin sal" ng-model="indicacion.nutricion.tipo.sinSal" plex="checkbox">
                                                     <input type="checkbox" label="Diabético" ng-model="indicacion.nutricion.tipo.diabetico" plex="checkbox">
-                                                    <input type="checkbox" label="Insuficiencia renal" ng-model="indicacion.nutricion.tipo.insuficienciaRenal" plex="checkbox">
-                                                    <input type="checkbox" label="Hepato/Gastro protectora" ng-model="indicacion.nutricion.tipo.hepatoGastroProtectora" plex="checkbox">
-                                                    <input type="checkbox" label="Líquido 01" ng-model="indicacion.nutricion.tipo.liquido01" plex="checkbox">
-
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <input type="checkbox" label="Blando sin carne 02" ng-model="indicacion.nutricion.tipo.blandoSinCarne02" plex="checkbox">
-                                                    <input type="checkbox" label="Blando con carne 03" ng-model="indicacion.nutricion.tipo.blandoConCarne03" plex="checkbox">
-                                                    <input type="checkbox" label="Individual" ng-model="indicacion.nutricion.tipo.individual" plex="checkbox">
-                                                    <input type="checkbox" label="Pediátrico 1-2" ng-model="indicacion.nutricion.tipo.pediatrico1_2" plex="checkbox">
-                                                    <input type="checkbox" label="Lactante 1-2" ng-model="indicacion.nutricion.tipo.lactante1_2" plex="checkbox">
+                                                    <input type="checkbox" label="Rico en residuo" ng-model="indicacion.nutricion.tipo.ricoEnResiduo" plex="checkbox">
                                                     <input type="checkbox" label="Blando mecánico" ng-model="indicacion.nutricion.tipo.blandoMecanico" plex="checkbox">
                                                 </div>
-
-                                                <div class="col-lg-3">
-                                                    <input type="checkbox" label="Acompañante" ng-model="indicacion.nutricion.tipo.acompanante" plex="checkbox">
-                                                    <input type="checkbox" label="Licuado" ng-model="indicacion.nutricion.tipo.licuado" plex="checkbox">
-                                                    <input type="checkbox" label="Rico en residuo" ng-model="indicacion.nutricion.tipo.ricoEnResiduo" plex="checkbox">
-                                                    <input type="checkbox" label="Astringente" ng-model="indicacion.nutricion.tipo.astringente" plex="checkbox">
-                                                    <input type="checkbox" label="Sin sal" ng-model="indicacion.nutricion.tipo.sinSal" plex="checkbox">
-                                                    <input type="checkbox" label="Sin gluten" ng-model="indicacion.nutricion.tipo.sinGluten" plex="checkbox">
-                                                </div>
-
-                                                <div class="col-lg-3">
-                                                    <input type="checkbox" label="Todo cocido" ng-model="indicacion.nutricion.tipo.todoCocido" plex="checkbox">
+                                                <div class="col-lg-4">
                                                     <input type="checkbox" label="Hiper con colacion" ng-model="indicacion.nutricion.tipo.hiperConColacion" plex="checkbox">
-                                                    <input type="checkbox" label="Nada por boca" ng-model="indicacion.nutricion.tipo.nadaPorBoca" plex="checkbox">
+                                                    <input type="checkbox" label="Todo cocido" ng-model="indicacion.nutricion.tipo.todoCocido" plex="checkbox">
+                                                    <input type="checkbox" label="Insuficiencia renal" ng-model="indicacion.nutricion.tipo.insuficienciaRenal" plex="checkbox">
                                                     <input type="checkbox" label="Hipocalórico" ng-model="indicacion.nutricion.tipo.hipocalorico" plex="checkbox">
-                                                    <!-- <input type="checkbox" label="Soporte oral" ng-model="indicacion.nutricion.tipo.soporteOral" plex="checkbox">
-                                                    <input type="text" ng-disabled="!indicacion.nutricion.tipo.soporteOral" suffix="ml" placeholder="Cant. preparado oral" ng-model="indicacion.nutricion.cantidadSoporteOral" plex/> -->
+                                                    <input type="checkbox" label="Sin gluten" ng-model="indicacion.nutricion.tipo.sinGluten" plex="checkbox">
+                                                    <input type="checkbox" label="Astringente" ng-model="indicacion.nutricion.tipo.astringente" plex="checkbox">
+                                                    <input type="checkbox" label="Hepato/Gastro protectora" ng-model="indicacion.nutricion.tipo.hepatoGastroProtectora" plex="checkbox">
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <input type="checkbox" label="Líquido 01" ng-model="indicacion.nutricion.tipo.liquido01" plex="checkbox">
+                                                    <input type="checkbox" label="Blando sin carne 02" ng-model="indicacion.nutricion.tipo.blandoSinCarne02" plex="checkbox">
+                                                    <input type="checkbox" label="Blando con carne 03" ng-model="indicacion.nutricion.tipo.blandoConCarne03" plex="checkbox">
+                                                    <input type="checkbox" label="Licuado" ng-model="indicacion.nutricion.tipo.licuado" plex="checkbox">
+                                                    <input type="checkbox" label="Pediátrico" ng-model="indicacion.nutricion.tipo.pediatrico" plex="checkbox">
+                                                    <input type="checkbox" label="Individual" ng-model="indicacion.nutricion.tipo.individual" plex="checkbox">
+                                                    <input type="checkbox" label="Acompañante" ng-model="indicacion.nutricion.tipo.acompanante" plex="checkbox">
+
                                                 </div>
                                             </div>
 
@@ -1638,7 +1631,7 @@
                                                 <legend>Signos vitales</legend>
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        <input type="text" ng-model="evolucionesEdit.signosVitales.pulso" label="Frecuencia cardíaca" suffix="PPM" plex="int" plex-min="60" plex-max="140" plex/>
+                                                        <input type="text" ng-model="evolucionesEdit.signosVitales.pulso" label="Frecuencia cardíaca" suffix="PPM" plex="int" plex-min="40" plex-max="140" plex/>
                                                     </div>
 
                                                     <div class="col-md-3">
@@ -1943,6 +1936,118 @@
                                                 <span ng-if="evolucionesEdit.riesgoUPP.estadoFisico + evolucionesEdit.riesgoUPP.estadoMental + evolucionesEdit.riesgoUPP.actividad + evolucionesEdit.riesgoUPP.movilidad + evolucionesEdit.riesgoUPP.incontinencia >= 10 && evolucionesEdit.riesgoUPP.estadoFisico + evolucionesEdit.riesgoUPP.estadoMental + evolucionesEdit.riesgoUPP.actividad + evolucionesEdit.riesgoUPP.movilidad + evolucionesEdit.riesgoUPP.incontinencia <= 12" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
                                                 <span ng-if="evolucionesEdit.riesgoUPP.estadoFisico + evolucionesEdit.riesgoUPP.estadoMental + evolucionesEdit.riesgoUPP.actividad + evolucionesEdit.riesgoUPP.movilidad + evolucionesEdit.riesgoUPP.incontinencia >= 5 && evolucionesEdit.riesgoUPP.estadoFisico + evolucionesEdit.riesgoUPP.estadoMental + evolucionesEdit.riesgoUPP.actividad + evolucionesEdit.riesgoUPP.movilidad + evolucionesEdit.riesgoUPP.incontinencia <= 9" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
                                             </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <h4>Ulceras en el cuerpo</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-3 text-center">
+                                                <!-- <div class=" svg-upp-container">
+                                                    <figure>
+                                                        <svg ng-click="draw($event)" ng-attr-height="{{graph.height}}" ng-attr-width="{{graph.width}}">
+                                                            <image id="kort" sketch:type="MSBitmapLayer" x="-3" y="-3" width="1125" height="798" xlink:href="img/hombre.jpg" ></image>
+                                                            <g ng-repeat="ele in evolucionesEdit.riesgoUPP.lesiones track by $index">
+                                                                <g ng-switch on="ele.tipo">
+                                                                    <circle ng-switch-when="0" ng-attr-cx="{{ele.x}}" ng-attr-cy="{{ele.y}}" ng-attr-r="{{ele.r}}" stroke-width="{{ele.sw||sw}}" class="{'focus':ele.f===1} tips" title="{{$index}}"
+                                                                        ng-click="delete($index)"
+                                                                    >
+                                                                        <text x="50%" y="50%" text-anchor="middle" stroke="#51c5cf" stroke-width="2px" dy=".3em">{{$index}}</text>
+                                                                    </circle>
+                                                                    <path ng-switch-when="1" d="M{{ele.lx}},{{ele.ly}} L{{ele.x}},{{ele.y}}" stroke-width="{{ele.sw||sw}}"  class="{'focus':ele.f===1}"/>
+                                                                </g>
+                                                            </g>
+
+
+                                                        </svg>
+                                                    </figure>
+                                                </div> -->
+
+                                                <svg ng-click="draw($event, 'lesionesFrente')" ng-attr-height="{{graph.height}}" ng-attr-width="{{graph.width}}">
+                                                    <image sketch:type="MSBitmapLayer" width="100%" height="100%" xlink:href="img/hombre-frente.jpg" ></image>
+
+                                                    <circle ng-attr-cx="{{ele.x}}" ng-attr-cy="{{ele.y}}" ng-attr-r="{{ele.r}}" stroke-width="{{ele.sw||sw}}" class="{'focus':ele.f===1} tips" title="{{$index}}"
+                                                        ng-click="delete($index, 'lesionesFrente')"
+                                                        ng-repeat="ele in evolucionesEdit.riesgoUPP.lesionesFrente track by $index"
+                                                    />
+                                                </svg>
+
+                                                <p>
+                                                    <b>Frente</b>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-3 text-center">
+                                                <svg ng-click="draw($event, 'lesionesEspalda')" ng-attr-height="{{graph.height}}" ng-attr-width="{{graph.width}}">
+                                                    <image sketch:type="MSBitmapLayer" width="100%" height="100%" xlink:href="img/hombre-frente.jpg" ></image>
+
+                                                    <circle ng-attr-cx="{{ele.x}}" ng-attr-cy="{{ele.y}}" ng-attr-r="{{ele.r}}" stroke-width="{{ele.sw||sw}}" class="{'focus':ele.f===1} tips" title="{{$index}}"
+                                                        ng-click="delete($index, 'lesionesEspalda')"
+                                                        ng-repeat="ele in evolucionesEdit.riesgoUPP.lesionesEspalda track by $index"
+                                                    />
+                                                </svg>
+                                                <p>
+                                                    <b>Espalda</b>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-3 text-center">
+                                                <svg ng-click="draw($event, 'lesionesLadoIzquierdo')" ng-attr-height="{{graph.height}}" ng-attr-width="{{graph.width}}">
+                                                    <image sketch:type="MSBitmapLayer" width="100%" height="100%" xlink:href="img/hombre-izquierda.jpg" ></image>
+
+                                                    <circle ng-attr-cx="{{ele.x}}" ng-attr-cy="{{ele.y}}" ng-attr-r="{{ele.r}}" stroke-width="{{ele.sw||sw}}" class="{'focus':ele.f===1} tips" title="{{$index}}"
+                                                        ng-click="delete($index, 'lesionesLadoIzquierdo')"
+                                                        ng-repeat="ele in evolucionesEdit.riesgoUPP.lesionesLadoIzquierdo track by $index"
+                                                    />
+                                                </svg>
+                                                <p>
+                                                    <b>Lado izquierdo</b>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-3 text-center">
+                                                <svg ng-click="draw($event, 'lesionesLadoDerecho')" ng-attr-height="{{graph.height}}" ng-attr-width="{{graph.width}}">
+                                                    <image sketch:type="MSBitmapLayer" width="100%" height="100%" xlink:href="img/hombre-derecha.jpg" ></image>
+
+                                                    <circle ng-attr-cx="{{ele.x}}" ng-attr-cy="{{ele.y}}" ng-attr-r="{{ele.r}}" stroke-width="{{ele.sw||sw}}" class="{'focus':ele.f===1} tips" title="{{$index}}"
+                                                        ng-click="delete($index, 'lesionesLadoDerecho')"
+                                                        ng-repeat="ele in evolucionesEdit.riesgoUPP.lesionesLadoDerecho track by $index"
+                                                    />
+                                                </svg>
+                                                <p>
+                                                    <b>Lado derecho</b>
+                                                </p>
+                                            </div>
+
+
+
+                                            <!-- <div class="col-md-6">
+                                                <div ng-repeat="e in elements">
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <input type="number" class="form-control input-sm" step="1" title="Type" min="0" max="1" ng-model="e.type">
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="number" class="form-control input-sm" step="1" title="" ng-model="e.lx">
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="number" class="form-control input-sm" step="1" title="" ng-model="e.ly">
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="number" class="form-control input-sm" step="1" title="" ng-model="e.x">
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="number" class="form-control input-sm" step="1" title="" ng-model="e.y">
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="number" class="form-control input-sm" step="1" title="" min="1" max="10000" ng-model="e.r">
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="number" class="form-control input-sm" step="1" title="" min="0" max="1000" ng-model="e.sw">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
                                         </div>
                                     </fieldset>
                                 </div>
