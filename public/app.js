@@ -26,6 +26,9 @@ angular.module('app')
              .when('/internacion/verEvolucion/:idInternacion/:idEvolucion', { templateUrl: 'partials/internacion/verEvolucion.html', controller: 'internacion/verEvolucion' })
              .when('/internacion/verTratamiento/:idInternacion/:idTratamiento', { templateUrl: 'partials/internacion/verTratamiento.html', controller: 'internacion/verTratamiento' })
              .when('/internacion/:idInternacion/valoracionMedica', { templateUrl: 'partials/internacion/valoracionMedica.html', controller: 'internacion/valoracionMedica' })
+             // tipos
+             .when('/tiposEvoluciones/:idTipoEvolucion?', { templateUrl: 'partials/tiposEvoluciones.html', controller: 'TiposEvolucionesController' })
+             .when('/tiposIndicaciones/:idTipoIndicacion?', { templateUrl: 'partials/tiposIndicaciones.html', controller: 'TiposIndicacionesController' })
              // Enfermería
              .when('/valoracionEnfermeria/:idInternacion', { templateUrl: 'partials/valoracionEnfermeria.html', controller: 'ValoracionEnfermeriaController' })
              .when('/riesgoCaidas/:idInternacion', { templateUrl: 'partials/riesgoCaidas.html', controller: 'RiesgoCaidasController' })

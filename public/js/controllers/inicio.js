@@ -16,7 +16,7 @@ angular.module('app').controller('InicioController', ['$scope', 'Plex', 'Shared'
             },
             {
                 nombre: 'Ed Kristensen',
-                diagnostico: 'Dedo mocho',
+                diagnostico: 'Trastorno alimenticio',
                 dias: 2
             }
         ],
@@ -53,7 +53,6 @@ angular.module('app').controller('InicioController', ['$scope', 'Plex', 'Shared'
             });
         },
         init: function() {
-            console.log(Session);
             // obtenemos las camas para armar el mapa
             Shared.Mapa.get(Session.variables.servicioActual.id).then(function(data) {
                 $scope.camas = data;
@@ -90,6 +89,11 @@ angular.module('app').controller('InicioController', ['$scope', 'Plex', 'Shared'
                 });
             });
 
+        },
+        verInternacion: function(idInternacion) {
+            Plex.openView('internacion/ver/' + idInternacion + "/0").then(function() {
+
+            });
         }
     });
 

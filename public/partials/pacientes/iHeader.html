@@ -1,116 +1,116 @@
-<div plex-affix class="am-slide-left" ng-controller="Pacientes/iHeaderController">
+<div ng-controller="Pacientes/iHeaderController">
+<!-- <div plex-affix class="am-slide-left" ng-controller="Pacientes/iHeaderController"> -->
     <div class="row header-paciente">
         <div class="col-lg-12">
             <div class="card card-block">
                 <div class="box-header">
-                    <div class="col-lg-1" style="text-align: right">
-                        <i class="{{internacion.paciente | persona:'icon'}} fa-4x"></i>
+
+                    <div class="col-lg-4">
+                        <div class="row">
+                            <div class="col-md-3 habitacion-icono">
+                                <i class="{{internacion.paciente | persona:'icon'}} fa-4x icono-persona"></i>
+                                <br />
+                                <div class="numero-habitacion">
+                                    S{{internacion.pases[internacion.pases.length-1].cama.sector}}
+                                    /
+                                    {{internacion.pases[internacion.pases.length-1].cama.habitacion}}
+                                    /
+                                    {{internacion.pases[internacion.pases.length-1].cama.numero}}
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <h4>
+                                    {{internacion.paciente | persona}}
+                                </h4>
+                                    <span>
+                                        {{internacion.paciente | persona:'d'}}
+                                    </span>
+                                    /
+                                    <span>
+                                        {{internacion.paciente | persona:'e'}}
+                                    </span>
+                                <div ng-if="internacion.paciente.obrasSociales != ''">
+                                    {{internacion.paciente.obrasSociales[0]}}
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-lg-3">
-                        <h4>
-                            {{internacion.paciente | persona}}
-                        </h4>
-                        <div>
-                            <strong>{{internacion.paciente | persona:'d'}}</strong>
+                    <div class="col-xs-2">
+                        <span ng-if="internacion.ingreso.diagnosticoPresuntivo">
+                            <b>Diagnóstico presuntivo</b>
+                            <br/>
+                            {{internacion.ingreso.diagnosticoPresuntivo}}
+                            <br/>
+                        </span>
+
+                        <span ng-if="internacion.ingreso.motivo">
+                            <b>Motivo de internación</b>
+                            <br/>
+                            {{internacion.ingreso.motivo}}
+                        </span>
+
+                    </div>
+                    <div class="col-lg-2">
+                        <b>Ultima evolución</b>
+                        <br/>
+                        <span ng-if="ultimaEvolucion.tipo == 'Servicio'">Evolución del servicio {{ultimaEvolucion.servicio.nombreCorto}}</span>
+                        <span ng-if="ultimaEvolucion.tipoIndicacion.nombre">{{ultimaEvolucion.tipoIndicacion.nombre}}</span>
+                        <br/>
+                        <div ng-if="internacion.evoluciones.length > 0">
+                            <i class="fa fa-user"></i>
+                            {{ultimaEvolucion.createdBy.name}}
+                            {{ultimaEvolucion.createdAt | fromNow}}
+
+                            <!-- {{internacion.evoluciones[internacion.evoluciones.length-1].createdAt | date: "dd/MM/yyyy  'a las' HH:mm "}}
+                            hs -->
+                            <button class="link" ng-click="verEvolucion(ultimaEvolucion.id)">Ver</button>
                         </div>
-                        <div>{{internacion.paciente | persona:'e'}}
+                        <div ng-if="internacion.evoluciones.length == 0">
+                            No se han registrado evoluciones
                         </div>
+
+                        <br/>
+
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="indicadores" ng-if="indicadores">
+                            <b>Indicadores</b>
+                            <br />
+
+                            <span ng-if="indicadores.news" class="tips label label-{{indicadores.news.clase}}" title="News score {{indicadores.news.valor}}">News {{indicadores.news.valor}}</span>
+
+                            <span ng-if="indicadores.riesgoCaidas" class="tips label label-{{indicadores.riesgoCaidas.clase}}" title="Riesgo de caídas {{indicadores.riesgoCaidas.indicador}}">Riesgo caídas {{indicadores.riesgoCaidas.indicador}}</span>
+
+                            <span ng-if="indicadores.valoracionDolor" class="tips label label-{{indicadores.valoracionDolor.clase}}" title="Valoración del dolor {{indicadores.valoracionDolor.indicador}}">Valoración del dolor {{indicadores.valoracionDolor.indicador}}</span>
+
+                            <span ng-if="indicadores.fiebre" class="tips label label-{{indicadores.fiebre.clase}}" title="Temperatura corporal de {{indicadores.fiebre.indicador}}°">Temperatura {{indicadores.fiebre.indicador}}°</span>
+
+                            <span ng-if="indicadores.glasgow" class="tips label label-{{indicadores.glasgow.clase}}" title="Glasgow {{indicadores.glasgow.indicador}} {{indicadores.glasgow.valor}}">Glasgow {{glasgow.valor}}</span>
+
+
+                            <span ng-if="indicadores.flebitis" class="tips label label-{{indicadores.flebitis.clase}}" title="Flebitis {{indicadores.flebitis.indicador}}+">Flebitis</span>
+
+                            <span ng-if="indicadores.upp" class="tips label label-{{indicadores.upp.clase}}" title="UPP {{indicadores.upp.indicador}}">UPP {{indicadores.upp.valor}}</span>
+
+                            <span ng-if="indicadores.balanceTotalLiquidos">
+                                <!-- <span class="tips label label-{{upp.clase}}" title="UPP {{upp.indicador}}">UPP {{balanceTotalLiquidos.valor}}</span> -->
+                                {{indicadores.balanceTotalLiquidos.total}} ml
+                                <i class="verde mdi mdi-minus-circle" ng-if="indicadores.balanceTotalLiquidos.total < 0"></i>
+                                <i class="celeste mdi mdi-equal" ng-if="indicadores.balanceTotalLiquidos.total == 0"></i>
+                                <i class="rojo mdi mdi-plus-circle" ng-if="indicadores.balanceTotalLiquidos.total > 0"></i>
+                            </span>
+                            <span ng-if="aislamiento && aislamiento.length">
+                                <div ng-repeat="a in indicadores.aislamiento">
+                                    <span class="tips label label-{{a.clase}}" title="Aislamiento {{a.indicador}} desde {{a.fecha}}">{{a.indicador}}</span>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 text-right">
                         <span>
                             Internado
                             {{internacion.createdAt | fromNow }}
                         </span>
-                    </div>
-                    <div class="col-xs-3">
-                        <b>Diagnóstico presuntivo:
-                        </b>
-                        {{internacion.ingreso.diagnosticoPresuntivo}}
-                        <br/>
-                        <b>Motivo de internación:
-                        </b>
-                        {{internacion.ingreso.motivo}}
-                        <br/>
-                        <div ng-if="internacion.paciente.obrasSociales != ''">
-                            <b >Obra social:
-                            </b>
-                            <!-- <span ng-repeat="obraSocial in internacion.paciente.obrasSociales">
-                                    {{obrasSocial}}
-                                </span> -->
-                            {{internacion.paciente.obrasSociales[0]}}
-                        </div>
-                    </div>
-                    <div class="col-lg-2">
-                        <span>
-                            <b>Ultima evolución:</b>
-                            <br/>
-                            <div ng-if="internacion.evoluciones.length > 0">
-                                <i class="fa fa-user"></i>
-                                {{internacion.evoluciones[internacion.evoluciones.length-1].createdBy.name}}
-                                {{internacion.evoluciones[internacion.evoluciones.length-1].createdAt | fromNow}}
-                                <br/>
-                                {{internacion.evoluciones[internacion.evoluciones.length-1].createdAt | date: "dd/MM/yyyy  'a las' HH:mm "}}
-                                hs
-                            </div>
-                            <div ng-if="internacion.evoluciones.length == 0">
-                                No se han registrado evoluciones
-                            </div>
-                        </span>
-                        <br/>
-                    </div>
-                    <div class="col-lg-1">
-
-                        <!-- <div ng-if="internacion.ingreso.enfermeria.riesgoCaida.total > 0">
-                            <b>Riesgo caidas:</b>
-                            {{internacion.ingreso.enfermeria.riesgoCaida.total}}
-                            <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
-                            <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total >= 25 && internacion.ingreso.enfermeria.riesgoCaida.total <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
-                            <span ng-if="internacion.ingreso.enfermeria.riesgoCaida.total > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
-                        </div> -->
-                        <div ng-if="news">
-                            <span class="tips label label-{{news.clase}}" title="News score {{news.valor}}">News {{news.valor}}</span>
-                        </div>
-                        <div ng-if="riesgoCaidas">
-                            <span class="tips label label-{{riesgoCaidas.clase}}" title="Riesgo de caídas {{riesgoCaidas.indicador}}">Riesgo caídas {{riesgoCaidas.indicador}}</span>
-                        </div>
-                        <div ng-if="valoracionDolor">
-                            <span class="tips label label-{{valoracionDolor.clase}}" title="Valoración del dolor {{riesgoCaidas.indicador}}">Valoración del dolor {{riesgoCaidas.indicador}}</span>
-                        </div>
-                        <div ng-if="fiebre">
-                            <span class="tips label label-{{fiebre.clase}}" title="Temperatura corporal de {{fiebre.indicador}}°">Temperatura {{fiebre.indicador}}°</span>
-                        </div>
-                        <div ng-if="glasgow">
-                            <span class="tips label label-{{glasgow.clase}}" title="Glasgow {{glasgow.indicador}} {{glasgow.valor}}">Glasgow {{glasgow.valor}}</span>
-                        </div>
-
-
-
-                    </div>
-                    <div class="col-lg-1">
-                        <div ng-if="flebitis">
-                            <span class="tips label label-{{flebitis.clase}}" title="Flebitis {{flebitis.indicador}}+">Flebitis</span>
-                        </div>
-                        <div ng-if="upp">
-                            <span class="tips label label-{{upp.clase}}" title="UPP {{upp.indicador}}">UPP {{upp.valor}}</span>
-                        </div>
-                        <div ng-if="balanceTotalLiquidos">
-                            <!-- <span class="tips label label-{{upp.clase}}" title="UPP {{upp.indicador}}">UPP {{balanceTotalLiquidos.valor}}</span> -->
-                            {{balanceTotalLiquidos.total}} ml
-                            <i class="verde mdi mdi-minus-circle" ng-if="balanceTotalLiquidos.total < 0"></i>
-                            <i class="celeste mdi mdi-equal" ng-if="balanceTotalLiquidos.total == 0"></i>
-                            <i class="rojo mdi mdi-plus-circle" ng-if="balanceTotalLiquidos.total > 0"></i>
-                        </div>
-                        <div ng-if="aislamiento && aislamiento.length">
-                            <div ng-repeat="a in aislamiento">
-                                <span class="tips label label-{{a.clase}}" title="Aislamiento {{a.indicador}} desde {{a.fecha}}">{{a.indicador}}</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-1 text-right">
-                        <div class="numero-habitacion">
-                            {{internacion.pases[internacion.pases.length-1].cama.habitacion}}
-                            /
-                            {{internacion.pases[internacion.pases.length-1].cama.numero}}
-                        </div>
                     </div>
                 </div>
             </div>

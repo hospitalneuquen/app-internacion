@@ -2,6 +2,23 @@
 @import 'timeline.css';
 @import 'header_paciente.css';
 
+.navbar-inverse{background-color: #212121;}
+.navbar-inverse .navbar-brand {color: #8f8f8f; }
+
+/* quitamos estilo de boton y los dejamos como link*/
+button.link{
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    font: inherit;
+    color: #2196F3;
+    cursor: pointer;
+}
+button.link:hover{
+    color: #0a6ebd;
+    text-decoration: underline;
+}
+
 .jumbotron.inicio{
     /*background: #616161;*/
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#959595+0,1b1b1b+100 */
@@ -22,7 +39,7 @@ label {
     font-weight: bold;
 }
 fieldset {
-    margin: 0 0 40px 0;
+    margin: 0 0 0px 0;
 }
 legend {
     /*border-bottom: 2px solid #BA68C8;*/
@@ -91,17 +108,36 @@ input[type="radio"].without-radio:checked + label {
 .celeste {
     color: #00ABFF;
 }
+
 .success {
     color: #4CAF50;
+}
+.border-success{
+    outline: 1px solid #4CAF50;
 }
 .warning {
     color: #ff9800;
 }
+.border-warning{
+    outline: 1px solid #ff9800;
+}
 .danger {
     color: #e51c23;
 }
+.border-danger{
+    outline: 1px solid #e51c23;
+}
 .primary {
     color: #00ABFF;
+}
+.border-primary{
+    outline: 1px solid #00ABFF;
+}
+.gris{
+    color: #c6c6c5;
+}
+.border-gris{
+    outline: 1px solid #989897;
 }
 
 /*  Plex-Affix
@@ -332,15 +368,26 @@ table.highlight td.exclude:hover::after{
 }
 .mini-box-text{
     text-transform: uppercase;
+    text-align: center;
+    display: block
 }
 .mini-box-number{
     display: block;
     font-weight: bold;
     font-size: 40px;
     text-align: center;
+    color: #575756;
+}
+.mini-box-number button{
+    color: black;
+    font-weight: normal;
+    font-size: 50px;
 }
 
-
+.mini-box-number .link:hover{
+    text-decoration: none;
+    color: #575756;
+}
 svg {
     /*box-shadow: 0 0 10px 10px rgba(0,0,0,.14);*/
 }
@@ -353,4 +400,65 @@ svg image {
 svg .focus {
     stroke: rgba(178,145,56,.7);
     fill: rgba(229,28,35,0.6);
+}
+
+
+.widgets{
+    cursor: -webkit-grab;
+cursor: -moz-grab;
+cursor: grab;
+}
+.widgets li{
+    min-width: 33%; display: inline-block;    vertical-align: top;
+}
+.widgets li .header-widget{
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.widgets li .header-widget .title{
+    text-transform: uppercase;
+}
+.widgets li .header-widget .close{
+    margin-right: 29px;
+    color: black;
+}
+
+.widgets li .content-widget{
+    display: block;
+    overflow-x: hidden;
+    overflow-y: auto;
+    box-sizing: border-box;
+    position: relative;
+    min-height: 399px;
+    /*max-height: 400px;*/
+    margin-right: 30px;
+    white-space: normal;
+    padding: 10px;
+
+    border-top: 1px solid #eee;
+    -moz-box-shadow:    inset 0px 10px 15px #eee, inset 0px -10px 15px #eee;
+   -webkit-box-shadow: inset 0px 10px 15px #eee, inset 0px -10px 15px #eee;
+   box-shadow:         inset 0px 10px 15px #eee, inset 0px -10px 15px #eee;
+}
+
+.widgets::-webkit-scrollbar-track, .widgets li div::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+}
+
+.widgets::-webkit-scrollbar, .widgets li div::-webkit-scrollbar
+{
+    width: 6px;
+    height: 6px;
+    background-color: #F5F5F5;
+}
+
+.widgets::-webkit-scrollbar-thumb, .widgets li div::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
 }

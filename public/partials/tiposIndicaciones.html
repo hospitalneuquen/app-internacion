@@ -1,0 +1,93 @@
+
+<div>
+    <div class="card card-block" ng-show="showToolbar">
+        <div class="row">
+            <div class="col-xs-4 col-lg-3">
+                <h3>Tipos de indicaciones</h3>
+            </div>
+            <div class="col-xs-2 col-lg-2 text-right" ng-show="showToolbar">
+                <br/>
+                <button class="btn btn-primary form-control" ng-click="editar();">
+                    Nuevo tipo de indicación
+                </button>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-hover" ng-if="!tiposIndicacionesEdit">
+            <thead>
+                <tr>
+                    <th>
+                        Indicacion
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>Evolucionable</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="tipo in tiposIndicaciones" ng-click="editar(tipo)" class="clickable">
+                    <td>
+                        {{tipo.nombre}}
+                    </td>
+                    <td>
+                        {{tipo.tipoIndicacion.nombre}}
+                    </td>
+                    <td>
+                        <span class="label label-success" ng-if="tipo.evolucionable">Si</label>
+                        <span class="label label-danger" ng-if="!tipo.evolucionable">No</label>
+                    </td>
+
+                    <td>
+                        <button type="button" class="btn btn-sm btn-primary tips" ng-click="editar(tipo)" title="Editar cama">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p ng-if="!tiposIndicaciones.length">No se han encontrado tipos de indicaciones</p>
+    </div>
+
+</div>
+
+<div class="row" ng-show="tiposIndicacionesEdit">
+    <div class="col-lg-12">
+        <div class="box box-success">
+
+            <div class="box-body">
+                <form name="formCama">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <select class="form-control" label="Tipo de indicación" plex="(item.nombre) for item in tiposIndicacionesPadre" ng-model="tiposIndicacionesEdit.tipoIndicacion"></select>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" label="Nombre" ng-model="tiposIndicacionesEdit.nombre" plex/>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" label="Key" ng-model="tiposIndicacionesEdit.key" hint="Campo a utilizar en la estructura del objeto"  plex/>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="checkbox" label="Indicación evolucionable" ng-model="tiposIndicacionesEdit.evolucionable" plex="checkbox">
+                        </div>
+                        <div class="col-md-2" ng-show="tiposIndicacionesEdit.evolucionable">
+                            <select class="form-control" label="Tipo de evolución" plex="(item.nombre) for item in tiposEvoluciones" ng-model="tiposIndicacionesEdit.tipoEvolucion"></select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 text-right">
+                            <button type="button" class="btn btn-default" plex-submit="cancelar()">
+                                Cancelar
+                            </button>
+                            <button type="submit" class="btn btn-success " plex-submit="guardar()">
+                                Guardar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

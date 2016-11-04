@@ -1,0 +1,76 @@
+
+<div>
+    <div class="card card-block" ng-show="showToolbar">
+        <div class="row">
+            <div class="col-xs-4 col-lg-3">
+                <h3>Tipos de evoluciones</h3>
+            </div>
+            <div class="col-xs-2 col-lg-2 text-right" ng-show="showToolbar">
+                <br/>
+                <button class="btn btn-primary form-control" ng-click="editar();">
+                    Nuevo tipo de evolución
+                </button>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-hover" ng-if="!tiposEvolucionesEdit">
+            <thead>
+                <tr>
+                    <th>
+                        Evolución
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="tipo in tiposEvoluciones" ng-click="editar(tipo)" class="clickable">
+                    <td>
+                        {{tipo.nombre}}
+                    </td>
+
+                    <td>
+                        <button type="button" class="btn btn-sm btn-primary tips" ng-click="editar(tipo)" title="Editar cama">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p ng-if="!tiposEvoluciones.length">No se han encontrado tipos de indicaciones</p>
+    </div>
+
+</div>
+
+<div class="row" ng-show="tiposEvolucionesEdit">
+    <div class="col-lg-12">
+        <div class="box box-success">
+
+            <div class="box-body">
+                <form name="formCama">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="text" label="Nombre" ng-model="tiposEvolucionesEdit.nombre" plex/>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" label="Key" ng-model="tiposEvolucionesEdit.key" hint="Campo a utilizar en la estructura del objeto"  plex/>
+                        </div>
+                        <!-- <div class="col-md-2">
+                            <select class="form-control" label="Tipo de indicación" plex="(item.nombre) for item in tiposEvolucionesPadre" ng-model="tiposEvolucionesEdit.idTipoIndicacion"></select>
+                        </div> -->
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 text-right">
+                            <button type="button" class="btn btn-default" plex-submit="cancelar()">
+                                Cancelar
+                            </button>
+                            <button type="submit" class="btn btn-success " plex-submit="guardar()">
+                                Guardar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

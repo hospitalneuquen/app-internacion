@@ -6,6 +6,11 @@
             <div class="col-xs-4 col-lg-6">
                 <h3>Evoluciones del paciente</h3>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-4 col-lg-2">
+                <select class="form-control" label="Tipo de evolución" ng-model="filtros.tipo" ng-change="filtros.filtrar()" plex="(tipo.nombre) for tipo in tipos"></select>
+            </div>
             <div class="col-xs-4 col-lg-2">
                 <select class="form-control" label="Tipo de profesional" ng-model="filtros.profesional" ng-change="filtros.filtrar()" plex="(profesional.nombre) for profesional in profesionales"></select>
             </div>
@@ -30,27 +35,6 @@
                     <th style="width: 80%;">
                         Detalle / Valores evolución
                     </th>
-                    <!-- <th >
-                        FC
-                    </th>
-                    <th >
-                        Tensión
-                    </th>
-                    <th >
-                        Temperatura
-                    </th>
-                    <th >
-                        FR
-                    </th>
-                    <th >
-                        Saturación
-                    </th>
-                    <th >
-                        Peso
-                    </th>
-                    <th >
-                        Balance líquidos
-                    </th> -->
                     <th>
                         Ver
                     </th>
@@ -74,6 +58,9 @@
                     <td colspan="3"></td>
                 </tr>
                 <tr data-ng-repeat="item in filtros.evoluciones | orderBy: '-fechaHora'">
+                    <pre>
+                        {{item | json}}
+                    </pre>
                     <td >
                         {{item.fechaHora | fromNow }}<br/>
                         <div class="text-muted small">
@@ -81,8 +68,11 @@
                         </div>
                     </td>
                     <td >
+                        <div ng-if="item.tipo == 'Servicio'">
+                            <b>Evolución del servicio {{item.servicio.nombreCorto}}</b>
+                        </div>
                         <div ng-bind-html="item.texto" ng-if="item.texto">
-                            <br />
+                            <br/>
                         </div>
 
                         <div ng-if="item.signosVitales">
@@ -136,11 +126,11 @@
                             <!-- <table ng-if="item.$total_ingresos || item.$total_ingresos > 0"> -->
                             <table width="100%">
 
-                                    <tr>
-                                        <th>Ingresos</th>
-                                        <th>Egresos</th>
-                                        <th>Balance</th>
-                                    </tr>
+                                <tr>
+                                    <th>Ingresos</th>
+                                    <th>Egresos</th>
+                                    <th>Balance</th>
+                                </tr>
 
                                 <tbody>
                                     <tr>
@@ -164,18 +154,17 @@
                         </div>
 
                         <div ng-if="item.riesgoCaida.total">
-                            <!-- <table ng-if="item.$total_ingresos || item.$total_ingresos > 0"> -->
                             <table width="100%">
 
-                                    <tr>
-                                        <th>Caídas previas</th>
-                                        <th>Marcha</th>
-                                        <th>Ayuda para deambular</th>
-                                        <th>Venoclisis</th>
-                                        <th>Comorbilidad</th>
-                                        <th>Estado mental</th>
-                                        <th class="text-center">Total</th>
-                                    </tr>
+                                <tr>
+                                    <th>Caídas previas</th>
+                                    <th>Marcha</th>
+                                    <th>Ayuda para deambular</th>
+                                    <th>Venoclisis</th>
+                                    <th>Comorbilidad</th>
+                                    <th>Estado mental</th>
+                                    <th class="text-center">Total</th>
+                                </tr>
 
                                 <tbody>
                                     <tr>
@@ -201,7 +190,7 @@
 
                                         <td class="text-center">
                                             {{item.riesgoCaida.total}}
-                                            <br />
+                                            <br/>
                                             <span ng-if="item.riesgoCaida.total < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
                                             <span ng-if="item.riesgoCaida.total <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
                                             <span ng-if="item.riesgoCaida.total > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
@@ -214,37 +203,37 @@
                         <div ng-if="item.glasgow">
                             <!-- <table ng-if="item.$total_ingresos || item.$total_ingresos > 0"> -->
                             <table width="100%">
-                                    <tr>
-                                        <th>Ocular</th>
-                                        <th>Verbal</th>
-                                        <th>Motor</th>
-                                        <th class="text-center">Total</th>
-                                    </tr>
+                                <tr>
+                                    <th>Ocular</th>
+                                    <th>Verbal</th>
+                                    <th>Motor</th>
+                                    <th class="text-center">Total</th>
+                                </tr>
 
                                 <tbody>
                                     <tr>
 
                                         <td>
-                                            {{item.glasgow.glasgowOcular}}
+                                            {{item.glasgow.ocular}}
                                         </td>
                                         <td>
-                                            {{item.glasgow.glasgowVerbal}}
+                                            {{item.glasgow.verbal}}
                                         </td>
                                         <td>
-                                            {{item.glasgow.glasgowMotor}}
+                                            {{item.glasgow.motor}}
                                         </td>
                                         <td>
-                                            {{item.glasgow.glasgowTotal}}
+                                            {{item.glasgow.total}}
                                         </td>
 
                                         <td class="text-center">
 
-                                            {{item.glasgow.glasgowTotal}}
+                                            {{item.glasgow.total}}
 
-                                            <br />
-                                            <span ng-if="item.glasgow.glasgowTotal < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
-                                            <span ng-if="item.glasgow.glasgowTotal >= 25 && item.glasgow.glasgowTotal <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
-                                            <span ng-if="item.glasgow.glasgowTotal > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
+                                            <br/>
+                                            <span ng-if="item.glasgow.total < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
+                                            <span ng-if="item.glasgow.total >= 25 && item.glasgow.total <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
+                                            <span ng-if="item.glasgow.total > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -252,14 +241,14 @@
                         </div>
                         <div ng-if="item.riesgoUPP.total">
                             <table width="100%">
-                                    <tr>
-                                        <th>Estado físico</th>
-                                        <th>Estado mental</th>
-                                        <th>Actividad</th>
-                                        <th>Movilidad</th>
-                                        <th>Incontinencia</th>
-                                        <th class="text-center">Total</th>
-                                    </tr>
+                                <tr>
+                                    <th>Estado físico</th>
+                                    <th>Estado mental</th>
+                                    <th>Actividad</th>
+                                    <th>Movilidad</th>
+                                    <th>Incontinencia</th>
+                                    <th class="text-center">Total</th>
+                                </tr>
 
                                 <tbody>
                                     <tr>
@@ -283,7 +272,7 @@
                                         <td class="text-center">
                                             {{item.riesgoUPP.total}}
 
-                                            <br />
+                                            <br/>
                                             <span ng-if="item.riesgoUPP.total >= 13 && item.riesgoUPP.total <= 16" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
                                             <span ng-if="item.riesgoUPP.total >= 10 && item.riesgoUPP.total <= 12" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
                                             <span ng-if="item.riesgoUPP.total >= 5 && item.riesgoUPP.total <= 9" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
@@ -295,12 +284,12 @@
 
                         <div ng-if="item.dolorValoracion.intensidad">
                             <table width="100%">
-                                    <tr>
-                                        <th>Analgesia previa</th>
-                                        <th>Ansiolíticos previos</th>
-                                        <th>Intensidad</th>
-                                        <th>Características del dolor</th>
-                                        <th>Observaciones</th>
+                                <tr>
+                                    <th>Analgesia previa</th>
+                                    <th>Ansiolíticos previos</th>
+                                    <th>Intensidad</th>
+                                    <th>Características del dolor</th>
+                                    <th>Observaciones</th>
                                 </tr>
                                 <tbody>
                                     <tr>
@@ -329,17 +318,17 @@
                                             <div ng-if="item.dolorValoracion.descripcion">
                                                 <b>Descripcion:</b>
                                                 {{item.dolorValoracion.descripcion}}
-                                                <br />
+                                                <br/>
                                             </div>
                                             <div ng-if="item.dolorValoracion.dolorLocalizacion">
                                                 <b>Localización dolor:</b>
                                                 {{item.dolorValoracion.dolorLocalizacion}}
-                                                <br />
+                                                <br/>
                                             </div>
                                             <div ng-if="item.dolorValoracion.observacionesDolor">
                                                 <b>Observaciones:</b>
                                                 {{item.dolorValoracion.observacionesDolor}}
-                                                <br />
+                                                <br/>
                                             </div>
                                         </td>
                                     </tr>
@@ -349,11 +338,19 @@
                         <div ng-if="item.aislamiento">
                             {{item.aislamiento.descripcion}}
                         </div>
-                        <div ng-if="item.rotarDecubito">
-                            Punto apoyo: {{item.rotarDecubito.puntoApoyo}}
+                        <div ng-if="item.medicamento">
+                            <b>{{item.tipoIndicacion.nombre}}</b>
                             <br />
-                            Posición: {{item.rotarDecubito.posicion}}
+                            {{item.medicamento.descripcion}}
                         </div>
+                        <div ng-if="item.rotarDecubito">
+                            Punto apoyo:
+                            {{item.rotarDecubito.puntoApoyo}}
+                            <br/>
+                            Posición:
+                            {{item.rotarDecubito.posicion}}
+                        </div>
+
                     </td>
                     <td >
                         <button class="btn btn-flat btn-sm tips" title="Ver detalle de la evolución" ng-click="verEvolucion(item.id)">
@@ -365,899 +362,875 @@
                         <br/>
                         {{item.servicio.nombreCorto}}
                     </td>
-                    <td >
-                        <!-- ng-if='item.tipo == Session.variables.prestaciones_workflow' -->
-                        <!-- <button class="btn btn-default btn-flat tips" title="Editar evolución" ng-click="editarEvolucion(item);" ng-disabled="Session.user.id != item.createdBy.id">
-                            <i class="mdi mdi-pencil"></i>
-                        </button> -->
-                    </td>
+                    <td ></td>
                 </tr>
             </tbody>
         </table>
+
         <p ng-if="!internacion.evoluciones.length">No se han cargado evoluciones</p>
 
     </div>
 
-    <div ng-if="evolucionesEdit">
+    <div ng-show="evolucionesEdit">
         <ng-form name="formEditarEvolucion" ng-show="!loading">
             <fieldset>
-                <!-- <legend>{{tituloFormulario}}</legend> -->
-                <!-- <li ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
                 <div class="row">
-                    <div class="col-lg-12" plex-tabs ng-model="tab">
-                        <ul class="nav nav-tabs">
-                            <li>
-                                <a>
-                                    Fecha y hora
-                                </a>
-                            </li>
-                            <!-- <li>
-                                <a>
-                                    Signos vitales
-                                </a>
-                            </li>
-                            <li>
-                                <a>
-                                    Ingresos líquidos
-                                </a>
-                            </li>
-                            <li>
-                                <a>
-                                    Egresos líquidos
-                                </a>
-                            </li>
-                            <li>
-                                <a>
-                                    Riesgo de caídas
-                                </a>
-                            </li>
-                            <li>
-                                <a>
-                                    Riesgo de UPP
-                                </a>
-                            </li>
-                            <li>
-                                <a>
-                                    Dolor
-                                </a>
-                            </li> -->
-                            <li>
-                                <a>
-                                    Texto evolución
-                                </a>
-                            </li>
-                        </ul>
-
-                        <div class="card card-block ">
-                            <fieldset>
-                                <legend>Fecha y hora</legend>
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <div class="form-group">
-                                            <input type="text" label="Fecha evolución" ng-model="evolucionesEdit.fechaHora" plex="date">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xs-3">
-                                        <div class="form-group">
-                                            <input type="text" label="Hora evolución" ng-model="evolucionesEdit.fechaHora" plex="time">
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </div>
-
-                        <!-- <div ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
-                        <!-- <div class="card card-block">
-                            <div class="row">
-                                <div class="col-md-6">
+                    <div class="col-lg-12" > <!-- plex-tabs ng-model="tab" -->
+                        <div class="row">
+                            <div class="col-lg-9" >
+                                <div class="card card-block ">
                                     <fieldset>
-                                        <legend>Signos vitales</legend>
+                                        <legend>Cargar evolución</legend>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <input type="text" ng-model="evolucionesEdit.pulso" label="Frecuencia cardíaca" suffix="PPM" plex="int" plex/>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <input type="text" ng-model="evolucionesEdit.respiracion" label="Frecuencia respiratoria" suffix="RPM" plex="int" plex/>
-                                                </div>
+                                            <div class="col-xs-12">
+                                                <textarea label="Texto de la evolución" placeholder="Consignar los tratamientos y cuidados efectuados y los síntomas observados" plex-focus="true" ng-model="evolucionesEdit.texto" plex ui-tinymce="tinymceOptions" ng-required="true" rows="3" class="form-control"></textarea>
                                             </div>
                                         </div>
+
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-xs-3">
                                                 <div class="form-group">
-                                                    <input type="text" ng-model="evolucionesEdit.temperatura" label="Temperatura" suffix="º C" plex="float" plex/>
+                                                    <input type="text" label="Fecha evolución" ng-model="evolucionesEdit.fechaHora" plex="date">
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
+                                            <div class="col-xs-3">
                                                 <div class="form-group">
-                                                    <input type="text" ng-model="evolucionesEdit.spo2" label="Saturación O&#178;" suffix="%" plex="int" plex-min="0" plex-max="100" plex/>
+                                                    <input type="text" label="Hora evolución" ng-model="evolucionesEdit.fechaHora" plex="time">
                                                 </div>
                                             </div>
-
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <input type="text" ng-model="evolucionesEdit.peso" label="Peso" suffix="Kgs" plex="float" plex/>
+                                            <div class="col-lg-6">
+                                                <div class=" margin-top text-right">
+                                                    <button type="button" class="btn btn-default btn-flat" ng-click="cancelarEdicion();">Cancelar</button>
+                                                    <button class="btn btn-primary" plex-submit="guardarEvolucion(evolucionesEdit)" ng-disabled="formEditarEvolucion.$invalid">
+                                                        <i class="mdi mdi-content-save"></i>
+                                                        Guardar
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </fieldset>
                                 </div>
-                                <div class="col-md-6">
-                                    <fieldset>
-                                        <legend>Circulación</legend>
-                                        <div class="row">
 
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <input type="text" ng-model="evolucionesEdit.tensionDiastolica" label="Tensión diastólica" suffix="mmHG" plex="int" plex/>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <input type="text" ng-model="evolucionesEdit.tensionSistolica" label="Tensión sistólica" suffix="mmHG" plex="int" plex/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <input type="text" label="Pulso carotídeo" ng-model="evolucionesEdit.carotideo" suffix="PPM" plex="int">
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <input type="text" label="Pulso radial" ng-model="evolucionesEdit.radial" suffix="PPM" plex="int">
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <input type="text" label="Pulso poplíteo" ng-model="evolucionesEdit.popliteo" suffix="PPM" plex="int">
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <input type="text" label="Pulso pedio" ng-model="evolucionesEdit.pedio" suffix="PPM" plex="int">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesCirculacion" plex="text">
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <fieldset>
-                                        <legend>Glasgow</legend>
-                                        <div class="col-lg-2">
-                                            <label>
-                                                <b>Ocular</b>
-                                            </label>
-                                            <input type="radio" label="1 - Ausencia de respuesta" ng-value="1" ng-model="evolucionesEdit.glasgowOcular" plex="radio">
-                                            <input type="radio" label="2 - Al dolor" ng-value="2" ng-model="evolucionesEdit.glasgowOcular" plex="radio">
-                                            <input type="radio" label="3 - A estímulos verbales" ng-value="3" ng-model="evolucionesEdit.glasgowOcular" plex="radio">
-                                            <input type="radio" label="4 - Espontánea" ng-value="4" ng-model="evolucionesEdit.glasgowOcular" plex="radio">
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <label>
-                                                <b>Verbal</b>
-                                            </label>
-                                            <input type="radio" label="1 - Ausencia de respuesta" ng-value="1" ng-model="evolucionesEdit.glasgowVerbal" plex="radio">
-                                            <input type="radio" label="2 - Sonidos incomprensibles" ng-value="2" ng-model="evolucionesEdit.glasgowVerbal" plex="radio">
-                                            <input type="radio" label="3 - Incoherente" ng-value="3" ng-model="evolucionesEdit.glasgowVerbal" plex="radio">
-                                            <input type="radio" label="4 - Desorientado/confuso" ng-value="4" ng-model="evolucionesEdit.glasgowVerbal" plex="radio">
-                                            <input type="radio" label="5 - Orientado" ng-value="5" ng-model="evolucionesEdit.glasgowVerbal" plex="radio">
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <label>
-                                                <b>Motor</b>
-                                            </label>
-                                            <input type="radio" label="1 - Ausencia de respuesta" ng-value="1" ng-model="evolucionesEdit.glasgowMotor" plex="radio">
-                                            <input type="radio" label="2 - Extensión anormal" ng-value="2" ng-model="evolucionesEdit.glasgowMotor" plex="radio">
-                                            <input type="radio" label="3 - Flexión anormal" ng-value="3" ng-model="evolucionesEdit.glasgowMotor" plex="radio">
-                                            <input type="radio" label="4 - Retirada al dolor" ng-value="4" ng-model="evolucionesEdit.glasgowMotor" plex="radio">
-                                            <input type="radio" label="5 - Localiza el dolor" ng-value="5" ng-model="evolucionesEdit.glasgowMotor" plex="radio">
-                                            <input type="radio" label="6 - Obedece ordenes" ng-value="6" ng-model="evolucionesEdit.glasgowMotor" plex="radio">
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <label>
-                                                <b>Total</b>
-                                            </label>
-                                            <h4>{{evolucionesEdit.glasgowMotor + evolucionesEdit.glasgowVerbal + evolucionesEdit.glasgowOcular}}</h4>
-                                            <span ng-if="evolucionesEdit.glasgowMotor + evolucionesEdit.glasgowVerbal + evolucionesEdit.glasgowOcular >= 14" class="small padding-left padding-right margin-left nivel-verde">Leve</span>
-                                            <span ng-if="evolucionesEdit.glasgowMotor + evolucionesEdit.glasgowVerbal + evolucionesEdit.glasgowOcular >= 9 && evolucionesEdit.glasgowMotor + evolucionesEdit.glasgowVerbal + evolucionesEdit.glasgowOcular <= 13" class="small padding-left padding-right margin-left nivel-amarillo">Moderado</span>
-                                            <span ng-if="evolucionesEdit.glasgowMotor + evolucionesEdit.glasgowVerbal + evolucionesEdit.glasgowOcular >= 3 && evolucionesEdit.glasgowMotor + evolucionesEdit.glasgowVerbal + evolucionesEdit.glasgowOcular <= 8" class="small padding-left padding-right margin-left nivel-rojo">Grave</span>
-                                        </div>
-                                    </fieldset>
-                                </div>
-                            </div>
-                        </div> -->
-                        <!-- <div ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
-                        <!-- <div class="card card-block">
-                            <fieldset>
-                                <legend>Ingresos líquidos</legend>
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <input type="text" ng-model="evolucionesEdit.ingresos.ph" label="P.H I" suffix="ml" plex/>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <input type="text" ng-model="evolucionesEdit.ingresos.ph2" label="P.H II" suffix="ml" plex/>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <input type="text" ng-model="evolucionesEdit.ingresos.atb" label="ATB" suffix="ml" plex/>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <input type="text" ng-model="evolucionesEdit.ingresos.hemo" label="HEMO." suffix="ml" plex/>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <input label="NP" type="text" ng-model="evolucionesEdit.ingresos.np" suffix="ml" plex/>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <input label="Prep." type="text" ng-model="evolucionesEdit.ingresos.prep" suffix="ml" plex/>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <input label="H20" type="text" ng-model="evolucionesEdit.ingresos.h2o" suffix="ml" plex/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </div> -->
-                        <!-- <div ng-if='Session.variables.prestaciones_workflow == "enfermero"'> -->
-                        <!-- <div class="card card-block">
-                            <fieldset>
-                                <legend>Egresos</legend>
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <input type="text" ng-model="evolucionesEdit.egresos.lavadoVesicalI" label="Lavado vesical I" suffix="ml" plex/>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <input type="text" ng-model="evolucionesEdit.egresos.diuresis" label="Diuresis" suffix="ml" plex/>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <input type="text" ng-model="evolucionesEdit.egresos.catarsis" label="Catarsis" suffix="ml" plex/>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-1">
-                                        <div class="form-group">
-                                            <input type="text" ng-model="evolucionesEdit.egresos.sng" label="S.N.G" suffix="ml" plex/>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-1">
-                                        <div class="form-group">
-                                            <input type="text" ng-model="evolucionesEdit.egresos.sny" label="S.N.Y" suffix="ml" plex/>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <input type="text" ng-model="evolucionesEdit.egresos.ostomias" label="Ostomias I" suffix="ml" plex/>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <input type="text" ng-model="evolucionesEdit.egresos.ostomias2" label="Ostomias II" suffix="ml" plex/>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row" ng-if="drenajes.length">
-                                    <div class="col-md-12">
-                                        <fieldset>
-                                            <legend>Drenajes</legend>
-                                            <div class="row" ng-repeat="drenaje in drenajes track by $index">
-                                                <div>
-
-                                                    <input type="hidden" value="'{{drenaje.id}}'" ng-model="drenajes[$index].idDrenaje" ng-init="drenajes[$index].idDrenaje = drenaje.id"/>
-                                                    <div class="col-md-2">
-                                                        <div class="form-group">
-                                                            <label>Lado</label>
-                                                            <p>{{drenaje.lado}}</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="form-group">
-                                                            <label>Tipo</label>
-                                                            <p>{{drenaje.tipo}}</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="form-group" ng-if="!drenaje.$activo">
-                                                            <label>Características del líquido</label>
-                                                            <br/>
-                                                            <span>{{drenajes[$index].caracteristicaLiquido}}</span>
-                                                        </div>
-
-                                                        <select label="Características del líquido" ng-model="drenajes[$index].caracteristicaLiquido" plex ng-if="drenaje.$activo">
-                                                            <option value="Hemático"></option>
-                                                            <option value="Seroso">Seroso</option>
-                                                            <option value="Serohemático">Serohemático</option>
-                                                            <option value="Purulento">Purulento</option>
-                                                        </select>
-
-                                                    </div>
-                                                    <div class="col-md-1">
-                                                        <div class="form-group" ng-if="!drenaje.$activo">
-                                                            <label>Cantidad</label>
-                                                            <br/>
-                                                            <span ng-if="!drenaje.$activo">{{drenajes[$index].cantidad}}</span>
-                                                        </div>
-
-                                                        <input type="text" label="Cantidad" suffix="ml" ng-model="drenajes[$index].cantidad" plex ng-if="drenaje.$activo">
-                                                    </div>
-                                                    <div class="col-md-5">
-                                                        <div class="form-group" ng-if="!drenaje.$activo">
-                                                            <label>Cantidad</label>
-                                                            <br/>
-                                                            <span ng-if="!drenaje.$activo">{{drenajes[$index].observaciones}}</span>
-                                                        </div>
-                                                        <input type="text" label="Observaciones" ng-model="drenajes[$index].observaciones" plex="text" ng-if="drenaje.$activo">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset >
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </div> -->
-                        <!-- Riesgo de caídas -->
-                        <!-- <div class="card card-block">
-
-                            <fieldset>
-                                <legend>Valoración de riesgo de caídas</legend>
-                                <div class="row">
-                                    <div class="col-lg-2" style="width: 14%">
-                                        <label>
-                                            <b>Caídas previas</b>
-                                        </label>
-                                        <input type="radio" label="No" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.caidasPrevias" plex="radio">
-                                        <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.caidasPrevias==0">El paciente no se ha caído.</span>
-                                        <input type="radio" label="Si" ng-value="25" ng-model="evolucionesEdit.riesgoCaida.caidasPrevias" plex="radio">
-                                        <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.caidasPrevias==25">El paciente se ha caído durante la presente internación o tiene antecedentes dentro de los últimos 3 meses de caídas por convulsiones o trastornos de la marcha.</span>
-                                    </div>
-                                    <div class="col-lg-2" style="width: 14%">
-                                        <label>
-                                            <b>Marcha</b>
-                                        </label>
-                                        <input type="radio" label="Normal" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.marcha" plex="radio">
-                                        <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.marcha==0">El paciente camina con la cabeza erecta, los brazos balanceándose libremente a los costados y con pasos seguros.</span>
-                                        <input type="radio" label="Débil" ng-value="10" ng-model="evolucionesEdit.riesgoCaida.marcha" plex="radio">
-                                        <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.marcha==10">El paciente camina encorvado pero es capaz de levantar la cabeza mientras camina sin perder equilibrio. Los pasos son cortos y puede arrastrar los pies.</span>
-                                        <input type="radio" label="Limitada" ng-value="20" ng-model="evolucionesEdit.riesgoCaida.marcha" plex="radio">
-                                        <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.marcha==20">El paciente puede tener dificultades para levantarse de la silla, pudiendo realizar varios intentos apoyando sus brazos en los brazos de la silla o tomando impulso. La cabeza del paciente está baja, mirando al piso.</span>
-                                    </div>
-                                    <div class="col-lg-2" style="width: 14%">
-                                        <label>
-                                            <b>Ayuda para deambular</b>
-                                        </label>
-                                        <input type="radio" label="Ninguna" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.ayudaDeambular" plex="radio">
-                                        <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.ayudaDeambular==0">El paciente camina sin ningún dispositivo de ayuda, se encuentra en silla de ruedas o está en reposo y no se levanta de la cama para nada.</span>
-                                        <input type="radio" label="Necesita ayuda" ng-value="15" ng-model="evolucionesEdit.riesgoCaida.ayudaDeambular" plex="radio">
-                                        <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.ayudaDeambular==15">El paciente utiliza muletas, bastón o andador.</span>
-                                        <input type="radio" label="Se apoya en los muebles" ng-value="30" ng-model="evolucionesEdit.riesgoCaida.ayudaDeambular" plex="radio">
-                                        <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.ayudaDeambular==30">El paciente sólo camina apoyándose en los muebles.</span>
-                                    </div>
-                                    <div class="col-lg-2" style="width: 14%">
-                                        <label>
-                                            <b>Venoclisis</b>
-                                        </label>
-                                        <input type="radio" label="No" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.venoclisis" plex="radio">
-                                        <input type="radio" label="Si" ng-value="20" ng-model="evolucionesEdit.riesgoCaida.venoclisis" plex="radio">
-                                        <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.venoclisis==20">El paciente tiene una vía IV.</span>
-                                    </div>
-                                    <div class="col-lg-2" style="width: 14%">
-                                        <label>
-                                            <b>Comorbilidad</b>
-                                        </label>
-                                        <input type="radio" label="No" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.comorbilidad" plex="radio">
-                                        <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.comorbilidad==0">El paciente tiene un solo diagnóstico.</span>
-                                        <input type="radio" label="Si" ng-value="15" ng-model="evolucionesEdit.riesgoCaida.comorbilidad" plex="radio">
-                                        <span class="help-block" ng-if="evolucionesEdit.riesgoCaida.comorbilidad==15">El paciente presenta múltiples diagnósticos.</span>
-                                    </div>
-                                    <div class="col-lg-2" style="width: 18%">
-                                        <label>
-                                            <b>Estado mental</b>
-                                        </label>
-                                        <input type="radio" label="Reconoce sus limitaciones" ng-value="0" ng-model="evolucionesEdit.riesgoCaida.estadoMental" plex="radio">
-                                        <input type="radio" label="Sobreestima u olvida sus limitaciones" ng-value="15" ng-model="evolucionesEdit.riesgoCaida.estadoMental" plex="radio">
-                                    </div>
-                                    <div class="col-lg-2" style="width: 10%">
-                                        <label>
-                                            <b>Total</b>
-                                        </label>
-                                        <h4>{{evolucionesEdit.riesgoCaida.caidasPrevias + evolucionesEdit.riesgoCaida.marcha + evolucionesEdit.riesgoCaida.ayudaDeambular + evolucionesEdit.riesgoCaida.venoclisis + evolucionesEdit.riesgoCaida.comorbilidad + evolucionesEdit.riesgoCaida.estadoMental}}</h4>
-                                        <span ng-if="evolucionesEdit.riesgoCaida.caidasPrevias + evolucionesEdit.riesgoCaida.marcha + evolucionesEdit.riesgoCaida.ayudaDeambular + evolucionesEdit.riesgoCaida.venoclisis + evolucionesEdit.riesgoCaida.comorbilidad + evolucionesEdit.riesgoCaida.estadoMental < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
-                                        <span ng-if="evolucionesEdit.riesgoCaida.caidasPrevias + evolucionesEdit.riesgoCaida.marcha + evolucionesEdit.riesgoCaida.ayudaDeambular + evolucionesEdit.riesgoCaida.venoclisis + evolucionesEdit.riesgoCaida.comorbilidad + evolucionesEdit.riesgoCaida.estadoMental >= 25 && evolucionesEdit.riesgoCaida.caidasPrevias + evolucionesEdit.riesgoCaida.marcha + evolucionesEdit.riesgoCaida.ayudaDeambular + evolucionesEdit.riesgoCaida.venoclisis + evolucionesEdit.riesgoCaida.comorbilidad + evolucionesEdit.riesgoCaida.estadoMental <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
-                                        <span ng-if="evolucionesEdit.riesgoCaida.caidasPrevias + evolucionesEdit.riesgoCaida.marcha + evolucionesEdit.riesgoCaida.ayudaDeambular + evolucionesEdit.riesgoCaida.venoclisis + evolucionesEdit.riesgoCaida.comorbilidad + evolucionesEdit.riesgoCaida.estadoMental > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
-                                    </div>
-                                </div>
-                            </fielset>
-                        </div> -->
-                        <!-- Riesgo de UPP -->
-                        <!-- <div class="card card-block">
-
-                            <h4 class="card-title">Valoración del riesgo de desarrollar una úlcera por presión</h4>
-                            <br/>
-                            <div class="col-lg-2" style="width: 14%">
-                                <label>
-                                    <b>Estado físico general</b>
-                                </label>
-                                <input type="radio" label="Muy malo" ng-value="1" ng-model="evolucionesEdit.riesgoUPP.estadoFisico" plex="radio">
-                                <input type="radio" label="Regular" ng-value="2" ng-model="evolucionesEdit.riesgoUPP.estadoFisico" plex="radio">
-                                <input type="radio" label="Mediano" ng-value="3" ng-model="evolucionesEdit.riesgoUPP.estadoFisico" plex="radio">
-                                <input type="radio" label="Bueno" ng-value="4" ng-model="evolucionesEdit.riesgoUPP.estadoFisico" plex="radio">
-                            </div>
-                            <div class="col-lg-2" style="width: 14%">
-                                <label>
-                                    <b>Estado mental</b>
-                                </label>
-                                <input type="radio" label="Estuporoso/Comatoso" ng-value="1" ng-model="evolucionesEdit.riesgoUPP.estadoMental" plex="radio">
-                                <input type="radio" label="Confuso" ng-value="2" ng-model="evolucionesEdit.riesgoUPP.estadoMental" plex="radio">
-                                <input type="radio" label="Apático" ng-value="3" ng-model="evolucionesEdit.riesgoUPP.estadoMental" plex="radio">
-                                <input type="radio" label="Alerta" ng-value="4" ng-model="evolucionesEdit.riesgoUPP.estadoMental" plex="radio">
-                            </div>
-                            <div class="col-lg-2" style="width: 14%">
-                                <label>
-                                    <b>Actividad</b>
-                                </label>
-                                <input type="radio" label="Inmóvil" ng-value="1" ng-model="evolucionesEdit.riesgoUPP.actividad" plex="radio">
-                                <input type="radio" label="Muy limitada" ng-value="2" ng-model="evolucionesEdit.riesgoUPP.actividad" plex="radio">
-                                <input type="radio" label="Disminuida" ng-value="3" ng-model="evolucionesEdit.riesgoUPP.actividad" plex="radio">
-                                <input type="radio" label="Total" ng-value="4" ng-model="evolucionesEdit.riesgoUPP.actividad" plex="radio">
-                            </div>
-                            <div class="col-lg-2" style="width: 14%">
-                                <label>
-                                    <b>Movilidad</b>
-                                </label>
-                                <input type="radio" label="Encamado" ng-value="1" ng-model="evolucionesEdit.riesgoUPP.movilidad" plex="radio">
-                                <input type="radio" label="Sentado" ng-value="2" ng-model="evolucionesEdit.riesgoUPP.movilidad" plex="radio">
-                                <input type="radio" label="Camina con ayuda" ng-value="3" ng-model="evolucionesEdit.riesgoUPP.movilidad" plex="radio">
-                                <input type="radio" label="Deambula" ng-value="4" ng-model="evolucionesEdit.riesgoUPP.movilidad" plex="radio">
-                            </div>
-                            <div class="col-lg-2" style="width: 14%">
-                                <label>
-                                    <b>Incontinencia</b>
-                                </label>
-                                <input type="radio" label="Urinaria y fecal" ng-value="1" ng-model="evolucionesEdit.riesgoUPP.incontinencia" plex="radio">
-                                <input type="radio" label="Urinaria o fecal" ng-value="2" ng-model="evolucionesEdit.riesgoUPP.incontinencia" plex="radio">
-                                <input type="radio" label="Ocasional" ng-value="3" ng-model="evolucionesEdit.riesgoUPP.incontinencia" plex="radio">
-                                <input type="radio" label="Ninguna" ng-value="4" ng-model="evolucionesEdit.riesgoUPP.incontinencia" plex="radio">
-                            </div>
-                            <div class="col-lg-2" style="width: 10%">
-                                <label>
-                                    <b>Total</b>
-                                </label>
-                                <h4>{{evolucionesEdit.riesgoUPP.estadoFisico + evolucionesEdit.riesgoUPP.estadoMental + evolucionesEdit.riesgoUPP.actividad + evolucionesEdit.riesgoUPP.movilidad + evolucionesEdit.riesgoUPP.incontinencia}}</h4>
-                                <span ng-if="evolucionesEdit.riesgoUPP.estadoFisico + evolucionesEdit.riesgoUPP.estadoMental + evolucionesEdit.riesgoUPP.actividad + evolucionesEdit.riesgoUPP.movilidad + evolucionesEdit.riesgoUPP.incontinencia >= 13 && evolucionesEdit.riesgoUPP.estadoFisico + evolucionesEdit.riesgoUPP.estadoMental + evolucionesEdit.riesgoUPP.actividad + evolucionesEdit.riesgoUPP.movilidad + evolucionesEdit.riesgoUPP.incontinencia <= 16" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
-                                <span ng-if="evolucionesEdit.riesgoUPP.estadoFisico + evolucionesEdit.riesgoUPP.estadoMental + evolucionesEdit.riesgoUPP.actividad + evolucionesEdit.riesgoUPP.movilidad + evolucionesEdit.riesgoUPP.incontinencia >= 10 && evolucionesEdit.riesgoUPP.estadoFisico + evolucionesEdit.riesgoUPP.estadoMental + evolucionesEdit.riesgoUPP.actividad + evolucionesEdit.riesgoUPP.movilidad + evolucionesEdit.riesgoUPP.incontinencia <= 12" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
-                                <span ng-if="evolucionesEdit.riesgoUPP.estadoFisico + evolucionesEdit.riesgoUPP.estadoMental + evolucionesEdit.riesgoUPP.actividad + evolucionesEdit.riesgoUPP.movilidad + evolucionesEdit.riesgoUPP.incontinencia >= 5 && evolucionesEdit.riesgoUPP.estadoFisico + evolucionesEdit.riesgoUPP.estadoMental + evolucionesEdit.riesgoUPP.actividad + evolucionesEdit.riesgoUPP.movilidad + evolucionesEdit.riesgoUPP.incontinencia <= 9" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
-                            </div>
-                        </div> -->
-                        <!-- Dolor -->
-                        <!-- <div class="card card-block">
-                            <fieldset>
-                                <legend>Valoración del dolor</legend>
-
-                                <div class="row">
-                                    <div class="col-lg-2" style="width: 14%">
-                                        <label>
-                                            <b>Analgesia previa</b>
-                                        </label>
-                                        <input type="radio" label="Indicada por médico" ng-value="false" ng-model="evolucionesEdit.dolorValoracion.analgesiaAutomedicacion" plex="radio">
-                                        <input type="radio" label="Automedicación" ng-value="true" ng-model="evolucionesEdita.dolorValoracion.analgesiaAutomedicacion" plex="radio">
-                                    </div>
-                                    <div class="col-lg-2" style="width: 14%">
-                                        <label>
-                                            <b>Ansiolíticos previos</b>
-                                        </label>
-                                        <input type="radio" label="Indicados por médico" ng-value="false" ng-model="evolucionesEdit.dolorValoracion.ansioliticosAutomedicacion" plex="radio">
-                                        <input type="radio" label="Automedicación" ng-value="true" ng-model="evolucionesEdit.dolorValoracion.ansioliticosAutomedicacion" plex="radio">
-                                    </div>
-                                    <div class="col-lg-2" style="width: 14%">
-                                        <label>
-                                            <b>Intensidad</b>
-                                        </label>
-                                        <select ng-model="evolucionesEdit.dolorValoracion.intensidad" plex>
-                                            <option value="0">0 (sin dolor)</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10 (máximo dolor)</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-6" style="width: 30%">
-                                        <label>
-                                            <b>Características del dolor</b>
-                                        </label>
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <input type="checkbox" label="Punzante" ng-model="evolucionesEdit.dolorValoracion.punzante" plex="checkbox">
-                                                <input type="checkbox" label="Tipo cólico" ng-model="evolucionesEdit.dolorValoracion.tipoColico" plex="checkbox">
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <input type="checkbox" label="Pesadez" ng-model="evolucionesEdit.dolorValoracion.pesadez" plex="checkbox">
-                                                <input type="checkbox" label="Pulsante" ng-model="evolucionesEdit.dolorValoracion.pulsante" plex="checkbox">
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <input type="checkbox" label="Caliente" ng-model="evolucionesEdit.dolorValoracion.caliente" plex="checkbox">
-                                                <input type="checkbox" label="Adormecimiento/Hormigueo" ng-model="evolucionesEdit.dolorValoracion.hormigueo" plex="checkbox">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <input type="text" label="Observaciones" ng-model="evolucionesEdit.observacionesDolor" plex="text">
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </div> -->
-
-                        <div class="card card-block">
-                            <fieldset>
-                                <legend>Cargar evolución</legend>
-                                <div class=" row" ng-if="internacion.evoluciones.length > 0">
-                                    <div class="col-lg-12">
-                                        <h6 class="text-uppercase">
-                                            Evolución anterior ({{ultimaEvolucion.fechaHora | fromNow}})
-                                            <span class=" pull-right">
-                                                {{ultimaEvolucion.fechaHora | date: "dd/MM/yyyy  'a las' HH:mm "}}
-                                                hs
-                                            </span>
-                                        </h6>
-                                        <hr/>
-                                    </div>
-
-                                </div>
-
-                                <div class=" row" ng-if="internacion.evoluciones.length > 0">
-
-                                    <div class="col-lg-2 evolucion-anterior" ng-show="ultimaEvolucion.signosVitales">
-                                        <span class="text-uppercase">Signos vitales</span>
-                                        <br/>
-                                        <div ng-show="ultimaEvolucion.signosVitales.pulso">
-                                            <strong>Frecuencia cardíaca:</strong>
-                                            {{ultimaEvolucion.signosVitales.pulso}}
-                                            PPM
-                                        </div>
-                                        <div ng-show="ultimaEvolucion.signosVitales.respiracion">
-                                            <strong>Frecuencia respiratoria:</strong>
-                                            {{ultimaEvolucion.signosVitales.respiracion}}
-                                            PPM
-                                        </div>
-                                        <div ng-show="ultimaEvolucion.signosVitales.tensionSistolica">
-                                            <strong>Tensión sistólica:</strong>
-                                            {{ultimaEvolucion.signosVitales.tensionSistolica}}
-                                            mmHG
-                                        </div>
-                                        <div ng-show="ultimaEvolucion.signosVitales.tensionDiastolica">
-                                            <strong>Tensión diastólica:</strong>
-                                            {{ultimaEvolucion.signosVitales.tensionDiastolica}}
-                                            mmHG
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2 br evolucion-anterior" ng-show="ultimaEvolucion.signosVitales">
-                                        <br/>
-                                        <div ng-show="ultimaEvolucion.signosVitales.temperatura">
-                                            <strong>Temperatura:</strong>
-                                            {{ultimaEvolucion.signosVitales.temperatura}}
-                                            ºC
-                                        </div>
-                                        <div ng-show="ultimaEvolucion.signosVitales.spo2">
-                                            <strong>Saturación O
-                                                <sub>2</sub>:</strong>
-                                            {{ultimaEvolucion.signosVitales.spo2}}
-                                            %
-                                        </div>
-                                        <div ng-show="ultimaEvolucion.signosVitales.peso">
-                                            <strong>Peso:</strong>
-                                            {{ultimaEvolucion.signosVitales.peso}}
-                                            kgs
-                                        </div>
-                                        <br/>
-                                    </div>
-                                    <div class="col-lg-3 br evolucion-anterior">
-                                        <span class="text-uppercase">Ingresos</span>
-                                        <br/>
-
-                                        <div class="row">
-                                            <div ng-repeat="ingreso in ultimaEvolucion.balance.ingresos" class="col-lg-6">
-
-                                                <span ng-if="ingreso.hidratacion.oral.cantidad > 0">
-                                                    <strong>Plan hidratación oral:</strong>
-                                                    <br/>
-                                                    {{ingreso.hidratacion.oral.cantidad}}
-                                                    ml
-                                                    <br/>
-                                                </span>
-
-                                                <span ng-if="ingreso.medicamentos.cantidad > 0">
-                                                    <strong>Antibióticos:</strong>
-                                                    {{ingreso.medicamentos.cantidad}}
-                                                    ml
-                                                    <br/>
-                                                </span>
-
-                                                <span ng-if="ingreso.hidratacion.enteral.solucionFisiologica > 0 || ingreso.hidratacion.enteral.ringerLactato > 0 || ingreso.hidratacion.enteral.dextrosa > 0">
-                                                    <strong>Plan hidratación enteral:</strong>
-                                                    <br/>
-                                                    <span ng-if="ingreso.hidratacion.enteral.solucionFisiologica > 0">
-                                                        Solucion fisiológica:
-                                                        {{ingreso.hidratacion.enteral.solucionFisiologica}}
-                                                        ml
-                                                        <br/>
-                                                    </span>
-                                                    <span ng-if="ingreso.hidratacion.enteral.ringerLactato > 0">
-                                                        Ringer-Lactato:
-                                                        {{ingreso.hidratacion.enteral.ringerLactato}}
-                                                        ml
-                                                        <br/>
-                                                    </span>
-                                                    <span ng-if="ingreso.hidratacion.enteral.dextrosa > 0">
-                                                        Dextrosa:
-                                                        {{ingreso.hidratacion.enteral.dextrosa}}
-                                                        ml
-                                                        <br/>
-                                                    </span>
-                                                </span>
-
-                                                <span ng-if="ingreso.hidratacion.parenteral.solucionFisiologica > 0 || ingreso.hidratacion.parenteral.ringerLactato > 0 || ingreso.hidratacion.parenteral.dextrosa > 0">
-                                                    <strong>Plan hidratación parenteral:</strong>
-                                                    <br/>
-                                                    <span ng-if="ingreso.hidratacion.parenteral.solucionFisiologica > 0">
-                                                        Solucion fisiológica:
-                                                        {{ingreso.hidratacion.parenteral.solucionFisiologica}}
-                                                        ml
-                                                        <br/>
-                                                    </span>
-                                                    <span ng-if="ingreso.hidratacion.parenteral.ringerLactato > 0">
-                                                        Ringer-Lactato:
-                                                        {{ingreso.hidratacion.parenteral.ringerLactato}}
-                                                        ml
-                                                        <br/>
-                                                    </span>
-                                                    <span ng-if="ingreso.hidratacion.parenteral.dextrosa > 0">
-                                                        Dextrosa:
-                                                        {{ingreso.hidratacion.parenteral.dextrosa}}
-                                                        ml
-                                                        <br/>
-                                                    </span>
-                                                </span>
-
-                                                <span ng-if="ingreso.nutricion.enteral.cantidad > 0 || ingreso.nutricion.soporteOral.cantidad > 0">
-                                                    <strong>Nutrición:</strong>
-                                                    <br/>
-                                                    <span ng-if="ingreso.nutricion.enteral.cantidad > 0">
-                                                        Enteral:
-                                                        {{ingreso.nutricion.enteral.cantidad}}
-                                                        ml
-                                                        <br/>
-                                                    </span>
-                                                    <span ng-if="ingreso.nutricion.soporteOral.cantidad > 0">
-                                                        Soporte Oral:
-                                                        {{ingreso.nutricion.soporteOral.cantidad}}
-                                                        ml
-                                                        <br/>
-                                                    </span>
-                                                </span>
-
-                                                <span ng-if="ingreso.hemoterapia.cantidad > 0">
-                                                    <strong>Transfusiones de sangre:</strong>
-                                                    <br/>
-                                                    {{ingreso.hemoterapia.cantidad}}
-                                                    ml
-                                                    <br/>
-                                                </span>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-2 evolucion-anterior">
-                                        <span class="text-uppercase">Egresos</span>
-                                        <br/>
-                                        <div ng-show="ultimaEvolucion.balance.egresos.lavadoVesicalI">
-                                            <strong>Lavado Vesical I:</strong>
-                                            {{ultimaEvolucion.balance.egresos.lavadoVesicalI}}
-                                            ml
-                                        </div>
-                                        <div ng-show="ultimaEvolucion.balance.egresos.lavadoVesicalE">
-                                            <strong>Lavado Vesical II:</strong>
-                                            {{ultimaEvolucion.balance.egresos.lavadoVesicalE}}
-                                            ml
-                                        </div>
-                                        <div ng-show="ultimaEvolucion.balance.egresos.diuresis">
-                                            <strong>Diuresis:</strong>
-                                            {{ultimaEvolucion.balance.egresos.diuresis}}
-                                            ml
-                                        </div>
-                                        <div ng-show="ultimaEvolucion.balance.egresos.catarsis">
-                                            <strong>Catarsis:</strong>
-                                            {{ultimaEvolucion.balance.egresos.catarsis}}
-                                            ml
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2 br evolucion-anterior">
-                                        <br/>
-                                        <div ng-show="ultimaEvolucion.balance.egresos.sng">
-                                            <strong>S.N.G:</strong>
-                                            {{ultimaEvolucion.balance.egresos.sng}}
-                                            ml
-                                        </div>
-                                        <div ng-show="ultimaEvolucion.balance.egresos.sny">
-                                            <strong>S.N.Y:</strong>
-                                            {{ultimaEvolucion.balance.egresos.sny}}
-                                            ml
-                                        </div>
-                                        <div ng-show="ultimaEvolucion.balance.egresos.ostomias">
-                                            <strong>Ostomias I:</strong>
-                                            {{ultimaEvolucion.balance.egresos.ostomias}}
-                                            ml
-                                        </div>
-                                        <div ng-show="ultimaEvolucion.balance.egresos.ostomias2">
-                                            <strong>Ostomias II:</strong>
-                                            {{ultimaEvolucion.balance.egresos.ostomias2}}
-                                            ml
-                                        </div>
-
-                                        <div ng-repeat="drenaje in drenajes track by $index">
-                                            <div ng-show="drenajes[$index].cantidad">
-                                                {{drenaje.tipo}}, lado
-                                                {{drenaje.lado}}
-                                                {{drenajes[$index].cantidad}}
-                                                ml ({{drenajes[$index].caracteristicaLiquido}})
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-1 evolucion-anterior">
-                                        <span class="text-uppercase">
-                                            Balance</span>
-                                        <i class="verde mdi mdi-trending-up" ng-if="ultimaEvolucion.balance.$balance < 0"></i>
-                                        <i class="celeste mdi mdi-trending-flat" ng-if="ultimaEvolucion.balance.$balance == 0"></i>
-                                        <i class="rojo mdi mdi-trending-down" ng-if="ultimaEvolucion.balance.$balance > 0"></i>
-                                        <!-- </span> -->
-
-                                        <br/>
-                                        <span>
-                                            <strong>I =</strong>
-                                            {{ultimaEvolucion.balance.$total_ingresos}}
-                                            <br/>
-                                            <strong>E =</strong>
-                                            {{ultimaEvolucion.balance.$total_egresos}}
-                                        </span>
-
-                                    </div>
-                                </div>
-
-                                <div ng-if="internacion.ingreso.medico.impresionDiagnostica.listaPositivos.length > 0 ||
-                                    internacion.ingreso.medico.impresionDiagnostica.listaSindromesSignos.length > 0 ||
-                                    internacion.ingreso.medico.impresionDiagnostica.listaHipotesis.length > 0
-                                    ">
-
+                            <div class="col-lg-3 ">
+                                <div class="card card-block " style="border: 4px dashed #ececec; background: #f9f9f9;">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <h6 class="text-uppercase">Impresión diagnóstica</h6>
+                                            <h5>Visualización de datos importantes</h5>
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-xs-4 col-lg-4">
-                                            Signos guías
-                                            <div ng-if="internacion.ingreso.medico.impresionDiagnostica.listaPositivos.length > 0">
-                                                <ul>
-                                                    <li ng-repeat="positivo in internacion.ingreso.medico.impresionDiagnostica.listaPositivos">
-                                                        {{positivo}}
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div ng-if="!internacion.ingreso.medico.impresionDiagnostica.listaPositivos.length">
-                                                No se han cargado signos guías
-                                            </div>
-                                        </div>
+                                    <div class="row mb">
+                                        <!-- style="border: 4px dashed #ececec; background: #f9f9f9; " -->
 
-                                        <div class="col-xs-4 col-lg-4">
-                                            Sindromes
-                                            <div ng-if="internacion.ingreso.medico.impresionDiagnostica.listaSindromesSignos.length > 0">
-                                                <ul ng-repeat="sindrome in internacion.ingreso.medico.impresionDiagnostica.listaSindromesSignos track by $index">
-                                                    <li>{{sindrome.nombreSindrome}}
-                                                        <ul ng-repeat="signo in internacion.ingreso.medico.impresionDiagnostica.listaSindromesSignos[$index].listaSignos">
-                                                            <li>{{signo}}</li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div ng-if="!internacion.ingreso.medico.impresionDiagnostica.listaSindromesSignos.length">
-                                                No se han cargado sindromes
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-4 col-lg-4">
-                                            Hipótesis
-                                            <div ng-if="internacion.ingreso.medico.impresionDiagnostica.listaHipotesis.length > 0">
-                                                <ul>
-                                                    <li ng-repeat="hipotesis in internacion.ingreso.medico.impresionDiagnostica.listaHipotesis">
-                                                        {{hipotesis.nombre}}
-                                                        {{hipotesis.porcentaje}}%
-
-                                                        <div ng-if="hipotesis.confirmada">
-                                                            <span class="label label-success">Confirmada</span>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div ng-if="!internacion.ingreso.medico.impresionDiagnostica.listaHipotesis.length">
-                                                No se han cargado hipósesis
-                                            </div>
+                                        <div class="col-lg-12">
+                                            <select class="" label="Ultimos valores de" ng-model="tipoWidget" plex="(w.nombre) for w in tiposWidgets"></select>
                                         </div>
                                     </div>
+                                    <div class="row mb">
+                                        <div class="col-lg-12">
 
-                                    <hr/>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <textarea label="Texto de la evolución" placeholder="Consignar los tratamientos y cuidados efectuados y los síntomas observados" plex-focus="true" ng-model="evolucionesEdit.texto" plex  ui-tinymce="tinymceOptions" ng-required="true" rows="5" class="form-control"></textarea>
+                                            <button type="button" class="btn btn-info form-control" ng-click="widgets.cargar()" ng-disabled="!tipoWidget.id">
+                                                Cargar
+                                            </button>
+                                            <!-- <li class="" style="width: 33.3%; display: inline-block; ">
+                                            <div style="border: 4px dashed #ececec; background: #f9f9f9; min-height: 300px; padding-top: 80px;">
+                                                <div class="row">
+                                                    <div class="col-lg-offset-4 col-lg-4">
+                                                        <ng-form >
+                                                            <select class="form-control" label="Ultimos valores de" ng-model="tipoWidget" plex="(w.nombre) for w in tiposWidgets"></select>
+                                                            <button type="button" class="btn btn-info" ng-click="widgets.cargar()" ng-disabled="!tipoWidget.id">
+                                                                Cargar resumen
+                                                            </button>
+                                                        </ng-form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li> -->
+                                        </div>
                                     </div>
                                 </div>
-                            </fieldset>
+                            </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
 
-                <div class="row">
+                <div class="row" ng-show="wigetCargados.length">
                     <div class="col-lg-12">
-                        <div class="card card-block margin-top text-right">
-                            <button type="button" class="btn btn-default btn-flat" ng-click="cancelarEdicion();">Cancelar</button>
-                            <button class="btn btn-primary" plex-submit="guardarEvolucion(evolucionesEdit)" ng-disabled="formEditarEvolucion.$invalid">
-                                <i class="mdi mdi-content-save"></i>
-                                Guardar</button>
+                        <div class="card card-block ">
+                            <div class="">
+
+
+
+                                <div class="row" style="position: relative; width: 100%;">
+
+                                    <div class="col-lg-12" style="overflow: hidden; position: relative; white-space: nowrap;" ng-show="wigetCargados.length">
+                                        <ul class="widgets" style="overflow-x: auto; overflow-y: hidden;padding-left: 10px; padding: 10px 10px 30px 10px;"  drag-scroll="true">
+                                            <!-- <li class="" style="width: 33.3%; display: inline-block; white-space: normal;">
+                                                <div style="border: 4px dashed #ececec; background: #f9f9f9; min-height: 300px; padding-top: 80px;">
+                                                    <div class="row">
+                                                        <div class="col-lg-offset-4 col-lg-4">
+                                                            <ng-form >
+                                                                <select class="form-control" label="Ultimos valores de" ng-model="tipoWidget" plex="(w.nombre) for w in tiposWidgets"></select>
+                                                                <button type="button" class="btn btn-info" ng-click="widgets.cargar()" ng-disabled="!tipoWidget.id">
+                                                                    Cargar resumen
+                                                                </button>
+                                                            </ng-form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li> -->
+                                            <li class="" ng-repeat="widget in wigetCargados track by $index">
+
+                                                <div class="row header-widget">
+                                                    <div class="col-lg-10 title">
+                                                        {{widget.title}}
+                                                    </div>
+                                                    <div class="col-lg-2 text-right">
+                                                        <button class="link close" ng-click="widgets.quitar($index)">
+                                                            <i class="mdi mdi-close"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="content-widget" ng-if="widget.signosVitales" >
+
+                                                    <div class="row">
+                                                        <div ng-if="widget.signosVitales.pulso">
+                                                            <div class="col-md-4">
+                                                                <b class="text-uppercase">
+                                                                    Frecuencia cardíaca
+                                                                </b>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                {{widget.signosVitales.pulso}}
+                                                                PPM
+                                                            </div>
+                                                        </div>
+
+                                                        <div ng-if="widget.signosVitales.respiracion">
+                                                            <div class="col-md-4">
+                                                                <b class="text-uppercase">
+                                                                    Frecuencia respiratoria
+                                                                </b>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                {{widget.signosVitales.respiracion}}
+                                                                RPM
+                                                            </div>
+                                                        </div>
+
+                                                        <div ng-if="widget.signosVitales.circulacion.tensionSistolica">
+                                                            <div class="col-md-4">
+                                                                <b class="text-uppercase">
+                                                                    Tensión sistólica
+                                                                </b>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                {{widget.signosVitales.circulacion.tensionSistolica}}
+                                                            </div>
+                                                        </div>
+
+                                                        <div ng-if="widget.signosVitales.circulacion.tensionDiastolica">
+                                                            <div class="col-md-4">
+                                                                <b class="text-uppercase">
+                                                                    Tensión diastólica
+                                                                </b>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                {{widget.signosVitales.circulacion.tensionDiastolica}}
+                                                            </div>
+                                                        </div>
+
+                                                        <div ng-if="widget.signosVitales.temperatura">
+                                                            <div class="col-md-4">
+                                                                <b class="text-uppercase">
+                                                                    Temperatura
+                                                                </b>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                {{widget.signosVitales.temperatura}}ºC
+                                                            </div>
+                                                        </div>
+
+                                                        <div ng-if="widget.signosVitales.spo2">
+                                                            <div class="col-md-4">
+                                                                <b class="text-uppercase">
+                                                                    Saturación O
+                                                                    <sup>2</sup>
+                                                                </b>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                {{widget.signosVitales.spo2}}%
+                                                            </div>
+                                                        </div>
+
+                                                        <div ng-if="widget.signosVitales.peso">
+                                                            <div class="col-md-4">
+                                                                <b class="text-uppercase">Peso</b>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                {{widget.signosVitales.peso}}
+                                                                Kg
+                                                            </div>
+                                                        </div>
+
+                                                        <div ng-if="widget.signosVitales.circulacion.pedio">
+                                                            <div class="col-md-4">
+                                                                <b class="text-uppercase">Pulso pedio</b>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                {{widget.signosVitales.circulacion.pedio}}
+                                                            </div>
+                                                        </div>
+
+                                                        <div ng-if="widget.signosVitales.circulacion.popliteo">
+                                                            <div class="col-md-4">
+                                                                <b class="text-uppercase">Pulso popliteo</b>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                {{widget.signosVitales.circulacion.popliteo}}
+                                                            </div>
+                                                        </div>
+
+                                                        <div ng-if="widget.signosVitales.circulacion.radial">
+                                                            <div class="col-md-4">
+                                                                <b class="text-uppercase">Pulso radial</b>
+                                                            </div>
+
+                                                            <div class="col-md-2">
+                                                                {{widget.signosVitales.circulacion.radial}}
+                                                            </div>
+                                                        </div>
+
+                                                        <div ng-if="widget.signosVitales.circulacion.carotideo">
+                                                            <div class="col-md-4">
+                                                                <b class="text-uppercase">Pulso carotideo</b>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                {{widget.signosVitales.circulacion.carotideo}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row" ng-if="widget.signosVitales.circulacion.observacionesCirculacion">
+
+                                                        <div class="col-md-12">
+                                                            <br/><br/><br/>
+                                                            <b class="text-uppercase">Observaciones circulación</b>
+                                                            <br/>
+                                                            {{widget.signosVitales.circulacion.observacionesCirculacion}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="content-widget" ng-if="widget.riesgoUPP" >
+                                                    <div class="col-lg-12">
+                                                        <div class="row">
+                                                            <div class="col-md-2">
+                                                                <b>Estado físico</b>
+                                                                <br />
+                                                                {{widget.riesgoUPP.estadoFisico}}
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <b>Estado mental</b>
+                                                                <br />
+                                                                {{widget.riesgoUPP.estadoMental}}
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <b>Actividad</b>
+                                                                <br />
+                                                                {{widget.riesgoUPP.actividad}}
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <b>Movilidad</b>
+                                                                <br />
+                                                                {{widget.riesgoUPP.movilidad}}
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <b>Incontinencia</b>
+                                                                <br />
+                                                                {{widget.riesgoUPP.incontinencia}}
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <b>Total</b>
+                                                                <br />
+                                                                {{widget.riesgoUPP.total}}
+
+                                                                <span ng-if="widget.riesgoUPP.total >= 13 && widget.riesgoUPP.total <= 16" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
+                                                                <span ng-if="widget.riesgoUPP.total >= 10 && widget.riesgoUPP.total <= 12" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
+                                                                <span ng-if="widget.riesgoUPP.total >= 5 && widget.riesgoUPP.total <= 9" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <h4>Ulceras en el cuerpo</h4>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-md-3 text-center">
+
+                                                                <svg ng-attr-height="{{graph.height}}" ng-attr-width="{{graph.width}}">
+                                                                    <image sketch:type="MSBitmapLayer" width="100%" height="100%" xlink:href="img/hombre-frente.jpg" ></image>
+
+                                                                    <g ng-repeat="ele in widget.riesgoUPP.lesionesFrente track by $index">
+                                                                        <g ng-switch on="ele.tipo">
+                                                                            <circle ng-switch-when="0" ng-attr-cx="{{ele.x}}" ng-attr-cy="{{ele.y}}" ng-attr-r="{{radius}}" stroke-width="{{sw}}" class="{'focus':ele.f===1} tips" title="{{$index}}">
+                                                                                <text x="50%" y="50%" text-anchor="middle" stroke="#51c5cf" stroke-width="2px" dy=".3em">{{$index}}</text>
+                                                                            </circle>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                                <p>
+                                                                    <b>Frente</b>
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-md-3 text-center">
+                                                                <svg ng-attr-height="{{graph.height}}" ng-attr-width="{{graph.width}}">
+                                                                    <image sketch:type="MSBitmapLayer" width="100%" height="100%" xlink:href="img/hombre-espalda.jpg" ></image>
+
+                                                                    <g ng-repeat="ele in widget.riesgoUPP.lesionesEspalda track by $index">
+                                                                        <g ng-switch on="ele.tipo">
+                                                                            <circle ng-switch-when="0" ng-attr-cx="{{ele.x}}" ng-attr-cy="{{ele.y}}" ng-attr-r="{{radius}}" stroke-width="{{sw}}" class="{'focus':ele.f===1} tips" title="{{$index}}">
+                                                                                <text x="50%" y="50%" text-anchor="middle" stroke="#51c5cf" stroke-width="2px" dy=".3em">{{$index}}</text>
+                                                                            </circle>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                                <p>
+                                                                    <b>Espalda</b>
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-md-3 text-center">
+                                                                <svg ng-attr-height="{{graph.height}}" ng-attr-width="{{graph.width}}">
+                                                                    <image sketch:type="MSBitmapLayer" width="100%" height="100%" xlink:href="img/hombre-izquierda.jpg" ></image>
+
+                                                                    <g ng-repeat="ele in widget.riesgoUPP.lesionesLadoIzquierdo track by $index">
+                                                                        <g ng-switch on="ele.tipo">
+                                                                            <circle ng-switch-when="0" ng-attr-cx="{{ele.x}}" ng-attr-cy="{{ele.y}}" ng-attr-r="{{radius}}" stroke-width="{{sw}}" class="{'focus':ele.f===1} tips" title="{{$index}}">
+                                                                                <text x="50%" y="50%" text-anchor="middle" stroke="#51c5cf" stroke-width="2px" dy=".3em">{{$index}}</text>
+                                                                            </circle>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                                <p>
+                                                                    <b>Lado izquierdo</b>
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-md-3 text-center">
+                                                                <svg ng-attr-height="{{graph.height}}" ng-attr-width="{{graph.width}}">
+                                                                    <image sketch:type="MSBitmapLayer" width="100%" height="100%" xlink:href="img/hombre-derecha.jpg" ></image>
+
+
+                                                                    <g ng-repeat="ele in widget.riesgoUPP.lesionesLadoDerecho track by $index">
+                                                                        <g ng-switch on="ele.tipo">
+                                                                            <circle ng-switch-when="0" ng-attr-cx="{{ele.x}}" ng-attr-cy="{{ele.y}}" ng-attr-r="{{radius}}" stroke-width="{{sw}}" class="{'focus':ele.f===1} tips" title="{{$index}}">
+                                                                                <text x="50%" y="50%" text-anchor="middle" stroke="#51c5cf" stroke-width="2px" dy=".3em">{{$index}}</text>
+                                                                            </circle>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                                <p>
+                                                                    <b>Lado derecho</b>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="content-widget" ng-if="widget.flebitis">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <b class="text-uppercase">
+                                                                Grado flebitis
+                                                            </b>
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            {{widget.flebitis.grado}}
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="content-widget" ng-if="widget.glasgow">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <b class="text-uppercase">
+                                                                Ocular
+                                                            </b>
+
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            {{widget.glasgow.ocular}}
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            <b class="text-uppercase">
+                                                                Verbal
+                                                            </b>
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            {{widget.glasgow.verbal}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <b class="text-uppercase">Motor</b>
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            {{widget.glasgow.motor}}
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            <b class="text-uppercase">Total</b>
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            {{widget.glasgow.total}}
+
+                                                            <span ng-if="widget.glasgow.total < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
+                                                            <span ng-if="widget.glasgow.total >= 25 && widget.glasgow.total <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
+                                                            <span ng-if="widget.glasgow.total > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="content-widget" ng-if="widget.riesgoCaida">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <b class="text-uppercase">Caídas previas</b>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            {{widget.riesgoCaida.caidasPrevias}}
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <b class="text-uppercase">Marcha</b>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            {{widget.riesgoCaida.marcha}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <b class="text-uppercase">Ayuda para deambular</b>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            {{widget.riesgoCaida.ayudaDeambular}}
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <b class="text-uppercase">Venoclisis</b>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            {{widget.riesgoCaida.venoclisis}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <b class="text-uppercase">Comorbilidad</b>
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            {{widget.riesgoCaida.comorbilidad}}
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            <b class="text-uppercase">Estado mental</b>
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            {{widget.riesgoCaida.estadoMental}}
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 text-right">
+                                                            <b class="text-uppercase">Total</b>
+                                                            {{widget.riesgoCaida.total}}
+
+                                                            <span ng-if="widget.riesgoCaida.total < 25" class="small padding-left padding-right margin-left nivel-verde">Bajo</span>
+                                                            <span ng-if="widget.riesgoCaida.total <= 50" class="small padding-left padding-right margin-left nivel-amarillo">Medio</span>
+                                                            <span ng-if="widget.riesgoCaida.total > 50" class="small padding-left padding-right margin-left nivel-rojo">Alto</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="content-widget" ng-if="widget.balance">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <h5>Ingresos <span class="text-muted small">{{widget.balance.$total_ingresos}} ml</span></h5>
+                                                            <div class="row">
+                                                                <div ng-repeat="ingreso in widget.balance.ingresos">
+                                                                    <!-- <pre>
+                                                                    {{ingreso | json}}
+                                                                    </pre> -->
+                                                                    <div class="col-md-4 mb" ng-if="ingreso.hidratacion.parenteral">
+                                                                        <b class="text-uppercase">Plan de hidratación parenteral</b>
+                                                                        <div ng-if="ingreso.hidratacion.parenteral.solucionFisiologica">
+                                                                            <b >
+                                                                                Solución fisiológica:
+                                                                            </b>
+
+                                                                            {{ingreso.hidratacion.parenteral.solucionFisiologica}} ml
+                                                                        </div>
+                                                                        <div ng-if="ingreso.hidratacion.parenteral.dextrosa">
+                                                                            <b >
+                                                                                Dextrosa:
+                                                                            </b>
+                                                                            {{ingreso.hidratacion.parenteral.dextrosa}} ml
+                                                                        </div>
+                                                                        <div ng-if="ingreso.hidratacion.parenteral.ringerLactato">
+                                                                            <b >
+                                                                                Ringer-Lactato:
+                                                                            </b>
+                                                                            {{ingreso.hidratacion.parenteral.ringerLactato}} ml
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4 mb" ng-if="ingreso.hidratacion.enteral">
+                                                                        <b class="text-uppercase">
+                                                                            Plan de hidratación enteral
+                                                                        </b>
+                                                                        <div ng-if="ingreso.hidratacion.enteral.solucionFisiologica">
+
+                                                                            <b>
+                                                                                Solución fisiológica:
+                                                                            </b>
+                                                                            {{ingreso.hidratacion.enteral.solucionFisiologica}} ml
+                                                                        </div>
+                                                                        <div ng-if="ingreso.hidratacion.enteral.dextrosa">
+                                                                            <b >
+                                                                                Dextrosa:
+                                                                            </b>
+                                                                            {{ingreso.hidratacion.enteral.dextrosa}} ml
+                                                                        </div>
+                                                                        <div ng-if="ingreso.hidratacion.enteral.ringerLactato">
+                                                                            <b >
+                                                                                Ringer-Lactato:
+                                                                            </b>
+                                                                            {{ingreso.hidratacion.enteral.ringerLactato}} ml
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4 mb" ng-if="ingreso.hidratacion.oral">
+                                                                        <p ng-if="ingreso.hidratacion.oral.cantidad">
+                                                                            <b class="text-uppercase">
+                                                                                Hidratación oral:
+                                                                            </b>
+                                                                            {{ingreso.hidratacion.oral.cantidad}} ml
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="col-md-4" ng-if="ingreso.medicamentos">
+                                                                        <p ng-if="ingreso.medicamentos.cantidad">
+                                                                            <b class="text-uppercase">
+                                                                                Medicamentos:
+                                                                            </b>
+                                                                            <br />
+                                                                            {{ingreso.medicamentos.descripcion}}: {{ingreso.medicamentos.cantidad}} ml
+                                                                            <span ng-if="ingreso.medicamentos.observaciones">
+                                                                                <br />
+                                                                                Observaciones: {{ingreso.medicamentos.observaciones}}
+                                                                            </span>
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="col-md-4" ng-if="ingreso.nutricion">
+                                                                        <b class="text-uppercase">Nutrición</b>
+                                                                        <div ng-if="ingreso.nutricion.soporteOral">
+                                                                            <p ng-if="ingreso.nutricion.soporteOral.cantidad">
+                                                                                <b>
+                                                                                Soporte oral
+                                                                                </b>
+                                                                                {{ingreso.nutricion.soporteOral.cantidad}} ml
+                                                                            </p>
+                                                                        </div>
+                                                                        <div ng-if="ingreso.nutricion.enteral">
+                                                                            <p ng-if="ingreso.nutricion.enteral.cantidad">
+                                                                                <b>
+                                                                                    Enteral
+                                                                                </b>
+                                                                                {{ingreso.nutricion.enteral.cantidad}} ml
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4" ng-if="ingreso.hemoterapia">
+                                                                        <p ng-if="ingreso.hemoterapia.cantidad">
+                                                                            <b class="text-uppercase">
+                                                                                Hemoterapia:
+                                                                            </b>
+                                                                            <br />
+                                                                            {{ingreso.hemoterapia.cantidad}} ml
+                                                                            <br />
+                                                                            {{ingreso.hemoterapia.descripcion}}
+                                                                        </p>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <h5>Egresos <span class="text-muted small">{{widget.balance.$total_egresos}} ml</span></h5>
+                                                            <div class="row">
+                                                                <div class="col-md-2">
+                                                                    <p ng-if="widget.balance.egresos.lavadoVesicalI">
+                                                                        Lavado vesical:
+                                                                        <b>
+                                                                            {{widget.balance.egresos.lavadoVesicalI}} ml
+                                                                        </b>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-md-2">
+                                                                    <p ng-if="widget.balance.egresos.diuresis">
+                                                                        Diuresis:
+                                                                        <b>
+                                                                            {{widget.balance.egresos.diuresis}} ml
+                                                                        </b>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-md-2">
+                                                                    <p ng-if="widget.balance.egresos.catarsis">
+                                                                        Catarsis:
+                                                                        <b>
+                                                                            {{widget.balance.egresos.catarsis}} ml
+                                                                        </b>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-md-2">
+                                                                    <p ng-if="widget.balance.egresos.sng">
+                                                                        SNG:
+                                                                        <b>
+                                                                            {{widget.balance.egresos.sng}} ml
+                                                                        </b>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-md-2">
+                                                                    <p ng-if="widget.balance.egresos.sny">
+                                                                        SNY:
+                                                                        <b>
+                                                                            {{widget.balance.egresos.sny}} ml
+                                                                        </b>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-md-2">
+                                                                    <p ng-if="widget.balance.egresos.ostomias">
+                                                                        Ostomías:
+                                                                        <b>
+                                                                            {{widget.balance.egresos.ostomias}} ml
+                                                                        </b>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-md-2">
+                                                                    <p ng-if="widget.balance.egresos.ostomias2">
+                                                                        Ostomías 2:
+                                                                        <b>
+                                                                            {{widget.balance.egresos.ostomias2}} ml
+                                                                        </b>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-md-2">
+                                                                    <p ng-if="widget.balance.egresos.residuoGastrico">
+                                                                        Residuo gástrico:
+                                                                        <b>
+                                                                            {{widget.balance.egresos.residuoGastrico}} ml
+                                                                        </b>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-md-2">
+                                                                    <p ng-if="widget.balance.egresos.secrecionesApiradas">
+                                                                        Secreciones aspiradas:
+                                                                        <b>
+                                                                            {{widget.balance.egresos.secrecionesApiradas}} ml
+                                                                        </b>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-md-2">
+                                                                    <p ng-repeat="drenaje in widget.balance.egresos.drenajes track by $index">
+                                                                        <div ng-show="drenajes[$index].cantidad">
+                                                                            {{drenaje.tipo}}, lado
+                                                                            {{drenaje.lado}}
+                                                                            {{drenajes[$index].cantidad}}
+                                                                            ml ({{drenajes[$index].caracteristicaLiquido}})
+                                                                        </div>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <h5>Total balance
+                                                                <span class="text-muted small">
+                                                                    {{widget.balance.$balance}} ml
+                                                                    <i class="verde mdi mdi-trending-up" ng-if="widget.balance.$balance < 0"></i>
+                                                                    <i class="celeste mdi mdi-trending-flat" ng-if="widget.balance.$balance == 0"></i>
+                                                                    <i class="rojo mdi mdi-trending-down" ng-if="widget.balance.$balance > 0"></i>
+                                                                </span>
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="content-widget" ng-if="widget.dolorValoracion">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <b class="text-uppercase">Ansiolíticos previos</b>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <span ng-if="widget.dolorValoracion.ansioliticosAutomedicacion">Automedicación</span>
+                                                            <span ng-if="!widget.dolorValoracion.ansioliticosAutomedicacion">Indicada por médico</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <b class="text-uppercase">Intensidad</b>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <span ng-if="widget.dolorValoracion.intensidad == 0">Sin dolor</span>
+                                                            <span ng-if="widget.dolorValoracion.intensidad == 10">Máximo dolor</span>
+                                                            <span ng-if="widget.dolorValoracion.intensidad > 0 && widget.dolorValoracion.intensidad < 10">{{widget.dolorValoracion.intensidad}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <b class="text-uppercase">Características del dolor</b>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <span ng-if="widget.dolorValoracion.punzante">
+                                                                Punzante
+                                                                <br />
+                                                            </span>
+
+                                                            <span ng-if="widget.dolorValoracion.tipoColico">
+                                                                Tipo cólico
+                                                                <br />
+                                                            </span>
+
+                                                            <span ng-if="widget.dolorValoracion.pesadez">
+                                                                Pesadez<br />
+                                                            </span>
+
+                                                            <span ng-if="widget.dolorValoracion.pulsante">
+                                                                Pulsante
+                                                                <br />
+                                                            </span>
+
+                                                            <span ng-if="widget.dolorValoracion.hormigueo">
+                                                                Hormigueo
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" ng-show="widget.dolorValoracion.descripcion
+                                                        || widget.dolorValoracion.dolorLocalizacion
+                                                        || widget.dolorValoracion.observacionesDolor">
+                                                        <div class="col-md-6">
+                                                            <b class="text-uppercase">Observaciones</b>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div ng-if="widget.dolorValoracion.descripcion">
+                                                                <b class="text-uppercase">Descripcion:</b>
+                                                                {{widget.dolorValoracion.descripcion}}
+                                                                <br />
+                                                            </div>
+                                                            <div ng-if="widget.dolorValoracion.dolorLocalizacion">
+                                                                <b class="text-uppercase">Localización dolor:</b>
+                                                                {{widget.dolorValoracion.dolorLocalizacion}}
+                                                                <br />
+                                                            </div>
+                                                            <div ng-if="widget.dolorValoracion.observacionesDolor">
+                                                                <b class="text-uppercase">Observaciones:</b>
+                                                                {{widget.dolorValoracion.observacionesDolor}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="content-widget" ng-if="widget.problemas">
+                                                    <table class="table table-hover table-striped" ng-if="widget.problemas.activos">
+                                                        <thead >
+                                                            <tr>
+                                                                <th>
+                                                                    Activos
+                                                                </th>
+                                                                <th >
+                                                                    Problema
+                                                                </th>
+                                                                <th >
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr data-ng-repeat="item in widget.problemas.activos | orderBy: '-fechaDesde'">
+                                                                <td >
+                                                                    {{item.fechaDesde | fromNow }}<br/>
+                                                                    <div class="text-muted small">
+                                                                        {{item.fechaDesde | date: "dd/MM/yyyy HH:mm"}}
+                                                                    </div>
+                                                                </td>
+                                                                <td >
+                                                                    <span ng-if="item.diagnostico.nombre">
+                                                                        {{item.diagnostico.nombre}}
+                                                                    </span>
+                                                                    <span ng-if="!item.diagnostico.nombre">
+                                                                        {{item.diagnosticoTexto}}
+                                                                    </span>
+
+                                                                    <br />
+                                                                    {{item.descripcion}}
+                                                                </td>
+                                                                <td >
+                                                                    <span class="label label-warning" ng-if="item.esCronico">Crónico</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table table-hover table-striped" ng-if="widget.problemas.inactivos">
+                                                        <thead >
+                                                            <tr>
+                                                                <th>
+                                                                    Inactivos
+                                                                </th>
+                                                                <th >
+                                                                    Problema
+                                                                </th>
+                                                                <th >
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr data-ng-repeat="item in widget.problemas.inactivos | orderBy: '-fechaDesde'">
+                                                                <td >
+                                                                    {{item.fechaDesde | fromNow }}<br/>
+                                                                    <div class="text-muted small">
+                                                                        {{item.fechaDesde | date: "dd/MM/yyyy HH:mm"}}
+                                                                    </div>
+                                                                </td>
+                                                                <td >
+                                                                    <span ng-if="item.diagnostico.nombre">
+                                                                        {{item.diagnostico.nombre}}
+                                                                    </span>
+                                                                    <span ng-if="!item.diagnostico.nombre">
+                                                                        {{item.diagnosticoTexto}}
+                                                                    </span>
+
+                                                                    <br />
+                                                                    {{item.descripcion}}
+                                                                </td>
+                                                                <td >
+                                                                    <span class="label label-warning" ng-if="item.esCronico">Crónico</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+
                         </div>
                     </div>
-                </div>
-            </fieldset>
-        </ng-form>
+                </fieldset>
+            </ng-form>
+
+        </div>
 
     </div>
-
-</div>
-<!-- TODO ocultar tab ingresos liquidos si es medico
-ng-if='Session.variables.prestaciones_workflow == "enfermero"'
--->
-<!-- TODO ocultar tab egresos liquidos si es medico
-ng-if='Session.variables.prestaciones_workflow == "enfermero"'
--->

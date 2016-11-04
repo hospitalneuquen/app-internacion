@@ -27,47 +27,56 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
         tipoCamas: [],
         sectores: [],
         camas: null,
-        actions: [{
-            text: 'Internación',
-            handler: function(scope) {
-                $scope.editarIngresoInternacion(scope.cama.id, scope.cama.idInternacion);
-            }
-        }, {
-            text: 'Evoluciones',
-            handler: function(scope) {
-                $scope.evolucionarPaciente(scope.cama);
-            }
-        }, {
+        estadoServicio: null,
+        actions: [
+        // {
+        //     text: 'Internación',
+        //     handler: function(scope) {
+        //         $scope.editarIngresoInternacion(scope.cama.id, scope.cama.idInternacion);
+        //     }
+        // },
+        // {
+        //     text: 'Evoluciones',
+        //     handler: function(scope) {
+        //         $scope.evolucionarPaciente(scope.cama);
+        //     }
+        // },
+        {
             text: 'Valoración inicial enfermería',
             handler: function(scope) {
                 $scope.verValoracionInicial(scope.cama.idInternacion);
             }
-        }, {
+        },
+        {
             text: 'Valoración inicial médica',
             handler: function(scope) {
                     $scope.verValoracionMedica(scope.cama.idInternacion);
                 }
-                // }, {
-                //     text: 'Solicitar prestaciones',
-                //     handler: function(scope) {
-                //         $scope.solicitarPrestaciones(scope.cama.idInternacion);
-                //     }
-        }, {
-            text: 'Lista de problemas',
-            handler: function(scope) {
-                $scope.listaDeProblemas(scope.cama.idInternacion);
-            }
-        }, {
-            text: 'Indicaciones',
-            handler: function(scope) {
-                $scope.verIndicaciones(scope.cama.idInternacion);
-            }
-        }, {
+        },
+        // {
+        //     text: 'Lista de problemas',
+        //     handler: function(scope) {
+        //         $scope.listaDeProblemas(scope.cama.idInternacion);
+        //     }
+        // },
+        // {
+        //     text: 'Indicaciones',
+        //     handler: function(scope) {
+        //         $scope.verIndicaciones(scope.cama.idInternacion);
+        //     }
+        // },
+        {
             text: 'Desocupar cama',
             handler: function(scope) {
                 $scope.egresarPaciente(scope.cama);
             }
-        }],
+        }
+        // }, {
+        //     text: 'Solicitar prestaciones',
+        //     handler: function(scope) {
+        //         $scope.solicitarPrestaciones(scope.cama.idInternacion);
+        //     }
+        ],
         filter: {
             camas: null,
             habitacion: null,
@@ -327,8 +336,11 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                             if (internacion) {
                                 cama.$internacion = internacion;
                                 if (internacion.evoluciones) {
-                                    cama.$news = Indicadores.getNews(cama.$internacion.evoluciones);
+                                    cama.$news = Indicadores.getNews(cama.$internacion);
                                 }
+
+                                // agregamos indicadores
+                                cama.indicadores = $scope.agregarIndicadores(internacion);
                             }
                         });
                     }
@@ -370,6 +382,73 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
                 }
             });
 
+            // $scope.estadoServicio = Shared.Mapa.getEstadoServicio(Session.variables.servicioActual.id);
+            // console.log($scope.estadoServicio);
+            Shared.Mapa.getEstadoServicio(Session.variables.servicioActual.id).then(function(data) {
+                $scope.estadoServicio = data;
+                console.log(data);
+            });
+        },
+        agregarIndicadores: function(internacion){
+            var indicadores  = [];
+            var balanceTotalLiquidos = {
+                ingresos: 0,
+                egresos: 0,
+                total: 0
+            };
+
+            var riesgoCaidas = Indicadores.hayRiesgoCaidas(internacion);
+            if (riesgoCaidas){
+                indicadores.riesgoCaidas = riesgoCaidas;
+            }
+
+            var valoracionDolor = Indicadores.hayValoracionDolor(internacion);
+            if (valoracionDolor){
+                indicadores.valoracionDolor = valoracionDolor;
+            }
+
+            var fiebre = Indicadores.hayFiebre(internacion);
+            if (fiebre){
+                indicadores.fiebre = fiebre;
+            }
+
+            var glasgow = Indicadores.hayGlasgow(internacion);
+            if (glasgow){
+                indicadores.glasgow = glasgow;
+            }
+
+            var flebitis = Indicadores.hayFlebitis(internacion);
+            if (flebitis){
+                indicadores.flebitis = flebitis;
+            }
+
+            var upp = Indicadores.hayUlcerasPorPresion(internacion);
+            if (upp){
+                indicadores.upp = upp;
+            }
+
+            // $scope.balanceTotalLiquidos = Indicadores.calcularBalanceLiquidos(evoluciones, moment());
+            balanceTotalLiquidos = Indicadores.calcularBalanceLiquidos(internacion);
+            if (balanceTotalLiquidos){
+                indicadores.balanceTotalLiquidos = balanceTotalLiquidos;
+            }
+
+            var aislamiento = Indicadores.hayAislamiento(aislamiento);
+            if (aislamiento){
+                indicadores.aislamiento = aislamiento;
+            }
+
+            var news = Indicadores.getNews(internacion);
+            if (news){
+                indicadores.news = news;
+            }
+
+            return indicadores;
+        },
+        verEvolucion:function(idEvolucion){
+            Plex.openView('internacion/verEvolucion/' + $scope.internacion.id + "/" + idEvolucion).then(function() {
+
+            });
         }
     });
 

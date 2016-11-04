@@ -1,8 +1,10 @@
 <div class="row">
     <div class="col-md-8">
-        <h4>
-            {{indicacion.tipo}}
-            <span ng-if="indicacion.tipo == 'Controles'">
+        <h4 ng-if="indicacion.tipoIndicacion">
+            {{indicacion.tipoIndicacion.tipoIndicacion.nombre}}
+            /
+            {{indicacion.tipoIndicacion.nombre}}
+            <!-- <span ng-if="indicacion.tipo == 'Controles'">
                 / {{indicacion.controles.tipo}}
             </span>
             <span ng-if="evolucion.tipo == 'enfermero'">
@@ -10,7 +12,10 @@
             </span>
             <span ng-if="evolucion.tipo == 'medico'">
                 Evolución médica
-            </span>
+            </span> -->
+        </h4>
+        <h4 ng-if="evolucion.tipo == 'Servicio'">
+            Evolución del servicio {{evolucion.servicio.nombreCorto}}
         </h4>
         <span class="text-muted small">
             {{evolucion.fechaHora | fromNow}}
@@ -160,10 +165,16 @@
                     <div class="col-md-2" ng-if="ingreso.medicamentos">
                         <p ng-if="ingreso.medicamentos.cantidad">
                             Medicamentos:
+                            <br />
                             <b>
-                                {{ingreso.medicamentos.cantidad}}: {{ingreso.medicamentos.cantidad}} ml
+                                {{ingreso.medicamentos.descripcion}}: {{ingreso.medicamentos.cantidad}} ml
                             </b>
+                            <span ng-if="ingreso.medicamentos.observaciones">
+                                <br />
+                                Observaciones: {{ingreso.medicamentos.observaciones}}
+                            </span>
                         </p>
+
                     </div>
                     <div class="col-md-2" ng-if="ingreso.nutricion">
                         Nutrición:
@@ -581,7 +592,9 @@
     <span ng-if="!evolucion.otraIndicacion.realizado">No</span>
 </div>
 
-<div ng-if="evolucion.tipo == 'enfermero' || evolucion.tipo == 'medico'">
+<div ng-if="evolucion.tipo == 'Servicio'">
+    <!-- <b>Evolución del servicio {{evolucion.servicio.nombreCorto}}</b>
+    <br /> -->
     Texto de la evolución:
     <div ng-bind-html="evolucion.texto"></div>
 </div>
