@@ -5,6 +5,15 @@
 .navbar-inverse{background-color: #212121;}
 .navbar-inverse .navbar-brand {color: #8f8f8f; }
 
+.navbar-brand { padding: 15px 15px; line-height: 30px;}
+.navbar-text { }
+.navbar-session{ margin-top: 17px; margin-bottom: 17px;}
+.navbar-session .actions{ margin-left: 5px;}
+.navbar-session img {}
+.navbar-session p { margin: -5px 0 0 5px;}
+.navbar-session p span{ display: block;}
+.navbar-session p .rol{ margin-top: -10px; display: block; text-transform: capitalize; font-size: 12px;}
+
 /* quitamos estilo de boton y los dejamos como link*/
 button.link{
     background: none!important;
@@ -364,12 +373,13 @@ table.highlight td.exclude:hover::after{
     margin-bottom: 15px;
 }
 .mini-box-content{
-    padding: 5px 10px;
+    padding: 5px;
 }
 .mini-box-text{
     text-transform: uppercase;
     text-align: center;
-    display: block
+    display: block;
+    font-weight: bold;
 }
 .mini-box-number{
     display: block;
