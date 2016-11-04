@@ -1,2 +1,17 @@
 .header-paciente{}
 .header-paciente h4{ margin: 0;}
+
+.header-paciente .habitacion-icono{ text-align: center; padding-left: 0; padding-right: 0;}
+.header-paciente .habitacion-icono .icono-persona{ font-size: 36px;}
+
+.header-paciente .numero-habitacion {
+    margin-top: 5px;
+    padding: 8px 15px;
+    font-size: 15px;
+}
+
+.header-paciente .indicadores span{
+    display: inline-block;
+    min-width: 49%;
+    padding: 4px 0px;
+}

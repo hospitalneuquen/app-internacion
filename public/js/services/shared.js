@@ -5,7 +5,7 @@
  * @description
  * Servicio que engloba constantes y métodos compartidos en toda la aplicación
  **/
-angular.module('app').factory('Shared', ["Global", "Server", "Session", function(Global, Server, Session) {
+angular.module('app').factory('Shared', ["Global", "Server", "Session", "$timeout", function(Global, Server, Session, $timeout) {
     'use strict';
 
     var self = {
@@ -29,6 +29,46 @@ angular.module('app').factory('Shared', ["Global", "Server", "Session", function
                 // para traer las camas, si es 'medica'  o 'quirurgica'
                 return Server.get("/api/internacion/mapa/" + query, {
                     updateUI: 'big'
+                });
+            },
+            getEstadoServicio: function(query){
+
+                return self.Mapa.get(query).then(function(data){
+                    var ocupadas = data.filter(function(i){
+                        return (i.estado == 'ocupada')
+                    });
+
+                    // ocupacion
+                    var bloqueadas = data.filter(function(i){
+                        return (i.estado == 'bloqueada')
+                    });
+
+                    var descontaminacion = data.filter(function(i){
+                        return (i.estado == 'desocupada' && !i.desinfectada)
+                    });
+
+                    var reparacion = data.filter(function(i){
+                        return (i.estado == 'reparacion')
+                    });
+
+                    // disponibles
+                    var desocupadas = data.filter(function(i){
+                        return (i.estado == 'desocupada')
+                    });
+
+                    var desocupadasOxigeno = data.filter(function(i){
+                        return (i.estado == 'desocupada' && i.oxigeno)
+                    });
+
+                    return {
+                        'total' : data.length,
+                        'ocupadas' : ocupadas.length,
+                        'desocupadas' : desocupadas.length,
+                        'descontaminacion' : descontaminacion.length,
+                        'reparacion' : reparacion.length,
+                        'bloqueadas' : bloqueadas.length,
+                        'desocupadasOxigeno' : desocupadasOxigeno.length
+                    };
                 });
             }
         },

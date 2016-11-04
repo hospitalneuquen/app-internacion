@@ -550,4 +550,8 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
     Plex.initView({
         title: "Ver internación"
     });
+
+    $scope.$watch('internacion', function(current, old) {
+        // alert("cambio");
+    });
 }]);

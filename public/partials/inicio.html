@@ -46,25 +46,28 @@
         </h3>
         <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
-                <div class="mini-box">
+                <div class="mini-box border-gris">
                     <div class="mini-box-content">
                         <span class="mini-box-text">Total de camas</span>
                         <span class="mini-box-number">
-                            <a ng-href="javascript:void(0)" title="Ver todas las camas" ng-click="goTo()">
+                            <button class="link" title="Ver todas las camas" ng-click="goTo()">
                                 {{camas.length}}
-                            </a>
+                            </button>
                         </span>
                     </div>
                 </div>
             </div>
 
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
-                <div class="mini-box">
+                <div class="mini-box border-primary">
                     <div class="mini-box-content">
                         <span class="mini-box-text">Ocupación</span>
-                        <a ng-href="javascript:void(0)" title="Ver todas las camas ocupadas" ng-click="goTo('ocupadas')">
-                            <span class="mini-box-number">{{camasOcupadas.length}}</span>
-                        </a>
+
+                        <span class="mini-box-number">
+                            <button class="link"  title="Ver todas las camas ocupadas" ng-click="goTo('ocupadas')">
+                                {{camasOcupadas.length}}
+                            </button>
+                        </span>
                     </div>
                 </div>
 
@@ -77,50 +80,61 @@
             </div>
 
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
-                <div class="mini-box">
+                <div class="mini-box border-danger">
                     <div class="mini-box-content">
                         <span class="mini-box-text">Bloqueadas</span>
-                        <a ng-href="javascript:void(0)" title="Ver todas las camas bloqueadas" ng-click="goTo('bloqueadas')">
-                            <span class="mini-box-number">{{camasBloqueadas.length}}</span>
-                        </a>
+                        <span class="mini-box-number">
+                            <button class="link"  title="Ver todas las camas bloqueadas" ng-click="goTo('bloqueadas')">
+                                {{camasBloqueadas.length}}
+                            </button>
+                        </span>
                     </div>
                 </div>
 
-                <div class="mini-box">
+                <div class="mini-box border-danger">
                     <div class="mini-box-content">
                         <span class="mini-box-text">Reparación</span>
-                        <a ng-href="javascript:void(0)" title="Ver todas las camas en reparación" ng-click="goTo('reparacion')">
-                            <span class="mini-box-number">{{camasReparacion.length}}</span>
-                        </a>
+                        <span class="mini-box-number">
+                            <button class="link"  title="Ver todas las camas en reparación" ng-click="goTo('reparacion')">
+                                {{camasReparacion.length}}
+                            </button>
+                        </span>
                     </div>
                 </div>
 
-                <div class="mini-box">
+                <div class="mini-box border-danger">
                     <div class="mini-box-content">
                         <span class="mini-box-text">Descontaminac.</span>
-                        <a ng-href="javascript:void(0)" title="Ver todas las camas en descontaminación" ng-click="goTo('descontaminacion')">
-                            <span class="mini-box-number">{{camasDescontaminacion.length}}</span>
-                        </a>
+                        <span class="mini-box-number">
+                            <button class="link"  title="Ver todas las camas en descontaminación" ng-click="goTo('descontaminacion')">
+                                {{camasDescontaminacion.length}}
+                            </button>
+                        </span>
                     </div>
                 </div>
             </div>
 
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
-                <div class="mini-box">
+                <div class="mini-box border-success">
                     <div class="mini-box-content">
                         <span class="mini-box-text">Desocupadas</span>
-                        <a ng-href="javascript:void(0)" title="Ver todas las camas desocupadas" ng-click="goTo('desocupadas')">
-                            <span class="mini-box-number">{{camasDesocupadas.length}}</span>
-                        </a>
+                        <span class="mini-box-number">
+                            <button class="link"  title="Ver todas las camas desocupadas" ng-click="goTo('desocupadas')">
+                                {{camasDesocupadas.length}}
+                            </button>
+                        </span>
                     </div>
                 </div>
 
-                <div class="mini-box">
+                <div class="mini-box border-success">
                     <div class="mini-box-content">
                         <span class="mini-box-text">Con oxígeno</span>
-                        <a ng-href="javascript:void(0)" title="Ver todas las camas con oxígeno" ng-click="goTo('oxigeno')">
-                            <span class="mini-box-number">{{camasDesocupadasOxigeno.length}}</span>
-                        </a>
+
+                        <span class="mini-box-number">
+                            <button class="link"  title="Ver todas las camas con oxígeno" ng-click="goTo('oxigeno')">
+                                {{camasDesocupadasOxigeno.length}}
+                            </button>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -168,35 +182,37 @@
                 <h3>
                     Mis pacientes
                 </h3>
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Diagnóstico</th>
-                            <th>Días de internación</th>
-                            <th></th>
-                        </tr>
-                    </thead>
+                <div class="well">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Diagnóstico</th>
+                                <th>Días de internación</th>
+                                <th></th>
+                            </tr>
+                        </thead>
 
-                    <tbody>
-                        <tr ng-repeat="paciente in pacientes">
-                            <td>
-                                {{paciente.nombre}}
-                            </td>
-                            <td>
-                                {{paciente.diagnostico}}
-                            </td>
-                            <td>
-                                {{paciente.dias}}
-                            </td>
-                            <td>
-                                <button class="btn btn-default btn-flat tips" title="Ver internación" ng-click="verInternacion(cama.idInternacion)">
-                                    <i class="mdi mdi-eye "></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                        <tbody>
+                            <tr ng-repeat="paciente in pacientes">
+                                <td>
+                                    {{paciente.nombre}}
+                                </td>
+                                <td>
+                                    {{paciente.diagnostico}}
+                                </td>
+                                <td>
+                                    {{paciente.dias}}
+                                </td>
+                                <td>
+                                    <button class="btn btn-default btn-flat tips" title="Ver internación" ng-click="verInternacion(cama.idInternacion)">
+                                        <i class="mdi mdi-eye "></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 

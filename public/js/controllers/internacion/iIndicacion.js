@@ -1,7 +1,8 @@
-angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', 'Shared', 'Server', 'Session', 'Global', '$filter', function($scope, Plex, Shared, Server, Session, Global, $filter) {
+angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', 'Shared', 'Server', 'Session', 'Global', '$filter', 'TiposIndicaciones', function($scope, Plex, Shared, Server, Session, Global, $filter,TiposIndicaciones) {
     'use strict';
 
     angular.extend($scope, {
+        ////////////////////////////////////// mover a otro lugar //
         graph : {'width': 360, 'height': 470},
         elements : [],
         tools : ['circle','line'],
@@ -38,11 +39,11 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
         },
         delete: function(i, lado){
             // borramos el elemento del dibujo
-            // $scope.elements.splice(i,1);
             $scope.evolucionesEdit.riesgoUPP[lado].splice(i,1);
             // seteamos flag en falso para que no dibuje
             $scope.dibujarUlcera = false;
         },
+        ////////////////////////////////////// FIN mover a otro lugar //
 
         tab: 0,
 
@@ -74,286 +75,257 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
         drenajes: [],
 
-        horarios: ['7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '1', '2', '3', '4', '5', '6'],
-        pasarDurante: [{
-            id: '2',
-            value: '2hs',
-        }, {
-            id: '4',
-            value: '4hs',
-        }, {
-            id: '6',
-            value: '6hs',
-        }, {
-            id: '8',
-            value: '8hs',
-        }, {
-            id: '10',
-            value: '10hs',
-        }, {
-            id: '12',
-            value: '12hs',
-        }, {
-            id: '14',
-            value: '14hs',
-        }, {
-            id: '16',
-            value: '16hs',
-        }, {
-            id: '18',
-            value: '18hs',
-        }, {
-            id: '20',
-            value: '20hs',
-        }, {
-            id: '22',
-            value: '22hs',
-        }, {
-            id: '24',
-            value: '24hs',
-        }],
-
-        tiposIndicaciones: [{
-            id: '',
-            nombre: 'Seleccione indicación'
-        }, {
-            id: 'Plan hidratación parenteral',
-            nombre: 'Plan hidratación parenteral'
-        }, {
-            id: 'Plan hidratación enteral',
-            nombre: 'Plan hidratación enteral'
-        }, {
-            id: 'Plan hidratación oral',
-            nombre: 'Plan hidratación oral'
-        }, {
-            id: 'Antibióticos',
-            nombre: 'Antibióticos'
-        }, {
-            id: 'Heparina o profilaxis',
-            nombre: 'Heparina o profilaxis'
-        }, {
-            id: 'Protección gástrica',
-            nombre: 'Protección gástrica'
-        }, {
-            id: 'Otra medicación',
-            nombre: 'Otra medicación'
-        }, {
-            id: 'Controles',
-            nombre: 'Controles'
-        }, {
-            id: 'Cuidados generales',
-            nombre: 'Cuidados generales'
-        }, {
-            id: 'Cuidados especiales',
-            nombre: 'Cuidados especiales'
-        }, {
-            id: 'Nutrición',
-            nombre: 'Nutrición'
-        },{
-            id: 'Oxigenoterapia',
-            nombre: 'Oxigenoterapia'
-        },
-        //MANU, no está tomando bien el tipo de prestación y da error en el POST (ver línea 225 en adelante de internacion_indicacion.js).
-         {
-            id: 'Solicitud prestaciones',
-            nombre: 'Solicitud prestaciones'
-        },
-        {
-            id: 'Otra indicación',
-            nombre: 'Otra indicación'
-        }],
+        tiposIndicaciones: [],
+        tiposIndicacionesFiltros: [{id: '', nombre: 'Todas'}],
 
         // array de estados para filtrar en la vista
-        estados: [{
-            id: true,
-            nombre: 'Activas'
-        }, {
-            id: false,
-            nombre: 'Suspendidas'
-        }, {
-            id: 'Todas',
-            nombre: 'Todas'
-        }],
-        // array de servicios para filtrar en la vista
-        servicios: [{
-            id: '',
-            nombreCorto: 'Todos'
-        }],
-
+        estados : [],
+        servicios : [],
         tiposControles: [],
-
-        tiposCuidadosGenerales: [{
-            id: 'Rotar decúbito',
-            nombre: 'Rotar decúbito'
-        }, {
-            id: 'Aspirar secreciones',
-            nombre: 'Aspirar secreciones'
-        }, {
-            id: 'Cabecera 45º',
-            nombre: 'Cabecera 45º'
-        }, {
-            id: 'Colchón aire',
-            nombre: 'Colchón aire'
-        }],
-        // tiposSoluciones: [{
-        //     id: 'Solución fisiológica',
-        //     nombre: 'Solución fisiológica'
-        // }, {
-        //     id: 'Dextrosa',
-        //     nombre: 'Dextrosa'
-        // }, {
-        //     id: 'Ringer-Lactato',
-        //     nombre: 'Ringer-Lactato'
-        // }],
-
-        tiposAgregados: [{
-            id: 'Ampollas de electrolitos',
-            nombre: 'Ampollas de electrolitos'
-        }, {
-            id: 'Polivitamínicos',
-            nombre: 'Polivitamínicos'
-        }, {
-            id: 'Calcio',
-            nombre: 'Calcio'
-        }, {
-            id: 'Otro',
-            nombre: 'Otro'
-        }],
-
-        frecuencias: [{
-            id: '48',
-            nombre: 'Cada 2 días'
-        }, {
-            id: '24',
-            nombre: 'Una vez al día'
-        }, {
-            id: '12',
-            nombre: 'Cada 12 hs.'
-        }, {
-            id: '8',
-            nombre: 'Cada 8 hs.'
-        }, {
-            id: '6',
-            nombre: 'Cada 6 hs.'
-        }, {
-            id: '4',
-            nombre: 'Cada 4 hs.'
-        }],
-
-        tipoRespiracion: [{
-            id: 'Mascara',
-            tipo: 'Máscara'
-        }, {
-            id: 'Bigotera',
-            tipo: 'Bigotera'
-        }],
+        tiposAgregados: [],
+        frecuencias: [],
+        tipoRespiracion: [],
         valoresOxigeno: [],
+        tipoNutricionEnteral: [],
 
-        tipoNutricionEnteral: [{
-            id: 'Isocalórico',
-            value: 'Isocalórico',
-            proteinas: 40,
-            kilocalorias: 1000
-        }, {
-            id: 'Isocalórico c/fibra',
-            value: 'Isocalórico c/fibra',
-            proteinas: 40,
-            kilocalorias: 1000
-        }, {
-            id: 'Isocalórico p/diabético',
-            value: 'Isocalórico p/diabético',
-            proteinas: 40,
-            kilocalorias: 1000
-        }, {
-            id: 'Isocalórico respiratorio',
-            value: 'Isocalórico respiratorio',
-            proteinas: 50,
-            kilocalorias: 1000
-        }, {
-            id: 'Crítico',
-            value: 'Crítico',
-            proteinas: 50,
-            kilocalorias: 1000
-        }, {
-            id: 'Crítico c/fibra',
-            value: 'Crítico c/fibra',
-            proteinas: 50,
-            kilocalorias: 1000
-        }, {
-            id: 'Crítico p/diabético',
-            value: 'Isocalórico p/diabético',
-            proteinas: 50,
-            kilocalorias: 1000
-        }, {
-            id: 'Crítico plus',
-            value: 'Crítico plus',
-            proteinas: 75,
-            kilocalorias: 1500
-        }, {
-            id: '150/1 Yeyuno',
-            value: '150/1 Yeyuno',
-            proteinas: 37,
-            kilocalorias: 1000
-        }, {
-            id: '110/1 Yeyuno',
-            value: '110/1 Yeyuno',
-            proteinas: 45,
-            kilocalorias: 1000
-        }, {
-            id: 'Crítico yeyuno',
-            value: 'Crítico yeyuno',
-            proteinas: 60,
-            kilocalorias: 1000
-        }, {
-            id: 'Hipercalórico',
-            value: 'Hipercalórico',
-            proteinas: 55,
-            kilocalorias: 1500
-        }, {
-            id: 'Alitraq',
-            value: 'Alitraq',
-            proteinas: 15.8,
-            kilocalorias: 302
-        }],
+        inicializarArrays: function(){
+            // obtenemos las camas para armar el mapa
+            TiposIndicaciones.get().then(function(data) {
+                $scope.tiposIndicaciones = data;
+            });
 
-        tipoSoporteOral: [{
-            id: 'Isocalórico',
-            value: 'Isocalórico',
-            proteinas: 13,
-            kilocalorias: 250
-        }, {
-            id: 'Hipercalórico',
-            value: 'Hipercalórico',
-            proteinas: 13,
-            kilocalorias: 300
-        }, {
-            id: 'Hipercalórico p/renales',
-            value: 'Hipercalórico p/renales',
-            proteinas: 10,
-            kilocalorias: 300
-        }, {
-            id: 'Hipercalórico c/fibra',
-            value: 'Hipercalórico c/fibra',
-            proteinas: 13,
-            kilocalorias: 200
-        }, {
-            id: 'P/diabético',
-            value: 'P/diabético',
-            proteinas: 10,
-            kilocalorias: 200
-        }, {
-            id: 'Hipercalórico e heperproteico',
-            value: 'Hipercalórico e heperproteico',
-            proteinas: 20,
-            kilocalorias: 400
-        }, {
-            id: 'Hipograso',
-            value: 'Hipograso',
-            proteinas: 15,
-            kilocalorias: 300
-        }],
+            TiposIndicaciones.getPadres().then(function(data) {
+                // $scope.tiposIndicacionesPadre = data;
+                $scope.tiposIndicacionesPadre = data;
+                $scope.tiposIndicacionesFiltros = $scope.tiposIndicacionesFiltros.concat(data);
 
-        //
+                TiposIndicaciones.getHijas().then(function(data) {
+                    $scope.tiposIndicacionesHijas = data;
+
+                    angular.forEach($scope.tiposIndicacionesPadre, function(tipo){
+                        tipo.hijas = $scope.tiposIndicacionesHijas.filter(function(hija) {
+                            return (
+                                (hija.tipoIndicacion == tipo.id)
+                            )
+                        });
+                    });
+
+                });
+            });
+
+            // // buscamos los tipos de indicaciones disponibles
+            // Server.get("/api/internacion/internacion/indicacion/tipos/controles.tipo").then(function(tiposControles) {
+            //     angular.forEach(tiposControles, function(indicacion) {
+            //         $scope.tiposControles.push({
+            //             id: indicacion,
+            //             nombre: indicacion
+            //         });
+            //     });
+            // });
+
+            $scope.estados = [{
+                id: true,
+                nombre: 'Activas'
+            }, {
+                id: false,
+                nombre: 'Suspendidas'
+            }, {
+                id: 'Todas',
+                nombre: 'Todas'
+            }];
+            // array de servicios para filtrar en la vista
+            $scope.servicios = [{
+                id: '',
+                nombreCorto: 'Todos'
+            }];
+            $scope.tiposAgregados = [{
+                id: 'Ampollas de electrolitos',
+                nombre: 'Ampollas de electrolitos'
+            }, {
+                id: 'Polivitamínicos',
+                nombre: 'Polivitamínicos'
+            }, {
+                id: 'Calcio',
+                nombre: 'Calcio'
+            }, {
+                id: 'Otro',
+                nombre: 'Otro'
+            }];
+
+            $scope.frecuencias = [{
+                id: '48',
+                nombre: 'Cada 2 días'
+            }, {
+                id: '24',
+                nombre: 'Una vez al día'
+            }, {
+                id: '12',
+                nombre: 'Cada 12 hs.'
+            }, {
+                id: '8',
+                nombre: 'Cada 8 hs.'
+            }, {
+                id: '6',
+                nombre: 'Cada 6 hs.'
+            }, {
+                id: '4',
+                nombre: 'Cada 4 hs.'
+            }];
+
+            $scope.tipoRespiracion = [{
+                id: 'Mascara',
+                tipo: 'Máscara'
+            }, {
+                id: 'Bigotera',
+                tipo: 'Bigotera'
+            }],
+            //$scope.valoresOxigeno = [];
+
+            $scope.tipoNutricionEnteral = [{
+                id: 'Isocalórico',
+                value: 'Isocalórico',
+                proteinas: 40,
+                kilocalorias: 1000
+            }, {
+                id: 'Isocalórico c/fibra',
+                value: 'Isocalórico c/fibra',
+                proteinas: 40,
+                kilocalorias: 1000
+            }, {
+                id: 'Isocalórico p/diabético',
+                value: 'Isocalórico p/diabético',
+                proteinas: 40,
+                kilocalorias: 1000
+            }, {
+                id: 'Isocalórico respiratorio',
+                value: 'Isocalórico respiratorio',
+                proteinas: 50,
+                kilocalorias: 1000
+            }, {
+                id: 'Crítico',
+                value: 'Crítico',
+                proteinas: 50,
+                kilocalorias: 1000
+            }, {
+                id: 'Crítico c/fibra',
+                value: 'Crítico c/fibra',
+                proteinas: 50,
+                kilocalorias: 1000
+            }, {
+                id: 'Crítico p/diabético',
+                value: 'Isocalórico p/diabético',
+                proteinas: 50,
+                kilocalorias: 1000
+            }, {
+                id: 'Crítico plus',
+                value: 'Crítico plus',
+                proteinas: 75,
+                kilocalorias: 1500
+            }, {
+                id: '150/1 Yeyuno',
+                value: '150/1 Yeyuno',
+                proteinas: 37,
+                kilocalorias: 1000
+            }, {
+                id: '110/1 Yeyuno',
+                value: '110/1 Yeyuno',
+                proteinas: 45,
+                kilocalorias: 1000
+            }, {
+                id: 'Crítico yeyuno',
+                value: 'Crítico yeyuno',
+                proteinas: 60,
+                kilocalorias: 1000
+            }, {
+                id: 'Hipercalórico',
+                value: 'Hipercalórico',
+                proteinas: 55,
+                kilocalorias: 1500
+            }, {
+                id: 'Alitraq',
+                value: 'Alitraq',
+                proteinas: 15.8,
+                kilocalorias: 302
+            }];
+
+            $scope.tipoSoporteOral = [{
+                id: 'Isocalórico',
+                value: 'Isocalórico',
+                proteinas: 13,
+                kilocalorias: 250
+            }, {
+                id: 'Hipercalórico',
+                value: 'Hipercalórico',
+                proteinas: 13,
+                kilocalorias: 300
+            }, {
+                id: 'Hipercalórico p/renales',
+                value: 'Hipercalórico p/renales',
+                proteinas: 10,
+                kilocalorias: 300
+            }, {
+                id: 'Hipercalórico c/fibra',
+                value: 'Hipercalórico c/fibra',
+                proteinas: 13,
+                kilocalorias: 200
+            }, {
+                id: 'P/diabético',
+                value: 'P/diabético',
+                proteinas: 10,
+                kilocalorias: 200
+            }, {
+                id: 'Hipercalórico e heperproteico',
+                value: 'Hipercalórico e heperproteico',
+                proteinas: 20,
+                kilocalorias: 400
+            }, {
+                id: 'Hipograso',
+                value: 'Hipograso',
+                proteinas: 15,
+                kilocalorias: 300
+            }];
+
+            $scope.horarios = ['7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '1', '2', '3', '4', '5', '6'];
+            $scope.pasarDurante = [{
+                id: '2',
+                value: '2hs',
+            }, {
+                id: '4',
+                value: '4hs',
+            }, {
+                id: '6',
+                value: '6hs',
+            }, {
+                id: '8',
+                value: '8hs',
+            }, {
+                id: '10',
+                value: '10hs',
+            }, {
+                id: '12',
+                value: '12hs',
+            }, {
+                id: '14',
+                value: '14hs',
+            }, {
+                id: '16',
+                value: '16hs',
+            }, {
+                id: '18',
+                value: '18hs',
+            }, {
+                id: '20',
+                value: '20hs',
+            }, {
+                id: '22',
+                value: '22hs',
+            }, {
+                id: '24',
+                value: '24hs',
+            }];
+        },
+
+        // valores para los calculos de informacion nutricional
         informacionNutricionalProteinas: 0,
         informacionNutricionalKcal: 0,
         informacionNutricionalSoporteProteinas: 0,
@@ -367,7 +339,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
         filtros: {
             indicaciones: [],
             servicio: null,
-            tipoIndicacion: null,
+            tipoIndicacion: [],
             activo: true,
             estado: null,
             servicio: null,
@@ -381,44 +353,47 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 }
 
                 if (!self.tipoIndicacion) {
-                    self.tipoIndicacion = $scope.tiposIndicaciones[0];
+                    self.tipoIndicacion = $scope.tiposIndicacionesPadre[0];
                 }
 
                 if (!self.servicio) {
                     self.servicio = $scope.servicios[0];
                 }
 
-                self.indicaciones = $scope.internacion.indicaciones.filter(function(indicacion) {
-                    return (
-                        (self.estado.id == 'Todas' || (indicacion.activo === self.estado.id)) &&
-                        (!self.servicio.id || (self.servicio && indicacion.servicio && indicacion.servicio.id == self.servicio.id)) &&
-                        (!self.tipoIndicacion.id || (self.tipoIndicacion && indicacion.tipo && indicacion.tipo == self.tipoIndicacion.id))
-                    )
-                });
+                if ($scope.internacion.indicaciones.length > 0){
 
-                // recorremos todas las indicaciones para ejecutar acciones en comun
-                angular.forEach(self.indicaciones, function(indicacion) {
-                    // sumamos el total de los frascos
-                    if (indicacion.tipo == 'Plan hidratación parenteral') {
-                        indicacion.planHidratacion.$frascos = 0;
+                    self.indicaciones = $scope.internacion.indicaciones.filter(function(indicacion) {
+                        return (
+                            (self.estado.id == 'Todas' || (indicacion.activo === self.estado.id)) &&
+                            (!self.servicio.id || (self.servicio && indicacion.servicio && indicacion.servicio.id == self.servicio.id)) &&
+                            (!self.tipoIndicacion.id || (self.tipoIndicacion.id == indicacion.tipoIndicacion.tipoIndicacion.id))
+                        )
+                    });
 
-                        // sumamos los frascos de solucion fisiologica
-                        if (typeof indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos != "undefined") {
-                            indicacion.planHidratacion.$frascos += indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos.length;
-                        }
-                        // sumamos los frascos de ringer-lactato
-                        if (typeof indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos != "undefined") {
-                            indicacion.planHidratacion.$frascos += indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos.length;
-                        }
-                        // sumamos los frascos de dextrosa
-                        if (typeof indicacion.planHidratacion.enteralParenteral.dextrosa.frascos != "undefined") {
-                            indicacion.planHidratacion.$frascos += indicacion.planHidratacion.enteralParenteral.dextrosa.frascos.length;
-                        }
-                    }
-                });
+                    // recorremos todas las indicaciones para ejecutar acciones en comun
+                    angular.forEach(self.indicaciones, function(indicacion) {
+                        // sumamos el total de los frascos
+                        if (indicacion.tipoIndicacion.nombre == 'Plan de hidratación parenteral') {
+                            indicacion.planHidratacion.$frascos = 0;
 
-                // ordenamos
-                $scope.indicaciones.ordenar();
+                            // sumamos los frascos de solucion fisiologica
+                            if (typeof indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos != "undefined") {
+                                indicacion.planHidratacion.$frascos += indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos.length;
+                            }
+                            // sumamos los frascos de ringer-lactato
+                            if (typeof indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos != "undefined") {
+                                indicacion.planHidratacion.$frascos += indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos.length;
+                            }
+                            // sumamos los frascos de dextrosa
+                            if (typeof indicacion.planHidratacion.enteralParenteral.dextrosa.frascos != "undefined") {
+                                indicacion.planHidratacion.$frascos += indicacion.planHidratacion.enteralParenteral.dextrosa.frascos.length;
+                            }
+                        }
+                    });
+
+                    // ordenamos
+                    $scope.indicaciones.ordenar();
+                }
             },
 
         },
@@ -428,6 +403,9 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
             if (internacion !== null) {
                 // asignamos la internacion
                 $scope.internacion = internacion;
+
+                // inicializamos arrays para filtros y opciones
+                $scope.inicializarArrays();
 
                 // asignamos las indicaciones
                 $scope.filtros.indicaciones = $scope.internacion.indicaciones;
@@ -458,25 +436,11 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                         }
                     });
                 }
-                // $scope.show_comenzar_tratamiento = ($scope.internacion.indicaciones.length) ? true : false;
-
-                // cargamos los valores permitidos para los tipos de controles
-                if ($scope.tiposControles.length == 0) {
-                    $scope.tiposControles = [];
-                    // buscamos los tipos de indicaciones disponibles
-                    Server.get("/api/internacion/internacion/indicacion/tipos/controles.tipo").then(function(tiposControles) {
-                        angular.forEach(tiposControles, function(indicacion) {
-                            $scope.tiposControles.push({
-                                id: indicacion,
-                                nombre: indicacion
-                            });
-                        });
-                    });
-                }
 
             }
-        },
 
+
+        },
         // table: {
         //     selected: [],
         //     updateSelected: function(action, id) {
@@ -548,7 +512,6 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
             hayQueRenovar: function(indicacion){
 
-
             },
             // setTipo: function(){
             //     var tipo = $scope.indicacion.$tipo.id;
@@ -582,15 +545,8 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     $scope.accion = "agregar";
 
                     $scope.indicacion.fecha = new Date();
-                    $scope.indicacion.servicio = Session.variables.servicioActual;
-                    // $scope.indicacion.via = 'EV';
-
-                    // valores por defecto
-                    // if ($scope.indicacion.tipo.nombre == 'Nutrición'){
-                    //
-                    // }
+                    $scope.indicacion.servicio = Session.variables.servicioActual.id;
                 }
-
             },
             // duplicamos la informacion de la indicacion para poder
             // crear una nueva
@@ -608,6 +564,12 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     // limpiamos los ids
                     $scope.indicacion.id = null;
                     $scope.indicacion._id = null;
+                    // delete $scope.indicacion[id];
+                    // delete $scope.indicacion[_id];
+                    // $scope.indicacion.id = undefined;
+                    // $scope.indicacion._id = undefined;
+                    // delete $scope.indicacion.id;
+                    // delete $scope.indicacion._id;
 
                     // como estamos copiando de un elemento existente
                     // tambien nos viene los datos de auditoria
@@ -618,26 +580,32 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     $scope.indicacion.updatedBy = null;
 
                     // seteamos el servicio actual
-                    $scope.indicacion.servicio = Session.variables.servicioActual
+                    $scope.indicacion.servicio = Session.variables.servicioActual.id;
                 }
 
-                //
-                $scope.indicacion.tipo = Global.getById($scope.tiposIndicaciones, indicacion.tipo);
+                // tipo indicacion padre
+                $scope.indicacion.tipo = indicacion.tipoIndicacion.tipoIndicacion;
 
                 // cargamos el valor de tipo de solucion en caso de ser un plan de hidratacion
-                if ($scope.indicacion.tipo == 'Plan hidratación parenteral' || $scope.indicacion.tipo.nombre == 'Plan hidratación parenteral') {
+                if ($scope.indicacion.tipoIndicacion.nombre == 'Plan de hidratación parenteral') {
 
                     if ($scope.indicacion.planHidratacion.enteralParenteral.agregados.length) {
                         $scope.indicacion.planHidratacion.enteralParenteral.poseeAgregados = true;
+
+                        angular.forEach($scope.indicacion.planHidratacion.enteralParenteral.agregados, function(agregado){
+                            // agregado.tipoAgregado = Global.getById($scope.tiposAgregados, agregado.$tipoAgregado.id);
+                            agregado.$tipoAgregado = Global.getById($scope.$tiposAgregados, agregado.tipoAgregado);
+                        });
+
                     }
 
                     // agregamos los frascos de solucion fisiologica
                     if (typeof $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos != "undefined") {
                         var frascos = $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos;
-                        $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos = [];
+                        $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.$frascos = [];
                         // asignamos los frascos
                         angular.forEach(frascos, function(frasco) {
-                            $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos.push({
+                            $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.$frascos.push({
                                 id: frasco,
                                 value: frasco
                             });
@@ -647,10 +615,10 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     // agregamos los frascos de ringer-lactato
                     if (typeof indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos != "undefined") {
                         var frascos = $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos;
-                        $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos = [];
+                        $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.$frascos = [];
                         // asignamos los frascos
                         angular.forEach(frascos, function(frasco) {
-                            $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos.push({
+                            $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.$frascos.push({
                                 id: frasco,
                                 value: frasco
                             });
@@ -660,10 +628,10 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     // agregamos los frascos de dextrosa
                     if (typeof indicacion.planHidratacion.enteralParenteral.dextrosa.frascos != "undefined") {
                         var frascos = $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.frascos;
-                        $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.frascos = [];
+                        $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.$frascos = [];
                         // asignamos los frascos
                         angular.forEach(frascos, function(frasco) {
-                            $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.frascos.push({
+                            $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.$frascos.push({
                                 id: frasco,
                                 value: frasco
                             });
@@ -672,36 +640,79 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 }
 
                 // plan de hidratacion enteral
-                if ($scope.indicacion.tipo == 'Plan hidratación enteral' || $scope.indicacion.tipo.nombre == 'Plan hidratación enteral') {
-                    $scope.planHidratacion.enteralParenteral.pasarDurante = Global.getById($scope.pasarDurante, $scope.planHidratacion.enteralParenteral.pasarDurante);
+                if ($scope.indicacion.tipoIndicacion.nombre == 'Plan de hidratación enteral') {
+                    $scope.indicacion.planHidratacion.enteralParenteral.pasarDurante = Global.getById($scope.pasarDurante, $scope.indicacion.planHidratacion.enteralParenteral.pasarDurante);
                 }
 
                 // cargamos el valor de prioridad en caso de ser una solicitud de prestacion
-                if ($scope.indicacion.tipo == 'Solicitud prestaciones') {
+                if ($scope.indicacion.tipoIndicacion.nombre == 'Solicitud prestaciones') {
                     $scope.indicacion.prestaciones.prioridad = Global.getById($scope.prestaciones.prioridad, ($scope.indicacion.prestaciones.prioridad.id || $scope.indicacion.prestaciones.prioridad));
                 }
 
-                if ($scope.indicacion.tipo == 'Cuidados generales') {
+                if ($scope.indicacion.tipoIndicacion.nombre == 'Cuidados generales') {
                     // $scope.indicacion.cuidadosGenerales.tipo = Global.getById($scope.tiposCuidadosGenerales, ($scope.indicacion.cuidadosGenerales.tipo.id || $scope.indicacion.prestaciones.cuidadosGenerales.tipo));
                     $scope.indicacion.cuidadosGenerales.tipo = Global.getById($scope.tiposCuidadosGenerales, ($scope.indicacion.prestaciones.cuidadosGenerales.tipo));
                 }
 
                 // cargamos el valor de tipo de preparados en caso de ser nutricion
-                if ($scope.indicacion.tipo == 'Nutrición' || $scope.indicacion.tipo.nombre == 'Nutrición') {
-                    $scope.indicacion.nutricion.nutricionEnteral.tipoPreparado.descripcion = Global.getById($scope.tipoNutricionEnteral, ($scope.indicacion.nutricion.nutricionEnteral.tipoPreparado.descripcion.id || $scope.indicacion.nutricion.nutricionEnteral.tipoPreparado.descripcion));
-                    $scope.calcularInformacionNutricion('nutricion-enteral');
+                if ($scope.indicacion.tipoIndicacion.tipoIndicacion.nombre == 'Nutrición') {
+                    if ($scope.indicacion.tipoIndicacion.nombre == 'Enteral'){
+                        $scope.indicacion.nutricion.enteral.tipoPreparado.descripcion = Global.getById($scope.tipoNutricionEnteral, ($scope.indicacion.nutricion.enteral.tipoPreparado.descripcion || $scope.indicacion.nutricion.enteral.tipoPreparado.descripcion.id));
+                        $scope.calcularInformacionNutricion('nutricion-enteral');
+                    }
 
-                    $scope.indicacion.nutricion.soporteOral.tipoPreparado.descripcion = Global.getById($scope.tipoNutricionEnteral, ($scope.indicacion.nutricion.soporteOral.tipoPreparado.descripcion.id || $scope.indicacion.nutricion.soporteOral.tipoPreparado.descripcion));
-                    $scope.calcularInformacionNutricion('soporte-oral');
+                    if ($scope.indicacion.tipoIndicacion.nombre == 'Soporte oral'){
+                        $scope.indicacion.nutricion.soporteOral.tipoPreparado.descripcion = Global.getById($scope.tipoSoporteOral, ($scope.indicacion.nutricion.soporteOral.tipoPreparado.descripcion));
+                        $scope.calcularInformacionNutricion('soporte-oral');
+                    }
                 }
+
+                if ($scope.indicacion.tipoIndicacion.nombre == 'Oxigenoterapia') {
+                    $scope.indicacion.medicamento.oxigeno.respiracion = Global.getById($scope.tipoRespiracion, $scope.indicacion.medicamento.oxigeno.respiracion);
+                    $scope.indicacion.medicamento.oxigeno.cantidad = Global.getById($scope.valoresOxigeno, ($scope.indicacion.medicamento.oxigeno.cantidad || indicacion.medicamento.oxigeno.cantidad));
+                }
+
+                $scope.indicacion.servicio = Session.variables.servicioActual.id;
             },
             // Guardamos la indicacion
             guardar: function(indicacion, accion) {
                 var accion = (accion) ? accion : 'guardada'
 
-                // console.log(indicacion);
-                return Shared.indicaciones.post($scope.internacion.id, indicacion.id || null, indicacion, {
-                    minify: true
+                if ($scope.indicacion.tipoIndicacion.nombre == 'Plan de hidratación parenteral') {
+
+                    // agregamos los frascos de solucion fisiologica
+                    if (typeof $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica != "undefined"
+                        && typeof $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.$frascos != "undefined") {
+                        // transofrmamos todos los fracso del formato objeto a unicamente el campo id
+                        $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos = Global.minify($scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.$frascos);
+                    }
+                    // agregamos los frascos de ringer lactato
+                    if (typeof $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato != "undefined"
+                        && typeof $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.$frascos != "undefined") {
+                        // transofrmamos todos los fracso del formato objeto a unicamente el campo id
+                        $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos = Global.minify($scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.$frascos);
+                    }
+                    // agregamos los frascos de dextrosa
+                    if (typeof $scope.indicacion.planHidratacion.enteralParenteral.dextrosa != "undefined"
+                        && typeof $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.$frascos != "undefined") {
+                        // transofrmamos todos los fracso del formato objeto a unicamente el campo id
+                        $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.frascos = Global.minify($scope.indicacion.planHidratacion.enteralParenteral.dextrosa.$frascos);
+                    }
+
+                    // if (indicacion.planHidratacion.enteralParenteral.agregados.length){
+                    //
+                    //     angular.forEach(indicacion.planHidratacion.enteralParenteral.agregados, function(agregado){
+                    //         // agregado.tipoAgregado = Global.getById($scope.tiposAgregados, agregado.$tipoAgregado.id);
+                    //         agregado.tipoAgregado = Global.minify(agregado.$tipoAgregado);
+                    //     });
+                    // }
+                }
+
+                // console.log("PLAN HI");
+                // console.log(indicacion.planHidratacion.enteralParenteral);
+                console.log($scope.indicacion);
+                return Shared.indicaciones.post($scope.internacion.id, $scope.indicacion.idIndicacion || null, $scope.indicacion, {
+                    minify: false
                 }).then(function(data) {
                     Plex.alert('Indicacion ' + accion);
 
@@ -728,6 +739,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 // console.log($scope.indicacion);
                 $scope.indicaciones.guardar($scope.indicacion, 'renovada');
             },
+
             // suspender una indicacion
             suspender: function(indicacion) {
                 $scope.indicaciones.borrar = true;
@@ -756,7 +768,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 var length = $scope.filtros.indicaciones.length;
 
                 for (var i = 0; i < length; i++) {
-                    if ($scope.filtros.indicaciones[i].tipo.nombre == key || $scope.filtros.indicaciones[i].tipo == key) {
+                    if ($scope.filtros.indicaciones[i].tipoIndicacion.nombre == key) {
                         last_position = i;
                     }
                 }
@@ -778,21 +790,21 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
                 angular.forEach($scope.filtros.indicaciones, function(_indicacion) {
                     // console.log(_indicacion);
-                    var nombre = (typeof _indicacion.tipo.nombre != "undefined") ? _indicacion.tipo.nombre : _indicacion.tipo;
+                    var nombre = (typeof _indicacion.tipoIndicacion.nombre != "undefined") ? _indicacion.tipoIndicacion.nombre : _indicacion.tipoIndicacion;
 
                     // si es heparina o profilaxis los enviamos debajo del Plan de hidratacion
                     if (nombre == 'Heparina o profilaxis') {
 
-                        var last_position = $scope.indicaciones.getLastPositionOf('Plan hidratación parenteral');
+                        var last_position = $scope.indicaciones.getLastPositionOf('Plan de hidratación parenteral');
                         last_position = (last_position == -1) ? 0 : last_position;
 
                         if (last_position == -1) {
-                            var last_position = $scope.indicaciones.getLastPositionOf('Plan hidratación enteral');
+                            var last_position = $scope.indicaciones.getLastPositionOf('Plan de hidratación enteral');
                             last_position = (last_position == -1) ? 0 : last_position;
                         }
 
                         if (last_position == -1) {
-                            var last_position = $scope.indicaciones.getLastPositionOf('Plan hidratación oral');
+                            var last_position = $scope.indicaciones.getLastPositionOf('Plan de hidratación oral');
                             last_position = (last_position == -1) ? 0 : last_position;
                         }
 
@@ -805,7 +817,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                         // si no encontramos heparina o profilaxis, entonces
                         // lo colocamos debajo del plan de hidratacion
                         if (last_position == -1) {
-                            var last_position = $scope.indicaciones.getLastPositionOf('Plan hidratación parenteral');
+                            var last_position = $scope.indicaciones.getLastPositionOf('Plan de hidratación parenteral');
 
                             // si encontramos plan de hidratacion, entonces lo ponemos debajo
                             // si no, lo ponemos al principio
@@ -830,7 +842,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
                         if (last_position == -1) {
 
-                            var last_position = $scope.indicaciones.getLastPositionOf('Plan hidratación parenteral');
+                            var last_position = $scope.indicaciones.getLastPositionOf('Plan de hidratación parenteral');
 
                             // si encontramos plan de hidratacion, entonces lo ponemos debajo
                             // si no, lo ponemos al principio
@@ -838,18 +850,18 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                         }
 
                         if (last_position == -1) {
-                            var last_position = $scope.indicaciones.getLastPositionOf('Plan hidratación enteral');
+                            var last_position = $scope.indicaciones.getLastPositionOf('Plan de hidratación enteral');
                             last_position = (last_position == -1) ? 0 : last_position;
                         }
 
                         if (last_position == -1) {
-                            var last_position = $scope.indicaciones.getLastPositionOf('Plan hidratación oral');
+                            var last_position = $scope.indicaciones.getLastPositionOf('Plan de hidratación oral');
                             last_position = (last_position == -1) ? 0 : last_position;
                         }
                     }
 
                     // si es un plan de hidratacion, los enviamos al principio
-                    if (nombre == 'Plan hidratación parenteral' || nombre == 'Plan hidratación enteral' || nombre == 'Plan hidratación oral') {
+                    if (nombre == 'Plan de hidratación parenteral' || nombre == 'Plan de hidratación enteral' || nombre == 'Plan de hidratación oral') {
                         indicacionesOrdenadas.unshift(_indicacion);
                     } else {
                         // guardamos en una posicion determinada
@@ -922,7 +934,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 });
             },
 
-            // actualizamos el listado de evoluciones
+            // actualizamos el listado de indicaciones
             actualizar: function(indicacion) {
                 var found = false;
                 $scope.loading = true;
@@ -1093,6 +1105,8 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                         }
                     }
 
+                    console.log($scope.evolucionesEdit);
+
                     Shared.evolucion.post($scope.internacion.id, $scope.evolucionesEdit.id || null, $scope.evolucionesEdit, {
                         minify: true
                     }).then(function(data) {
@@ -1100,6 +1114,8 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
                         // agregamos la evolucion a la internacion
                         // $scope.include.internacion.evoluciones.push(data);
+
+                        $scope.reload();
 
                         // actualizamos el listado de evoluciones
                         $scope.indicaciones.evolucion.cancelar();
@@ -1119,35 +1135,37 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
                 // angular.copy(indicacion, $scope.evolucionarIndicacion);
                 $scope.evolucionarIndicacion = indicacion;
-
                 $scope.evolucionesEdit = {
                     idIndicacion: indicacion.id,
+                    _indicacion: indicacion,
+                    tipoIndicacion: (indicacion.tipoIndicacion.id) ? indicacion.tipoIndicacion.id : '',
                     fechaHora: new Date(),
                     // tipo: Session.variables.prestaciones_workflow,
                     tipo: indicacion.tipo,
-                    servicio: Session.variables.servicioActual,
+                    servicio: Session.variables.servicioActual.id,
                     texto: indicacion.tipo,
                 };
 
-                if (indicacion.tipo == 'Controles' && indicacion.controles.tipo == 'Balance') {
+                if (indicacion.tipoIndicacion.tipoIndicacion.nombre == 'Controles') {
                     $scope.evolucionesEdit.balance = {
                         ingresos: []
                     };
-                }else if (indicacion.tipo == 'Antibióticos' || indicacion.tipo == 'Heparina o profilaxis' ||
-                    indicacion.tipo == 'Protección gástrica' || indicacion.tipo == 'Otra medicación'){
+                }else if (indicacion.tipoIndicacion.tipoIndicacion.nombre == 'Medicamentos'
+                        && indicacion.tipoIndicacion.nombre != 'Oxigenoterapia'){
+
                         $scope.evolucionesEdit.medicamento = {
                             suministrado: true,
                             descripcion: indicacion.medicamento.descripcion
                         }
-                }else if (indicacion.tipo == 'Oxigenoterapia'){
+                }else if (indicacion.tipoIndicacion.nombre == 'Oxigenoterapia'){
 
-                    if (indicacion.oxigeno.accion == "Colocación"){
-                        if (indicacion.oxigeno.respiracion == 'Mascara'){
-                            var descripcion = indicacion.oxigeno.accion + " máscara al " + indicacion.oxigeno.cantidad + " %";
+                    if (indicacion.medicamento.oxigeno.accion == "Colocación"){
+                        if (indicacion.medicamento.oxigeno.respiracion == 'Mascara'){
+                            var descripcion = indicacion.medicamento.oxigeno.accion + " máscara al " + indicacion.medicamento.oxigeno.cantidad + " %";
                         }else if (indicacion.oxigeno.respiracion == 'Bigotera'){
-                            var descripcion = indicacion.oxigeno.accion + " bigotera a " + indicacion.oxigeno.cantidad + " lt/min";
+                            var descripcion = indicacion.medicamento.oxigeno.accion + " bigotera a " + indicacion.medicamento.oxigeno.cantidad + " lt/min";
                         }
-                    } else if (indicacion.oxigeno.accion == "Extracción"){
+                    } else if (indicacion.medicamento.oxigeno.accion == "Extracción"){
                         var descripcion = "Extracción de suministro de oxígeno";
                     }
 
@@ -1155,12 +1173,17 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                         suministrado: true,
                         descripcion: descripcion
                     }
-                }else if (indicacion.tipo == 'Cuidados generales'){
-                    if (indicacion.cuidadosGenerales.tipo == 'Rotar decúbito'){
-                        $scope.evolucionesEdit.rotarDecubito = {
-                            puntoApoyo: 'Izquierdo',
-                            posicion: 'Dorsal'
-                        }
+                }else if (indicacion.tipoIndicacion.tipoIndicacion.nombre == 'Cuidados generales'){
+                    // if (indicacion.cuidadosGenerales.tipo == 'Rotar decúbito'){
+                    //     $scope.evolucionesEdit.rotarDecubito = {
+                    //         puntoApoyo: 'Izquierdo',
+                    //         posicion: 'Dorsal'
+                    //     }
+                    // }
+                }else if ($scope.evolucionesEdit.tipo == 'Cuidados especiales') {
+
+                    if (indicacion.cuidadosEspeciales.tipo == 'Aislamiento') {
+                        $scope.evolucionesEdit.aislamiento = {};
                     }
                 }else if (indicacion.tipo == 'Otra indicación'){
                     $scope.evolucionesEdit.otraIndicacion = {
@@ -1207,6 +1230,10 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                             $scope.agregado.frascos.push(frasco.id);
                         });
 
+                        // obtenemos el id del tipo de agregado
+                        $scope.agregado.tipoAgregado = Global.minify($scope.agregado.$tipoAgregado);
+
+                        // agregamos al plan de hidratacion
                         $scope.indicacion.planHidratacion.enteralParenteral.agregados.push($scope.agregado);
                         $scope.agregado = {};
                     } else {
@@ -1217,7 +1244,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                         $scope.agregado = angular.copy(agregado);
 
                         // seleccionamos el tipo de agregado
-                        $scope.agregado.tipoAgregado = Global.getById($scope.tiposAgregados, (agregado.tipoAgregado.id || agregado.tipoAgregado));
+                        $scope.agregado.$tipoAgregado = Global.getById($scope.tiposAgregados, (agregado.tipoAgregado.id || agregado.tipoAgregado));
 
                         $scope.agregado._frascos = [];
                         // asignamos los frascos
@@ -1244,6 +1271,9 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                                 angular.forEach(agregado._frascos, function(frasco) {
                                     $scope.agregado.frascos.push(frasco.id);
                                 });
+
+                                // obtenemos el id del tipo de agregado
+                                agregado.tipoAgregado = Global.minify(agregado.$tipoAgregado);
 
                                 $scope.indicacion.planHidratacion.enteralParenteral.agregados[index] = agregado;
                                 encontrado = true;
@@ -1332,9 +1362,9 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
             // }
 
             angular.forEach(opciones, function(opcion){
-                    if ($scope.indicacion.nutricion.tipo.nadaPorBoca){
-                        return true;
-                    }
+                if ($scope.indicacion.nutricion.oral.nadaPorBoca){
+                    return true;
+                }
             });
 
             // nadaPorBoca
@@ -1363,32 +1393,36 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
     });
 
-    // cargamos los valores para los cuidados de oxigenos dependiendo el tipo de mascara
-    $scope.$watch('indicacion.oxigeno.respiracion', function(current, old) {
+    $scope.asignarOxigeno = function(tipo){
         var valoresMascara = [24, 28, 30, 35, 40, 50, 60, 70, 80, 98, 100];
         var valoresBigotera = [0.5, 1, 2, 3, 4];
 
-        if (current) {
-            $scope.indicacion.oxigeno.cantidad = "";
-            $scope.valoresOxigeno = [];
+        $scope.indicacion.medicamento.oxigeno.cantidad = "";
+        $scope.valoresOxigeno = [];
 
-            if (current.tipo == 'Máscara') {
-                angular.forEach(valoresMascara, function(valor) {
-
-                    $scope.valoresOxigeno.push({
-                        id: valor,
-                        value: valor + '%'
-                    });
+        if (tipo == 'Máscara') {
+            angular.forEach(valoresMascara, function(valor) {
+                $scope.valoresOxigeno.push({
+                    id: valor,
+                    value: valor + '%'
                 });
-            } else if (current.tipo == 'Bigotera') {
-                angular.forEach(valoresBigotera, function(valor) {
-                    $scope.valoresOxigeno.push({
-                        id: valor,
-                        value: valor + 'lt/min'
-                    });
+            });
+        } else if (tipo == 'Bigotera') {
+            angular.forEach(valoresBigotera, function(valor) {
+                $scope.valoresOxigeno.push({
+                    id: valor,
+                    value: valor + 'lt/min'
                 });
-            }
+            });
+        }
 
+    };
+
+    // cargamos los valores para los cuidados de oxigenos dependiendo el tipo de mascara
+    $scope.$watch('indicacion.medicamento.oxigeno.respiracion', function(current, old) {
+
+        if (current && current.tipo) {
+            $scope.asignarOxigeno(current.tipo);
         }
     });
 
@@ -1405,9 +1439,13 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     });
                 }
             }else{
-                $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.frascos = [];
-                $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos = [];
-                $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos = [];
+                $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.$frascos = [];
+                $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.$frascos = [];
+                $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.$frascos = [];
+
+                // $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.frascos = [];
+                // $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos = [];
+                // $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos = [];
             }
         }
 
@@ -1447,23 +1485,10 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
             if (typeof $scope.indicacion.id == "undefined") {
                 $scope.indicacion.planHidratacion = {}
             }
-
-            // switch (current.nombre) {
-            //     case 'Plan hidratación parenteral':
-            //         $scope.indicacion.planHidratacion.enteralParenteral.tipo = "Enteral";
-            //         // $scope.indicacion.planHidratacion.enteralParenteral.velocidadInfunsion.unidad = "ml/hora";
-            //         break;
-            //     case 'Plan hidratación enteral':
-            //         $scope.indicacion.planHidratacion.enteralParenteral.tipo = "Parenteral";
-            //         break;
-            //     default:
-            //     $scope.indicacion.tipo = current.nombre;
-            // }
-
         }
     });
 
-    $scope.$watch('indicacion.nutricion.tipo', function(current, old) {
+    $scope.$watch('indicacion.nutricion.oral', function(current, old) {
 
         if (typeof current != "undefined") {
             $scope.deshabilitarOpcion();
@@ -1478,4 +1503,8 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
     $scope.$watch('include.internacion', function(current, old) {
         $scope.init(current);
     });
+    // $scope.$watch('internacion', function(current, old) {
+    //     console.log("CURRENT: ", current);
+    //     alert("yes cambios yes");
+    // });
 }]);

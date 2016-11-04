@@ -2,6 +2,10 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
     'use strict';
 
     angular.extend($scope, {
+        graph : {'width': 360, 'height': 470},
+        radius : 10,
+        sw : 55,
+
         tab: 0,
         show_toolbar: true,
         tituloEvolucion: '',
@@ -13,7 +17,13 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
         balanceTotal: 0,
         ultimaEvolucion: {},
         // evoluciones: {},
+        tiposWidgets: [],
+        wigetCargados : [],
         // array de servicios para filtrar en la vista
+        tipos: [{
+            id: '',
+            nombre: 'Todos'
+        }],
         profesionales: [{
             id: '',
             nombre: 'Todos'
@@ -37,6 +47,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
             evoluciones: [],
             servicio: null,
             profesional: null,
+            tipo: null,
             filtrar: function() {
                 var self = this;
 
@@ -48,9 +59,14 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                     self.servicio = $scope.servicios[0];
                 }
 
+                if (!self.tipo) {
+                    self.tipo = $scope.tipos[0];
+                }
+
                 self.evoluciones = $scope.internacion.evoluciones.filter(function(evolucion) {
                     return (!self.servicio.id || (self.servicio && evolucion.servicio && (evolucion.servicio.id == self.servicio.id || (self.servicio.id == 'mis-evoluciones' && evolucion.createdBy.id === Session.user.id)))) &&
                         // (!self.servicio.id || (self.servicio.id == 'mis-evoluciones' && evolucion.createdBy.id === Session.user.id )) &&
+                        (!self.tipo.id || (self.tipo.id == evolucion.tipo)) &&
                         (!self.profesional.id || (self.profesional && evolucion.tipo && evolucion.tipo == self.profesional.id))
                 });
 
@@ -94,6 +110,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                 if ($scope.internacion.evoluciones.length) {
                     var services_found = [];
                     var profesionales_found = [];
+                    var tipos_found = [];
 
                     angular.forEach($scope.internacion.evoluciones, function(evolucion) {
 
@@ -122,7 +139,113 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                             });
                             profesionales_found.push(evolucion.tipo);
                         }
+
+                        // asignamos los tipos a los filtros
+                        if (!tipos_found.inArray(evolucion.tipo)) {
+
+                            $scope.tipos.push({
+                                id: evolucion.tipo,
+                                nombre: evolucion.tipo
+                            });
+                            tipos_found.push(evolucion.tipo);
+                        }
+
+                        // // asignamos la indicacion a la evolucion
+                        // var indicacion = $scope.internacion.indicaciones.filter(function(indicacion){
+                        //     return (indicacion.id && indicacion.id == evolucion.idIndicacion);
+                        // });
+                        // evolucion.indicacion = indicacion[0];
+
                     });
+                }
+
+                // cargamos los valores permitidos para los tipos de controles
+                if ($scope.tiposWidgets.length == 0) {
+                    // los tipos de widgets que tengan key es porque se levantan
+                    // los resultados desde una evolucion
+                    // los que no tengan key es porque es un elemento a tomar
+                    // de la internacion o calcular aparte
+                    $scope.tiposWidgets = [{
+                        id: '',
+                        key: '',
+                        nombre: 'Seleccione'
+                    },
+                    {
+                        id: 'problemas',
+                        nombre: 'Lista de problemas'
+                    },
+                    // {
+                    //     id: 'antecedentes',
+                    //     nombre: 'Antecedentes'
+                    // },
+                    {
+
+                        "_id": "5808d77e9621181a69adf8f7",
+                        "nombre": "Signos vitales",
+                        "key": "signosVitales",
+                        "idTipoEvolucion": "5808d3ce9621181a69adf8f3",
+                        "id": "5808d77e9621181a69adf8f7"
+                    },
+                    {
+                        "_id": "5808d77e9621181a69adf8f9",
+                       "nombre": "Ulceras por presión",
+                       "key": "riesgoUPP",
+                       "idTipoEvolucion": "5808d3ce9621181a69adf8f3",
+                       "id": "5808d77e9621181a69adf8f9"
+                   },
+                   {
+                        "_id": "5808d77e9621181a69adf8f8",
+                        "nombre": "Balance",
+                        "key": "balance",
+                        "idTipoEvolucion": "5808d3ce9621181a69adf8f3",
+                        "id": "5808d77e9621181a69adf8f8"
+                    },
+                    // {
+                    //     "_id": "5808d77e9621181a69adf8ff",
+                    //     "nombre": "Flebitis",
+                    //     "key": "flebitis",
+                    //     "idTipoEvolucion": "5808d3ce9621181a69adf8f3",
+                    //     "id": "5808d77e9621181a69adf8ff"
+                    // },
+                    {
+                        "_id": "5808d77e9621181a69adf8fa",
+                        "nombre": "Glasgow",
+                        "key": "glasgow",
+                        "idTipoEvolucion": "5808d3ce9621181a69adf8f3",
+                        "id": "5808d77e9621181a69adf8fa"
+                    },{
+                        "_id": "5808d77e9621181a69adf8fb",
+                        "nombre": "Riesgo caídas",
+                        "key": "riesgoCaida",
+                        "idTipoEvolucion": "5808d3ce9621181a69adf8f3",
+                        "id": "5808d77e9621181a69adf8fb"
+                    },{
+                        "_id": "5808d77e9621181a69adf8fe",
+                        "nombre": "Valoración del dolor",
+                        "key": "dolorValoracion",
+                        "idTipoEvolucion": "5808d3ce9621181a69adf8f3",
+                        "id": "5808d77e9621181a69adf8fe"
+                    },
+
+               ];
+                    // TiposIndicaciones.getPadres().then(function(data) {
+                    //     // $scope.tiposIndicacionesPadre = data;
+                    //     $scope.tiposIndicacionesPadre = data;
+                    //
+                    //
+                    //     TiposIndicaciones.getHijas().then(function(data) {
+                    //         $scope.tiposIndicacionesHijas = data;
+                    //
+                    //         angular.forEach($scope.tiposIndicacionesPadre, function(tipo){
+                    //             tipo.hijas = $scope.tiposIndicacionesHijas.filter(function(hija) {
+                    //                 return (
+                    //                     (hija.tipoIndicacion == tipo.id)
+                    //                 )
+                    //             });
+                    //         });
+                    //
+                    //     });
+                    // });
                 }
 
                 $scope.filtros.filtrar();
@@ -141,7 +264,76 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                 }
             }
         },
+        widgets: {
+            seleccionar: function(valor){
 
+            },
+            cargar: function(){
+                var found = false;
+                var evolucion = null;
+                var i = $scope.internacion.evoluciones.length - 1;
+
+                console.log($scope.tipoWidget);
+
+                while (i >= 0 && !found){
+                    var _evolucion = $scope.internacion.evoluciones[i];
+                    // if ($scope.tipoWidget.nombre == 'Signos vitales' && $scope.internacion.evoluciones[i].tipo == 'Controles' && $scope.internacion.evoluciones[i].signosVitales){
+                    //
+                    //     evolucion = $scope.internacion.evoluciones[i];
+                    //     evolucion.title = "Signos vitales";
+                    //     found = true;
+                    // }else if ($scope.tipoWidget.nombre == 'Balance' && $scope.internacion.evoluciones[i].tipo == 'Controles' && $scope.internacion.evoluciones[i].signosVitales){
+                    //     //
+                    //     // evolucion = $scope.internacion.evoluciones[i];
+                    //     // evolucion.title = "Signos vitales";
+                    //     // found = true;
+                    // }
+
+                    if (typeof $scope.tipoWidget.key !== "undefined"){
+                        if (typeof _evolucion[$scope.tipoWidget.key] !== "undefined"){
+                            var evolucion = {
+                                title: $scope.tipoWidget.nombre
+                            };
+                            evolucion[$scope.tipoWidget.key] = _evolucion[$scope.tipoWidget.key];
+                            found = true;
+                        }
+                    }else if($scope.tipoWidget.id){
+                        var evolucion = {
+                            title: $scope.tipoWidget.nombre
+                        };
+                        // evolucion = $scope.internacion[$scope.tipoWidget.id];
+                        evolucion[$scope.tipoWidget.id] = $scope.internacion[$scope.tipoWidget.id];
+
+                        if ($scope.tipoWidget.id == 'problemas'){
+                            evolucion[$scope.tipoWidget.id]['activos'] = $scope.internacion[$scope.tipoWidget.id].filter(function(p){
+                                return (p.estado == 'Activo');
+                            });
+                            evolucion[$scope.tipoWidget.id]['inactivos'] = $scope.internacion[$scope.tipoWidget.id].filter(function(p){
+                                return (p.estado == 'Inactivo');
+                            });
+                        }
+                        found = true;
+                    }
+
+                    i--;
+                }
+
+                console.log(evolucion);
+                if (evolucion){
+                    $scope.wigetCargados.push(evolucion);
+                }
+                console.log($scope.wigetCargados);
+                // if ($scope.tipoWidget.nombre == 'Balance'){
+                //
+                // }else if ($scope.tipoWidget.nombre == 'Signos vitales'){
+                //
+                //
+                // }
+            },
+            quitar: function(index){
+                $scope.wigetCargados.splice(index, 1);
+            }
+        },
         // Inicia la edición de una evolución
         editarEvolucion: function(evolucion) {
             $scope.show_toolbar = false;
@@ -149,57 +341,57 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
 
             // buscamos los datos de la ultima evolucion para poder mostrar
             // el resumen cuando el medico escribe el texto de la evolucion
-            if ($scope.internacion.evoluciones.length) {
-
-                // ordenamos cronologicamente
-                var ordenCronologico = $scope.internacion.evoluciones;
-                // ordenamos cronolicamente las evoluciones en forma descendiente
-                ordenCronologico.sort(function(a, b) {
-                    return new Date(b.fechaHora).getTime() - new Date(a.fechaHora).getTime()
-                });
-
-
-                // guardamos fecha y hora de la ultima evolucion
-                $scope.ultimaEvolucion.fechaHora = ordenCronologico[0].fechaHora;
-
-                // buscamos el balance
-                angular.forEach(ordenCronologico, function(evolucion) {
-                    // if (typeof evolucion.balance != "undefined"){
-                    //     angular.copy($scope.internacion.evoluciones[last].balance, $scope.ultimaEvolucion.balance);
-                    // }
-
-                    if (!$scope.ultimaEvolucion.balance && typeof evolucion.balance != "undefined") {
-                        if (evolucion.balance.$total_ingresos > 0 || evolucion.balance.$total_egresos > 0) {
-                            $scope.ultimaEvolucion.balance = evolucion.balance;
-                        }
-                    }
-
-                    if (!$scope.ultimaEvolucion.signosVitales && typeof evolucion.signosVitales != "undefined") {
-                        $scope.ultimaEvolucion.signosVitales = evolucion.signosVitales;
-                    }
-                });
-
-                // angular.forEach($scope.internacion.evoluciones, function(evolucion){
-                // for (last ; last > 0; last --){
-                //     var evolucion= $scope.internacion.evoluciones[last];
-                //     console.log(evolucion);
-                // if (!$scope.ultimaEvolucion.signosVitales && typeof evolucion.signosVitales != "undefined"){
-                //     angular.copy(evolucion.signosVitales, $scope.ultimaEvolucion.signosVitales);
-                // }
-                // }
-                // });
-
-                // do {
-                //     if (typeof $scope.internacion.evoluciones[last].balance != "undefined"){
-                //         angular.copy($scope.internacion.evoluciones[last].balance, $scope.ultimaEvolucion.balance);
-                //     }
-                //
-                //     last--;
-                // } while(!$scope.ultimaEvolucion.balance || last == 0);
-
-
-                // $scope.ultimaEvolucion = $scope.internacion.evoluciones[$scope.internacion.evoluciones.length - 2];
-            }
+            // if ($scope.internacion.evoluciones.length) {
+            //
+            //     // ordenamos cronologicamente
+            //     var ordenCronologico = $scope.internacion.evoluciones;
+            //     // ordenamos cronolicamente las evoluciones en forma descendiente
+            //     ordenCronologico.sort(function(a, b) {
+            //         return new Date(b.fechaHora).getTime() - new Date(a.fechaHora).getTime()
+            //     });
+            //
+            //
+            //     // guardamos fecha y hora de la ultima evolucion
+            //     $scope.ultimaEvolucion.fechaHora = ordenCronologico[0].fechaHora;
+            //
+            //     // buscamos el balance
+            //     angular.forEach(ordenCronologico, function(evolucion) {
+            //         // if (typeof evolucion.balance != "undefined"){
+            //         //     angular.copy($scope.internacion.evoluciones[last].balance, $scope.ultimaEvolucion.balance);
+            //         // }
+            //
+            //         if (!$scope.ultimaEvolucion.balance && typeof evolucion.balance != "undefined") {
+            //             if (evolucion.balance.$total_ingresos > 0 || evolucion.balance.$total_egresos > 0) {
+            //                 $scope.ultimaEvolucion.balance = evolucion.balance;
+            //             }
+            //         }
+            //
+            //         if (!$scope.ultimaEvolucion.signosVitales && typeof evolucion.signosVitales != "undefined") {
+            //             $scope.ultimaEvolucion.signosVitales = evolucion.signosVitales;
+            //         }
+            //     });
+            //
+            //     // angular.forEach($scope.internacion.evoluciones, function(evolucion){
+            //     // for (last ; last > 0; last --){
+            //     //     var evolucion= $scope.internacion.evoluciones[last];
+            //     //     console.log(evolucion);
+            //     // if (!$scope.ultimaEvolucion.signosVitales && typeof evolucion.signosVitales != "undefined"){
+            //     //     angular.copy(evolucion.signosVitales, $scope.ultimaEvolucion.signosVitales);
+            //     // }
+            //     // }
+            //     // });
+            //
+            //     // do {
+            //     //     if (typeof $scope.internacion.evoluciones[last].balance != "undefined"){
+            //     //         angular.copy($scope.internacion.evoluciones[last].balance, $scope.ultimaEvolucion.balance);
+            //     //     }
+            //     //
+            //     //     last--;
+            //     // } while(!$scope.ultimaEvolucion.balance || last == 0);
+            //
+            //
+            //     // $scope.ultimaEvolucion = $scope.internacion.evoluciones[$scope.internacion.evoluciones.length - 2];
+            // }
 
             if (evolucion) { // Modificación
                 $scope.tituloFormulario = "Editar evolución";
@@ -255,8 +447,9 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                 // Valores por defecto
                 $scope.evolucionesEdit = {
                     fechaHora: new Date(),
-                    tipo: Session.variables.prestaciones_workflow,
-                    servicio: Session.variables.servicioActual,
+                    // tipo: Session.variables.prestaciones_workflow,
+                    tipo: 'Servicio',
+                    servicio: Session.variables.servicioActual.id,
                     egresos: {
                         drenajes: []
                     }
@@ -287,33 +480,34 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
 
         // Guarda la evolución
         guardarEvolucion: function(evolucion) {
-            // si se han evolucionado los drenajes entonces los cargamos
-            if ($scope.drenajes.length > 0) {
-                $scope.evolucionesEdit.egresos.drenajes = [];
-                angular.forEach($scope.drenajes, function(drenaje) {
-                    var _drenaje = {
-                        idDrenaje: drenaje.idDrenaje,
-                        caracteristicaLiquido: drenaje.caracteristicaLiquido,
-                        cantidad: drenaje.cantidad,
-                        observaciones: drenaje.observaciones,
-                    }
-                    $scope.evolucionesEdit.egresos.drenajes.push(_drenaje);
-                });
-                // angular.copy($scope.drenajes, $scope.evolucionesEdit.egresos.drenajes);
-            }
-            // calculamos valores de glasgow
-            if ($scope.evolucionesEdit.glasgow) {
-                $scope.evolucionesEdit.glasgow.total = $scope.evolucionesEdit.glasgow.motor + $scope.evolucionesEdit.glasgow.verbal + $scope.evolucionesEdit.glasgow.ocular;
-            }
-            // calculamos valores de riesgo de caidas
-            if ($scope.evolucionesEdit.riesgoCaida) {
-                $scope.evolucionesEdit.riesgoCaida.total = $scope.evolucionesEdit.riesgoCaida.caidasPrevias + $scope.evolucionesEdit.riesgoCaida.marcha + $scope.evolucionesEdit.riesgoCaida.ayudaDeambular + $scope.evolucionesEdit.riesgoCaida.venoclisis + $scope.evolucionesEdit.riesgoCaida.comorbilidad + $scope.evolucionesEdit.riesgoCaida.estadoMental;
-            }
-            // calculamos valores de riesgo de ulceras por presion
-            if ($scope.evolucionesEdit.riesgoUPP) {
-                $scope.evolucionesEdit.riesgoUPP.total = $scope.evolucionesEdit.riesgoUPP.estadoFisico + $scope.evolucionesEdit.riesgoUPP.estadoMental + $scope.evolucionesEdit.riesgoUPP.actividad + $scope.evolucionesEdit.riesgoUPP.movilidad + $scope.evolucionesEdit.riesgoUPP.incontinencia;
-            }
+            // // si se han evolucionado los drenajes entonces los cargamos
+            // if ($scope.drenajes.length > 0) {
+            //     $scope.evolucionesEdit.egresos.drenajes = [];
+            //     angular.forEach($scope.drenajes, function(drenaje) {
+            //         var _drenaje = {
+            //             idDrenaje: drenaje.idDrenaje,
+            //             caracteristicaLiquido: drenaje.caracteristicaLiquido,
+            //             cantidad: drenaje.cantidad,
+            //             observaciones: drenaje.observaciones,
+            //         }
+            //         $scope.evolucionesEdit.egresos.drenajes.push(_drenaje);
+            //     });
+            //     // angular.copy($scope.drenajes, $scope.evolucionesEdit.egresos.drenajes);
+            // }
+            // // calculamos valores de glasgow
+            // if ($scope.evolucionesEdit.glasgow) {
+            //     $scope.evolucionesEdit.glasgow.total = $scope.evolucionesEdit.glasgow.motor + $scope.evolucionesEdit.glasgow.verbal + $scope.evolucionesEdit.glasgow.ocular;
+            // }
+            // // calculamos valores de riesgo de caidas
+            // if ($scope.evolucionesEdit.riesgoCaida) {
+            //     $scope.evolucionesEdit.riesgoCaida.total = $scope.evolucionesEdit.riesgoCaida.caidasPrevias + $scope.evolucionesEdit.riesgoCaida.marcha + $scope.evolucionesEdit.riesgoCaida.ayudaDeambular + $scope.evolucionesEdit.riesgoCaida.venoclisis + $scope.evolucionesEdit.riesgoCaida.comorbilidad + $scope.evolucionesEdit.riesgoCaida.estadoMental;
+            // }
+            // // calculamos valores de riesgo de ulceras por presion
+            // if ($scope.evolucionesEdit.riesgoUPP) {
+            //     $scope.evolucionesEdit.riesgoUPP.total = $scope.evolucionesEdit.riesgoUPP.estadoFisico + $scope.evolucionesEdit.riesgoUPP.estadoMental + $scope.evolucionesEdit.riesgoUPP.actividad + $scope.evolucionesEdit.riesgoUPP.movilidad + $scope.evolucionesEdit.riesgoUPP.incontinencia;
+            // }
 
+            console.log($scope.evolucionesEdit);
             Shared.evolucion.post($scope.internacion.id, evolucion.id || null, $scope.evolucionesEdit, {
                 minify: true
             }).then(function(data) {
@@ -367,6 +561,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
 
     // inicializamos mediante el watch de la variable incluida
     $scope.$watch('include.internacion', function(current, old) {
+        // $scope.tipoWidget = {id: '', nombre: 'Seleccione'};
         $scope.init(current);
     });
 }]);

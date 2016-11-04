@@ -3,6 +3,13 @@
 ** MAPA DE CAMAS
 ******************************
 */
+
+/* estado del servicio */
+.estado-servicio{}
+.estado-servicio h4{ display: inline-block; font-weight: bold; font-size: 22px;}
+.estado-servicio span{ margin-left: 5px; margin-right: 5px;}
+.estado-servicio span.estado{ text-transform: uppercase; color: #aaa; font-size: 20px; }
+
 /*@media (max-width: 1366px) {
     .tarjeta{
         width: 25%;
@@ -11,6 +18,7 @@
         font-size: 12px;
     }
 }*/
+
 .filtros .layout-view.active {
     background-color: #0099ff;
 }
@@ -108,11 +116,20 @@
 .cama .back .content .main {
     /*height: 215px;*/
 }
+
 .cama .name {
+    color: #000;
     font-size: 22px;
     line-height: 28px;
     margin: 10px 0 0;
     text-align: center;
+}
+.cama .name.dorso {
+    color: #000;
+    font-size: 18px;
+    line-height: 22px;
+    margin: 10px 0 0;
+    text-align: left;
 }
 .cama .name.reparacion {
     font-size: 18px;

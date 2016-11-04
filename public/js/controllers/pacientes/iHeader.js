@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('Pacientes/iHeaderController', ["$scope", "$filter", "Indicadores", function($scope, $filter, Indicadores) {
+angular.module('app').controller('Pacientes/iHeaderController', ["$scope", "$filter", "Indicadores", "Plex", function($scope, $filter, Indicadores, Plex) {
     /*
     Este (sub)controlador espera los siguientes parametros (plex-include):
         - internacion: object          | Objeto de internación
@@ -21,25 +21,71 @@ angular.module('app').controller('Pacientes/iHeaderController', ["$scope", "$fil
         flebitis: null,
         upp: null,
         aislamiento: [],
+        indicadores: [],
         balanceTotalLiquidos: {
             ingresos: 0,
             egresos: 0,
             total: 0
         },
+
+        verEvolucion:function(idEvolucion){
+            Plex.openView('internacion/verEvolucion/' + $scope.internacion.id + "/" + idEvolucion).then(function() {
+
+            });
+        },
     });
 
     $scope.$watch('include.internacion', function(current, old) {
         $scope.internacion = current;
+
         if (current && current.evoluciones){
-            $scope.riesgoCaidas = Indicadores.hayRiesgoCaidas($scope.internacion.evoluciones);
-            $scope.valoracionDolor = Indicadores.hayValoracionDolor($scope.internacion.evoluciones);
-            $scope.fiebre = Indicadores.hayFiebre($scope.internacion.evoluciones);
-            $scope.glasgow = Indicadores.hayGlasgow($scope.internacion.evoluciones);
-            $scope.flebitis = Indicadores.hayFlebitis($scope.internacion.evoluciones);
-            $scope.upp = Indicadores.hayUlcerasPorPresion($scope.internacion.evoluciones);
-            $scope.balanceTotalLiquidos = Indicadores.calcularBalanceLiquidos($scope.internacion.evoluciones, moment());
+            $scope.ultimaEvolucion = $scope.internacion.evoluciones[$scope.internacion.evoluciones.length-1];
+
+            $scope.riesgoCaidas = Indicadores.hayRiesgoCaidas($scope.internacion);
+            if ($scope.riesgoCaidas){
+                $scope.indicadores.riesgoCaidas = $scope.riesgoCaidas;
+            }
+
+            $scope.valoracionDolor = Indicadores.hayValoracionDolor($scope.internacion);
+            if ($scope.valoracionDolor){
+                $scope.indicadores.valoracionDolor = $scope.valoracionDolor;
+            }
+
+            $scope.fiebre = Indicadores.hayFiebre($scope.internacion);
+            if ($scope.fiebre){
+                $scope.indicadores.fiebre = $scope.fiebre;
+            }
+
+            $scope.glasgow = Indicadores.hayGlasgow($scope.internacion);
+            if ($scope.glasgow){
+                $scope.indicadores.glasgow = $scope.glasgow;
+            }
+
+            $scope.flebitis = Indicadores.hayFlebitis($scope.internacion);
+            if ($scope.flebitis){
+                $scope.indicadores.flebitis = $scope.flebitis;
+            }
+
+            $scope.upp = Indicadores.hayUlcerasPorPresion($scope.internacion);
+            if ($scope.upp){
+                $scope.indicadores.upp = $scope.upp;
+            }
+
+            // $scope.balanceTotalLiquidos = Indicadores.calcularBalanceLiquidos($scope.internacion.evoluciones, moment());
+            $scope.balanceTotalLiquidos = Indicadores.calcularBalanceLiquidos($scope.internacion);
+            if ($scope.balanceTotalLiquidos){
+                $scope.indicadores.balanceTotalLiquidos = $scope.balanceTotalLiquidos;
+            }
+
             $scope.aislamiento = Indicadores.hayAislamiento($scope.internacion.aislamiento);
-            $scope.news = Indicadores.getNews($scope.internacion.evoluciones);
+            if ($scope.aislamiento){
+                $scope.indicadores.aislamiento = $scope.aislamiento;
+            }
+
+            $scope.news = Indicadores.getNews($scope.internacion);
+            if ($scope.news){
+                $scope.indicadores.news = $scope.news;
+            }
         }
     });
 }]);
