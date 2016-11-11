@@ -24,6 +24,7 @@ angular.module('app')
              .when('/internacion/egresar/:idInternacion/:idCama', { templateUrl: 'partials/internacion/egresar.html', controller: 'internacion/egresar' })
              .when('/internacion/ver/:idInternacion/:tab?', { templateUrl: 'partials/internacion/ver.html', controller: 'internacion/ver' })
              .when('/internacion/verEvolucion/:idInternacion/:idEvolucion', { templateUrl: 'partials/internacion/verEvolucion.html', controller: 'internacion/verEvolucion' })
+             .when('/internacion/verNews/:idInternacion', { templateUrl: 'partials/internacion/verNews.html', controller: 'internacion/verNews' })
              .when('/internacion/verTratamiento/:idInternacion/:idTratamiento', { templateUrl: 'partials/internacion/verTratamiento.html', controller: 'internacion/verTratamiento' })
              .when('/internacion/:idInternacion/valoracionMedica', { templateUrl: 'partials/internacion/valoracionMedica.html', controller: 'internacion/valoracionMedica' })
              // tipos

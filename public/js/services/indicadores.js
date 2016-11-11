@@ -162,7 +162,7 @@ angular.module('app').factory('Indicadores', ["Global", "Server", "Session", "Sh
 
         hayFiebre: function(internacion) {
             var clase = "";
-            var fiebre = null;
+            var temperatura = null;
             var evoluciones = internacion.evoluciones;
 
             if (evoluciones && evoluciones.length) {
@@ -186,41 +186,41 @@ angular.module('app').factory('Indicadores', ["Global", "Server", "Session", "Sh
 
                     // escala
                     if (evolucion.signosVitales.temperatura <= 35) {
-                        fiebre = {
+                        temperatura = {
                             clase: "info",
                             indicador: evolucion.signosVitales.temperatura,
                             valor: evolucion.signosVitales.temperatura
                         }
 
                     } else if (evolucion.signosVitales.temperatura >= 35.1 && evolucion.signosVitales.temperatura <= 36) {
-                        fiebre = {
+                        temperatura = {
                             clase: "success",
                             indicador: evolucion.signosVitales.temperatura,
                             valor: evolucion.signosVitales.temperatura
                         }
 
                     } else if (evolucion.signosVitales.temperatura >= 36.1 && evolucion.signosVitales.temperatura <= 38) {
-                        fiebre = {
+                        temperatura = {
                             clase: "default",
                             indicador: evolucion.signosVitales.temperatura,
                             valor: evolucion.signosVitales.temperatura
                         }
 
                     } else if (evolucion.signosVitales.temperatura >= 38.1 && evolucion.signosVitales.temperatura <= 39) {
-                        fiebre = {
+                        temperatura = {
                             clase: "success",
                             indicador: evolucion.signosVitales.temperatura,
                             valor: evolucion.signosVitales.temperatura
                         }
                     } else if (evolucion.signosVitales.temperatura >= 39.1) {
-                        fiebre = {
+                        temperatura = {
                             clase: "danger",
                             indicador: evolucion.signosVitales.temperatura,
                             valor: evolucion.signosVitales.temperatura
                         }
                     }
 
-                    return fiebre;
+                    return temperatura;
                 }
             }
 
@@ -536,10 +536,28 @@ angular.module('app').factory('Indicadores', ["Global", "Server", "Session", "Sh
 
             return spo2;
         },
-        // TODO: Calcular si tiene o no suplemento de oxigeno
         // se deben utilizar las indicaciones, en caso de tener activa
         // la indicacion de colocacion de oxigeno
         getSumplementoOxigeno: function(internacion){
+            var indicaciones = internacion.indicaciones;
+
+            if (indicaciones && indicaciones.length) {
+                var found = false;
+                var i = indicaciones.length - 1;
+
+                while (i >= 0 && !found){
+                    if (indicaciones[i].tipoIndicacion.nombre == 'Oxigenoterapia'){
+                        found = true;
+                        if (indicaciones[i].medicamento.oxigeno.accion == 'Colocación'){
+                            return true;
+                        }
+                    }
+
+                    i--;
+                }
+
+            }
+
             return false;
         },
         getTensionSistolica: function(internacion){
@@ -604,33 +622,44 @@ angular.module('app').factory('Indicadores', ["Global", "Server", "Session", "Sh
             };
 
             // obtenemos valores para frecuencia respiratoria
-            var frecuenciaRespiratoria = self.getFrecunciaRespiratoria(internacion);
+            news['frecuenciaRespiratoria'] = {valorNews: 0, valor: 0};
+            news.frecuenciaRespiratoria.valor = self.getFrecunciaRespiratoria(internacion);
             // calculamos valor news para frecuencia respiratoria
-            if (frecuenciaRespiratoria > 0){
-                if (frecuenciaRespiratoria >= 12 && frecuenciaRespiratoria <= 20){
+            if (news.frecuenciaRespiratoria.valor > 0){
+                if (news.frecuenciaRespiratoria.valor >= 12 && news.frecuenciaRespiratoria.valor <= 20){
                     news.valor += 0;
-                } else if (frecuenciaRespiratoria >= 9 && frecuenciaRespiratoria <= 11){
+                    news.frecuenciaRespiratoria.valorNews = 0;
+                } else if (news.frecuenciaRespiratoria.valor >= 9 && news.frecuenciaRespiratoria.valor <= 11){
                     news.valor += 1;
-                } else if (frecuenciaRespiratoria >= 21 && frecuenciaRespiratoria <= 24){
+                    news.frecuenciaRespiratoria.valorNews = 1;
+                } else if (news.frecuenciaRespiratoria.valor >= 21 && news.frecuenciaRespiratoria.valor <= 24){
                     news.valor += 2;
-                } else if (frecuenciaRespiratoria <= 8 || frecuenciaRespiratoria >= 25){
+                    news.frecuenciaRespiratoria.valorNews = 2;
+                } else if (news.frecuenciaRespiratoria.valor <= 8 || news.frecuenciaRespiratoria.valor >= 25){
                     news.moderado = true;
                     news.valor += 3;
+                    news.frecuenciaRespiratoria.valorNews = 3;
                 }
             }
+
             // obtenemos valores para saturacion de oxigeno
-            var saturacionOxigeno = self.getSaturacionOxigeno(internacion);
+            news['saturacionOxigeno'] = {valorNews: 0, valor: 0};
+            news['saturacionOxigeno'].valor = self.getSaturacionOxigeno(internacion);
             // calculamos valor news para saturacion de oxigeno
-            if (saturacionOxigeno > 0){
-                if (saturacionOxigeno >= 96){
+            if (news.saturacionOxigeno.valor > 0){
+                if (news.saturacionOxigeno.valor >= 96){
                     news.valor += 0;
-                } else if (saturacionOxigeno >= 94 && saturacionOxigeno <= 95){
+                    news.saturacionOxigeno.valorNews = 0;
+                } else if (news.saturacionOxigeno.valor >= 94 && news.saturacionOxigeno.valor <= 95){
                     news.valor += 1;
-                } else if (saturacionOxigeno >= 92 && saturacionOxigeno <= 93){
+                    news.saturacionOxigeno.valorNews = 1;
+                } else if (news.saturacionOxigeno.valor >= 92 && news.saturacionOxigeno.valor <= 93){
                     news.valor += 2;
-                } else if (saturacionOxigeno <= 91){
+                    news.saturacionOxigeno.valorNews = 2;
+                } else if (news.saturacionOxigeno.valor <= 91){
                     news.moderado = true;
                     news.valor += 3;
+                    news.saturacionOxigeno.valorNews = 3;
                 }
             }
 
@@ -639,73 +668,99 @@ angular.module('app').factory('Indicadores', ["Global", "Server", "Session", "Sh
             if (internacion.indicaciones && internacion.indicaciones.length){
                 sumplementoOxigeno = self.getSumplementoOxigeno(internacion);
             }
+
+            news['sumplementoOxigeno'] = {valorNews: 0, valor: 0};
+            news['sumplementoOxigeno'].valor = sumplementoOxigeno;
             // calculamos valor news para suplemento de oxigeno
-            news.valor += (sumplementoOxigeno) ? 2 : 0;
+            news.valor += (news.sumplementoOxigeno.valor) ? 2 : 0;
 
             // obtenemos valor de temperatura
-            var fiebre = self.hayFiebre(internacion);
+            news.temperatura = self.hayFiebre(internacion);
+            if (!news.temperatura) {news.temperatura = {};}
+            news.temperatura['valorNews']  = 0;
             // calculamos valor news para temperatura
-            if (fiebre && fiebre.valor > 0){
-                if (fiebre.valor >= 36.1 && fiebre.valor <= 38){
+            if (news.temperatura && news.temperatura.valor > 0){
+                if (news.temperatura.valor >= 36.1 && news.temperatura.valor <= 38){
                     news.valor += 0;
-                }else if ( (fiebre.valor >= 35.1 && fiebre.valor <= 36) || (fiebre.valor >= 38.1 && fiebre.valor <= 39)){
+                    news.temperatura.valorNews = 0;
+                }else if ( (news.temperatura.valor >= 35.1 && news.temperatura.valor <= 36) || (news.temperatura.valor >= 38.1 && news.temperatura.valor <= 39)){
                     news.valor += 1;
-                }else if (fiebre.valor >= 39.1){
+                    news.temperatura.valorNews = 1;
+                }else if (news.temperatura.valor >= 39.1){
                     news.valor += 2;
-                }else if (fiebre.valor <= 35){
+                    news.temperatura.valorNews = 2;
+                }else if (news.temperatura.valor <= 35){
                     news.moderado = true;
                     news.valor += 3;
+                    news.temperatura.valorNews = 3;
                 }
             }
 
             // obtenemos valores para tension sistolica
-            var tensionSistolica = self.getTensionSistolica(internacion);
+            news['tensionSistolica'] = {valorNews: 0, valor: 0};
+            news['tensionSistolica'].valor = self.getTensionSistolica(internacion);
             // calculamos valor news para tension sistolica
-            if (tensionSistolica > 0){
-                if (tensionSistolica >= 111 && tensionSistolica <= 219){
+            if (news.tensionSistolica.valor > 0){
+                if (news.tensionSistolica.valor >= 111 && news.tensionSistolica.valor <= 219){
                     news.valor += 0;
-                } else if (tensionSistolica >= 101 && tensionSistolica <= 110){
+                    news.tensionSistolica.valorNews = 0;
+
+                } else if (news.tensionSistolica.valor >= 101 && news.tensionSistolica.valor <= 110){
                     news.valor += 1;
-                } else if (tensionSistolica >= 91 && tensionSistolica <= 100){
+                    news.tensionSistolica.valorNews = 1;
+
+                } else if (news.tensionSistolica.valor >= 91 && news.tensionSistolica.valor <= 100){
                     news.valor += 2;
-                } else if (tensionSistolica <= 90 || tensionSistolica >= 131){
+                    news.tensionSistolica.valorNews = 2;
+
+                } else if (news.tensionSistolica.valor <= 90 || news.tensionSistolica.valor >= 220){
                     news.moderado = true;
                     news.valor += 3;
+                    news.tensionSistolica.valorNews = 3;
                 }
             }
 
             // obtenemos valores para frecuencia cardiaca
-            var frecuenciaCardiaca = self.getFrecuenciaCardiaca(internacion);
+            news['frecuenciaCardiaca'] = {valorNews: 0, valor: 0};
+            news['frecuenciaCardiaca'].valor = self.getFrecuenciaCardiaca(internacion);
             // calculamos valor news para frecuencia cardiaca
-            if (frecuenciaCardiaca > 0){
-                if (frecuenciaCardiaca >= 51 && frecuenciaCardiaca <= 90){
+            if (news.frecuenciaCardiaca.valor > 0){
+                if (news.frecuenciaCardiaca >= 51 && news.frecuenciaCardiaca.valor <= 90){
                     news.valor += 0;
-                } else if ((frecuenciaCardiaca >= 41 && frecuenciaCardiaca <= 50) ||
-                    (frecuenciaCardiaca >= 91 && frecuenciaCardiaca <= 110) ) {
+                    news.frecuenciaCardiaca.valorNews = 0;
+                } else if ((news.frecuenciaCardiaca.valor >= 41 && news.frecuenciaCardiaca.valor <= 50) ||
+                    (news.frecuenciaCardiaca >= 91 && news.frecuenciaCardiaca <= 110) ) {
                     news.valor += 1;
-                } else if (frecuenciaCardiaca >= 111 && frecuenciaCardiaca <= 130){
+                    news.frecuenciaCardiaca.valorNews = 1;
+                } else if (news.frecuenciaCardiaca.valor >= 111 && news.frecuenciaCardiaca.valor <= 130){
                     news.valor += 2;
-                } else if (frecuenciaCardiaca <= 40 || frecuenciaCardiaca >= 131){
+                    news.frecuenciaCardiaca.valorNews = 2;
+                } else if (news.frecuenciaCardiaca.valor <= 40 || news.frecuenciaCardiaca.valor >= 131){
                     news.moderado = true;
                     news.valor += 3;
+                    news.frecuenciaCardiaca.valorNews = 3;
                 }
             }
 
-            // obtenemos valores para glasgow
-            var glasgow = self.hayGlasgow(internacion);
+            // obtenemos valores para glasgow.
+            news['glasgow'] = self.hayGlasgow(internacion);
+            if (!news.glasgow) {news.glasgow = {};}
+            news.glasgow['valorNews'] = 0;
             // calculamos valor news para glasgow
-            if (glasgow && glasgow.valor > 0){
-                if (glasgow.valor <= 14){
+            if (news.glasgow && news.glasgow.valor > 0){
+                if (news.glasgow.valor <= 14){
                     news.valor += 3;
                     news.moderado = true;
+                    news.glasgow.valorNews = 3;
                 } else {
                     news.valor += 0;
+                    news.glasgow.valorNews = 0;
                 }
             }
 
             // seteamos la clase
             if (news.valor <= 5 && news.moderado){
-                news.clase = 'warning';
+                news.clase = 'danger';
             }else{
                 if (news.valor == 0){
 

@@ -17,16 +17,19 @@ angular.module('app').controller('internacion/verEvolucion', ['$scope', 'Plex', 
                 $scope.internacion = internacion;
 
                 if (plexParams.idEvolucion) {
+                    // buscamos la evolucion
                     angular.forEach(internacion.evoluciones, function(evolucion) {
                         if (evolucion.id == plexParams.idEvolucion) {
                             $scope.evolucion = evolucion;
 
+                            // si tiene balance calculamos
                             if (evolucion.balance){
                                 Shared.evolucion.calcularBalance($scope.evolucion, function(evolucion){
                                     $scope.evolucion = evolucion;
                                 });
                             }
 
+                            // buscamos la indicacion
                             angular.forEach(internacion.indicaciones, function(indicacion) {
                                 if (indicacion.id == evolucion.idIndicacion) {
                                     $scope.indicacion = indicacion;

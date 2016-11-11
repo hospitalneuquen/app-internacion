@@ -13,7 +13,10 @@ angular.module('app').controller('internacion/editar', ['$scope', 'Plex', 'plexP
         }, {
             id: 'derivacion',
             nombre: 'Derivación'
-        }, ],
+        }, {
+            id: 'transitorio',
+            nombre: 'Transitorio'
+        }],
         personas: {
             data: null,
             promise: null,

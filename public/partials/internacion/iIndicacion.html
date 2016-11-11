@@ -129,16 +129,20 @@
 
                                     <!-- Medicacion Heparina o Profilaxis / Proteccion gastrica / Otar medicacion -->
                                     <div ng-if="indicacion.tipo.nombre == 'Medicamentos' && indicacion.tipoIndicacion.nombre != 'Oxigenoterapia'">
-                                        <div class="col-lg-9">
+                                        <div class="col-lg-8">
                                             <input type="text" label="Descripción" ng-model="indicacion.medicamento.descripcion" plex/>
                                         </div>
 
-                                        <div class="col-lg-1">
+                                        <div class="col-lg-2">
                                             <select label="Vía" ng-model="indicacion.via" plex>
                                                 <option value="">Seleccione vía</option>
-                                                <option value="SC">SC</option>
-                                                <option value="EV">EV</option>
-                                                <option value="VO">VO</option>
+                                                <option value="SC">Subcutánea</option>
+                                                <option value="EV">Endovenosa</option>
+                                                <option value="VO">Vía oral</option>
+                                                <option value="IN">Inhalatoria</option>
+                                                <option value="SNG">Sonda nasogástrica</option>
+                                                <option value="IM">Intramuscular</option>
+                                                <option value="TD">Trandérmica</option>
                                             </select>
                                         </div>
 
@@ -179,6 +183,8 @@
                                                         <option value="SNY">SNY</option>
                                                         <option value="Gastrostomías">Gastrostomías</option>
                                                         <option value="Ileostomías">Ileostomías</option>
+                                                        <option value="Vesical">Vesical</option>
+
                                                     </select>
                                                 </div>
 
@@ -213,8 +219,8 @@
                                                         <div class="col-lg-5" ng-if="indicacion.tipoIndicacion.nombre == 'Plan de hidratación parenteral'">
                                                             <select label="Vía" ng-model="indicacion.via" plex>
                                                                 <option value="">Vía</option>
-                                                                <option value="EV">EV</option>
-                                                                <option value="SC">SC</option>
+                                                                <option value="EV">Endovenosa</option>
+                                                                <option value="SC">Subcutánea</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -381,7 +387,7 @@
                                             </select>
                                         </div>
                                         <div class="col-lg-4" ng-show="indicacion.medicamento.oxigeno.accion == 'Colocación'">
-                                            <select label="Tipo respiración" ng-model="indicacion.medicamento.oxigeno.respiracion" plex="(opcion.tipo) for opcion in tipoRespiracion" ng-change=""></select>
+                                            <select label="Tipo respiración" ng-model="indicacion.medicamento.oxigeno.respiracion" plex="(opcion.tipo) for opcion in tipoRespiracion" ng-change="asignarOxigeno(indicacion.medicamento.oxigeno.respiracion.id)"></select>
                                         </div>
 
                                         <div class="col-lg-4" ng-show="indicacion.medicamento.oxigeno.accion == 'Colocación'">
@@ -442,6 +448,7 @@
                                                     <option value="SNY">SNY</option>
                                                     <option value="Gastrostomías">Gastrostomías</option>
                                                     <option value="Ileostomías">Ileostomías</option>
+                                                    <option value="Vesical">Vesical</option>
                                                 </select>
                                             </div>
                                             <div class="col-lg-2">
@@ -603,6 +610,7 @@
                                                                 <option value="SNY">SNY</option>
                                                                 <option value="Gastrostomías">Gastrostomías</option>
                                                                 <option value="Ileostomías">Ileostomías</option>
+                                                                <option value="Vesical">Vesical</option>
                                                             </select>
                                                         </div>
 
@@ -953,7 +961,7 @@
                                     <br />
 
                                     <span ng-show="indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad > 0">
-                                        Dextrosa {{indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad}} ml
+                                        Dextrosa {{indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad}} ml al {{indicacion.planHidratacion.enteralParenteral.dextrosa.dilucion}}%
                                         -
                                         <span ng-if="indicacion.planHidratacion.enteralParenteral.dextrosa.frascos.length">
                                             Frascos
@@ -1003,8 +1011,7 @@
 
                                 </span>
 
-                                <span ng-if="indicacion.tipoIndicacion.nombre == 'Otra indicación'">
-                                    <br/>
+                                <span ng-if="indicacion.tipoIndicacion.nombre == 'Indicación genérica'">
                                     {{indicacion.descripcion}}
                                 </span>
 
@@ -1013,11 +1020,11 @@
 
                                     <div ng-if="indicacion.tipoIndicacion.nombre == 'Oxigenoterapia'">
                                         {{indicacion.medicamento.oxigeno.accion}}
-
-                                        <span ng-show="indicacion.medicamento.oxigeno.respiracion == 'Mascara'">
+                                        <span ng-if="indicacion.medicamento.oxigeno.respiracion == 'Mascara'">
                                             / máscara al {{indicacion.medicamento.oxigeno.cantidad}} %
                                         <span>
-                                        <span ng-show="indicacion.medicamento.oxigeno.respiracion == 'Bigotera'">
+
+                                        <span ng-if="indicacion.medicamento.oxigeno.respiracion == 'Bigotera'">
                                             / bigotera a {{indicacion.medicamento.oxigeno.cantidad}} lt/min
                                         <span>
                                     </div>

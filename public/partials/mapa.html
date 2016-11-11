@@ -180,8 +180,9 @@
                     <div class="content">
 
                         <div class="main cama">
-                            <div class="col-xs-1 text-left">
+                            <div class="col-indicadores text-left">
                                 <div ng-if="cama.idInternacion">
+                                    <br class="mdi" /><!-- Fake para que me genere espacio en la columna -->
                                     <!-- <i ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total > 0 && cama.$internacion.ingreso.enfermeria.riesgoCaida.total < 25" ng-class="{'verde' : cama.$internacion.ingreso.enfermeria.riesgoCaida.total < 25}" class="mdi mdi-alert tips" title="Riesgo de caídas bajo"></i>
                                     <i ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total >= 25 && cama.$internacion.ingreso.enfermeria.riesgoCaida.total <= 50" ng-class="{'amarillo' : cama.$internacion.ingreso.enfermeria.riesgoCaida.total >= 25 && cama.$internacion.ingreso.enfermeria.riesgoCaida.total <= 50}" class="mdi mdi-alert tips" title="Riesgo de caídas medio"></i>
                                     <i ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total > 50" ng-class="{'rojo' : cama.$internacion.ingreso.enfermeria.riesgoCaida.total > 50}" class="mdi mdi-alert tips" title="Riesgo de caídas alto"></i>
@@ -206,13 +207,13 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-xs-10">
+                            <div class="col-paciente">
                                 <div>
                                     <div class="icon">
 
                                         <!-- <i class="icono-paciente {{cama.paciente | persona: 'icon'}} tips" ng-show="cama.paciente.id && !cama.$news.valor" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'evolucion'"></i>
                                         <i class="icono-paciente {{cama.paciente | persona: 'icon'}} {{cama.$news.clase}} tips" ng-show="cama.paciente.id && cama.$news.valor" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'evolucion'" title="News score {{cama.$news.valor}}"></i> -->
-                                        <i class="icono-paciente {{cama.paciente | persona: 'icon'}} {{cama.$news.clase}} tips" ng-if="cama.paciente.id" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'evolucion'" title="News score 1"></i>
+                                        <i class="icono-paciente {{cama.paciente | persona: 'icon'}} {{cama.$news.clase}} tips" ng-if="cama.paciente.id" ng-click="cama.$rotar = !cama.$rotar; cama.$action = 'evolucion'" title="News score {{cama.$news.valor}}"></i>
 
                                         <button type="button" class="btn btn-buscar-paciente btn-flat grow tips" title="Agregar paciente en cama" ng-click="buscarPaciente(cama); cama.$action = 'internacion'" ng-if="!cama.paciente.id && cama.estado == 'desocupada'">
                                             <i class="fa fa-bed agregar"></i>
@@ -301,14 +302,14 @@
 
                 <div class="back">
                     <div class="header">
-                        <div class="col-lg-6">
+                        <div class="pull-left">
                             <div class="numero-habitacion">
                                 {{cama.habitacion}}
                                 /
                                 {{cama.numero}}
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="pull-right">
                             <button class="btn btn-default btn-flat pull-right" ng-show="cama.paciente.id || (cama.$action == 'enviada_reparacion' || cama.$action == 'estado_bloqueada')" ng-click="cama.$rotar = !cama.$rotar">
                                 <i class="mdi mdi-close"></i>
                             </button>
@@ -696,6 +697,11 @@
                     {{cama.$internacion.createdAt | date: "dd/MM/yyyy  'a las' HH:mm "}}
                     hs,
                     {{cama.$internacion.createdAt | fromNow }}
+                    <br />
+                    <p class="">
+                    Internado por:
+                        {{cama.$internacion.createdBy.name}}
+                    </p>
 
                     <div ng-if="cama.$internacion.evoluciones.length > 0">
                         <br/>

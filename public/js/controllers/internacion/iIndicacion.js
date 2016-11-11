@@ -2,6 +2,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
     'use strict';
 
     angular.extend($scope, {
+        accionIndicacion: null,
         ////////////////////////////////////// mover a otro lugar //
         graph : {'width': 360, 'height': 470},
         elements : [],
@@ -539,6 +540,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
                 if (indicacion) {
                     $scope.accion = "editar";
+                    $scope.accionIndicacion = "editar"; // para enviar a la api
 
                     $scope.indicaciones.duplicar(indicacion);
                 } else {
@@ -551,7 +553,10 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
             // duplicamos la informacion de la indicacion para poder
             // crear una nueva
             duplicar: function (indicacion){
+                // console.log($scope.indicacion);
+                // console.log(indicacion);
                 angular.copy(indicacion, $scope.indicacion);
+                console.log($scope.indicacion);
 
                 // si es una edicion y ya ha sido guardado, entonces
                 // deberemos crear el historial, por lo tanto seteamos
@@ -564,12 +569,6 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     // limpiamos los ids
                     $scope.indicacion.id = null;
                     $scope.indicacion._id = null;
-                    // delete $scope.indicacion[id];
-                    // delete $scope.indicacion[_id];
-                    // $scope.indicacion.id = undefined;
-                    // $scope.indicacion._id = undefined;
-                    // delete $scope.indicacion.id;
-                    // delete $scope.indicacion._id;
 
                     // como estamos copiando de un elemento existente
                     // tambien nos viene los datos de auditoria
@@ -668,9 +667,13 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 }
 
                 if ($scope.indicacion.tipoIndicacion.nombre == 'Oxigenoterapia') {
+                    // cargamos el select con los valores de oxigenos permitidos
+                    $scope.asignarOxigeno($scope.indicacion.medicamento.oxigeno.respiracion);
+                    // asignamos los elementos seleccionados a los selects de respiracion y cantidad
                     $scope.indicacion.medicamento.oxigeno.respiracion = Global.getById($scope.tipoRespiracion, $scope.indicacion.medicamento.oxigeno.respiracion);
-                    $scope.indicacion.medicamento.oxigeno.cantidad = Global.getById($scope.valoresOxigeno, ($scope.indicacion.medicamento.oxigeno.cantidad || indicacion.medicamento.oxigeno.cantidad));
+                    $scope.indicacion.medicamento.oxigeno.cantidad = Global.getById($scope.valoresOxigeno, indicacion.medicamento.oxigeno.cantidad);
                 }
+                // console.log($scope.indicacion);
 
                 $scope.indicacion.servicio = Session.variables.servicioActual.id;
             },
@@ -678,25 +681,25 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
             guardar: function(indicacion, accion) {
                 var accion = (accion) ? accion : 'guardada'
 
-                if ($scope.indicacion.tipoIndicacion.nombre == 'Plan de hidratación parenteral') {
+                if (indicacion.tipoIndicacion.nombre == 'Plan de hidratación parenteral') {
 
                     // agregamos los frascos de solucion fisiologica
-                    if (typeof $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica != "undefined"
-                        && typeof $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.$frascos != "undefined") {
+                    if (typeof indicacion.planHidratacion.enteralParenteral.solucionFisiologica != "undefined"
+                        && typeof indicacion.planHidratacion.enteralParenteral.solucionFisiologica.$frascos != "undefined") {
                         // transofrmamos todos los fracso del formato objeto a unicamente el campo id
-                        $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos = Global.minify($scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.$frascos);
+                        indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos = Global.minify(indicacion.planHidratacion.enteralParenteral.solucionFisiologica.$frascos);
                     }
                     // agregamos los frascos de ringer lactato
-                    if (typeof $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato != "undefined"
-                        && typeof $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.$frascos != "undefined") {
+                    if (typeof indicacion.planHidratacion.enteralParenteral.ringerLactato != "undefined"
+                        && typeof indicacion.planHidratacion.enteralParenteral.ringerLactato.$frascos != "undefined") {
                         // transofrmamos todos los fracso del formato objeto a unicamente el campo id
-                        $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos = Global.minify($scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.$frascos);
+                        indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos = Global.minify(indicacion.planHidratacion.enteralParenteral.ringerLactato.$frascos);
                     }
                     // agregamos los frascos de dextrosa
-                    if (typeof $scope.indicacion.planHidratacion.enteralParenteral.dextrosa != "undefined"
-                        && typeof $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.$frascos != "undefined") {
+                    if (typeof indicacion.planHidratacion.enteralParenteral.dextrosa != "undefined"
+                        && typeof indicacion.planHidratacion.enteralParenteral.dextrosa.$frascos != "undefined") {
                         // transofrmamos todos los fracso del formato objeto a unicamente el campo id
-                        $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.frascos = Global.minify($scope.indicacion.planHidratacion.enteralParenteral.dextrosa.$frascos);
+                        indicacion.planHidratacion.enteralParenteral.dextrosa.frascos = Global.minify(indicacion.planHidratacion.enteralParenteral.dextrosa.$frascos);
                     }
 
                     // if (indicacion.planHidratacion.enteralParenteral.agregados.length){
@@ -708,10 +711,15 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     // }
                 }
 
-                // console.log("PLAN HI");
-                // console.log(indicacion.planHidratacion.enteralParenteral);
-                console.log($scope.indicacion);
-                return Shared.indicaciones.post($scope.internacion.id, $scope.indicacion.idIndicacion || null, $scope.indicacion, {
+                if (indicacion.tipoIndicacion.nombre == "Oxigenoterapia"){
+                    indicacion.medicamento.oxigeno.respiracion = Global.minify(indicacion.medicamento.oxigeno.respiracion);
+                    indicacion.medicamento.oxigeno.cantidad = Global.minify(indicacion.medicamento.oxigeno.cantidad);
+                }
+
+                console.log(indicacion);
+                indicacion.accion = $scope.accionIndicacion;
+                return Shared.indicaciones.post($scope.internacion.id, null, indicacion, {
+                // return Shared.indicaciones.post($scope.internacion.id, $scope.indicacion.idIndicacion || null, $scope.indicacion, {
                     minify: false
                 }).then(function(data) {
                     Plex.alert('Indicacion ' + accion);
@@ -753,6 +761,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
             // confirmar borrado y actualizar indicacion
             confirmarBorrado: function(indicacion) {
+                $scope.accionIndicacion = "suspender"; // para enviar a la api
                 // seteamos el valor activo en false
                 indicacion.activo = false;
 
@@ -1038,19 +1047,19 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                             return (i.id == $scope.evolucionesEdit.idIndicacion);
                         });
 
-                        $scope.evolucionesEdit.texto = _indicacion[0].tipo;
-                        switch(_indicacion[0].tipo){
-                            case 'Controles':
-                                $scope.evolucionesEdit.texto += " - " + _indicacion[0].controles.tipo;
-                            break;
-
-                            case 'Cuidados generales':
-                                $scope.evolucionesEdit.texto += " - " + _indicacion[0].cuidadosGenerales.tipo;
-                            break;
-
-                            case 'Cuidados especiales':
-                                $scope.evolucionesEdit.texto += " - " + _indicacion[0].cuidadosEspeciales.tipo;
-                            break;
+                        $scope.evolucionesEdit.texto = _indicacion[0].tipoIndicacion.nombre;
+                        switch(_indicacion[0].tipoIndicacion.nombre){
+                            // case 'Controles':
+                            //     $scope.evolucionesEdit.texto += " - " + _indicacion[0].controles.tipo;
+                            // break;
+                            //
+                            // case 'Cuidados generales':
+                            //     $scope.evolucionesEdit.texto += " - " + _indicacion[0].cuidadosGenerales.tipo;
+                            // break;
+                            //
+                            // case 'Cuidados especiales':
+                            //     $scope.evolucionesEdit.texto += " - " + _indicacion[0].cuidadosEspeciales.tipo;
+                            // break;
                             case 'Oxigenoterapia':
                                 if (_indicacion[0].oxigeno.accion == "Colocación"){
                                     if (_indicacion[0].oxigeno.respiracion == 'Mascara'){
@@ -1098,14 +1107,12 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     }
 
                     // aislamiento
-                    if ($scope.evolucionesEdit.tipo == 'Cuidados especiales') {
+                    if ($scope.evolucionesEdit.tipoIndicacion.nombre == 'Cuidados especiales') {
 
                         if (_indicacion[0].cuidadosEspeciales.tipo == 'Aislamiento') {
                             $scope.evolucionesEdit.aislamiento['realizado'] = true;
                         }
                     }
-
-                    console.log($scope.evolucionesEdit);
 
                     Shared.evolucion.post($scope.internacion.id, $scope.evolucionesEdit.id || null, $scope.evolucionesEdit, {
                         minify: true
@@ -1162,7 +1169,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     if (indicacion.medicamento.oxigeno.accion == "Colocación"){
                         if (indicacion.medicamento.oxigeno.respiracion == 'Mascara'){
                             var descripcion = indicacion.medicamento.oxigeno.accion + " máscara al " + indicacion.medicamento.oxigeno.cantidad + " %";
-                        }else if (indicacion.oxigeno.respiracion == 'Bigotera'){
+                        }else if (indicacion.medicamento.oxigeno.respiracion == 'Bigotera'){
                             var descripcion = indicacion.medicamento.oxigeno.accion + " bigotera a " + indicacion.medicamento.oxigeno.cantidad + " lt/min";
                         }
                     } else if (indicacion.medicamento.oxigeno.accion == "Extracción"){
@@ -1394,13 +1401,15 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
     });
 
     $scope.asignarOxigeno = function(tipo){
+        // alert("yes");
         var valoresMascara = [24, 28, 30, 35, 40, 50, 60, 70, 80, 98, 100];
         var valoresBigotera = [0.5, 1, 2, 3, 4];
 
+        // var tipo = $scope.indicacion.medicamento.oxigeno.respiracion;
         $scope.indicacion.medicamento.oxigeno.cantidad = "";
         $scope.valoresOxigeno = [];
 
-        if (tipo == 'Máscara') {
+        if (tipo == 'Mascara' || tipo == 'Máscara') {
             angular.forEach(valoresMascara, function(valor) {
                 $scope.valoresOxigeno.push({
                     id: valor,
@@ -1415,16 +1424,15 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 });
             });
         }
-
     };
 
     // cargamos los valores para los cuidados de oxigenos dependiendo el tipo de mascara
-    $scope.$watch('indicacion.medicamento.oxigeno.respiracion', function(current, old) {
-
-        if (current && current.tipo) {
-            $scope.asignarOxigeno(current.tipo);
-        }
-    });
+    // $scope.$watch('indicacion.medicamento.oxigeno.respiracion', function(current, old) {
+    //
+    //     if (current && current.tipo) {
+    //         $scope.asignarOxigeno(current.tipo);
+    //     }
+    // });
 
     // creamos las opciones para los arrays de seleccion de frascos
     $scope.$watch('cantidadFrascos', function(current, old) {
