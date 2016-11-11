@@ -16,7 +16,7 @@ angular.module('app').controller('Pacientes/iHeaderController', ["$scope", "$fil
         internacion: null,
         riesgoCaidas: null,
         valoracionDolor: null,
-        fiebre: null,
+        temperatura: null,
         glasgow: null,
         flebitis: null,
         upp: null,
@@ -30,6 +30,11 @@ angular.module('app').controller('Pacientes/iHeaderController', ["$scope", "$fil
 
         verEvolucion:function(idEvolucion){
             Plex.openView('internacion/verEvolucion/' + $scope.internacion.id + "/" + idEvolucion).then(function() {
+
+            });
+        },
+        verNews : function(){
+            Plex.openView('internacion/verNews/' + $scope.internacion.id).then(function() {
 
             });
         },
@@ -51,9 +56,9 @@ angular.module('app').controller('Pacientes/iHeaderController', ["$scope", "$fil
                 $scope.indicadores.valoracionDolor = $scope.valoracionDolor;
             }
 
-            $scope.fiebre = Indicadores.hayFiebre($scope.internacion);
-            if ($scope.fiebre){
-                $scope.indicadores.fiebre = $scope.fiebre;
+            $scope.temperatura = Indicadores.hayFiebre($scope.internacion);
+            if ($scope.temperatura){
+                $scope.indicadores.temperatura = $scope.temperatura;
             }
 
             $scope.glasgow = Indicadores.hayGlasgow($scope.internacion);

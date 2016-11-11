@@ -1,0 +1,217 @@
+<table class="table table-hover">
+    <caption>NEWS score</caption>
+    <tr>
+        <td>Parametros fisiológicos</td>
+        <th scope="col" class="text-center">Valor</th>
+        <th scope="col" class="text-center">3</th>
+        <th scope="col" class="text-center">2</th>
+        <th scope="col" class="text-center">1</th>
+        <th scope="col" class="text-center">0</th>
+        <th scope="col" class="text-center">1</th>
+        <th scope="col" class="text-center">2</th>
+        <th scope="col" class="text-center">3</th>
+    </tr>
+    <!-- <tr ng-class="{'default': news.frecuenciaRespiratoria.valorNews == 0, 'success': news.frecuenciaRespiratoria.valorNews == 1, 'warning': news.frecuenciaRespiratoria.valorNews == 2, 'danger': news.frecuenciaRespiratoria.valorNews == 3}"> -->
+    <tr>
+        <th scope="row">Frecuencia respiratoria</th>
+        <td class="text-center">
+            {{news.frecuenciaRespiratoria.valor}} RPM
+        </td>
+        <td class="text-center" ng-class="{'danger': news.frecuenciaRespiratoria.valor > 0 && news.frecuenciaRespiratoria.valor <= 8}">
+            <i class="mdi mdi-check " ng-if="news.frecuenciaRespiratoria.valor > 0 && news.frecuenciaRespiratoria.valor <= 8"></i>
+        </td>
+        <td>
+        </td>
+        <td  class="text-center" ng-class="{'warning': news.frecuenciaRespiratoria.valor > 0 && news.frecuenciaRespiratoria.valor >= 9 && news.frecuenciaRespiratoria.valor <= 11}">
+            <i class="mdi mdi-check" ng-if="news.frecuenciaRespiratoria.valor > 0 && news.frecuenciaRespiratoria.valor >= 9 && news.frecuenciaRespiratoria.valor <= 11"></i>
+        </td>
+        <td  class="text-center" ng-class="{'default': news.frecuenciaRespiratoria.valor > 0 && news.frecuenciaRespiratoria.valor >= 12 && news.frecuenciaRespiratoria.valor <= 20}">
+            <i class="mdi mdi-check" ng-if="news.frecuenciaRespiratoria.valor > 0 && news.frecuenciaRespiratoria.valor >= 12 && news.frecuenciaRespiratoria.valor <= 20"></i>
+        </td>
+        <td>
+        </td>
+        <td  class="text-center" ng-class="{'warning': news.frecuenciaRespiratoria.valor > 0 && news.frecuenciaRespiratoria.valor >= 21 && news.frecuenciaRespiratoria.valor <= 24}">
+            <i class="mdi mdi-check" ng-if="news.frecuenciaRespiratoria.valor > 0 && news.frecuenciaRespiratoria.valor >= 21 && news.frecuenciaRespiratoria.valor <= 24"></i>
+        </td>
+        <td  class="text-center" ng-class="{'danger': news.frecuenciaRespiratoria.valor > 0 && news.frecuenciaRespiratoria.valor >= 25}">
+            <i class="mdi mdi-check " ng-if="news.frecuenciaRespiratoria.valor > 0 && news.frecuenciaRespiratoria.valor >= 25"></i>
+        </td>
+    </tr>
+    <!-- <tr ng-class="{'default': news.saturacionOxigeno.valorNews == 0, 'success': news.saturacionOxigeno.valorNews == 1, 'warning': news.saturacionOxigeno.valorNews == 2, 'danger': news.saturacionOxigeno.valorNews == 3}"> -->
+    <tr>
+        <th scope="row">Saturación del oxígeno</th>
+        <td class="text-center">
+            {{news.saturacionOxigeno.valor}} %
+        </td>
+        <td class="text-center" ng-class="{'danger': news.saturacionOxigeno.valor > 0 && news.saturacionOxigeno.valor <= 91}">
+            <i class="mdi mdi-check" ng-if="news.saturacionOxigeno.valor > 0 && news.saturacionOxigeno.valor <= 91"></i>
+        </td>
+        <td class="text-center" ng-class="{'warning': news.saturacionOxigeno.valor > 0 && news.saturacionOxigeno.valor >= 92 && news.saturacionOxigeno.valor <= 93}">
+            <i class="mdi mdi-check" ng-if="news.saturacionOxigeno.valor > 0 && news.saturacionOxigeno.valor >= 92 && news.saturacionOxigeno.valor <= 93"></i>
+        </td>
+        <td class="text-center" ng-class="{'success': news.saturacionOxigeno.valor > 0 && news.saturacionOxigeno.valor >= 94 && news.saturacionOxigeno.valor <= 95}">
+            <i class="mdi mdi-check" ng-if="news.saturacionOxigeno.valor > 0 && news.saturacionOxigeno.valor >= 94 && news.saturacionOxigeno.valor <= 95"></i>
+        </td>
+        <td class="text-center" ng-class="{'default': news.saturacionOxigeno.valor > 0 && news.saturacionOxigeno.valor >= 96}">
+            <i class="mdi mdi-check" ng-if="news.saturacionOxigeno.valor > 0 && news.saturacionOxigeno.valor >= 96"></i>
+        </td>
+        <td>
+
+        </td>
+        <td>
+
+        </td>
+        <td>
+
+        </td>
+    </tr>
+    <!-- <tr ng-class="{'default': news.sumplementoOxigeno.valor == 0, 'warning': news.sumplementoOxigeno.valor > 0}"> -->
+    <tr>
+        <th scope="row">Algún suplemento de oxígeno</th>
+        <td class="text-center">
+            <span ng-if="news.sumplementoOxigeno.valor">Sí</span>
+            <span ng-if="!news.sumplementoOxigeno.valor">No</span>
+        </td>
+        <td>
+
+        </td>
+        <td class="text-center" ng-class="{'warning': news.sumplementoOxigeno.valor > 0}">
+            <i class="mdi mdi-check" ng-if="news.sumplementoOxigeno.valor > 0"></i>
+        </td>
+        <td>
+
+        </td>
+        <td class="text-center" ng-class="{'default': news.sumplementoOxigeno.valor == 0}">
+            <i class="mdi mdi-check" ng-if="news.sumplementoOxigeno.valor == 0"></i>
+        </td>
+        <td>
+
+        </td>
+        <td>
+
+        </td>
+        <td>
+
+        </td>
+    </tr>
+    <!-- <tr ng-class="{'default': news.temperatura.valorNews == 0, 'success': news.temperatura.valorNews == 1, 'warning': news.temperatura.valorNews == 2, 'danger': news.temperatura.valorNews == 3}"> -->
+    <tr>
+        <th scope="row">Temperatura</th>
+        <td class="text-center">
+            {{news.temperatura.valor}} °C
+        </td>
+        <td class="text-center" ng-class="{'danger': news.temperatura.valor > 0 && news.temperatura.valor <= 35}">
+            <i class="mdi mdi-check" ng-if="news.temperatura.valor > 0 && news.temperatura.valor <= 35"></i>
+        </td>
+        <td>
+
+        </td>
+        <td class="text-center" ng-class="{'success': news.temperatura.valor > 0 && news.temperatura.valor >= 35.1 && news.temperatura.valor <= 36}">
+            <i class="mdi mdi-check" ng-if="news.temperatura.valor > 0 && news.temperatura.valor >= 35.1 && news.temperatura.valor <= 36"></i>
+        </td>
+        <td class="text-center" ng-class="{'default': news.temperatura.valor > 0 && news.temperatura.valor >= 36.1 && news.temperatura.valor <= 38}">
+            <i class="mdi mdi-check" ng-if="news.temperatura.valor > 0 && news.temperatura.valor >= 36.1 && news.temperatura.valor <= 38"></i>
+        </td>
+        <td class="text-center" ng-class="{'success': news.temperatura.valor > 0 && news.temperatura.valor >= 38.1 && news.temperatura.valor <= 39}">
+            <i class="mdi mdi-check" ng-if="news.temperatura.valor > 0 && news.temperatura.valor >= 38.1 && news.temperatura.valor <= 39"></i>
+        </td>
+        <td class="text-center" ng-class="{'warning': news.temperatura.valor > 0 && news.temperatura.valor >= 39.1}">
+            <i class="mdi mdi-check" ng-if="news.temperatura.valor > 0 && news.temperatura.valor >= 39.1"></i>
+        </td>
+        <td>
+
+        </td>
+    </tr>
+    <!-- <tr ng-class="{'default': news.tensionSistolica.valorNews == 0, 'success': news.tensionSistolica.valorNews == 1, 'warning': news.tensionSistolica.valorNews == 2, 'danger': news.tensionSistolica.valorNews == 3}"> -->
+    <tr>
+        <th scope="row">Tensión sistólica</th>
+        <td class="text-center">
+            {{news.tensionSistolica.valor}}
+        </td>
+        <td class="text-center" ng-class="{'danger': news.tensionSistolica.valor > 0 && news.tensionSistolica.valor <= 90}">
+            <i class="mdi mdi-check" ng-if="news.tensionSistolica.valor > 0 && news.tensionSistolica.valor <= 90"></i>
+        </td>
+        <td class="text-center" ng-class="{'warning': news.tensionSistolica.valor > 0 && news.tensionSistolica.valor >= 91 && news.tensionSistolica.valor <= 100}">
+            <i class="mdi mdi-check" ng-if="news.tensionSistolica.valor > 0 && news.tensionSistolica.valor >= 91 && news.tensionSistolica.valor <= 100"></i>
+        </td>
+        <td class="text-center" ng-class="{'success': news.tensionSistolica.valor > 0 && news.tensionSistolica.valor >= 101 && news.tensionSistolica.valor <= 110}">
+            <i class="mdi mdi-check" ng-if="news.tensionSistolica.valor > 0 && news.tensionSistolica.valor >= 101 && news.tensionSistolica.valor <= 110"></i>
+        </td>
+        <td class="text-center" ng-class="{'default': news.tensionSistolica.valor > 0 && news.tensionSistolica.valor >= 111 && news.tensionSistolica.valor <= 219}">
+            <i class="mdi mdi-check" ng-if="news.tensionSistolica.valor > 0 && news.tensionSistolica.valor >= 111 && news.tensionSistolica.valor <= 219"></i>
+        </td>
+        <td>
+
+        </td>
+        <td>
+
+        </td>
+        <td class="text-center" ng-class="{'danger': news.tensionSistolica.valor > 0 && news.tensionSistolica.valor >= 220}">
+            <i class="mdi mdi-check" ng-if="news.tensionSistolica.valor > 0 && news.tensionSistolica.valor >= 220"></i>
+        </td>
+    </tr>
+    <!-- <tr ng-class="{'default': news.frecuenciaCardiaca.valorNews == 0, 'success': news.frecuenciaCardiaca.valorNews == 1, 'warning': news.frecuenciaCardiaca.valorNews == 2, 'danger': news.frecuenciaCardiaca.valorNews == 3}"> -->
+    <tr>
+        <th scope="row">Frecuencia cardíaca</th>
+        <td class="text-center">
+            {{news.frecuenciaCardiaca.valor}} PPM
+        </td>
+        <td class="text-center">
+            <i class="mdi mdi-check" ng-if="news.frecuenciaCardiaca.valor > 0 && news.frecuenciaCardiaca.valor <= 40"></i>
+        </td>
+        <td>
+
+        </td>
+        <td class="text-center" ng-class="{'warning': news.frecuenciaCardiaca.valor > 0 && news.frecuenciaCardiaca.valor >= 41 && news.frecuenciaCardiaca.valor <= 50}">
+            <i class="mdi mdi-check" ng-if="news.frecuenciaCardiaca.valor > 0 && news.frecuenciaCardiaca.valor >= 41 && news.frecuenciaCardiaca.valor <= 50"></i>
+        </td>
+        <td class="text-center" ng-class="{'success': news.frecuenciaCardiaca.valor > 0 && news.frecuenciaCardiaca.valor >= 51 && news.frecuenciaCardiaca.valor <= 90}">
+            <i class="mdi mdi-check" ng-if="news.frecuenciaCardiaca.valor > 0 && news.frecuenciaCardiaca.valor >= 51 && news.frecuenciaCardiaca.valor <= 90"></i>
+        </td>
+        <td class="text-center" ng-class="{'default': news.frecuenciaCardiaca.valor > 0 && news.frecuenciaCardiaca.valor >= 91 && news.frecuenciaCardiaca.valor <= 110}">
+            <i class="mdi mdi-check" ng-if="news.frecuenciaCardiaca.valor > 0 && news.frecuenciaCardiaca.valor >= 91 && news.frecuenciaCardiaca.valor <= 110"></i>
+        </td>
+        <td class="text-center" ng-class="{'warning': news.frecuenciaCardiaca.valor > 0 && news.frecuenciaCardiaca.valor >= 111 && news.frecuenciaCardiaca.valor <= 130}">
+            <i class="mdi mdi-check" ng-if="news.frecuenciaCardiaca.valor > 0 && news.frecuenciaCardiaca.valor >= 111 && news.frecuenciaCardiaca.valor <= 130"></i>
+        </td>
+        <td class="text-center" ng-class="{'danger': news.frecuenciaCardiaca.valor > 0 && news.frecuenciaCardiaca.valor >= 131}">
+            <i class="mdi mdi-check" ng-if="news.frecuenciaCardiaca.valor > 0 && news.frecuenciaCardiaca.valor >= 131"></i>
+        </td>
+    </tr>
+    <!-- <tr ng-class="{'default': news.glasgow.valorNews == 0, 'success': news.glasgow.valorNews == 1, 'warning': news.glasgow.valorNews == 2, 'danger': news.glasgow.valorNews == 3}"> -->
+    <tr>
+        <th scope="row">Nivel de conciencia</th>
+        <td>
+            <!-- {{news.glasgow.valor}} -->
+        </td>
+        <td>
+
+        </td>
+        <td>
+
+        </td>
+        <td>
+
+        </td>
+        <td class="text-center" ng-class="{'default': news.glasgow.valor > 14}" >
+            <i class="mdi mdi-check" ng-if="news.glasgow.valor > 0 && news.glasgow.valor > 14"></i>
+        </td>
+        <td>
+
+        </td>
+        <td>
+
+        </td>
+        <td class="text-center" ng-class="{'danger': news.glasgow.valor <= 14}">
+            <i class="mdi mdi-check" ng-if="news.glasgow.valor > 0 && news.glasgow.valor <= 14"></i>
+        </td>
+    </tr>
+    <tr class="{{news.clase}}">
+        <th scope="row">Total Score NEWS</th>
+        <td class="text-center">
+            {{news.valor}}
+        </td>
+        <td colspan="7">
+        </td>
+    </tr>
+</table>

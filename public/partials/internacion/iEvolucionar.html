@@ -58,9 +58,6 @@
                     <td colspan="3"></td>
                 </tr>
                 <tr data-ng-repeat="item in filtros.evoluciones | orderBy: '-fechaHora'">
-                    <pre>
-                        {{item | json}}
-                    </pre>
                     <td >
                         {{item.fechaHora | fromNow }}<br/>
                         <div class="text-muted small">
@@ -68,9 +65,21 @@
                         </div>
                     </td>
                     <td >
+
+                        <!-- <pre>
+                            {{item | json}}
+                        </pre> -->
+
                         <div ng-if="item.tipo == 'Servicio'">
                             <b>Evolución del servicio {{item.servicio.nombreCorto}}</b>
                         </div>
+
+                        <div ng-if="item.tipo != 'Servicio'">
+                            <b>
+                                {{item.tipoIndicacion.tipoIndicacion.nombre}} / {{item.tipoIndicacion.nombre}}
+                            </b>
+                        </div>
+
                         <div ng-bind-html="item.texto" ng-if="item.texto">
                             <br/>
                         </div>

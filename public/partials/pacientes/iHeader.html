@@ -77,16 +77,17 @@
                             <b>Indicadores</b>
                             <br />
 
-                            <span ng-if="indicadores.news" class="tips label label-{{indicadores.news.clase}}" title="News score {{indicadores.news.valor}}">News {{indicadores.news.valor}}</span>
+                            <a href ng-show="indicadores.news.valor > 0" ng-click="verNews(internacion.id)" >
+                                <span class="tips label label-{{indicadores.news.clase}}" title="Ver detalle news score {{indicadores.news.valor}}">News {{indicadores.news.valor}}</span>
+                            </a>
 
                             <span ng-if="indicadores.riesgoCaidas" class="tips label label-{{indicadores.riesgoCaidas.clase}}" title="Riesgo de caídas {{indicadores.riesgoCaidas.indicador}}">Riesgo caídas {{indicadores.riesgoCaidas.indicador}}</span>
 
                             <span ng-if="indicadores.valoracionDolor" class="tips label label-{{indicadores.valoracionDolor.clase}}" title="Valoración del dolor {{indicadores.valoracionDolor.indicador}}">Valoración del dolor {{indicadores.valoracionDolor.indicador}}</span>
 
-                            <span ng-if="indicadores.fiebre" class="tips label label-{{indicadores.fiebre.clase}}" title="Temperatura corporal de {{indicadores.fiebre.indicador}}°">Temperatura {{indicadores.fiebre.indicador}}°</span>
+                            <span ng-if="indicadores.temperatura" class="tips label label-{{indicadores.temperatura.clase}}" title="Temperatura corporal de {{indicadores.temperatura.indicador}}°">Temperatura {{indicadores.temperatura.indicador}}°</span>
 
                             <span ng-if="indicadores.glasgow" class="tips label label-{{indicadores.glasgow.clase}}" title="Glasgow {{indicadores.glasgow.indicador}} {{indicadores.glasgow.valor}}">Glasgow {{glasgow.valor}}</span>
-
 
                             <span ng-if="indicadores.flebitis" class="tips label label-{{indicadores.flebitis.clase}}" title="Flebitis {{indicadores.flebitis.indicador}}+">Flebitis</span>
 
@@ -105,6 +106,7 @@
                                 </div>
                             </span>
                         </div>
+
                     </div>
                     <div class="col-lg-2 text-right">
                         <span>
