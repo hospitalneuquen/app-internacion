@@ -60,7 +60,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr data-ng-repeat="item in filtros.problemas | orderBy: '-fechaDesde'">
+                <tr data-ng-repeat="item in filtros.problemas | estaActivo | orderBy: '-fechaDesde'">
                     <td >
                         <span ng-if="item.diagnostico.nombre">
                             {{item.diagnostico.nombre}}
@@ -114,7 +114,7 @@
                     <td style="width: 50%;">
                         <div class="problemas" ng-repeat="item in filtros.activos | orderBy: '-fechaDesde'">
 
-                            <div class="row">
+                            <div class="row" >
                                 <div class="col-lg-10">
                                     <h5>
                                         <span ng-if="item.diagnostico.nombre">
@@ -244,7 +244,9 @@
         <ng-form name="formEditarProblema" ng-show="!loading">
 
             <!-- <legend>{{tituloFormulario}}</legend> -->
-
+<pre>
+    {{problemasEdit | json}}
+</pre>
             <div class="row">
                 <div class="col-lg-12">
 
@@ -256,7 +258,7 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <!-- <input type="text" label="Descripción" ng-model="problemasEdit.descripcion" plex class="form-control" required/> -->
-                                    <select label="Diagnóstico" ng-model="problemasEdit.diagnostico" min="3" plex="(item.codigo + ' - ' + item.nombre) for item in buscarDiagnostico($value)"></select>
+                                    <select label="Diagnóstico" ng-model="problemasEdit.diagnosticoCie" min="3" plex="(item.codigo + ' - ' + item.nombre) for item in buscarDiagnostico($value)" ></select>
 
                                 </div>
                                 <div class="col-sm-6">

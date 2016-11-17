@@ -672,7 +672,12 @@ angular.module('app').factory('Indicadores', ["Global", "Server", "Session", "Sh
             news['sumplementoOxigeno'] = {valorNews: 0, valor: 0};
             news['sumplementoOxigeno'].valor = sumplementoOxigeno;
             // calculamos valor news para suplemento de oxigeno
-            news.valor += (news.sumplementoOxigeno.valor) ? 2 : 0;
+            if (news.sumplementoOxigeno.valor > 0){
+                news.moderado = true;
+                news.valor += 2;
+                news.sumplementoOxigeno.valorNews = 3;
+            }
+
 
             // obtenemos valor de temperatura
             news.temperatura = self.hayFiebre(internacion);

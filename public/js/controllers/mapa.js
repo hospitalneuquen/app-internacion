@@ -449,6 +449,11 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
             Plex.openView('internacion/verEvolucion/' + $scope.internacion.id + "/" + idEvolucion).then(function() {
 
             });
+        },
+        verNews : function(idInternacion){
+            Plex.openView('internacion/verNews/' + idInternacion).then(function() {
+
+            });
         }
     });
 

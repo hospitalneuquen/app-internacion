@@ -183,6 +183,9 @@
                             <div class="col-indicadores text-left">
                                 <div ng-if="cama.idInternacion">
                                     <br class="mdi" /><!-- Fake para que me genere espacio en la columna -->
+                                    <a href ng-show="cama.$news.valor > 0" ng-click="verNews(cama.idInternacion)" >
+                                        <span class="tips label label-{{cama.$news.clase}}" title="Ver detalle news score {{cama.$news.valor}}">N {{cama.$news.valor}}</span>
+                                    </a>
                                     <!-- <i ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total > 0 && cama.$internacion.ingreso.enfermeria.riesgoCaida.total < 25" ng-class="{'verde' : cama.$internacion.ingreso.enfermeria.riesgoCaida.total < 25}" class="mdi mdi-alert tips" title="Riesgo de caídas bajo"></i>
                                     <i ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total >= 25 && cama.$internacion.ingreso.enfermeria.riesgoCaida.total <= 50" ng-class="{'amarillo' : cama.$internacion.ingreso.enfermeria.riesgoCaida.total >= 25 && cama.$internacion.ingreso.enfermeria.riesgoCaida.total <= 50}" class="mdi mdi-alert tips" title="Riesgo de caídas medio"></i>
                                     <i ng-if="cama.$internacion.ingreso.enfermeria.riesgoCaida.total > 50" ng-class="{'rojo' : cama.$internacion.ingreso.enfermeria.riesgoCaida.total > 50}" class="mdi mdi-alert tips" title="Riesgo de caídas alto"></i>
@@ -253,6 +256,12 @@
                                 </div>
                             </div>
                             <!-- <div class="col-xs-1 text-right"></div> -->
+
+                            <!-- <div class="col-indicadores text-left">
+                                <a href ng-show="cama.$news.valor > 0" ng-click="verNews(cama.idInternacion)" >
+                                    <span class="tips label label-{{cama.$news.clase}}" title="Ver detalle news score {{cama.$news.valor}}">N {{cama.$news.valor}}</span>
+                                </a>
+                            </div> -->
                         </div>
                     </div>
 

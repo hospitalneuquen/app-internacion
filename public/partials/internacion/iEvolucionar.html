@@ -1164,7 +1164,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr data-ng-repeat="item in widget.problemas.activos | orderBy: '-fechaDesde'">
+                                                            <tr data-ng-repeat="item in widget.problemas.activos | estaActivo | orderBy: '-fechaDesde'">
                                                                 <td >
                                                                     {{item.fechaDesde | fromNow }}<br/>
                                                                     <div class="text-muted small">
@@ -1202,7 +1202,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr data-ng-repeat="item in widget.problemas.inactivos | orderBy: '-fechaDesde'">
+                                                            <tr data-ng-repeat="item in widget.problemas.inactivos | estaActivo | orderBy: '-fechaDesde'">
                                                                 <td >
                                                                     {{item.fechaDesde | fromNow }}<br/>
                                                                     <div class="text-muted small">

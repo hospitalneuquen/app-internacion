@@ -112,7 +112,14 @@ angular.module('app').controller('internacion/iListaProblemas', ['$scope', 'Plex
             var diagnostico = Shared.diagnosticos.get(buscar);
 
             diagnostico.then(function(data) {
-                $scope.showDiagnosticoTexto = (data.length) ? false : true;
+                if (data.length){
+                    $scope.showDiagnosticoTexto = false;
+                }else{
+                    $scope.showDiagnosticoTexto = true;
+                    $scope.problemasEdit.diagnosticoTexto = "";
+                    $scope.problemasEdit.diagnostico = {};
+                    $scope.problemasEdit.diagnosticoCie = {};
+                }
             });
 
             return diagnostico;
@@ -128,6 +135,9 @@ angular.module('app').controller('internacion/iListaProblemas', ['$scope', 'Plex
 
                 angular.copy(problema, $scope.problemasEdit);
 
+                $scope.problemasEdit.idProblema = $scope.problemasEdit.id;
+                $scope.problemasEdit.diagnosticoCie = $scope.problemasEdit.diagnostico;
+                $scope.problemasEdit.servicio = Session.variables.servicioActual.id;
 
             } else { // Alta
                 $scope.tituloFormulario = "Agregar problema";
@@ -135,10 +145,13 @@ angular.module('app').controller('internacion/iListaProblemas', ['$scope', 'Plex
                 // Valores por defecto
                 $scope.problemasEdit = {
                     fechaDesde: new Date(),
-                    servicio: Session.variables.servicioActual,
+                    servicio: Session.variables.servicioActual.id,
+                    activo: true,
                     estado: 'Activo'
                 };
             }
+
+            $scope.showDiagnosticoTexto = ($scope.problemasEdit.diagnosticoTexto) ? true : false;
         },
         // Cancelar la edición
         cancelarEdicion: function() {
@@ -148,12 +161,14 @@ angular.module('app').controller('internacion/iListaProblemas', ['$scope', 'Plex
 
         // Guarda el problema
         guardarProblema: function(problema) {
-            // console.log(problema);
-            Shared.problemas.post($scope.internacion.id, problema.id || null, $scope.problemasEdit, {
-                minify: true
-            }).then(function(data) {
+            problema.diagnostico = (problema.diagnosticoCie && problema.diagnosticoCie.id) ? problema.diagnosticoCie.id : null;
+            // problema.servicio = (problema.servicio.id) ? problema.servicio.id : Session.variables.servicioActual.id;
+            // problema.servicio = Session.variables.servicioActual.id;
+            console.log("*****", problema);
+            // console.log($scope.diagnosticCie);
+            Shared.problemas.post($scope.internacion.id, problema.id || null, $scope.problemasEdit).then(function(data) {
                 Plex.alert('Problema guardado');
-
+                console.log("PROBLEMA", data);
                 // actualizamos el listado de problemas
                 $scope.actualizarproblemas(data);
                 $scope.cancelarEdicion();
@@ -186,12 +201,25 @@ angular.module('app').controller('internacion/iListaProblemas', ['$scope', 'Plex
         }
     });
 
-    // $scope.$watch('include.internacion', function(current, old) {
-    //     $scope.init(current);
-    // });
-
     // inicializamos mediante el watch de la variable incluida
     $scope.$watch('include.internacion', function(current, old) {
+        console.log(current);
         $scope.init(current);
     });
 }]);
+
+angular.module('app').filter('estaActivo', function() {
+    return function(collection, keyname) {
+
+        var output = [],
+            keys = [];
+
+        angular.forEach(collection, function(item) {
+            if (item.activo){
+                output.push(item);
+            }
+        });
+
+        return output;
+    };
+});
