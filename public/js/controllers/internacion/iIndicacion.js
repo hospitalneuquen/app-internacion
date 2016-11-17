@@ -742,6 +742,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
             },
             // renovar indicacion
             renovar: function (indicacion){
+                $scope.accionIndicacion = "renovar"; // para enviar a la api
                 // console.log($scope.indicacion);
                 $scope.indicaciones.duplicar(indicacion);
                 // console.log($scope.indicacion);

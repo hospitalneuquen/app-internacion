@@ -304,21 +304,35 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                         // evolucion = $scope.internacion[$scope.tipoWidget.id];
                         evolucion[$scope.tipoWidget.id] = $scope.internacion[$scope.tipoWidget.id];
 
-                        if ($scope.tipoWidget.id == 'problemas'){
-                            evolucion[$scope.tipoWidget.id]['activos'] = $scope.internacion[$scope.tipoWidget.id].filter(function(p){
-                                return (p.estado == 'Activo');
-                            });
-                            evolucion[$scope.tipoWidget.id]['inactivos'] = $scope.internacion[$scope.tipoWidget.id].filter(function(p){
-                                return (p.estado == 'Inactivo');
-                            });
-                        }
+                        // if ($scope.tipoWidget.id == 'problemas'){
+                        //     evolucion[$scope.tipoWidget.id]['activos'] = $scope.internacion[$scope.tipoWidget.id].filter(function(p){
+                        //         return (p.estado == 'Activo');
+                        //     });
+                        //     evolucion[$scope.tipoWidget.id]['inactivos'] = $scope.internacion[$scope.tipoWidget.id].filter(function(p){
+                        //         return (p.estado == 'Inactivo');
+                        //     });
+                        // }
                         found = true;
                     }
 
                     i--;
                 }
 
-                console.log(evolucion);
+                if ($scope.tipoWidget.id == 'problemas'){
+                    var evolucion = {
+                        title: $scope.tipoWidget.nombre
+                    };
+                    evolucion.problemas = [];
+                    evolucion[$scope.tipoWidget.id]['activos'] = $scope.internacion.problemas.filter(function(p){
+                        return (p.estado == 'Activo');
+                    });
+
+                    evolucion[$scope.tipoWidget.id]['inactivos'] = $scope.internacion.problemas.filter(function(p){
+                        return (p.estado == 'Inactivo');
+                    });
+                }
+
+                    console.log(evolucion);
                 if (evolucion){
                     $scope.wigetCargados.push(evolucion);
                 }
@@ -565,3 +579,19 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
         $scope.init(current);
     });
 }]);
+
+angular.module('app').filter('estaActivo', function() {
+    return function(collection, keyname) {
+
+        var output = [],
+            keys = [];
+
+        angular.forEach(collection, function(item) {
+            if (item.activo){
+                output.push(item);
+            }
+        });
+
+        return output;
+    };
+});

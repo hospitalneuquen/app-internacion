@@ -156,19 +156,19 @@
         <td class="text-center">
             {{news.frecuenciaCardiaca.valor}} PPM
         </td>
-        <td class="text-center">
+        <td class="text-center" ng-class="{'danger': news.frecuenciaCardiaca.valor > 0 && news.frecuenciaCardiaca.valor <= 40}">
             <i class="mdi mdi-check" ng-if="news.frecuenciaCardiaca.valor > 0 && news.frecuenciaCardiaca.valor <= 40"></i>
         </td>
         <td>
 
         </td>
-        <td class="text-center" ng-class="{'warning': news.frecuenciaCardiaca.valor > 0 && news.frecuenciaCardiaca.valor >= 41 && news.frecuenciaCardiaca.valor <= 50}">
+        <td class="text-center" ng-class="{'success': news.frecuenciaCardiaca.valor > 0 && news.frecuenciaCardiaca.valor >= 41 && news.frecuenciaCardiaca.valor <= 50}">
             <i class="mdi mdi-check" ng-if="news.frecuenciaCardiaca.valor > 0 && news.frecuenciaCardiaca.valor >= 41 && news.frecuenciaCardiaca.valor <= 50"></i>
         </td>
-        <td class="text-center" ng-class="{'success': news.frecuenciaCardiaca.valor > 0 && news.frecuenciaCardiaca.valor >= 51 && news.frecuenciaCardiaca.valor <= 90}">
+        <td class="text-center" ng-class="{'default': news.frecuenciaCardiaca.valor > 0 && news.frecuenciaCardiaca.valor >= 51 && news.frecuenciaCardiaca.valor <= 90}">
             <i class="mdi mdi-check" ng-if="news.frecuenciaCardiaca.valor > 0 && news.frecuenciaCardiaca.valor >= 51 && news.frecuenciaCardiaca.valor <= 90"></i>
         </td>
-        <td class="text-center" ng-class="{'default': news.frecuenciaCardiaca.valor > 0 && news.frecuenciaCardiaca.valor >= 91 && news.frecuenciaCardiaca.valor <= 110}">
+        <td class="text-center" ng-class="{'success': news.frecuenciaCardiaca.valor > 0 && news.frecuenciaCardiaca.valor >= 91 && news.frecuenciaCardiaca.valor <= 110}">
             <i class="mdi mdi-check" ng-if="news.frecuenciaCardiaca.valor > 0 && news.frecuenciaCardiaca.valor >= 91 && news.frecuenciaCardiaca.valor <= 110"></i>
         </td>
         <td class="text-center" ng-class="{'warning': news.frecuenciaCardiaca.valor > 0 && news.frecuenciaCardiaca.valor >= 111 && news.frecuenciaCardiaca.valor <= 130}">

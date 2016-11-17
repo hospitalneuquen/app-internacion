@@ -787,7 +787,7 @@
                             <th rowspan="1" class="text-center vert-align">Medicación / Hidratación / Alimentación parenteral</th>
                             <th rowspan="1" class="text-center">Vía</th>
                             <th rowspan="1" class="text-center">Frec.</th>
-
+                            <!--
                             <th>
                                 07
                             </th>
@@ -860,6 +860,7 @@
                             <th>
                                 06
                             </th>
+                            -->
                             <th rowspan="1" class="text-center">
                                 Usuario / Servicio
                             </th>
@@ -1148,6 +1149,122 @@
                                         {{indicacion.descripcion}}
                                     </div>
                                 </div>
+
+                                <table class="table table-hover table-bordered  ">
+                                    <thead>
+
+                                        <tr>
+                                            <th>
+                                                07
+                                            </th>
+                                            <th>
+                                                08
+                                            </th>
+                                            <th>
+                                                09
+                                            </th>
+                                            <th>
+                                                10
+                                            </th>
+                                            <th>
+                                                11
+                                            </th>
+                                            <th>
+                                                12
+                                            </th>
+                                            <th>
+                                                13
+                                            </th>
+                                            <th>
+                                                14
+                                            </th>
+                                            <th>
+                                                15
+                                            </th>
+                                            <th>
+                                                16
+                                            </th>
+                                            <th>
+                                                17
+                                            </th>
+                                            <th>
+                                                18
+                                            </th>
+                                            <th>
+                                                19
+                                            </th>
+                                            <th>
+                                                20
+                                            </th>
+                                            <th>
+                                                21
+                                            </th>
+                                            <th>
+                                                22
+                                            </th>
+                                            <th>
+                                                23
+                                            </th>
+                                            <th>
+                                                24
+                                            </th>
+                                            <th>
+                                                01
+                                            </th>
+                                            <th>
+                                                02
+                                            </th>
+                                            <th>
+                                                03
+                                            </th>
+                                            <th>
+                                                04
+                                            </th>
+                                            <th>
+                                                05
+                                            </th>
+                                            <th>
+                                                06
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr>
+
+                                            <td class="text-center" ng-repeat="hora in horarios" ng-hide="evolucionarIndicacion && indicacion.id != evolucionarIndicacion.id">
+                                                <style>
+                                                .indicacion-text{color: green;}
+                                                </style>
+                                                <!-- <span class="fa-stack fa-lg tips" title="{{indicacion.horarios[hora].title}}" ng-if="indicacion.horarios[hora].text">
+                                                    <i class="fa fa-circle-thin fa-stack-2x"></i>
+                                                    <strong class="fa-stack-1x indicacion-text">
+                                                        {{indicacion.horarios[hora].text}}
+                                                    </strong>
+                                                </span> -->
+                                                <span class="indicacion-tabla i tips" title="{{indicacion.horarios[hora].title}}" ng-if="indicacion.horarios[hora].text">
+                                                    {{indicacion.horarios[hora].text}}
+                                                </span>
+
+                                                <span class="indicacion-tabla r tips" title="{{indicacion.evoluciones[hora].title}}" ng-if="indicacion.evoluciones[hora].text">
+                                                    {{indicacion.evoluciones[hora].text}}
+                                                </span>
+
+                                                <!-- <span class="fa-stack fa-lg tips" title="{{indicacion.evoluciones[hora].title}}" ng-if="indicacion.evoluciones[hora].text">
+                                                    <i class="fa fa-circle-thin fa-stack-2x"></i>
+                                                    <strong class="fa-stack-1x indicacion-text">
+                                                        {{indicacion.evoluciones[hora].text}}
+                                                    </strong>
+                                                </span> -->
+
+                                                <!-- <span class="tips" title="{{indicacion.horarios[hora].title}}">
+                                                    {{indicacion.horarios[hora].text}}
+                                                </span> -->
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </td>
                             <td  ng-hide="evolucionarIndicacion && indicacion.id != evolucionarIndicacion.id">{{indicacion.via}}</td>
                             <td  ng-hide="evolucionarIndicacion && indicacion.id != evolucionarIndicacion.id">
@@ -1161,35 +1278,6 @@
 
                             </td>
 
-                            <td class="text-center" ng-repeat="hora in horarios" ng-hide="evolucionarIndicacion && indicacion.id != evolucionarIndicacion.id">
-                                <style>
-                                .indicacion-text{color: green;}
-                                </style>
-                                <!-- <span class="fa-stack fa-lg tips" title="{{indicacion.horarios[hora].title}}" ng-if="indicacion.horarios[hora].text">
-                                    <i class="fa fa-circle-thin fa-stack-2x"></i>
-                                    <strong class="fa-stack-1x indicacion-text">
-                                        {{indicacion.horarios[hora].text}}
-                                    </strong>
-                                </span> -->
-                                <span class="indicacion-tabla i tips" title="{{indicacion.horarios[hora].title}}" ng-if="indicacion.horarios[hora].text">
-                                    {{indicacion.horarios[hora].text}}
-                                </span>
-
-                                <span class="indicacion-tabla r tips" title="{{indicacion.evoluciones[hora].title}}" ng-if="indicacion.evoluciones[hora].text">
-                                    {{indicacion.evoluciones[hora].text}}
-                                </span>
-
-                                <!-- <span class="fa-stack fa-lg tips" title="{{indicacion.evoluciones[hora].title}}" ng-if="indicacion.evoluciones[hora].text">
-                                    <i class="fa fa-circle-thin fa-stack-2x"></i>
-                                    <strong class="fa-stack-1x indicacion-text">
-                                        {{indicacion.evoluciones[hora].text}}
-                                    </strong>
-                                </span> -->
-
-                                <!-- <span class="tips" title="{{indicacion.horarios[hora].title}}">
-                                    {{indicacion.horarios[hora].text}}
-                                </span> -->
-                            </td>
 
                             <td class="text-center" ng-hide="evolucionarIndicacion && indicacion.id != evolucionarIndicacion.id">
                                 {{indicacion.createdBy.name}}
