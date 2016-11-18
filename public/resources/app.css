@@ -328,7 +328,9 @@ table.highlight td.exclude:hover::after{
 /* indicaciones */
 .frascos{}
 .frascos .fisiologica{color: #2196f3;}
-.frascos .dextrosa{color: #f3ce2a;}
+.frascos .ringer-lactato{color: #795548;}
+.frascos .dextrosa-al-cinco{color: #f3ce2a;}
+.frascos .dextrosa-al-diez{color: #FFB300;}
 .frascos .numero{
     color: white;
     font-size: 10px;

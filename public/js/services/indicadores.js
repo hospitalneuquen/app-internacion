@@ -548,6 +548,11 @@ angular.module('app').factory('Indicadores', ["Global", "Server", "Session", "Sh
                 while (i >= 0 && !found){
                     if (indicaciones[i].tipoIndicacion.nombre == 'Oxigenoterapia'){
                         found = true;
+
+                        if (!indicaciones[i].activo){
+                            return false;
+                        }
+
                         if (indicaciones[i].medicamento.oxigeno.accion == 'Colocación'){
                             return true;
                         }
