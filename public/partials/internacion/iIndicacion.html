@@ -755,12 +755,21 @@
                         </li>
                         <li>
                             <span class="fa-stack fa-lg frascos ">
-                                <i class="dextrosa mdi mdi-cup"></i>
+                                <i class="dextrosa-al-cinco mdi mdi-cup"></i>
                                 <i class="fa  fa-stack-1x numero ng-binding">
-                                    1
+                                    5
                                 </i>
                             </span>
-                            Frasco dextrosa
+                            Frasco dextrosa al 5%
+                        </li>
+                        <li>
+                            <span class="fa-stack fa-lg frascos ">
+                                <i class="dextrosa-al-diez mdi mdi-cup"></i>
+                                <i class="fa  fa-stack-1x numero ng-binding">
+                                    10
+                                </i>
+                            </span>
+                            Frasco dextrosa al 10%
                         </li>
                         <li>
                             <span class="fa-stack fa-lg frascos ">
@@ -770,6 +779,15 @@
                                 </i>
                             </span>
                             Frasco fisiológica
+                        </li>
+                        <li>
+                            <span class="fa-stack fa-lg frascos ">
+                                <i class="ringer-lactato mdi mdi-cup"></i>
+                                <i class="fa  fa-stack-1x numero ng-binding">
+                                    1
+                                </i>
+                            </span>
+                            Ringer-Lactato
                         </li>
                     </ul>
                 </div>
@@ -931,86 +949,95 @@
                                     </span>
                                 </span>
 
-                                <span ng-if="indicacion.tipoIndicacion.nombre == 'Plan de hidratación parenteral'">
+                                <div ng-if="indicacion.tipoIndicacion.nombre == 'Plan de hidratación parenteral'">
                                     <b>
                                         {{indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad+indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad+indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad}}
                                         ml
                                     </b>
 
-                                    <div ng-if="indicacion.planHidratacion.enteralParenteral.velocidadInfunsion">
-                                        Pasar por vía {{indicacion.planHidratacion.enteralParenteral.tipoVia}}
-                                        a {{indicacion.planHidratacion.enteralParenteral.velocidadInfunsion.velocidad}}
-                                        {{indicacion.planHidratacion.enteralParenteral.velocidadInfunsion.unidad}}
-                                    </div>
-
-                                    <br />
-
-                                    <span ng-show="indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad > 0">
-                                        Solución fisiológica {{indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad}} ml
-                                        -
-                                        <span ng-if="indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos.length">
-                                            Frascos
-                                            <span class="fa-stack fa-lg frascos"  ng-repeat="frasco in indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos">
-                                                <i class="fisiologica mdi mdi-cup"></i>
-                                                <i class="fa  fa-stack-1x numero">
-                                                    {{frasco}}
-                                                </i>
-                                            </span>
-                                        </span>
+                                    <span ng-if="indicacion.planHidratacion.enteralParenteral.velocidadInfunsion">
+                                        a pasar por vía <b>{{indicacion.planHidratacion.enteralParenteral.tipoVia}}</b>
+                                        a <b>{{indicacion.planHidratacion.enteralParenteral.velocidadInfunsion.velocidad}}
+                                        {{indicacion.planHidratacion.enteralParenteral.velocidadInfunsion.unidad}}</b>
                                     </span>
 
                                     <br />
 
-                                    <span ng-show="indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad > 0">
-                                        Dextrosa {{indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad}} ml al {{indicacion.planHidratacion.enteralParenteral.dextrosa.dilucion}}%
-                                        -
-                                        <span ng-if="indicacion.planHidratacion.enteralParenteral.dextrosa.frascos.length">
-                                            Frascos
-                                            <span class="fa-stack fa-lg frascos"  ng-repeat="frasco in indicacion.planHidratacion.enteralParenteral.dextrosa.frascos">
-                                                <i class="dextrosa mdi mdi-cup"></i>
-                                                <i class="fa  fa-stack-1x numero">
-                                                    {{frasco}}
-                                                </i>
+                                    <div class="row">
+
+                                        <div class="col-lg-6">
+                                            <b>Soluciones</b>
+                                            <br />
+                                            <span ng-show="indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad > 0">
+                                                Solución fisiológica {{indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad}} ml
+                                                -
+                                                <span ng-if="indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos.length">
+                                                    Frascos
+                                                    <span class="fa-stack fa-lg frascos"  ng-repeat="frasco in indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos">
+                                                        <i class="fisiologica mdi mdi-cup"></i>
+                                                        <i class="fa  fa-stack-1x numero">
+                                                            {{frasco}}
+                                                        </i>
+                                                    </span>
+                                                </span>
                                             </span>
-                                        </span>
-                                    </span>
 
-                                    <br />
+                                            <br />
 
-                                    <span ng-show="indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad > 0">
-                                        Ringer-Lactato {{indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad}} ml
-                                        -
-                                        <span ng-if="indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos.length">
-                                        Frascos
-                                            <span class="fa-stack fa-lg frascos"  ng-repeat="frasco in indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos">
-                                                <i class=" mdi mdi-cup"></i>
-                                                <i class="fa  fa-stack-1x numero">
-                                                    {{frasco}}
-                                                </i>
+                                            <span ng-show="indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad > 0">
+                                                Dextrosa {{indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad}} ml al {{indicacion.planHidratacion.enteralParenteral.dextrosa.dilucion}}%
+                                                -
+                                                <span ng-if="indicacion.planHidratacion.enteralParenteral.dextrosa.frascos.length">
+                                                    Frascos
+                                                    <span class="fa-stack fa-lg frascos"  ng-repeat="frasco in indicacion.planHidratacion.enteralParenteral.dextrosa.frascos">
+                                                        <i class="dextrosa-al-cinco mdi mdi-cup" ng-if="indicacion.planHidratacion.enteralParenteral.dextrosa.dilucion == 5"></i>
+                                                        <i class="dextrosa-al-diez mdi mdi-cup" ng-if="indicacion.planHidratacion.enteralParenteral.dextrosa.dilucion == 10"></i>
+                                                        <i class="fa  fa-stack-1x numero">
+                                                            {{frasco}}
+                                                        </i>
+                                                    </span>
+                                                </span>
                                             </span>
-                                        </span>
-                                    </span>
 
-                                    <div ng-if="indicacion.planHidratacion.enteralParenteral.agregados.length">
+                                            <br />
 
-                                        <b>Agregados</b>
-                                        <div ng-repeat="agregado in indicacion.planHidratacion.enteralParenteral.agregados">
-                                            +
-                                            {{agregado.tipoAgregado.nombre ? agregado.tipoAgregado.nombre : agregado.tipoAgregado}}
-                                            {{agregado.descripcion}}
-
-                                            <span class="mr label label-primary" ng-if="agregado.frascos.length == indicacion.planHidratacion.$frascos">Todos</span>
-
-                                            <span class="fa-stack fa-lg frascos" ng-if="agregado.frascos.length != indicacion.planHidratacion.$frascos" ng-repeat="frasco in agregado.frascos">
-                                                <i class=" mdi mdi-cup"></i>
-                                                <i class="fa  fa-stack-1x numero">
-                                                    {{frasco}}
-                                                </i>
+                                            <span ng-show="indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad > 0">
+                                                Ringer-Lactato {{indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad}} ml
+                                                -
+                                                <span ng-if="indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos.length">
+                                                    Frascos
+                                                    <span class="fa-stack fa-lg frascos"  ng-repeat="frasco in indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos">
+                                                        <i class="ringer-lactato mdi mdi-cup"></i>
+                                                        <i class="fa  fa-stack-1x numero">
+                                                            {{frasco}}
+                                                        </i>
+                                                    </span>
+                                                </span>
                                             </span>
+                                        </div>
+
+                                        <div ng-if="indicacion.planHidratacion.enteralParenteral.agregados.length" class="col-lg-6">
+
+                                            <b>Agregados</b>
+                                            <div ng-repeat="agregado in indicacion.planHidratacion.enteralParenteral.agregados">
+                                                +
+                                                {{agregado.tipoAgregado.nombre ? agregado.tipoAgregado.nombre : agregado.tipoAgregado}}
+                                                {{agregado.descripcion}}
+
+                                                <span class="mr label label-primary" ng-if="agregado.frascos.length == indicacion.planHidratacion.$frascos">Todos</span>
+
+                                                <span class="fa-stack fa-lg frascos" ng-if="agregado.frascos.length != indicacion.planHidratacion.$frascos" ng-repeat="frasco in agregado.frascos">
+
+                                                    <i class="{{agregado.clase}} mdi mdi-cup"></i>
+                                                    <i class="fa  fa-stack-1x numero">
+                                                        {{frasco}}
+                                                    </i>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
 
-                                </span>
+                                </div>
 
                                 <span ng-if="indicacion.tipoIndicacion.nombre == 'Indicación genérica'">
                                     {{indicacion.descripcion}}
@@ -1720,7 +1747,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
+                                                <!-- <div class="row">
                                                     <div class="col-lg-3">
                                                         <input type="text" label="Pulso carotídeo" ng-model="evolucionesEdit.signosVitales.circulacion.carotideo" suffix="PPM" plex="int">
                                                     </div>
@@ -1733,7 +1760,7 @@
                                                     <div class="col-lg-3">
                                                         <input type="text" label="Pulso pedio" ng-model="evolucionesEdit.signosVitales.circulacion.pedio" suffix="PPM" plex="int">
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <div class="row">
                                                     <div class="col-lg-12">
                                                         <input type="text" label="Observaciones" ng-model="evolucionesEdit.signosVitales.circulacion.observacionesCirculacion" plex="text">

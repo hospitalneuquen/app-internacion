@@ -20,9 +20,9 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
         tiposWidgets: [],
         wigetCargados : [],
         // array de servicios para filtrar en la vista
-        tipos: [{
+        tiposEvoluciones: [{
             id: '',
-            nombre: 'Todos'
+            nombre: 'Todas'
         }],
         profesionales: [{
             id: '',
@@ -47,7 +47,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
             evoluciones: [],
             servicio: null,
             profesional: null,
-            tipo: null,
+            tiposEvoluciones: null,
             filtrar: function() {
                 var self = this;
 
@@ -59,14 +59,14 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                     self.servicio = $scope.servicios[0];
                 }
 
-                if (!self.tipo) {
-                    self.tipo = $scope.tipos[0];
+                if (!self.tiposEvoluciones) {
+                    self.tiposEvoluciones = $scope.tiposEvoluciones[0];
                 }
 
                 self.evoluciones = $scope.internacion.evoluciones.filter(function(evolucion) {
                     return (!self.servicio.id || (self.servicio && evolucion.servicio && (evolucion.servicio.id == self.servicio.id || (self.servicio.id == 'mis-evoluciones' && evolucion.createdBy.id === Session.user.id)))) &&
                         // (!self.servicio.id || (self.servicio.id == 'mis-evoluciones' && evolucion.createdBy.id === Session.user.id )) &&
-                        (!self.tipo.id || (self.tipo.id == evolucion.tipo)) &&
+                        (!self.tiposEvoluciones.id || (self.tiposEvoluciones.id == evolucion.tipoEvolucion.id)) &&
                         (!self.profesional.id || (self.profesional && evolucion.tipo && evolucion.tipo == self.profesional.id))
                 });
 
@@ -141,13 +141,16 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                         }
 
                         // asignamos los tipos a los filtros
-                        if (!tipos_found.inArray(evolucion.tipo)) {
+                        console.log(tipos_found, evolucion.tipoIndicacion.tipoEvolucion.id);
 
-                            $scope.tipos.push({
-                                id: evolucion.tipo,
-                                nombre: evolucion.tipo
+                        if (!tipos_found.inArray(evolucion.tipoIndicacion.tipoEvolucion.id)) {
+
+                            $scope.tiposEvoluciones.push({
+                                id: evolucion.tipoIndicacion.tipoEvolucion.id,
+                                nombre: evolucion.tipoIndicacion.nombre
                             });
-                            tipos_found.push(evolucion.tipo);
+
+                            tipos_found.push(evolucion.tipoIndicacion.tipoEvolucion.id);
                         }
 
                         // // asignamos la indicacion a la evolucion

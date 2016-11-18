@@ -389,6 +389,32 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                             if (typeof indicacion.planHidratacion.enteralParenteral.dextrosa.frascos != "undefined") {
                                 indicacion.planHidratacion.$frascos += indicacion.planHidratacion.enteralParenteral.dextrosa.frascos.length;
                             }
+
+                            // si es un plan de hidratacion parenteral agregamos las clases de los frascos
+                            if (indicacion.planHidratacion.enteralParenteral.agregados){
+                                angular.forEach(indicacion.planHidratacion.enteralParenteral.agregados, function(agregados) {
+                                    agregados['clase'] = "";
+                                    angular.forEach(agregados.frascos, function(frasco) {
+                                        // frascos de ringer lactato
+                                        if (indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos.inArray(frasco)) {
+                                            agregados.clase = 'ringer-lactato';
+                                        }
+                                        // frascos de solucion fisiologica
+                                        if (indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos.inArray(frasco)) {
+                                            agregados.clase = 'fisiologica';
+                                        }
+                                        // frascos de dextrosa
+                                        if (indicacion.planHidratacion.enteralParenteral.dextrosa.frascos.inArray(frasco)) {
+                                            if (indicacion.planHidratacion.enteralParenteral.dextrosa.dilucion == 5){
+                                                agregados.clase = 'dextrosa-al-cinco';
+                                            }else if (indicacion.planHidratacion.enteralParenteral.dextrosa.dilucion == 10){
+                                                agregados.clase = 'dextrosa-al-diez';
+                                            }
+                                        }
+                                    });
+                                });
+                            }
+
                         }
                     });
 
@@ -426,6 +452,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                                 services_found.push(indicacion.servicio.id);
                             }
                         }
+
                     });
                 }
 
@@ -709,6 +736,15 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     //         agregado.tipoAgregado = Global.minify(agregado.$tipoAgregado);
                     //     });
                     // }
+                }
+
+                if (indicacion.tipoIndicacion.nombre == "Nutrición"){
+                    if (indicacion.tipoIndicacion.nombre == "Enteral") {
+                        indicacion.nutricion.enteral.tipoPreparado.descripcion = Global.minify(indicacion.nutricion.enteral.tipoPreparado.descripcion);
+                    }
+                    if (indicacion.tipoIndicacion.nombre == "Soporte oral") {
+                        indicacion.nutricion.soporteOral.tipoPreparado.descripcion = Global.minify(indicacion.nutricion.soporteOral.tipoPreparado.descripcion);
+                    }
                 }
 
                 if (indicacion.tipoIndicacion.nombre == "Oxigenoterapia"){
