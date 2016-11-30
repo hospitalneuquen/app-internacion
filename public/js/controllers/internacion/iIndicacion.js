@@ -1658,10 +1658,49 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 });
             }
 
-            $scope._frascosDisponibles['dextrosa'] = ($scope.indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad) ? $scope._frascos : [];
-            $scope._frascosDisponibles['ringerLactato'] = ($scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad) ? $scope._frascos : [];
-            $scope._frascosDisponibles['solucionFisiologica'] = ($scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad) ? $scope._frascos : [];
+            $scope._frascosDisponibles['dextrosa'] = [];
+            $scope._frascosDisponibles['ringerLactato'] = [];
+            $scope._frascosDisponibles['solucionFisiologica'] = [];
 
+            $scope._frascos.forEach(function(frasco){
+
+                // buscamos si el frasco esta en ringerLactato
+                var existsInRingerLactato = $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.$frascos.filter(function(f){
+                    return (f.id == frasco.id)
+                }).length;
+                // buscamos si el frasco esta en solucionFisiologica
+                var existsInSolucionFisiologica = $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.$frascos.filter(function(f){
+                    return (f.id == frasco.id)
+                }).length;
+                // buscamos si el frasco esta en dextrosa
+                var existsInDextrosa = $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.$frascos.filter(function(f){
+                    return (f.id == frasco.id)
+                }).length;
+
+                // verificamos que hayamos cargado alguna cantidad para ringerLactato
+                if ($scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad) {
+                    // verificamos que no este cargado en solucionFisiologica ni dextrosa
+                    if ((!existsInSolucionFisiologica && !existsInDextrosa)){
+                        $scope._frascosDisponibles['ringerLactato'].push(frasco);
+                    }
+                }
+
+                // verificamos que hayamos cargado alguna cantidad para solucionFisiologica
+                if ($scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad) {
+                    // verificamos que no este cargado en ringerLactato ni dextrosa
+                    if ((!existsInRingerLactato && !existsInDextrosa)){
+                        $scope._frascosDisponibles['solucionFisiologica'].push(frasco);
+                    }
+                }
+
+                // verificamos que hayamos cargado alguna cantidad para dextrosa
+                if ($scope.indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad) {
+                    // verificamos que no este cargado en ringerLactato ni solucionFisiologica
+                    if ((!existsInRingerLactato && !existsInSolucionFisiologica)){
+                        $scope._frascosDisponibles['dextrosa'].push(frasco);
+                    }
+                }
+            });
 
         }else{
             $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.$frascos = [];
