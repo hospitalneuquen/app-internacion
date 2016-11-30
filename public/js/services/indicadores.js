@@ -24,6 +24,83 @@ angular.module('app').factory('Indicadores', ["Global", "Server", "Session", "Sh
     // }
     var self = {
 
+        getPeso: function(internacion) {
+            var clase = "";
+            var peso = null;
+            var evoluciones = internacion.evoluciones;
+
+            if (evoluciones && evoluciones.length) {
+
+                var i = evoluciones.length - 1;
+                var evolucion = null;
+
+                while (i >= 0){
+                    if (evoluciones[i].signosVitales &&
+                        evoluciones[i].signosVitales.peso && evoluciones[i].signosVitales.peso > 0){
+
+                        return evoluciones[i].signosVitales.peso;
+                    }
+
+                    i--;
+                }
+
+            }
+
+            return null;
+        },
+
+        getTalla: function(internacion){
+            var clase = "";
+            var temperatura = null;
+            var evoluciones = internacion.evoluciones;
+
+            if (evoluciones && evoluciones.length) {
+                var i = evoluciones.length - 1;
+
+                while (i >= 0){
+                    if (evoluciones[i].signosVitales &&
+                        evoluciones[i].signosVitales.talla && evoluciones[i].signosVitales.talla > 0){
+
+                        return evoluciones[i].signosVitales.talla;
+                    }
+
+                    i--;
+                }
+
+                var peso = self.getPeso(internacion);
+
+                if (talla && peso) {
+                    return (peso/talla*talla);
+                }
+            }
+
+            return null;
+        },
+
+        getImc: function(internacion){
+            var clase = "";
+
+            var talla = self.getTalla(internacion);
+            var peso = self.getPeso(internacion);
+            var valor_imc = "";
+            var imc = {};
+
+            if (talla && peso) {
+                valor_imc = (peso/talla*talla);
+
+                if (valor_imc > 0){
+                    imc = {
+                        clase: "info",
+                        indicador: valor_imc,
+                        valor: valor_imc
+                    }
+                }
+
+                return imc;
+            }
+
+            return null;
+        },
         hayRiesgoCaidas: function(internacion) {
             var clase = "";
             var riesgoCaidas = null;
@@ -769,7 +846,7 @@ angular.module('app').factory('Indicadores', ["Global", "Server", "Session", "Sh
             }
 
             // seteamos la clase
-            if (news.valor <= 5 && news.moderado){
+            if (news.moderado){
                 news.clase = 'danger';
             }else{
                 if (news.valor == 0){

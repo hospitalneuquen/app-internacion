@@ -141,7 +141,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
                         }
 
                         // asignamos los tipos a los filtros
-                        console.log(tipos_found, evolucion.tipoIndicacion.tipoEvolucion.id);
+                        //console.log(tipos_found, evolucion.tipoIndicacion.tipoEvolucion.id);
 
                         if (!tipos_found.inArray(evolucion.tipoIndicacion.tipoEvolucion.id)) {
 

@@ -61,7 +61,7 @@
             <br/>
             {{evolucion.signosVitales.respiracion}}
             RPM
-        </div class="col-md-2">
+        </div>
         <div class="col-md-2" ng-if="evolucion.signosVitales.spo2">
             <b>Saturación O
                 <sup>2</sup>
@@ -74,6 +74,12 @@
             <br/>
             {{evolucion.signosVitales.peso}}
             Kg
+        </div>
+        <div class="col-md-2" ng-if="evolucion.signosVitales.talla">
+            <b>Talla</b>
+            <br/>
+            {{evolucion.signosVitales.talla}}
+            cm
         </div>
     </div>
     <div class="row mt">
