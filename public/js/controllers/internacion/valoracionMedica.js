@@ -56,7 +56,8 @@ angular.module('app').controller('internacion/valoracionMedica', ['$scope', 'Ple
             $scope.problema.diagnosticoTexto = hipotesis.nombre;
             $scope.problema.descripcion = hipotesis.nombre;
             $scope.problema.estado = "Activo";
-            $scope.problema.servicio = Session.variables.servicioActual;
+            $scope.problema.activo = true;            
+            $scope.problema.servicio = Session.variables.servicioActual.id;
             $scope.problema.fechaDesde = new Date();
             $scope.internacion.problemas.push($scope.problema);
 

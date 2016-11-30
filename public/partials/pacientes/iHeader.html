@@ -105,6 +105,8 @@
                                     <span class="tips label label-{{a.clase}}" title="Aislamiento {{a.indicador}} desde {{a.fecha}}">{{a.indicador}}</span>
                                 </div>
                             </span>
+
+                            <span ng-if="indicadores.imc" class="tips label label-{{indicadores.imc.clase}}" title="IMC {{indicadores.imc.indicador}}">IMC {{indicadores.imc.valor}}</span>
                         </div>
 
                     </div>

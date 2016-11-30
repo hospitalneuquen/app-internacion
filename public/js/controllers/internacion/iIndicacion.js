@@ -70,9 +70,6 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
         // indicacionesEvolucionar: [],
         evolucionesEdit: undefined, // Item actual que se está editando
         evolucionarIndicacion: undefined,
-        // // lo uso para el plan de hidratacion, ya que puedo evolucionar
-        // // PHP, PHE, PHOral, Antibioticos EV, Nutricion enteral
-        // arrayEvoluciones: [],
 
         drenajes: [],
 
@@ -134,6 +131,8 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 id: 'Todas',
                 nombre: 'Todas'
             }];
+
+            $scope._frascosDisponiblesRingerLactato = $scope.estados;
             // array de servicios para filtrar en la vista
             $scope.servicios = [{
                 id: '',
@@ -333,8 +332,12 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
         informacionNutricionalSoporteKcal: 0,
 
         // frascos
+        frascosDisponiblesPlan: [],
         cantidadFrascos: 0,
         _frascos: [],
+        _frascosDisponiblesRingerLactato: [],
+        _frascosDisponiblesSolucionFisiologica: [],
+        _frascosDisponiblesDextrosa: [],
         _frascosEdicion: [],
 
         filtros: {
@@ -398,10 +401,12 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                                         // frascos de ringer lactato
                                         if (indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos.inArray(frasco)) {
                                             agregados.clase = 'ringer-lactato';
+                                            agregados.solucion = "ringerLactato";
                                         }
                                         // frascos de solucion fisiologica
                                         if (indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos.inArray(frasco)) {
                                             agregados.clase = 'fisiologica';
+                                            agregados.solucion = "solucionFisiologica";
                                         }
                                         // frascos de dextrosa
                                         if (indicacion.planHidratacion.enteralParenteral.dextrosa.frascos.inArray(frasco)) {
@@ -410,10 +415,12 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                                             }else if (indicacion.planHidratacion.enteralParenteral.dextrosa.dilucion == 10){
                                                 agregados.clase = 'dextrosa-al-diez';
                                             }
+                                            agregados.solucion = "dextrosa";
                                         }
                                     });
                                 });
                             }
+
 
                         }
                     });
@@ -464,10 +471,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                         }
                     });
                 }
-
             }
-
-
         },
         // table: {
         //     selected: [],
@@ -541,6 +545,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
             hayQueRenovar: function(indicacion){
 
             },
+
             // setTipo: function(){
             //     var tipo = $scope.indicacion.$tipo.id;
             //     switch (tipo) {
@@ -576,6 +581,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     $scope.indicacion.fecha = new Date();
                     $scope.indicacion.servicio = Session.variables.servicioActual.id;
                 }
+
             },
             // duplicamos la informacion de la indicacion para poder
             // crear una nueva
@@ -583,7 +589,6 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 // console.log($scope.indicacion);
                 // console.log(indicacion);
                 angular.copy(indicacion, $scope.indicacion);
-                console.log($scope.indicacion);
 
                 // si es una edicion y ya ha sido guardado, entonces
                 // deberemos crear el historial, por lo tanto seteamos
@@ -614,6 +619,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
                 // cargamos el valor de tipo de solucion en caso de ser un plan de hidratacion
                 if ($scope.indicacion.tipoIndicacion.nombre == 'Plan de hidratación parenteral') {
+
 
                     if ($scope.indicacion.planHidratacion.enteralParenteral.agregados.length) {
                         $scope.indicacion.planHidratacion.enteralParenteral.poseeAgregados = true;
@@ -752,7 +758,6 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     indicacion.medicamento.oxigeno.cantidad = Global.minify(indicacion.medicamento.oxigeno.cantidad);
                 }
 
-                console.log(indicacion);
                 indicacion.accion = $scope.accionIndicacion;
                 return Shared.indicaciones.post($scope.internacion.id, null, indicacion, {
                 // return Shared.indicaciones.post($scope.internacion.id, $scope.indicacion.idIndicacion || null, $scope.indicacion, {
@@ -969,9 +974,44 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                                 var fecha = new Date(evolucion.fechaHora || evolucion.createdAt);
                                 var hora = parseInt(fecha.getHours());
 
-                                indicacion.evoluciones[hora] = {
-                                    text: 'r',
-                                    title: 'Realizada por ' + evolucion.createdBy.name + ' a las ' + $filter('date')(evolucion.createdAt, "dd/MM/yyyy HH:mm") + ' hs'
+                                if (typeof indicacion.evoluciones[hora] == "undefined"){
+                                    indicacion.evoluciones[hora] = [];
+                                }
+
+                                // console.log(indicacion);
+                                if (evolucion.tipoIndicacion.nombre == 'Plan de hidratación parenteral'){
+                                    // console.log(evolucion);
+                                    var tipoSolucion = $scope.getFrascosPorTipoSolucion(indicacion, evolucion.planDeHidratacionParenteral.frasco);
+
+                                    switch (tipoSolucion) {
+                                        case 'ringerLactato':
+                                            var _clase = 'ringer-lactato';
+                                            break;
+                                        case 'solucionFisiologica':
+                                            var _clase = 'fisiologica';
+                                            break;
+                                        case 'dextrosa':
+                                            if (indicacion.planHidratacion.enteralParenteral.dextrosa.dilucion == 5){
+                                                var _clase = 'dextrosa-al-cinco';
+                                            }else if (indicacion.planHidratacion.enteralParenteral.dextrosa.dilucion == 10){
+                                                var _clase = 'dextrosa-al-diez';
+                                            }
+                                            break;
+                                        default:
+
+                                    }
+
+                                    indicacion.evoluciones[hora].push({
+                                        frasco: evolucion.planDeHidratacionParenteral.frasco,
+                                        clase: _clase,
+                                        title: 'Realizada por ' + evolucion.createdBy.name + ' a las ' + $filter('date')(evolucion.createdAt, "dd/MM/yyyy HH:mm") + ' hs'
+                                    });
+                                }else{
+
+                                    indicacion.evoluciones[hora].push({
+                                        text: 'r',
+                                        title: 'Realizada por ' + evolucion.createdBy.name + ' a las ' + $filter('date')(evolucion.createdAt, "dd/MM/yyyy HH:mm") + ' hs'
+                                    });
                                 }
                             }
                         }
@@ -1190,7 +1230,9 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                     texto: indicacion.tipo,
                 };
 
-                if (indicacion.tipoIndicacion.tipoIndicacion.nombre == 'Controles') {
+                if (indicacion.tipoIndicacion.nombre == "Plan de hidratación parenteral") {
+                    $scope.getFrascosDisponiblesPlan(indicacion.id);
+                }else if (indicacion.tipoIndicacion.tipoIndicacion.nombre == 'Controles') {
                     $scope.evolucionesEdit.balance = {
                         ingresos: []
                     };
@@ -1290,7 +1332,10 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                         // seleccionamos el tipo de agregado
                         $scope.agregado.$tipoAgregado = Global.getById($scope.tiposAgregados, (agregado.tipoAgregado.id || agregado.tipoAgregado));
 
-                        $scope.agregado._frascos = [];
+                        // $scope.agregado._frascos = [{
+                        //     id: 'Todos',
+                        //     value: 'Todos'
+                        // }];
                         // asignamos los frascos
                         angular.forEach($scope.agregado.frascos, function(frasco) {
                             $scope.agregado._frascos.push({
@@ -1463,73 +1508,280 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
         }
     };
 
-    // cargamos los valores para los cuidados de oxigenos dependiendo el tipo de mascara
-    // $scope.$watch('indicacion.medicamento.oxigeno.respiracion', function(current, old) {
-    //
-    //     if (current && current.tipo) {
-    //         $scope.asignarOxigeno(current.tipo);
-    //     }
-    // });
-
-    // creamos las opciones para los arrays de seleccion de frascos
-    $scope.$watch('cantidadFrascos', function(current, old) {
-        if (current) {
-            $scope._frascos = [];
-
-            if (current > 0){
-                for (var i = 1; i <= current; i++) {
-                    $scope._frascos.push({
-                        id: i,
-                        value: i
-                    });
-                }
-            }else{
-                $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.$frascos = [];
-                $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.$frascos = [];
-                $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.$frascos = [];
-
-                // $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.frascos = [];
-                // $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos = [];
-                // $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos = [];
-            }
+    $scope.getFrascosPorTipoSolucion = function(indicacion, numero_frasco){
+        if (typeof indicacion.planHidratacion.enteralParenteral.dextrosa.frascos != "undefined"
+            && indicacion.planHidratacion.enteralParenteral.dextrosa.frascos.inArray(numero_frasco)){
+            return 'dextrosa';
         }
 
-    });
+        if (typeof indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos != "undefined"
+            && indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos.inArray(numero_frasco)){
+            return 'solucionFisiologica';
+        }
 
-    // calculamos la cantidad de frascos en base a los volumenes cargados
-    $scope.$watch('indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad + indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad + indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad', function(current, old) {
-        if (current) {
+        if (typeof indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos != "undefined"
+            && indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos.inArray(numero_frasco)){
+            return 'ringerLactato';
+        }
 
-            var total = 0;
+    },
 
-            if (typeof $scope.indicacion.planHidratacion.enteralParenteral.dextrosa != "undefined") {
+    // obtenemos los frascos que quedan disponibles a evolucionar segun
+    // las evoluciones anteriores del plan de hidratacion
+    $scope.getFrascosDisponiblesPlan = function(idIndicacion){
+        // buscamos la indicacion
+        var indicacion = $scope.internacion.indicaciones.filter(function(i){
+            return (i.id == idIndicacion)
+        });
+        indicacion = indicacion[0];
 
-                if (typeof $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.dilucion == "undefined") {
-                    $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.dilucion = 5;
+        // buscamos todas las evoluciones que se hayan registrado de la indicacion
+        var evoluciones = $scope.internacion.evoluciones.filter(function(i){
+            return (i.idIndicacion == idIndicacion)
+        });
+
+        // almacenamos los frascos que han sido suministrados
+        var frascosSuminsitrados = [];
+        angular.forEach(evoluciones, function(evolucion){
+            frascosSuminsitrados.push(evolucion.planDeHidratacionParenteral.frasco);
+        });
+
+        $scope.frascosDisponiblesPlan = [];
+        // recorremos la variable ficticia $frascos creada en la funcion filtrar()
+        for (var i = 1; i <= indicacion.planHidratacion.$frascos; i++ ) {
+            $scope.frascosDisponiblesPlan.push({
+                'id': i,
+                'frasco': i,
+                'disabled': (frascosSuminsitrados.inArray(i)) ? true : false
+                // 'disabled': true
+            });
+        }
+
+    };
+
+    $scope.seleccionarTodos = function(solucion){
+        if (solucion == 'agregados'){
+            $scope.agregado._frascos = $scope._frascos;
+        }else {
+
+            // tipos de soluciones disponibles para los planes de hidratacion
+            var soluciones = ['ringerLactato', 'solucionFisiologica', 'dextrosa'];
+
+            // asignamos todos los frascos disponibles al select de solucion
+            $scope._frascosDisponibles[solucion].forEach(function(s){
+
+                if ( $scope.indicacion.planHidratacion.enteralParenteral[solucion].$frascos.indexOf(s) === -1){
+
+                    // agregamos el frasco al select seleccionado
+                    $scope.indicacion.planHidratacion.enteralParenteral[solucion].$frascos.push(s);
+
+                    // quitamos el frasco de los otros selects de soluciones
+                    $scope.frascosDisponibles(solucion, s, 'quitar');
                 }
 
-                total += parseInt($scope.indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad) || 0;
+            });
+        }
+    };
+
+    // creamos las opciones para los arrays de seleccion de frascos
+    // $scope.$watch('cantidadFrascos', function(current, old) {
+    //     if (current) {
+    //         // $scope._frascos = [];
+    //         //
+    //         // if (current > 0){
+    //         //     for (var i = 1; i <= current; i++) {
+    //         //         $scope._frascos.push({
+    //         //             id: i,
+    //         //             value: i
+    //         //         });
+    //         //     }
+    //         // }else{
+    //         //     $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.$frascos = [];
+    //         //     $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.$frascos = [];
+    //         //     $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.$frascos = [];
+    //         //
+    //         //     // $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.frascos = [];
+    //         //     // $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos = [];
+    //         //     // $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos = [];
+    //         // }
+    //         //
+    //         // $scope._frascosDisponiblesRingerLactato = $scope._frascos;
+    //         // $scope._frascosDisponiblesSolucionFisiologica = $scope._frascos;
+    //         // $scope._frascosDisponiblesDextrosa = $scope._frascos;
+    //
+    //     }
+    //
+    // });
+
+    $scope.calcularCantidadFrascos = function(){
+        var total = 0;
+
+        if (typeof $scope.indicacion.planHidratacion.enteralParenteral.dextrosa != "undefined") {
+
+            if (typeof $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.dilucion == "undefined") {
+                $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.dilucion = 5;
             }
 
-            if (typeof $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica != "undefined") {
-                total += parseInt($scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad) || 0;
+            total += parseInt($scope.indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad) || 0;
+        }
+
+        if (typeof $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica != "undefined") {
+            total += parseInt($scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad) || 0;
+        }
+
+        if (typeof $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato != "undefined") {
+            total += parseInt($scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad) || 0;
+        }
+
+        // if (total == 0){
+        //     $scope._frascosDisponibles['dextrosa'] = [];
+        //     $scope._frascosDisponibles['ringerLactato'] = [];
+        //     $scope._frascosDisponibles['solucionFisiologica'] = [];
+        //
+        //     $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.$frascos = [];
+        //     $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.$frascos = [];
+        //     $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.$frascos = [];
+        //
+        //     return ;
+        // }
+
+        $scope.cantidadFrascos = Math.ceil((total / 500));
+
+        $scope._frascos = [];
+        $scope._frascosDisponibles = [];
+
+        if ($scope.cantidadFrascos > 0){
+            for (var i = 1; i <= $scope.cantidadFrascos; i++) {
+                $scope._frascos.push({
+                    id: i,
+                    value: i
+                });
             }
 
-            if (typeof $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato != "undefined") {
-                total += parseInt($scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad) || 0;
-            }
+            $scope._frascosDisponibles['dextrosa'] = ($scope.indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad) ? $scope._frascos : [];
+            $scope._frascosDisponibles['ringerLactato'] = ($scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad) ? $scope._frascos : [];
+            $scope._frascosDisponibles['solucionFisiologica'] = ($scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad) ? $scope._frascos : [];
 
-            $scope.cantidadFrascos = Math.ceil((total / 500));
+
+        }else{
+            $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.$frascos = [];
+            $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.$frascos = [];
+            $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.$frascos = [];
+
+            $scope._frascosDisponibles['dextrosa'] = [];
+            $scope._frascosDisponibles['ringerLactato'] = [];
+            $scope._frascosDisponibles['solucionFisiologica'] = [];
+        }
+
+    };
+
+    //  habilita o deshabilita frascos disponibles para los selects de frascos por solucion
+    $scope.frascosDisponibles = function(solucion, seleccionado, accion){
+        // tipos de soluciones disponibles para los planes de hidratacion
+        var soluciones = ['ringerLactato', 'solucionFisiologica', 'dextrosa'];
+
+        // de la cantidad de frascos en total almacenada en $scope._frascos
+        // deberemos descontar los que se han seleccionado de las otras soluciones
+        if (solucion && seleccionado){
+            // debugger;
+            // recorremos todas las soluciones
+            angular.forEach(soluciones, function(s){
+                if (s != solucion){
+
+                    if (typeof $scope.indicacion.planHidratacion != "undefined" &&
+                        typeof $scope.indicacion.planHidratacion.enteralParenteral != "undefined"){
+
+                        // angular.forEach($scope.indicacion.planHidratacion.enteralParenteral[solucion].$frascos, function(f){
+                        $scope._frascosDisponibles[s] = $scope._frascosDisponibles[s].filter(function(el){
+                            // devolvemos unicamente los distintos
+                            return (typeof this != "undefined" && el.id !== this.id)
+                        }, seleccionado);
+
+                        // en caso de haber deseleccionado la opcion, la agregamos
+                        // a todos los selects
+                        if (accion == 'agregar'){
+                            $scope._frascosDisponibles[s].push(seleccionado);
+                        }
+                    }
+
+                }
+            });
+
+        }
+
+
+    };
+
+    // watch que observa cuando selecciono un frasco de ringerLactato
+    $scope.$watch('indicacion.planHidratacion.enteralParenteral.ringerLactato.$frascos', function(current, old) {
+        if (current != old){
+            if (typeof old == "undefined"){
+                $scope.frascosDisponibles('ringerLactato', current[current.length-1], 'quitar');
+            }else{
+                if (current.length > old.length){
+                    $scope.frascosDisponibles('ringerLactato', current[current.length-1], 'quitar');
+
+                }else if (old.length > current.length){
+                    $scope.frascosDisponibles('ringerLactato', old[old.length-1], 'agregar');
+                }
+            }
+        }
+    }, true);
+
+    // watch que observa cuando selecciono un frasco de solucionFisiologica
+    $scope.$watch('indicacion.planHidratacion.enteralParenteral.solucionFisiologica.$frascos', function(current, old) {
+        if (current != old){
+            if (typeof old == "undefined"){
+                $scope.frascosDisponibles('solucionFisiologica', current[current.length-1], 'quitar');
+            }else{
+                if (current.length > old.length){
+                    $scope.frascosDisponibles('solucionFisiologica', current[current.length-1], 'quitar');
+
+                }else if (old.length > current.length){
+                    $scope.frascosDisponibles('solucionFisiologica', old[old.length-1], 'agregar');
+                }
+            }
+        }
+    }, true);
+
+    // watch que observa cuando selecciono un frasco de dextrosa
+    $scope.$watch('indicacion.planHidratacion.enteralParenteral.dextrosa.$frascos ', function(current, old) {
+        if (current != old){
+            if (typeof old == "undefined"){
+                $scope.frascosDisponibles('dextrosa', current[current.length-1], 'quitar');
+            }else{
+                if (current.length > old.length){
+                    $scope.frascosDisponibles('dextrosa', current[current.length-1], 'quitar');
+
+                }else if (old.length > current.length){
+                    $scope.frascosDisponibles('dextrosa', old[old.length-1], 'agregar');
+                }
+            }
+        }
+    }, true);
+
+    $scope.$watch('indicacion.tipoIndicacion', function(current, old) {
+
+        if (current && current.nombre == 'Plan de hidratación parenteral') {
+            $scope.indicacion.planHidratacion.enteralParenteral = {};
+
+            $scope.indicacion.planHidratacion.enteralParenteral.dextrosa = {};
+            $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica = {};
+            $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato = {};
+
+            $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.$frascos = [];
+            $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.$frascos = [];
+            $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.$frascos = [];
         }
     });
 
     // cuando cambiamos el tipo de indicacion
     $scope.$watch('indicacion.tipo', function(current, old) {
-        // inicializamos los valores para el plan de hidratacion
         if (typeof current != "undefined") {
             if (typeof $scope.indicacion.id == "undefined") {
                 $scope.indicacion.planHidratacion = {}
             }
+
         }
     });
 
@@ -1548,8 +1800,4 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
     $scope.$watch('include.internacion', function(current, old) {
         $scope.init(current);
     });
-    // $scope.$watch('internacion', function(current, old) {
-    //     console.log("CURRENT: ", current);
-    //     alert("yes cambios yes");
-    // });
 }]);

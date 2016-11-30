@@ -22,6 +22,7 @@ angular.module('app').controller('Pacientes/iHeaderController', ["$scope", "$fil
         upp: null,
         aislamiento: [],
         indicadores: [],
+        imc: null,
         balanceTotalLiquidos: {
             ingresos: 0,
             egresos: 0,
@@ -90,6 +91,11 @@ angular.module('app').controller('Pacientes/iHeaderController', ["$scope", "$fil
             $scope.news = Indicadores.getNews($scope.internacion);
             if ($scope.news){
                 $scope.indicadores.news = $scope.news;
+            }
+
+            $scope.imc = Indicadores.getImc($scope.internacion);
+            if ($scope.imc){
+                $scope.indicadores.imc = $scope.imc;
             }
         }
     });

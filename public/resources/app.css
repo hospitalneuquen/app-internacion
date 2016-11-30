@@ -63,6 +63,11 @@ textarea, textarea.form-control, input.form-control, input[type=text], input[typ
     border-bottom: 1px solid #ddd;
 }
 
+/* disables selects options */
+input[type="button" i]:disabled, input[type="submit" i]:disabled, input[type="reset" i]:disabled, input[type="file" i]:disabled::-webkit-file-upload-button, button:disabled, select:disabled, keygen:disabled, optgroup:disabled, option:disabled, select[disabled] > option {
+    color: #ccc;
+}
+
 /* componentes form */
 input[type="radio"].without-radio  {
     display:none;
@@ -330,7 +335,7 @@ table.highlight td.exclude:hover::after{
 .frascos .fisiologica{color: #2196f3;}
 .frascos .ringer-lactato{color: #795548;}
 .frascos .dextrosa-al-cinco{color: #f3ce2a;}
-.frascos .dextrosa-al-diez{color: #FFB300;}
+.frascos .dextrosa-al-diez{color: #F57C00;}
 .frascos .numero{
     color: white;
     font-size: 10px;
@@ -358,10 +363,12 @@ table.highlight td.exclude:hover::after{
 .indicacion-tabla.i{
     border: 1px solid #FFB300;
     background: #FFB300;
+    text-transform: uppercase;
 }
 .indicacion-tabla.r{
     border: 1px solid #66BB6A;
     background: #66BB6A;
+    text-transform: uppercase;
 }
 
 /* punto inicio */

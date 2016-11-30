@@ -7,21 +7,26 @@ angular.module('app').controller('TiposEvolucionesController', ['$scope', 'Plex'
         showToolbar: true,
 
         editar: function(tipoEvolucion) {
-
+            console.log(tipoEvolucion);
             if (tipoEvolucion){
-                angular.copy(tipoEvolucion, $scope.evolucionesEdit);
-                // $scope.tiposEvolucionesEdit = tipoEvolucion;
-                $scope.tiposEvolucionesEdit.idTipoIndicacion = Global.getById($scope.tiposEvolucionesPadre, tipoEvolucion.idTipoIndicacion);
+                // angular.copy(tipoEvolucion, $scope.evolucionesEdit);
+
+                $scope.tiposEvolucionesEdit = tipoEvolucion;
+
+                // if (tipoEvolucion.idTipoIndicacion){
+                //     $scope.tiposEvolucionesEdit.idTipoIndicacion = Global.getById($scope.tiposEvolucionesPadre, tipoEvolucion.idTipoIndicacion);
+                // }
             }else{
-                $scope.tiposEvolucionesEdit = {
-                    estado: 'desocupada',
-                    tipoCama: 'cama',
-                    oxigeno: false,
-                    desinfectada: false,
-
-                };
+                $scope.tiposEvolucionesEdit = {};
+                // $scope.tiposEvolucionesEdit = {
+                //     estado: 'desocupada',
+                //     tipoCama: 'cama',
+                //     oxigeno: false,
+                //     desinfectada: false,
+                //
+                // };
             }
-
+            console.log( $scope.evolucionesEdit);
             $scope.showToolbar = false;
         },
 
@@ -44,40 +49,8 @@ angular.module('app').controller('TiposEvolucionesController', ['$scope', 'Plex'
         init: function() {
             // obtenemos las camas para armar el mapa
             TiposEvoluciones.get().then(function(data) {
-                // console.log(data);
                 $scope.tiposEvoluciones = data;
-
-                // var idServicios = [];
-                // angular.forEach($scope.camas, function(cama, key) {
-                //
-                //     // asignamos los tipos de camas
-                //     if (!$scope.tipoCamas.inArray(cama.tipoCama)) {
-                //         $scope.tipoCamas.push(cama.tipoCama);
-                //     }
-                //
-                //     // asignamos los tipos de camas
-                //     if (!$scope.sectores.inArray(cama.sector)) {
-                //         $scope.sectores.push(cama.sector);
-                //     }
-                //
-                //     // asignamos los servicios en base a los servicios
-                //     // que tiene cada cama
-                //     if (cama.servicio && typeof cama.servicio.id !== "undefined") {
-                //
-                //         if ($scope.servicios.length == 0) {
-                //             $scope.servicios.push(cama.servicio);
-                //             idServicios.push(cama.servicio._id);
-                //         } else {
-                //             if ($.inArray(cama.servicio._id, idServicios) == -1) {
-                //                 $scope.servicios.push(cama.servicio);
-                //                 idServicios.push(cama.servicio._id);
-                //             }
-                //         }
-                //     }
-                // });
-
             });
-
         }
     });
 

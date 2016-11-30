@@ -203,7 +203,7 @@ angular.module('app').controller('internacion/iListaProblemas', ['$scope', 'Plex
 
     // inicializamos mediante el watch de la variable incluida
     $scope.$watch('include.internacion', function(current, old) {
-        console.log(current);
+        // console.log(current);
         $scope.init(current);
     });
 }]);
