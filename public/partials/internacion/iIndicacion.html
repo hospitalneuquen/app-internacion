@@ -41,10 +41,6 @@
             </div>
         </div>
 
-        <!-- <pre>
-            {{indicacion | json}}
-        </pre> -->
-
         <div ng-show="showForm">
             <ng-form name="formEditarIndicaciones">
 
@@ -67,6 +63,10 @@
                                         <div class="col-lg-2" ng-show="indicacion.tipo.nombre == 'Plan de hidratación'">
                                             <select label="Tipo de plan" ng-model="indicacion.tipoIndicacion" plex="(tipo.nombre) for tipo in indicacion.tipo.hijas"></select>
                                         </div>
+                                        <div class="col-lg-2" ng-show="indicacion.tipoIndicacion.nombre == 'Plan de hidratación parenteral'">
+                                            <br />
+                                            <input type="checkbox" label="¿Fuera de plan?" ng-model="indicacion.planHidratacion.enteralParenteral.fueraDePlan" plex="switch">
+                                        </div>
                                         <div class="col-lg-2" ng-if="indicacion.tipo.nombre == 'Medicamentos'">
                                             <select label="Tipo de medicamento" ng-model="indicacion.tipoIndicacion" plex="(tipo.nombre) for tipo in indicacion.tipo.hijas"></select>
                                         </div>
@@ -85,12 +85,16 @@
                                     </div>
 
                                     <div ng-if="accion == 'editar'">
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-4">
                                             <label>Tipo de indicación</label>
                                             <br/>
                                             {{indicacion.tipoIndicacion.tipoIndicacion.nombre}}
 
                                             {{indicacion.tipoIndicacion.nombre}}
+                                        </div>
+                                        <div class="col-lg-2" ng-show="indicacion.tipoIndicacion.nombre == 'Plan de hidratación parenteral'">
+                                            <br />
+                                            <input type="checkbox" label="¿Fuera de plan?" ng-model="indicacion.planHidratacion.enteralParenteral.fueraDePlan" plex="switch">
                                         </div>
                                     </div>
 
@@ -133,7 +137,7 @@
 
                                     <!-- Medicacion Heparina o Profilaxis / Proteccion gastrica / Otar medicacion -->
                                     <div ng-if="indicacion.tipo.nombre == 'Medicamentos' && indicacion.tipoIndicacion.nombre != 'Oxigenoterapia'">
-                                        <div class="col-lg-8">
+                                        <div ng-class="{'col-lg-6': indicacion.tipoIndicacion.nombre == 'Otra medicación', 'col-lg-8': indicacion.tipoIndicacion.nombre != 'Otra medicación'}">
                                             <input type="text" label="Descripción" ng-model="indicacion.medicamento.descripcion" plex/>
                                         </div>
 
@@ -150,7 +154,14 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-2" ng-if="indicacion.tipoIndicacion.nombre == 'Otra medicación'">
+                                            <br />
+                                            <input type="checkbox" label="Infusión contínua" ng-model="indicacion.medicamento.infusionContinua" plex ng-disabled="indicacion.via != 'EV'">
+                                        </div>
+
+                                        <div class="col-lg-2" ng-if="indicacion.tipoIndicacion.nombre != 'Otra medicación' ||
+                                            indicacion.tipoIndicacion.nombre == 'Otra medicación' && !indicacion.medicamento.infusionContinua">
+
                                             <select label="Frecuencia" ng-model="indicacion.frecuencia" plex>
                                                 <option value="unica">Única dosis</option>
                                                 <option value="24">Una vez al día</option>
@@ -160,8 +171,30 @@
                                                 <option value="4">Cada 4 hs.</option>
                                             </select>
                                         </div>
-                                    </div>
+
+                                        <div ng-if="indicacion.tipoIndicacion.nombre == 'Otra medicación' && indicacion.medicamento.infusionContinua">
+                                            <div class="col-lg-2">
+                                                <label for="">Velocidad de infusión</label>
+                                                <div class="row">
+                                                    <div class="col-lg-5">
+                                                        <input type="text" ng-model="indicacion.medicamento.velocidadInfunsion.velocidad" plex/>
+                                                    </div>
+                                                    <div class="col-lg-7">
+                                                        <select ng-model="indicacion.medicamento.velocidadInfunsion.unidad" plex>
+                                                            <option value="">Seleccione</option>
+                                                            <option value="ml/hora">ml/hora</option>
+                                                            <option value="gotas x minuto">gotas x minuto</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-2" ng-if="indicacion.tipoIndicacion.nombre == 'Plan de hidratación enteral'">
+                                                <select label="Pasar durante" ng-model="indicacion.planHidratacion.enteralParenteral.pasarDurante" plex="(hora.value) for hora in pasarDurante"></select>
+                                            </div>
+                                        </div>
                                     <!-- Fin medicacion -->
+                                    </div>
 
                                     <!-- Plan de Hidratacion -->
                                     <div ng-if="indicacion.tipoIndicacion.nombre == 'Plan de hidratación oral'">
@@ -961,6 +994,10 @@
                                 <div class="text-muted small">
                                     {{indicacion.createdAt | date: "dd/MM/yyyy HH:mm"}}
                                 </div>
+
+                                <div ng-if="indicacion.estado[indicacion.estado.length-1].estado == 'Pausada'">
+                                    <span class="label label-warning">Pausada</span>
+                                </div>
                             </td>
 
                             <td ng-hide="evolucionarIndicacion && indicacion.id != evolucionarIndicacion.id">
@@ -972,6 +1009,11 @@
                                         <i>{{indicacion.tipoIndicacion.tipoIndicacion.nombre}}</i>
                                     </b>
                                     {{indicacion.tipoIndicacion.nombre}}
+
+                                    <span ng-if="indicacion.planHidratacion.enteralParenteral.fueraDePlan">
+                                        <span class="label label-default">Fuera de plan</span>
+                                    </span>
+
                                     <br />
                                 </span>
 
@@ -1184,6 +1226,11 @@
                                             / bigotera a {{indicacion.medicamento.oxigeno.cantidad}} lt/min
                                         <span>
                                     </div>
+
+                                    <span ng-if="indicacion.medicamento.infusionContinua">
+                                        Infusión contínua
+                                    </span>
+
                                 </div>
 
                                 <div ng-if="indicacion.tipoIndicacion.nombre == 'Cuidados generales'">
@@ -1428,6 +1475,10 @@
                                     hs
                                 </span>
 
+                                <span ng-if="indicacion.medicamento.velocidadInfunsion">
+                                {{indicacion.medicamento.velocidadInfunsion.velocidad}} {{indicacion.medicamento.velocidadInfunsion.unidad}}
+                                </span>
+
                             </td>
 
 
@@ -1440,19 +1491,8 @@
                             <td class="text-center" ng-hide="!indicacion.activo || (evolucionarIndicacion && indicacion.id != evolucionarIndicacion.id)">
 
                                 <div class="acciones">
-                                    <div ng-show="!indicaciones.borrar && !evolucionarIndicacion">
 
-                                        <button class="btn btn-sm btn-primary btn-flat tips" title="Renovar indicacion" ng-click="indicaciones.renovar(indicacion)">
-                                            <i class="mdi mdi-reload"></i>
-                                        </button>
-
-                                        <!-- <button class="btn btn-sm btn-success btn-flat tips" title="Evolucionar" ng-click="indicaciones.evolucionar(indicacion)"
-                                            ng-show="indicacion.tipo == 'Controles' || indicacion.tipo == 'Antibióticos' || indicacion.tipo == 'Heparina o profilaxis'
-                                                || indicacion.tipo == 'Protección gástrica' || indicacion.tipo == 'Otra medicación' || indicacion.tipo == 'Oxigenoterapia'
-                                                || indicacion.tipo == 'Cuidados especiales' || indicacion.tipo == 'Cuidados generales' || indicacion.tipo == 'Otra indicación'
-                                        ">
-                                            <i class="mdi mdi-chart-line"></i>
-                                        </button> -->
+                                    <div ng-show="(!indicaciones.borrar && !indicaciones.pausa && !indicaciones.reanuda ) && !evolucionarIndicacion">
 
                                         <button class="btn btn-sm btn-success btn-flat tips" title="Evolucionar" ng-click="indicaciones.evolucionar(indicacion)"
                                             ng-show="indicacion.tipoIndicacion.evolucionable">
@@ -1463,22 +1503,86 @@
                                             <i class="mdi mdi-pencil"></i>
                                         </button>
 
-                                        <!-- <button class="btn btn-default btn-flat tips" title="Suspender indicacion" ng-click="indicaciones.suspender(indicacion)"> -->
+                                        <button type="button" class="btn btn-default" data-animation="am-flip-x" bs-dropdown aria-haspopup="true" aria-expanded="false" data-placement="bottom-right ">
+                                            Más
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li>
+                                                <a href class="tips" title="Renovar indicacion" ng-click="indicaciones.renovar(indicacion)">
+                                                    <i class="mdi mdi-reload"></i> Renovar
+                                                </a>
+                                            </li>
+                                            <li ng-if="indicacion.estado[indicacion.estado.length-1].estado != 'Pausada'">
+                                                <a href class="tips" title="Pausar indicacion" ng-click="indicaciones.pausar(indicacion)">
+                                                    <i class="mdi mdi-pause"></i> Pausar
+                                                </a>
+                                            </li>
+                                            <li ng-if="indicacion.estado[indicacion.estado.length-1].estado == 'Pausada'">
+                                                <a href class="tips" title="Pausar indicacion" ng-click="indicaciones.reanudar(indicacion)">
+                                                    <i class="mdi mdi-play"></i> Reanudar
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href class="tips" title="Suspender indicacion" ng-click="indicaciones.suspender(indicacion)">
+                                                    <i class="mdi mdi-delete"></i> Suspender
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                        <!-- <button class="btn btn-sm btn-primary btn-flat tips" title="Renovar indicacion" ng-click="indicaciones.renovar(indicacion)">
+                                            <i class="mdi mdi-reload"></i>
+                                        </button>
+
+                                        <button class="btn btn-sm btn-success btn-flat tips" title="Evolucionar" ng-click="indicaciones.evolucionar(indicacion)"
+                                            ng-show="indicacion.tipoIndicacion.evolucionable">
+                                            <i class="mdi mdi-chart-line"></i>
+                                        </button>
+
+                                        <button class="btn btn-sm btn-default btn-flat tips" title="Editar indicacion" ng-click="indicaciones.editar(indicacion)">
+                                            <i class="mdi mdi-pencil"></i>
+                                        </button>
+
                                         <button class="btn btn-sm btn-danger btn-flat tips" title="Suspender indicacion" ng-click="indicaciones.suspender(indicacion)">
                                             <i class="mdi mdi-delete"></i>
-                                        </button>
+                                        </button> -->
                                     </div>
 
                                     <div ng-show="indicaciones.borrar && indicacion.id == indicacionBorrar.id">
                                         <p>¿Suspender indicación?</p>
-
-
 
                                         <button class="btn btn-sm btn-default tips" ng-click="indicaciones.cancelarSuspender()" title="No">
                                             <i class="mdi mdi-close"></i>
                                         </button>
 
                                         <button class="btn btn-sm btn-success tips" title="Si" ng-click="indicaciones.confirmarBorrado(indicacion)">
+                                            <i class="mdi mdi-check"></i>
+                                        </button>
+
+                                    </div>
+
+                                    <div ng-show="indicaciones.pausar && indicacion.id == indicacionPausar.id">
+                                        <p>¿Pausar indicación?</p>
+
+                                        <button class="btn btn-sm btn-default tips" ng-click="indicaciones.cancelarPausado()" title="No">
+                                            <i class="mdi mdi-close"></i>
+                                        </button>
+
+                                        <button class="btn btn-sm btn-success tips" title="Si" ng-click="indicaciones.confirmarPausado(indicacion)">
+                                            <i class="mdi mdi-check"></i>
+                                        </button>
+
+                                    </div>
+                                    <div ng-show="indicaciones.reanudar && indicacion.id == indicacionReanudar.id">
+                                        <p>¿Reanudar indicación?</p>
+
+                                        <button class="btn btn-sm btn-default tips" ng-click="indicaciones.cancelarReanudar()" title="No">
+                                            <i class="mdi mdi-close"></i>
+                                        </button>
+
+                                        <button class="btn btn-sm btn-success tips" title="Si" ng-click="indicaciones.confirmarReanudada(indicacion)">
                                             <i class="mdi mdi-check"></i>
                                         </button>
 

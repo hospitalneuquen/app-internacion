@@ -61,6 +61,8 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
         accion: null,
         editandoAgregado: false,
         indicacionBorrar: null,
+        indicacionPausar: null,
+        indicacionReanudar: null,
 
         internacion: undefined,
         indicacion: {}, // Item actual que se está editando / agregando
@@ -540,6 +542,8 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
         },
 
         indicaciones: {
+            pausa: false,
+            reanuda: false,
             borrar: false,
 
             hayQueRenovar: function(indicacion){
@@ -580,14 +584,17 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
                     $scope.indicacion.fecha = new Date();
                     $scope.indicacion.servicio = Session.variables.servicioActual.id;
+                    $scope.indicacion.estado = {
+                        estado: 'Comienzo',
+                        fecha: new Date()
+                    }
                 }
 
             },
             // duplicamos la informacion de la indicacion para poder
             // crear una nueva
             duplicar: function (indicacion){
-                // console.log($scope.indicacion);
-                // console.log(indicacion);
+                // $scope.indicacion = indicacion;
                 angular.copy(indicacion, $scope.indicacion);
 
                 // si es una edicion y ya ha sido guardado, entonces
@@ -620,7 +627,6 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 // cargamos el valor de tipo de solucion en caso de ser un plan de hidratacion
                 if ($scope.indicacion.tipoIndicacion.nombre == 'Plan de hidratación parenteral') {
 
-
                     if ($scope.indicacion.planHidratacion.enteralParenteral.agregados.length) {
                         $scope.indicacion.planHidratacion.enteralParenteral.poseeAgregados = true;
 
@@ -631,10 +637,14 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
                     }
 
+                    $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.$frascos = [];
+                    $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.$frascos = [];
+                    $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.$frascos = [];
+                    console.log($scope.indicacion);
                     // agregamos los frascos de solucion fisiologica
                     if (typeof $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos != "undefined") {
+
                         var frascos = $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos;
-                        $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.$frascos = [];
                         // asignamos los frascos
                         angular.forEach(frascos, function(frasco) {
                             $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.$frascos.push({
@@ -642,12 +652,15 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                                 value: frasco
                             });
                         });
+
+                        $scope.calcularCantidadFrascos();
                     }
 
                     // agregamos los frascos de ringer-lactato
                     if (typeof indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos != "undefined") {
                         var frascos = $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos;
-                        $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.$frascos = [];
+
+
                         // asignamos los frascos
                         angular.forEach(frascos, function(frasco) {
                             $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.$frascos.push({
@@ -655,12 +668,14 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                                 value: frasco
                             });
                         });
+
+                        $scope.calcularCantidadFrascos();
                     }
 
                     // agregamos los frascos de dextrosa
                     if (typeof indicacion.planHidratacion.enteralParenteral.dextrosa.frascos != "undefined") {
                         var frascos = $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.frascos;
-                        $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.$frascos = [];
+
                         // asignamos los frascos
                         angular.forEach(frascos, function(frasco) {
                             $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.$frascos.push({
@@ -668,6 +683,8 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                                 value: frasco
                             });
                         });
+
+                        $scope.calcularCantidadFrascos();
                     }
                 }
 
@@ -806,10 +823,65 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 $scope.accionIndicacion = "suspender"; // para enviar a la api
                 // seteamos el valor activo en false
                 indicacion.activo = false;
+                indicacion.estado.push({
+                    estado: 'Suspendida',
+                    fecha: new Date()
+                });
 
                 // guardamos la indicacion
                 $scope.indicaciones.guardar(indicacion, 'suspendida');
                 $scope.indicaciones.borrar = false;
+            },
+            // pausar  una indicacion
+            pausar: function(indicacion) {
+                $scope.indicaciones.pausa = true;
+                $scope.indicacionPausar = indicacion;
+            },
+
+            // cancelar la pausa de una indicacion
+            cancelarPausado: function() {
+                $scope.indicaciones.pausa = false;
+                $scope.indicacionPausar = null;
+            },
+
+            // confirmar pausar y actualizar indicacion
+            confirmarPausado: function(indicacion) {
+                $scope.accionIndicacion = "cambio_estado"; // para enviar a la api
+                indicacion.estado.push({
+                    estado: 'Pausada',
+                    fecha: new Date()
+                });
+
+                // guardamos la indicacion
+                $scope.indicaciones.guardar(indicacion, 'pausada');
+                $scope.indicaciones.pausa = false;
+                $scope.indicacionPausar = null;
+            },
+
+            // reanudar  una indicacion
+            reanudar: function(indicacion) {
+                $scope.indicaciones.reanuda = true;
+                $scope.indicacionReanudar = indicacion;
+            },
+
+            // cancelar la pausa de una indicacion
+            cancelarReanudar: function() {
+                $scope.indicaciones.reanuda = false;
+                $scope.indicacionReanudar = null;
+            },
+
+            // confirmar reanudar y actualizar indicacion
+            confirmarReanudada: function(indicacion) {
+                $scope.accionIndicacion = "cambio_estado"; // para enviar a la api
+                indicacion.estado.push({
+                    estado: 'Reanudada',
+                    fecha: new Date()
+                });
+
+                // guardamos la indicacion
+                $scope.indicaciones.guardar(indicacion, 'reanudada');
+                $scope.indicaciones.reanuda = false;
+                $scope.indicacionReanudar = null;
             },
 
             // buscamos la ultima posicion en el array de indicaciones segun
@@ -1614,6 +1686,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
     // });
 
     $scope.calcularCantidadFrascos = function(){
+        // alert("yes");
         var total = 0;
 
         if (typeof $scope.indicacion.planHidratacion.enteralParenteral.dextrosa != "undefined") {
@@ -1665,20 +1738,30 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
             $scope._frascos.forEach(function(frasco){
 
                 // buscamos si el frasco esta en ringerLactato
-                var existsInRingerLactato = $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.$frascos.filter(function(f){
-                    return (f.id == frasco.id)
-                }).length;
+                if (typeof $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato != "undefined"
+                 && typeof $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.$frascos != "undefined"){
+                    var existsInRingerLactato = $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.$frascos.filter(function(f){
+                        return (f.id == frasco.id)
+                    }).length;
+                }
                 // buscamos si el frasco esta en solucionFisiologica
-                var existsInSolucionFisiologica = $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.$frascos.filter(function(f){
-                    return (f.id == frasco.id)
-                }).length;
+                if (typeof $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica != "undefined"
+                    && typeof $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.$frascos != "undefined"){
+                    var existsInSolucionFisiologica = $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.$frascos.filter(function(f){
+                        return (f.id == frasco.id)
+                    }).length;
+                }
                 // buscamos si el frasco esta en dextrosa
-                var existsInDextrosa = $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.$frascos.filter(function(f){
-                    return (f.id == frasco.id)
-                }).length;
+                if (typeof $scope.indicacion.planHidratacion.enteralParenteral.dextrosa != "undefined"
+                    && typeof $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.$frascos != "undefined"){
+                    var existsInDextrosa = $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.$frascos.filter(function(f){
+                        return (f.id == frasco.id)
+                    }).length;
+                }
 
                 // verificamos que hayamos cargado alguna cantidad para ringerLactato
-                if ($scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad) {
+                if (typeof $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato != "undefined"
+                    && typeof $scope.indicacion.planHidratacion.enteralParenteral.ringerLactato.cantidad != "undefined") {
                     // verificamos que no este cargado en solucionFisiologica ni dextrosa
                     if ((!existsInSolucionFisiologica && !existsInDextrosa)){
                         $scope._frascosDisponibles['ringerLactato'].push(frasco);
@@ -1686,7 +1769,8 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 }
 
                 // verificamos que hayamos cargado alguna cantidad para solucionFisiologica
-                if ($scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad) {
+                if (typeof $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica != "undefined"
+                    && typeof $scope.indicacion.planHidratacion.enteralParenteral.solucionFisiologica.cantidad != "undefined") {
                     // verificamos que no este cargado en ringerLactato ni dextrosa
                     if ((!existsInRingerLactato && !existsInDextrosa)){
                         $scope._frascosDisponibles['solucionFisiologica'].push(frasco);
@@ -1694,12 +1778,15 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
                 }
 
                 // verificamos que hayamos cargado alguna cantidad para dextrosa
-                if ($scope.indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad) {
+                if (typeof $scope.indicacion.planHidratacion.enteralParenteral.dextrosa != "undefined"
+                    && typeof $scope.indicacion.planHidratacion.enteralParenteral.dextrosa.cantidad != "undefined") {
                     // verificamos que no este cargado en ringerLactato ni solucionFisiologica
                     if ((!existsInRingerLactato && !existsInSolucionFisiologica)){
                         $scope._frascosDisponibles['dextrosa'].push(frasco);
                     }
                 }
+
+                console.log($scope._frascosDisponibles);
             });
 
         }else{
@@ -1800,8 +1887,9 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
     }, true);
 
     $scope.$watch('indicacion.tipoIndicacion', function(current, old) {
-
-        if (current && current.nombre == 'Plan de hidratación parenteral') {
+        // solo si estoy creando un plan de hidratacion entonces inicializamos
+        // los valores correspondientes para cada una de las soluciones
+        if (current && current.nombre == 'Plan de hidratación parenteral' && $scope.indicacion.id) {
             $scope.indicacion.planHidratacion.enteralParenteral = {};
 
             $scope.indicacion.planHidratacion.enteralParenteral.dextrosa = {};
@@ -1816,12 +1904,12 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
     // cuando cambiamos el tipo de indicacion
     $scope.$watch('indicacion.tipo', function(current, old) {
-        if (typeof current != "undefined") {
-            if (typeof $scope.indicacion.id == "undefined") {
-                $scope.indicacion.planHidratacion = {}
-            }
-
-        }
+        // if (typeof current != "undefined") {
+        //     if (typeof $scope.indicacion.id == "undefined") {
+        //         $scope.indicacion.planHidratacion = {}
+        //     }
+        //
+        // }
     });
 
     $scope.$watch('indicacion.nutricion.oral', function(current, old) {
