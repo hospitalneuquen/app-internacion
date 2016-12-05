@@ -69,7 +69,7 @@ angular.module('app').factory('Indicadores', ["Global", "Server", "Session", "Sh
 
                 var peso = self.getPeso(internacion);
 
-                if (talla && peso) {
+                if (typeof talla != "undefined" && peso) {
                     return (peso/talla*talla);
                 }
             }

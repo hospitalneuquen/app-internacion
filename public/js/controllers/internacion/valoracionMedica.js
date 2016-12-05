@@ -56,7 +56,7 @@ angular.module('app').controller('internacion/valoracionMedica', ['$scope', 'Ple
             $scope.problema.diagnosticoTexto = hipotesis.nombre;
             $scope.problema.descripcion = hipotesis.nombre;
             $scope.problema.estado = "Activo";
-            $scope.problema.activo = true;            
+            $scope.problema.activo = true;
             $scope.problema.servicio = Session.variables.servicioActual.id;
             $scope.problema.fechaDesde = new Date();
             $scope.internacion.problemas.push($scope.problema);
@@ -118,7 +118,7 @@ angular.module('app').controller('internacion/valoracionMedica', ['$scope', 'Ple
                         minify: true
                     }).then(function(){
                         Plex.alert("Valoración médica guardada. Recuerde editar la lista de problemas si desea agregar la codificación CIE-10 de la hipótesis confirmada (problema activo).", "info", 7000);
-                        Plex.closeView();
+                        Plex.closeView(internacion);
                         });
                 }else{
                     if (internacion) {
