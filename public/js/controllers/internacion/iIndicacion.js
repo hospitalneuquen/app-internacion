@@ -64,7 +64,7 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
         indicacionPausar: null,
         indicacionReanudar: null,
 
-        internacion: undefined,
+        // internacion: undefined,
         indicacion: {}, // Item actual que se está editando / agregando
         agregado: {}, // cuando voy cargando agregados en plan de hidratacion
         // indicacionEdit: undefined, // Item actual que se está editando
@@ -452,11 +452,12 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
         },
 
-        init: function(internacion) {
+        init: function() {
+            console.log($scope.internacion);
             // buscamos la internacion
-            if (internacion !== null) {
+            if ($scope.internacion !== null) {
                 // asignamos la internacion
-                $scope.internacion = internacion;
+                //$scope.internacion = internacion;
 
                 // inicializamos arrays para filtros y opciones
                 $scope.inicializarArrays();
@@ -547,6 +548,10 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
                 // filtramos las indicaciones
                 $scope.filtros.filtrar();
+
+                // llamamos al controller desde el que hacemos el include (ver.js)
+                // para que actualice toda la vista de la internacion
+                $scope.actualizarInternacion();
             });
         },
 
@@ -1576,6 +1581,8 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
     });
 
+    // $scope.init();
+
     $scope.asignarOxigeno = function(tipo){
         // alert("yes");
         var valoresMascara = [24, 28, 30, 35, 40, 50, 60, 70, 80, 98, 100];
@@ -2017,7 +2024,8 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
     });
 
     // inicializamos mediante el watch de la variable incluida
-    $scope.$watch('include.internacion', function(current, old) {
-        $scope.init(current);
+    // $scope.$watch('include.internacion', function(current, old) {
+    $scope.$watch('internacion', function(current, old) {
+        $scope.init();
     });
 }]);
