@@ -40,7 +40,6 @@ angular.module('app').controller('Pacientes/iHeaderController', ["$scope", "$fil
             });
         },
         init: function (){
-            alert("cambioe n iHdeader");
             // if (current && current.evoluciones){
             if ($scope.internacion && $scope.internacion.evoluciones){
                 $scope.ultimaEvolucion = $scope.internacion.evoluciones[$scope.internacion.evoluciones.length-1];
