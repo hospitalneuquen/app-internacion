@@ -209,6 +209,10 @@
                                     <div ng-show="indicacion.tipoIndicacion.nombre == 'Plan de hidratación parenteral'
                                         || indicacion.tipoIndicacion.nombre == 'Plan de hidratación enteral'">
 
+                                        <pre>
+                                            {{indicacion.planHidratacion}}
+                                        </pre>
+
                                         <input type="hidden" value="Enteral" ng-model="indicacion.planHidratacion.enteralParenteral.tipo" ng-init="indicacion.planHidratacion.enteralParenteral.tipo = 'Enteral'" ng-if="indicacion.tipoIndicacion.nombre == 'Plan de hidratación enteral'"/>
                                         <input type="hidden" value="Parenteral" ng-model="indicacion.planHidratacion.enteralParenteral.tipo" ng-init="indicacion.planHidratacion.enteralParenteral.tipo = 'Parenteral'" ng-if="indicacion.tipoIndicacion.nombre == 'Plan de hidratación parenteral'"/>
 
@@ -263,7 +267,7 @@
 
                                                         <!-- <div ng-class="{col-lg-5: indicacion.tipo.nombre == 'Plan hidratación parenteral', col-lg-12: indicacion.tipo.nombre == 'Plan hidratación enteral'}" > -->
                                                         <div class="col-lg-5" ng-if="indicacion.tipoIndicacion.nombre == 'Plan de hidratación parenteral'">
-                                                            <select label="Vía" ng-model="indicacion.via" plex>
+                                                            <select label="Vía" ng-model="indicacion.via" plex ng-change="calcularVelocidadInfusion()">
                                                                 <option value="">Vía</option>
                                                                 <option value="EV">Endovenosa</option>
                                                                 <option value="SC">Subcutánea</option>
@@ -288,7 +292,8 @@
                                                             <input type="text" ng-model="indicacion.planHidratacion.enteralParenteral.velocidadInfunsion.velocidad" plex/>
                                                         </div>
                                                         <div class="col-lg-7">
-                                                            <select ng-model="indicacion.planHidratacion.enteralParenteral.velocidadInfunsion.unidad" plex>
+                                                            <select ng-model="indicacion.planHidratacion.enteralParenteral.velocidadInfunsion.unidad" plex ng-change="calcularVelocidadInfusion()"
+                                                                ng-init="indicacion.planHidratacion.enteralParenteral.velocidadInfunsion.unidad = 'ml/hora'">
                                                                 <option value="">Seleccione</option>
                                                                 <option value="ml/hora">ml/hora</option>
                                                                 <option value="gotas x minuto">gotas x minuto</option>
@@ -995,6 +1000,10 @@
                                     {{indicacion.createdAt | date: "dd/MM/yyyy HH:mm"}}
                                 </div>
 
+                                <label class="label label-danger" ng-if="indicacion.indicadaHace >= 24">
+                                    Indicación sin renovar {{indicacion.createdAt | fromNow }}
+                                </label>
+
                                 <div ng-if="indicacion.estado[indicacion.estado.length-1].estado == 'Pausada'">
                                     <span class="label label-warning">Pausada</span>
                                 </div>
@@ -1218,13 +1227,14 @@
 
                                     <div ng-if="indicacion.tipoIndicacion.nombre == 'Oxigenoterapia'">
                                         {{indicacion.medicamento.oxigeno.accion}}
-                                        <span ng-if="indicacion.medicamento.oxigeno.respiracion == 'Mascara'">
-                                            / máscara al {{indicacion.medicamento.oxigeno.cantidad}} %
-                                        <span>
 
                                         <span ng-if="indicacion.medicamento.oxigeno.respiracion == 'Bigotera'">
-                                            / bigotera a {{indicacion.medicamento.oxigeno.cantidad}} lt/min
-                                        <span>
+                                            bigotera a {{indicacion.medicamento.oxigeno.cantidad}} lt/min
+                                        </span>
+
+                                        <span ng-if="indicacion.medicamento.oxigeno.respiracion == 'Mascara'">
+                                            máscara a {{indicacion.medicamento.oxigeno.cantidad}} %
+                                        </span>
                                     </div>
 
                                     <span ng-if="indicacion.medicamento.infusionContinua">
@@ -1619,6 +1629,7 @@
                                 <div ng-if="evolucionarIndicacion.tipoIndicacion.nombre == 'Balance'">
                                     <div class="row">
                                         <div class="col-lg-6">
+
                                             <fieldset>
                                                 <legend>Ingresos</legend>
 
@@ -1948,6 +1959,29 @@
                                                         </fieldset >
                                                     </div>
                                                 </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <label>Tipo de balance</label>
+                                                        <br/>
+
+                                                        <div class="btn-group" role="group" aria-label="Tipo de balance">
+                                                            <button type="button" ng-class="{'active': !evolucionesEdit.balance.balanceTotal }"
+                                                                class="btn btn-default" ng-model="evolucionesEdit.balance.balanceTotal"
+                                                                ng-init="evolucionesEdit.balance.balanceTotal = false"
+                                                                ng-click="evolucionesEdit.balance.balanceTotal = false">
+
+                                                                Parcial
+                                                            </button>
+
+                                                            <button type="button" ng-class="{'active': evolucionesEdit.balance.balanceTotal }"
+                                                                class="btn btn-default" ng-model="evolucionesEdit.balance.balanceTotal"
+                                                                ng-click="evolucionesEdit.balance.balanceTotal = true">
+
+                                                                Total
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </fieldset>
                                         </div>
                                     </div>
@@ -1976,11 +2010,6 @@
 
                                                     <div class="col-md-2">
                                                         <input type="text" ng-model="evolucionesEdit.signosVitales.peso" label="Peso" suffix="Kgs" plex="float" plex/>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-2">
-                                                        <input type="text" ng-model="evolucionesEdit.signosVitales.talla" label="Talla" suffix="cm" plex="int" plex-min="0" plex-max="220"/>
                                                     </div>
                                                 </div>
 

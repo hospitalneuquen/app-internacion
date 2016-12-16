@@ -1,6 +1,7 @@
 angular.module('app').controller('internacion/valoracionMedica', ['$scope', 'Plex', 'plexParams', 'Shared', 'Session', function($scope, Plex, plexParams, Shared, Session) {
     angular.extend($scope, {
         internacion: null,
+        problemas: [],
 
         init: function() {
             Shared.internacion.get(plexParams.idInternacion).then(function(data) {
@@ -45,21 +46,30 @@ angular.module('app').controller('internacion/valoracionMedica', ['$scope', 'Ple
             for (var i = 0; i < $scope.internacion.ingreso.medico.impresionDiagnostica.listaHipotesis.length; i++) {
                 if ($scope.internacion.ingreso.medico.impresionDiagnostica.listaHipotesis[i].nombre === hipotesis.nombre) {
                     // hipotesis encontrada, actualizamos datos
-                    $scope.internacion.ingreso.medico.impresionDiagnostica.listaHipotesis[i].confirmada = $scope.hipotesis.confirmada;
+                    //$scope.internacion.ingreso.medico.impresionDiagnostica.listaHipotesis[i].confirmada = $scope.hipotesis.confirmada;
+                    $scope.internacion.ingreso.medico.impresionDiagnostica.listaHipotesis[i].confirmada = true;
                     break;
                 }
             }
-            if (typeof $scope.problema == "undefined") {
-                $scope.problema = {};
-            }
 
+            // if (typeof $scope.problema == "undefined") {
+            //     $scope.problema = {};
+            // }
+
+            $scope.problema = {};
             $scope.problema.diagnosticoTexto = hipotesis.nombre;
             $scope.problema.descripcion = hipotesis.nombre;
             $scope.problema.estado = "Activo";
             $scope.problema.activo = true;
             $scope.problema.servicio = Session.variables.servicioActual.id;
             $scope.problema.fechaDesde = new Date();
-            $scope.internacion.problemas.push($scope.problema);
+
+            //$scope.problemas.push($scope.problema);
+
+
+            Shared.problemas.post($scope.internacion.id, null, $scope.problema).then(function(){
+                Plex.alert("Recuerde editar la lista de problemas si desea agregar la codificación CIE-10 de la hipótesis confirmada (problema activo).", "info", 7000);
+            });
 
         },
 
@@ -113,13 +123,20 @@ angular.module('app').controller('internacion/valoracionMedica', ['$scope', 'Ple
             };
 
             return Shared.internacion.post(plexParams.idInternacion, data).then(function(internacion) {
-                if ($scope.problema){
-                    Shared.problemas.post($scope.internacion.id, $scope.problema.id || null, $scope.problema, {
-                        minify: true
-                    }).then(function(){
-                        Plex.alert("Valoración médica guardada. Recuerde editar la lista de problemas si desea agregar la codificación CIE-10 de la hipótesis confirmada (problema activo).", "info", 7000);
-                        Plex.closeView(internacion);
-                        });
+                if ($scope.problemas){
+                    // angular.forEach($scope.problemas, function(problema){
+                    //     Shared.problemas.post($scope.internacion.id, null, problema);
+                    //     // Shared.problemas.post($scope.internacion.id, null, problema, {
+                    //     //     minify: true
+                    //     // }).then(function(){
+                    //     //     Plex.alert("Valoración médica guardada. Recuerde editar la lista de problemas si desea agregar la codificación CIE-10 de la hipótesis confirmada (problema activo).", "info", 7000);
+                    //     //     Plex.closeView(internacion);
+                    //     // });
+                    //     // console.log(problema);
+                    // });
+                    //
+                    // Plex.alert("Valoración médica guardada. Recuerde editar la lista de problemas si desea agregar la codificación CIE-10 de la hipótesis confirmada (problema activo).", "info", 7000);
+                    Plex.closeView(internacion);
                 }else{
                     if (internacion) {
                         Plex.alert("Valoración médica guardada");
@@ -136,6 +153,6 @@ angular.module('app').controller('internacion/valoracionMedica', ['$scope', 'Ple
     // Init
     $scope.init();
     Plex.initView({
-        title: "Valoración médica inicial"
+        title: "Valoración inicial médica"
     });
 }]);
