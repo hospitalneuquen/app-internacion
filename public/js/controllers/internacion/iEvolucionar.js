@@ -10,7 +10,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
         show_toolbar: true,
         tituloEvolucion: '',
         loading: true,
-        internacion: undefined,
+        // internacion: undefined,
         drenajes: [],
         drenajesInternacion: [],
         evolucionesEdit: undefined, // Item actual que se está editando
@@ -98,13 +98,13 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
             }
         },
 
-        init: function(internacion) {
+        init: function() {
             $scope.loading = true;
             // buscamos la internacion
-            if (internacion != null) {
-                $scope.internacion = internacion;
+            if ($scope.internacion != null) {
+                // $scope.internacion = internacion;
 
-                $scope.filtros.evoluciones = internacion.evoluciones;
+                $scope.filtros.evoluciones = $scope.internacion.evoluciones;
                 $scope.loading = false;
 
                 if ($scope.internacion.evoluciones.length) {
@@ -142,8 +142,8 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
 
                         // asignamos los tipos a los filtros
                         //console.log(tipos_found, evolucion.tipoIndicacion.tipoEvolucion.id);
-
-                        if (!tipos_found.inArray(evolucion.tipoIndicacion.tipoEvolucion.id)) {
+                        if (typeof evolucion.tipoIndicacion != "undefined"
+                            && !tipos_found.inArray(evolucion.tipoIndicacion.tipoEvolucion.id)) {
 
                             $scope.tiposEvoluciones.push({
                                 id: evolucion.tipoIndicacion.tipoEvolucion.id,
@@ -524,7 +524,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
             //     $scope.evolucionesEdit.riesgoUPP.total = $scope.evolucionesEdit.riesgoUPP.estadoFisico + $scope.evolucionesEdit.riesgoUPP.estadoMental + $scope.evolucionesEdit.riesgoUPP.actividad + $scope.evolucionesEdit.riesgoUPP.movilidad + $scope.evolucionesEdit.riesgoUPP.incontinencia;
             // }
 
-            console.log($scope.evolucionesEdit);
+
             Shared.evolucion.post($scope.internacion.id, evolucion.id || null, $scope.evolucionesEdit, {
                 minify: true
             }).then(function(data) {
@@ -536,6 +536,10 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
 
                 //if ($scope.volverAlMapa) {
                 //    Plex.closeView($scope.cama);
+
+                // llamamos al controller desde el que hacemos el include (ver.js)
+                // para que actualice toda la vista de la internacion
+                $scope.actualizarInternacion();
             });
         },
 
@@ -578,8 +582,7 @@ angular.module('app').controller('internacion/iEvolucionar', ['$scope', 'Plex', 
 
     // inicializamos mediante el watch de la variable incluida
     $scope.$watch('include.internacion', function(current, old) {
-        // $scope.tipoWidget = {id: '', nombre: 'Seleccione'};
-        $scope.init(current);
+        $scope.init();
     });
 }]);
 

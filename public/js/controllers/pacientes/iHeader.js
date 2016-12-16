@@ -40,7 +40,7 @@ angular.module('app').controller('Pacientes/iHeaderController', ["$scope", "$fil
             });
         },
         init: function (){
-            // alert("cambioe n iHdeader");
+            alert("cambioe n iHdeader");
             // if (current && current.evoluciones){
             if ($scope.internacion && $scope.internacion.evoluciones){
                 $scope.ultimaEvolucion = $scope.internacion.evoluciones[$scope.internacion.evoluciones.length-1];
@@ -99,7 +99,8 @@ angular.module('app').controller('Pacientes/iHeaderController', ["$scope", "$fil
         }
     });
 
-    $scope.$watch('include.internacion', function(current, old) {
+    // $scope.$watch('include.internacion', function(current, old) {
+    $scope.$watch('internacion', function(current, old) {
         $scope.init();
     });
 }]);

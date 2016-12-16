@@ -543,7 +543,9 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
         },
 
     });
-
+    $scope.actualizarInternacion = function(){
+        $scope.init();
+    };
     $scope.getDuration = function(start, end) {
         var inicio = moment(start);
         var fin = moment(end);
@@ -567,7 +569,6 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
         title: "Ver internación"
     });
 
-    $scope.$watch('internacion', function(current, old) {
-        // alert("cambio");
-    });
+    // $scope.$watch('internacion', function(current, old) {
+    // });
 }]);
