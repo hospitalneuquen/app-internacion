@@ -80,6 +80,22 @@ angular.module('app').controller('internacion/ver', ['$scope', 'Plex', 'plexPara
         //     }
         // },
 
+        verValoracionEnfermeria: function(idInternacion) {
+            Plex.openView('valoracionEnfermeria/' + idInternacion).then(function(internacion) {
+                // Plex.openView('internacion/ver/' + idInternacion).then(function(internacion) {
+                //
+                // });
+            });
+
+        },
+        verValoracionMedica: function(idInternacion) {
+            Plex.openView('internacion/' + idInternacion + '/valoracionMedica').then(function(internacion) {
+                // Plex.openView('internacion/ver/' + idInternacion).then(function(internacion) {
+                //
+                // });
+            });
+        },
+
         closeView: function() {
             Plex.closeView({
 

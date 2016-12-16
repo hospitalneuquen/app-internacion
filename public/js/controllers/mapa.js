@@ -230,13 +230,17 @@ angular.module('app').controller('MapaController', ['$scope', 'Plex', 'Shared', 
 
         verValoracionInicial: function(idInternacion) {
             Plex.openView('valoracionEnfermeria/' + idInternacion).then(function(internacion) {
-
+                // Plex.openView('internacion/ver/' + idInternacion).then(function(internacion) {
+                //
+                // });
             });
 
         },
         verValoracionMedica: function(idInternacion) {
             Plex.openView('internacion/' + idInternacion + '/valoracionMedica').then(function(internacion) {
-
+                // Plex.openView('internacion/ver/' + idInternacion).then(function(internacion) {
+                //
+                // });
             });
         },
         listaDeProblemas: function(idInternacion) {

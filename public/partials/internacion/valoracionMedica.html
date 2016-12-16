@@ -162,6 +162,7 @@
                         </tbody>
                     </table>
                 </div>
+
                 <div class="col-lg-4">
                     <div class="col-lg-4">
                         <input type="text" label="Ingrese hipótesis" ng-model="hipotesis.nombre" plex/>
@@ -174,6 +175,7 @@
                             <i class="mdi mdi-plus"></i>
                         </button>
                     </div>
+
                     <table class="table table-bordered" ng-if="internacion.ingreso.medico.impresionDiagnostica.listaHipotesis.length > 0">
                         <thead>
                             <th>Hipótesis</th>
@@ -203,8 +205,10 @@
                             </tr>
                         </tbody>
                     </table>
-                    <span ng-if="hipotesis.confirmada">Lista de problemas</span>
-                    <table class="table table-hover table-striped" ng-if="internacion.problemas && internacion.problemas.length > 0 && hipotesis.confirmada">
+
+                    <!-- <span ng-if="hipotesis.confirmada">Lista de problemas</span>
+
+                    <table class="table table-hover table-striped" ng-if="internacion.problemas && internacion.problemas.length > 0">
                         <thead >
                             <tr>
                                 <th>
@@ -246,7 +250,7 @@
                                 </td>
                             </tr>
                         </tbody>
-                    </table>
+                    </table> -->
                 </div>
                 <!-- <div class="col-lg-2" ng-if="hipotesis.confirmada">
                     <span>Lista de problemas</span>
@@ -304,7 +308,7 @@
         </div> -->
     </div>
     <div class="card card-block margin-top text-right">
-        <a class="btn btn-default btn-flat">Cancelar</a>
+        <a class="btn btn-default btn-flat" ng-click="cancelar()">Cancelar</a>
         <button class="btn btn-primary" plex-submit="guardar()">
             <i class="mdi mdi-content-save"></i>
             <span>Guardar</span>
