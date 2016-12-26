@@ -209,10 +209,6 @@
                                     <div ng-show="indicacion.tipoIndicacion.nombre == 'Plan de hidratación parenteral'
                                         || indicacion.tipoIndicacion.nombre == 'Plan de hidratación enteral'">
 
-                                        <pre>
-                                            {{indicacion.planHidratacion}}
-                                        </pre>
-
                                         <input type="hidden" value="Enteral" ng-model="indicacion.planHidratacion.enteralParenteral.tipo" ng-init="indicacion.planHidratacion.enteralParenteral.tipo = 'Enteral'" ng-if="indicacion.tipoIndicacion.nombre == 'Plan de hidratación enteral'"/>
                                         <input type="hidden" value="Parenteral" ng-model="indicacion.planHidratacion.enteralParenteral.tipo" ng-init="indicacion.planHidratacion.enteralParenteral.tipo = 'Parenteral'" ng-if="indicacion.tipoIndicacion.nombre == 'Plan de hidratación parenteral'"/>
 
@@ -1100,8 +1096,8 @@
                                                             </div>
 
                                                             <div ng-show="indicacion.planHidratacion.enteralParenteral.agregados.length">
-                                                                <div ng-repeat="agregado in indicacion.planHidratacion.enteralParenteral.agregados">
-                                                                    <span ng-if="agregado.solucion == 'solucionFisiologica'">
+                                                                <div ng-repeat="agregado in indicacion.planHidratacion.enteralParenteral.solucionFisiologica.agregados">
+                                                                    <!-- <span ng-if="agregado.solucion == 'solucionFisiologica'"> -->
 
                                                                         +
                                                                         {{agregado.tipoAgregado.nombre ? agregado.tipoAgregado.nombre : agregado.tipoAgregado}}
@@ -1111,12 +1107,12 @@
 
                                                                         <span class="fa-stack fa-lg frascos" ng-if="agregado.frascos.length != indicacion.planHidratacion.$frascos" ng-repeat="frasco in agregado.frascos">
 
-                                                                            <i class="{{agregado.clase}} mdi mdi-cup"></i>
+                                                                            <i class="fisiologica mdi mdi-cup"></i>
                                                                             <i class="fa  fa-stack-1x numero">
                                                                                 {{frasco}}
                                                                             </i>
                                                                         </span>
-                                                                    </span>
+                                                                    <!-- </span> -->
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -1139,8 +1135,8 @@
                                                             </div>
 
                                                             <div ng-if="indicacion.planHidratacion.enteralParenteral.agregados.length">
-                                                                <div ng-repeat="agregado in indicacion.planHidratacion.enteralParenteral.agregados">
-                                                                    <span ng-if="agregado.solucion == 'dextrosa'">
+                                                                <div ng-repeat="agregado in indicacion.planHidratacion.enteralParenteral.dextrosa.agregados">
+                                                                    <!-- <span ng-if="agregado.solucion == 'dextrosa'"> -->
 
                                                                         +
                                                                         {{agregado.tipoAgregado.nombre ? agregado.tipoAgregado.nombre : agregado.tipoAgregado}}
@@ -1150,12 +1146,12 @@
 
                                                                         <span class="fa-stack fa-lg frascos" ng-if="agregado.frascos.length != indicacion.planHidratacion.$frascos" ng-repeat="frasco in agregado.frascos">
 
-                                                                                <i class="{{agregado.clase}} mdi mdi-cup"></i>
+                                                                                <i class="dextrosa mdi mdi-cup"></i>
                                                                                 <i class="fa  fa-stack-1x numero">
                                                                                 {{frasco}}
                                                                             </i>
                                                                         </span>
-                                                                    </span>
+                                                                    <!-- </span> -->
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -1179,8 +1175,8 @@
                                                             </div>
 
                                                             <div ng-if="indicacion.planHidratacion.enteralParenteral.agregados.length">
-                                                                <div ng-repeat="agregado in indicacion.planHidratacion.enteralParenteral.agregados">
-                                                                    <div ng-if="agregado.solucion == 'ringerLactato'">
+                                                                <div ng-repeat="agregado in indicacion.planHidratacion.enteralParenteral.ringerLactato.agregados">
+                                                                    <!-- <div ng-if="agregado.solucion == 'ringerLactato'"> -->
 
                                                                         +
                                                                         {{agregado.tipoAgregado.nombre ? agregado.tipoAgregado.nombre : agregado.tipoAgregado}}
@@ -1190,12 +1186,12 @@
 
                                                                         <span class="fa-stack fa-lg frascos" ng-if="agregado.frascos.length != indicacion.planHidratacion.$frascos" ng-repeat="frasco in agregado.frascos">
 
-                                                                            <i class="{{agregado.clase}} mdi mdi-cup"></i>
+                                                                            <i class="ringer-lactato mdi mdi-cup"></i>
                                                                             <i class="fa  fa-stack-1x numero">
                                                                                 {{frasco}}
                                                                             </i>
                                                                         </span>
-                                                                    </div>
+                                                                    <!-- </div> -->
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -2547,6 +2543,39 @@
                                         </div>
                                     </fieldset>
                                 </div>
+
+                                <div ng-if="evolucionarIndicacion.tipoIndicacion.nombre == 'Catarsis'">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <fieldset>
+                                                <legend>Signos vitales</legend>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <select label="Tipo de catarsis" ng-model="evolucionesEdit.catarsis.tipo" plex>
+                                                            <option value="">Seleccione tipo</option>
+                                                            <option value="Positivo">Positivo</option>
+                                                            <option value="Negativo">Negativo</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <select label="Característica" ng-model="evolucionesEdit.catarsis.caracteristicas" plex>
+                                                            <option value="">Seleccione característica</option>
+                                                            <option value="Blanda">Blanda</option>
+                                                            <option value="Semiblanda">Semiblanda</option>
+                                                            <option value="Coprolito">Coprolito</option>
+                                                            <option value="Melena">Melena</option>
+                                                            <option value="Líquida">Líquida</option>
+                                                            <option value="Blanca">Blanca</option>
+                                                            <option value="Amarilla">Amarilla</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="row">
                                     <div class="col-lg-12 text-right">
                                         <button class="btn btn-default tips" ng-click="indicaciones.evolucion.cancelar()" title="No">
