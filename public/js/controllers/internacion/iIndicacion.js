@@ -413,31 +413,61 @@ angular.module('app').controller('internacion/iIndicacion', ['$scope', 'Plex', '
 
                             // si es un plan de hidratacion parenteral agregamos las clases de los frascos
                             if (indicacion.planHidratacion.enteralParenteral.agregados){
-                                angular.forEach(indicacion.planHidratacion.enteralParenteral.agregados, function(agregados) {
-                                    agregados['clase'] = "";
-                                    angular.forEach(agregados.frascos, function(frasco) {
-                                        // frascos de ringer lactato
-                                        if (indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos.inArray(frasco)) {
-                                            agregados.clase = 'ringer-lactato';
-                                            agregados.solucion = "ringerLactato";
-                                        }
-                                        // frascos de solucion fisiologica
-                                        if (indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos.inArray(frasco)) {
-                                            agregados.clase = 'fisiologica';
-                                            agregados.solucion = "solucionFisiologica";
-                                        }
-                                        // frascos de dextrosa
-                                        if (indicacion.planHidratacion.enteralParenteral.dextrosa.frascos.inArray(frasco)) {
-                                            if (indicacion.planHidratacion.enteralParenteral.dextrosa.dilucion == 5){
-                                                agregados.clase = 'dextrosa-al-cinco';
-                                            }else if (indicacion.planHidratacion.enteralParenteral.dextrosa.dilucion == 10){
-                                                agregados.clase = 'dextrosa-al-diez';
+
+                                // inicializamos el array de agregados para cada solucion
+                                indicacion.planHidratacion.enteralParenteral.dextrosa.agregados = [];
+                                indicacion.planHidratacion.enteralParenteral.ringerLactato.agregados = [];
+                                indicacion.planHidratacion.enteralParenteral.solucionFisiologica.agregados = [];
+
+                                angular.forEach(indicacion.planHidratacion.enteralParenteral.agregados, function(agregado) {
+                                    // agregado['clase'] = "";
+
+                                    // si el agregado esta en todos los frascos, entocnes los agregamos a todas las soluciones
+                                    if (indicacion.planHidratacion.$frascos == agregado.frascos.length){
+                                        indicacion.planHidratacion.enteralParenteral.dextrosa.agregados.push(agregado);
+                                        indicacion.planHidratacion.enteralParenteral.ringerLactato.agregados.push(agregado);
+                                        indicacion.planHidratacion.enteralParenteral.solucionFisiologica.agregados.push(agregado);
+                                    }else{
+
+                                        angular.forEach(agregado.frascos, function(frasco) {
+                                            // frascos de ringer lactato
+                                            if (indicacion.planHidratacion.enteralParenteral.dextrosa.frascos.inArray(frasco) ) {
+
+                                                var find = indicacion.planHidratacion.enteralParenteral.dextrosa.agregados.find(function(a){
+                                                    return (a.id == agregado.id)
+                                                });
+
+                                                if (typeof find === "undefined"){
+                                                    indicacion.planHidratacion.enteralParenteral.dextrosa.agregados.push(agregado)
+                                                }
+
+                                            }else if (indicacion.planHidratacion.enteralParenteral.ringerLactato.frascos.inArray(frasco)) {
+
+                                                var find = indicacion.planHidratacion.enteralParenteral.ringerLactato.agregados.find(function(a){
+                                                    return (a.id == agregado.id)
+                                                });
+
+                                                if (typeof find === "undefined"){
+                                                    indicacion.planHidratacion.enteralParenteral.ringerLactato.agregados.push(agregado)
+                                                }
+
+                                            }else if (indicacion.planHidratacion.enteralParenteral.solucionFisiologica.frascos.inArray(frasco)) {
+
+                                                var find = indicacion.planHidratacion.enteralParenteral.solucionFisiologica.agregados.find(function(a){
+                                                    return (a.id == agregado.id)
+                                                });
+
+                                                if (typeof find === "undefined"){
+                                                    indicacion.planHidratacion.enteralParenteral.solucionFisiologica.agregados.push(agregado)
+                                                }
                                             }
-                                            agregados.solucion = "dextrosa";
-                                        }
-                                    });
+
+                                        });
+                                    }
+
                                 });
                             }
+
                         }
 
                         var end = moment(new Date());
