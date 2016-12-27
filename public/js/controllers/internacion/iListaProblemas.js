@@ -164,27 +164,35 @@ angular.module('app').controller('internacion/iListaProblemas', ['$scope', 'Plex
             problema.diagnostico = (problema.diagnosticoCie && problema.diagnosticoCie.id) ? problema.diagnosticoCie.id : null;
             // problema.servicio = (problema.servicio.id) ? problema.servicio.id : Session.variables.servicioActual.id;
             // problema.servicio = Session.variables.servicioActual.id;
-            console.log("*****", problema);
+
             // console.log($scope.diagnosticCie);
             Shared.problemas.post($scope.internacion.id, problema.id || null, $scope.problemasEdit).then(function(data) {
                 Plex.alert('Problema guardado');
-                console.log("PROBLEMA", data);
+
                 // actualizamos el listado de problemas
-                $scope.actualizarproblemas(data);
+                $scope.actualizarProblemas(data);
                 $scope.cancelarEdicion();
             });
         },
 
-        actualizarproblemas: function(data) {
+        actualizarProblemas: function(data) {
             var found = false;
             $scope.loading = true;
 
+            // Shared.internacion.get($scope.internacion.id).then(function(data) {
+            //
+            //     if (data.length) {
+            //         $scope.internacion.problemas = data.problemas;
+            //     }
+            // });
             var length = $scope.internacion.problemas.length;
             for (var i = 0; i < length; i++) {
-                if ($scope.internacion.problemas[i].id === data.id) {
-                    // problema encontrado, actualizamos datos
-                    $scope.internacion.problemas[i] = data;
-                    found = true;
+                if ($scope.internacion.problemas[i].id === data.idProblema) {
+                    $scope.internacion.problemas[i].activo = false;
+                // if ($scope.internacion.problemas[i].id === data.id) {
+                //     // problema encontrado, actualizamos datos
+                //     $scope.internacion.problemas[i] = data;
+                    // found = true;
                     break;
                 }
             }
